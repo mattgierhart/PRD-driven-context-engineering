@@ -28,7 +28,7 @@ Thank you for your interest in contributing to the APOLLO Development Workflow! 
 
 1. **Fork the Repository**
    ```bash
-   gh repo fork mattgierhart/apollo-development-workflow
+   gh repo fork mattgierhart/PRD-driven-context-engineering
    ```
 
 2. **Create a Branch**

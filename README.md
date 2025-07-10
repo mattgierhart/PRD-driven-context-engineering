@@ -29,8 +29,8 @@ APOLLO (Accelerated Product Optimization Launch Loop Operations) is a comprehens
 
 1. **Clone this repository**
    ```bash
-   git clone https://github.com/yourusername/apollo-development-workflow.git
-   cd apollo-development-workflow
+   git clone https://github.com/mattgierhart/PRD-driven-context-engineering.git
+   cd PRD-driven-context-engineering
    ```
 
 2. **Review the core workflow**

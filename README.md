@@ -1,196 +1,67 @@
 # Gear Heart Methodology (GHM) — Open Source 🚀
 
-This repository now hosts the Gear Heart Methodology (GHM): a vendor‑neutral, product‑agnostic way to ship software with clarity and speed.
+GHM is a vendor‑neutral, product‑agnostic way to ship software with clarity and speed. It unifies documentation, validation, and execution so teams can move fast without losing rigor. For a visual overview, visit: https://gearheartai.org
 
-Core ideas
-- Three‑File Discipline: One operational truth (Command Center), one PRD, one current EPIC — updated in place.
-- 3+3 Pattern: When a section grows, extract a focused doc (e.g., Technical Architecture), keep the summary in the Command Center.
-- Gate‑based Execution: Phase loops with explicit validation gates for quality, security, performance, and business rules.
-- Agent Coordination: Clear roles and handoffs for research, feasibility, design, implementation, and testing — human or AI.
+## Mission
+- Make quality inevitable by encoding it into the workflow — not as after‑the‑fact reviews, but as gates and habits that guide every change.
+- Replace sprawling, conflicting documentation with a single source of truth that is easy to maintain and hard to misinterpret.
+- Enable confident collaboration between humans and AI agents through clear roles, boundaries, and handoffs.
 
-Start here: `gear-heart-methodology/`
+## Principles
+- Three‑File Discipline: One operational truth (Command Center), one PRD, one current EPIC. Update in place; no forks of truth.
+- 3+3 Pattern: When a section grows, extract a focused doc (e.g., Technical Architecture), keep a concise summary in the Command Center.
+- One Location Per Concept: Code and docs live where automation expects them; duplication is a defect.
+- Gate‑Based Execution: Phase loops with explicit validation gates for quality, security, performance, and business rules.
+- Context Governance: Clear authority hierarchy, predictable paths, archived history, and zero “mystery files.”
+- Test and Data First: Accuracy and speed are validated with unit/integration/E2E tests and golden datasets.
+
+## Validation Approach
+- Gates: Each phase ends with checks that must pass before proceeding (quality, performance, security, business rules).
+- Business Rules: Enforce domain‑critical constraints (e.g., plan limits, pricing policies) with automated checks.
+- Performance Targets: Define and verify latency/SLOs with scriptable tests; avoid regressions by default.
+- Security Hygiene: Secrets never committed; CI secrets only where needed; scans and reviews at boundaries.
+- Documentation Gates: Structure and authority checks prevent drift (e.g., Three‑File Discipline, no versioned duplicates).
+
+## Testing Approach
+- Unit: Fast checks for logic boundaries and critical utilities.
+- Integration: Validate system seams (auth, data access, workflows).
+- E2E: User‑journey validation for the highest‑value flows.
+- Golden Datasets: Curated truth data for AI and deterministic checks; report accuracy and coverage over time.
+- Performance: Benchmarks aligned to targets; run on PRs when relevant files change.
+
+## Context Governance
+- Authority: Command Center is the single source of truth; extracted docs reference back; archives hold history.
+- Paths: Stable, predictable locations so automation and humans always agree where to look.
+- Templates vs Examples: Canonical templates are separate from examples; no ambiguous “almost‑templates.”
+- Vendor Isolation: Third‑party code lives under a vendor area or submodules, not mixed with standards and templates.
+
+## What’s Inside
+This repo hosts the methodology package at `gear-heart-methodology/`:
 - [Methodology README](gear-heart-methodology/README.md)
 - [Workflow](gear-heart-methodology/docs/workflow/WORKFLOW-MASTER.md)
 - [Templates](gear-heart-methodology/docs/templates/)
+- [Standards](gear-heart-methodology/docs/standards/)
+- [Security](gear-heart-methodology/docs/security/SECRETS-MANAGEMENT.md)
+- [MCP (optional)](gear-heart-methodology/docs/mcp/)
 
-—
-
-# APOLLO Development Workflow (legacy context)
-
-
-## Overview
-
-APOLLO (Accelerated Product Optimization Launch Loop Operations) is a comprehensive workflow system designed to take products from idea to revenue in under 21 days. It combines AI-assisted development, progressive documentation, and gate-based quality checks to ensure rapid, yet sustainable product development.
-
-### Key Features
-
-- **14-21 Day Development Cycles** - From concept to deployed MVP
-- **Revenue-First Focus** - Target $0.10/user infrastructure cost
-- **AI-Augmented Workflow** - Leveraging Claude, Gemini, and specialized sub-agents
-- **Gate-Based Quality Control** - 4 quality gates ensure product readiness
-- **Progressive Documentation** - Single source of truth that evolves with the product
-- **Test-First Development** - Built-in testing infrastructure from day one
+## License & Community
+- License: MIT (Gear Heart AI, LLC)
+- Contribute: See [CONTRIBUTING.md](gear-heart-methodology/CONTRIBUTING.md)
+- Code of Conduct: See [CODE_OF_CONDUCT.md](gear-heart-methodology/CODE_OF_CONDUCT.md)
 
 ## Quick Start
-
-### Prerequisites
-
-- Node.js 18+ and npm
-- Git
-- VS Code (recommended)
-- Supabase CLI
-- Vercel CLI
-
-### Getting Started
-
-1. **Clone this repository**
-   ```bash
-   git clone https://github.com/mattgierhart/PRD-driven-context-engineering.git
-   cd PRD-driven-context-engineering
-   ```
-
-2. **Review the core workflow**
-   - Start with [workflows/WORKFLOW-MASTER.md](workflows/WORKFLOW-MASTER.md)
-   - Understand the 5 phases and 4 quality gates
-
-3. **Choose your starting point**
-   - **New Product**: Use templates in `templates/product/`
-   - **Existing Product**: Follow enhancement workflows
-   - **Learning**: Check `examples/sample-product/`
-
-## The APOLLO Workflow
-
-### 5 Phases of Development
-
-1. **Product Definition** (3-5 days)
-   - Market research and validation
-   - PRD creation (v0.1 → v0.5)
-   - Gate 1: Market opportunity validated
-
-2. **Technical Feasibility** (2-3 days)
-   - Tech stack analysis
-   - Cost projections
-   - Gate 2: Development timeline confirmed
-
-3. **Product Design** (3-5 days)
-   - UX journey mapping
-   - Design system creation
-   - Gate 3: Code-ready designs
-
-4. **Product Development** (10-14 days)
-   - Epic planning and execution
-   - Test-driven development
-   - Gate 4: Launch ready
-
-5. **Product Enhancement** (Ongoing)
-   - Performance optimization
-   - Feature additions
-   - Scaling infrastructure
-
-### Standard Tech Stack
-
-- **Frontend**: React + TypeScript + Tailwind CSS + shadcn/ui
-- **Backend**: Supabase (PostgreSQL + Edge Functions)
-- **Hosting**: Vercel + Supabase
-- **Payments**: Stripe
-- **AI/Vectors**: pgvector
-
-## Repository Structure
-
+1) Clone
+```bash
+git clone https://github.com/mattgierhart/PRD-driven-context-engineering.git
+cd PRD-driven-context-engineering
 ```
-apollo-development-workflow/
-├── workflows/              # Core workflow documentation
-├── templates/              # Ready-to-use project templates
-├── tools/                  # Automation scripts and configs
-├── examples/               # Sample implementations
-└── docs/                   # Additional guides
-```
-
-## Key Concepts
-
-### Progressive Documentation
-- Single PRD file tracks all versions (v0.1 → v1.0)
-- EPICs evolve throughout development
-- Git history provides versioning
-
-### Model Usage Protocol
-- **Planning**: Use Opus for complex architecture
-- **Execution**: Use Sonnet for implementation
-- **Review**: Gemini for strategic analysis
-
-### Quality Gates
-- Gate 1: Market validation
-- Gate 2: Technical feasibility
-- Gate 3: Design complete
-- Gate 4: Launch ready
-
-## Templates
-
-### Product Templates
-- [Product PRD Template](templates/product/product-PRD-template.md)
-- [Product Claude.md Template](templates/product/product-claude-template.md)
-
-### Epic Templates
-- [Feature Epic](templates/epics/EPIC-feature-template.md)
-- [Environment Epic](templates/epics/EPIC-environment-template.md)
-- [Testing Epic](templates/epics/EPIC-testing-template.md)
-- [Integration Epic](templates/epics/EPIC-integration-template.md)
-- [Deployment Epic](templates/epics/EPIC-deployment-template.md)
-
-### Testing Templates
-- [Unit Test Plan](templates/testing/test-unit-plan-template.md)
-- [Integration Test Plan](templates/testing/test-integration-plan-template.md)
-- [E2E Test Plan](templates/testing/test-e2e-plan-template.md)
-
-## Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### How to Contribute
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-### Areas for Contribution
-
-- New templates
-- Workflow improvements
-- Case studies
-- Tool integrations
-- Documentation
-
-## Community
-
-- **Discussions**: Use GitHub Discussions for questions
-- **Issues**: Report bugs or request features
-- **Show & Tell**: Share your APOLLO success stories
-
-## Resources
-
-### Documentation
-- [Complete Workflow Guide](workflows/WORKFLOW-MASTER.md)
-- [Sub-Agent Registry](workflows/SUBAGENT-REGISTRY.md)
-- [Model Usage Guide](workflows/MODEL-USAGE-GUIDE.md)
-- [Progressive Documentation](workflows/PROGRESSIVE-DOCUMENTATION-GUIDE.md)
-
-### External Tools
-- [Claude Code](https://claude.ai/code)
-- [Supabase](https://supabase.com)
-- [Vercel](https://vercel.com)
-- [shadcn/ui](https://ui.shadcn.com)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Built with and for Claude Code
-- Inspired by rapid product development methodologies
-- Community feedback and contributions
-
----
-
-**Ready to build?** Start with the [Getting Started Guide](docs/getting-started.md) or jump into the [templates](templates/)!
+2) Adopt the core docs
+- Copy `gear-heart-methodology/docs/templates/COMMAND_CENTER_template.md`, `PRD-template.md`, and `EPIC-template.md` into your product folder
+- Fill them in and commit
+3) Run the workflow
+- Use `gear-heart-methodology/docs/workflow/WORKFLOW-MASTER.md` as your operating manual
+- Add tests and golden data as you implement features
+4) Keep truth tight
+- Update the Command Center continuously; extract only when sections grow beyond the threshold
+5) Enable validation
+- Add CI to enforce gates, structure, and no‑secrets policies; use the link‑check workflow as a starting point

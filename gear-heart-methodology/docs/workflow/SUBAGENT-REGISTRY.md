@@ -49,11 +49,11 @@ These agents provide specialized development support:
 These agents represent external MCP servers that provide tools for LLMs. Detailed usage guides for each are located in the `tools/mcp-integrations/` directory.
 
 - **Fetch MCP Server**: Provides tools for fetching and extracting content from URLs.
-  - **Guide**: [FETCH-MCP-GUIDE.md](../mcp-integrations/FETCH-MCP-GUIDE.md)
+  - **Guide**: [FETCH-MCP-GUIDE.md](../mcp/FETCH-MCP-GUIDE.md)
 - **Supabase MCP Server**: Provides tools for interacting with Supabase projects, databases, and services.
-  - **Guide**: [SUPABASE-MCP-GUIDE.md](../mcp-integrations/SUPABASE-MCP-GUIDE.md)
+  - **Guide**: [SUPABASE-MCP-GUIDE.md](../mcp/SUPABASE-MCP-GUIDE.md)
 - **Serena MCP Server**: Provides advanced semantic code understanding, editing, and shell execution capabilities.
-  - **Guide**: [SERENA-MCP-GUIDE.md](../mcp-integrations/SERENA-MCP-GUIDE.md)
+  - **Guide**: [SERENA-MCP-GUIDE.md](../mcp/SERENA-MCP-GUIDE.md)
 
 ### Agent Coordination Principles
 - **Sequential for Core Workflow**: AURA → APOLLO → Product Designer → Development

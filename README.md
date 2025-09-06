@@ -1,6 +1,22 @@
-# APOLLO Development Workflow 🚀
+# Gear Heart Methodology (GHM) — Open Source 🚀
 
-> A rapid product development workflow system for building revenue-generating products in 14-21 day cycles
+This repository now hosts the Gear Heart Methodology (GHM): a vendor‑neutral, product‑agnostic way to ship software with clarity and speed.
+
+Core ideas
+- Three‑File Discipline: One operational truth (Command Center), one PRD, one current EPIC — updated in place.
+- 3+3 Pattern: When a section grows, extract a focused doc (e.g., Technical Architecture), keep the summary in the Command Center.
+- Gate‑based Execution: Phase loops with explicit validation gates for quality, security, performance, and business rules.
+- Agent Coordination: Clear roles and handoffs for research, feasibility, design, implementation, and testing — human or AI.
+
+Start here: `gear-heart-methodology/`
+- [Methodology README](gear-heart-methodology/README.md)
+- [Workflow](gear-heart-methodology/docs/workflow/WORKFLOW-MASTER.md)
+- [Templates](gear-heart-methodology/docs/templates/)
+
+—
+
+# APOLLO Development Workflow (legacy context)
+
 
 ## Overview
 

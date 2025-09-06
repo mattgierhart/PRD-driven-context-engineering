@@ -1,0 +1,16 @@
+name: Markdown Links
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-verbose-mode: 'yes'
+          folder-path: 'gear-heart-methodology'
+          check-modified-files-only: 'no'

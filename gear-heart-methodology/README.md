@@ -1,11 +1,30 @@
 # Gear Heart Methodology (GHM)
 
-A vendor-neutral, product-agnostic workflow for building and shipping software with disciplined documentation, testing, and agent coordination. Extracted from our internal tooling into a clean, open-source package.
+GHM is a vendor‑neutral, product‑agnostic methodology for shipping software with clarity and speed. It codifies a few simple, powerful ideas:
 
-- Core workflow: docs/workflow/
-- Engineering standards: docs/standards/
-- Security: docs/security/
-- Templates: docs/templates/
-- MCP integration guides (optional): docs/mcp/
+- Three‑File Discipline: One operational truth, one PRD, one current EPIC. Update in place. No forks of truth.
+- 3+3 Pattern (when needed): If a section grows, extract a single focused doc (e.g., Technical Architecture), but keep the summary in the Command Center.
+- Gate‑based Execution: Small, phase‑based loops with explicit validation gates for quality, performance, security, and business rules.
+- Agent Coordination: Clear roles and handoffs for research, technical feasibility, design, implementation, and testing — human or AI.
 
-Status: Draft export for initial PR. License: TBD.
+This repository packages the methodology as docs and templates you can drop into any project.
+
+What’s Inside
+- Core workflow: `docs/workflow/`
+- Engineering standards: `docs/standards/`
+- Security: `docs/security/`
+- Templates: `docs/templates/`
+- MCP integration guides (optional): `docs/mcp/`
+
+Philosophy
+- Clarity over volume: Fewer, stronger docs with clear authority.
+- Evidence over opinion: Gates enforce realities (tests, metrics), not vibes.
+- One location per concept: Code and docs are where the automation expects them.
+- Progressive refinement: Draft early, refine continuously — no parallel versions.
+
+Getting Started
+1) Copy `docs/templates/COMMAND_CENTER_template.md`, `PRD-template.md`, and `EPIC-template.md` into your product folder and fill them in.
+2) Use `docs/workflow/WORKFLOW-MASTER.md` to run the 5‑phase loop and gates.
+3) Keep updates flowing to the Command Center (single source of truth).
+
+Status: Initial public export. License: MIT.

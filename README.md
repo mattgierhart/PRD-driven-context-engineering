@@ -10,9 +10,10 @@ GHM is a vendor‑neutral, product‑agnostic way to ship software with clarity 
 ## Principles
 - Three‑File Discipline: One operational truth (Command Center), one PRD, one current EPIC. Update in place; no forks of truth.
 - 3+3 Pattern: When a section grows, extract a focused doc (e.g., Technical Architecture), keep a concise summary in the Command Center.
+- ID‑Based Knowledge Graph: Every meaningful artifact (user journey, API, business rule, test) gets a unique, durable ID. Cross-references use IDs, not duplicate prose. This enables AI agents to load precise context in <1 minute vs 5-10 minutes of full-document scanning.
 - One Location Per Concept: Code and docs live where automation expects them; duplication is a defect.
 - Gate‑Based Execution: Phase loops with explicit validation gates for quality, security, performance, and business rules.
-- Context Governance: Clear authority hierarchy, predictable paths, archived history, and zero “mystery files.”
+- Context Governance: Clear authority hierarchy, predictable paths, archived history, and zero "mystery files."
 - Test and Data First: Accuracy and speed are validated with unit/integration/E2E tests and golden datasets.
 
 ## Validation Approach
@@ -35,11 +36,38 @@ GHM is a vendor‑neutral, product‑agnostic way to ship software with clarity 
 - Templates vs Examples: Canonical templates are separate from examples; no ambiguous “almost‑templates.”
 - Vendor Isolation: Third‑party code lives under a vendor area or submodules, not mixed with standards and templates.
 
-## What’s Inside
-This repo hosts the methodology package at `gear-heart-methodology/`:
+## What's Inside
+
+### Core Documentation
+- [ID-Based Knowledge Graph](docs/ID-KNOWLEDGE-GRAPH.md) - Durable ID system for cross-referencing
+- [AI Evaluator Guide](AI-EVALUATOR-GUIDE.md) - Guide for evaluating AI-generated work
+- [Contributing](CONTRIBUTING.md) - How to contribute to this methodology
+
+### Templates
+- **Product Templates** (`templates/product/`)
+  - Product PRD template
+  - Product Claude instructions template
+  - README template (with ID navigation)
+- **EPIC Templates** (`templates/epics/`)
+  - EPIC template (with Section 3A: ID Tracking)
+  - Feature/deployment/environment EPICs
+- **Source of Truth Templates** (`templates/source-of-truth/`)
+  - USER-JOURNEYS.md template (UJ-XXX)
+  - BUSINESS_RULES.md template (BR-XXX)
+  - API_CONTRACTS.md template (API-XXX)
+  - ACTUAL-SCHEMA.md template (DBT-XXX)
+  - customer-feedback.md template (CFD-XXX)
+- **Design Templates** (`templates/design/`)
+- **Testing Templates** (`templates/testing/`)
+
+### Workflows
+- [CLAUDE.md](CLAUDE.md) - Global Claude Code instructions
+- Workflow guides in `workflows/`
+
+### Gear Heart Methodology Package
+Legacy organization (being migrated to new structure):
 - [Methodology README](gear-heart-methodology/README.md)
 - [Workflow](gear-heart-methodology/docs/workflow/WORKFLOW-MASTER.md)
-- [Templates](gear-heart-methodology/docs/templates/)
 - [Standards](gear-heart-methodology/docs/standards/)
 - [Security](gear-heart-methodology/docs/security/SECRETS-MANAGEMENT.md)
 - [MCP (optional)](gear-heart-methodology/docs/mcp/)

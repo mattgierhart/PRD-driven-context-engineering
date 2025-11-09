@@ -8,8 +8,7 @@ GHM is a vendor‑neutral, product‑agnostic way to ship software with clarity 
 - Enable confident collaboration between humans and AI agents through clear roles, boundaries, and handoffs.
 
 ## Principles
-- Three‑File Discipline: One operational truth (Command Center), one PRD, one current EPIC. Update in place; no forks of truth.
-- 3+3 Pattern: When a section grows, extract a focused doc (e.g., Technical Architecture), keep a concise summary in the Command Center.
+- 3+1+SoT+Temp Pattern: Documentation organized in four layers: (1) The "3" navigation files (Claude.md, PRD.md, README.md) provide context and point to details, (2) The "+1" current EPIC tracks active work and ID changes, (3) SoT (Source of Truth) files create and maintain IDs with full specifications (USER-JOURNEYS.md, BUSINESS_RULES.md, API_CONTRACTS.md, etc.), (4) Temp files hold work-in-progress before extraction to SoT.
 - ID‑Based Knowledge Graph: Every meaningful artifact (user journey, API, business rule, test) gets a unique, durable ID. Cross-references use IDs, not duplicate prose. This enables AI agents to load precise context in <1 minute vs 5-10 minutes of full-document scanning.
 - One Location Per Concept: Code and docs live where automation expects them; duplication is a defect.
 - Gate‑Based Execution: Phase loops with explicit validation gates for quality, security, performance, and business rules.

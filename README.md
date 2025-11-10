@@ -8,12 +8,24 @@ GHM is a context engineering construct to a PRD led product development design s
 - Enable confident collaboration between humans and AI agents through clear roles, boundaries, and handoffs.
 
 ## Principles
-- 3+1+SoT+Temp Pattern: Documentation organized in four layers: (1) The "3" navigation files (Claude.md, PRD.md, README.md) provide context and point to details, (2) The "+1" current EPIC tracks active work and ID changes, (3) SoT (Source of Truth) files create and maintain IDs with full specifications (USER-JOURNEYS.md, BUSINESS_RULES.md, API_CONTRACTS.md, etc.), (4) Temp files hold work-in-progress before extraction to SoT.
+- 3+1+SoT+Temp Pattern: Documentation organized in four layers: (1) the "3" navigation files (CLAUDE.md, PRD.md, README.md) provide context and point to details, (2) the "+1" current EPIC tracks active work and ID changes, (3) SoT (Source of Truth) files create and maintain IDs with full specifications (USER-JOURNEYS.md, BUSINESS_RULES.md, API_CONTRACTS.md, etc.), (4) Temp files hold work-in-progress before extraction to SoT.
 - ID‑Based Knowledge Graph: Every meaningful artifact (user journey, API, business rule, test) gets a unique, durable ID. Cross-references use IDs, not duplicate prose. This enables AI agents to load precise context in <1 minute vs 5-10 minutes of full-document scanning.
 - One Location Per Concept: Code and docs live where automation expects them; duplication is a defect.
 - Gate‑Based Execution: Phase loops with explicit validation gates for quality, security, performance, and business rules.
 - Context Governance: Clear authority hierarchy, predictable paths, archived history, and zero "mystery files."
 - Test and Data First: Accuracy and speed are validated with unit/integration/E2E tests and golden datasets.
+
+## 3+1+SoT+Temp Stack (How the Docs Fit Together)
+
+| Layer | Purpose | Canonical Assets | How It Uses IDs |
+|-------|---------|------------------|-----------------|
+| **3 — Navigation Files** | Onboard any agent in under a minute and show current truth. | `CLAUDE.md`, product `README.md`, product `PRD.md` | Point to SoT anchors (e.g., `BR-112`) instead of restating specs. |
+| **+1 — Active EPIC** | Focus the current window of work, record scope, and capture deltas. | `templates/epics/EPIC-template.md` | Section 3A tracks every ID created, modified, or referenced during execution. |
+| **SoT — Source of Truth Library** | Hold authoritative specifications for business rules, journeys, contracts, tests, etc. | Files under `templates/source-of-truth/` (e.g., `BUSINESS_RULES.md`, `API_CONTRACTS.md`) | Each entry is an ID card (`BR-XXX`, `API-XXX`, `TEST-XXX`) with metadata, bidirectional references, and change history. |
+| **Temp — Working Scratchpads** | Short-lived exploration before extraction into SoT. | `temp/` directories scoped per product/epic | Temporary content must be extracted into SoT IDs before archive, ensuring no durable knowledge lives outside the graph. |
+
+- **Unique IDs everywhere:** The [Unique ID System](workflows/UNIQUE-ID-SYSTEM.md) defines naming, lifecycle, and automation hooks. Templates reference these IDs explicitly so SoT changes propagate back to navigation files without duplication.
+- **Workflow alignment:** The [WORKFLOW-MASTER](workflows/WORKFLOW-MASTER.md) ladder advances the PRD and EPIC gates only when SoT IDs are updated and referenced correctly, enforcing stack discipline.
 
 ## Validation Approach
 - Gates: Each phase ends with checks that must pass before proceeding (quality, performance, security, business rules).
@@ -62,6 +74,23 @@ GHM is a context engineering construct to a PRD led product development design s
 ### Workflows
 - [CLAUDE.md](CLAUDE.md) - Global Claude Code instructions
 - Workflow guides in `workflows/`
+
+## PRD Version Ladder (v0.1 → v1.0)
+
+| Milestone | Lead Agent(s) | Key Deliverables | Decision or Gate | Resulting PRD State |
+|-----------|----------------|------------------|------------------|---------------------|
+| **v0.1 — Spark** | User + AURA | Initial problem statement, success metrics draft | Kickoff alignment | PRD created with seed narrative and ID scaffolding |
+| **v0.2 — Market Research** | AURA | Market sizing, target personas, supporting research IDs | Research evidence review | PRD updated with validated opportunity statements |
+| **v0.3 — Competitive Analysis** | AURA | Competitive landscape summary, differentiation map | Competitive moat checkpoint | PRD references comparative insights and risk notes |
+| **v0.4 — User Validation** | AURA | User interviews, journey hypotheses, `UJ-XXX` IDs | User need validation gate | PRD aligns with verified user pains and outcomes |
+| **v0.5 — Red Team Review** | AURA | Threat scenarios, failure analysis, mitigation IDs | **Gate 1**: Research complete | PRD cleared for technical evaluation |
+| **v0.6 — Technical Stack** | APOLLO | Feasibility notes, draft architecture, `API-XXX`/`DBT-XXX` stubs | Stack viability check | PRD records target stack and constraints |
+| **v0.7 — Technical Feasibility** | APOLLO | Detailed architecture, integration plan, risk heatmap | **Gate 2**: Tech feasibility | PRD confirms buildable path with owner commitments |
+| **v0.8 — UX Journey Mapping** | AURA | Wireframes, refined journeys, `DES-XXX` references | UX cohesion review | PRD anchors solution narrative to SoT design assets |
+| **v0.9 — Information Architecture** | AURA | Navigation schema, data taxonomy, updated IDs | Content architecture checkpoint | PRD locked for development handoff prep |
+| **v1.0 — Build Ready** | All agents + User | Final PRD package, signed-off SoT updates, release criteria | **Gate 3**: Launch-ready PRD | PRD is authoritative build contract tied to IDs |
+
+Each increment requires updating the PRD metadata table, logging the change in the version history, and ensuring that supporting evidence lives in SoT files with their respective IDs. The [WORKFLOW-MASTER](workflows/WORKFLOW-MASTER.md) describes the validation activities tied to each gate.
 
 ### Gear Heart Methodology Package
 Legacy organization (being migrated to new structure):

@@ -1,6 +1,6 @@
 # Gear Heart Methodology (GHM) — Open Source 🚀
 
-GHM is a context engineering led approach to PRD led product development design specificly for AI led or AI only software development. For a visual overview, visit: https://gearheartai.org
+GHM is a context engineering construct to a PRD led product development design specificly for AI led or AI only software development. For a visual overview, visit: https://gearheartai.org
 
 ## Mission
 - Make quality inevitable by encoding it into the workflow — not as after‑the‑fact reviews, but as gates and habits that guide every change.

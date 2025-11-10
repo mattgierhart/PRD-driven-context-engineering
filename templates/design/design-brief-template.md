@@ -279,4 +279,108 @@ Design [screen/flow] with:
 
 ---
 
+## 📍 Design Components (DES-XXX IDs)
+
+> **Purpose**: Each design component gets a unique ID for cross-referencing
+> **ID Format**: DES-XXX (sequential numbering)
+> **Usage**: Reference these IDs from EPICs, user journeys, and component implementations
+
+### Navigation by Category
+
+**Core Components** (DES-001 to DES-099):
+- [DES-001](#des-001-hero-section) - Landing page hero section
+- [DES-002](#des-002-navigation-bar) - Primary navigation
+
+**Feature Components** (DES-101 to DES-199):
+- [DES-101](#des-101-product-card) - Product display card
+- [DES-102](#des-102-checkout-flow) - Checkout user interface
+
+**Shared Components** (DES-201 to DES-299):
+- [DES-201](#des-201-button-system) - Button component system
+- [DES-202](#des-202-form-inputs) - Form input components
+
+**Design Patterns** (DES-301 to DES-399):
+- [DES-301](#des-301-loading-states) - Loading state patterns
+- [DES-302](#des-302-error-states) - Error state patterns
+
+---
+
+## DES-001: Hero Section
+
+**ID**: DES-001
+**Category**: Core Component
+**Platform**: Web | Mobile | Both
+**Status**: Active | Deprecated | Planned
+**Created**: YYYY-MM-DD
+**Last Updated**: YYYY-MM-DD
+**Designer**: {Name}
+
+### Component Overview
+
+**Purpose**: Primary landing page hero that communicates value proposition
+**Location**: Landing page, above the fold
+**Priority**: Critical (first impression)
+
+### Design Specifications
+
+**Dimensions**:
+- Desktop: 1200px width × 600px height
+- Mobile: 375px width × 500px height
+- Tablet: 768px width × 550px height
+
+### Related IDs
+
+**Used in User Journeys**:
+- [UJ-001](../source-of-truth/USER-JOURNEYS-template.md#uj-001) - First-time visitor onboarding
+
+**Design System References**:
+- [DES-201](#des-201-button-system) - Button components used in CTAs
+
+**Implemented in EPICs**:
+- [EPIC-03](../epics/EPIC-template.md) - Landing page development
+
+### Version History
+
+| Version | Date | Changes | Updated By |
+|---------|------|---------|------------|
+| 1.0 | YYYY-MM-DD | Initial design | {Name} |
+
+---
+
+## Cross-Reference Index
+
+> **Auto-Generated Section**: Run `npm run codex:sync-registry` to rebuild
+
+**Components by User Journey**:
+- UJ-001 uses: DES-001 (hero), DES-002 (navigation)
+
+**Components by Platform**:
+- Web: DES-001, DES-002
+- Mobile: DES-002
+- Both: DES-201, DES-202 (shared components)
+
+---
+
+## Update Protocol
+
+### When to Add New DES-XXX IDs
+
+1. **New UI Component**: Distinct, reusable interface elements
+2. **Design Pattern**: Recurring design solutions (loading, errors, empty states)
+3. **Page Template**: Complete page layouts with multiple components
+4. **Design Token Update**: Major changes to colors, typography, spacing
+
+### Bidirectional Reference Checklist
+
+When adding a new DES-XXX:
+- [ ] Update USER-JOURNEYS.md "Design Components" section with this DES-XXX
+- [ ] Update EPIC Section 3A "IDs Created This EPIC" table
+- [ ] Update README.md "Active IDs" section if part of current work
+- [ ] Create corresponding React component file in `src/components/`
+- [ ] Add UXPilot export reference (if applicable)
+- [ ] Document accessibility requirements
+- [ ] Run `npm run codex:sync-registry` to update ID-REGISTRY.md
+
+---
+
 *This design brief serves as the single source of truth for all design decisions and guides the transition from PRD v1.0 to development phase.*

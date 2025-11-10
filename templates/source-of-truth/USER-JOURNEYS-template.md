@@ -176,4 +176,27 @@ For detailed wireframes, mockups, and step-by-step specifications, see:
 
 ---
 
+## Update Protocol
+
+### When to Add New UJ-XXX IDs
+
+1. **New User Journey**: Complete flow from trigger to goal completion
+2. **Journey Variant**: Alternative path for existing journey (e.g., mobile vs. web)
+3. **Error Flow**: Distinct error handling or recovery journey
+4. **Feature Journey**: New feature introducing new user interactions
+
+### Bidirectional Reference Checklist
+
+When adding a new UJ-XXX:
+- [ ] Update API_CONTRACTS.md "Used By" section for each API called in this journey
+- [ ] Update BUSINESS_RULES.md "Affects User Journeys" section for each rule enforced
+- [ ] Update ACTUAL-SCHEMA.md "Used in User Journeys" section for each table accessed
+- [ ] Update design-brief.md with DES-XXX references for UI components used
+- [ ] Update testing-playbook.md with TEST-XXX references for validation tests
+- [ ] Update EPIC Section 3A "IDs Created This EPIC" table
+- [ ] Update README.md "Active IDs" section if part of current work
+- [ ] Run `npm run codex:sync-registry` to update ID-REGISTRY.md
+
+---
+
 *End of USER-JOURNEYS.md - This SoT file is the authoritative source for all UJ-XXX IDs*

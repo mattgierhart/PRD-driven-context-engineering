@@ -77,18 +77,18 @@ GHM is a context engineering construct to a PRD led product development design s
 
 ## PRD Version Ladder (v0.1 → v1.0)
 
-| Milestone | Lead Agent(s) | Key Deliverables | Decision or Gate | Resulting PRD State |
-|-----------|----------------|------------------|------------------|---------------------|
-| **v0.1 — Spark** | User + AURA | Initial problem statement, success metrics draft | Kickoff alignment | PRD created with seed narrative and ID scaffolding |
-| **v0.2 — Market Research** | AURA | Market sizing, target personas, supporting research IDs | Research evidence review | PRD updated with validated opportunity statements |
-| **v0.3 — Competitive Analysis** | AURA | Competitive landscape summary, differentiation map | Competitive moat checkpoint | PRD references comparative insights and risk notes |
-| **v0.4 — User Validation** | AURA | User interviews, journey hypotheses, `UJ-XXX` IDs | User need validation gate | PRD aligns with verified user pains and outcomes |
-| **v0.5 — Red Team Review** | AURA | Threat scenarios, failure analysis, mitigation IDs | **Gate 1**: Research complete | PRD cleared for technical evaluation |
-| **v0.6 — Technical Stack** | APOLLO | Feasibility notes, draft architecture, `API-XXX`/`DBT-XXX` stubs | Stack viability check | PRD records target stack and constraints |
-| **v0.7 — Technical Feasibility** | APOLLO | Detailed architecture, integration plan, risk heatmap | **Gate 2**: Tech feasibility | PRD confirms buildable path with owner commitments |
-| **v0.8 — UX Journey Mapping** | AURA | Wireframes, refined journeys, `DES-XXX` references | UX cohesion review | PRD anchors solution narrative to SoT design assets |
-| **v0.9 — Information Architecture** | AURA | Navigation schema, data taxonomy, updated IDs | Content architecture checkpoint | PRD locked for development handoff prep |
-| **v1.0 — Build Ready** | All agents + User | Final PRD package, signed-off SoT updates, release criteria | **Gate 3**: Launch-ready PRD | PRD is authoritative build contract tied to IDs |
+| Milestone | Key Deliverables | Decision or Gate | Resulting PRD State |
+|-----------|------------------|------------------|---------------------|
+| **v0.1 — Spark** | Initial problem statement, success metrics draft | Kickoff alignment | PRD created with seed narrative and ID scaffolding |
+| **v0.2 — Market Research** | Market sizing, target personas, supporting research IDs | Research evidence review | PRD updated with validated opportunity statements |
+| **v0.3 — Competitive Analysis** | Competitive landscape summary, differentiation map | Competitive moat checkpoint | PRD references comparative insights and risk notes |
+| **v0.4 — User Validation** | User interviews, journey hypotheses, `UJ-XXX` IDs | User need validation gate | PRD aligns with verified user pains and outcomes |
+| **v0.5 — Red Team Review** | Threat scenarios, failure analysis, mitigation IDs | **Gate 1**: Research complete | PRD cleared for technical evaluation |
+| **v0.6 — Technical Stack** | Feasibility notes, draft architecture, `API-XXX`/`DBT-XXX` stubs | Stack viability check | PRD records target stack and constraints |
+| **v0.7 — Technical Feasibility** | Detailed architecture, integration plan, risk heatmap | **Gate 2**: Tech feasibility | PRD confirms buildable path with owner commitments |
+| **v0.8 — UX Journey Mapping** | Wireframes, refined journeys, `DES-XXX` references | UX cohesion review | PRD anchors solution narrative to SoT design assets |
+| **v0.9 — Information Architecture** | Navigation schema, data taxonomy, updated IDs | Content architecture checkpoint | PRD locked for development handoff prep |
+| **v1.0 — Build Ready** | Final PRD package, signed-off SoT updates, release criteria | **Gate 3**: Launch-ready PRD | PRD is authoritative build contract tied to IDs |
 
 Each increment requires updating the PRD metadata table, logging the change in the version history, and ensuring that supporting evidence lives in SoT files with their respective IDs. The [WORKFLOW-MASTER](workflows/WORKFLOW-MASTER.md) describes the validation activities tied to each gate.
 

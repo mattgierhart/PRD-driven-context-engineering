@@ -1,3 +1,9 @@
+---
+title: "Workflow Master Guide"
+version: 1.0
+updated: "2025-02-14"
+---
+
 # WORKFLOW-MASTER.md — Gear Heart Methodology
 
 > **Authority**: Tier 1 workflow reference for repositories that implement the Gear Heart Methodology (GHM).

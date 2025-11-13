@@ -1,3 +1,10 @@
+---
+title: "CLAUDE Agent Operating Guide"
+ghm_stack: "3+1+SoT+Temp"
+lifecycle_focus: "v0.6–v0.9"
+updated: "2025-02-14"
+---
+
 # CLAUDE.md — Gear Heart Methodology Operating Guide
 
 This file directs Claude (and other build-oriented agents) when collaborating inside a repository that implements the Gear Heart Methodology (GHM).

@@ -1,7 +1,7 @@
 ---
 version: 2.0
 purpose: Progressive Product Requirements Document aligned to the Gear Heart Methodology lifecycle.
-last_updated: 2025-01-05
+last_updated: 2025-02-14
 ---
 
 # [Product Name] · Product Requirements Document (PRD)

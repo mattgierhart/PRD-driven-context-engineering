@@ -1,3 +1,9 @@
+---
+title: "Archive Directory Guide"
+scope: "archive/"
+updated: "2025-02-14"
+---
+
 # Archive
 
 Closed EPICs, historical briefs, and frozen artifacts move here once they are no longer active.

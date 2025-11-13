@@ -1,3 +1,9 @@
+---
+title: "Repository Organization Guide"
+audience: "Founders, PMs, AI agents"
+updated: "2025-02-14"
+---
+
 # Repository Organization Guide
 
 > Purpose: Provide a simple, repeatable structure for product repositories adopting the Gear Heart Methodology.

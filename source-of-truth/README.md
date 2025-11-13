@@ -1,3 +1,9 @@
+---
+title: "Source-of-Truth Library Guide"
+scope: "source-of-truth/"
+updated: "2025-02-14"
+---
+
 # Source-of-Truth (SoT) Library
 
 This directory holds the durable, ID-based specifications that make up the knowledge graph for your product.

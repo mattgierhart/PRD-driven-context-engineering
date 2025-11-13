@@ -1,3 +1,9 @@
+---
+title: "PRD Version Lifecycle Workflow"
+version: 1.0
+updated: "2025-02-14"
+---
+
 # PRD Version Lifecycle · v0.1 → v1.0
 
 > **Purpose**: Define the non-skippable lifecycle gates for a PRD within the Gear Heart Methodology.

@@ -1,3 +1,9 @@
+---
+title: "Epics Directory Guide"
+scope: "epics/"
+updated: "2025-02-14"
+---
+
 # Epics Directory
 
 This folder stores the active and archived EPIC files that make up the "+1" layer of the Gear Heart Methodology stack.

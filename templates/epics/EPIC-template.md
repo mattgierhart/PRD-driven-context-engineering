@@ -1,7 +1,7 @@
 ---
 version: 4.0
 purpose: Execution container for a single lifecycle window. Tracks scope, SoT IDs, and gate movement.
-last_updated: 2025-01-05
+last_updated: 2025-02-14
 authority: Pair with `workflows/PRD-VERSION-LIFECYCLE.md` for gate rituals and reviews.
 ---
 

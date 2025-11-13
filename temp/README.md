@@ -1,3 +1,9 @@
+---
+title: "Temp Workspace Guide"
+scope: "temp/"
+updated: "2025-02-14"
+---
+
 # Temp Workspace
 
 Short-lived notes and scratchpads live here. This directory is intentionally transient.

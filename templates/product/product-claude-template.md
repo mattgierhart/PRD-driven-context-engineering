@@ -1,7 +1,7 @@
 ---
 version: 2.0
 purpose: Operating instructions for primary build agent(s) working inside a product repository.
-last_updated: 2025-01-05
+last_updated: 2025-02-14
 ---
 
 # CLAUDE.md · {Product Name}

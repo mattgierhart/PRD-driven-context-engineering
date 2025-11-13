@@ -1,3 +1,9 @@
+---
+title: "Agents Directory Guide"
+scope: "agents/"
+updated: "2025-02-14"
+---
+
 # Agents Directory
 
 This folder holds active agent briefs for the product team.

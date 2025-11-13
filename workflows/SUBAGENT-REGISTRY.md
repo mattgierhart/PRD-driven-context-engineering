@@ -1,3 +1,9 @@
+---
+title: "Sub-Agent Registry"
+version: 1.0
+updated: "2025-02-14"
+---
+
 # Sub-Agent Registry — Gear Heart Methodology
 
 > **Purpose**: Document specialized agents that support the primary leads (AURA, APOLLO, JANUS) across the PRD Version Lifecycle.

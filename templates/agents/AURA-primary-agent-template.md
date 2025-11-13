@@ -1,7 +1,7 @@
 ---
 version: 1.0
 purpose: Primary agent brief for AURA, the Market & Product Strategy Lead (v0.1–v0.5 owner).
-last_updated: 2025-01-05
+last_updated: 2025-02-14
 ---
 
 # AURA · Market & Product Strategy Lead (Primary Agent Template)

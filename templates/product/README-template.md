@@ -1,3 +1,9 @@
+---
+template: "product-readme"
+ghm_stack: "Command Center"
+last_updated: 2025-02-14
+---
+
 # {Product Name}
 
 > **Command Center & Navigation Hub** — always load this file first.

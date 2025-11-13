@@ -1,4 +1,14 @@
-# Gear Heart Methodology (GHM)
+---
+status: legacy
+scope: "Command_Center export (2024)"
+note: "Retained for historical reference. Do not copy directly into new repos."
+updated: "2025-02-14"
+---
+
+# Gear Heart Methodology (GHM) — Legacy Export
+
+> ⚠️ This folder preserves the 2024 "Command_Center" era documentation. It is not aligned with the current Gear Heart Methodolo
+gy (README-as-Command-Center, 3+1+SoT+Temp lifecycle). Keep for historical comparison only.
 
 GHM is a vendor‑neutral, product‑agnostic methodology for shipping software with clarity and speed. It codifies a few simple, powerful ideas:
 

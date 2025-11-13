@@ -826,7 +826,7 @@ All templates include integrated ID system support:
 - [Three-File Discipline](../CLAUDE.md#documentation-discipline)
 - [3+3 Pattern](../CLAUDE.md#the-33-pattern)
 - [EPIC Workflow](WORKFLOW-PRD-DEVELOPMENT.md)
-- [Temp File Lifecycle](DOCUMENTATION-DISCIPLINE.md)
+- [Temp File Lifecycle](WORKFLOW-PRD-DEVELOPMENT.md#temp-file-lifecycle-enforcement)
 
 ---
 

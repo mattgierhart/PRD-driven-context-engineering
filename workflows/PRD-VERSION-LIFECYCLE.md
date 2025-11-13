@@ -126,13 +126,12 @@ Use these before marking a gate complete. Every checkbox should tie to evidence 
 - [ ] API- IDs created/updated for critical endpoints.
 - [ ] DBT- IDs outline key schema changes.
 - [ ] Integration or compliance requirements documented.
-- [ ] Gate 2 decision recorded in PRD change log.
 
 ### v0.7 Build Execution
-- [ ] EPIC backlog prioritized with lifecycle impact noted.
-- [ ] QA/test approach codified (TEST- IDs with owners).
-- [ ] Definition of Done confirmed and referenced in EPIC files.
-- [ ] README + CLAUDE instructions synchronized with current work.
+- [ ] EPIC backlog prioritized with clear lifecycle impact.
+- [ ] QA/test approach codified (TEST- IDs).
+- [ ] Definition of Done confirmed.
+- [ ] README + CLAUDE instructions synchronized.
 
 ### v0.8 Deployment & Ops
 - [ ] Deployment environments + automation mapped (DEP- IDs).
@@ -148,9 +147,9 @@ Use these before marking a gate complete. Every checkbox should tie to evidence 
 
 ### v1.0 Market Adoption
 - [ ] Paying customer data recorded with KPI- IDs.
-- [ ] Retention / engagement metrics tracked with cadence.
-- [ ] Optimization backlog documented (EPIC references, owners, target gate).
-- [ ] Loopbacks identified (which gate to revisit and why) with rationale in PRD.
+- [ ] Retention / engagement metrics tracked.
+- [ ] Optimization backlog documented (EPIC references).
+- [ ] Loopbacks identified (which gate to revisit and why).
 
 ---
 

@@ -9,15 +9,12 @@ updated: "2025-02-14"
 Closed EPICs, historical briefs, and frozen artifacts move here once they are no longer active.
 
 ## Folder structure
-Organize the archive by year and month to mirror the cadence of lifecycle milestones. Place legacy exports in clearly labeled
-folders so new adopters know these artifacts are historical snapshots:
+Organize the archive by year and month to mirror the cadence of lifecycle milestones:
 ```
 archive/
 ├── 2025-01/
 │   ├── EPIC-05-onboarding-flow.md
 │   └── aura-session-notes.md
-├── legacy-gear-heart-methodology/
-│   └── ... (frozen 2024 export with Command_Center-era docs)
 └── 2024-12/
     └── ...
 ```

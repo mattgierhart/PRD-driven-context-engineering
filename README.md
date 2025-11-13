@@ -85,7 +85,7 @@ GHM exists to solve five recurring problems in AI-powered product work:
 | **SoT — Source of Truth Library** | Hold authoritative specifications for business rules, journeys, contracts, tests, schemas, and feedback. | Files under `templates/source-of-truth/` (e.g., `BUSINESS_RULES.md`, `API_CONTRACTS.md`, `ACTUAL-SCHEMA.md`, `customer-feedback.md`) | Each entry is an ID card (`BR-XXX`, `API-XXX`, `DBT-XXX`, `CFD-XXX`) with metadata, bidirectional references, and change history. |
 | **Temp — Working Scratchpads** | Short-lived exploration and drafting before extraction into SoT. | `temp/` directories scoped per product/epic | Temporary content must be harvested into SoT IDs before archive; no durable knowledge lives here. |
 
-- **Unique IDs everywhere**  
+- **Unique IDs ecosystem**  
   The [Unique ID System](workflows/UNIQUE-ID-SYSTEM.md) defines naming, lifecycle, and automation hooks. Templates reference these IDs explicitly so SoT changes propagate back to navigation files without duplication.
 
 - **Workflow alignment**  

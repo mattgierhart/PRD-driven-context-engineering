@@ -230,11 +230,12 @@ Each version increment requires:
 
 Legacy organization (being migrated to the new structure):
 
-- [Methodology README](gear-heart-methodology/README.md)  
-- [Workflow](gear-heart-methodology/docs/workflow/WORKFLOW-MASTER.md)  
-- [Standards](gear-heart-methodology/docs/standards/)  
-- [Security](gear-heart-methodology/docs/security/SECRETS-MANAGEMENT.md)  
-- [MCP (optional)](gear-heart-methodology/docs/mcp/)
+- Legacy export (archived under `archive/legacy-gear-heart-methodology/`):
+  - [Methodology README](archive/legacy-gear-heart-methodology/README.md)
+  - [Workflow](archive/legacy-gear-heart-methodology/docs/workflow/WORKFLOW-MASTER.md)
+  - [Standards](archive/legacy-gear-heart-methodology/docs/standards/)
+  - [Security](archive/legacy-gear-heart-methodology/docs/security/SECRETS-MANAGEMENT.md)
+  - [MCP (optional)](archive/legacy-gear-heart-methodology/docs/mcp/)
 
 ---
 
@@ -242,7 +243,7 @@ Legacy organization (being migrated to the new structure):
 
 - **License:** MIT (Gear Heart AI, LLC)  
 - **Contribute:** See [CONTRIBUTING.md](CONTRIBUTING.md)  
-- **Code of Conduct:** See [CODE_OF_CONDUCT.md](gear-heart-methodology/CODE_OF_CONDUCT.md)
+- **Code of Conduct:** See [CODE_OF_CONDUCT.md](archive/legacy-gear-heart-methodology/CODE_OF_CONDUCT.md)
 
 ---
 

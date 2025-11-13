@@ -1,263 +1,223 @@
+---
+template: "product-readme"
+ghm_stack: "Command Center"
+last_updated: 2025-02-14
+---
+
 # {Product Name}
 
-> **Single Source of Truth Dashboard** - AI Agent Onboarding & Operational Command Center
->
-> **⚠️ MANDATORY**: All AI agents MUST read this file FIRST before any work
+> **Command Center & Navigation Hub** — always load this file first.
+> Tracks status, PRD lifecycle, and the active ID surface for AI + human collaborators.
 
 ---
 
-## 📊 Today's Truth Table
-
-> **Purpose**: Absolute authority for all metrics. Updated automatically from test runs and validation scripts.
+## 📊 Operating Snapshot (Auto-Sync)
 
 | Metric | Current Value | Target | Last Updated | Trend |
-|--------|--------------|--------|--------------|-------|
-| **Product Status** | {🟡 Development / 🚀 Production} | Production | YYYY-MM-DD HH:MM TZ | - |
-| **PRD Version** | v0.x | v1.0 | YYYY-MM-DD | → |
-| **Risk Score** | {0-100,000} | <10,000 | YYYY-MM-DD | ↓/→/↑ |
-| **Test Coverage (Overall)** | XX.XX% | ≥80% | YYYY-MM-DD HH:MM | ↑ |
-| **Test Coverage (Statements)** | XX.XX% | ≥80% | YYYY-MM-DD HH:MM | ↑ |
-| **Test Coverage (Branches)** | XX.XX% | ≥75% | YYYY-MM-DD HH:MM | ↑ |
-| **Test Coverage (Functions)** | XX.XX% | ≥85% | YYYY-MM-DD HH:MM | ↑ |
-| **Test Coverage (Lines)** | XX.XX% | ≥80% | YYYY-MM-DD HH:MM | ↑ |
-| **Tests Passing** | XXX / XXX | 100% | YYYY-MM-DD HH:MM | ✅ |
-| **Test Suites Active** | XX of XX | All | YYYY-MM-DD HH:MM | → |
-| **Build Status** | ✅ Passing / 🔴 Failing | Passing | YYYY-MM-DD HH:MM | ✅ |
-| **Deployment Status** | {Environment} | Production | YYYY-MM-DD HH:MM | - |
-| **Active Blockers** | {Count} | 0 | YYYY-MM-DD | - |
+|--------|---------------|--------|--------------|-------|
+| **Lifecycle Gate** | v0.x | v1.0 | YYYY-MM-DD | → |
+| **Active EPIC** | EPIC-{XX} | — | YYYY-MM-DD | → |
+| **Product Status** | 🟡 Discovery / 🚧 Build / 🚀 Live | 🚀 Live | YYYY-MM-DD | → |
+| **Risk Index** | {0-100,000} | <10,000 | YYYY-MM-DD | ↓/→/↑ |
+| **Test Coverage (Lines)** | XX.XX% | ≥80% | YYYY-MM-DD | ↑ |
+| **Build Status** | ✅ Passing / 🔴 Failing | Passing | YYYY-MM-DD | → |
+| **Open Blockers** | {Count} | 0 | YYYY-MM-DD | ↓ |
+| **Deploy Target** | {Environment} | Production | YYYY-MM-DD | → |
 
-**Data Source**: `status/metrics.json` (auto-generated, never manually edit Truth Table)
+**Data Source**: `status/metrics.json` (generated workflow). Do not edit manually.
 
-**Metrics Freshness Warning**:
-- ⚠️ If "Last Updated" >7 days: Re-run verification before relying on these numbers
-- 🔴 If "Last Updated" >14 days: Metrics considered stale, mandatory refresh required
+**Freshness Rules**
+- ⚠️ If "Last Updated" > 7 days → rerun validation before taking action.
+- 🔴 If "Last Updated" > 14 days → treat all metrics as stale.
 
 ---
 
-## 🎯 AI Agent Onboarding (MUST READ FIRST)
+## 🎯 Mandatory Onboarding Checklist
 
-**You are working on**: {Product Name} - {One-line product description}
+**Context**: {Product Name} – {One-line product description}
 
-**Tech Stack**: {Framework} + {Language} + {Database} + {Hosting}
+**Tech Stack**: {Framework / Language / Infrastructure}
 
-**Current EPIC**: [EPIC-{XX}](epics/EPIC-{XX}-{name}.md) - {Brief description}
+**Active EPIC**: [EPIC-{XX}](epics/EPIC-{XX}-{slug}.md) – {Brief description}
 
-**Loading Order** (MANDATORY):
-1. ✅ This file (README.md) → Operational dashboard
-2. → [PRD.md](PRD.md) → Business requirements
-3. → [Current EPIC](epics/EPIC-{XX}-{name}.md) → Today's execution
-4. → SoT files (as needed per phase)
+**Load Order (3+1 stack)**
+1. ✅ `README.md` — operational picture & navigation (you are here).
+2. 📘 [`PRD.md`](PRD.md) — strategic requirements by lifecycle stage.
+3. 🤖 [`CLAUDE.md`](CLAUDE.md) — behavior rules for build agents.
+4. 🧭 Active EPIC (`epics/EPIC-{XX}-{slug}.md`) — execution window.
 
-**Before You Code**:
-- [ ] Verify Risk Score <10,000 (see Truth Table above)
-- [ ] Verify Test Coverage ≥80% (see Truth Table above)
-- [ ] Verify Build Status ✅ Passing (see Truth Table above)
-- [ ] Check Active Blockers (see Truth Table above)
-- [ ] Identify which EPIC phase you're in (see Current Work below)
+**Before you code**
+- [ ] Confirm Risk Index <10,000.
+- [ ] Confirm coverage ≥ target for your scope.
+- [ ] Review blocker list and owners.
+- [ ] Skim lifecycle summary below to know current gate.
+- [ ] Note IDs flagged for change in "Active IDs".
 
 ---
 
-## 🚧 Current Work
+## 🚧 Current Work Surface
 
-### Active EPIC: EPIC-{XX} - {Feature Name}
+### EPIC-{XX}: {Feature / Outcome}
+- **Lifecycle Focus**: Advances PRD → v0.{x+1}
+- **Status**: 🚧 In Progress (Phase {Plan / Build / Verify / Hand-off})
+- **Start Date**: YYYY-MM-DD
+- **Target Ship**: YYYY-MM-DD
+- **GitHub Issues**: #{issue-1}, #{issue-2}
 
-**Status**: 🚧 In Progress (Phase {A-E})
-**Started**: YYYY-MM-DD
-**PRD Version**: v0.x
-**GitHub Issues**: #{issue1}, #{issue2}, #{issue3}
+#### Next 3 Actions
+1. {Action tied to issue}
+2. {Action tied to issue}
+3. {Action tied to issue}
 
-**Current Phase**: {A - Planning / B - Design / C - Implementation / D - Testing / E - Documentation}
-
-**Next Actions**:
-1. {Specific next task from EPIC}
-2. {Specific next task from EPIC}
-3. {Specific next task from EPIC}
-
-**Known Blockers**:
+#### Known Blockers
 - {Blocker description} (Owner: {Name}, Due: YYYY-MM-DD)
-- *None currently*
+- *None*
 
-### 📍 Active IDs in Scope
+### 🔎 Active IDs in Scope
 
-> **Quick Navigation**: Jump directly to specifications by clicking ID links
+**Modified This EPIC**
+- [UJ-101](USER-JOURNEYS.md#uj-101) – {Journey name}
+- [API-045](API_CONTRACTS.md#api-045) – {Endpoint}
 
-**Modified This EPIC**:
-- [UJ-101](USER-JOURNEYS.md#uj-101) - {Journey name} (improving)
-- [API-045](API_CONTRACTS.md#api-045) - {Endpoint name} (modified ✅)
-- [TEST-301](testing-playbook.md#test-301) - {Test name} (updated)
+**Created This EPIC**
+- [CFD-204](customer-feedback.md#cfd-204) – {Insight}
+- [TEST-303](testing-playbook.md#test-303) – {Test case}
 
-**Created This EPIC**:
-- [API-046](API_CONTRACTS.md#api-046) - {Endpoint name} (created 🆕)
-- [TEST-303](testing-playbook.md#test-303) - {Test name} (created 🆕)
+**Referenced (No Change)**
+- [BR-112](BUSINESS_RULES.md#br-112) – {Rule}
+- [DBT-018](ACTUAL-SCHEMA.md#dbt-018) – {Table}
 
-**Referenced (No Change)**:
-- [BR-112](BUSINESS_RULES.md#br-112) - {Rule name}
-- [DBT-018](ACTUAL-SCHEMA.md#dbt-018) - {Table name}
-
-**Summary**: Modified {X} IDs | Created {Y} IDs | Total scope: {Z} IDs
-
-For complete impact map and dependency chain, see [EPIC-{XX}](epics/EPIC-{XX}-{name}.md#id-tracking)
-
-### Phase-Specific SoT Files
-
-**Phase A (Planning)**: PRD.md, BUSINESS_RULES.md, USER-JOURNEYS.md
-**Phase B (Design)**: user-journeys/*.md, design-brief.md, USER-JOURNEYS.md
-**Phase C (Implementation)**: TECHNICAL-ARCHITECTURE.md, API_CONTRACTS.md, ACTUAL-SCHEMA.md
-**Phase D (Testing)**: testing-playbook.md, coverage reports
-**Phase E (Documentation)**: deployment-playbook.md, all SoT updates
+> **Summary**: {X} modified · {Y} created · {Z} referenced IDs.
+> For full traceability see [EPIC-{XX} → Section 3A](epics/EPIC-{XX}-{slug}.md#3a-id-tracking).
 
 ---
 
-## 📂 Project Navigation
+## 🌀 PRD Version Lifecycle Progress
 
-### Core Documentation (The "3" - Navigation Layer)
-- **[Claude.md](Claude.md)** - Process rules and workflow (points to SoT files)
-- **[PRD.md](PRD.md)** - Product requirements (v0.x) (provides context, references IDs)
-- **This file (README.md)** - Operational dashboard (shows active IDs, navigation hub)
+| Stage | Status | Summary | Next Trigger |
+|-------|--------|---------|--------------|
+| **v0.1 Spark** | ✅ / 🚧 | Problem, outcomes, constraints | Market clarity sign-off |
+| **v0.2 Market Definition** | ✅ / 🚧 | Segments & ICP defined | Commercial hypotheses ready |
+| **v0.3 Commercial Model** | ✅ / 🚧 | Pricing & positioning | Competitive sanity review |
+| **v0.4 User Journeys** | ✅ / 🚧 | Core journeys w/ pains | Risk review completed |
+| **v0.5 Red Team Review** | ✅ / 🚧 | Risks + mitigations | Architecture drafted |
+| **v0.6 Architecture** | ✅ / 🚧 | Stack, schema, contracts | Build plan staffed |
+| **v0.7 Build Execution** | ✅ / 🚧 | EPIC backlog + QA plan | Release checklists |
+| **v0.8 Deployment & Ops** | ✅ / 🚧 | Release criteria met | GTM activation |
+| **v0.9 Go-to-Market** | ✅ / 🚧 | Launch + analytics | Adoption milestones |
+| **v1.0 Market Adoption** | ✅ / 🚧 | Paying customers & optimization | Post-v1 roadmap |
 
-### Source of Truth (SoT) Files - ID Reference Library
-
-**User & Business Layer**:
-- **[USER-JOURNEYS.md](USER-JOURNEYS.md)** - Complete user flows (UJ-XXX)
-- **[BUSINESS_RULES.md](BUSINESS_RULES.md)** - Business constraints (BR-XXX)
-- **[customer-feedback.md](customer-feedback.md)** - User feedback items (CFD-XXX)
-
-**Technical Layer**:
-- **[API_CONTRACTS.md](API_CONTRACTS.md)** - API endpoint specifications (API-XXX)
-- **[ACTUAL-SCHEMA.md](ACTUAL-SCHEMA.md)** - Database schema (DBT-XXX)
-- **[TECHNICAL-ARCHITECTURE.md](TECHNICAL-ARCHITECTURE.md)** - System design and decisions
-
-**Quality & Operations Layer**:
-- **[testing-playbook.md](testing-playbook.md)** - Test cases and strategy (TEST-XXX)
-- **[deployment-playbook.md](deployment-playbook.md)** - Infrastructure (DEP-XXX)
-- **[{product}-DesignBrief.md]({product}-DesignBrief.md)** - Design components (DES-XXX)
-
-**ID Registry** (Auto-Generated):
-- **[.codex/ID-REGISTRY.md](.codex/ID-REGISTRY.md)** - Complete ID index (regenerate with `npm run codex:sync-registry`)
-
-### Active Work
-- **[epics/](epics/)** - All EPIC files (current + archived)
-- **[Current EPIC](epics/EPIC-{XX}-{name}.md)** - Today's work focus
-
-### Research & Design
-- **[research/](research/)** - Market research and competitive analysis
-- **[user-journeys/](user-journeys/)** - User personas and journey maps
-- **[design-brief.md](design-brief.md)** - Design specifications
-
-### Code & Tests
-- **[src/](src/)** - Source code
-- **[tests/](tests/)** - Test suites
-- **[coverage/](coverage/)** - Test coverage reports
-
-### Temporary & Archive
-- **[temp/](temp/)** - Temporary working files (extract to SoT, then archive)
-- **[archive/](archive/)** - Historical files organized by YYYY-MM/
+**Latest Change Notes**: {Short bullet summary referencing IDs}
 
 ---
 
-## 🎓 EPIC Learning Repository
+## 📚 Navigation Cheatsheet (3 + 1 + SoT + Temp)
 
-> **Purpose**: Accumulated wisdom from completed EPICs. Consult before starting similar work.
+### Navigation Layer
+- **`README.md`** — this Command Center.
+- **`PRD.md`** — lifecycle narrative (reference IDs).
+- **`CLAUDE.md`** — operating rules for agents.
 
-### EPIC-00: Foundation Setup (✅ Completed YYYY-MM-DD)
-**Key Learnings**:
-- {Learning 1}
-- {Learning 2}
-- {Learning 3}
+### +1 Active EPIC
+- `epics/EPIC-{XX}-{slug}.md` — window of work, includes Section 3A for ID deltas.
 
-**What Worked Well**:
-- {Success pattern}
+### Source of Truth Library
+- `USER-JOURNEYS.md` (UJ-XXX)
+- `BUSINESS_RULES.md` (BR-XXX)
+- `customer-feedback.md` (CFD-XXX)
+- `API_CONTRACTS.md` (API-XXX)
+- `ACTUAL-SCHEMA.md` (DBT-XXX)
+- `testing-playbook.md` (TEST-XXX)
+- `deployment-playbook.md` (DEP-XXX)
+- Additional SoT files as needed, all ID-scoped.
 
-**What to Avoid**:
-- {Anti-pattern}
-
-**Archive**: [archive/YYYY-MM/EPIC-00.md](archive/YYYY-MM/)
-
-### EPIC-01: {Feature Name} (✅ Completed YYYY-MM-DD)
-**Key Learnings**:
-- {Learning 1}
-- {Learning 2}
-
-**Archive**: [archive/YYYY-MM/EPIC-01.md](archive/YYYY-MM/)
+### Temp & Archive Protocol
+- Drop scratchpads into `temp/` with owner + expiry.
+- Harvest into SoT before completing Phase E.
+- Move finalized artifacts to `archive/YYYY-MM/` with PRD references updated.
 
 ---
 
-## 🔧 Quick Commands
+## 🧭 Repo Map (Customize for your product)
+
+```
+/                     # Product root
+├── README.md         # Command Center (this file)
+├── PRD.md            # Versioned strategy
+├── CLAUDE.md         # Agent behavior
+├── epics/            # Active + archived EPICs
+├── source-of-truth/  # Optional folder for split SoT files
+├── src/              # Application code
+├── tests/            # Automated coverage
+├── temp/             # Short-lived scratchpads (purge or harvest)
+└── archive/          # Frozen history (by YYYY-MM)
+```
+
+Adjust to reflect actual layout. Ensure README links remain accurate after edits.
+
+---
+
+## 🧪 Quick Commands (Adapt per stack)
 
 ```bash
-# Development
-npm install          # Install dependencies
-npm run dev          # Start dev server
-npm run build        # Build for production
-npm run lint         # Run linter
-npm run format       # Format code
+# Install & bootstrap
+yarn install
 
-# Testing
-npm test             # Run all tests
-npm run test:watch   # Run tests in watch mode
-npm run test:coverage # Generate coverage report
+# Run local dev
+yarn dev
 
-# Deployment
-npm run deploy:test  # Deploy to staging
-npm run deploy:prod  # Deploy to production
+# Run test suites
+yarn test
 
-# Validation
-npm run verify       # Run full validation suite
-npm run metrics      # Update metrics.json
+yarn test:coverage
+
+# Lint & format
+yarn lint
+yarn format
+
+# Update metrics & registry
+yarn workflow:verify   # refresh metrics.json & ID registry
 ```
 
 ---
 
-## ⚠️ Critical Alerts
-
-> **Purpose**: Time-sensitive issues requiring immediate attention
-
-- {Current critical alert if any}
+## 🚨 Critical Alerts
+- {Alert + owner + due date}
 - *None currently*
 
 ---
 
-## 📊 Risk Score Breakdown
+## 🧮 Risk Breakdown (If using Risk Index)
 
-**Current Risk Score**: {0-100,000} (Last Calculated: YYYY-MM-DD)
+| Category | Points | Notes |
+|----------|--------|-------|
+| Coverage Gaps | {points} | {context} |
+| Documentation | {points} | {context} |
+| Tech Debt | {points} | {context} |
+| Security | {points} | {context} |
+| Operations | {points} | {context} |
 
-| Risk Category | Points | Notes |
-|--------------|--------|-------|
-| Test Coverage Gap | {points} | {calculation details} |
-| Missing Documentation | {points} | {what's missing} |
-| Tech Debt | {points} | {debt items} |
-| Security Concerns | {points} | {concerns} |
-| Performance Issues | {points} | {issues} |
-
-**Mitigation Plan**: See [Current EPIC](epics/EPIC-{XX}-{name}.md) Phase D
+Mitigation plan documented in [EPIC-{XX}](epics/EPIC-{XX}-{slug}.md).
 
 ---
 
-## 🔗 External Resources
+## 🗓 Version History Summary
 
-- **Production URL**: {https://...}
-- **Staging URL**: {https://...}
-- **Design System**: {https://...}
-- **API Docs**: {https://...}
-- **Monitoring Dashboard**: {https://...}
-- **CI/CD Pipeline**: {https://...}
-
----
-
-## 📜 Version History
-
-| PRD Version | Date Achieved | Key Milestone | EPIC Completed |
-|-------------|--------------|---------------|----------------|
-| v0.1 | YYYY-MM-DD | Research Spark | - |
-| v0.2 | YYYY-MM-DD | Market Research | - |
-| v0.3 | YYYY-MM-DD | Competitive Analysis | - |
-| v0.4 | YYYY-MM-DD | User Journeys | - |
-| v0.5 | YYYY-MM-DD | Gate 1 (Market Validation) | - |
-| v0.6 | YYYY-MM-DD | Gate 2 (Technical Feasibility) | EPIC-00 |
-| v0.7 | - | Feature Development | EPIC-01+ |
+| PRD Version | Date | Milestone | Notes |
+|-------------|------|-----------|-------|
+| v0.1 Spark | YYYY-MM-DD | Problem + outcomes agreed | Spark snapshot linked |
+| v0.2 Market Definition | YYYY-MM-DD | Segments locked | ID refs: CFD-### |
+| v0.3 Commercial Model | YYYY-MM-DD | Pricing hypotheses | ID refs: BR-### |
+| v0.4 User Journeys | YYYY-MM-DD | Journeys authored | ID refs: UJ-### |
+| v0.5 Red Team Review | YYYY-MM-DD | Risks cataloged | ID refs: BR-/TEST-### |
+| v0.6 Architecture | YYYY-MM-DD | Architecture baseline | ID refs: API-/DBT-### |
+| v0.7 Build Execution | YYYY-MM-DD | Backlog + QA strategy | EPIC hand-off |
+| v0.8 Deployment & Ops | YYYY-MM-DD | Release readiness | DEP-### |
+| v0.9 Go-to-Market | YYYY-MM-DD | Launch plan active | GTM docs |
+| v1.0 Market Adoption | YYYY-MM-DD | Paying customers | Growth roadmap |
 
 ---
 
-*Last README Update*: YYYY-MM-DD HH:MM TZ
-*README Maintained By*: {Team/Person}
-*README Target Size*: 250-300 lines (current: {count})
+*Last updated*: YYYY-MM-DD HH:MM TZ  
+*Maintainer*: {Name / Team}
+

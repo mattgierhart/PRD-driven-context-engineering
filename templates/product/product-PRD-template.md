@@ -1,389 +1,263 @@
 ---
-version: 1.1
-purpose: To serve as the single source of truth for a product's requirements, defining the what, why, and for whom of a product.
-summary: Added a standardized metadata header.
-last_updated: 2025-07-02
+version: 2.0
+purpose: Progressive Product Requirements Document aligned to the Gear Heart Methodology lifecycle.
+last_updated: 2025-01-05
 ---
 
-# [Product Name] Product Requirements Document
+# [Product Name] · Product Requirements Document (PRD)
 
-**Authority**: See [WORKFLOW-MASTER.md](../workflows/WORKFLOW-MASTER.md) for complete workflow processes  
-**Template Usage**: See [README.md](./README.md) for template usage guide  
-**Standards**: See [STANDARDS.md](../../STANDARDS.md) for documentation hierarchy
+**Authority & Workflow**
+- `README.md` — operational Command Center (always read first).
+- `PRD.md` — this file. Owns the strategic narrative from v0.1 → v1.0.
+- `CLAUDE.md` — agent behavior. Confirms how to implement what this PRD asks for.
+- `epics/EPIC-{XX}.md` — execution window. Updates IDs created/modified when advancing v0.7+.
+- See [`../workflows/PRD-VERSION-LIFECYCLE.md`](../workflows/PRD-VERSION-LIFECYCLE.md) for gate criteria and rituals.
 
-## PRD Meta Information
+**Template Usage**
+1. Copy this file to your product repository as `PRD.md`.
+2. Replace placeholders (`{}`) with product-specific data.
+3. Maintain strict version headers (v0.1 → v1.0). Never delete prior versions; append revisions.
+4. Use SoT IDs (BR-XXX, CFD-XXX, etc.) whenever referencing research, rules, or technical decisions.
+5. Log lifecycle transitions in the change log table below. Reference EPIC IDs for execution notes.
+
+---
+
+## PRD Metadata
 | Field | Value |
 |-------|-------|
-| **Current Version** | v1.0 |
-| **Last Updated** | [Date and Time] |
-| **Last Editor** | [Agent Name] |
-| **Status** | [Research Phase/Design Phase/Development Phase/Complete] |
-| **Next Milestone** | [Next version trigger] |
-| **Total Edits** | [Number] |
+| **Current Lifecycle Gate** | v0.x |
+| **Last Updated** | YYYY-MM-DD |
+| **Last Editor** | {Name / Agent} |
+| **Status** | Discovery / Build / Live |
+| **Next Target Gate** | v0.{x+1} |
+| **Related EPIC** | EPIC-{XX} |
+| **SoT Snapshot** | {List key IDs touched this update} |
 
-## Version Change Log
-| Version | Date | Editor | Changes Made |
-|---------|------|--------|--------------|
-| v0.1 | [Date] | User + AURA | Initial market spark and problem definition |
-| v0.2 | [Date] | AURA | Market research integration |
-| v1.0 | [Date] | [Agent] | Final approved PRD ready for development |
+## Lifecycle Change Log
+| Version | Date | Editor | Summary | Linked IDs / EPIC |
+|---------|------|--------|---------|-------------------|
+| v0.1 Spark | YYYY-MM-DD | {Owner} | Problem + outcomes framed | CFD-### |
+| v0.2 Market Definition | YYYY-MM-DD | {Owner} | ICP + segmentation | BR-### |
+| v0.3 Commercial Model | YYYY-MM-DD | {Owner} | Pricing & positioning hypotheses | BR-###, CFD-### |
+| v0.4 User Journeys | YYYY-MM-DD | {Owner} | Journeys mapped to pains | UJ-### |
+| v0.5 Red Team Review | YYYY-MM-DD | {Owner} | Risks + mitigations | BR-###, TEST-### |
+| v0.6 Architecture | YYYY-MM-DD | {Owner} | Stack, schema, contracts baseline | API-###, DBT-### |
+| v0.7 Build Execution | YYYY-MM-DD | {Owner} | EPIC backlog & QA strategy | EPIC-{XX}, TEST-### |
+| v0.8 Deployment & Ops | YYYY-MM-DD | {Owner} | Release criteria + ops playbook | DEP-### |
+| v0.9 Go-to-Market | YYYY-MM-DD | {Owner} | GTM, analytics, feedback loop | GTM-### / CFD-### |
+| v1.0 Market Adoption | YYYY-MM-DD | {Owner} | Paying customers + optimization plan | BR-###, KPI-### |
+
+> **Revision Pattern**: When looping back, add a new row (e.g., `v0.3r1`) and reference the EPIC that triggered the revision.
 
 ---
 
-## Executive Summary
-**Product Name**: [Name]
-**Product Type**: [SaaS/Mobile App/Platform/Tool]
-**Target Launch**: [Date]
-**Owner**: [Product Manager Name]
-
-### Vision Statement
-[One sentence describing the long-term vision for this product]
-
-### Mission Statement
-[2-3 sentences describing what the product does and why it exists]
-
-## Problem Statement
-
-### Current State
-[Describe the current situation users face without this product]
-
-### Pain Points
-1. **[Pain Point 1]**: [Description and impact]
-2. **[Pain Point 2]**: [Description and impact]
-3. **[Pain Point 3]**: [Description and impact]
-
-### Opportunity
-[Describe the market opportunity and potential impact]
-
-## Target Market
-
-### Primary Users
-**Persona 1: [Name]**
-- **Demographics**: Age, location, income
-- **Job Title**: [Title]
-- **Goals**: What they want to achieve
-- **Frustrations**: Current pain points
-- **Tech Savviness**: Low/Medium/High
-- **Usage Context**: When/where/how they'll use product
-
-**Persona 2: [Name]**
-- **Demographics**: Age, location, income
-- **Job Title**: [Title]
-- **Goals**: What they want to achieve
-- **Frustrations**: Current pain points
-- **Tech Savviness**: Low/Medium/High
-- **Usage Context**: When/where/how they'll use product
-
-### Market Size
-- **Total Addressable Market (TAM)**: $[Amount]
-- **Serviceable Addressable Market (SAM)**: $[Amount]
-- **Serviceable Obtainable Market (SOM)**: $[Amount]
-- **Initial Target**: [Number] users in [Timeframe]
-
-## Product Strategy
-
-### Positioning
-[How this product is positioned against competitors]
-
-### Unique Value Proposition
-[What makes this product unique and valuable]
-
-### Key Differentiators
-1. [Differentiator 1]
-2. [Differentiator 2]
-3. [Differentiator 3]
-
-### Testing Strategy Checkpoint (v0.2+)
-<!-- Added during market validation phase -->
-**Testable Success Criteria**:
-- [ ] Key user journeys identified
-- [ ] Performance benchmarks defined
-- [ ] Critical paths documented
-- [ ] Success metrics quantified
-
-### Pricing Strategy
-- **Model**: [Subscription/One-time/Freemium/Usage-based]
-- **Tiers**:
-  - **Free/Trial**: $0 - [Features]
-  - **Basic**: $[X]/month - [Features]
-  - **Pro**: $[Y]/month - [Features]
-  - **Enterprise**: Custom - [Features]
-
-## Goals & Success Metrics
-
-### Business Goals
-1. **Revenue**: $[Amount] MRR within [Timeframe]
-2. **Users**: [Number] active users within [Timeframe]
-3. **Market Share**: [X]% of target market
-
-### Key Performance Indicators (KPIs)
-- **Acquisition**: [Metric] new users/month
-- **Activation**: [X]% complete onboarding
-- **Retention**: [X]% monthly retention rate
-- **Revenue**: $[X] average revenue per user
-- **Referral**: [X]% users refer others
-
-### Success Criteria
-- [ ] Launch with [X] beta users
-- [ ] Achieve [X]% user satisfaction score
-- [ ] Generate $[X] in first [timeframe]
-- [ ] Reduce [metric] by [X]%
-
-## Feature Requirements
-
-### MVP Features (Phase 1)
-**Feature 1: [Name]**
-- **Description**: [What it does]
-- **User Story**: As a [user], I want to [action] so that [benefit]
-- **Acceptance Criteria**:
-  - [ ] [Criteria 1]
-  - [ ] [Criteria 2]
-- **Priority**: P0 (Must Have)
-- **Effort**: [S/M/L]
-
-**Feature 2: [Name]**
-- **Description**: [What it does]
-- **User Story**: As a [user], I want to [action] so that [benefit]
-- **Acceptance Criteria**:
-  - [ ] [Criteria 1]
-  - [ ] [Criteria 2]
-- **Priority**: P0 (Must Have)
-- **Effort**: [S/M/L]
-
-### Phase 2 Features
-[List of features for next release]
-
-### Phase 3 Features
-[List of features for future consideration]
-
-### Feature Prioritization Matrix
-```
-High Impact │ Quick Wins  │ Major Projects
-           │ (Do First)  │ (Plan Carefully)
-           │             │
------------│-------------│----------------
-           │ Fill Ins    │ Time Sinks
-Low Impact │ (Do Later)  │ (Don't Do)
-           │             │
-           Low Effort    High Effort
-```
-
-## User Experience
-
-### User Journey Map
-```
-Awareness -> Consideration -> Trial -> Purchase -> Onboarding -> Usage -> Advocacy
-    |            |              |         |            |          |         |
-  Marketing    Website      Free Trial  Payment    Tutorial   Features  Referral
-  Content      Demo         14 days     Setup      Wizard     Usage     Program
-```
-
-### Information Architecture
-```
-Home
-├── Features
-├── Pricing
-├── About
-└── Sign Up / Login
-    ├── Dashboard
-    ├── [Core Feature 1]
-    ├── [Core Feature 2]
-    ├── Settings
-    └── Help/Support
-```
-
-### Design Principles
-1. **Simple**: Minimize cognitive load
-2. **Fast**: Optimize for speed
-3. **Intuitive**: No manual needed
-4. **Accessible**: WCAG 2.1 AA compliant
-5. **Delightful**: Small moments of joy
-
-## Technical Requirements
-
-### Platform Requirements
-- **Web**: Chrome, Safari, Firefox, Edge (last 2 versions)
-- **Mobile**: Responsive web (native app in Phase 2)
-- **Minimum Resolution**: 320px width
-
-### Performance Requirements
-- **Page Load**: < 2 seconds
-- **API Response**: < 500ms (p95)
-- **Uptime**: 99.9%
-- **Concurrent Users**: 10,000+
-
-### Security Requirements
-- **Authentication**: Multi-factor authentication
-- **Encryption**: AES-256 for data at rest
-- **Compliance**: SOC2, GDPR ready
-- **Backup**: Daily automated backups
-
-### Integration Requirements
-- **Payment**: Stripe
-- **Analytics**: Mixpanel/Amplitude
-- **Support**: Intercom/Zendesk
-- **Email**: SendGrid/Postmark
-- **Storage**: AWS S3/Cloudinary
-
-### Testing Infrastructure Checkpoint (v0.6+)
-<!-- Added during technical feasibility phase -->
-**Test Planning Requirements**:
-- [ ] Testing frameworks identified
-- [ ] Test data strategy defined
-- [ ] Coverage targets set (minimum 80%)
-- [ ] CI/CD pipeline requirements documented
-- [ ] Test environment specifications defined
-
-**Test Case Planning (v0.8+)**:
-<!-- Added during design phase -->
-- [ ] User journey test scenarios created
-- [ ] Edge case scenarios documented
-- [ ] Integration test points identified
-- [ ] Performance test benchmarks set
-- [ ] Security test requirements defined
-
-## Competitive Analysis
-
-### Direct Competitors
-**[Competitor 1]**
-- **Strengths**: [List strengths]
-- **Weaknesses**: [List weaknesses]
-- **Pricing**: [Pricing model]
-- **Market Share**: [X]%
-
-**[Competitor 2]**
-- **Strengths**: [List strengths]
-- **Weaknesses**: [List weaknesses]
-- **Pricing**: [Pricing model]
-- **Market Share**: [X]%
-
-### Competitive Advantages
-1. [Advantage 1]: How we're better
-2. [Advantage 2]: How we're better
-3. [Advantage 3]: How we're better
-
-## Go-to-Market Strategy
-
-### Launch Plan
-**Phase 1: Private Beta** ([Date])
-- 50-100 hand-picked users
-- Weekly feedback sessions
-- Iterate based on feedback
-
-**Phase 2: Public Beta** ([Date])
-- 500-1000 users
-- Self-service onboarding
-- Community feedback forum
-
-**Phase 3: General Availability** ([Date])
-- Full marketing launch
-- Paid plans available
-- Support team ready
-
-### Marketing Channels
-1. **Content Marketing**: Blog, SEO, YouTube
-2. **Social Media**: Twitter, LinkedIn, Reddit
-3. **Paid Acquisition**: Google Ads, Facebook Ads
-4. **Partnerships**: Integration partners
-5. **Community**: Discord/Slack community
-
-### Sales Strategy
-- **Self-Service**: Up to Pro tier
-- **Sales-Assisted**: Enterprise tier
-- **Customer Success**: Dedicated for $X+ accounts
-
-## Risk Analysis
-
-### Technical Risks
-| Risk | Probability | Impact | Mitigation |
-|------|------------|--------|------------|
-| Scaling issues | Medium | High | Load testing, auto-scaling |
-| Security breach | Low | High | Security audit, pen testing |
-| Third-party API failure | Medium | Medium | Fallback systems, SLAs |
-
-### Business Risks
-| Risk | Probability | Impact | Mitigation |
-|------|------------|--------|------------|
-| Low adoption | Medium | High | Extended beta, user research |
-| Competitor response | High | Medium | Fast iteration, unique features |
-| Pricing resistance | Medium | Medium | A/B testing, flexible plans |
-
-## Timeline & Milestones
-
-### Development Timeline
-```
-Month 1-2: Foundation & MVP Development
-Month 3: Private Beta Launch
-Month 4: Iterate based on feedback
-Month 5: Public Beta Launch
-Month 6: GA Launch
-```
-
-### Key Milestones
-- [ ] **[Date]**: Design approval
-- [ ] **[Date]**: MVP feature complete
-- [ ] **[Date]**: Private beta launch
-- [ ] **[Date]**: 100 active users
-- [ ] **[Date]**: Public beta launch
-- [ ] **[Date]**: First paying customer
-- [ ] **[Date]**: General availability
-
-## Resource Requirements
-
-### Team Structure
-- **Product Manager**: 1 FTE
-- **Engineering**: 2-3 FTE
-- **Design**: 0.5 FTE
-- **Marketing**: 1 FTE (Month 3+)
-- **Support**: 0.5 FTE (Month 5+)
-
-### Budget Estimate
-- **Development**: $[Amount]
-- **Infrastructure**: $[Amount]/month
-- **Marketing**: $[Amount]/month
-- **Tools/Services**: $[Amount]/month
-- **Total Year 1**: $[Amount]
-
-## Success Metrics Dashboard
-
-### North Star Metric
-[Single most important metric - e.g., Weekly Active Users]
-
-### Key Metrics to Track
-1. **Acquisition Funnel**
-   - Visitors → Signups → Activated Users
-
-2. **Engagement Metrics**
-   - Daily/Weekly/Monthly Active Users
-   - Feature adoption rates
-   - Time in app
-
-3. **Revenue Metrics**
-   - MRR growth
-   - Churn rate
-   - LTV:CAC ratio
-
-4. **User Satisfaction**
-   - NPS score
-   - Support ticket volume
-   - Feature request patterns
-
-## Appendix
-
-### Research Data
-- [Link to user research findings]
-- [Link to market research]
-- [Link to competitive analysis]
-
-### Design Assets
-- [Link to wireframes]
-- [Link to mockups]
-- [Link to prototype]
-
-### Technical Documentation
-- [Link to API documentation]
-- [Link to architecture diagram]
-- [Link to security assessment]
+## v0.1 Spark — Problem & Outcomes
+
+**Spark Summary**  
+{One paragraph describing the spark, audience, and outcomes.}
+
+**Problem Statement**
+- **Who is hurting?** {Segment / persona}
+- **What pain exists today?** {Short description}
+- **Why now?** {Trigger or catalyst}
+
+**Desired Outcomes**
+- {Outcome 1 — measurable}
+- {Outcome 2 — measurable}
+
+**Initial Success Signals**
+- Metric: {Signal / Source} (Target: {value})
+- Insight IDs: {CFD-###, note or link}
+
+**Constraints & Non-goals**
+- {Constraint 1}
+- {Non-goal 1}
+
+**Open Questions** (must be answered before v0.2)
+- {Question}
+- {Question}
 
 ---
-*PRD Version: 1.0 | Status: Draft*
+
+## v0.2 Market Definition — ICP & Segments
+
+**Market Thesis**  
+{Short narrative referencing Spark outcomes.}
+
+**Primary Segments (max 3)**
+| Segment | Description | Size / TAM | Urgency | Source (ID) |
+|---------|-------------|------------|---------|-------------|
+| Segment A | {Persona / firmographics} | {Value} | {High/Med/Low} | CFD-### |
+
+**Not For**
+- {Who we explicitly exclude and why}
+
+**Enabling Business Rules (BR-XXX)**
+- BR-### — {Rule description}
+- BR-### — {Rule description}
+
+**Research & Evidence**
+- CFD-### — {Interview / survey insight}
+- CFD-### — {Desk research}
+
+**Outstanding Work → v0.3**
+- {Hypothesis or question}
+
+---
+
+## v0.3 Commercial Model — Pricing & Positioning
+
+**Anchor Competitors**
+| Competitor | Positioning | Pricing Signals | Reference |
+|------------|-------------|-----------------|-----------|
+| {Name} | {Value prop} | ${price}/unit | CFD-### |
+
+**Monetization Strategy**
+- Model: {Usage / Seat / Tiered}
+- Primary KPI: {MRR / ACV / etc}
+- Pricing Guardrails: {Range or constraints}
+
+**Moat Thesis**
+- {What makes us 1–10% better/cheaper}
+- Supporting IDs: BR-###, CFD-###
+
+**Experiments & Fast-Follow Plans**
+- {Experiment summary} → ID: BR-### / TEST-###
+
+**Outstanding Work → v0.4**
+- {Hypothesis requiring user validation}
+
+---
+
+## v0.4 User Journeys — From Pain to Value
+
+**Journey Overview**
+| ID | Persona | Trigger | Key Steps | Pain Points | Moments of Value |
+|----|---------|---------|-----------|-------------|------------------|
+| UJ-### | {Persona} | {Trigger} | {Steps summary} | {Pain} | {Value}
+
+**Journey Narratives**
+- **UJ-### – {Title}**
+  - Step Flow: {1 → 2 → 3}
+  - Dependencies: BR-###, API-###
+  - Opportunity Notes: {Design or build implications}
+
+**UX / Research Assets**
+- Link: `user-journeys/UJ-###.md`
+- Additional references: {Figma / research IDs}
+
+**Outstanding Work → v0.5**
+- {Risk or open question to stress-test}
+
+---
+
+## v0.5 Red Team Review — Risks & Mitigations
+
+**Risk Register**
+| Category | Risk | Impact | Likelihood | Early Signal | Mitigation | Linked IDs |
+|----------|------|--------|------------|--------------|------------|------------|
+| Market | {Risk description} | {H/M/L} | {H/M/L} | {Signal} | {Mitigation action} | BR-### |
+
+**Development Challenges (Flag for EPIC Planning)**
+- {Challenge} → Impacted IDs: API-###, TEST-###
+
+**Security / Compliance Notes**
+- {Requirement} → BR-### / DEP-###
+
+**Outstanding Work → v0.6**
+- {Architecture question to resolve}
+
+---
+
+## v0.6 Architecture — Technical Blueprint
+
+**System Overview**
+- Architecture summary referencing TECHNICAL-ARCHITECTURE.md (ID: ARC-### if used).
+
+**API Contracts (API-XXX)**
+- API-### — {Endpoint purpose} (Method, Auth, Success / Error states)
+
+**Data Model (DBT-XXX)**
+- DBT-### — {Table / model} (Primary keys, relationships)
+
+**Integration Notes**
+- External dependencies, rate limits, compliance.
+
+**Outstanding Work → v0.7**
+- {Implementation open question}
+
+---
+
+## v0.7 Build Execution — Plan for Delivery
+
+**EPIC Backlog Overview**
+| EPIC | Objective | Lifecycle Impact | Status | Notes |
+|------|-----------|------------------|--------|-------|
+| EPIC-{XX} | {Outcome} | Advances to v0.{x+1} | 🚧 | {Summary}
+
+**Testing Strategy Snapshot (TEST-XXX)**
+- TEST-### — {Scope}
+- TEST-### — {Scope}
+
+**Definition of Done**
+- [ ] All IDs created/modified logged in EPIC Section 3A.
+- [ ] README metrics updated via workflow.
+- [ ] Coverage thresholds defined.
+
+**Outstanding Work → v0.8**
+- {Deployment or operational prep item}
+
+---
+
+## v0.8 Deployment & Ops — Release Readiness
+
+**Release Checklist**
+- [ ] Deployment environments configured (DEP-###).
+- [ ] Monitoring & alerting baselined.
+- [ ] Runbooks documented.
+
+**Operational Policies**
+- {Policy} → DEP-###
+
+**Outstanding Work → v0.9**
+- {GTM requirement}
+
+---
+
+## v0.9 Go-to-Market — Launch & Feedback
+
+**Launch Plan Summary**
+- Channels: {Email / Sales / Community}
+- Messaging Pillars: {1-3 bullets}
+- Launch Owner: {Name / Team}
+
+**Analytics & Feedback Loop**
+- Key Metrics: {Metric + target}
+- Feedback Sources: {CFD-###, analytics dashboards}
+
+**Outstanding Work → v1.0**
+- {Adoption / revenue milestone}
+
+---
+
+## v1.0 Market Adoption — Optimize & Expand
+
+**Adoption Status**
+- Paying Customers: {# / MRR}
+- Usage Health: {Metric + target}
+
+**Optimization Backlog**
+- {Idea / hypothesis} → EPIC-{YY}
+
+**Future Bets & Loopbacks**
+- {Potential revisits to earlier lifecycle stages}
+
+---
+
+## Appendices & References
+- **Glossary**: {Terms and definitions}
+- **ID Index**: Link to `.codex/ID-REGISTRY.md` or manual list if registry not automated.
+- **Supporting Docs**: {Links to research, design, architecture}
+
+> Maintain appendices as lightweight navigation helpers. All authoritative data must live in SoT files referenced above.
+

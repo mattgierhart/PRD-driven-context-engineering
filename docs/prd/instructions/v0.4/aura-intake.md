@@ -20,7 +20,8 @@
 2. **Pain ↔ Value Mapping:** Does every major pain tie to a monetization/value promise and specify which ID enforces or measures it?
 3. **Dependency Readiness:** Are all integrations/compliance steps captured as actionable IDs with owners, ensuring architecture/risk teams have zero blind spots?
 4. **Evidence Integrity:** Are quotes/statistics properly cited with `CFD-*` IDs, and do they resolve the open questions from v0.3?
-5. **Lifecycle Continuity:** Have you flagged for the Red Team which personas/journeys still contain unproven assumptions or require mitigation experiments?
+5. **Real-User Activation:** Have you confirmed live user reviewers, device coverage, and a feedback cadence so the build team doesn’t defer validation (see [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build))?
+6. **Lifecycle Continuity:** Have you flagged for the Red Team which personas/journeys still contain unproven assumptions or require mitigation experiments?
 
 ## Intake Checklist
 Verify the bundle contains:
@@ -36,9 +37,10 @@ Verify the bundle contains:
 3. **Persona Section:** Write persona summaries (role, KPIs, constraints). Reference CFD- and UJ- IDs to prove evidence lineage.
 4. **Journey Narrative:** For each selected journey, craft a paragraph describing trigger → steps → pain → desired value. Include inline citations referencing Journey Card artifacts.
 5. **Pain & Value Mapping:** Build a table linking pains to value propositions and monetization hooks from v0.3. Highlight where future build/tests focus.
-6. **Dependency Register:** Translate research dependency notes into tangible ID hooks: new BR- policies, API-/DBT- contracts, TEST- validations. Document owners and next actions.
-7. **Evidence Index:** Summarize which CFD- IDs back each persona/journey so reviewers can trace interviews quickly.
-8. **Lifecycle Hook:** Outline what the Red Team (v0.5) should challenge (biggest risks, assumptions). Note open interviews if coverage gaps exist.
+6. **Real-User Loop Plan:** Document who will review prototypes (names/roles/device) and establish a feedback cadence (e.g., weekly check-in) to avoid late usability surprises per [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build).
+7. **Dependency Register:** Translate research dependency notes into tangible ID hooks: new BR- policies, API-/DBT- contracts, TEST- validations. Document owners and next actions.
+8. **Evidence Index:** Summarize which CFD- IDs back each persona/journey so reviewers can trace interviews quickly.
+9. **Lifecycle Hook:** Outline what the Red Team (v0.5) should challenge (biggest risks, assumptions). Note open interviews if coverage gaps exist.
 
 ## Output Template Snippet
 ```
@@ -73,6 +75,7 @@ What the Red Team must pressure-test.
 | **ID Registration** | Every UJ-/CFD-/BR-/API- hook logged in SoT tracker. |
 | **Dependency Visibility** | Downstream requirements summarized with owners. |
 | **Lifecycle Prep** | Risks + assumptions articulated for v0.5 review. |
+| **Feedback Loop Ready** | Named users + device coverage logged with cadence per [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build). |
 
 ## Collaboration & Packaging
 - Draft updates as `[journey-bundle]__prd-v0.4.md` before editing the canonical PRD.
@@ -84,4 +87,5 @@ What the Red Team must pressure-test.
 - [ ] Pain ↔ Value ↔ Monetization table inserted
 - [ ] Dependencies + ID hooks documented and logged
 - [ ] Evidence index referencing CFD- IDs complete
+- [ ] Real-user feedback roster + cadence published
 - [ ] Lifecycle memo for v0.5 shared with product + risk leads

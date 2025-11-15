@@ -68,8 +68,15 @@ updated: "2025-11-15"
 
 ### Implementation Notes
 
-- Update CLAUDE.md execution rules to stress SoT-grounded prompts and early mobile testing.  
-- Add distribution reminders to planning workflows when next revised.  
+- Update CLAUDE.md execution rules to stress SoT-grounded prompts and early mobile testing.
+- Add distribution reminders to planning workflows when next revised.
 - Monitor future field reports to see if additional SoT entries (e.g., BR, UJ) should codify these behaviors.
+
+### Linked Instruction Updates
+
+- `docs/prd/instructions/README.md` — directs editors to consult this entry before adjusting stage playbooks so field learnings propagate quickly.
+- `docs/prd/instructions/v0.4/` — embeds real-user loops and mobile-first validation requirements into both research and intake flows.
+- `docs/prd/instructions/v0.5/aura-intake.md` — adds a distribution readiness gate so launch motions are tracked with the same rigor as build tasks.
+- `docs/prd/instructions/v0.6/aura-intake.md` — codifies SoT-grounded prompt prep and device validation expectations before architecture sign-off.
 
 ---

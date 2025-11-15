@@ -19,8 +19,9 @@
 1. **Decision Justification:** Can stakeholders understand why the chosen architecture wins by reading the PRD + SoT IDs alone?
 2. **Guardrail Enforcement:** Are cost/performance/security guardrails each tied to a `BR-` or `TECH-` ID with owner + monitoring cadence?
 3. **Integration Accountability:** Does every integration have an `API-/DBT-` ID, data classification, and owner so EPICs can begin without rework?
-4. **Risk Closure:** Have you explicitly stated which v0.5 risks are closed, deferred, or escalated, referencing their IDs?
-5. **Lifecycle Continuity:** Does the Gate 2 note inform v0.7 build planning about which IDs they must extend (e.g., tests, dep IDs) to protect the architecture decision?
+4. **Prompt & Acceptance Readiness:** Are acceptance criteria and AI prompt scaffolds tied to SoT IDs so build agents avoid vague instructions (see [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build))?
+5. **Risk Closure:** Have you explicitly stated which v0.5 risks are closed, deferred, or escalated, referencing their IDs?
+6. **Lifecycle Continuity:** Does the Gate 2 note inform v0.7 build planning about which IDs they must extend (e.g., tests, dep IDs) to protect the architecture decision?
 
 ## Intake Checklist
 Confirm submissions include:
@@ -38,9 +39,10 @@ Confirm submissions include:
 5. **Architecture Overview:** Embed/attach diagrams. Provide narrative of data flow, components, and key interfaces. Reference API-/DBT- IDs for each contract.
 6. **Cost Guardrails:** Insert the cost model (per user + monthly). Highlight assumptions and tolerance bands. Map to BR-/TECH- IDs enforcing the guardrail.
 7. **Integration Requirements:** List all external/internal systems, data classifications, and owners. Flag dependencies needing EPIC or SoT updates.
-8. **Gate 2 Decision:** Record PASS/PIVOT/KILL along with required follow-ups (e.g., tests to run before build). Update README "Latest Change Notes" with the decision summary.
-9. **SoT + Backlog Updates:** Create/update ARC-/API-/DBT-/BR-/TECH- IDs, assign owners, and link to temp artifacts. Close out architecture research temp files per methodology.
-10. **Communication:** Share final selection, diagrams, guardrails, and outstanding risks with engineering + product stakeholders.
+8. **Prompt & Device Prep:** Draft acceptance criteria, AI prompt skeletons, and device validation plans that cite the relevant SoT IDs so v0.7 execution starts with unambiguous specs (per [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)).
+9. **Gate 2 Decision:** Record PASS/PIVOT/KILL along with required follow-ups (e.g., tests to run before build). Update README "Latest Change Notes" with the decision summary.
+10. **SoT + Backlog Updates:** Create/update ARC-/API-/DBT-/BR-/TECH- IDs, assign owners, and link to temp artifacts. Close out architecture research temp files per methodology.
+11. **Communication:** Share final selection, diagrams, guardrails, outstanding risks, and the prompt/device readiness checklist with engineering + product stakeholders.
 
 ## Output Template Snippet
 ```
@@ -70,6 +72,7 @@ Conditions + follow-ups referencing Risk IDs
 | **Cost Discipline** | Guardrails tied to BR-/TECH- IDs with monitoring plan. |
 | **Integration Visibility** | All critical systems listed with owners + API-/DBT- references. |
 | **Decision Clarity** | Gate 2 outcome recorded with next steps and risk tie-ins. |
+| **Prompt & Device Prep** | Acceptance criteria + device validation plan documented with SoT citations (see [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)). |
 
 ## Collaboration & Packaging
 - Draft updates in `[architecture-option]__prd-v0.6.md` before merging to PRD.
@@ -81,4 +84,5 @@ Conditions + follow-ups referencing Risk IDs
 - [ ] PRD technical sections refreshed with diagrams + citations
 - [ ] Cost guardrails + enforcement IDs logged
 - [ ] Integration inventory + SoT IDs updated
+- [ ] Prompt scaffolds + device validation plan linked to SoT IDs
 - [ ] Gate 2 decision recorded + broadcast

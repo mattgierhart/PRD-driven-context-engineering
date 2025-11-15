@@ -23,15 +23,17 @@
 3. **Integration/Policy Needs:** Have you explicitly captured every compliance or integration step as a proposed `BR-`, `API-`, or `DBT-` item so architecture work isn’t surprised later?
 4. **Journey Completeness:** Does each Journey Card explain the trigger, steps, and desired value sufficiently for build leads to scope EPICs?
 5. **Lifecycle Continuity:** Do the lifecycle notes specify which risks the Red Team must pressure-test and which assumptions may force loopbacks if invalidated?
+6. **Real-User & Device Coverage:** Have you confirmed actual users (or stand-ins) plus their primary devices for upcoming validation so the team can schedule real hardware testing early, per [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)?
 
 ## Research Workflow
 1. **Brief Review:** Load PRD v0.3 (Commercial Model + Guardrails) and highlight assumptions that require user validation. Confirm persona list + hypotheses.
-2. **Interview Planning:** Build an interview tracker listing persona, channel, scheduled date, and hypothesis focus. Ensure coverage across roles (buyer, operator, analyst) as defined in v0.2/v0.3.
-3. **Data Collection:** Conduct interviews or gather secondary evidence (forum posts, public talks) within the last 90 days. Record transcripts/screenshots. Capture workflow steps, emotional cues, blockers, and success definitions.
-4. **Journey Mapping:** Translate insights into discrete steps (Trigger → Actions → Tools → Pains → Desired Value). Note integration requirements, metrics, and cross-team dependencies.
-5. **Evidence Logging:** Store raw notes in `user-interview-{date}-{persona}.md`. Map quotes to candidate CFD- IDs (`CFD-UJ-###`) and assign a tentative UJ- ID for each Journey Card.
-6. **Dependency Flagging:** Identify requirements for BR- (policies), API-/DBT- (data contracts), or TEST- IDs emerging from each journey.
-7. **Handoff Assembly:** Produce Journey Cards + Persona Summaries + Evidence Ledger. Include a cross-journey matrix showing coverage vs. PRD sections.
+2. **Interview Planning:** Build an interview tracker listing persona, channel, scheduled date, primary device, and hypothesis focus. Ensure coverage across roles (buyer, operator, analyst) as defined in v0.2/v0.3.
+3. **Device & Context Validation:** Confirm at least two participants will review flows on their actual hardware (e.g., mobile vs. desktop) so responsive and interaction insights reach AURA. Log findings inline with references to [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build).
+4. **Data Collection:** Conduct interviews or gather secondary evidence (forum posts, public talks) within the last 90 days. Record transcripts/screenshots. Capture workflow steps, emotional cues, blockers, and success definitions.
+5. **Journey Mapping:** Translate insights into discrete steps (Trigger → Actions → Tools → Pains → Desired Value). Note integration requirements, metrics, and cross-team dependencies.
+6. **Evidence Logging:** Store raw notes in `user-interview-{date}-{persona}.md`. Map quotes to candidate CFD- IDs (`CFD-UJ-###`) and assign a tentative UJ- ID for each Journey Card.
+7. **Dependency Flagging:** Identify requirements for BR- (policies), API-/DBT- (data contracts), or TEST- IDs emerging from each journey.
+8. **Handoff Assembly:** Produce Journey Cards + Persona Summaries + Evidence Ledger. Include a cross-journey matrix showing coverage vs. PRD sections.
 
 ## Output Package
 ### Coverage Matrix (top of submission)
@@ -79,6 +81,7 @@ Provide 1-page persona outlines consolidating overlapping interviews. Include em
 - **Step Depth:** Minimum 3 steps, maximum 7 steps per journey to keep fidelity manageable.
 - **Persona Separation:** Avoid blending personas; if a journey covers multiple roles, split the steps by owner.
 - **Privacy:** Redact PII but retain enough context to prove authenticity (industry, company size, etc.).
+- **Hardware Reality:** Document which device type each participant used (phone, tablet, desktop). If device coverage is missing, flag it as a gap referencing [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build).
 
 ## Quality Gates
 | Criterion | Pass | Fail |

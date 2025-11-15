@@ -12,7 +12,8 @@ This directory organizes workflow instructions that guide each stage of the Prod
 ## Usage Guidelines
 1. Each stage should host **one to three** role-specific instruction files that align with Gear Heart Methodology (GHM) checkpoints.
 2. Instruction files must describe how outputs map into the Source-of-Truth (SoT) graph and note any lifecycle hooks for the next PRD version.
-3. When introducing a new stage, create a new `vX.Y/` directory, populate the relevant instructions, and cross-link them from the previous stage as needed.
-4. Keep filenames consistent across stages (e.g., `research-agents.md`, `aura-intake.md`) so downstream automation can locate role guides predictably.
+3. Before editing or creating a stage playbook, review active field learnings in [`source-of-truth/customer-feedback.md`](../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build) so updates embed real-world guidance like CFD-401 (prompt precision, real-user loops, mobile validation, distribution visibility).
+4. When introducing a new stage, create a new `vX.Y/` directory, populate the relevant instructions, and cross-link them from the previous stage as needed.
+5. Keep filenames consistent across stages (e.g., `research-agents.md`, `aura-intake.md`) so downstream automation can locate role guides predictably.
 
 By centralizing the instructions here, we make it easier for research, drafting, and validation agents to adopt a shared workflow while scaling additional PRD phases.

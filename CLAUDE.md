@@ -34,6 +34,7 @@ Use the Unique ID System (`workflows/UNIQUE-ID-SYSTEM.md`) to resolve any unfami
 ## 3. Execution Rules
 - **Respect lifecycle gates**: Do not advance a gate without satisfying the checklist in [`workflows/PRD-VERSION-LIFECYCLE.md`](workflows/PRD-VERSION-LIFECYCLE.md).
 - **Operate from IDs**: When editing code or docs, reference the relevant IDs in commit messages, EPIC updates, and PR comments.
+- **Ground prompts in SoT**: Before asking AI to draft code or docs, translate requirements into explicit acceptance criteria tied to existing or planned IDs so the prompt mirrors reality ([CFD-401](source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)).
 - **Prefer existing artifacts**: Update the current PRD section or SoT entry instead of creating parallel documents.
 - **Document changes**: Record code decisions in the active EPIC, Section 3A. Link new/updated IDs explicitly.
 - **Surface blockers fast**: If a gate cannot be cleared, note the blocker in the EPIC and alert the product README “Critical Alerts”.
@@ -60,6 +61,7 @@ Use the Unique ID System (`workflows/UNIQUE-ID-SYSTEM.md`) to resolve any unfami
 - Run the test commands listed in `README.md` before marking an EPIC task as done.
 - When adding or modifying tests, update the relevant `TEST-###` entries in `source-of-truth/testing-playbook.md`.
 - For performance or security-sensitive changes, consult SoT entries (e.g., `DEP-###`, `BR-###`) to ensure you meet the defined thresholds.
+- Validate responsive behavior on the actual devices primary users rely on (not just browser emulation) early in the iteration to avoid late rework ([CFD-401](source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)).
 
 ---
 

@@ -23,16 +23,18 @@
 3. **Integration Clarity:** For every required system, do you define the API/DBT contract, owner, and security rules so architecture decisions are actionable?
 4. **Progressive Documentation:** Can someone trace from persona/journey pain → monetization guardrail → architecture choice without gaps?
 5. **Lifecycle Continuity:** Do packets define what evidence or approvals are needed to declare Gate 2 PASS and what IDs must be updated afterward?
+6. **Experience Fidelity:** Have you specified how each architecture option supports priority devices (mobile vs. desktop) and surfaced responsive/UI considerations per [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)?
 
 ## Research Workflow
 1. **Context Sync:** Read PRD v0.5 (risks + mitigations), README, active EPIC, and SoT entries referencing architecture (if any). Log unresolved risks impacting stack choices.
 2. **Requirement Extraction:** From previous stages, list functional requirements, performance targets, compliance constraints, and integration touchpoints.
 3. **Option Exploration:** For each architecture option (e.g., serverless vs. containerized, managed vs. custom integration), gather vendor capabilities, SLAs, pricing, and compliance certifications.
 4. **Integration Mapping:** Identify required APIs, data pipelines, and event flows. Document the systems touched, data sensitivity, and ownership.
-5. **Cost Modeling:** Build a simple cost model (<$0.10/user target) including infrastructure, 3rd-party services, and support. Provide best/worst case plus assumptions.
-6. **Feasibility Assessment:** Evaluate risks (scalability, latency, vendor lock-in). Track dependencies on BR-/TEST- mitigations still open from v0.5.
-7. **ID Proposal:** For each architecture option, propose ARC- ID(s) describing the blueprint, API-/DBT- IDs for contracts, and BR-/TECH- IDs for guardrails or tooling decisions.
-8. **Handoff Prep:** Assemble Architecture Packets + Evidence ledger + comparison matrix to accelerate Build Lead decisions.
+5. **Device Experience Planning:** Evaluate how the frontend/mobile experience will be delivered (responsive web, native wrappers, etc.) and capture any framework or testing implications, referencing [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build).
+6. **Cost Modeling:** Build a simple cost model (<$0.10/user target) including infrastructure, 3rd-party services, and support. Provide best/worst case plus assumptions.
+7. **Feasibility Assessment:** Evaluate risks (scalability, latency, vendor lock-in). Track dependencies on BR-/TEST- mitigations still open from v0.5.
+8. **ID Proposal:** For each architecture option, propose ARC- ID(s) describing the blueprint, API-/DBT- IDs for contracts, and BR-/TECH- IDs for guardrails or tooling decisions.
+9. **Handoff Prep:** Assemble Architecture Packets + Evidence ledger + comparison matrix to accelerate Build Lead decisions.
 
 ## Output Package
 ### Architecture Comparison Matrix
@@ -73,6 +75,7 @@
 - **Cost Transparency:** Show formulas + data sources for cost per user; cite pricing pages (artifact capture within 30 days).
 - **Security & Compliance:** Include notes on data residency, encryption, access control. Reference BR- guardrails where needed.
 - **Evidence Hygiene:** Archive vendor docs, benchmarks, or calculators used; map each to a CFD-/ARC- artifact ID.
+- **Device Support:** Document which runtime/UI layer handles mobile-first requirements so downstream testing plans start with real devices (align with [CFD-401](../../../../source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)).
 
 ## Quality Gates
 | Criterion | Pass | Fail |

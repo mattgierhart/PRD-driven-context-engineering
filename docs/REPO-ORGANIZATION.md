@@ -35,7 +35,7 @@ updated: "2025-02-14"
 │   └── ...
 ├── src/              # Application code
 ├── tests/            # Automated tests
-├── docs/             # Supporting docs (ID Knowledge Graph, decision logs)
+├── docs/             # Supporting docs (ID Knowledge Graph, decision logs, PRD instruction library)
 ├── temp/             # Short-lived scratchpads (purge or harvest every EPIC)
 ├── archive/          # Frozen history (YYYY-MM folders)
 └── tools/            # Automation scripts (metrics, registry sync)

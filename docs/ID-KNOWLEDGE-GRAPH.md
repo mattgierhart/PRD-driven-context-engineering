@@ -158,6 +158,13 @@ Enforced by: [API-045](API_CONTRACTS.md#api-045)
 
 ### For Humans
 - **Single Source of Truth**: Specifications live in ONE place
+- **Issue/Task Clarity**: Each GitHub issue references exactly one `TASK-###` folder, so Section 3A can point to a single source for implementation notes, IDs touched, and backlog state.
+
+## Task & Issue Discipline
+
+- **1:1 mapping**: When a GitHub issue is opened (or a plan is approved), immediately run `python tools/create_task.py ...` to scaffold `TASK-###`. Store the resulting path in the issue body so humans ↔ agents share the same reference.
+- **Backlog as index**: `.ghm/task-backlog.yaml` (JSON-compatible YAML) is the canonical list of active tasks. Do not edit it manually—use the script so IDs remain sequential and timestamps stay accurate.
+- **EPIC linkage**: EPIC Section 3A should reference the relevant `TASK-###` entry whenever IDs are created/modified. This keeps ID provenance traceable across issues, tasks, and SoT updates.
 - **Impact Analysis**: See all dependencies instantly
 - **Maintenance**: Update once, referenced everywhere
 - **Onboarding**: Follow ID trails to understand system

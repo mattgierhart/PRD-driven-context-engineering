@@ -112,6 +112,43 @@ You can attach your own agent roster (e.g., AURA for market research, APOLLO for
 
 ---
 
+## Task ↔ Issue Lifecycle (1:1)
+
+- Every approved plan generates a single `TASK-###` folder **and** a matching GitHub issue. They share the same summary and scope.
+- `TASK-###` captures the rich Gear Heart metadata (EPIC, gate, SoT IDs, lifecycle notes, test evidence). The GitHub issue is the human/CI coordination surface (assignees, labels, branch policy).
+- The mapping is **one-to-one**. If the scope changes, either update the same pair or create a new task + issue pair—never pile multiple tasks inside one issue or vice versa.
+- Automation scripts enforce the mirror: plan exit is blocked until both the task folder and the GitHub issue URL exist, and stop hooks require Section 3A + backlog entries referencing that issue before you can end a session.
+
+> Result: GitHub stays the public truth for work in flight, while the repository holds all lifecycle context needed for agents to resume without digging through issue history.
+
+- **Scaffolding automation**: run `python3 tools/create_task.py --title "..." --epic EPIC-01-scope --gate v0.7 --github-issue https://github.com/org/repo/issues/123` to generate the task folder, YAML, plan, context log, and backlog entry. Hooks will eventually block plan exit until this script has been run.
+
+### Automation Safety Nets
+
+- **Duplicate protection**: `tools/create_task.py` fails fast if a folder already exists for the next sequential ID (FileExistsError). Re-run only after resolving the conflict.
+- **Validation sweep**: `python3 tools/validate_ghm.py` ensures backlog entries match physical task folders, task YAML files parse, and `.ghm/memory.jsonl` contains valid JSON lines.
+- **Backlog recovery**: if `.ghm/task-backlog.yaml` is corrupted, run `python3 tools/rebuild_backlog.py` to regenerate it from the authoritative `TASK-###.yaml` files.
+- **Profile hints**: see [`docs/GHM-PROFILES.md`](docs/GHM-PROFILES.md) for what each enforcement profile expects. `tools/validate_ghm.py` uses these hints to warn when required metadata is missing.
+- **Backlog format**: `.ghm/task-backlog.yaml` stores JSON even though it has a `.yaml` extension. Treat it as machine-managed—modify it only via the scripts above.
+- **Claude hooks**: `plan-exit-enforcer.py` blocks leaving Plan mode until the GitHub issue + `TASK-###` pair exists, and `pre-stop-guard.py` blocks stopping until docs/tests/backlog are synced and `tools/validate_ghm.py` passes.
+
+---
+
+## Lifecycle Profiles & Enforcement
+
+Repositories declare a profile in `.ghm/config.yaml` so hooks know how strict to be:
+
+| Profile | Lifecycle Range | Intent | Enforcement Highlights |
+|---------|-----------------|--------|------------------------|
+| `definition` | v0.1 → v0.6 | Strategy + research | Requires SoT citations for research artifacts, relaxed build/test gates. |
+| `standard` | v0.1 → v1.0 | Balanced default | Current default behavior—full PRD ladder, baseline QA gates. |
+| `development` | v0.7 focus | Build execution | Hooks emphasize TEST-/DEP- IDs, require plan → task mirroring, and enforce test evidence before stop. |
+| `production` | v0.8 → v0.9 | GTM + launch | Adds deployment, security, and GTM add-ons; README alerts must reference RUN-/SEC-/PERF- IDs. |
+
+Profiles tune which gate checklists are blocking vs advisory, the amount of automated enforcement (e.g., plan-exit, stop hooks), and the minimum SoT density required per gate. Switching profiles is a configuration change—not a rewrite of the workflow.
+
+---
+
 ## Validation Approach
 
 - **Gates**  
@@ -170,6 +207,8 @@ You can attach your own agent roster (e.g., AURA for market research, APOLLO for
 - [ID-Based Knowledge Graph](docs/ID-KNOWLEDGE-GRAPH.md) – Durable ID system for cross-referencing  
 - [AI Evaluator Guide](AI-EVALUATOR-GUIDE.md) – How to evaluate AI-generated work using this method  
 - [Contributing](CONTRIBUTING.md) – How to contribute to this methodology  
+- [GHM Memory Log Guide](docs/GHM-MEMORY.md) – Append-only decision logging tied to EPIC + TASK IDs  
+- [GHM Profiles](docs/GHM-PROFILES.md) – Profile-specific enforcement knobs & examples  
 
 ### Templates
 
@@ -182,6 +221,7 @@ You can attach your own agent roster (e.g., AURA for market research, APOLLO for
   - EPIC template (with Section 3A: ID Tracking)  
   - Feature / deployment / environment EPICs  
   - GitHub issue & sizing patterns
+  - Relevant-doc manifest template (`EPIC-relevant-docs-template.md`)
 
 - **Source of Truth Templates** (`templates/source-of-truth/`)
   - `USER-JOURNEYS.md` (UJ-XXX)  
@@ -189,6 +229,8 @@ You can attach your own agent roster (e.g., AURA for market research, APOLLO for
   - `API_CONTRACTS.md` (API-XXX)  
   - `ACTUAL-SCHEMA.md` (DBT-XXX)  
   - `customer-feedback.md` (CFD-XXX)
+- **Task Templates** (`templates/tasks/`)
+  - `TASK-000-template/` – YAML, plan, and context scaffolds mirrored by GitHub issues
 
 - **Design Templates** (`templates/design/`)  
 - **Testing Templates** (`templates/testing/`)
@@ -197,6 +239,14 @@ You can attach your own agent roster (e.g., AURA for market research, APOLLO for
 
 - [CLAUDE.md](CLAUDE.md) – Global Claude Code instructions  
 - PRD workflow guides under `/workflows/` (PRD lifecycle and EPIC gates)
+- [PRD Stage Tooling Map](workflows/PRD-STAGE-TOOLING.md) – Gate-by-gate tooling + output expectations
+- `.ghm/config.yaml` + `.ghm/task-backlog.yaml` – Runtime profile settings and task index
+
+### Automation Tools
+- `tools/create_task.py` – Generate `TASK-###` folders + backlog entries (1:1 with GitHub issues)
+- `tools/rebuild_backlog.py` – Recreate `.ghm/task-backlog.yaml` from the authoritative task folders
+- `tools/validate_ghm.py` – Check tasks/backlog/memory consistency (supports `--strict`)
+- `tools/add_memory_entry.py` – Append structured decisions to `.ghm/memory.jsonl`
 
 ---
 

@@ -24,8 +24,9 @@ When instructions conflict, defer to `README.md` for status, then `PRD.md` for r
 1. **`README.md`** — Command Center. Confirms lifecycle gate, active EPIC, metrics, and critical alerts.
 2. **`PRD.md`** — Lifecycle narrative. Identify the current gate, open questions, and referenced IDs.
 3. **`CLAUDE.md` (this file)** — How you should behave while executing.
-4. **Active EPIC (`epics/EPIC-XX-*.md`)** — Execution plan, Section 3A ID tracking, test strategy.
-5. **SoT Files (`source-of-truth/*.md`)** — Load only the IDs referenced in the EPIC/PRD.
+4. **`.ghm/config.yaml`** — Determines profile (`definition`, `standard`, `development`, `production`) and enforcement level.
+5. **Active EPIC (`epics/EPIC-XX-*.md`)** — Execution plan, Section 3A ID tracking, test strategy.
+6. **SoT Files (`source-of-truth/*.md`)** — Load only the IDs referenced in the EPIC/PRD.
 
 Use the Unique ID System (`workflows/UNIQUE-ID-SYSTEM.md`) to resolve any unfamiliar prefixes.
 
@@ -36,6 +37,8 @@ Use the Unique ID System (`workflows/UNIQUE-ID-SYSTEM.md`) to resolve any unfami
 - **Operate from IDs**: When editing code or docs, reference the relevant IDs in commit messages, EPIC updates, and PR comments.
 - **Prefer existing artifacts**: Update the current PRD section or SoT entry instead of creating parallel documents.
 - **Document changes**: Record code decisions in the active EPIC, Section 3A. Link new/updated IDs explicitly.
+- **Mirror tasks and issues**: For every approved plan, create/update exactly one `TASK-###` folder **and** one matching GitHub issue. Keep the `github_issue` field in the task YAML in sync with the issue URL/ID.
+- **Use automation scripts**: Run the provided task/memory scripts instead of editing index files manually. Plan-exit and stop hooks assume those scripts were executed.
 - **Surface blockers fast**: If a gate cannot be cleared, note the blocker in the EPIC and alert the product README “Critical Alerts”.
 
 ---
@@ -86,4 +89,4 @@ Document the escalation in the EPIC with context, affected IDs, and a proposed n
 - Templates: [`templates/`](templates/)
 - Repo organization guide: [`docs/REPO-ORGANIZATION.md`](docs/REPO-ORGANIZATION.md)
 
-Always leave the repo in a state where another agent can reload the 3+1+SoT+Temp stack and pick up within one context window.
+Always leave the repo in a state where another agent can reload the 3+1+SoT+Temp stack and pick up within one context window. When in doubt, update the GitHub issue first (public coordination) and then mirror that state into the `TASK-###` folder and Section 3A.

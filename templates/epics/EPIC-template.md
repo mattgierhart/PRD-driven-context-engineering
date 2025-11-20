@@ -23,6 +23,8 @@ authority: Pair with `workflows/PRD-VERSION-LIFECYCLE.md` for gate rituals and r
 ### Goal & Definition of Done
 - **Goal (tie to PRD)**: {“Advance v0.x requirement {anchor} into production readiness.”}
 - **User Outcome**: {What end users gain when this ships.}
+- **Primary GitHub Issue**: https://github.com/{org}/{repo}/issues/{id} *(mirrors `TASK-###` scope)*
+- **Internal Task Folder**: `.ghm/tasks/TASK-###/` *(1:1 with the issue above)*
 - **Definition of Done**:
   - [ ] Required capability available to target persona (reference UJ-XXX).
   - [ ] Relevant SoT files updated (IDs tracked below).
@@ -119,7 +121,7 @@ Phase loops are expected. Log each return in Section 5.
 
 ## 6. Task Checklist (Tie to Issues)
 
-### Task {N} — {Summary} (`Issue #{ID}` · Phase {Plan/Build/Verify/Wrap})
+### Task {N} — {Summary} (`Issue #{ID}` = `TASK-###` · Phase {Plan/Build/Verify/Wrap})
 - Status: 📋 / 🔄 / ✅ / 🚫
 - Acceptance Criteria:
   - [ ] {Criterion}
@@ -160,4 +162,3 @@ Phase loops are expected. Log each return in Section 5.
   - [ ] Learnings captured in README "EPIC Learning" section.
 
 **Next Gate Review**: {Date / participants}
-

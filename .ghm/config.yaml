@@ -1,0 +1,5 @@
+# Gear Heart Methodology runtime configuration
+profile: standard        # definition | standard | development | production
+enforcement_level: standard  # relaxed | standard | strict
+current_prd_version: 0.0
+default_test_mode: balanced  # smoke-only | balanced | tdd-heavy

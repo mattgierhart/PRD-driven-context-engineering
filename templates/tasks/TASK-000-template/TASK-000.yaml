@@ -1,0 +1,19 @@
+id: TASK-000
+github_issue: https://github.com/{org}/{repo}/issues/{id}
+epic: EPIC-00-placeholder
+gate: v0.x
+prd_version_impact: "v0.x → v0.y"
+status: todo
+summary: "Short description of the scoped outcome"
+owner: TBD
+sot_ids:
+  - BR-###
+  - UJ-###
+acceptance_criteria:
+  - "Measurable condition"
+  - "Another outcome"
+required_tests:
+  - command: npm run test
+    evidence: TBD
+notes: |
+  Add any nuance here. Keep it tight and reference IDs not prose.

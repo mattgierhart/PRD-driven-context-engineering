@@ -79,5 +79,7 @@ class IDExtractor:
         """
         for id_type, pattern in self.patterns.items():
             if re.match(pattern, id_str):
-                return id_type
+                # Extract prefix from ID string itself (e.g., 'CFD' from 'CFD-401')
+                # rather than returning dict key (e.g., 'customer_feedback')
+                return id_str.split('-')[0]
         return None

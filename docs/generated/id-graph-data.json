@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "CFD-401",
-      "type": "customer_feedback",
+      "type": "CFD",
       "file": "source-of-truth/customer-feedback.md",
       "excerpt": "Partial GHM Adoption During 48-Hour Inventory Build\n\n**ID**: CFD-401  \n**Category**: General Comment  \n**Status**: Analyzed  \n**Priority**: Medium  \n**Created**: 2025-11-15  \n**Last Updated**: 2025-11-15  \n**Reported By**: 1 indie developer building SaaS for salon inventory",
       "line_number": 20

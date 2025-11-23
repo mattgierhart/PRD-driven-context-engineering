@@ -1,0 +1,27 @@
+{
+  "nodes": [
+    {
+      "id": "CFD-401",
+      "type": "customer_feedback",
+      "file": "source-of-truth/customer-feedback.md",
+      "excerpt": "Partial GHM Adoption During 48-Hour Inventory Build\n\n**ID**: CFD-401  \n**Category**: General Comment  \n**Status**: Analyzed  \n**Priority**: Medium  \n**Created**: 2025-11-15  \n**Last Updated**: 2025-11-15  \n**Reported By**: 1 indie developer building SaaS for salon inventory",
+      "line_number": 20
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "total_ids": 1,
+    "total_edges": 0,
+    "files_parsed": 1,
+    "files_skipped": [
+      "source-of-truth/BUSINESS_RULES.md",
+      "source-of-truth/API_CONTRACTS.md",
+      "source-of-truth/USER-JOURNEYS.md",
+      "source-of-truth/ACTUAL-SCHEMA.md",
+      "source-of-truth/testing-playbook.md",
+      "source-of-truth/deployment-playbook.md",
+      "source-of-truth/security-playbook.md",
+      "source-of-truth/performance-playbook.md"
+    ]
+  }
+}

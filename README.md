@@ -163,12 +163,29 @@ You can attach your own agent roster (e.g., AURA for market research, APOLLO for
 
 ---
 
-## What’s Inside
+## What's Inside
+
+### 🎨 Visualization Suite (NEW!)
+
+The [GHM Visualization Suite](tools/README.md) generates visual artifacts from your markdown files:
+- **ID Knowledge Graph** - See how BR-XXX, API-XXX, UJ-XXX IDs interconnect
+- **Validation Reports** - Identify orphaned IDs and missing references
+- **Provenance Tracking** - Git SHA, config hash, build metadata
+
+```bash
+# Quick start
+python tools/generate-visuals.py --all
+# View results in docs/generated/index.md
+```
+
+Inspired by [Hephaestus](https://github.com/Ido-Levi/Hephaestus), built from scratch for GHM. See [full plan](docs/ghm-visualization-suite-plan.md) and [CODEX review](docs/ghm-visualization-suite-review.md).
+
+---
 
 ### Core Documentation
 
-- [ID-Based Knowledge Graph](docs/ID-KNOWLEDGE-GRAPH.md) – Durable ID system for cross-referencing  
-- [AI Evaluator Guide](AI-EVALUATOR-GUIDE.md) – How to evaluate AI-generated work using this method  
+- [ID-Based Knowledge Graph](docs/ID-KNOWLEDGE-GRAPH.md) – Durable ID system for cross-referencing
+- [AI Evaluator Guide](AI-EVALUATOR-GUIDE.md) – How to evaluate AI-generated work using this method
 - [Contributing](CONTRIBUTING.md) – How to contribute to this methodology  
 
 ### Templates

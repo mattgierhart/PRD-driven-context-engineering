@@ -1,0 +1,73 @@
+# GHM Visualization Suite Configuration
+version: 1.0
+
+# ID extraction patterns (regex)
+id_patterns:
+  business_rules: 'BR-\d{3}'
+  api_contracts: 'API-\d{3}'
+  user_journeys: 'UJ-\d{3}'
+  database_tables: 'DBT-\d{3}'
+  test_cases: 'TEST-\d{3}'
+  deployments: 'DEP-\d{3}'
+  customer_feedback: 'CFD-\d{3}'
+  designs: 'DES-\d{3}'
+  security: 'SEC-\d{3}'
+  performance: 'PERF-\d{3}'
+
+# File patterns for SoT parsing
+sot_files:
+  - 'source-of-truth/BUSINESS_RULES.md'
+  - 'source-of-truth/API_CONTRACTS.md'
+  - 'source-of-truth/USER-JOURNEYS.md'
+  - 'source-of-truth/ACTUAL-SCHEMA.md'
+  - 'source-of-truth/testing-playbook.md'
+  - 'source-of-truth/deployment-playbook.md'
+  - 'source-of-truth/customer-feedback.md'
+  - 'source-of-truth/security-playbook.md'
+  - 'source-of-truth/performance-playbook.md'
+
+# Graph styling
+graph:
+  node_colors:
+    BR: '#3498db'   # Blue for business rules
+    API: '#2ecc71'  # Green for APIs
+    UJ: '#9b59b6'   # Purple for user journeys
+    DBT: '#e67e22'  # Orange for database
+    TEST: '#f1c40f' # Yellow for tests
+    DEP: '#34495e'  # Gray for deployment
+    CFD: '#e74c3c'  # Red for feedback
+    DES: '#1abc9c'  # Teal for design
+    SEC: '#c0392b'  # Dark red for security
+    PERF: '#16a085' # Dark teal for performance
+  layout: 'dot'     # Graphviz layout engine (dot, neato, fdp, sfdp, circo, twopi)
+  format: 'svg'     # Output format (svg, png, pdf)
+  rankdir: 'LR'     # Graph direction (LR=left-right, TB=top-bottom)
+
+# Lifecycle gates (parsed from workflows/PRD-VERSION-LIFECYCLE.md)
+lifecycle:
+  auto_parse: true
+  gates_file: 'workflows/PRD-VERSION-LIFECYCLE.md'
+
+# Temp file lifecycle
+temp:
+  directory: 'temp/'
+  age_thresholds:
+    fresh: 7    # days
+    aging: 14   # days
+    # anything >14 days is considered stale
+
+# Privacy settings
+privacy:
+  strip_emails: true
+  strip_usernames: false
+
+# Attribution (Hephaestus credit)
+attribution:
+  enabled: true
+  template: 'tools/templates/attribution.md'
+
+# Output settings
+output:
+  directory: 'docs/generated'
+  deterministic: true  # Sort IDs for consistent output
+  include_provenance: true

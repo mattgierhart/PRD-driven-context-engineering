@@ -56,3 +56,6 @@ out/
 *.sqlite
 *.sqlite3
 *.db
+# Visualization Suite Python cache
+__pycache__/
+*.pyc

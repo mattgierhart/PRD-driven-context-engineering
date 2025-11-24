@@ -1,0 +1,14 @@
+# GHM Visualization Suite - Python Dependencies
+
+# Core dependencies
+pyyaml>=6.0          # Parse YAML configuration files
+
+# Optional dependencies (install if needed)
+# markdown>=3.4      # For advanced markdown parsing (future)
+# gitpython>=3.1     # For git history analysis (future - Agent Activity Stream)
+# networkx>=3.0      # For graph algorithms (future - Context Window Optimizer)
+
+# Note: Graphviz must be installed separately (system package, not Python)
+# - macOS: brew install graphviz
+# - Ubuntu/Debian: apt-get install graphviz
+# - Windows: https://graphviz.org/download/

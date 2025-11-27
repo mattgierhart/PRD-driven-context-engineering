@@ -1,7 +1,7 @@
 ---
-version: 4.0
-purpose: Execution container for a single lifecycle window. Tracks scope, SoT IDs, and gate movement.
-last_updated: 2025-02-14
+version: 5.0
+purpose: Execution container for a single lifecycle window. Tracks scope, SoT IDs, gate movement, and session handoffs.
+last_updated: 2025-11-27
 authority: Pair with `workflows/PRD-VERSION-LIFECYCLE.md` for gate rituals and reviews.
 ---
 
@@ -11,10 +11,60 @@ authority: Pair with `workflows/PRD-VERSION-LIFECYCLE.md` for gate rituals and r
 > 1. `README.md` → current status + navigation.
 > 2. `PRD.md` → lifecycle intent (note target gate).
 > 3. `CLAUDE.md` → behavior rules for agents touching code.
-> 4. `epics/EPIC-{NUMBER}.md` → this file.
+> 4. `epics/EPIC-{NUMBER}.md` → this file (**read Session State first**).
 > 5. Linked SoT files (IDs listed in Section 3A).
 
 > **Status Icons**: ✅ Done · 🚧 In Progress · 🟡 Ready · 📋 Planning · 🚫 Blocked · 🔴 Risk
+
+---
+
+## 0. Session State (MANDATORY)
+
+> ⚠️ **AGENTS: Update this section BEFORE ending your session. This is required, not optional.**
+>
+> Reference: [CLAUDE.md Session Protocols](../CLAUDE.md#10-session-protocols)
+
+### Current Session
+| Field | Value |
+|-------|-------|
+| **Session Date** | {YYYY-MM-DD HH:MM} |
+| **Agent/Model** | {Claude-Opus-4 / Claude-Sonnet / etc.} |
+| **Active Issue** | #{ID} – {Title} |
+| **Phase** | {Plan / Build / Verify / Wrap} |
+| **Status** | 🚧 In Progress / 🚫 Blocked / ✅ Completed |
+
+### Work Completed This Session
+- [ ] {Specific task completed, linked to Issue/ID}
+- [ ] {Another task}
+
+### Stopped At (Be Specific)
+> {Exact point where work stopped. Include file paths, function names, line numbers if relevant.}
+>
+> Example: "Completed API-042 endpoint implementation. Tests written but failing on auth middleware integration at `src/middleware/auth.ts:45`. Need to resolve token refresh logic."
+
+### Blockers (If Any)
+| Blocker | Related ID | Needs |
+|---------|------------|-------|
+| {Description} | {BR-XXX / API-XXX} | {What's needed to unblock} |
+
+### Next Session Should
+1. {First priority action}
+2. {Second priority action}
+3. {Any warnings or context the next agent needs}
+
+### Files Changed This Session
+| File | Change Type | Notes |
+|------|-------------|-------|
+| `{path/to/file}` | Created / Modified / Deleted | {Brief description} |
+
+---
+
+### Session History
+| # | Date | Agent | Started At | Ended At | Status | Key Outcome |
+|---|------|-------|------------|----------|--------|-------------|
+| 1 | {YYYY-MM-DD} | {Model} | {Task/Issue} | {Stopping point} | ✅/🚧/🚫 | {One-line summary} |
+
+> Move "Current Session" to this table when starting a new session.
 
 ---
 
@@ -111,9 +161,12 @@ Phase loops are expected. Log each return in Section 5.
 ---
 
 ## 5. Phase Re-entry Log
-| Date | Returned To Phase | Trigger | Action | Outcome |
-|------|-------------------|---------|--------|---------|
-| YYYY-MM-DD | Build | {Bug / feedback} | {Action taken} | {Result} |
+
+> Track phase loops here. For session-level handoffs, use Section 0 (Session State).
+
+| Date | Returned To Phase | Trigger | Action | Outcome | Session # |
+|------|-------------------|---------|--------|---------|-----------|
+| YYYY-MM-DD | Build | {Bug / feedback} | {Action taken} | {Result} | {#} |
 
 ---
 
@@ -138,11 +191,13 @@ Phase loops are expected. Log each return in Section 5.
 | temp/{file}.md | {Name} | {Why it exists} | {SoT file / ID} | YYYY-MM-DD | archive/YYYY-MM/ |
 
 ### Wrap Checklist
+- [ ] **Session State updated** (Section 0 - current session moved to history).
 - [ ] README metrics refreshed (`workflow:verify`).
 - [ ] PRD change log updated (if gate movement).
 - [ ] SoT files updated & cross-linked.
 - [ ] Temp artifacts harvested + archived.
 - [ ] Linked PRs merged and tagged with EPIC ID.
+- [ ] All session blockers resolved or documented for next EPIC.
 
 ---
 

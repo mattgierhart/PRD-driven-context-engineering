@@ -55,7 +55,7 @@ PRD-driven-context-engineering/
 
 ### Phase 1: Initial Assessment
 1. Read the proposal/tool documentation
-2. Map it to the 5-phase APOLLO workflow
+2. Map it to the 10-gate PRD Version Lifecycle (v0.1–v1.0)
 3. Identify which phases it impacts
 4. Check for conflicts with existing tools
 

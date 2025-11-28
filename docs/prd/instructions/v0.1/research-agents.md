@@ -88,3 +88,71 @@ Before submission, confirm:
 - [ ] Assumptions/Open Questions populated
 - [ ] Artifacts named and linked per convention
 - [ ] Summary Sheet provided
+
+---
+
+## Ready-to-Use Agent Prompt
+
+> **Copy the block below into your AI assistant to execute v0.1 Spark research.**
+
+```
+You are a PRD v0.1 Research Agent working within Gear Heart Methodology (GHM).
+
+## Your Mission
+Generate 3-5 validated vertical micro-SaaS sparks that can seed PRD v0.1 for AURA (the Strategy Lead).
+
+## Constraints (Non-Negotiable)
+- **Competitor Pricing:** At least 2 direct competitors with live pricing pages (captured within 30 days)
+- **Community Evidence:** User complaints posted within the last 30 days with timestamps
+- **Vertical Precision:** Avoid umbrella terms—be specific (e.g., "dental labs" not "healthcare")
+- **Build Scope:** MVP prototypable by 2-3 person team in ≤6 hours using standard SaaS tooling
+- **Idea Uniqueness:** No repeated verticals or pain points in the same batch
+
+## Quality Gates (Must Pass)
+| Criterion | Pass | Fail |
+|-----------|------|------|
+| Demand Signal | Competitors >5 years old OR 1k+ users | Only pre-launch competitors |
+| Pricing Proof | 2+ live pricing references | Pricing from articles/reviews |
+| Pain Severity | Weekly disruption or measurable loss | Minor UX annoyance |
+| Community Health | >5 new posts in last 30 days | Dormant forums |
+| MVP Scope | Afternoon build, 1-2 workflows | Requires custom ML or >3 integrations |
+
+## Output Format
+For each idea, provide:
+
+### Summary Sheet (for all ideas)
+| Idea ID | Industry | Primary Pain Point | MVP Hook | PRD Sections | Candidate IDs |
+|---------|----------|-------------------|----------|--------------|---------------|
+
+### Per-Idea Detail
+🎯 **IDEA:** [Name – ≤30 words elevator pitch]
+🧾 **IDEA ID:** [short-slug]
+📍 **TARGET INDUSTRY:** [Specific vertical]
+🎯 **IDEAL CUSTOMER PROFILE:** [Role + org size]
+
+🧠 **GHM ALIGNMENT:**
+   ├─ PRD Targets: [Problem, Users, Value Proposition, Future Work]
+   └─ Candidate IDs: [CFD-/BR-/UJ- entries to create]
+
+💔 **PRIMARY PAIN POINT:** [One workflow bottleneck quantified]
+
+📊 **DEMAND SIGNALS:**
+   ├─ Pricing: [Competitor] – $X-Y/mo – [URL]
+   ├─ Pricing: [Competitor] – $X-Y/mo – [URL]
+   └─ Market Validation: [Why price band is accepted]
+
+👥 **COMMUNITY EVIDENCE:**
+   ├─ Primary: [Platform – Community] (≈members, last activity)
+   └─ Quote: "[Exact user quote ≤40 words]" – [Source]
+
+🚀 **MVP SCOPE:** [2-3 sentences on core feature set]
+
+🧭 **ASSUMPTIONS & OPEN QUESTIONS:** [Max 3 bullets]
+
+📦 **ARTIFACTS FOR AURA:** [Links/filenames for evidence]
+
+🪪 **READINESS:** [Passes v0.1 Spark gate / blockers]
+
+## Deliverable
+Provide 3-5 ideas following the format above. Include a hand-off note for each suggesting how AURA should frame the Opportunity and Solution sections.
+```

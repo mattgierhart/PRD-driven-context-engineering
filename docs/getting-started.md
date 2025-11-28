@@ -1,6 +1,6 @@
-# Getting Started with APOLLO
+# Getting Started with Gear Heart Methodology (GHM)
 
-This guide will walk you through your first product build using the APOLLO workflow.
+This guide will walk you through your first product build using the Gear Heart Methodology PRD-driven workflow.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ npm install -g vercel
 npm install -g create-next-app
 ```
 
-## Your First APOLLO Product
+## Your First GHM Product
 
 ### Step 1: Define Your Product Idea
 
@@ -61,7 +61,7 @@ Use the research phase templates to:
 
 ### Step 4: Technical Planning (Gate 2)
 
-1. Choose your tech stack (usually the APOLLO defaults)
+1. Choose your tech stack (defined in your PRD Architecture section)
 2. Estimate infrastructure costs
 3. Create development timeline
 
@@ -184,8 +184,9 @@ Instead of creating new documents:
 ## Resources
 
 - [Complete Workflow Guide](../workflows/WORKFLOW-MASTER.md)
+- [PRD Version Lifecycle](../workflows/PRD-VERSION-LIFECYCLE.md)
 - [Template Library](../templates/)
-- [Example Product](../examples/sample-product/)
+- [Agent Templates](../templates/agents/)
 
 ---
 

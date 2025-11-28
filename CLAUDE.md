@@ -2,7 +2,8 @@
 title: "CLAUDE Agent Operating Guide"
 ghm_stack: "3+1+SoT+Temp"
 lifecycle_focus: "v0.6–v0.9"
-updated: "2025-02-14"
+updated: "2025-11-27"
+version: "2.0"
 ---
 
 # CLAUDE.md — Gear Heart Methodology Operating Guide
@@ -89,3 +90,97 @@ Document the escalation in the EPIC with context, affected IDs, and a proposed n
 - Repo organization guide: [`docs/REPO-ORGANIZATION.md`](docs/REPO-ORGANIZATION.md)
 
 Always leave the repo in a state where another agent can reload the 3+1+SoT+Temp stack and pick up within one context window.
+
+---
+
+## 10. Session Protocols
+
+> **Why this matters**: Each context window is a discrete "shift." The next agent arrives with no memory of your session. These protocols ensure seamless handoffs.
+>
+> Reference: [Anthropic - Effective Harnesses for Long-Running Agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
+
+### 10.1 Session Start Protocol
+
+**Before writing any code or making changes:**
+
+1. **Load the active EPIC** and read **Section 0 (Session State)** first
+2. **Verify understanding** of where the previous session stopped:
+   - What was completed?
+   - What is the current blocker or next task?
+   - Any warnings or context from the previous agent?
+3. **Check git status/log** for recent changes not yet reflected in Session State
+4. **Confirm the active Issue** you'll be working on
+5. **If unclear**, read the full EPIC and relevant SoT IDs before proceeding
+
+```
+# Quick start checklist (mental or explicit)
+□ Read EPIC Section 0 (Session State)
+□ Understand stopping point from last session
+□ Confirmed active Issue and Phase
+□ Loaded relevant SoT IDs
+□ Ready to continue
+```
+
+### 10.2 Session End Protocol (MANDATORY)
+
+**Before ending your session, you MUST:**
+
+1. **Update EPIC Section 0** with:
+   - Work completed this session (be specific, link IDs)
+   - Exact stopping point (file paths, function names, line numbers)
+   - Any blockers encountered
+   - Clear instructions for the next session
+   - Files changed this session
+
+2. **Commit your changes** with a descriptive message:
+   ```
+   session: [EPIC-XX] <summary of session work>
+
+   - Completed: <what was done>
+   - Stopped at: <where work stopped>
+   - Next: <what the next session should do>
+   ```
+
+3. **Move current session to Session History table** if starting fresh next time
+
+4. **Verify** the EPIC is ready for the next agent:
+   - Could someone with no context pick this up?
+   - Are all file changes documented?
+   - Are blockers clearly explained?
+
+### 10.3 Session State Quality Checklist
+
+A good Session State entry should pass these checks:
+
+| Check | Question |
+|-------|----------|
+| **Specific** | Can the next agent find exactly where to resume? (file:line, not just "auth work") |
+| **Complete** | Are all changed files listed? |
+| **Actionable** | Does "Next Session Should" give clear first steps? |
+| **Contextual** | Are blockers explained with enough detail to resolve? |
+| **Linked** | Are relevant IDs (BR-XXX, API-XXX) referenced? |
+
+### 10.4 Context Window Discipline
+
+- **Target**: Complete each Issue within 1 context window
+- **Warning signs**: Repeated tool calls, circular reasoning, forgetting earlier decisions
+- **When approaching limit**:
+  1. Stop new work immediately
+  2. Update Session State with current progress
+  3. Commit all work-in-progress
+  4. Note explicit stopping point for next session
+- **Split threshold**: If estimated work exceeds 1 window, create sub-issues BEFORE starting
+
+### 10.5 Session Handoff Validation
+
+Before ending, verify:
+```
+□ EPIC Section 0 updated with current session details
+□ Session History table has previous sessions logged
+□ Git commit made with session summary
+□ No uncommitted changes left behind
+□ Blockers documented with resolution paths
+□ Next agent can start within 5 minutes of reading Session State
+```
+
+> **Enforcement**: This protocol is validated by `tools/validate-sessions.py` and may be enforced by pre-exit hooks. See [`templates/hooks/`](templates/hooks/) for hook examples.

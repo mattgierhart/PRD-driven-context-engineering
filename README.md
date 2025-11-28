@@ -182,6 +182,29 @@ Inspired by [Hephaestus](https://github.com/Ido-Levi/Hephaestus), built from scr
 
 ---
 
+### Session Protocols (NEW!)
+
+GHM now includes **Session Protocols** for seamless agent handoffs across context windows. Based on [Anthropic's research on effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
+
+**Key Components:**
+- **EPIC Section 0** - Session State tracking at the top of every EPIC
+- **Session Start/End Protocols** - Mandatory handoff procedures in [CLAUDE.md](CLAUDE.md#10-session-protocols)
+- **Validation Script** - Audit Session State compliance
+- **Hook Templates** - Enforce protocols via git hooks or agent harnesses
+
+```bash
+# Validate session state in EPICs
+python tools/validate-sessions.py --all
+
+# Install pre-commit hook (optional)
+cp templates/hooks/pre-commit.sh .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+See [templates/hooks/](templates/hooks/) for integration options.
+
+---
+
 ### Core Documentation
 
 - [ID-Based Knowledge Graph](docs/ID-KNOWLEDGE-GRAPH.md) – Durable ID system for cross-referencing
@@ -196,9 +219,13 @@ Inspired by [Hephaestus](https://github.com/Ido-Levi/Hephaestus), built from scr
   - Product README template (with ID navigation)
 
 - **EPIC Templates** (`templates/epics/`)
-  - EPIC template (with Section 3A: ID Tracking)  
-  - Feature / deployment / environment EPICs  
+  - EPIC template (with Section 0: Session State, Section 3A: ID Tracking)
+  - Feature / deployment / environment EPICs
   - GitHub issue & sizing patterns
+
+- **Hook Templates** (`templates/hooks/`)
+  - Session start/end prompts for agent harnesses
+  - Pre-commit hook for git integration
 
 - **Source of Truth Templates** (`templates/source-of-truth/`)
   - `USER-JOURNEYS.md` (UJ-XXX)  

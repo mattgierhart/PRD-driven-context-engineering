@@ -22,7 +22,7 @@ archive/
 ## What to archive
 - Completed EPICs with retrospectives
 - Retired agent briefs or sub-agent rosters
-- Deprecated SoT extracts (keep the live ID in `source-of-truth/`)
+- Deprecated SoT extracts (keep the live ID in `source_of_truth/`)
 - Outcome reports and milestone summaries
 
 ## Before archiving

@@ -19,6 +19,6 @@ Short-lived notes and scratchpads live here. This directory is intentionally tra
 ## When to use temp files
 - Brainstorming before IDs are stable.
 - Collecting raw interview transcripts before distilling into CFD- IDs.
-- Drafting queries or SQL before adding them to `ACTUAL-SCHEMA.md`.
+- Drafting queries or SQL before adding them to `ACTUAL_SCHEMA.md`.
 
 Avoid referencing temp files from `PRD.md` or `README.md`; convert them into SoT entries first.

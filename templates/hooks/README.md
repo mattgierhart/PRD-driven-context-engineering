@@ -10,8 +10,8 @@ Hooks intercept agent actions at key points (session start, session end, pre-com
 
 | Hook | Trigger | Purpose |
 |------|---------|---------|
-| `session-start.md` | Agent session begins | Prompt to read Session State before working |
-| `session-end.md` | Agent session ends | Block exit until Session State is updated |
+| `session_start.md` | Agent session begins | Prompt to read Session State before working |
+| `session_end.md` | Agent session ends | Block exit until Session State is updated |
 | `pre-commit.sh` | Before git commit | Validate EPIC changes are included |
 
 ## Claude Code Integration
@@ -24,7 +24,7 @@ For Claude Code, hooks are configured in `.claude/settings.json`:
     "preToolCall": [
       {
         "matcher": "exit|end|done|finish",
-        "command": "cat templates/hooks/session-end.md"
+        "command": "cat templates/hooks/session_end.md"
       }
     ]
   }
@@ -71,11 +71,11 @@ def on_session_end(agent, epic_path):
 
 ## Validation
 
-Run `tools/validate-sessions.py` to check Session State compliance across all EPICs:
+Run `tools/validate_sessions.py` to check Session State compliance across all EPICs:
 
 ```bash
-python tools/validate-sessions.py --epic epics/EPIC-03.md
-python tools/validate-sessions.py --all
+python tools/validate_sessions.py --epic epics/EPIC-03.md
+python tools/validate_sessions.py --all
 ```
 
 ## Customization

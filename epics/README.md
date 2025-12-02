@@ -24,4 +24,4 @@ This folder stores the active and archived EPIC files that make up the "+1" laye
 - Avoid duplicating PRD sections; reference lifecycle stages instead (e.g., "Supports PRD v0.4").
 - When handing off to another agent, add a `### Handoff Notes` block with the relevant IDs.
 
-For detailed gate criteria, review [`workflows/PRD-VERSION-LIFECYCLE.md`](../workflows/PRD-VERSION-LIFECYCLE.md).
+For detailed gate criteria, review [`workflows/PRD_VERSION_LIFECYCLE.md`](../workflows/PRD_VERSION_LIFECYCLE.md).

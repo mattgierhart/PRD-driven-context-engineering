@@ -16,15 +16,15 @@ id_patterns:
 
 # File patterns for SoT parsing
 sot_files:
-  - 'source-of-truth/BUSINESS_RULES.md'
-  - 'source-of-truth/API_CONTRACTS.md'
-  - 'source-of-truth/USER-JOURNEYS.md'
-  - 'source-of-truth/ACTUAL-SCHEMA.md'
-  - 'source-of-truth/testing-playbook.md'
-  - 'source-of-truth/deployment-playbook.md'
-  - 'source-of-truth/customer-feedback.md'
-  - 'source-of-truth/security-playbook.md'
-  - 'source-of-truth/performance-playbook.md'
+  - 'source_of_truth/BUSINESS_RULES.md'
+  - 'source_of_truth/API_CONTRACTS.md'
+  - 'source_of_truth/USER_JOURNEYS.md'
+  - 'source_of_truth/ACTUAL_SCHEMA.md'
+  - 'source_of_truth/testing_playbook.md'
+  - 'source_of_truth/deployment_playbook.md'
+  - 'source_of_truth/customer_feedback.md'
+  - 'source_of_truth/security_playbook.md'
+  - 'source_of_truth/performance_playbook.md'
 
 # Graph styling
 graph:
@@ -43,10 +43,10 @@ graph:
   format: 'svg'     # Output format (svg, png, pdf)
   rankdir: 'LR'     # Graph direction (LR=left-right, TB=top-bottom)
 
-# Lifecycle gates (parsed from workflows/PRD-VERSION-LIFECYCLE.md)
+# Lifecycle gates (parsed from workflows/PRD_VERSION_LIFECYCLE.md)
 lifecycle:
   auto_parse: true
-  gates_file: 'workflows/PRD-VERSION-LIFECYCLE.md'
+  gates_file: 'workflows/PRD_VERSION_LIFECYCLE.md'
 
 # Temp file lifecycle
 temp:

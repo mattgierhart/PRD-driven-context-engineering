@@ -26,16 +26,16 @@ When instructions conflict, defer to `README.md` for status, then `PRD.md` for r
 2. **`PRD.md`** — Lifecycle narrative. Identify the current gate, open questions, and referenced IDs.
 3. **`CLAUDE.md` (this file)** — How you should behave while executing.
 4. **Active EPIC (`epics/EPIC-XX-*.md`)** — Execution plan, Section 3A ID tracking, test strategy.
-5. **SoT Files (`source-of-truth/*.md`)** — Load only the IDs referenced in the EPIC/PRD.
+5. **SoT Files (`source_of_truth/*.md`)** — Load only the IDs referenced in the EPIC/PRD.
 
 Use the Unique ID System (`workflows/UNIQUE-ID-SYSTEM.md`) to resolve any unfamiliar prefixes.
 
 ---
 
 ## 3. Execution Rules
-- **Respect lifecycle gates**: Do not advance a gate without satisfying the checklist in [`workflows/PRD-VERSION-LIFECYCLE.md`](workflows/PRD-VERSION-LIFECYCLE.md).
+- **Respect lifecycle gates**: Do not advance a gate without satisfying the checklist in [`workflows/PRD_VERSION_LIFECYCLE.md`](workflows/PRD_VERSION_LIFECYCLE.md).
 - **Operate from IDs**: When editing code or docs, reference the relevant IDs in commit messages, EPIC updates, and PR comments.
-- **Ground prompts in SoT**: Before asking AI to draft code or docs, translate requirements into explicit acceptance criteria tied to existing or planned IDs so the prompt mirrors reality ([CFD-401](source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)).
+- **Ground prompts in SoT**: Before asking AI to draft code or docs, translate requirements into explicit acceptance criteria tied to existing or planned IDs so the prompt mirrors reality ([CFD-401](source_of_truth/customer_feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)).
 - **Prefer existing artifacts**: Update the current PRD section or SoT entry instead of creating parallel documents.
 - **Document changes**: Record code decisions in the active EPIC, Section 3A. Link new/updated IDs explicitly.
 - **Surface blockers fast**: If a gate cannot be cleared, note the blocker in the EPIC and alert the product README “Critical Alerts”.
@@ -60,14 +60,14 @@ Use the Unique ID System (`workflows/UNIQUE-ID-SYSTEM.md`) to resolve any unfami
 
 ## 6. Testing & Verification
 - Run the test commands listed in `README.md` before marking an EPIC task as done.
-- When adding or modifying tests, update the relevant `TEST-###` entries in `source-of-truth/testing-playbook.md`.
+- When adding or modifying tests, update the relevant `TEST-###` entries in `source_of_truth/testing_playbook.md`.
 - For performance or security-sensitive changes, consult SoT entries (e.g., `DEP-###`, `BR-###`) to ensure you meet the defined thresholds.
-- Validate responsive behavior on the actual devices primary users rely on (not just browser emulation) early in the iteration to avoid late rework ([CFD-401](source-of-truth/customer-feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)).
+- Validate responsive behavior on the actual devices primary users rely on (not just browser emulation) early in the iteration to avoid late rework ([CFD-401](source_of_truth/customer_feedback.md#cfd-401-partial-ghm-adoption-during-48-hour-inventory-build)).
 
 ---
 
 ## 7. Deployment & Ops Hand-off
-- Follow deployment instructions from the current EPIC and `source-of-truth/deployment-playbook.md`.
+- Follow deployment instructions from the current EPIC and `source_of_truth/deployment_playbook.md`.
 - Log release notes or operational updates in the EPIC and surface critical information in `README.md`.
 - After deployment, update metrics via automation scripts in `tools/` (or note the manual steps taken).
 
@@ -84,10 +84,10 @@ Document the escalation in the EPIC with context, affected IDs, and a proposed n
 ---
 
 ## 9. Quick Reference
-- Lifecycle guidance: [`workflows/PRD-VERSION-LIFECYCLE.md`](workflows/PRD-VERSION-LIFECYCLE.md)
+- Lifecycle guidance: [`workflows/PRD_VERSION_LIFECYCLE.md`](workflows/PRD_VERSION_LIFECYCLE.md)
 - ID guidelines: [`workflows/UNIQUE-ID-SYSTEM.md`](workflows/UNIQUE-ID-SYSTEM.md)
 - Templates: [`templates/`](templates/)
-- Repo organization guide: [`docs/REPO-ORGANIZATION.md`](docs/REPO-ORGANIZATION.md)
+- Repo organization guide: [`docs/REPO_ORGANIZATION.md`](docs/REPO_ORGANIZATION.md)
 
 Always leave the repo in a state where another agent can reload the 3+1+SoT+Temp stack and pick up within one context window.
 
@@ -183,4 +183,4 @@ Before ending, verify:
 □ Next agent can start within 5 minutes of reading Session State
 ```
 
-> **Enforcement**: This protocol is validated by `tools/validate-sessions.py` and may be enforced by pre-exit hooks. See [`templates/hooks/`](templates/hooks/) for hook examples.
+> **Enforcement**: This protocol is validated by `tools/validate_sessions.py` and may be enforced by pre-exit hooks. See [`templates/hooks/`](templates/hooks/) for hook examples.

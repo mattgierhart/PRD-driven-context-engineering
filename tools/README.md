@@ -73,7 +73,7 @@ The visualization suite parses your GHM markdown files and generates:
 - Documentation Drift Detector
 - Interactive D3.js graphs (optional)
 
-See `docs/ghm-visualization-suite-plan.md` for the full roadmap.
+See `docs/ghm_visualization_suite_plan.md` for the full roadmap.
 
 ## Configuration
 
@@ -129,7 +129,7 @@ python tools/generate-visuals.py --graph 2>&1 | grep "Skipped"
 
 ### Adding New Features
 
-See `docs/ghm-visualization-suite-plan.md` for feature specifications and implementation guidelines.
+See `docs/ghm_visualization_suite_plan.md` for feature specifications and implementation guidelines.
 
 ### Troubleshooting
 

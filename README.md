@@ -82,7 +82,7 @@ GHM exists to solve five recurring problems in AI-powered product work:
 |-------|---------|------------------|-----------------|
 | **3 — Navigation Files** | Onboard any AI agent or sub-agent to the product in minimal tokens and show current truth. | instructions `CLAUDE.md`, status `README.md`, product `PRD.md` | Point to SoT anchors (e.g., `BR-112`, `UJ-014`) instead of restating specs. |
 | **+1 — Active EPIC** | Focus the current window of work, record scope, and capture deltas. | `templates/epics/EPIC-template.md` (instantiated per EPIC) | Section 3A tracks every ID created, modified, or referenced during execution. |
-| **SoT — Source of Truth Library** | Hold authoritative specifications for business rules, journeys, contracts, tests, schemas, and feedback. | Files under `templates/source-of-truth/` (e.g., `BUSINESS_RULES.md`, `API_CONTRACTS.md`, `ACTUAL-SCHEMA.md`, `customer-feedback.md`) | Each entry is an ID card (`BR-XXX`, `API-XXX`, `DBT-XXX`, `CFD-XXX`) with metadata, bidirectional references, and change history. |
+| **SoT — Source of Truth Library** | Hold authoritative specifications for business rules, journeys, contracts, tests, schemas, and feedback. | Files under `templates/source_of_truth/` (e.g., `BUSINESS_RULES.md`, `API_CONTRACTS.md`, `ACTUAL_SCHEMA.md`, `customer_feedback.md`) | Each entry is an ID card (`BR-XXX`, `API-XXX`, `DBT-XXX`, `CFD-XXX`) with metadata, bidirectional references, and change history. |
 | **Temp — Working Scratchpads** | Short-lived exploration and drafting before extraction into SoT. | `temp/` directories scoped per product/epic | Temporary content must be harvested into SoT IDs before archive; no durable knowledge lives here. |
 
 - **Unique IDs ecosystem**  
@@ -153,7 +153,7 @@ You can attach your own agent roster (e.g., AURA for market research, APOLLO for
   Stable, predictable locations so automation and humans always agree where to look:
   - `templates/product/` for PRD/README/CLAUDE templates  
   - `templates/epics/` for EPICs  
-  - `templates/source-of-truth/` for SoT structures  
+  - `templates/source_of_truth/` for SoT structures  
 
 - **Templates vs Examples**  
   Canonical templates are separated from examples. No “almost-templates” hiding in random folders.
@@ -178,7 +178,7 @@ python tools/generate-visuals.py --all
 # View results in docs/generated/index.md
 ```
 
-Inspired by [Hephaestus](https://github.com/Ido-Levi/Hephaestus), built from scratch for GHM. See [full plan](docs/ghm-visualization-suite-plan.md) and [CODEX review](docs/ghm-visualization-suite-review.md).
+Inspired by [Hephaestus](https://github.com/Ido-Levi/Hephaestus), built from scratch for GHM. See [full plan](docs/ghm_visualization_suite_plan.md) and [CODEX review](docs/ghm_visualization_suite_review.md).
 
 ---
 
@@ -194,7 +194,7 @@ GHM now includes **Session Protocols** for seamless agent handoffs across contex
 
 ```bash
 # Validate session state in EPICs
-python tools/validate-sessions.py --all
+python tools/validate_sessions.py --all
 
 # Install pre-commit hook (optional)
 cp templates/hooks/pre-commit.sh .git/hooks/pre-commit
@@ -207,8 +207,8 @@ See [templates/hooks/](templates/hooks/) for integration options.
 
 ### Core Documentation
 
-- [ID-Based Knowledge Graph](docs/ID-KNOWLEDGE-GRAPH.md) – Durable ID system for cross-referencing
-- [AI Evaluator Guide](AI-EVALUATOR-GUIDE.md) – How to evaluate AI-generated work using this method
+- [ID-Based Knowledge Graph](docs/ID_KNOWLEDGE_GRAPH.md) – Durable ID system for cross-referencing
+- [AI Evaluator Guide](AI_EVALUATOR_GUIDE.md) – How to evaluate AI-generated work using this method
 - [Contributing](CONTRIBUTING.md) – How to contribute to this methodology  
 
 ### Templates
@@ -227,12 +227,12 @@ See [templates/hooks/](templates/hooks/) for integration options.
   - Session start/end prompts for agent harnesses
   - Pre-commit hook for git integration
 
-- **Source of Truth Templates** (`templates/source-of-truth/`)
-  - `USER-JOURNEYS.md` (UJ-XXX)  
+- **Source of Truth Templates** (`templates/source_of_truth/`)
+  - `USER_JOURNEYS.md` (UJ-XXX)  
   - `BUSINESS_RULES.md` (BR-XXX)  
   - `API_CONTRACTS.md` (API-XXX)  
-  - `ACTUAL-SCHEMA.md` (DBT-XXX)  
-  - `customer-feedback.md` (CFD-XXX)
+  - `ACTUAL_SCHEMA.md` (DBT-XXX)  
+  - `customer_feedback.md` (CFD-XXX)
 
 - **Design Templates** (`templates/design/`)  
 - **Testing Templates** (`templates/testing/`)
@@ -246,8 +246,9 @@ See [templates/hooks/](templates/hooks/) for integration options.
 
 ## PRD Version Lifecycle (v0.1 → v1.0)
 
-The PRD is a **living artifact** that progresses through versions as reality unfolds.  
+The PRD is a **living artifact** that progresses through versions as reality unfolds.
 You can revisit earlier states (e.g., return from v0.7 to v0.4), but you **shouldn't skip** them.
+See [`docs/prd/sot_start_map.md`](docs/prd/sot_start_map.md) for when each Source of Truth file must begin.
 
 | Milestone | Focus | Key Gate / Question | PRD State After This Stage |
 |-----------|-------|---------------------|----------------------------|
@@ -274,12 +275,12 @@ Each version increment requires:
 
 Legacy organization (being migrated to the new structure):
 
-- Legacy export (archived under `archive/legacy-gear-heart-methodology/`):
-  - [Methodology README](archive/legacy-gear-heart-methodology/README.md)
-  - [Workflow](archive/legacy-gear-heart-methodology/docs/workflow/WORKFLOW-MASTER.md)
-  - [Standards](archive/legacy-gear-heart-methodology/docs/standards/)
-  - [Security](archive/legacy-gear-heart-methodology/docs/security/SECRETS-MANAGEMENT.md)
-  - [MCP (optional)](archive/legacy-gear-heart-methodology/docs/mcp/)
+- Legacy export (archived under `archive/legacy_gear_heart_methodology/`):
+  - [Methodology README](archive/legacy_gear_heart_methodology/README.md)
+  - [Workflow](archive/legacy_gear_heart_methodology/docs/workflow/WORKFLOW_MASTER.md)
+  - [Standards](archive/legacy_gear_heart_methodology/docs/standards/)
+  - [Security](archive/legacy_gear_heart_methodology/docs/security/SECRETS_MANAGEMENT.md)
+  - [MCP (optional)](archive/legacy_gear_heart_methodology/docs/mcp/)
 
 ---
 
@@ -287,7 +288,7 @@ Legacy organization (being migrated to the new structure):
 
 - **License:** MIT (Gear Heart AI, LLC)  
 - **Contribute:** See [CONTRIBUTING.md](CONTRIBUTING.md)  
-- **Code of Conduct:** See [CODE_OF_CONDUCT.md](archive/legacy-gear-heart-methodology/CODE_OF_CONDUCT.md)
+- **Code of Conduct:** See [CODE_OF_CONDUCT.md](archive/legacy_gear_heart_methodology/CODE_OF_CONDUCT.md)
 
 ---
 

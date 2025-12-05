@@ -183,9 +183,9 @@ Instead of creating new documents:
 
 ## Resources
 
-- [Complete Workflow Guide](../workflows/WORKFLOW_MASTER.md)
+- [Complete Workflow Guide](../methodology/workflows/WORKFLOW_MASTER.md)
 - [Template Library](../templates/)
-- [Example Product](../examples/sample-product/)
+- [Repository Organization](../methodology/guides/REPO_ORGANIZATION.md)
 
 ---
 

@@ -21,10 +21,10 @@ Each file focuses on one artifact type and uses a consistent ID prefix:
 | `testing_playbook.md` | TEST-### | Critical tests, coverage expectations, and automation hooks. |
 | `deployment_playbook.md` | DEP-### | Release procedures, runbooks, and operational guardrails. |
 
-> See [`workflows/UNIQUE-ID-SYSTEM.md`](../workflows/UNIQUE-ID-SYSTEM.md) for full ID specifications and automation tips.
+> See [`methodology/workflows/UNIQUE_ID_SYSTEM.md`](../../methodology/workflows/UNIQUE_ID_SYSTEM.md) for full ID specifications and automation tips.
 
 ## How to initialize
-1. Copy the templates from [`templates/source_of_truth/`](../templates/source_of_truth/).
+1. Copy the templates from [`templates/source_of_truth/`](../../templates/source_of_truth/).
 2. Create the files you actually need today; keep unused templates out of the repo until required.
 3. Populate each entry with an ID card (metadata, description, references, history).
 4. Cross-link IDs from the PRD, README, EPICs, and other SoT files.

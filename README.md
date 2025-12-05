@@ -85,11 +85,11 @@ GHM exists to solve five recurring problems in AI-powered product work:
 | **SoT — Source of Truth Library** | Hold authoritative specifications for business rules, journeys, contracts, tests, schemas, and feedback. | Files under `templates/source_of_truth/` (e.g., `BUSINESS_RULES.md`, `API_CONTRACTS.md`, `ACTUAL_SCHEMA.md`, `customer_feedback.md`) | Each entry is an ID card (`BR-XXX`, `API-XXX`, `DBT-XXX`, `CFD-XXX`) with metadata, bidirectional references, and change history. |
 | **Temp — Working Scratchpads** | Short-lived exploration and drafting before extraction into SoT. | `temp/` directories scoped per product/epic | Temporary content must be harvested into SoT IDs before archive; no durable knowledge lives here. |
 
-- **Unique IDs ecosystem**  
-  The [Unique ID System](workflows/UNIQUE-ID-SYSTEM.md) defines naming, lifecycle, and automation hooks. Templates reference these IDs explicitly so SoT changes propagate back to navigation files without duplication.
+- **Unique IDs ecosystem**
+  The [Unique ID System](methodology/workflows/UNIQUE_ID_SYSTEM.md) defines naming, lifecycle, and automation hooks. Templates reference these IDs explicitly so SoT changes propagate back to navigation files without duplication.
 
-- **Workflow alignment**  
-  The PRD workflow (see `/workflows`) advances the PRD and EPIC gates only when SoT IDs are updated and referenced correctly. This is how we enforce discipline on both humans and agents.
+- **Workflow alignment**
+  The PRD workflow (see `methodology/workflows/`) advances the PRD and EPIC gates only when SoT IDs are updated and referenced correctly. This is how we enforce discipline on both humans and agents.
 
 ---
 
@@ -178,7 +178,7 @@ python tools/generate-visuals.py --all
 # View results in docs/generated/index.md
 ```
 
-Inspired by [Hephaestus](https://github.com/Ido-Levi/Hephaestus), built from scratch for GHM. See [full plan](docs/ghm_visualization_suite_plan.md) and [CODEX review](docs/ghm_visualization_suite_review.md).
+Inspired by [Hephaestus](https://github.com/Ido-Levi/Hephaestus), built from scratch for GHM. See [full plan](methodology/guides/ghm_visualization_suite_plan.md).
 
 ---
 
@@ -207,8 +207,8 @@ See [templates/hooks/](templates/hooks/) for integration options.
 
 ### Core Documentation
 
-- [ID-Based Knowledge Graph](docs/ID_KNOWLEDGE_GRAPH.md) – Durable ID system for cross-referencing
-- [AI Evaluator Guide](AI_EVALUATOR_GUIDE.md) – How to evaluate AI-generated work using this method
+- [ID-Based Knowledge Graph](methodology/guides/ID_KNOWLEDGE_GRAPH.md) – Durable ID system for cross-referencing
+- [AI Evaluator Guide](docs/AI_EVALUATOR_GUIDE.md) – How to evaluate AI-generated work using this method
 - [Contributing](CONTRIBUTING.md) – How to contribute to this methodology  
 
 ### Templates
@@ -239,8 +239,8 @@ See [templates/hooks/](templates/hooks/) for integration options.
 
 ### Workflows
 
-- [CLAUDE.md](CLAUDE.md) – Global Claude Code instructions  
-- PRD workflow guides under `/workflows/` (PRD lifecycle and EPIC gates)
+- [CLAUDE.md](CLAUDE.md) – Global Claude Code instructions
+- PRD workflow guides under `methodology/workflows/` (PRD lifecycle and EPIC gates)
 
 ---
 
@@ -248,7 +248,7 @@ See [templates/hooks/](templates/hooks/) for integration options.
 
 The PRD is a **living artifact** that progresses through versions as reality unfolds.
 You can revisit earlier states (e.g., return from v0.7 to v0.4), but you **shouldn't skip** them.
-See [`docs/prd/sot_start_map.md`](docs/prd/sot_start_map.md) for when each Source of Truth file must begin.
+See [`methodology/guides/prd/sot_start_map.md`](methodology/guides/prd/sot_start_map.md) for when each Source of Truth file must begin.
 
 | Milestone | Focus | Key Gate / Question | PRD State After This Stage |
 |-----------|-------|---------------------|----------------------------|
@@ -265,30 +265,16 @@ See [`docs/prd/sot_start_map.md`](docs/prd/sot_start_map.md) for when each Sourc
 
 Each version increment requires:
 
-- Updating the PRD metadata table and version history.  
-- Linking supporting evidence from SoT files by ID.  
-- Running the appropriate gates from the PRD workflow (see `/workflows`).
-
----
-
-## Legacy Gear Heart Methodology Package
-
-Legacy organization (being migrated to the new structure):
-
-- Legacy export (archived under `archive/legacy_gear_heart_methodology/`):
-  - [Methodology README](archive/legacy_gear_heart_methodology/README.md)
-  - [Workflow](archive/legacy_gear_heart_methodology/docs/workflow/WORKFLOW_MASTER.md)
-  - [Standards](archive/legacy_gear_heart_methodology/docs/standards/)
-  - [Security](archive/legacy_gear_heart_methodology/docs/security/SECRETS_MANAGEMENT.md)
-  - [MCP (optional)](archive/legacy_gear_heart_methodology/docs/mcp/)
+- Updating the PRD metadata table and version history.
+- Linking supporting evidence from SoT files by ID.
+- Running the appropriate gates from the PRD workflow (see `methodology/workflows/`).
 
 ---
 
 ## License & Community
 
-- **License:** MIT (Gear Heart AI, LLC)  
-- **Contribute:** See [CONTRIBUTING.md](CONTRIBUTING.md)  
-- **Code of Conduct:** See [CODE_OF_CONDUCT.md](archive/legacy_gear_heart_methodology/CODE_OF_CONDUCT.md)
+- **License:** MIT (Gear Heart AI, LLC)
+- **Contribute:** See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 

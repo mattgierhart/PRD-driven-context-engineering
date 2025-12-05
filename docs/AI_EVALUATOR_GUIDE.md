@@ -8,21 +8,25 @@ You are an AI evaluator tasked with assessing new ideas, tools, and enhancements
 
 ### Start Here
 1. **CLAUDE.md** - Core workflow philosophy and implementation details
-2. **workflows/WORKFLOW_MASTER.md** - Complete 5-phase workflow documentation
-3. **workflows/SUBAGENT_REGISTRY.md** - Existing AI agent integrations
+2. **methodology/workflows/WORKFLOW_MASTER.md** - Complete 5-phase workflow documentation
+3. **methodology/workflows/SUBAGENT_REGISTRY.md** - Existing AI agent integrations
 
 ### Key Directories
 ```
 PRD-driven-context-engineering/
-├── workflows/          # Core workflow documentation
-│   ├── WORKFLOW_MASTER.md
-│   ├── SUBAGENT_REGISTRY.md
-│   └── MODEL_USAGE_GUIDE.md
-├── templates/          # Existing templates to understand patterns
-│   ├── epics/         # Development planning templates
-│   ├── testing/       # Quality assurance templates
-│   └── product/       # PRD and product templates
-└── tools/             # Current tooling structure
+├── methodology/        # HOW GHM works
+│   ├── workflows/      # PRD lifecycle, ID system, workflow guides
+│   └── guides/         # Model usage, documentation guides
+├── active/             # Your live project files
+│   ├── agents/         # Agent briefs
+│   ├── epics/          # Active EPICs
+│   └── source_of_truth/# SoT files (BR-, UJ-, API-, etc.)
+├── templates/          # Blank forms to copy
+│   ├── epics/          # Development planning templates
+│   ├── testing/        # Quality assurance templates
+│   └── product/        # PRD and product templates
+├── tools/              # Automation scripts
+└── docs/               # Onboarding & reference
 ```
 
 ## Evaluation Criteria

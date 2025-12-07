@@ -111,6 +111,9 @@ Automation hooks (e.g., ID registry refresh, metrics capture) should live under 
 - 3+1+SoT+Temp primer: `README.md`
 - Lifecycle workflow: `workflows/PRD_VERSION_LIFECYCLE.md`
 - Unique IDs: `workflows/UNIQUE-ID-SYSTEM.md`
+- **Agent tools**: [`workflows/AGENT_TOOLS.md`](./AGENT_TOOLS.md)
+- **Sub-agent registry**: [`workflows/SUBAGENT_REGISTRY.md`](./SUBAGENT_REGISTRY.md)
+- **MCP configuration**: [`tools/config/mcp_servers.yaml`](../../tools/config/mcp_servers.yaml)
 - Agent templates: `templates/agents/`
 - PRD/README templates: `templates/product/`
 - EPIC template: `templates/epics/EPIC-template.md`

@@ -86,15 +86,16 @@ SEGMENTOR:
     - extract_links
 
 MOAT-MAPPER:
+  # Tactical moat: 1% better, 10% cheaper, own SEO for unaddressed problems
   primary_tools:
-    - web_search          # Competitor research
-    - traverse_website    # Competitor site analysis
-    - analyze_content     # Pricing/positioning extraction
-    - search_trends       # Market momentum
-    - get_trending_searches  # Emerging competitors
+    - web_search          # Gap research: "{competitor} complaints", "missing features"
+    - traverse_website    # Competitor gap analysis (pricing, features, support forums)
+    - analyze_content     # Extract gaps from reviews and complaints
+    - search_trends       # SEO keyword opportunities for unaddressed problems
+    - get_trending_searches  # Emerging problems competitors ignore
   secondary_tools:
-    - retrieve_content
-    - extract_links
+    - retrieve_content    # G2/Capterra reviews, Reddit threads
+    - extract_links       # Map content gaps in SEO landscape
 
 JOURNEY-SCRIBE:
   primary_tools:
@@ -412,46 +413,63 @@ outputs:
 sub_agent: MOAT-MAPPER
 reports_to: AURA
 lifecycle_gate: v0.3 Commercial Model
-core_question: "How do we win vs competitors and monetize?"
+core_question: "Where are competitors leaving gaps we can own through SEO and demos?"
+
+# Tactical Moat Philosophy:
+# - Short-term moats, not decade-long defensibility
+# - "1% better, 10% cheaper" rule: small improvements + price advantage
+# - Find pain points competitors ignore → solve them → promote via SEO + demos
+# - Moat = owning search results for unaddressed problems
 
 tools:
   primary:
     - name: web_search
       provider: RivalSearchMCP
-      use_case: "Competitor research, pricing intelligence, market positioning"
+      use_case: "Find competitor gaps, unaddressed pain points, SEO opportunities"
       example_queries:
-        - "{competitor} pricing plans"
-        - "{product_category} market share"
-        - "{competitor} vs {competitor} comparison"
+        - "{competitor} complaints reddit"
+        - "{competitor} missing features"
+        - "{product_category} frustrations"
+        - "{competitor} alternative for {specific_use_case}"
+        - "why I switched from {competitor}"
+        - "{pain_point} {product_category} solution"  # SEO keyword research
 
     - name: traverse_website
       provider: RivalSearchMCP
       mode: research
-      use_case: "Deep exploration of competitor sites for pricing, features, positioning"
+      use_case: "Analyze competitor gaps in features, pricing, and messaging"
       targets:
-        - Pricing pages
-        - Feature comparison pages
-        - Case studies and testimonials
+        - Pricing pages (find the 10% cheaper opportunity)
+        - Feature pages (find the 1% better opportunity)
+        - Support forums (find unaddressed complaints)
+        - Changelog/roadmap (find what they're NOT building)
 
     - name: analyze_content
       provider: RivalSearchMCP
-      use_case: "Extract competitive intelligence from landing pages, reviews"
-      example_prompt: "Extract pricing model, key features, and positioning from this competitor page"
+      use_case: "Extract gaps from reviews, support tickets, forum complaints"
+      example_prompts:
+        - "What features do users repeatedly request that this product lacks?"
+        - "What complaints appear in 3+ reviews? These are ownable gaps."
+        - "What use cases does this product explicitly NOT support?"
 
     - name: search_trends
       provider: RivalSearchMCP
-      use_case: "Identify momentum in competitive landscape"
+      use_case: "Find SEO keyword opportunities for unaddressed problems"
+      focus:
+        - Rising search terms competitors don't rank for
+        - Long-tail keywords around pain points
+        - "{problem} solution" queries with weak competition
 
     - name: get_trending_searches
       provider: RivalSearchMCP
-      use_case: "Spot emerging competitors and alternative solutions"
+      use_case: "Spot emerging problems competitors haven't addressed yet"
 
   secondary:
     - name: retrieve_content
-      use_case: "Analyst reports, G2/Capterra reviews"
+      use_case: "G2/Capterra reviews (mine for complaints), Reddit threads, support forums"
 
     - name: extract_links
-      use_case: "Build competitive intelligence link graph"
+      use_case: "Map competitor content gaps in SEO landscape"
 
   methodology:
     - /load-context
@@ -459,10 +477,13 @@ tools:
     - session_checkpoint
 
 outputs:
-  - Anchor competitor profiles (3-5)
-  - Pricing model analysis and recommendations
-  - Fast-follow positioning (1-10% delta strategy)
-  - Monetization hypotheses
+  # Tactical moat deliverables
+  - Gap analysis: 3-5 pain points competitors ignore
+  - "1% better" opportunities: specific features to outperform on
+  - "10% cheaper" positioning: pricing strategy vs anchors
+  - SEO keyword targets: search terms to own for unaddressed problems
+  - Demo script outlines: how to showcase gap solutions
+  - Competitor response timeline: how long before they copy (urgency signal)
   - BR-XXX, CFD-XXX ID proposals
 ```
 

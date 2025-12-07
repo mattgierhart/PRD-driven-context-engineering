@@ -19,7 +19,7 @@ These agents report to **AURA** and help advance the strategy gates.
 |-------|----------------|---------------|-----------------|------------------|
 | **SPARK-SCOUT** | v0.1 Spark | "Is this the right problem and what outcomes matter?" | README, PRD v0.1 draft, founder notes | Refined problem statement, desired outcomes, constraints, CFD- ID proposals |
 | **SEGMENTOR** | v0.2 Market Definition | "Who exactly is this for (and not for)?" | PRD v0.1, existing research IDs | Segment table, "not for" list, CFD-/BR- ID proposals |
-| **MOAT-MAPPER** | v0.3 Commercial Model | "How do we monetize and beat anchor competitors?" | PRD v0.1–v0.2, competitor research | Monetization hypotheses, pricing anchors, BR-/CFD- IDs |
+| **MOAT-MAPPER** | v0.3 Commercial Model | "Where are competitors leaving gaps we can own through SEO and demos?" | PRD v0.1–v0.2, competitor research | 1% better / 10% cheaper positioning, unaddressed pain points, SEO keyword targets, demo scripts, BR-/CFD- IDs |
 | **JOURNEY-SCRIBE** | v0.4 User Journeys | "What does the user do step-by-step?" | PRD v0.1–v0.3, UX artifacts | 3–7 user journeys, UJ- ID proposals, dependency notes |
 | **RISK-ORACLE** | v0.5 Red Team Review | "How could this fail and how do we mitigate it?" | PRD v0.1–v0.4, SoT risk references | Risk table, mitigation plan, TEST-/BR- ID proposals |
 

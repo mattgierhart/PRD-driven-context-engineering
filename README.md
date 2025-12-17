@@ -280,8 +280,58 @@ Each version increment requires:
 
 ## Quick Start
 
+### Prerequisites
+
+- **Python 3.10+** — Required for validation and visualization tools
+- **Git** — Version control
+- **Graphviz** (optional) — For generating ID knowledge graph visualizations
+  ```bash
+  # macOS
+  brew install graphviz
+
+  # Ubuntu/Debian
+  sudo apt-get install graphviz
+
+  # Windows: https://graphviz.org/download/
+  ```
+
+### Installation
+
 1. **Clone**
 
    ```bash
    git clone https://github.com/mattgierhart/PRD-driven-context-engineering.git
    cd PRD-driven-context-engineering
+   ```
+
+2. **Install Python dependencies**
+
+   ```bash
+   pip install -r tools/requirements.txt
+   ```
+
+3. **Test the tools**
+
+   ```bash
+   # Validate session state in EPICs
+   python tools/validate_sessions.py --help
+
+   # Generate visualizations (requires Graphviz)
+   python tools/generate_visuals.py --help
+   ```
+
+### Start a New Project
+
+Copy the templates to your project directory:
+
+```bash
+# Create your project structure
+mkdir my-product && cd my-product
+
+# Copy the essential files
+cp path/to/PRD-driven-context-engineering/templates/product/* .
+cp -r path/to/PRD-driven-context-engineering/templates/source_of_truth/ source_of_truth/
+cp -r path/to/PRD-driven-context-engineering/templates/epics/ epics/
+```
+
+Then follow the [Getting Started Guide](docs/getting_started.md) for detailed instructions.

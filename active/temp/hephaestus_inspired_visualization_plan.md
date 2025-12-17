@@ -4,8 +4,9 @@ version: 1.0
 created: 2025-11-23
 author: Claude (for CODEX review)
 purpose: "Specification for building GHM-native visualization tools inspired by Hephaestus"
-status: "Draft - Awaiting CODEX feedback"
-extraction_target: "To be determined after review"
+status: "ARCHIVED - Core features implemented in tools/"
+implementation: "See tools/generate_visuals.py and methodology/guides/ghm_visualization_suite_plan.md"
+note: "This temp file was the original planning document. Core functionality has been shipped."
 ---
 
 # GHM Visualization Suite

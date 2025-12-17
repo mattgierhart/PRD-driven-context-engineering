@@ -1,11 +1,11 @@
-# Contributing to APOLLO Development Workflow
+# Contributing to Gear Heart Methodology (GHM)
 
-Thank you for your interest in contributing to the APOLLO Development Workflow! This project aims to help developers build revenue-generating products faster, and your contributions can help make it even better.
+Thank you for your interest in contributing to the Gear Heart Methodology! This project provides a PRD-driven context engineering workflow for AI-led software development, and your contributions can help make it even better.
 
 ## Ways to Contribute
 
 ### 1. Share Your Experience
-- **Case Studies**: Document your success stories using APOLLO
+- **Case Studies**: Document your success stories using GHM
 - **Workflow Improvements**: Suggest enhancements based on real usage
 - **Templates**: Share templates you've created for specific use cases
 
@@ -130,4 +130,4 @@ Contributors will be:
 - Create an Issue for specific problems
 - Tag @mattgierhart for urgent matters
 
-Thank you for helping make APOLLO better for everyone!
+Thank you for helping make GHM better for everyone!

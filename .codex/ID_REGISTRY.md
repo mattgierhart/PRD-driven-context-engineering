@@ -1,242 +1,119 @@
 ---
 version: 1.0
-purpose: Auto-generated central registry of all IDs across Source of Truth files
+purpose: Template for auto-generated central registry of all IDs across Source of Truth files
 generation: Hybrid (script-generated + human validation)
-sync_command: npm run codex:sync-registry
-last_synced: YYYY-MM-DD HH:MM:SS
-authority: This file is AUTO-GENERATED - do not edit manually. Run sync command to rebuild.
+status: TEMPLATE - Copy to your project and customize
+authority: When populated, this becomes the central ID index for your project
 ---
 
-# ID Registry (Auto-Generated)
+# ID Registry
 
 > **Purpose**: Central index of all unique IDs across the knowledge graph
-> **Update Method**: Run `npm run codex:sync-registry` to rebuild from SoT files
-> **Status**: Auto-generated (do not edit manually)
+> **Status**: 📋 **TEMPLATE** - This file shows the intended structure for ID tracking
+> **Usage**: When you start a project, the validation scripts in `tools/` will help populate this file
 
-## Quick Stats
+## About This File
 
-| ID Type | Count | SoT File | Status |
-|---------|-------|----------|--------|
-| UJ-XXX | {count} | USER-JOURNEYS.md | ✅ Active |
-| BR-XXX | {count} | BUSINESS_RULES.md | ✅ Active |
-| API-XXX | {count} | API_CONTRACTS.md | ✅ Active |
-| DBT-XXX | {count} | ACTUAL-SCHEMA.md | ✅ Active |
-| CFD-XXX | {count} | customer-feedback.md | ✅ Active |
-| TEST-XXX | {count} | testing-playbook.md | ✅ Active |
-| DEP-XXX | {count} | deployment-playbook.md | ✅ Active |
-| DES-XXX | {count} | design-brief.md | ✅ Active |
-| SEC-XXX | {count} | security-playbook.md | ⚠️ Optional |
-| PERF-XXX | {count} | performance-playbook.md | ⚠️ Optional |
+This is a **template** showing how GHM tracks IDs across Source of Truth files. When you adopt GHM for your project:
 
-**Last Sync**: {timestamp}
-**Total IDs**: {total_count}
+1. Copy this template to your project's `.codex/` directory
+2. As you create SoT entries (BR-XXX, API-XXX, etc.), they'll be tracked here
+3. Use `python tools/generate_visuals.py` to generate ID graphs and reports
+
+## ID Type Reference
+
+| ID Type | SoT File | Purpose |
+|---------|----------|---------|
+| UJ-XXX | USER_JOURNEYS.md | User journey flows |
+| BR-XXX | BUSINESS_RULES.md | Business rules and constraints |
+| API-XXX | API_CONTRACTS.md | API endpoint specifications |
+| DBT-XXX | ACTUAL_SCHEMA.md | Database table definitions |
+| CFD-XXX | customer_feedback.md | Customer feedback items |
+| TEST-XXX | testing_playbook.md | Test specifications |
+| DEP-XXX | deployment_playbook.md | Deployment configurations |
+| DES-XXX | design_brief.md | Design components |
+| SEC-XXX | security_playbook.md | Security controls (optional) |
+| PERF-XXX | performance_playbook.md | Performance metrics (optional) |
+
+> **Note**: Counts and sync timestamps will appear here once you start creating SoT entries in your project.
 
 ---
 
-## User Journeys (UJ-XXX)
+## Example Structure
 
-**Source**: USER-JOURNEYS.md
+The sections below show the table format for each ID type. When you create SoT entries, they'll be indexed here.
+
+### User Journeys (UJ-XXX)
 
 | ID | Title | Status | Used By |
 |----|-------|--------|---------|
-| UJ-001 | {Journey Title} | Active | API-XXX, TEST-XXX |
-| UJ-002 | {Journey Title} | Active | API-YYY |
+| *UJ-001* | *Example: User Login Flow* | *Active* | *API-001, TEST-001* |
 
----
-
-## Business Rules (BR-XXX)
-
-**Source**: BUSINESS_RULES.md
+### Business Rules (BR-XXX)
 
 | ID | Rule Name | Severity | Enforced By |
 |----|-----------|----------|-------------|
-| BR-001 | {Rule Name} | Critical | API-XXX |
-| BR-002 | {Rule Name} | High | API-YYY |
+| *BR-001* | *Example: Password Minimum Length* | *Critical* | *API-001* |
 
----
-
-## API Contracts (API-XXX)
-
-**Source**: API_CONTRACTS.md
+### API Contracts (API-XXX)
 
 | ID | Endpoint | Method | Used By |
 |----|----------|--------|---------|
-| API-001 | {Endpoint Path} | POST | UJ-XXX |
-| API-002 | {Endpoint Path} | GET | UJ-YYY |
+| *API-001* | */api/auth/login* | *POST* | *UJ-001* |
 
----
-
-## Database Tables (DBT-XXX)
-
-**Source**: ACTUAL-SCHEMA.md
+### Database Tables (DBT-XXX)
 
 | ID | Table Name | Accessed By |
 |----|------------|-------------|
-| DBT-001 | {table_name} | API-XXX |
-| DBT-002 | {table_name} | API-YYY |
+| *DBT-001* | *users* | *API-001* |
 
----
-
-## Customer Feedback (CFD-XXX)
-
-**Source**: customer-feedback.md
+### Customer Feedback (CFD-XXX)
 
 | ID | Category | Status | Affects |
 |----|----------|--------|---------|
-| CFD-001 | Feature Request | Planned | UJ-XXX |
-| CFD-002 | Bug Report | In Progress | API-YYY |
+| *CFD-001* | *Feature Request* | *Planned* | *UJ-001* |
 
----
-
-## Tests (TEST-XXX)
-
-**Source**: testing-playbook.md
+### Tests (TEST-XXX)
 
 | ID | Test Name | Category | Validates |
 |----|-----------|----------|-----------|
-| TEST-001 | {Test Name} | Unit | API-XXX |
-| TEST-002 | {Test Name} | Integration | UJ-YYY |
+| *TEST-001* | *Login Success Test* | *Integration* | *API-001* |
+
+### Other ID Types
+
+Similar tables exist for:
+- **DEP-XXX** — Deployment configurations
+- **DES-XXX** — Design components
+- **SEC-XXX** — Security controls (optional)
+- **PERF-XXX** — Performance metrics (optional)
 
 ---
 
-## Deployments (DEP-XXX)
+## Validation Reports
 
-**Source**: deployment-playbook.md
+When populated, this section will show:
+- **Orphaned IDs** — Referenced but not defined
+- **Dangling References** — Defined but never referenced
+- **Broken Links** — Cross-references to non-existent IDs
 
-| ID | Configuration | Environment | Used By |
-|----|--------------|-------------|---------|
-| DEP-001 | {Config Name} | Production | API-XXX |
-| DEP-002 | {Config Name} | Staging | API-YYY |
-
----
-
-## Design Components (DES-XXX)
-
-**Source**: design-brief.md
-
-| ID | Component Name | Platform | Used In |
-|----|---------------|----------|---------|
-| DES-001 | {Component Name} | Web | UJ-XXX |
-| DES-002 | {Component Name} | Mobile | UJ-YYY |
+Use `python tools/generate_visuals.py --all` to generate validation reports.
 
 ---
 
-## Security Controls (SEC-XXX)
+## Available Tooling
 
-**Source**: security-playbook.md (optional)
-
-| ID | Control Name | Compliance | Enforced By |
-|----|-------------|------------|-------------|
-| SEC-001 | {Control Name} | SOC2 | API-XXX |
-| SEC-002 | {Control Name} | GDPR | API-YYY |
-
----
-
-## Performance Metrics (PERF-XXX)
-
-**Source**: performance-playbook.md (optional)
-
-| ID | Metric Name | Target | Monitored By |
-|----|------------|--------|--------------|
-| PERF-001 | {Metric Name} | <200ms | DEP-XXX |
-| PERF-002 | {Metric Name} | <500ms | DEP-YYY |
-
----
-
-## Cross-Reference Validation
-
-### Orphaned IDs
-IDs referenced but not defined in any SoT file:
-- {ID-XXX} - Referenced by {FILE} but not found in {SOURCE_FILE}
-
-### Dangling References
-IDs defined but never referenced:
-- {ID-YYY} - Defined in {SOURCE_FILE} but not referenced anywhere
-
-### Broken Links
-Cross-references pointing to non-existent IDs:
-- {SOURCE} references {TARGET} which doesn't exist
-
----
-
-## Sync Scripts
-
-### npm run codex:sync-registry
-
-Rebuilds this file by scanning all SoT files for ID definitions.
+GHM provides Python-based tools for ID management and validation:
 
 ```bash
-#!/bin/bash
-# scripts/codex-sync-registry.sh
+# Generate ID knowledge graph and validation reports
+python tools/generate_visuals.py --all
 
-echo "🔄 Syncing ID Registry from Source of Truth files..."
-
-# Scan each SoT file for IDs
-UJ_COUNT=$(grep -c "^## UJ-" USER-JOURNEYS.md 2>/dev/null || echo 0)
-BR_COUNT=$(grep -c "^## BR-" BUSINESS_RULES.md 2>/dev/null || echo 0)
-API_COUNT=$(grep -c "^## API-" API_CONTRACTS.md 2>/dev/null || echo 0)
-# ... (continue for all ID types)
-
-# Rebuild .codex/ID-REGISTRY.md with current data
-# Include timestamp and counts
-
-echo "✅ ID Registry synced successfully"
-echo "   Total IDs: $TOTAL_COUNT"
-echo "   Last sync: $(date)"
+# Validate session state in EPICs
+python tools/validate_sessions.py --all
 ```
 
-### npm run codex:check-links
-
-Validates all cross-references between IDs.
-
-```bash
-#!/bin/bash
-# scripts/codex-check-links.sh
-
-echo "🔗 Checking bidirectional links..."
-
-# For each ID, verify:
-# 1. All referenced IDs exist
-# 2. Bidirectional links are present
-# 3. No orphaned IDs
-
-echo "✅ Link check complete"
-```
-
-### npm run codex:find-orphans
-
-Finds IDs that are defined but never referenced.
-
-```bash
-#!/bin/bash
-# scripts/codex-find-orphans.sh
-
-echo "🔍 Finding orphaned IDs..."
-
-# Scan for IDs defined in SoT files
-# Check if they're referenced anywhere
-# Report orphans
-
-echo "✅ Orphan scan complete"
-```
+See `tools/README.md` for full documentation.
 
 ---
 
-## NPM Script Configuration
-
-Add to `package.json`:
-
-```json
-{
-  "scripts": {
-    "codex:sync-registry": "bash scripts/codex-sync-registry.sh",
-    "codex:check-links": "bash scripts/codex-check-links.sh",
-    "codex:find-orphans": "bash scripts/codex-find-orphans.sh",
-    "codex:validate": "npm run codex:sync-registry && npm run codex:check-links && npm run codex:find-orphans"
-  }
-}
-```
-
----
-
-*This file is auto-generated by the CODEX sync scripts. Do not edit manually. Run `npm run codex:sync-registry` to rebuild.*
+*This template shows the structure for ID tracking in GHM projects. See [UNIQUE_ID_SYSTEM.md](../methodology/workflows/UNIQUE_ID_SYSTEM.md) for the full ID specification.*

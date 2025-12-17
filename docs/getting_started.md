@@ -1,32 +1,34 @@
-# Getting Started with APOLLO
+# Getting Started with Gear Heart Methodology (GHM)
 
-This guide will walk you through your first product build using the APOLLO workflow.
+This guide will walk you through your first product build using the GHM workflow.
 
 ## Prerequisites
 
 Before you begin, ensure you have:
 
-- **Node.js 18+** and npm installed
+- **Python 3.10+** for GHM validation tools
 - **Git** for version control
-- **VS Code** or your preferred editor
+- **Your preferred editor** (VS Code, Cursor, etc.)
 - **GitHub account** for repository hosting
-- **Supabase account** (free tier is fine)
-- **Vercel account** (free tier works)
+- **Your preferred backend/hosting** (choose based on your project needs)
 
-### Install Required CLIs
+### Install GHM Tools
 
 ```bash
-# Supabase CLI
-npm install -g supabase
+# Clone the GHM repository
+git clone https://github.com/mattgierhart/PRD-driven-context-engineering.git
+cd PRD-driven-context-engineering
 
-# Vercel CLI
-npm install -g vercel
+# Install Python dependencies for visualization tools
+pip install -r tools/requirements.txt
 
-# Create Next App
-npm install -g create-next-app
+# Optional: Install Graphviz for ID graph generation
+# macOS: brew install graphviz
+# Ubuntu: sudo apt-get install graphviz
+# Windows: https://graphviz.org/download/
 ```
 
-## Your First APOLLO Product
+## Your First GHM Product
 
 ### Step 1: Define Your Product Idea
 
@@ -61,50 +63,50 @@ Use the research phase templates to:
 
 ### Step 4: Technical Planning (Gate 2)
 
-1. Choose your tech stack (usually the APOLLO defaults)
+1. Choose your tech stack based on project requirements
 2. Estimate infrastructure costs
-3. Create development timeline
+3. Define architecture approach
 
 **Gate 2 Criteria**:
-- Infrastructure <$0.10/user
-- Development timeline <21 days
+- Clear architecture documented
+- Infrastructure costs estimated
 - Technical risks identified
 
 ### Step 5: Design Phase (Gate 3)
 
-1. Create user journey maps
+1. Create user journey maps (UJ-XXX IDs)
 2. Design information architecture
-3. Generate UI designs (using UXPilot or similar)
+3. Generate UI designs using your preferred tools
 
 **Gate 3 Criteria**:
-- Complete design system
-- All screens designed
-- Responsive layouts ready
+- User journeys documented with IDs
+- Design system defined
+- Key screens designed
 
 ### Step 6: Development (Gate 4)
 
-1. **Set up your project**:
+1. **Set up your project structure**:
    ```bash
-   npx create-next-app@latest my-product --typescript --tailwind --app
-   cd my-product
-   npm install @supabase/supabase-js @supabase/auth-helpers-nextjs
+   # Copy GHM templates to your project
+   cp -r templates/product/ my-product/
+   cp -r templates/epics/ my-product/epics/
+   cp -r templates/source_of_truth/ my-product/source_of_truth/
    ```
 
 2. **Create your EPICs**:
-   - Copy the 5 epic templates
-   - Break down features into tasks
+   - Use EPIC templates from `templates/epics/`
+   - Break down features into tasks with ID references
    - Prioritize MVP features
 
-3. **Implement with TDD**:
-   - Write tests first
-   - Implement features
-   - Run tests continuously
+3. **Implement with ID traceability**:
+   - Reference BR-XXX, API-XXX in commits
+   - Update SoT files as you implement
+   - Keep Session State current in EPICs
 
 **Gate 4 Criteria**:
 - All MVP features complete
-- Tests passing
-- Performance targets met
-- Deployed to production
+- Tests passing (TEST-XXX validated)
+- SoT files up to date
 
 ## Common Workflows
 
@@ -169,11 +171,11 @@ Instead of creating new documents:
 **Problem**: Development taking too long
 - **Solution**: Cut features aggressively, focus on core value
 
-**Problem**: Costs exceeding targets
-- **Solution**: Review Supabase usage, implement caching
+**Problem**: Context window overload
+- **Solution**: Use ID references instead of pasting full docs; keep EPICs focused
 
 **Problem**: Failing gates
-- **Solution**: Re-evaluate assumptions, adjust scope
+- **Solution**: Re-evaluate assumptions, check SoT files for completeness
 
 ### Getting Help
 

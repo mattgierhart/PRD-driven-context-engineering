@@ -36,3 +36,11 @@ Each file focuses on one artifact type and uses a consistent ID prefix:
 - Keep tables tight; break large lists into sub-sections by domain or lifecycle stage.
 
 When the number of files grows, create subfolders (e.g., `source_of_truth/design/`) but preserve the ID prefixes and update the `README.md` table accordingly.
+
+## About This Directory (Methodology Repo)
+
+Since this repository is the **GHM methodology** itself (not a product built with GHM), this directory contains only:
+
+- **`customer_feedback.md`** — An example SoT file demonstrating the CFD-XXX pattern
+
+When you fork GHM for your own product, you'll populate this directory with your project's actual SoT files using the templates from `templates/source_of_truth/`.

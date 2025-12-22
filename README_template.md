@@ -8,12 +8,11 @@
 
 ## 1. Quick Navigation
 
-| File                                                       | Purpose                                                                    |
-| ---------------------------------------------------------- | -------------------------------------------------------------------------- |
-| **[`PRD.md`](PRD.md)**                                     | **Product Definition**. The single narrative of "What we are building".    |
-| **[`CLAUDE.md`](CLAUDE.md)**                               | **AI Instructions**. How agents must behave in this repo.                  |
-| **[`epics/`](epics/)**                                     | **Execution**. Where work happens. Check here for the current sprint/task. |
-| **[`methodology/LIFECYCLE.md`](methodology/LIFECYCLE.md)** | **The Manual**. Detailed rules, workflow steps, and gate checklists.       |
+| File                         | Purpose                                                                    |
+| ---------------------------- | -------------------------------------------------------------------------- |
+| **[`PRD.md`](PRD.md)**       | **Product Definition**. The single narrative of "What we are building".    |
+| **[`CLAUDE.md`](CLAUDE.md)** | **AI Instructions**. How agents must behave in this repo.                  |
+| **[`epics/`](epics/)**       | **Execution**. Where work happens. Check here for the current sprint/task. |
 
 ---
 
@@ -26,7 +25,7 @@
    - `UJ-XXX`: User Journeys
    - `API-XXX`: Contracts
    - `CFD-XXX`: Customer Feedback
-4. **Gates**: We do not advance the PRD version without meeting the **Definition of Done** (see [`LIFECYCLE.md`](methodology/LIFECYCLE.md)).
+4. **Gates**: We do not advance the PRD version without meeting the **Definition of Done** (see [`README.md`](README.md)).
 
 ---
 
@@ -51,7 +50,48 @@
 
 ---
 
-## 4. Quick Commands
+## 4. Product Roadmap
+
+> **Focus**: Align development phases to clear outcomes.
+
+### Deployment 1: Beta (Concept Validation)
+
+- **Associated Epics**: `[Link to Epics]`
+- **Key Specs**: `[UJ-xxx, BR-xxx]`
+
+- [ ] **Core Functionality**: The essential value loop is working.
+- [ ] **Context**: Uses scripted data or pre-provisioned accounts (not full self-serve).
+- [ ] **Objective**: Validate the concept.
+
+### Deployment 2: MVP (Pilot Readiness)
+
+- **Associated Epics**: `[Link to Epics]`
+- **Key Specs**: `[UJ-xxx, BR-xxx]`
+
+- [ ] **Production Quality**: Stable, secure, and usable by real customers.
+- [ ] **Marketing**: Direct sales/onboarding of pilots.
+- [ ] **Objective**: Generate feedback ("What is broken?").
+
+### Deployment 3: Releases (Feature Expansion)
+
+- **Associated Epics**: `[Link to Epics]`
+- **Key Specs**: `[UJ-xxx, BR-xxx]`
+
+- [ ] **Feature Expansion**: Addressing gaps found in MVP pilot.
+- [ ] **Marketing**: Active promotion.
+- [ ] **Objective**: Grow user base.
+
+### Deployment 4: V1.0 (Market Fit)
+
+- **Associated Epics**: `[Link to Epics]`
+- **Key Specs**: `[UJ-xxx, BR-xxx]`
+
+- [ ] **Signal**: Customer adoption rate meets expectations.
+- [ ] **Objective**: Optimization and Scale.
+
+---
+
+## 5. Quick Commands
 
 ```bash
 # Generate Visual Reports (if tools installed)
@@ -69,9 +109,8 @@ npm test # or equivalent
 - **`specs/`**: The Source of Truth (Requirements).
 - **`agents/`**: AI Workforce & Tools.
 - **`templates/`**: (Deprecated). Use `specs/templates/` or copy `epics/EPIC_TEMPLATE.md`.
-- **`methodology/`**: The detailed "User Manual" for this workflow.
 - **`archive/`**: where finished EPICs go to rest.
 
 ---
 
-> **Note**: This repository is an implementation of the [Gear Heart Methodology](methodology/LIFECYCLE.md).
+> **Note**: This repository is an implementation of the [Gear Heart Methodology](README.md).

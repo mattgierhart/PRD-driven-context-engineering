@@ -1,6 +1,6 @@
 # EPIC-{NUMBER} {EPIC NAME}
 
-> **State**: `Planned` | `In Progress` | `Testing` | `Complete` > **Lifecycle**: v0.7 Build Execution (See `LIFECYCLE.md`)
+> **State**: `Planned` | `In Progress` | `Testing` | `Complete` > **Lifecycle**: v0.7 Build Execution (See `README.md`)
 > **Epic Lead**: {Agent Name}
 
 ---

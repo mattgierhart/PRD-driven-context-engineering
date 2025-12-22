@@ -12,7 +12,7 @@ last_updated: 2025-12-22
 - `PRD.md` — this file. Owns the strategic narrative from v0.1 → v1.0.
 - `CLAUDE.md` — agent behavior. Confirms how to implement what this PRD asks for.
 - `epics/EPIC-{XX}.md` — execution window. Updates IDs created/modified when advancing v0.7+.
-- See [`methodology/LIFECYCLE.md`](methodology/LIFECYCLE.md) for gate criteria and rituals.
+- See `README.md` for gate criteria and rituals.
 
 **Template Usage**
 

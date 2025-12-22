@@ -35,7 +35,7 @@ authority: "Gear Heart Methodology"
 ### Documentation Discipline
 
 - **IDs**: Reference `BR-`, `UJ-`, `API-` IDs in code comments and commits.
-- **Specs Updates**: Update `specs/` (Source of Truth) files _before_ or _during_ code changes, never "later".
+- **Specs Updates**: Update `specs/` (Source of Truth) files _before_ or _during_ code changes, never "later". Source of truth files always begin with `SoT.*.md`.
 - **Temp Files**: Use `temp/` for scratchpad, but harvest to SoT before closing the EPIC.
 
 ### Progressive Documentation Protocol
@@ -70,16 +70,16 @@ export class RateLimiter { ... }
 
 ### Lifecycle Gates
 
-- **Do Not Skip**: Verify the Gate Checklist in `PRD.md` or `methodology/LIFECYCLE.md` before advancing.
+- **Do Not Skip**: Verify the Gate Checklist in `PRD.md` or `README.md` (PRD Lifecycle) before advancing.
 - **Blockers**: If a gate cannot be passed, update the EPIC and STOP.
 
 ---
 
 ## 3. Quick Reference
 
-- **Lifecycle Guide**: [`methodology/LIFECYCLE.md`](methodology/LIFECYCLE.md)
-- **ID System**: [`methodology/workflows/UNIQUE_ID_SYSTEM.md`](methodology/workflows/UNIQUE_ID_SYSTEM.md)
-- **Templates**: [`specs/templates/`](specs/templates/) or [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md)
+- **Lifecycle Guide**: See [`README.md`](README.md).
+- **ID System**: [`specs/SoT.UNIQUE_ID_SYSTEM.md`](specs/SoT.UNIQUE_ID_SYSTEM.md)
+- **Templates**: [`specs/`](specs/) or [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md)
 - **Active Context**: [`epics/`](epics/)
 
 **When in doubt, follow the Source of Truth.**

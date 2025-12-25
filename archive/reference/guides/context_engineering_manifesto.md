@@ -25,7 +25,27 @@ We have traveled from the rigid cadence of waterfall to the agile heartbeat and 
 Documentation is not a chore; it is the memory palace that lets teams pivot without losing fidelity. A new contributor lands in the README, follows links into SoT IDs, and sees the current EPIC deltas. Departing teammates leave behind structured references, not tribal knowledge. AI agents re-enter mid-stream and reconstruct state from the same anchors, enabling multi-agent collaboration without repetitive context dumps. 【F:README.md†L14-L71】
 
 ## AI as Contextual Partner
-In context engineering, AI is not an isolated assistant but a member of the delivery system. By speaking the language of IDs, agents retrieve precise specs, compare feedback to journeys, and propose changes without rehydrating entire documents. The SoT graph becomes a long-term memory that keeps AI aligned with product truth, ensuring that recommendations serve the team’s momentum rather than a single user’s prompt. 【F:README.md†L46-L83】
+In context engineering, AI is not an isolated assistant but a member of the delivery system. By speaking the language of IDs, agents retrieve precise specs, compare feedback to journeys, and propose changes without rehydrating entire documents. The SoT graph becomes a long-term memory that keeps AI aligned with product truth, ensuring that recommendations serve the team's momentum rather than a single user's prompt. 【F:README.md†L46-L83】
+
+## Consistency Through Structure: Iteration Over Reinvention
+One of the greatest challenges with AI-assisted development is the tendency toward reinvention. Without persistent structure, each session begins as a blank slate—AI agents guess at conventions, recreate patterns that already exist, and produce inconsistent artifacts. Context engineering solves this by making iteration the path of least resistance.
+
+1. **Anchored Identity**
+   The ID system (`BR-XXX`, `UJ-XXX`, `API-XXX`) provides durable reference points that persist across sessions and agents. When an AI sees `BR-101`, it doesn't invent a new interpretation—it retrieves the canonical definition. This transforms AI from a stateless generator into a contextual collaborator that builds on established foundations.
+
+2. **One Document, Many Versions**
+   The "Progressive Documentation Protocol" mandates updating existing documents rather than spawning new ones. No `PRD-v2.md`, no `design_final_FINAL.md`. When AI operates under this rule, every change becomes an incremental refinement to a living artifact, not a parallel universe of conflicting truth.
+
+3. **Session Continuity Protocol**
+   Each EPIC's Section 0 captures "Where we left off"—the exact file, line, and next step. AI agents don't restart; they resume. The handoff marker (`<!-- HANDOFF -->`) serves as a breadcrumb for context-limited sessions, enabling work to continue across boundaries without information loss.
+
+4. **SoT as Gravitational Center**
+   Source-of-Truth files act as attractors that pull work toward consistency. When specs live in `SoT.*.md` files with stable paths, AI naturally references and extends them rather than generating competing definitions. The structure itself encodes the preference for iteration.
+
+5. **Traceability as Memory**
+   The `@implements BR-XXX` pattern in code creates bidirectional links between implementation and intent. AI reading existing code sees not just what was built, but why—enabling informed iteration rather than uninformed replacement.
+
+This architecture addresses a fundamental asymmetry: humans remember context effortlessly across sessions, but AI starts fresh each time. Context engineering bridges this gap by externalizing memory into navigable structure, making consistency the default behavior rather than an afterthought.
 
 ## Call to Action
 We reject both the stagnation of waterfall and the entropy of ungoverned agility. We embrace context engineering: a practice where documentation is alive, IDs are currency, gates safeguard value, and AI augments every contributor. Maintain the navigation files, tend the SoT, and let context—not heroics—power our progress. 【F:README.md†L27-L120】

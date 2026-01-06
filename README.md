@@ -46,7 +46,7 @@ When we try to collaborate—Human to Human, or Human to AI—these limits compo
 This philosophy is born from two distinct experiences.
 
 **First, Leading Human Teams:**
-Before AI, I led software teams where success always followed a pattern: when we rallied around a single **"Hero Artifact"**—a clear, compelling mission document—alignment was automatic. The team moved as one because the shared memory was cemented in that artifact. Without it, even the best talent drifted into chaos.
+Before AI, I led software teams where success always followed a pattern: when we rallied around a single **"Hero Artifact"**—a clear, compelling mission document—alignment was automatic. The team moved as one because the shared memory was cemented in that artifact. Without it, even the best talent drifted into chaos. {The hero artifact is something that moves but the team moves with it as the product progresses.}
 
 **Second, Partnering with AI:**
 When I began coding with AI, I noticed a similar pattern. Sometimes the AI amazed me with its brilliance; other times, it was disappointingly dense. I realized the variable wasn't the model's intelligence—it was the **Context Density** I provided. When the context was rich and structured, the AI performed like a senior engineer. When it was vague, the AI hallucinated.

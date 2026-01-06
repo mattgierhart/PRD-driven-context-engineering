@@ -89,7 +89,7 @@ To make this memory infrastructure practical, we use a strict hierarchy designed
 - `PRD.md`: The Strategy. The "Why" and "What" of the product.
 - `CLAUDE.md`: The Physics. The rules of how the AI must behave.
 
-### 2. The Execution Layer (Active Memory)
+### 2. The Execution Layer (Working Memory)
 
 - `epics/`: The work in progress. This is the only "variable" state. An Epic frames a specific problem (Context Window) so we can solve it without distraction.
 
@@ -105,7 +105,7 @@ To make this memory infrastructure practical, we use a strict hierarchy designed
 
     > **Just-in-Time Context**: Unique IDs allow us to pull _only_ what is needed for an active task. Instead of dumping the entire documentation into the context window, we reference specific IDs (`UJ-101`, `API-002`). This reduces input tokens while maintaining deep, specific understanding.
 
-### 4. The Temp Layer (Scratchpad)
+### 4. The Temp Layer (Short Term Memory)
 
 - `temp/`: The workspace for **Audits, Explorations, Tech Debt Analysis, and Concepting**.
   - **Naming Convention**: Files must be associated with the Active Epic (e.g., `temp/EPIC-05_audit_log.md` or `temp/EPIC-05_tech_debt.md`).

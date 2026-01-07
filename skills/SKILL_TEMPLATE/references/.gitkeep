@@ -1,0 +1,10 @@
+# References Directory
+
+Place detailed documentation files here that are loaded on-demand.
+
+Keep files focused - agents load these as needed, so smaller files = less context usage.
+
+Examples:
+- research-prompts.md - Deep research templates
+- examples.md - Good/bad examples with explanations
+- domain-knowledge.md - Domain-specific context

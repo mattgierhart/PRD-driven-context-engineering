@@ -10,8 +10,8 @@
 |-------|-------|--------|--------|
 | **v0.1 Spark** | [Problem Framing](#skill-problem-framing) | ✅ Ready | [`prd-v01-problem-framing/`](prd-v01-problem-framing/) |
 | **v0.1 Spark** | [User Value Articulation](#skill-user-value-articulation) | ✅ Ready | [`prd-v01-user-value-articulation/`](prd-v01-user-value-articulation/) |
-| **v0.2 Market** | [Competitive Landscape Mapping](#skill-competitive-landscape-mapping) | 📋 Spec | — |
-| **v0.2 Market** | [Product Type Classification](#skill-product-type-classification) | 📋 Spec | — |
+| **v0.2 Market** | [Competitive Landscape Mapping](#skill-competitive-landscape-mapping) | ✅ Ready | [`prd-v02-competitive-landscape-mapping/`](prd-v02-competitive-landscape-mapping/) |
+| **v0.2 Market** | [Product Type Classification](#skill-product-type-classification) | ✅ Ready | [`prd-v02-product-type-classification/`](prd-v02-product-type-classification/) |
 | **v0.3 Commercial** | [Outcome Definition](#skill-outcome-definition) | 📋 Spec | — |
 | **v0.3 Commercial** | [Pricing Model Selection](#skill-pricing-model-selection) | 📋 Spec | — |
 | **v0.3 Commercial** | [Our Moat Articulation](#skill-our-moat-articulation) | 📋 Spec | — |
@@ -118,10 +118,11 @@ id_outputs: [CFD-]
 ### SKILL: Competitive Landscape Mapping
 
 ```yaml
-name: prd-v02-competitive-landscape
+name: prd-v02-competitive-landscape-mapping
 stage: v0.2
-status: spec
-triggers: "competitive analysis", "who else solves this", "market landscape"
+status: ready
+folder: prd-v02-competitive-landscape-mapping/
+triggers: "competitive analysis", "who else solves this", "market landscape", "what alternatives exist", "competitor research"
 id_outputs: [CFD-, BR-]
 ```
 
@@ -144,10 +145,11 @@ id_outputs: [CFD-, BR-]
 ### SKILL: Product Type Classification
 
 ```yaml
-name: prd-v02-product-type
+name: prd-v02-product-type-classification
 stage: v0.2
-status: spec
-triggers: "what type of product", "fast follow or innovation", "sales cycle"
+status: ready
+folder: prd-v02-product-type-classification/
+triggers: "what type of product", "fast follow or innovation", "sales cycle", "clone or innovate", "product strategy"
 id_outputs: [BR-]
 ```
 

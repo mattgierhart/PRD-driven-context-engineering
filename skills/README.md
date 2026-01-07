@@ -6,90 +6,119 @@ This library follows the [Agent Skills Specification](https://agentskills.io/spe
 
 ---
 
-## Skill Structure
+## Quick Start
 
-Each skill follows the standard Agent Skills format:
+| Need | Go To |
+|------|-------|
+| **Full skill inventory & specs** | [`INVENTORY.md`](INVENTORY.md) |
+| **Create a new skill** | [`SKILL_TEMPLATE/`](SKILL_TEMPLATE/) |
+| **v0.1 Problem Framing** | [`prd-v01-problem-framing/`](prd-v01-problem-framing/) |
+| **v0.1 User Value Articulation** | [`prd-v01-user-value-articulation/`](prd-v01-user-value-articulation/) |
+
+---
+
+## Current Status
 
 ```
 skills/
-├── prd-v01-problem-framing/       # v0.1 Spark stage skills
-│   ├── SKILL.md                   # Core instructions (<5000 tokens)
-│   ├── references/                # Loaded on-demand for deep context
-│   ├── assets/                    # Templates and static files
-│   └── scripts/                   # Executable automation (optional)
-├── prd-v02-market-definition/     # v0.2 Market stage skills
-├── ...
-└── SKILL_TEMPLATE/                # Template for creating new skills
+├── README.md                          # This file
+├── INVENTORY.md                       # Full inventory with specifications
+├── SKILL_TEMPLATE/                    # Template for new skills
+│
+├── prd-v01-problem-framing/           # ✅ Ready
+│   ├── SKILL.md
+│   ├── assets/
+│   │   └── problem-statement-template.md
+│   └── references/
+│       ├── examples.md
+│       └── research-prompts.md
+│
+└── prd-v01-user-value-articulation/   # ✅ Ready
+    ├── SKILL.md
+    ├── assets/
+    │   └── value-statement-template.md
+    └── references/
+        ├── research-prompts.md
+        └── transformation-examples.md
 ```
+
+**Status Legend:**
+- ✅ Ready = SKILL.md + references + assets complete
+- 📋 Spec = specification in INVENTORY.md, needs implementation
 
 ---
 
-## PRD Lifecycle → Skill Mapping
+## PRD Stage → Skill Mapping
 
-| PRD Stage | Skill Prefix | Focus | Primary Skills |
-|-----------|--------------|-------|----------------|
-| **v0.1** Spark | `prd-v01-` | Problem & Outcomes | Problem Framing, Evidence Collection |
-| **v0.2** Market | `prd-v02-` | Segments & ICP | Market Sizing, ICP Definition |
-| **v0.3** Commercial | `prd-v03-` | Value & Pricing | Competitive Analysis, Pricing Strategy |
-| **v0.4** Journeys | `prd-v04-` | Personas & Flows | Journey Mapping, Dependency Modeling |
-| **v0.5** Red Team | `prd-v05-` | Risks & Feasibility | Risk Assessment, Mitigation Planning |
-| **v0.6** Architecture | `prd-v06-` | Technical Strategy | System Design, API Contracts |
-| **v0.7** Build | `prd-v07-` | Implementation | Code Review, Test Generation |
-| **v0.8** Release | `prd-v08-` | Deployment & Ops | Runbook Creation, Monitoring Setup |
-| **v0.9** Launch | `prd-v09-` | Go-to-Market | Launch Planning, KPI Definition |
-| **v1.0** Growth | `prd-v10-` | Market Adoption | Retention Analysis, Optimization |
+| Stage | Skills | Status |
+|-------|--------|--------|
+| **v0.1 Spark** | Problem Framing, User Value Articulation | ✅ ✅ |
+| **v0.2 Market** | Competitive Landscape, Product Type Classification | 📋 📋 |
+| **v0.3 Commercial** | Outcome Definition, Pricing Model, Our Moat, Market Moat, Fast-Follow | 📋 📋 📋 📋 📋 |
+
+See [`INVENTORY.md`](INVENTORY.md) for full specifications of pending skills.
 
 ---
 
-## Skill Naming Convention
+## Skill Structure
+
+Each skill follows the standard format:
 
 ```
-prd-v{XX}-{action}-{target}
+prd-v{XX}-{name}/
+├── SKILL.md           # Core instructions (<5000 tokens)
+├── references/        # Deep context, loaded on-demand
+│   ├── examples.md
+│   └── research-prompts.md
+├── assets/            # Templates for structured output
+│   └── template.md
+└── scripts/           # Automation (optional)
 ```
-
-**Examples**:
-- `prd-v01-problem-framing` - Frame problems for Spark stage
-- `prd-v02-market-sizing` - Size market segments
-- `prd-v04-journey-mapping` - Map user journeys
-- `prd-v06-api-contracts` - Draft API specifications
 
 ---
 
 ## Creating a New Skill
 
-1. Copy `SKILL_TEMPLATE/` to `prd-v{XX}-{name}/`
-2. Update `SKILL.md` frontmatter (name, description)
-3. Write concise instructions (<500 lines, <5000 tokens)
-4. Add reference files for detailed context (loaded on-demand)
-5. Add templates to `assets/` if needed
-6. Add automation scripts to `scripts/` if needed
+1. Copy [`SKILL_TEMPLATE/`](SKILL_TEMPLATE/) to `prd-v{XX}-{name}/`
+2. Update `SKILL.md` frontmatter:
+   ```yaml
+   ---
+   name: prd-v{XX}-{name}
+   description: >
+     What this skill does.
+     Triggers on [specific phrases].
+     Outputs [what it produces].
+   ---
+   ```
+3. Write concise instructions (<500 lines)
+4. Add examples to `references/`
+5. Add templates to `assets/`
+6. Update [`INVENTORY.md`](INVENTORY.md)
 
 **Best Practices** (from agentskills.io):
-- Keep `SKILL.md` under 5000 tokens - it's loaded when skill activates
+- Keep `SKILL.md` under 5000 tokens
 - Use specific trigger phrases in description
-- Reference files are loaded on-demand - keep them focused
-- Scripts should be self-contained with documented dependencies
+- Keep reference files focused (loaded on-demand)
+- Scripts should be self-contained
 
 ---
 
-## Usage
+## How Skills Work
 
-Skills are discovered and activated by agents based on:
-1. **Explicit invocation**: User requests a specific skill
-2. **Trigger matching**: Description keywords match user intent
-3. **Context awareness**: Agent determines skill relevance
+**Activation:**
+1. Explicit invocation: User requests skill
+2. Trigger matching: Description keywords match intent
+3. Context awareness: Agent determines relevance
 
-When activated, the agent:
-1. Loads `SKILL.md` into context
-2. Loads relevant `references/` files as needed
-3. Uses `assets/` templates for structured output
-4. Executes `scripts/` for automation
+**Execution:**
+1. Load `SKILL.md` into context
+2. Load `references/` files as needed
+3. Use `assets/` templates for output
+4. Execute `scripts/` for automation
 
 ---
 
 ## Integration with PRD Ecosystem
-
-Skills integrate with the broader documentation ecosystem:
 
 ```
 README.md (Dashboard)
@@ -100,12 +129,14 @@ epics/ (Execution) ←→ specs/ (Source of Truth)
 ```
 
 Skills can:
-- Reference `specs/SoT.*.md` for business rules and contracts
+- Reference `specs/SoT.*.md` for business rules
 - Output to `epics/` for task tracking
-- Update `specs/` when generating new IDs (BR-, UJ-, API-)
+- Create IDs: CFD-, BR-, KPI-, UJ-, API-
 
 ---
 
 ## Contributing
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines.
+1. Check [`INVENTORY.md`](INVENTORY.md) for pending skills
+2. Follow the skill structure above
+3. See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines

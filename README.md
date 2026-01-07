@@ -46,7 +46,7 @@ When we try to collaborate—Human to Human, or Human to AI—these limits compo
 This philosophy is born from two distinct experiences.
 
 **First, Leading Human Teams:**
-Before AI, I led software teams where success always followed a pattern: when we rallied around a single **"Hero Artifact"**—a clear, compelling mission document—alignment was automatic. The team moved as one because the shared memory was cemented in that artifact. Without it, even the best talent drifted into chaos. {The hero artifact is something that moves but the team moves with it as the product progresses.}
+Before AI, I led software teams where success always followed a pattern: when we rallied around a single **"Hero Artifact"**—a clear, compelling mission document—alignment was automatic. The team moved as one because the shared memory was cemented in that artifact. Without it, even the best talent drifted into chaos. But the artifact was never static. It breathed with the project—updated as we learned, refined as we shipped. The team didn't just rally around it once; they moved *with* it. A living document, not a monument.
 
 **Second, Partnering with AI:**
 When I began coding with AI, I noticed a similar pattern. Sometimes the AI amazed me with its brilliance; other times, it was disappointingly dense. I realized the variable wasn't the model's intelligence—it was the **Context Density** I provided. When the context was rich and structured, the AI performed like a senior engineer. When it was vague, the AI hallucinated.
@@ -73,7 +73,7 @@ This approach changes the "First Person" experience of coding:
 1.  **I don't just write code; I design context.** I create the navigation paths (`README`, `PRD`, `CLAUDE.md`) that allow my AI partner to onboard itself in seconds.
 2.  **We don't rely on tribal knowledge.** If it's not in the Source of Truth (`specs/`), it doesn't exist. This ruthlessness frees us. We don't have to remember "that one conversation in Slack." We only have to trust the repo.
 3.  **We build complexity through references.** By linking small, testable units (`IDs`) together, we can build massive systems without ever needing to load the entire blueprint into our working memory at once.
-4.  **We optimize Context Density.** We navigate memory to deliver the perfect balance of information. **Too dense**, and the AI over-analyzes. **Too sparse**, and it drifts. We use the hierarchy to read exactly what is needed—no more, no less. {The governance system is validated enough to recognizes when context depth is missing or when it's context window inputs are too full to call it out to the user before it's done.}
+4.  **We optimize Context Density.** We navigate memory to deliver the perfect balance of information. **Too dense**, and the AI over-analyzes. **Too sparse**, and it drifts. But we don't rely on intuition alone—our Automation Hooks measure context confidence. If the window is starved or overloaded, the AI calls it out: *"I need more context on BR-101"* or *"This scope exceeds my window—let's split it."* The system stops bad output before it starts. We use the hierarchy to load exactly what is needed—no more, no less.
 
 We embrace this structure not because we love bureaucracy, but because we love **flow**. By engineering our context, we transcend our individual limits and build software that is smarter than any one of us.
 

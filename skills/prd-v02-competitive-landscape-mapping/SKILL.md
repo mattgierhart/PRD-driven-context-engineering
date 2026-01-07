@@ -1,130 +1,234 @@
 ---
-name: prd-v01-user-value-articulation
+name: prd-v02-competitive-landscape-mapping
 description: >
-  Transform validated pain points into articulated user value statements for PRD v0.1 Spark.
-  Triggers on completing problem framing, defining user outcomes, articulating value propositions,
-  or requests like "what value do users get", "define outcomes", "articulate the benefit",
-  "finish v0.1", "pain to value", "what do they gain". Outputs CFD- entries tagged as value
-  hypotheses with evidence tiers. Follows Problem Framing skill in workflow.
+  Map the competitive landscape before positioning your product for PRD v0.2 Market Definition.
+  Triggers on completing v0.1 Spark, analyzing competitors, researching market, or requests like
+  "competitive analysis", "who else solves this", "market landscape", "what alternatives exist",
+  "competitor research", "feature comparison". Outputs CFD- entries for competitive intelligence
+  and BR- entries for positioning rules.
 ---
 
-# User Value Articulation Skill
+# Competitive Landscape Mapping
 
-Transform validated pain points into evidence-anchored value statements.
+Understand market reality before defining your position.
 
 ## Workflow Position
 
 ```
-Problem Framing → User Value Articulation → v0.2 Market Definition
-     (pain)              (value)                  (who cares most)
+v0.1 Spark (Problem + Value) → Competitive Landscape Mapping → Product Type Classification
+       (what hurts)                 (who else solves it)           (how we compete)
 ```
 
-**Input:** CFD-IDs from Problem Framing (pain points)
-**Output:** CFD-IDs tagged as value hypotheses
+**Input:** Problem statements (CFD-) and value hypotheses (CFD-) from v0.1
+**Output:** Landscape map, feature matrix, 1% better hypothesis (CFD-, BR-)
 
 ## Workflow Overview
 
-1. **Receive pain points** → Read CFD-IDs from Problem Framing
-2. **Identify value unit** → Time / Money / Risk / Capability
-3. **Transform pain → value** → Apply transformation pattern
-4. **Anchor to evidence** → What proof users want this outcome?
-5. **Create CFD entry** → Tag as value hypothesis with tier
+1. **Document current behavior** → What users do TODAY (before competitor search)
+2. **Discover alternatives** → Direct, adjacent, workarounds, "do nothing"
+3. **Analyze gaps** → Industry/geography gaps, underserved segments
+4. **Compare features** → Build comparison matrix
+5. **Form hypothesis** → 1% better hypothesis with evidence
 
 ## Core Output Template
 
-| Element | Definition |
-|---------|------------|
-| **Pain (source)** | CFD-ID from Problem Framing |
-| **Value Statement** | One sentence: what user gains |
-| **Value Unit** | Time / Money / Risk / Capability |
-| **Quantification** | Number with unit |
-| **Framing Type** | Negative Removal / Positive Gain / Capability Unlock / Risk Reduction |
-| **Evidence Tier** | 1-5 per hierarchy |
-| **Supporting CFD** | New CFD-ID for value hypothesis |
+| Element | Definition | Evidence |
+|---------|------------|----------|
+| **Current Behavior** | How users solve this today | Observed workflow |
+| **Direct Competitors** | Products solving same problem | Revenue/funding proof |
+| **Adjacent Solutions** | Products solving related problems | User overlap |
+| **Workarounds** | DIY solutions (spreadsheets, manual) | Forum/reddit mentions |
+| **Feature Matrix** | Side-by-side capability comparison | Product documentation |
+| **Gap Analysis** | Where competition is weak | Reviews, complaints |
+| **1% Hypothesis** | How we win | Evidence-anchored |
 
-See `assets/value-statement-template.md` for copy-paste template.
+See `assets/landscape-template.md` for copy-paste template.
 
-## Pain → Value Transformation
+## Step 1: Document Current Behavior
 
-| Pain Pattern | Value Pattern |
-|--------------|---------------|
-| "Costs X time" | "Reclaim X time for [higher-value work]" |
-| "Costs $X" | "Save $X [or redirect to growth]" |
-| "Risks $X penalty" | "Eliminate $X exposure" |
-| "Cannot do X" | "Now able to X when [trigger]" |
-| "Takes X steps" | "Complete in Y steps" |
-| "Manual process" | "Automatic + verifiable" |
+**Before searching competitors**, document what target users do TODAY.
 
-## Framing Type Selection
-
-| Type | When to Use |
-|------|-------------|
-| **Negative Removal** | Pain is acute, quantified loss; "hate", "wasting", "losing" |
-| **Positive Gain** | Opportunity cost clear; "I wish I could..." |
-| **Capability Unlock** | Something impossible, not just hard; "We can't..." |
-| **Risk Reduction** | Regulatory/compliance; penalty amounts cited |
-
-## Value Evidence Tier Hierarchy
-
-| Tier | Description | Weight |
-|------|-------------|--------|
-| **1** | User already paying for this value elsewhere | ✅ Highest |
-| **2** | User actively trying to achieve this outcome | ✅ Strong |
-| **3** | User articulates wanting this (unprompted) | ✅ Acceptable |
-| **4** | User agrees when prompted | ⚠️ Weak |
-| **5** | Builder assumes value | ❌ Reject |
-
-**Gate rule:** ≥1 value statement must have Tier 1-3 evidence before v0.2.
-
-## CFD Entry Format
+### Capture Format
 
 ```
-CFD-###: Value Hypothesis — [Title]
-Type: Value Hypothesis
-Source Pain: CFD-###
-Evidence Tier: [1-5]
-
-Value Statement: "[User gains X measured in Y]"
-Transformation: [Pain] → [Value]
-Framing Type: [Type]
-Quantification: [Number with unit]
+Current Behavior: [What they do]
+Tools Used: [Existing tools, if any]
+Time Investment: [Hours/week on workaround]
+Pain Points: [From v0.1 CFD-IDs]
 ```
 
-See `references/transformation-examples.md` for worked examples.
+### Why First?
+- Prevents solution bias from competitor features
+- Reveals workarounds competitors might miss
+- Establishes true baseline for improvement claims
+
+## Step 2: Competitor Discovery
+
+### Discovery Categories
+
+| Category | Definition | Search Strategy |
+|----------|------------|-----------------|
+| **Direct** | Same problem, same segment | "[problem] software" |
+| **Adjacent** | Related problem, potential pivot | "[related workflow] tool" |
+| **Workarounds** | DIY solutions | Reddit: "how I [task]" |
+| **Do Nothing** | Accept status quo | Why hasn't this been solved? |
+
+### Minimum Discovery Checklist
+- [ ] 3+ direct competitors (or document why fewer exist)
+- [ ] 2+ adjacent solutions
+- [ ] 1+ workaround documented
+- [ ] "Do nothing" cost quantified
+
+### Create CFD Entry Per Competitor
+
+```
+CFD-###: Competitor — [Name]
+Type: Competitive Intelligence
+Source: [Website, G2, Crunchbase]
+Date: YYYY-MM-DD
+
+Overview: [1-2 sentences]
+Target Segment: [Who they serve]
+Pricing: [Model and range]
+Revenue/Funding: [If available]
+Key Differentiator: [Their claim]
+Weakness Signals: [Reviews, complaints]
+```
+
+## Step 3: Gap Analysis
+
+### Industry/Geography Gap Table
+
+| Industry | Competitors Serving | Gap Level |
+|----------|--------------------:|-----------|
+| [Industry 1] | X of Y | None / Small / Large |
+| [Industry 2] | X of Y | None / Small / Large |
+
+### Segment Gap Table
+
+| Segment | Served By | Underserved Signal |
+|---------|-----------|-------------------|
+| Enterprise | [List] | [Signal or "Well served"] |
+| Mid-Market | [List] | [Signal or "Well served"] |
+| SMB | [List] | [Signal or "Well served"] |
+| Prosumer | [List] | [Signal or "Well served"] |
+
+### Underserved Signals
+- Tier 1: Users paying but complaining (G2 reviews)
+- Tier 2: Users building workarounds (Reddit, forums)
+- Tier 3: Users asking for solutions (community posts)
+- Tier 4: No apparent demand (caution)
+
+## Step 4: Feature Comparison Matrix
+
+Build side-by-side comparison:
+
+| Feature | Us (Planned) | Competitor A | Competitor B | Gap |
+|---------|:------------:|:------------:|:------------:|-----|
+| [Feature 1] | ✅/❌/🔄 | ✅/❌ | ✅/❌ | [Our advantage] |
+| [Feature 2] | ✅/❌/🔄 | ✅/❌ | ✅/❌ | [Our advantage] |
+
+**Legend:** ✅ = Has | ❌ = Missing | 🔄 = Planned
+
+### Matrix Requirements
+- [ ] Include all "table stakes" features (what everyone has)
+- [ ] Identify 1-3 differentiating features
+- [ ] Note pricing tier where features unlock
+- [ ] Flag features competitors are building (roadmap signals)
+
+## Step 5: 1% Better Hypothesis
+
+### Template
+
+```
+We can be 1% better than [Competitor X] by [specific improvement] for [specific segment].
+
+Evidence:
+- [CFD-ID]: [Supporting evidence]
+- [CFD-ID]: [Supporting evidence]
+
+Why This Matters:
+- [Segment] cares about this because [reason]
+- Current solutions fail at this because [reason]
+
+Risk:
+- [What could invalidate this hypothesis]
+```
+
+### Hypothesis Quality Check
+- [ ] "1% better" is specific and measurable
+- [ ] References CFD-IDs for evidence
+- [ ] Targets a defined segment
+- [ ] Explains WHY this gap exists
+- [ ] Acknowledges risks
 
 ## Quality Gates
 
 ### Pass Checklist
-- [ ] Every pain point has corresponding value statement
-- [ ] ≥1 value statement has Tier 1-3 evidence
-- [ ] All values quantified (time, money, risk, capability)
-- [ ] No feature-as-value statements
-- [ ] Value unit matches pain unit
+- [ ] ≥3 competitors documented with CFD-IDs
+- [ ] Feature matrix with ≥5 compared features
+- [ ] ≥1 gap identified with Tier 1-2 evidence
+- [ ] 1% better hypothesis formed
+- [ ] Current behavior documented FIRST
 
 ### Testability Check
-- [ ] Can explain value in <10 seconds to prospect?
-- [ ] Can test with landing page headline?
-- [ ] Value statement contains no features (no "dashboard", "tool")?
+- [ ] Can validate 1% hypothesis in <30 days?
+- [ ] Can find 10 people in target segment?
+- [ ] Gap evidence is from users, not assumptions?
 
 ## Anti-Patterns
 
 | Pattern | Signal | Fix |
 |---------|--------|-----|
-| Feature as value | "Dashboard", "tool", "feature" in statement | Rewrite as outcome |
-| Unmeasurable | "Better", "improved" without number | Add quantity |
-| Disconnected | Pain unit ≠ value unit | Match units |
-| Round inflation | "Save 10 hours" no source | Require calculation |
-| No evidence | No CFD-ID for user desire | Downgrade tier |
-| Solution creep | HOW (feature) not WHAT (outcome) | Remove implementation |
+| Competitor-first thinking | Started with competitor features | Document current behavior first |
+| False uniqueness | "No competitors" claim | Include workarounds and adjacent |
+| Feature bloat | Matrix has 20+ features | Focus on differentiators |
+| Vague gaps | "Better UX" without evidence | Add specific user complaint |
+| 10x claims | "10x better than X" | Start with 1% provable claim |
+| Ignored workarounds | Only listed software competitors | Include spreadsheets, manual |
+
+## CFD/BR Output Format
+
+### CFD Entry (Competitive Intelligence)
+
+```
+CFD-###: Competitive Intelligence — [Market/Segment]
+Type: Competitive Intelligence
+Date: YYYY-MM-DD
+
+Competitors Analyzed: [Count]
+Primary Gap: [Description]
+Evidence Tier: [1-5]
+
+Feature Matrix: [Link or inline]
+1% Hypothesis: [Statement]
+```
+
+### BR Entry (Positioning Rule)
+
+```
+BR-###: Positioning Rule — [Title]
+Type: Business Rule
+Source: CFD-###
+Date: YYYY-MM-DD
+
+Rule: [Specific constraint derived from landscape]
+Rationale: [Why this matters]
+Applies To: [Scope]
+```
 
 ## Bundled Resources
 
-- **`references/transformation-examples.md`** — 3 worked examples from real PRDs with step-by-step transformation process.
-- **`references/research-prompts.md`** — Deep research templates when value evidence is Tier 4-5.
-- **`assets/value-statement-template.md`** — Copy-paste template for value tables and CFD entries.
+- **`references/research-prompts.md`** — Deep research templates for competitor discovery and gap analysis.
+- **`references/examples.md`** — Good/bad competitive analysis examples.
+- **`assets/landscape-template.md`** — Copy-paste template for landscape mapping.
+- **`assets/feature-matrix-template.md`** — Feature comparison matrix template.
 
 ## Handoff
 
-Value articulation complete when quality gates pass. Combined with Problem Framing, v0.1 Spark is ready.
+Competitive landscape complete when quality gates pass. Landscape map informs:
+- **Product Type Classification** (next skill) — What type are we? Clone, Slice, etc.
+- **v0.3 Pricing** — Competitive pricing anchors
+- **v0.3 Moat** — Where competitors are weak
 
-Next: v0.2 Market Definition (Who cares MOST about this value? Who pays FIRST?)
+Next: Product Type Classification (How should we compete based on landscape?)

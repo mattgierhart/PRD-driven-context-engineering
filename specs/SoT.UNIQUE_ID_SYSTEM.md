@@ -38,6 +38,8 @@ authority: "Gear Heart Methodology"
 | **PER**  | Persona           | `PERSONAS.md`                            |
 | **SCR**  | Screen            | `SCREENS.md`                             |
 | **DES**  | Design Element    | `DESIGN_SYSTEM.md`                       |
+| **RISK** | Risk              | `RISK_REGISTER.md`                       |
+| **TECH** | Technology Choice | `TECH_STACK.md`                          |
 
 ---
 

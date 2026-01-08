@@ -19,6 +19,8 @@
 | **v0.4 Journeys** | [Persona Definition](#skill-persona-definition) | 📋 Spec | `prd-v04-persona-definition/` |
 | **v0.4 Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | 📋 Spec | `prd-v04-user-journey-mapping/` |
 | **v0.4 Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | 📋 Spec | `prd-v04-screen-flow-definition/` |
+| **v0.5 Review** | [Risk Discovery Interview](#skill-risk-discovery-interview) | 📋 Spec | `prd-v05-risk-discovery-interview/` |
+| **v0.5 Review** | [Technical Stack Selection](#skill-technical-stack-selection) | 📋 Spec | `prd-v05-technical-stack-selection/` |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 
@@ -68,6 +70,16 @@
 | Persona Definition | CFD- (v0.1-v0.3), BR- (targeting), FEA- (features) | Behavioral personas (max 5) | PER- |
 | User Journey Mapping | PER- (personas), FEA- (features), KPI- (outcomes) | User missions with step flows | UJ- |
 | Screen Flow Definition | UJ- (journeys), FEA- (features), BR- (constraints) | Screen inventory with navigation | SCR-, DES- |
+
+### v0.5 Red Team Review — Risks & Stack Selection
+
+**Purpose:** Surface risks through guided interview and select technical stack for implementation.
+**Gate:** Risks documented with mitigations, technical stack decisions made (build/buy/integrate), research items identified.
+
+| Skill | Input | Output | IDs Created |
+|-------|-------|--------|-------------|
+| Risk Discovery Interview | All prior IDs, product context | Risk register with owner decisions | RISK- |
+| Technical Stack Selection | FEA- (features), SCR- (screens), RISK- (constraints) | Stack decisions and tool selections | TECH- |
 
 ---
 
@@ -512,6 +524,186 @@ States: [Default, Loading, Error, Empty, etc.]
 
 ---
 
+### SKILL: Risk Discovery Interview
+
+```yaml
+name: prd-v05-risk-discovery-interview
+stage: v0.5
+status: spec
+folder: prd-v05-risk-discovery-interview/
+triggers: "identify risks", "what could go wrong", "red team", "risk assessment", "stress test the idea", "challenge assumptions"
+id_outputs: [RISK-]
+```
+
+**Purpose:** Surface risks through guided questioning, helping the user consider pivots, constraints, and prioritization.
+
+**Position in workflow:** v0.4 Screen Flow Definition → **v0.5 Risk Discovery Interview** → v0.5 Technical Stack Selection
+
+**Mode:** Interactive interview — AI asks questions, user reflects and decides.
+
+**Design Principles:**
+1. **Interview, not inquisition** — Facilitate discovery, don't interrogate
+2. **Inform, not kill** — Surface risks so user can mitigate, not abandon
+3. **User owns decisions** — AI facilitates, user assigns severity and response
+4. **Actionable outputs** — Every risk has a mitigation path or explicit "accept"
+
+**Interview Flow:**
+1. **Market Risks** — "What if competitors respond? What if the market shifts?"
+2. **Execution Risks** — "What's the hardest part to build? What could slip?"
+3. **Adoption Risks** — "What if users don't understand the value? What blocks activation?"
+4. **Resource Risks** — "What skills are missing? What's the budget constraint?"
+5. **Dependency Risks** — "What external factors could block progress?"
+
+**Question Framework:**
+| Category | Example Questions |
+|----------|-------------------|
+| **Market** | "What happens if [competitor] launches this feature next month?" |
+| **Technical** | "Which feature has the most technical uncertainty?" |
+| **Adoption** | "What's the biggest friction point in the onboarding journey?" |
+| **Resource** | "If you had to cut scope by 50%, what stays?" |
+| **Timing** | "What external deadline or event affects this launch?" |
+
+**RISK- Output Template:**
+```
+RISK-XXX: [Risk Title]
+Category: [Market | Technical | Adoption | Resource | Dependency | Timing]
+Description: [What could go wrong]
+Trigger: [What would cause this to happen]
+Impact: [High | Medium | Low] — User assessed
+Likelihood: [High | Medium | Low] — User assessed
+Early Signal: [How we'd know this is happening]
+Response: [Mitigate | Accept | Avoid | Transfer]
+Mitigation: [Specific action if Response = Mitigate]
+Owner: [Who is responsible for monitoring]
+Linked IDs: [FEA-XXX, UJ-XXX, BR-XXX affected]
+```
+
+**Risk Response Types:**
+| Response | When to Use | Example |
+|----------|-------------|---------|
+| **Mitigate** | Can reduce impact/likelihood | Add fallback provider for API dependency |
+| **Accept** | Low impact or unavoidable | "Competitor might copy us — we accept" |
+| **Avoid** | Change plan to eliminate risk | Remove feature with high technical risk |
+| **Transfer** | Someone else owns the risk | Use managed service instead of self-host |
+
+**Interview Techniques:**
+- **Pre-mortem**: "It's 6 months from now and the product failed. Why?"
+- **Constraint forcing**: "If you only had 2 developers, what would you cut?"
+- **Dependency mapping**: "What external factor could block launch?"
+- **Assumption surfacing**: "What must be true for this to work?"
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Risk theater | 50+ risks documented | Focus on top 10 that matter |
+| All high severity | Everything is critical | Force rank; only 3-5 can be "High" |
+| No owner | Risks without accountability | Every RISK- needs an owner |
+| Mitigation = "be careful" | Vague responses | Require specific, testable actions |
+| Interview becomes lecture | AI talks more than user | Ask, listen, summarize |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **Technical Stack Selection** | RISK- constraints affect tech choices | RISK-003 (latency) → choose edge hosting |
+| **v0.6 Architecture** | Risk mitigations become requirements | RISK-005 → add circuit breaker |
+| **v0.7 Build Execution** | Risk monitoring in EPIC | Track RISK-001 early signals |
+
+---
+
+### SKILL: Technical Stack Selection
+
+```yaml
+name: prd-v05-technical-stack-selection
+stage: v0.5
+status: spec
+folder: prd-v05-technical-stack-selection/
+triggers: "select tech stack", "what technologies", "build or buy", "technical decisions", "what tools do we need", "evaluate solutions"
+id_outputs: [TECH-]
+```
+
+**Purpose:** Determine what technologies are needed to build the product, making build/buy/integrate decisions.
+
+**Position in workflow:** v0.5 Risk Discovery Interview → **v0.5 Technical Stack Selection** → v0.6 Architecture
+
+**Mode:** Research + analysis — AI researches options, presents trade-offs, user decides.
+
+**Execution:**
+1. Inventory technical needs from FEA- (features) and SCR- (screens)
+2. Identify constraints from RISK- entries and BR- rules
+3. Categorize each need: Build | Buy | Integrate | Research
+4. For Buy/Integrate: research specific tools/services
+5. For Research: define what needs to be learned before deciding
+6. Create TECH- entries with rationale and trade-offs
+
+**TECH- Output Template:**
+```
+TECH-XXX: [Technology/Capability Name]
+Category: [Build | Buy | Integrate | Research]
+Purpose: [What problem this solves]
+Features Served: [FEA-XXX, FEA-YYY]
+Screens Affected: [SCR-XXX, SCR-YYY]
+Risk Constraints: [RISK-XXX that influenced this decision]
+
+Decision: [Specific choice made]
+Alternatives Considered: [What else was evaluated]
+Trade-offs: [Pros and cons of this choice]
+Cost: [Pricing model, estimated cost]
+Integration Complexity: [Low | Medium | High]
+
+Research Needed: [If Category = Research, what must be learned]
+Evaluation Criteria: [How to decide if Research]
+```
+
+**Decision Framework:**
+| Category | When to Choose | Examples |
+|----------|----------------|----------|
+| **Build** | Core differentiator, no good alternatives, full control needed | Custom matching algorithm, proprietary workflow |
+| **Buy** | Commodity capability, proven solutions exist, not a differentiator | Payment processing (Stripe), Auth (Auth0) |
+| **Integrate** | Ecosystem play, user expects integration, data lives elsewhere | CRM sync, calendar integration |
+| **Research** | High uncertainty, multiple viable options, need POC first | "Which vector DB?" — need to benchmark |
+
+**Technology Categories to Address:**
+| Layer | Questions to Answer |
+|-------|---------------------|
+| **Frontend** | Framework? Hosting? Mobile/Web/Both? |
+| **Backend** | Language? Framework? Serverless or servers? |
+| **Database** | SQL/NoSQL? Managed or self-hosted? |
+| **Auth** | Build or buy? SSO requirements? |
+| **Payments** | If monetized, what processor? |
+| **Infrastructure** | Cloud provider? Edge? CDN? |
+| **Integrations** | What external services? APIs? |
+| **AI/ML** | If applicable, what models/services? |
+| **Analytics** | Product analytics? Error tracking? |
+| **DevOps** | CI/CD? Monitoring? Logging? |
+
+**Evaluation Criteria for Buy/Integrate:**
+| Criterion | Questions |
+|-----------|-----------|
+| **Fit** | Does it solve our specific need? |
+| **Cost** | What's the pricing model? Scale implications? |
+| **Complexity** | How hard to integrate? Ongoing maintenance? |
+| **Lock-in** | How hard to switch later? |
+| **Maturity** | Production-ready? Good documentation? |
+| **Support** | What help is available? |
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Resume-driven development | "Let's use [hot tech]" | Choose boring technology for non-differentiators |
+| Build everything | No Buy/Integrate decisions | Challenge: is this really a differentiator? |
+| Buy everything | No Build decisions | Some things must be custom for your moat |
+| Analysis paralysis | Research everything | Time-box research; decide with 70% confidence |
+| Ignoring constraints | Tech choice conflicts with RISK- | Review RISK- before finalizing |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.6 Architecture** | TECH- selections define the system | TECH-001 (Next.js) → frontend architecture |
+| **v0.7 Build Execution** | TECH- Research items become spikes | TECH-005 (Research) → EPIC task |
+| **Hiring/Resourcing** | TECH- Build items define skills needed | TECH-003 (Rust) → need Rust developer |
+
+---
+
 ## ID Output Summary
 
 | Stage | Skill | Primary IDs |
@@ -527,6 +719,8 @@ States: [Default, Loading, Error, Empty, etc.]
 | v0.4 | Persona Definition | PER- (personas) |
 | v0.4 | User Journey Mapping | UJ- (user journeys) |
 | v0.4 | Screen Flow Definition | SCR- (screens), DES- (design patterns) |
+| v0.5 | Risk Discovery Interview | RISK- (risks with mitigations) |
+| v0.5 | Technical Stack Selection | TECH- (build/buy/integrate decisions) |
 
 ---
 

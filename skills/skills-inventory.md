@@ -21,6 +21,8 @@
 | **v0.4 Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | 📋 Spec | `prd-v04-screen-flow-definition/` |
 | **v0.5 Review** | [Risk Discovery Interview](#skill-risk-discovery-interview) | 📋 Spec | `prd-v05-risk-discovery-interview/` |
 | **v0.5 Review** | [Technical Stack Selection](#skill-technical-stack-selection) | 📋 Spec | `prd-v05-technical-stack-selection/` |
+| **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | 📋 Spec | `prd-v06-architecture-design/` |
+| **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | 📋 Spec | `prd-v06-technical-specification/` |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 
@@ -80,6 +82,16 @@
 |-------|-------|--------|-------------|
 | Risk Discovery Interview | All prior IDs, product context | Risk register with owner decisions | RISK- |
 | Technical Stack Selection | FEA- (features), SCR- (screens), RISK- (constraints) | Stack decisions and tool selections | TECH- |
+
+### v0.6 Architecture — Technical Blueprint
+
+**Purpose:** Define system architecture and implementation contracts based on stack selections.
+**Gate:** Architecture decisions documented, API contracts defined, data models specified, integration patterns established.
+
+| Skill | Input | Output | IDs Created |
+|-------|-------|--------|-------------|
+| Architecture Design | TECH- (stack), RISK- (constraints), FEA- (features) | System architecture with component relationships | ARC- |
+| Technical Specification | ARC- (architecture), TECH- (Build items), UJ- (flows), SCR- (screens) | API contracts and data models | API-, DBT- |
 
 ---
 
@@ -704,6 +716,204 @@ Evaluation Criteria: [How to decide if Research]
 
 ---
 
+### SKILL: Architecture Design
+
+```yaml
+name: prd-v06-architecture-design
+stage: v0.6
+status: spec
+folder: prd-v06-architecture-design/
+triggers: "design architecture", "system design", "how do components connect", "architecture decisions", "technical architecture", "system overview"
+id_outputs: [ARC-]
+```
+
+**Purpose:** Define how system components connect, establishing boundaries, patterns, and integration approaches.
+
+**Position in workflow:** v0.5 Technical Stack Selection → **v0.6 Architecture Design** → v0.6 Technical Specification
+
+**Mode:** Design + documentation — AI proposes architecture, user validates and refines.
+
+**Execution:**
+1. Pull TECH- decisions (what we're building with)
+2. Pull RISK- constraints (what we must account for)
+3. Pull FEA- features (what the system must do)
+4. Define system boundaries (what's in/out of scope)
+5. Map component relationships (how parts connect)
+6. Document integration patterns for Buy/Integrate decisions
+7. Create ARC- entries with rationale
+
+**ARC- Output Template:**
+```
+ARC-XXX: [Decision Title]
+Category: [Structure | Integration | Security | Performance | Data | DevOps]
+Context: [What prompted this decision]
+Decision: [What we decided]
+Rationale: [Why this choice]
+Alternatives Rejected: [What else was considered and why not]
+Consequences: [What this enables/constrains]
+Related IDs: [TECH-XXX, RISK-XXX, FEA-XXX]
+```
+
+**Architecture Categories:**
+
+| Category | What It Covers | Example Decisions |
+|----------|----------------|-------------------|
+| **Structure** | Component organization, boundaries | Monolith vs microservices, module structure |
+| **Integration** | External service connections | API gateway pattern, webhook handlers |
+| **Security** | Auth, authorization, data protection | JWT strategy, role-based access |
+| **Performance** | Scaling, caching, optimization | CDN strategy, database indexing |
+| **Data** | Storage, flow, consistency | Event sourcing, CQRS, replication |
+| **DevOps** | Deployment, monitoring, CI/CD | Container orchestration, observability |
+
+**System Diagram Elements:**
+- **Components**: Services, databases, external systems
+- **Boundaries**: Security perimeters, trust zones
+- **Data flows**: How information moves between components
+- **Integration points**: Where Buy/Integrate items connect
+
+**Integration Pattern Guidance:**
+
+| TECH- Category | Architecture Concern |
+|----------------|---------------------|
+| **Build** | Internal component design, API surface |
+| **Buy** | Vendor abstraction layer, fallback strategy |
+| **Integrate** | Data sync approach, webhook handling |
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Architecture astronaut | Over-engineering for hypothetical scale | Design for current needs + 10x, not 1000x |
+| Missing boundaries | Everything can call everything | Define clear interfaces between components |
+| Ignoring RISK- | Architecture doesn't address known risks | Map each High RISK- to architectural mitigation |
+| Vendor lock-in | No abstraction over Buy decisions | Add adapter layer for critical integrations |
+| Diagram without decisions | Pretty pictures, no ARC- records | Every box needs a decision rationale |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **Technical Specification** | ARC- informs API and DBT design | ARC-001 (microservices) → separate API contracts |
+| **v0.7 Build Execution** | ARC- defines EPIC scope boundaries | ARC-003 (auth service) → EPIC-02 |
+| **Infrastructure Setup** | ARC- drives deployment topology | ARC-005 (edge caching) → CDN config |
+
+---
+
+### SKILL: Technical Specification
+
+```yaml
+name: prd-v06-technical-specification
+stage: v0.6
+status: spec
+folder: prd-v06-technical-specification/
+triggers: "define APIs", "data model", "database schema", "API contracts", "technical spec", "endpoint design", "schema design"
+id_outputs: [API-, DBT-]
+```
+
+**Purpose:** Define implementation contracts (APIs and data models) that developers will build against.
+
+**Position in workflow:** v0.6 Architecture Design → **v0.6 Technical Specification** → v0.7 Build Execution
+
+**Mode:** Specification — AI drafts contracts based on architecture, user validates requirements.
+
+**Execution:**
+1. Pull ARC- decisions (system structure)
+2. Pull TECH- Build items (what we're implementing)
+3. Pull UJ- journeys (user flows to support)
+4. Pull SCR- screens (UI data requirements)
+5. Define API contracts for each endpoint
+6. Define data models for each entity
+7. Validate API ↔ DBT consistency
+8. Create API- and DBT- entries
+
+**API- Output Template:**
+```
+API-XXX: [Endpoint Name]
+Method: [GET | POST | PUT | PATCH | DELETE]
+Path: [/resource/{id}/action]
+Purpose: [What this endpoint does]
+Auth: [Public | User | Admin | Service]
+Journey: [UJ-XXX that uses this]
+Screen: [SCR-XXX that calls this]
+
+Request:
+  Headers: [Required headers]
+  Body: [JSON schema or description]
+
+Response:
+  Success (200/201): [Response shape]
+  Errors: [4xx/5xx codes and meanings]
+
+Business Rules: [BR-XXX enforced here]
+Data: [DBT-XXX entities accessed]
+```
+
+**DBT- Output Template:**
+```
+DBT-XXX: [Entity Name]
+Purpose: [What this entity represents]
+Table: [database_table_name]
+
+Fields:
+  - id: [type] — Primary key
+  - field_name: [type] — Description
+  - created_at: timestamp — Record creation
+  - updated_at: timestamp — Last modification
+
+Relationships:
+  - belongs_to: [DBT-YYY] via [foreign_key]
+  - has_many: [DBT-ZZZ]
+
+Indexes:
+  - [field_name] — Query pattern it supports
+
+Constraints:
+  - [Unique, not null, check constraints]
+
+Business Rules: [BR-XXX that affect this entity]
+```
+
+**API Design Principles:**
+| Principle | Guidance |
+|-----------|----------|
+| **Resource-oriented** | URLs represent nouns, not verbs |
+| **Consistent naming** | Plural nouns, kebab-case |
+| **Stateless** | No server-side session state |
+| **Versioned** | /v1/ prefix for breaking changes |
+| **Documented errors** | Clear error codes and messages |
+
+**Data Model Principles:**
+| Principle | Guidance |
+|-----------|----------|
+| **Normalized** | Avoid redundancy (unless denormalized for performance) |
+| **Audit trail** | created_at, updated_at on all tables |
+| **Soft delete** | deleted_at instead of hard delete (if needed) |
+| **Foreign keys** | Enforce referential integrity |
+| **Index strategy** | Index fields used in WHERE and JOIN |
+
+**Validation Checklist:**
+- [ ] Every SCR- screen has APIs to fetch/submit its data
+- [ ] Every UJ- journey step maps to API calls
+- [ ] Every API- response maps to DBT- fields
+- [ ] Every BR- business rule is enforced in API- or DBT-
+- [ ] No orphaned DBT- tables (unused by any API-)
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| API/UI mismatch | Screen needs data not in any API | Add API- or modify existing |
+| Schema sprawl | 50+ tables for MVP | Consolidate; YAGNI applies |
+| Missing constraints | No validation, anything accepted | Add BR- enforcement |
+| N+1 queries baked in | API design requires multiple calls for one view | Add compound endpoints |
+| No error handling | Only happy path documented | Define all error responses |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.7 Build Execution** | API- and DBT- are implementation tasks | EPIC-01 implements API-001–005 |
+| **Testing** | API- defines test contracts | TEST-001 validates API-001 |
+| **Documentation** | API- becomes API docs | OpenAPI spec from API- entries |
+
+---
+
 ## ID Output Summary
 
 | Stage | Skill | Primary IDs |
@@ -721,6 +931,8 @@ Evaluation Criteria: [How to decide if Research]
 | v0.4 | Screen Flow Definition | SCR- (screens), DES- (design patterns) |
 | v0.5 | Risk Discovery Interview | RISK- (risks with mitigations) |
 | v0.5 | Technical Stack Selection | TECH- (build/buy/integrate decisions) |
+| v0.6 | Architecture Design | ARC- (architecture decisions) |
+| v0.6 | Technical Specification | API- (endpoints), DBT- (data models) |
 
 ---
 

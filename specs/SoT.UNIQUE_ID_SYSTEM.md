@@ -40,6 +40,7 @@ authority: "Gear Heart Methodology"
 | **DES**  | Design Element    | `DESIGN_SYSTEM.md`                       |
 | **RISK** | Risk              | `RISK_REGISTER.md`                       |
 | **TECH** | Technology Choice | `TECH_STACK.md`                          |
+| **ARC**  | Architecture Decision | `ARCHITECTURE_DECISIONS.md`          |
 
 ---
 

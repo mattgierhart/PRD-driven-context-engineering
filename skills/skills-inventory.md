@@ -12,11 +12,10 @@
 | **v0.1 Spark** | [User Value Articulation](#skill-user-value-articulation) | ✅ Ready | [`prd-v01-user-value-articulation/`](prd-v01-user-value-articulation/) |
 | **v0.2 Market** | [Competitive Landscape Mapping](#skill-competitive-landscape-mapping) | ✅ Ready | [`prd-v02-competitive-landscape-mapping/`](prd-v02-competitive-landscape-mapping/) |
 | **v0.2 Market** | [Product Type Classification](#skill-product-type-classification) | ✅ Ready | [`prd-v02-product-type-classification/`](prd-v02-product-type-classification/) |
-| **v0.3 Commercial** | [Outcome Definition](#skill-outcome-definition) | 📋 Spec | — |
-| **v0.3 Commercial** | [Pricing Model Selection](#skill-pricing-model-selection) | 📋 Spec | — |
-| **v0.3 Commercial** | [Our Moat Articulation](#skill-our-moat-articulation) | 📋 Spec | — |
-| **v0.3 Commercial** | [Market Moat Analysis](#skill-market-moat-analysis) | 📋 Spec | — |
-| **v0.3 Commercial** | [Fast-Follow Planning](#skill-fast-follow-planning) | 📋 Spec | — |
+| **v0.3 Commercial** | [Outcome Definition](#skill-outcome-definition) | ✅ Ready | [`prd-v03-outcome-definition/`](prd-v03-outcome-definition/) |
+| **v0.3 Commercial** | [Pricing Model Selection](#skill-pricing-model-selection) | ✅ Ready | [`prd-v03-pricing-model/`](prd-v03-pricing-model/) |
+| **v0.3 Commercial** | [Moat Definition](#skill-moat-definition) | ✅ Ready | [`prd-v03-moat-definition/`](prd-v03-moat-definition/) |
+| **v0.3 Commercial** | [Feature Value Planning](#skill-feature-value-planning) | ✅ Ready | [`prd-v03-features-value-planning/`](prd-v03-features-value-planning/) |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 
@@ -47,15 +46,14 @@
 ### v0.3 Commercial Model — Pricing, Positioning & Moat
 
 **Purpose:** Define how we win commercially.
-**Gate:** Pricing model selected, Moat articulated, Outcomes defined.
+**Gate:** Pricing model selected, Moat articulated, Outcomes defined, Features prioritized.
 
 | Skill | Input | Output | IDs Created |
 |-------|-------|--------|-------------|
 | Outcome Definition | Product type, pricing signals | Measurable KPIs | KPI- |
 | Pricing Model Selection | Competitive pricing, product type | Pricing structure | BR- |
-| Our Moat Articulation | Competitive landscape | Defensibility strategy | BR- |
-| Market Moat Analysis | Competitor moats | Targeting strategy | CFD-, BR- |
-| Fast-Follow Planning | Gaps, 1% hypothesis | Validation experiments | CFD-, BR- |
+| Moat Definition | Competitive landscape | Defensibility strategy, targeting rules | CFD-, BR- |
+| Feature Value Planning | KPIs, pricing, moat definitions | Prioritized features with traceability | FEA-, BR-FEA- |
 
 ---
 
@@ -169,12 +167,20 @@ id_outputs: [BR-]
 ```yaml
 name: prd-v03-outcome-definition
 stage: v0.3
-status: spec
-triggers: "define success metrics", "what are our KPIs", "measurable outcomes"
+status: ready
+folder: prd-v03-outcome-definition/
+triggers: "define success metrics", "what are our KPIs", "measurable outcomes", "how do we measure success?"
 id_outputs: [KPI-]
 ```
 
 **Purpose:** Set measurable success criteria informed by product type and market.
+
+**Execution:**
+1. Review product type from v0.2 classification
+2. Select Tier 1 (revenue), Tier 2 (conversion), and Tier 3 (engagement) metrics
+3. Align metrics to product type (Clone, Undercut, Slice, Wrapper, Innovation)
+4. Set evidence-based targets (not arbitrary numbers)
+5. Define downstream gate linkages
 
 **Calibration by Product Type:**
 | Type | 90-day Outcome | Why |
@@ -190,58 +196,47 @@ id_outputs: [KPI-]
 ```yaml
 name: prd-v03-pricing-model
 stage: v0.3
-status: spec
-triggers: "how to price", "pricing model", "monetization"
+status: ready
+folder: prd-v03-pricing-model/
+triggers: "how to price", "pricing model", "monetization", "how much should we charge?"
 id_outputs: [BR-]
 ```
 
 **Purpose:** Select pricing that matches value delivery cadence.
 
 **Execution:**
-1. Map when customer gets value
+1. Map when customer gets value (value timing)
 2. Align to product type
 3. Evaluate models (per-seat, usage, flat, tiered, freemium)
-4. Define entry price point
-5. Set guardrails (what's off-limits)
+4. Calculate SMB penalty for per-user competitors
+5. Define entry price point with unit economics check
+6. Set guardrails (what's off-limits)
+7. Plan WTP validation
 
 ---
 
-### SKILL: Our Moat Articulation
+### SKILL: Moat Definition
 
 ```yaml
-name: prd-v03-our-moat
+name: prd-v03-moat-definition
 stage: v0.3
-status: spec
-triggers: "what's our moat", "why us", "defensibility"
-id_outputs: [BR-]
-```
-
-**Purpose:** Define what makes US defensible.
-
-**Moat Types:**
-| Type | Time to Build | Marketing Angle |
-|------|---------------|-----------------|
-| Network Effects | 12-24 mo | "Join X users already..." |
-| Switching Costs | 6-12 mo | "Your data, always exportable" |
-| Cost Advantages | 12-36 mo | "Simple pricing, no surprises" |
-| **Price Clarity** | Immediate | "One price. No gotchas." |
-| Speed | 3-6 mo (temp) | "Built for [niche]" |
-
----
-
-### SKILL: Market Moat Analysis
-
-```yaml
-name: prd-v03-market-moat
-stage: v0.3
-status: spec
-triggers: "competitor moats", "switching costs", "who to target"
+status: ready
+folder: prd-v03-moat-definition/
+triggers: "what's our moat", "competitor moats", "defensibility", "switching costs", "who to target"
 id_outputs: [CFD-, BR-]
 ```
 
-**Purpose:** Analyze competitor moats to inform targeting strategy.
+**Purpose:** Analyze competitor defensibility and define our own moat strategy.
 
-**Decision Framework:**
+**Execution:**
+1. Pull competitor data from v0.2 Competitive Landscape
+2. Identify moat types (Switching Costs, Network Effects, Data/IP, Brand/Trust, Scale, Regulatory)
+3. Rate moat strength (Impenetrable → Eroding)
+4. Inventory switching costs (Financial, Time, Data, Workflow, Integration)
+5. Identify vulnerabilities and targeting opportunities
+6. Define our defensibility strategy
+
+**Targeting Decision Framework:**
 | If market shows... | Target... |
 |--------------------|-----------|
 | Strong moats, high switching | New-to-category |
@@ -250,24 +245,36 @@ id_outputs: [CFD-, BR-]
 
 ---
 
-### SKILL: Fast-Follow Planning
+### SKILL: Feature Value Planning
 
 ```yaml
-name: prd-v03-fast-follow
+name: prd-v03-feature-value-planning
 stage: v0.3
-status: spec
-triggers: "validate before building", "quick experiments", "test hypothesis"
-id_outputs: [CFD-, BR-]
+status: ready
+folder: prd-v03-features-value-planning/
+triggers: "define features", "prioritize capabilities", "scope MVP", "what features do we build?", "feature priority", "parity vs delta"
+id_outputs: [FEA-, BR-FEA-]
 ```
 
-**Purpose:** Test commercial hypotheses with minimal build investment.
+**Purpose:** Define and prioritize features with strategic traceability.
 
 **Execution:**
-1. Review competitive gaps and 1% hypothesis
-2. Filter for <30 day validation
-3. Design experiment (landing page, manual service, concierge)
-4. Define go/no-go criteria
-5. Execute and log results
+1. Consume KPI- (Outcome Definition), BR- (Pricing, Moat), and CFD- (landscape) from prior steps
+2. Classify features (Moat, Outcome, Parity, Delta, Tier, Table Stakes)
+3. Apply product type constraints (Fast Follow: parity first; Innovation: moat focus)
+4. Prioritize using P0-P3 tiers with evidence thresholds
+5. Create FEA- entries with full traceability
+6. Establish BR-FEA- governance rules
+
+**Feature Classification:**
+| Type | Definition | Strategic Purpose |
+|------|------------|-------------------|
+| **Moat** | Builds competitive advantage | Supports BR- moat rule |
+| **Outcome** | Directly drives KPI | Tied to KPI- entry |
+| **Parity** | Matches competitor baseline | From Competitive Landscape |
+| **Delta** | Differentiation from competitors | Our advantage |
+| **Tier** | Differentiates pricing packages | From Pricing BR- |
+| **Table Stakes** | Expected but not differentiating | Industry standard |
 
 ---
 
@@ -281,9 +288,8 @@ id_outputs: [CFD-, BR-]
 | v0.2 | Product Type Classification | BR- (type, GTM constraints) |
 | v0.3 | Outcome Definition | KPI- (metrics) |
 | v0.3 | Pricing Model | BR- (pricing rules) |
-| v0.3 | Our Moat Articulation | BR- (moat strategy) |
-| v0.3 | Market Moat Analysis | CFD- (moats), BR- (targeting) |
-| v0.3 | Fast-Follow Planning | CFD- (validation), BR- (go/no-go) |
+| v0.3 | Moat Definition | CFD- (moats), BR- (targeting, defensibility) |
+| v0.3 | Feature Value Planning | FEA- (features), BR-FEA- (governance) |
 
 ---
 

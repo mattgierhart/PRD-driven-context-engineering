@@ -1,11 +1,11 @@
 ---
-name: prd-v03-market-moat-analysis
-description: Assess competitor defensibility and identify targeting opportunities during PRD v0.3 Commercial Model. Triggers on requests to analyze competitor moats, assess switching costs, identify where competitors are vulnerable, find wedge opportunities, or when user asks "how defensible are they?", "what's their moat?", "where can we compete?", "can we displace them?", "switching costs?", "attack vector". Consumes Competitive Landscape (v0.2) CFD- entries. Outputs CFD- entries for competitor moats and BR- entries for targeting rules.
+name: prd-v03-moat-definition
+description: Assess competitor defensibility and define our own moat strategy during PRD v0.3 Commercial Model. Triggers on requests to analyze competitor moats, define our defensibility, assess switching costs, identify vulnerabilities, find wedge opportunities, or when user asks "what's our moat?", "how defensible are they?", "where can we compete?", "switching costs?", "defensibility", "who to target". Consumes Competitive Landscape (v0.2) CFD- entries. Outputs CFD- entries for competitor moats and BR- entries for targeting rules and our defensibility strategy.
 ---
 
-# Market Moat Analysis
+# Moat Definition
 
-Position in AURA workflow: v0.2 Competitive Landscape → **v0.3 Market Moat Analysis** → v0.3 Our Moat Articulation
+Position in AURA workflow: v0.2 Competitive Landscape → **v0.3 Moat Definition** → v0.3 Pricing Model Selection
 
 ## Moat Type Taxonomy
 

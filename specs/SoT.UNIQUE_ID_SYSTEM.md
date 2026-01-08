@@ -1,6 +1,6 @@
 ---
 title: "Unique ID System"
-updated: "2025-12-22"
+updated: "2026-01-08"
 authority: "Gear Heart Methodology"
 ---
 
@@ -41,6 +41,7 @@ authority: "Gear Heart Methodology"
 | **RISK** | Risk              | `RISK_REGISTER.md`                       |
 | **TECH** | Technology Choice | `TECH_STACK.md`                          |
 | **ARC**  | Architecture Decision | `ARCHITECTURE_DECISIONS.md`          |
+| **EPIC** | Work Package      | `epics/EPIC-XXX.md`                      |
 
 ---
 
@@ -129,4 +130,30 @@ BR-FEA-001 (P0 requires KPI link)
 BR-FEA-002 (Parity before Delta for Fast Follow)
   └─→ FEA-002 (Parity) → P0
   └─→ FEA-010 (Delta) → P2 (after parity complete)
+```
+
+### E. Epic as Context Window
+
+> "EPICs scope work to cognitive capacity"
+
+```text
+EPIC-001 (User Authentication)
+  ├─→ API-001, API-002, API-003 (Auth endpoints)
+  ├─→ DBT-001 (Users table)
+  ├─→ BR-001, BR-002 (Auth rules)
+  ├─→ UJ-001 (Login flow)
+  └─→ TEST-001 to TEST-010 (Validation)
+      └─→ Code with // @implements tags
+```
+
+### F. Implementation Traceability
+
+> "Code declares which IDs it implements"
+
+```text
+Code: src/auth/createUser.ts
+  └─→ // @implements API-001 (Create User)
+      └─→ // @see BR-001 (Email uniqueness)
+      └─→ // @see DBT-001 (Users table)
+          └─→ TEST-001 (validates API-001)
 ```

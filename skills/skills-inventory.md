@@ -23,6 +23,9 @@
 | **v0.5 Review** | [Technical Stack Selection](#skill-technical-stack-selection) | 📋 Spec | `prd-v05-technical-stack-selection/` |
 | **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | 📋 Spec | `prd-v06-architecture-design/` |
 | **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | 📋 Spec | `prd-v06-technical-specification/` |
+| **v0.7 Build** | [Epic Scoping](#skill-epic-scoping) | 📋 Spec | `prd-v07-epic-scoping/` |
+| **v0.7 Build** | [Test Planning](#skill-test-planning) | 📋 Spec | `prd-v07-test-planning/` |
+| **v0.7 Build** | [Implementation Loop](#skill-implementation-loop) | 📋 Spec | `prd-v07-implementation-loop/` |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 
@@ -92,6 +95,17 @@
 |-------|-------|--------|-------------|
 | Architecture Design | TECH- (stack), RISK- (constraints), FEA- (features) | System architecture with component relationships | ARC- |
 | Technical Specification | ARC- (architecture), TECH- (Build items), UJ- (flows), SCR- (screens) | API contracts and data models | API-, DBT- |
+
+### v0.7 Build Execution — Implementation Loop
+
+**Purpose:** Execute implementation in focused "context windows" (EPICs) with test-first discipline and continuous SoT updates.
+**Gate:** Code tested (TEST-), SoT matches code, all EPICs complete, ready for deployment.
+
+| Skill | Input | Output | IDs Created |
+|-------|-------|--------|-------------|
+| Epic Scoping | API-, DBT-, FEA-, ARC- | Context-window-sized work packages | EPIC- |
+| Test Planning | API-, DBT-, BR-, UJ- | Test cases before implementation | TEST- |
+| Implementation Loop | EPIC-, TEST- | Working code with traceability | (updates existing IDs) |
 
 ---
 
@@ -1224,6 +1238,341 @@ Business Rules: [BR-XXX that affect this entity]
 
 ---
 
+### SKILL: Epic Scoping
+
+```yaml
+name: prd-v07-epic-scoping
+stage: v0.7
+status: spec
+folder: prd-v07-epic-scoping/
+triggers: "create epics", "scope work", "break down work", "context window sizing", "what to build first", "implementation planning", "epic breakdown"
+id_outputs: [EPIC-]
+```
+
+**Purpose:** Transform v0.6 specifications into context-window-sized work packages (EPICs) that maintain focus without overwhelming cognitive capacity.
+
+**Position in workflow:** v0.6 Technical Specification → **v0.7 Epic Scoping** → v0.7 Test Planning
+
+**Core Concept — Epic = Context Window:**
+> An EPIC is not a "big user story." It is a **cognitive boundary**—a scope of work that fits in working memory (human or AI). The goal is to load exactly what's needed to complete a focused task without distraction.
+
+**Execution:**
+1. Inventory implementation items from API-, DBT-, FEA-, ARC-
+2. Identify natural boundaries (feature clusters, data domains, architectural seams)
+3. Size each potential EPIC against context window capacity
+4. Sequence EPICs by dependencies (what must be built first)
+5. Create EPIC- entries with full ID references
+6. Validate: Can an agent complete this EPIC without needing more context than fits in a session?
+
+**EPIC- Output Template:**
+```
+EPIC-XXX: [Epic Name]
+State: [Planned | In Progress | Testing | Complete]
+Lifecycle: v0.7 Build Execution
+
+## Objective & Scope
+Goal: [What specific outcome this EPIC achieves]
+Deliverables:
+  - [ ] [Feature/capability A]
+  - [ ] [Feature/capability B]
+Out of Scope: [What we are NOT doing in this EPIC]
+
+## Context & IDs
+Business Rules: [BR-XXX, BR-YYY]
+User Journeys: [UJ-XXX, UJ-YYY]
+APIs: [API-XXX to API-ZZZ]
+Data Models: [DBT-XXX, DBT-YYY]
+Architecture: [ARC-XXX]
+Features: [FEA-XXX, FEA-YYY]
+Tests: [TEST-XXX to TEST-ZZZ] (added during Test Planning)
+
+## Dependencies
+Requires: [EPIC-YYY must complete first]
+Enables: [EPIC-ZZZ depends on this]
+
+## Context Windows (Build Phases)
+Window 1: [Focus Area] — e.g., "Database Schema"
+Window 2: [Focus Area] — e.g., "API Endpoints"
+Window 3: [Focus Area] — e.g., "UI Integration"
+```
+
+**Sizing Rules:**
+| Size | Characteristics | When to Split |
+|------|-----------------|---------------|
+| **Right-sized** | 3-5 API endpoints, 2-4 DBT tables, 1-2 UJ flows | Good fit |
+| **Too big** | >10 APIs, >5 tables, multiple unrelated features | Split by domain |
+| **Too small** | Single endpoint, no meaningful deliverable | Merge with related |
+
+**Sequencing Framework:**
+| Order | Priority | Rationale |
+|-------|----------|-----------|
+| 1 | Infrastructure EPICs | Auth, DB setup, project scaffolding |
+| 2 | Core data model EPICs | Foundation entities other features depend on |
+| 3 | Critical path EPICs | UJ- journeys that drive KPI- metrics |
+| 4 | Supporting feature EPICs | Secondary features, admin, settings |
+
+**EPIC Template Structure (5 Phases):**
+- **Phase A: Plan** — Load context (PRD, specs, README)
+- **Phase B: Design** — Update/create ID drafts in specs/
+- **Phase C: Build** — Nested Context Windows for focus
+- **Phase D: Validate** — Tests, manual checks, code traceability
+- **Phase E: Finish** — Temp cleanup, spec finalization
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Epic explosion | 20+ EPICs for MVP | Consolidate; most MVPs need 3-7 |
+| One mega-EPIC | Everything in one EPIC | Split by architectural boundary |
+| No ID references | EPIC without BR-, API-, DBT- links | Every EPIC must reference specs/ |
+| Circular dependencies | EPIC-01 needs EPIC-02 which needs EPIC-01 | Identify shared foundation, make it EPIC-00 |
+| Context overload | Agent can't hold full EPIC in mind | Split into smaller Context Windows |
+| Missing sequencing | No build order defined | Establish explicit dependency chain |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **Test Planning** | EPIC- scope defines test boundaries | TEST- entries for EPIC-01 scope |
+| **Implementation Loop** | EPIC- is execution unit | Work happens inside EPIC context |
+| **Session Management** | EPIC Section 0 tracks progress | Where to resume next session |
+
+---
+
+### SKILL: Test Planning
+
+```yaml
+name: prd-v07-test-planning
+stage: v0.7
+status: spec
+folder: prd-v07-test-planning/
+triggers: "define tests", "test planning", "what to test", "test cases", "test coverage", "TEST-", "test-first"
+id_outputs: [TEST-]
+```
+
+**Purpose:** Define test cases BEFORE implementation, ensuring every API, business rule, and user journey has verifiable acceptance criteria.
+
+**Position in workflow:** v0.7 Epic Scoping → **v0.7 Test Planning** → v0.7 Implementation Loop
+
+**Core Principle — Test-First:**
+> Tests are not an afterthought. They are the **contract** that defines what "done" means. If you can't write the test, you don't understand the requirement.
+
+**Execution:**
+1. Pull EPIC- scope (which APIs, DBTs, BRs are included)
+2. For each API-: Define request/response tests
+3. For each BR-: Define rule validation tests
+4. For each UJ-: Define end-to-end flow tests
+5. For each DBT-: Define data integrity tests
+6. Create TEST- entries linked to implementation IDs
+7. Add TEST- references back to EPIC-
+
+**TEST- Output Template:**
+```
+TEST-XXX: [Test Name]
+Type: [Unit | Integration | E2E | Contract | Performance]
+Tests: [API-XXX | BR-XXX | UJ-XXX | DBT-XXX]
+EPIC: [EPIC-XXX this test belongs to]
+
+Given: [Preconditions]
+When: [Action/trigger]
+Then: [Expected outcome]
+
+Validation Method: [Automated | Manual | Both]
+Automation: [Test file path when implemented]
+Priority: [Critical | High | Medium | Low]
+```
+
+**Test Type Guidance:**
+| Type | What It Tests | When to Use | Example |
+|------|---------------|-------------|---------|
+| **Unit** | Single function/method | Business logic, calculations | BR-001 limit check |
+| **Integration** | Component boundaries | API ↔ Database | API-001 creates DBT-001 record |
+| **E2E** | Full user flow | Critical journeys | UJ-001 onboarding completes |
+| **Contract** | API shape/types | External integrations | API-001 response matches schema |
+| **Performance** | Speed/load | Critical paths | API-001 responds < 200ms |
+
+**Coverage Requirements:**
+| ID Type | Minimum Coverage | Rationale |
+|---------|------------------|-----------|
+| **API-** | 1 happy path + 1 error per endpoint | Endpoints are integration points |
+| **BR-** | 1 test per rule, boundary cases included | Rules are product logic |
+| **UJ-** | 1 E2E test per core journey | Journeys are user value |
+| **DBT-** | Constraint tests for critical fields | Data integrity is foundational |
+
+**Test Priority Framework:**
+| Priority | Criteria | Example |
+|----------|----------|---------|
+| **Critical** | Breaks core value, data loss possible | User auth, payment processing |
+| **High** | Blocks key journey, user-facing error | Onboarding flow, main feature |
+| **Medium** | Degrades experience, workaround exists | Settings, non-critical features |
+| **Low** | Edge case, admin-only, cosmetic | Rare scenarios, admin tools |
+
+**Given-When-Then Examples:**
+```
+TEST-001: User creation succeeds with valid data
+Tests: API-001 (POST /users), BR-001 (email uniqueness)
+EPIC: EPIC-01
+
+Given: No user with email "test@example.com" exists
+When: POST /users with valid name, email, password
+Then: 201 Created, user record in DBT-001, welcome email queued
+
+TEST-002: User creation fails with duplicate email
+Tests: API-001, BR-001
+EPIC: EPIC-01
+
+Given: User with email "test@example.com" already exists
+When: POST /users with same email
+Then: 409 Conflict, no new record, clear error message
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Tests after code | "We'll add tests later" | Define TEST- before writing code |
+| Only happy path | No error case tests | Every API needs at least 1 error test |
+| Orphaned tests | TEST- not linked to API-/BR-/UJ- | Every test must trace to a spec ID |
+| Test explosion | 200+ tests for MVP | Focus on critical paths; 30-50 tests typical |
+| Vague assertions | "System works correctly" | Specific, measurable outcomes |
+| No automation path | Manual-only critical tests | Critical tests must be automatable |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **Implementation Loop** | TEST- defines acceptance criteria | EPIC done when TEST-001–010 pass |
+| **EPIC Validation (Phase D)** | TEST- list for validation | Run all TEST- for EPIC |
+| **CI/CD** | TEST- becomes automated suite | TEST- entries → test files |
+
+---
+
+### SKILL: Implementation Loop
+
+```yaml
+name: prd-v07-implementation-loop
+stage: v0.7
+status: spec
+folder: prd-v07-implementation-loop/
+triggers: "start building", "implement epic", "coding", "development", "build execution", "implementation", "write code"
+id_outputs: []  # Updates existing IDs, creates code
+```
+
+**Purpose:** Execute implementation within EPICs following the discipline of test-first development, continuous SoT updates, and code traceability.
+
+**Position in workflow:** v0.7 Test Planning → **v0.7 Implementation Loop** → v0.8 Release
+
+**Mode:** Iterative execution within EPIC context.
+
+**Core Loop (The Heartbeat):**
+```
+1. Load Context     → Read EPIC, referenced IDs, Session State
+2. Select Focus     → Choose a Context Window from Phase C
+3. Write Test       → Implement TEST- entry (Red)
+4. Write Code       → Implement to pass test (Green)
+5. Tag Code         → Add // @implements ID comments
+6. Update SoT       → Update specs/ if implementation reveals changes
+7. Validate         → Run tests, check traceability
+8. Update Session   → Write to Section 0 before stopping
+→ REPEAT until EPIC complete
+```
+
+**Session State Protocol (MANDATORY):**
+Before ending ANY session:
+```
+## 0. Session State (The "Brain Dump")
+- **Last Action**: [What was just completed]
+- **Stopping Point**: [Exact file/line or test failure]
+- **Next Steps**: [Exact instructions for next session]
+- **Context**: [Key decisions, blockers, open questions]
+```
+
+**Code Traceability Protocol:**
+Every major code unit MUST declare which ID it implements:
+```typescript
+// @implements API-001 (Create User endpoint)
+// @see BR-001 (Email uniqueness)
+// @see DBT-001 (Users table)
+export async function createUser(data: CreateUserInput): Promise<User> {
+  // ...
+}
+```
+
+**Traceability Patterns:**
+| Code Element | Tag Pattern | Example |
+|--------------|-------------|---------|
+| API handler | `@implements API-XXX` | API endpoint function |
+| Business logic | `@implements BR-XXX` | Validation, rules |
+| Database model | `@implements DBT-XXX` | Schema definition |
+| UI component | `@implements SCR-XXX` | Screen component |
+| Test file | `@tests TEST-XXX` | Test implementation |
+
+**SoT Update Rules:**
+| Situation | Action |
+|-----------|--------|
+| Spec matches implementation | No update needed |
+| Implementation reveals new constraint | Add BR- entry |
+| API shape changed during build | Update API- entry |
+| New field needed in schema | Update DBT- entry |
+| Spec was wrong/incomplete | Fix spec AND code |
+
+**Context Window Navigation:**
+Within an EPIC's Phase C (Build), work through Context Windows sequentially:
+```
+**Context Window 1: Database Schema**
+- [ ] Create DBT-001 migration
+- [ ] Seed test data
+- [ ] Run migration tests
+
+**Context Window 2: API Endpoints**
+- [ ] Implement API-001 (Create)
+- [ ] Implement API-002 (Read)
+- [ ] Run API tests
+
+**Context Window 3: UI Integration**
+- [ ] Build SCR-001 form
+- [ ] Connect to API-001
+- [ ] Run E2E tests
+```
+
+**Phase D Validation Checklist:**
+- [ ] All TEST- entries for this EPIC pass
+- [ ] `// @implements` tags present in all major code units
+- [ ] Manual flow verification against UJ-
+- [ ] No orphaned code (everything traces to an ID)
+- [ ] specs/ updated to match implementation
+
+**Phase E Finish (Harvest):**
+- [ ] Move useful temp/ notes to specs/ or archive/
+- [ ] Verify all specs/ files match final code
+- [ ] Clean Session State (Section 0)
+- [ ] Update EPIC state to Complete
+- [ ] Log completion in Change Log
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Test-after | Code written, then "add tests" | Write TEST- implementation first |
+| Spec drift | Code diverges from specs/ | Update SoT during implementation, not later |
+| Missing traceability | Code has no @implements tags | Add tags as you write, not in cleanup |
+| Session amnesia | No Section 0 update | ALWAYS update before stopping |
+| Context switching | Jumping between EPICs | Finish one EPIC before starting another |
+| One-shot building | No iteration, just code dump | Follow the loop: test → code → tag → update |
+| Orphaned implementation | Code not linked to any ID | Every function serves an ID |
+
+**Red Flags (Stop and Fix):**
+| Signal | Action |
+|--------|--------|
+| Can't write test | Requirement unclear → revisit spec |
+| Test keeps failing | Implementation wrong OR spec wrong → investigate |
+| Need to touch code outside EPIC scope | Wrong EPIC boundaries → re-scope |
+| Lost context mid-session | Load Session State, verify EPIC context |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.8 Release** | Completed EPICs ready for deployment | All TEST- pass, SoT current |
+| **Code Review** | @implements tags for review context | Reviewer sees which BR- this enforces |
+| **Future Sessions** | Session State for continuity | Pick up exactly where left off |
+
+---
+
 ## ID Output Summary
 
 | Stage | Skill | Primary IDs |
@@ -1243,6 +1592,9 @@ Business Rules: [BR-XXX that affect this entity]
 | v0.5 | Technical Stack Selection | TECH- (build/buy/integrate decisions) |
 | v0.6 | Architecture Design | ARC- (architecture decisions) |
 | v0.6 | Technical Specification | API- (endpoints), DBT- (data models) |
+| v0.7 | Epic Scoping | EPIC- (work packages) |
+| v0.7 | Test Planning | TEST- (test cases) |
+| v0.7 | Implementation Loop | (updates existing IDs, creates code) |
 
 ---
 

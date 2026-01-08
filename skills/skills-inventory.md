@@ -110,6 +110,8 @@ id_outputs: [CFD-]
 
 **Purpose:** Convert raw sparks into structured, testable problem statements.
 
+**Position in workflow:** Raw idea → **v0.1 Problem Framing** → v0.1 User Value Articulation
+
 **Execution:**
 1. Dump raw idea as unfiltered paragraph
 2. Desk research — find 5 examples of people experiencing this problem
@@ -117,7 +119,46 @@ id_outputs: [CFD-]
 4. Draft 1-3 problem statements using Design Thinking format
 5. Define kill criteria
 
-**Template:** `[USER TYPE] needs a way to [NEED] because [INSIGHT/BARRIER].`
+**Problem Statement Template:** `[USER TYPE] needs a way to [NEED] because [INSIGHT/BARRIER].`
+
+**CFD- Output Template (Desk Research):**
+```
+CFD-XXX: [Research Finding Title]
+Type: Desk Research
+Source: [URL, publication, forum thread]
+Date: [When found]
+Finding: [What we learned]
+Relevance: [How this validates/invalidates the problem]
+Quote: [Direct quote if available]
+```
+
+**CFD- Output Template (Pain Point):**
+```
+CFD-XXX: [Pain Point Title]
+Type: Pain Point
+User Type: [Who experiences this]
+Pain: [What hurts]
+Frequency: [How often — daily, weekly, per event]
+Severity: [How much it hurts — annoyance to business-critical]
+Current Workaround: [What they do today]
+Evidence: [CFD-YYY desk research that supports this]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Solution masquerading as problem | "Users need a dashboard" | Ask "why?" until you find the pain |
+| Too broad | "Businesses struggle with efficiency" | Narrow to specific user type and context |
+| No evidence | Problem assumed, not validated | Require 3+ desk research findings |
+| Inventor's bias | "I have this problem" | Find 5 others who have it too |
+| Skipping kill criteria | No way to know if problem is real | Define what evidence would kill the idea |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **User Value Articulation** | CFD- pain points become value inputs | CFD-001 (pain) → CFD-010 (value) |
+| **v0.2 Competitive Landscape** | Problem context for competitor search | "Who else solves CFD-001?" |
+| **v0.4 Persona Definition** | USER TYPE seeds persona creation | USER TYPE → PER-001 |
 
 ---
 
@@ -134,6 +175,8 @@ id_outputs: [CFD-]
 
 **Purpose:** Transform pain points into evidence-anchored value statements.
 
+**Position in workflow:** v0.1 Problem Framing → **v0.1 User Value Articulation** → v0.2 Competitive Landscape
+
 **Execution:**
 1. Receive pain points (CFD-IDs from Problem Framing)
 2. Identify value unit (Time / Money / Risk / Capability)
@@ -148,6 +191,35 @@ id_outputs: [CFD-]
 | Costs $X | → | Save $X [or redirect to growth] |
 | Risks $X penalty | → | Eliminate $X exposure |
 | Cannot do X | → | Now able to X when [trigger] |
+
+**CFD- Output Template (Value Hypothesis):**
+```
+CFD-XXX: [Value Statement Title]
+Type: Value Hypothesis
+Pain Source: [CFD-YYY that this addresses]
+Value Unit: [Time | Money | Risk | Capability]
+Value Statement: [User] can now [outcome] instead of [current pain]
+Quantification: [Estimated savings/gains if possible]
+Validation Method: [How we'll test this — survey, interview, prototype]
+Confidence: [High | Medium | Low] — based on evidence strength
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Feature as value | "Users get a dashboard" | Reframe as outcome: "Users see status in 2 seconds" |
+| Unquantified value | "Users save time" | Add specificity: "Users save 2 hours per week" |
+| Value without pain | Value statement has no CFD- pain link | Every value must trace to documented pain |
+| Aspirational value | "Users will love this" | Ground in evidence, not hope |
+| Single value unit | Only time savings considered | Explore all four units (Time/Money/Risk/Capability) |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.2 Competitive Landscape** | Value statements define what to compare | "Do competitors deliver CFD-010 value?" |
+| **v0.3 Outcome Definition** | Value hypotheses inform KPI selection | CFD-010 (time saved) → KPI-001 (TTFV) |
+| **v0.3 Pricing Model** | Value quantification anchors pricing | CFD-010 ($500/mo saved) → price ≤ $100/mo |
+| **v0.4 Persona Definition** | Primary value links to persona | PER-001 cares most about CFD-010 |
 
 ---
 
@@ -164,6 +236,8 @@ id_outputs: [CFD-, BR-]
 
 **Purpose:** Understand market reality before defining our position.
 
+**Position in workflow:** v0.1 User Value Articulation → **v0.2 Competitive Landscape Mapping** → v0.2 Product Type Classification
+
 **Execution:**
 1. Document what users do TODAY (before searching competitors)
 2. Competitor discovery — direct, adjacent, workarounds, "do nothing"
@@ -175,6 +249,47 @@ id_outputs: [CFD-, BR-]
 - Industry/geo gap table
 - Feature matrix
 - 1% better hypothesis: "We can be 1% better than [X] by [Y] for [Z]"
+
+**CFD- Output Template (Competitor Intelligence):**
+```
+CFD-XXX: [Competitor Name] Analysis
+Type: Competitor Intelligence
+Category: [Direct | Adjacent | Workaround | Do Nothing]
+Website: [URL]
+Pricing: [Model and price points]
+Target Segment: [Who they serve]
+Key Features: [Top 3-5 capabilities]
+Strengths: [What they do well]
+Weaknesses: [Where they fall short]
+User Sentiment: [Reviews, complaints, praise]
+Market Position: [Leader | Challenger | Niche | Emerging]
+```
+
+**BR- Output Template (Competitive Rule):**
+```
+BR-XXX: [Rule Name]
+Type: Competitive Positioning
+Rule: [Constraint or requirement based on competitive reality]
+Evidence: [CFD-YYY competitor analysis that drives this]
+Implication: [What this means for our product]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Competitor tunnel vision | Only looking at direct competitors | Include adjacent, workarounds, "do nothing" |
+| Feature obsession | Comparing features without context | Compare on value delivered, not feature count |
+| Ignoring pricing | Features compared, pricing ignored | Pricing is a feature — document it |
+| Recency bias | Only looking at current competitors | Research failed competitors too (why they died) |
+| Confirmation bias | Only finding evidence that supports your idea | Actively seek disconfirming evidence |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **Product Type Classification** | Competitor count determines type | 5+ competitors → Fast Follow |
+| **v0.3 Pricing Model** | Competitor pricing anchors our pricing | CFD-020 (competitor $50/mo) → BR-030 |
+| **v0.3 Moat Definition** | Competitor moats inform our strategy | CFD-021 (competitor moat) → our vulnerability |
+| **v0.3 Feature Value Planning** | Feature matrix defines parity features | CFD-022 (feature list) → FEA-001 (parity) |
 
 ---
 
@@ -191,12 +306,51 @@ id_outputs: [BR-]
 
 **Purpose:** Classify product type to set realistic expectations.
 
+**Position in workflow:** v0.2 Competitive Landscape Mapping → **v0.2 Product Type Classification** → v0.3 Outcome Definition
+
 **Framework:**
 | Type | Evidence | Sales Cycle | Positioning |
 |------|----------|-------------|-------------|
 | **Fast Follow** | 3+ competitors, users paying | Short | "Better/cheaper than X" |
 | **Slice** | Ecosystem exists, gap in integrations | Medium | "Best [thing] for [ecosystem]" |
 | **Innovation** | No competitors, behavior change needed | Long | "New way to [outcome]" |
+
+**BR- Output Template (Product Type):**
+```
+BR-XXX: Product Type Classification
+Type: Strategic Constraint
+Classification: [Fast Follow | Slice | Innovation]
+Evidence: [CFD-YYY competitor data that supports this]
+Sales Cycle Expectation: [Short | Medium | Long]
+Positioning Template: [How we'll describe ourselves]
+GTM Implication: [What this means for go-to-market]
+Feature Strategy: [Parity-first | Niche-depth | Education-heavy]
+```
+
+**Extended Type Framework:**
+| Type | Sub-type | Evidence | Strategy |
+|------|----------|----------|----------|
+| **Fast Follow** | Clone | Identical feature set needed | Match features, compete on price/UX |
+| **Fast Follow** | Undercut | Price-sensitive segment exists | Same features, lower price |
+| **Slice** | Unbundle | Platform does too much | Extract one capability, do it better |
+| **Slice** | Wrapper | API exists, UX doesn't | Build UX on existing infrastructure |
+| **Innovation** | Category Creation | No existing mental model | Heavy education investment |
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Wishful innovation | Calling it innovation to avoid competition | Be honest — if competitors exist, it's not innovation |
+| Ignoring evidence | Classifying without CFD- support | Every classification needs competitive evidence |
+| Static typing | Assuming type never changes | Re-evaluate as market evolves |
+| One-size strategy | Applying same approach regardless of type | Strategy must match type |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.3 Outcome Definition** | Type determines realistic KPI targets | Innovation → 3-10 design partners (not 50 customers) |
+| **v0.3 Pricing Model** | Type influences pricing strategy | Fast Follow → price anchored to competitors |
+| **v0.3 Feature Value Planning** | Type determines parity vs. delta balance | Fast Follow → BR-FEA-001 (parity first) |
+| **v0.9 GTM** | Type shapes messaging and channels | Innovation → education-first content |
 
 ---
 
@@ -213,6 +367,8 @@ id_outputs: [KPI-]
 
 **Purpose:** Set measurable success criteria informed by product type and market.
 
+**Position in workflow:** v0.2 Product Type Classification → **v0.3 Outcome Definition** → v0.3 Pricing Model Selection
+
 **Execution:**
 1. Review product type from v0.2 classification
 2. Select Tier 1 (revenue), Tier 2 (conversion), and Tier 3 (engagement) metrics
@@ -226,6 +382,35 @@ id_outputs: [KPI-]
 | Fast Follow | 10-50 customers, $1-5K MRR | Short sales cycle |
 | Slice | 5-20 customers, partnerships | Ecosystem validation |
 | Innovation | 3-10 design partners | Education cycle |
+
+**KPI- Output Template:**
+```
+KPI-XXX: [Metric Name]
+Tier: [Tier 1 | Tier 2 | Tier 3]
+Category: [Leading | Lagging]
+Definition: [Exact calculation formula]
+Target: [Specific threshold with evidence source]
+Evidence: [CFD-XXX or benchmark source]
+Downstream Gate: [Which decision uses this — e.g., "v0.5 Red Team kill criteria"]
+Measurement: [How/when measured — e.g., "Weekly via Mixpanel"]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Vanity metrics | "50K users" with no revenue link | Require Tier 1 metric for every product |
+| Arbitrary targets | "10% improvement" without baseline | Anchor to competitive benchmarks or evidence |
+| All lagging metrics | No leading indicators | Include leading metrics for early course correction |
+| Wrong metrics for type | Innovation product tracking MAU | Match metrics to product type expectations |
+| Unmeasurable outcomes | "Better experience" | Every KPI needs a measurement method |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.3 Pricing Model** | KPI- revenue targets inform pricing | KPI-001 ($5K MRR) → price × volume math |
+| **v0.3 Feature Value Planning** | Features must support KPI | FEA-001 → KPI-002 (activation) |
+| **v0.4 User Journey Mapping** | Journeys drive KPI outcomes | UJ-001 → KPI-001 (conversion) |
+| **v0.5 Red Team** | KPI- thresholds become kill criteria | "If KPI-001 not hit by Day 21, pivot" |
 
 ---
 
@@ -242,6 +427,8 @@ id_outputs: [BR-]
 
 **Purpose:** Select pricing that matches value delivery cadence.
 
+**Position in workflow:** v0.3 Outcome Definition → **v0.3 Pricing Model Selection** → v0.3 Moat Definition
+
 **Execution:**
 1. Map when customer gets value (value timing)
 2. Align to product type
@@ -250,6 +437,36 @@ id_outputs: [BR-]
 5. Define entry price point with unit economics check
 6. Set guardrails (what's off-limits)
 7. Plan WTP validation
+
+**BR- Output Template (Pricing Rule):**
+```
+BR-XXX: [Pricing Rule Name]
+Type: Pricing Constraint
+Model: [Per-seat | Usage | Flat | Tiered | Freemium | Hybrid]
+Entry Price: [$ amount and billing frequency]
+Value Anchor: [CFD-YYY value quantification that justifies price]
+Competitor Anchor: [CFD-ZZZ competitor pricing reference]
+Guardrails: [What we won't do — e.g., "No per-seat for SMB"]
+Unit Economics: [CAC, LTV assumptions]
+Validation Plan: [How we'll test WTP]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Pricing in a vacuum | No competitor or value reference | Anchor to CFD- evidence |
+| Cost-plus pricing | "It costs us $X so we charge $2X" | Price on value, not cost |
+| Copying competitors | Same price without differentiation | If same price, must be 10x better |
+| Freemium without strategy | "We'll figure out monetization later" | Define conversion trigger upfront |
+| Ignoring segment | Same price for SMB and Enterprise | Segment-appropriate pricing |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.3 Feature Value Planning** | Pricing tiers define tier features | BR-030 (Pro tier) → FEA-005 (Pro feature) |
+| **v0.4 User Journey Mapping** | Pricing touchpoints in journey | UJ-003 includes upgrade prompt |
+| **v0.5 Technical Stack** | Payment processing needs | BR-030 → TECH-010 (Stripe) |
+| **v0.9 GTM** | Pricing as marketing message | BR-030 (undercut) → "50% cheaper" |
 
 ---
 
@@ -266,6 +483,8 @@ id_outputs: [CFD-, BR-]
 
 **Purpose:** Analyze competitor defensibility and define our own moat strategy.
 
+**Position in workflow:** v0.3 Pricing Model Selection → **v0.3 Moat Definition** → v0.3 Feature Value Planning
+
 **Execution:**
 1. Pull competitor data from v0.2 Competitive Landscape
 2. Identify moat types (Switching Costs, Network Effects, Data/IP, Brand/Trust, Scale, Regulatory)
@@ -281,6 +500,45 @@ id_outputs: [CFD-, BR-]
 | Weak moats, low switching | Switchers |
 | High churn triggers despite moats | Switchers at trigger moments |
 
+**CFD- Output Template (Moat Analysis):**
+```
+CFD-XXX: [Competitor] Moat Analysis
+Type: Moat Assessment
+Competitor: [CFD-YYY reference]
+Moat Types: [Switching Costs | Network Effects | Data/IP | Brand/Trust | Scale | Regulatory]
+Moat Strength: [Impenetrable | Strong | Moderate | Weak | Eroding]
+Switching Costs: [Financial, Time, Data, Workflow, Integration costs]
+Vulnerabilities: [Where moat is weakest]
+Trigger Moments: [When users are most likely to switch]
+```
+
+**BR- Output Template (Targeting Rule):**
+```
+BR-XXX: [Targeting Rule Name]
+Type: Targeting Constraint
+Target Segment: [New-to-category | Switchers | Trigger-based]
+Evidence: [CFD-YYY moat analysis that supports this]
+Implication: [How this affects messaging, channels, timing]
+Our Moat Strategy: [How we'll build defensibility]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Moat envy | "They have network effects, we can't win" | Find vulnerabilities — every moat has cracks |
+| Ignoring switching costs | Assuming users will switch easily | Quantify actual switching costs |
+| No moat plan | Focused only on competitor moats | Define how WE build defensibility |
+| Static moat view | Assuming moats are permanent | Moats erode — look for weakening signals |
+| Wrong target | Fighting entrenched competitors head-on | Target where moats are weakest |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.3 Feature Value Planning** | Moat features get priority | BR-040 (data moat) → FEA-010 (data collection) |
+| **v0.4 Persona Definition** | Targeting rules define personas | BR-041 (target switchers) → PER-001 (frustrated user) |
+| **v0.5 Risk Discovery** | Moat gaps become risks | Weak moat → RISK-005 (competitor copy) |
+| **v0.9 GTM** | Targeting rules shape GTM | BR-041 → target at contract renewal |
+
 ---
 
 ### SKILL: Feature Value Planning
@@ -295,6 +553,8 @@ id_outputs: [FEA-, BR-FEA-]
 ```
 
 **Purpose:** Define and prioritize features with strategic traceability.
+
+**Position in workflow:** v0.3 Moat Definition → **v0.3 Feature Value Planning** → v0.4 Persona Definition
 
 **Execution:**
 1. Consume KPI- (Outcome Definition), BR- (Pricing, Moat), and CFD- (landscape) from prior steps
@@ -313,6 +573,56 @@ id_outputs: [FEA-, BR-FEA-]
 | **Delta** | Differentiation from competitors | Our advantage |
 | **Tier** | Differentiates pricing packages | From Pricing BR- |
 | **Table Stakes** | Expected but not differentiating | Industry standard |
+
+**FEA- Output Template:**
+```
+FEA-XXX: [Feature Name]
+Classification: [Moat | Outcome | Parity | Delta | Tier | Table Stakes]
+Priority: [P0 | P1 | P2 | P3]
+Description: [What this feature does]
+User Value: [CFD-YYY value hypothesis it delivers]
+KPI Link: [KPI-XXX it drives]
+Competitive Reference: [CFD-ZZZ if parity/delta]
+Pricing Tier: [Free | Pro | Enterprise] if tier feature
+Dependencies: [Other FEA- or BR- required]
+Effort Estimate: [S | M | L | XL]
+```
+
+**BR-FEA- Output Template (Feature Governance):**
+```
+BR-FEA-XXX: [Governance Rule Name]
+Type: Feature Governance
+Rule: [Constraint on feature decisions]
+Rationale: [Why this rule exists]
+Applies To: [Which FEA- entries this affects]
+Example: [Concrete application of rule]
+```
+
+**Priority Evidence Thresholds:**
+| Priority | Evidence Required | Example |
+|----------|-------------------|---------|
+| **P0** | Multiple CFD- pain points + KPI link | Core value delivery |
+| **P1** | At least one CFD- + competitive parity | Important but not blocking |
+| **P2** | Competitive delta or moat contribution | Differentiation |
+| **P3** | Nice-to-have, no strong evidence | Future consideration |
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Feature factory | Long list with no prioritization | Apply P0-P3 framework |
+| No traceability | Features without CFD- or KPI- links | Every FEA- needs evidence |
+| Parity obsession | Only matching competitors | Include delta features |
+| Scope creep | P3 features consuming resources | Defer P3 until P0-P1 complete |
+| Missing governance | No BR-FEA- rules | Define at least 2-3 governance rules |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.4 Persona Definition** | Features link to personas | PER-001 cares about FEA-001 |
+| **v0.4 User Journey Mapping** | Features become journey steps | UJ-001 Step 3 → FEA-002 |
+| **v0.4 Screen Flow Definition** | Features render on screens | SCR-003 includes FEA-001, FEA-002 |
+| **v0.5 Technical Stack Selection** | Features drive tech needs | FEA-010 (AI) → TECH-005 (OpenAI) |
+| **v0.6 Technical Specification** | Features become API contracts | FEA-001 → API-001, API-002 |
 
 ---
 

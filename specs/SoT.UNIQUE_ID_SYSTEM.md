@@ -44,6 +44,34 @@ authority: "Gear Heart Methodology"
 
 ---
 
+## 2.1 Compound IDs
+
+Some concepts require **compound IDs** that combine two prefixes to express a relationship or governance rule.
+
+**Format**: `[PREFIX1]-[PREFIX2]-[NUMBER]`
+
+| Compound ID | Meaning | Use Case |
+|-------------|---------|----------|
+| **BR-FEA-XXX** | Feature Governance Rule | Business rules that constrain feature decisions |
+
+**Example Compound IDs:**
+```
+BR-FEA-001: "P0 features must have KPI link"
+BR-FEA-002: "Fast Follow products prioritize parity before delta"
+BR-FEA-003: "No P3 features until P0-P1 complete"
+```
+
+**When to Use Compound IDs:**
+- The concept governs or constrains another ID type
+- A simple prefix doesn't capture the relationship
+- The rule applies to a specific domain (features, journeys, etc.)
+
+**When NOT to Use:**
+- If a simple prefix suffices (most cases)
+- For simple references (use "Links to: FEA-001" instead)
+
+---
+
 ## 3. How to Assign IDs
 
 1. **Check the Ledger**: Look at the `specs/` file for the highest used number.
@@ -87,4 +115,18 @@ CFD-089 (Request: Dark Mode)
   └─→ UJ-105 (Theme Switcher Flow)
       ├─→ DBT-025 (User Preferences Table)
       └─→ TEST-310 (Visual Regression)
+```
+
+### D. Feature Governance
+
+> "Business Rules constrain Feature Decisions"
+
+```text
+BR-FEA-001 (P0 requires KPI link)
+  └─→ FEA-001 (Core Feature) ✓ Has KPI-001 link
+  └─→ FEA-015 (Nice-to-have) ✗ No KPI link → demoted to P3
+
+BR-FEA-002 (Parity before Delta for Fast Follow)
+  └─→ FEA-002 (Parity) → P0
+  └─→ FEA-010 (Delta) → P2 (after parity complete)
 ```

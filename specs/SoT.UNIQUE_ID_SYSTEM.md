@@ -1,6 +1,6 @@
 ---
 title: "Unique ID System"
-updated: "2025-12-22"
+updated: "2026-01-08"
 authority: "Gear Heart Methodology"
 ---
 
@@ -34,6 +34,42 @@ authority: "Gear Heart Methodology"
 | **TEST** | Test Case         | `testing_playbook.md`                    |
 | **DEP**  | Deployment Step   | `deployment_playbook.md`                 |
 | **KPI**  | Key Metric        | `README.md` (or dedicated Metrics table) |
+| **FEA**  | Feature           | `FEATURES.md`                            |
+| **PER**  | Persona           | `PERSONAS.md`                            |
+| **SCR**  | Screen            | `SCREENS.md`                             |
+| **DES**  | Design Element    | `DESIGN_SYSTEM.md`                       |
+| **RISK** | Risk              | `RISK_REGISTER.md`                       |
+| **TECH** | Technology Choice | `TECH_STACK.md`                          |
+| **ARC**  | Architecture Decision | `ARCHITECTURE_DECISIONS.md`          |
+| **EPIC** | Work Package      | `epics/EPIC-XXX.md`                      |
+
+---
+
+## 2.1 Compound IDs
+
+Some concepts require **compound IDs** that combine two prefixes to express a relationship or governance rule.
+
+**Format**: `[PREFIX1]-[PREFIX2]-[NUMBER]`
+
+| Compound ID | Meaning | Use Case |
+|-------------|---------|----------|
+| **BR-FEA-XXX** | Feature Governance Rule | Business rules that constrain feature decisions |
+
+**Example Compound IDs:**
+```
+BR-FEA-001: "P0 features must have KPI link"
+BR-FEA-002: "Fast Follow products prioritize parity before delta"
+BR-FEA-003: "No P3 features until P0-P1 complete"
+```
+
+**When to Use Compound IDs:**
+- The concept governs or constrains another ID type
+- A simple prefix doesn't capture the relationship
+- The rule applies to a specific domain (features, journeys, etc.)
+
+**When NOT to Use:**
+- If a simple prefix suffices (most cases)
+- For simple references (use "Links to: FEA-001" instead)
 
 ---
 
@@ -80,4 +116,44 @@ CFD-089 (Request: Dark Mode)
   └─→ UJ-105 (Theme Switcher Flow)
       ├─→ DBT-025 (User Preferences Table)
       └─→ TEST-310 (Visual Regression)
+```
+
+### D. Feature Governance
+
+> "Business Rules constrain Feature Decisions"
+
+```text
+BR-FEA-001 (P0 requires KPI link)
+  └─→ FEA-001 (Core Feature) ✓ Has KPI-001 link
+  └─→ FEA-015 (Nice-to-have) ✗ No KPI link → demoted to P3
+
+BR-FEA-002 (Parity before Delta for Fast Follow)
+  └─→ FEA-002 (Parity) → P0
+  └─→ FEA-010 (Delta) → P2 (after parity complete)
+```
+
+### E. Epic as Context Window
+
+> "EPICs scope work to cognitive capacity"
+
+```text
+EPIC-001 (User Authentication)
+  ├─→ API-001, API-002, API-003 (Auth endpoints)
+  ├─→ DBT-001 (Users table)
+  ├─→ BR-001, BR-002 (Auth rules)
+  ├─→ UJ-001 (Login flow)
+  └─→ TEST-001 to TEST-010 (Validation)
+      └─→ Code with // @implements tags
+```
+
+### F. Implementation Traceability
+
+> "Code declares which IDs it implements"
+
+```text
+Code: src/auth/createUser.ts
+  └─→ // @implements API-001 (Create User)
+      └─→ // @see BR-001 (Email uniqueness)
+      └─→ // @see DBT-001 (Users table)
+          └─→ TEST-001 (validates API-001)
 ```

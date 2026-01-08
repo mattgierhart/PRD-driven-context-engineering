@@ -16,16 +16,16 @@
 | **v0.3 Commercial** | [Pricing Model Selection](#skill-pricing-model-selection) | ✅ Ready | [`prd-v03-pricing-model/`](prd-v03-pricing-model/) |
 | **v0.3 Commercial** | [Moat Definition](#skill-moat-definition) | ✅ Ready | [`prd-v03-moat-definition/`](prd-v03-moat-definition/) |
 | **v0.3 Commercial** | [Feature Value Planning](#skill-feature-value-planning) | ✅ Ready | [`prd-v03-features-value-planning/`](prd-v03-features-value-planning/) |
-| **v0.4 Journeys** | [Persona Definition](#skill-persona-definition) | 📋 Spec | `prd-v04-persona-definition/` |
-| **v0.4 Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | 📋 Spec | `prd-v04-user-journey-mapping/` |
-| **v0.4 Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | 📋 Spec | `prd-v04-screen-flow-definition/` |
-| **v0.5 Review** | [Risk Discovery Interview](#skill-risk-discovery-interview) | 📋 Spec | `prd-v05-risk-discovery-interview/` |
-| **v0.5 Review** | [Technical Stack Selection](#skill-technical-stack-selection) | 📋 Spec | `prd-v05-technical-stack-selection/` |
-| **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | 📋 Spec | `prd-v06-architecture-design/` |
-| **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | 📋 Spec | `prd-v06-technical-specification/` |
-| **v0.7 Build** | [Epic Scoping](#skill-epic-scoping) | 📋 Spec | `prd-v07-epic-scoping/` |
-| **v0.7 Build** | [Test Planning](#skill-test-planning) | 📋 Spec | `prd-v07-test-planning/` |
-| **v0.7 Build** | [Implementation Loop](#skill-implementation-loop) | 📋 Spec | `prd-v07-implementation-loop/` |
+| **v0.4 Journeys** | [Persona Definition](#skill-persona-definition) | ✅ Ready | [`prd-v04-persona-definition/`](prd-v04-persona-definition/) |
+| **v0.4 Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | ✅ Ready | [`prd-v04-user-journey-mapping/`](prd-v04-user-journey-mapping/) |
+| **v0.4 Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | ✅ Ready | [`prd-v04-screen-flow-definition/`](prd-v04-screen-flow-definition/) |
+| **v0.5 Review** | [Risk Discovery Interview](#skill-risk-discovery-interview) | ✅ Ready | [`prd-v05-risk-discovery-interview/`](prd-v05-risk-discovery-interview/) |
+| **v0.5 Review** | [Technical Stack Selection](#skill-technical-stack-selection) | ✅ Ready | [`prd-v05-technical-stack-selection/`](prd-v05-technical-stack-selection/) |
+| **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | ✅ Ready | [`prd-v06-architecture-design/`](prd-v06-architecture-design/) |
+| **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | ✅ Ready | [`prd-v06-technical-specification/`](prd-v06-technical-specification/) |
+| **v0.7 Build** | [Epic Scoping](#skill-epic-scoping) | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
+| **v0.7 Build** | [Test Planning](#skill-test-planning) | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
+| **v0.7 Build** | [Implementation Loop](#skill-implementation-loop) | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 
@@ -645,7 +645,7 @@ Example: [Concrete application of rule]
 ```yaml
 name: prd-v04-persona-definition
 stage: v0.4
-status: spec
+status: ready
 folder: prd-v04-persona-definition/
 triggers: "define personas", "who are our users", "user profiles", "target users", "persona creation", "who uses this product"
 id_outputs: [PER-]
@@ -733,7 +733,7 @@ Marketing Hook: [One-sentence pitch for this persona]
 ```yaml
 name: prd-v04-user-journey-mapping
 stage: v0.4
-status: spec
+status: ready
 folder: prd-v04-user-journey-mapping/
 triggers: "map user journeys", "define user flows", "user missions", "how do users accomplish", "journey mapping", "what steps do users take", "pain to value flow"
 id_outputs: [UJ-]
@@ -791,7 +791,7 @@ Dependencies: [BR-XXX, API-XXX if known]
 ```yaml
 name: prd-v04-screen-flow-definition
 stage: v0.4
-status: spec
+status: ready
 folder: prd-v04-screen-flow-definition/
 triggers: "define screens", "screen flow", "UI structure", "what screens do we need", "information architecture", "navigation design", "wireframe planning"
 id_outputs: [SCR-, DES-]
@@ -865,7 +865,7 @@ States: [Default, Loading, Error, Empty, etc.]
 ```yaml
 name: prd-v05-risk-discovery-interview
 stage: v0.5
-status: spec
+status: ready
 folder: prd-v05-risk-discovery-interview/
 triggers: "identify risks", "what could go wrong", "red team", "risk assessment", "stress test the idea", "challenge assumptions"
 id_outputs: [RISK-]
@@ -951,7 +951,7 @@ Linked IDs: [FEA-XXX, UJ-XXX, BR-XXX affected]
 ```yaml
 name: prd-v05-technical-stack-selection
 stage: v0.5
-status: spec
+status: ready
 folder: prd-v05-technical-stack-selection/
 triggers: "select tech stack", "what technologies", "build or buy", "technical decisions", "what tools do we need", "evaluate solutions"
 id_outputs: [TECH-]
@@ -1045,7 +1045,7 @@ Evaluation Criteria: [How to decide if Research]
 ```yaml
 name: prd-v06-architecture-design
 stage: v0.6
-status: spec
+status: ready
 folder: prd-v06-architecture-design/
 triggers: "design architecture", "system design", "how do components connect", "architecture decisions", "technical architecture", "system overview"
 id_outputs: [ARC-]
@@ -1126,7 +1126,7 @@ Related IDs: [TECH-XXX, RISK-XXX, FEA-XXX]
 ```yaml
 name: prd-v06-technical-specification
 stage: v0.6
-status: spec
+status: ready
 folder: prd-v06-technical-specification/
 triggers: "define APIs", "data model", "database schema", "API contracts", "technical spec", "endpoint design", "schema design"
 id_outputs: [API-, DBT-]
@@ -1243,7 +1243,7 @@ Business Rules: [BR-XXX that affect this entity]
 ```yaml
 name: prd-v07-epic-scoping
 stage: v0.7
-status: spec
+status: ready
 folder: prd-v07-epic-scoping/
 triggers: "create epics", "scope work", "break down work", "context window sizing", "what to build first", "implementation planning", "epic breakdown"
 id_outputs: [EPIC-]
@@ -1342,7 +1342,7 @@ Window 3: [Focus Area] — e.g., "UI Integration"
 ```yaml
 name: prd-v07-test-planning
 stage: v0.7
-status: spec
+status: ready
 folder: prd-v07-test-planning/
 triggers: "define tests", "test planning", "what to test", "test cases", "test coverage", "TEST-", "test-first"
 id_outputs: [TEST-]
@@ -1448,7 +1448,7 @@ Then: 409 Conflict, no new record, clear error message
 ```yaml
 name: prd-v07-implementation-loop
 stage: v0.7
-status: spec
+status: ready
 folder: prd-v07-implementation-loop/
 triggers: "start building", "implement epic", "coding", "development", "build execution", "implementation", "write code"
 id_outputs: []  # Updates existing IDs, creates code

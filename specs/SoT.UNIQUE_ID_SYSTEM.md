@@ -35,6 +35,7 @@ authority: "Gear Heart Methodology"
 | **DEP**  | Deployment Step   | `deployment_playbook.md`                 |
 | **KPI**  | Key Metric        | `README.md` (or dedicated Metrics table) |
 | **FEA**  | Feature           | `FEATURES.md`                            |
+| **PER**  | Persona           | `PERSONAS.md`                            |
 | **SCR**  | Screen            | `SCREENS.md`                             |
 | **DES**  | Design Element    | `DESIGN_SYSTEM.md`                       |
 

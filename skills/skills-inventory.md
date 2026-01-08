@@ -16,6 +16,7 @@
 | **v0.3 Commercial** | [Pricing Model Selection](#skill-pricing-model-selection) | ✅ Ready | [`prd-v03-pricing-model/`](prd-v03-pricing-model/) |
 | **v0.3 Commercial** | [Moat Definition](#skill-moat-definition) | ✅ Ready | [`prd-v03-moat-definition/`](prd-v03-moat-definition/) |
 | **v0.3 Commercial** | [Feature Value Planning](#skill-feature-value-planning) | ✅ Ready | [`prd-v03-features-value-planning/`](prd-v03-features-value-planning/) |
+| **v0.4 Journeys** | [Persona Definition](#skill-persona-definition) | 📋 Spec | `prd-v04-persona-definition/` |
 | **v0.4 Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | 📋 Spec | `prd-v04-user-journey-mapping/` |
 | **v0.4 Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | 📋 Spec | `prd-v04-screen-flow-definition/` |
 
@@ -59,12 +60,13 @@
 
 ### v0.4 User Journeys — From Pain to Value
 
-**Purpose:** Map how users accomplish their goals through the product, connecting features to screens.
-**Gate:** User journeys mapped with triggers and value moments, screen flows defined, feature-to-UI traceability established.
+**Purpose:** Define who uses the product, how they accomplish goals, and what screens they see.
+**Gate:** Personas defined, user journeys mapped with triggers and value moments, screen flows established with feature-to-UI traceability.
 
 | Skill | Input | Output | IDs Created |
 |-------|-------|--------|-------------|
-| User Journey Mapping | FEA- (features), KPI- (outcomes), CFD- (user evidence) | User missions with step flows | UJ- |
+| Persona Definition | CFD- (v0.1-v0.3), BR- (targeting), FEA- (features) | Behavioral personas (max 5) | PER- |
+| User Journey Mapping | PER- (personas), FEA- (features), KPI- (outcomes) | User missions with step flows | UJ- |
 | Screen Flow Definition | UJ- (journeys), FEA- (features), BR- (constraints) | Screen inventory with navigation | SCR-, DES- |
 
 ---
@@ -290,6 +292,94 @@ id_outputs: [FEA-, BR-FEA-]
 
 ---
 
+### SKILL: Persona Definition
+
+```yaml
+name: prd-v04-persona-definition
+stage: v0.4
+status: spec
+folder: prd-v04-persona-definition/
+triggers: "define personas", "who are our users", "user profiles", "target users", "persona creation", "who uses this product"
+id_outputs: [PER-]
+```
+
+**Purpose:** Synthesize behavioral personas from prior stage evidence for journey mapping and marketing.
+
+**Position in workflow:** v0.3 Feature Value Planning → **v0.4 Persona Definition** → v0.4 User Journey Mapping
+
+**Constraint:** Maximum 5 personas. Most products need 1-2. If you have more than 3, you're likely over-segmenting.
+
+**Execution:**
+1. Pull USER TYPE from v0.1 Problem Framing (CFD-)
+2. Pull SEGMENTS from v0.2 Market Definition (CFD-, BR-)
+3. Pull targeting rules from v0.3 Moat Definition (BR-)
+4. Synthesize behavioral patterns from all CFD- evidence
+5. Identify which FEA- features matter most to each persona
+6. Create PER- entries with full traceability to source IDs
+
+**PER- Output Template:**
+```
+PER-XXX: [Persona Name]
+Source IDs: [CFD-XXX, CFD-YYY, BR-ZZZ that inform this persona]
+Segment: [From v0.2 market segment]
+
+Demographics:
+  Role: [Job title / function]
+  Context: [Company size, industry, team structure]
+  Technical Level: [Novice | Intermediate | Expert]
+
+Behavioral Profile:
+  Goals: [What they're trying to achieve]
+  Frustrations: [Current pain points — from CFD-]
+  Decision Factors: [What influences their choices]
+  Current Workflow: [How they solve this today]
+
+Product Relationship:
+  Primary Value: [CFD- value hypothesis they care about most]
+  Key Features: [FEA-XXX, FEA-YYY most relevant to them]
+  Pricing Sensitivity: [From BR- pricing rules]
+  Acquisition Channel: [How they'll find us — from BR- targeting]
+
+Marketing Hook: [One-sentence pitch for this persona]
+```
+
+**Persona Types:**
+| Type | Definition | When to Create |
+|------|------------|----------------|
+| **Primary** | Core user, drives most revenue | Always (at least 1) |
+| **Secondary** | Important but not primary buyer | If distinct needs exist |
+| **Negative** | Who we explicitly exclude | If exclusion is strategic |
+| **Aspirational** | Future target, not current focus | Only for roadmap planning |
+
+**Evidence Requirements:**
+| Persona Field | Must Link To |
+|---------------|--------------|
+| Goals | CFD- value hypothesis |
+| Frustrations | CFD- pain points |
+| Decision Factors | CFD- competitive research |
+| Key Features | FEA- entries |
+| Pricing Sensitivity | BR- pricing rules |
+| Acquisition Channel | BR- targeting rules |
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Persona explosion | >5 personas | Consolidate by behavior, not demographics |
+| Fictional personas | No CFD- links | Every attribute needs evidence |
+| Demographic-only | "25-35 year old male" | Focus on behaviors and goals |
+| All personas are primary | "Everyone is important" | Rank by revenue potential |
+| Copy-paste from competitors | Generic descriptions | Ground in YOUR research |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **User Journey Mapping** | Each UJ- references a PER- | UJ-001 is for PER-001 |
+| **v0.9 GTM** | Marketing messaging per persona | Campaign for PER-002 |
+| **Sales Enablement** | Persona-specific pitches | Discovery questions per PER- |
+| **Feature Prioritization** | Persona impact scoring | FEA-003 serves PER-001, PER-002 |
+
+---
+
 ### SKILL: User Journey Mapping
 
 ```yaml
@@ -303,11 +393,11 @@ id_outputs: [UJ-]
 
 **Purpose:** Map user missions from trigger to value moment, organizing features into coherent paths.
 
-**Position in workflow:** v0.3 Feature Value Planning → **v0.4 User Journey Mapping** → v0.4 Screen Flow Definition
+**Position in workflow:** v0.4 Persona Definition → **v0.4 User Journey Mapping** → v0.4 Screen Flow Definition
 
 **Execution:**
-1. Pull FEA- (features) and KPI- (outcomes) from v0.3
-2. Identify user personas from v0.1 problem framing
+1. Pull PER- (personas) from Persona Definition
+2. Pull FEA- (features) and KPI- (outcomes) from v0.3
 3. Define trigger events — what causes the user to start
 4. Map step flow using features as building blocks
 5. Identify pain points at each step (where friction exists)
@@ -317,7 +407,7 @@ id_outputs: [UJ-]
 **UJ- Output Template:**
 ```
 UJ-XXX: [Journey Title]
-Persona: [From v0.1 problem framing]
+Persona: [PER-XXX]
 Trigger: [Event that initiates journey]
 Goal: [What user wants to accomplish]
 Steps:
@@ -434,6 +524,7 @@ States: [Default, Loading, Error, Empty, etc.]
 | v0.3 | Pricing Model | BR- (pricing rules) |
 | v0.3 | Moat Definition | CFD- (moats), BR- (targeting, defensibility) |
 | v0.3 | Feature Value Planning | FEA- (features), BR-FEA- (governance) |
+| v0.4 | Persona Definition | PER- (personas) |
 | v0.4 | User Journey Mapping | UJ- (user journeys) |
 | v0.4 | Screen Flow Definition | SCR- (screens), DES- (design patterns) |
 

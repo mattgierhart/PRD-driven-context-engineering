@@ -16,6 +16,8 @@
 | **v0.3 Commercial** | [Pricing Model Selection](#skill-pricing-model-selection) | ✅ Ready | [`prd-v03-pricing-model/`](prd-v03-pricing-model/) |
 | **v0.3 Commercial** | [Moat Definition](#skill-moat-definition) | ✅ Ready | [`prd-v03-moat-definition/`](prd-v03-moat-definition/) |
 | **v0.3 Commercial** | [Feature Value Planning](#skill-feature-value-planning) | ✅ Ready | [`prd-v03-features-value-planning/`](prd-v03-features-value-planning/) |
+| **v0.4 Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | 📋 Spec | `prd-v04-user-journey-mapping/` |
+| **v0.4 Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | 📋 Spec | `prd-v04-screen-flow-definition/` |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 
@@ -54,6 +56,16 @@
 | Pricing Model Selection | Competitive pricing, product type | Pricing structure | BR- |
 | Moat Definition | Competitive landscape | Defensibility strategy, targeting rules | CFD-, BR- |
 | Feature Value Planning | KPIs, pricing, moat definitions | Prioritized features with traceability | FEA-, BR-FEA- |
+
+### v0.4 User Journeys — From Pain to Value
+
+**Purpose:** Map how users accomplish their goals through the product, connecting features to screens.
+**Gate:** User journeys mapped with triggers and value moments, screen flows defined, feature-to-UI traceability established.
+
+| Skill | Input | Output | IDs Created |
+|-------|-------|--------|-------------|
+| User Journey Mapping | FEA- (features), KPI- (outcomes), CFD- (user evidence) | User missions with step flows | UJ- |
+| Screen Flow Definition | UJ- (journeys), FEA- (features), BR- (constraints) | Screen inventory with navigation | SCR-, DES- |
 
 ---
 
@@ -278,6 +290,138 @@ id_outputs: [FEA-, BR-FEA-]
 
 ---
 
+### SKILL: User Journey Mapping
+
+```yaml
+name: prd-v04-user-journey-mapping
+stage: v0.4
+status: spec
+folder: prd-v04-user-journey-mapping/
+triggers: "map user journeys", "define user flows", "user missions", "how do users accomplish", "journey mapping", "what steps do users take", "pain to value flow"
+id_outputs: [UJ-]
+```
+
+**Purpose:** Map user missions from trigger to value moment, organizing features into coherent paths.
+
+**Position in workflow:** v0.3 Feature Value Planning → **v0.4 User Journey Mapping** → v0.4 Screen Flow Definition
+
+**Execution:**
+1. Pull FEA- (features) and KPI- (outcomes) from v0.3
+2. Identify user personas from v0.1 problem framing
+3. Define trigger events — what causes the user to start
+4. Map step flow using features as building blocks
+5. Identify pain points at each step (where friction exists)
+6. Mark "moments of value" — where user gets payoff
+7. Create UJ- entries with full traceability
+
+**UJ- Output Template:**
+```
+UJ-XXX: [Journey Title]
+Persona: [From v0.1 problem framing]
+Trigger: [Event that initiates journey]
+Goal: [What user wants to accomplish]
+Steps:
+  1. [Action] → FEA-XXX
+  2. [Action] → FEA-XXX
+  3. [Action] → FEA-XXX
+Pain Points: [Friction moments to design around]
+Moment of Value: [When user achieves goal]
+KPI Link: [KPI-XXX this journey drives]
+Dependencies: [BR-XXX, API-XXX if known]
+```
+
+**Journey Types:**
+| Type | Purpose | Priority Signal |
+|------|---------|-----------------|
+| **Core** | Primary value delivery | Must complete for activation |
+| **Onboarding** | First-time user setup | Blocks all other journeys |
+| **Recovery** | Error handling, support | Retention protection |
+| **Power User** | Advanced workflows | Expansion/upsell |
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Feature-first journeys | Steps = feature list | Start with user goal, map features to it |
+| No trigger | "User opens app" | Define specific trigger event |
+| No value moment | Journey ends without payoff | Each journey needs clear outcome |
+| Orphaned features | FEA- not in any journey | Add to journey or cut from scope |
+
+---
+
+### SKILL: Screen Flow Definition
+
+```yaml
+name: prd-v04-screen-flow-definition
+stage: v0.4
+status: spec
+folder: prd-v04-screen-flow-definition/
+triggers: "define screens", "screen flow", "UI structure", "what screens do we need", "information architecture", "navigation design", "wireframe planning"
+id_outputs: [SCR-, DES-]
+```
+
+**Purpose:** Connect user journeys to screens, defining the UI structure and navigation paths.
+
+**Position in workflow:** v0.4 User Journey Mapping → **v0.4 Screen Flow Definition** → v0.5 Red Team Review
+
+**Execution:**
+1. Pull UJ- (journeys) and FEA- (features) from prior steps
+2. Inventory unique screens needed across all journeys
+3. Map features to screens (many:many relationship)
+4. Define navigation structure (hierarchy, transitions)
+5. Identify shared components (headers, modals, patterns)
+6. Create SCR- entries with feature and journey traceability
+7. Establish DES- entries for design system elements
+
+**SCR- Output Template:**
+```
+SCR-XXX: [Screen Name]
+Type: [Page | Modal | Panel | Component]
+Purpose: [What user accomplishes on this screen]
+Journeys: [UJ-XXX, UJ-YYY that use this screen]
+Features: [FEA-XXX, FEA-YYY rendered on this screen]
+Primary Actions: [Key user actions available]
+Navigation:
+  From: [SCR-XXX, SCR-YYY]
+  To: [SCR-XXX, SCR-YYY]
+Constraints: [BR-XXX rules affecting this screen]
+```
+
+**DES- Output Template:**
+```
+DES-XXX: [Component/Pattern Name]
+Type: [Component | Pattern | Layout]
+Used In: [SCR-XXX, SCR-YYY]
+Purpose: [What this element does]
+States: [Default, Loading, Error, Empty, etc.]
+```
+
+**Screen Categorization:**
+| Category | Examples | Design Priority |
+|----------|----------|-----------------|
+| **Entry Points** | Login, Landing, Dashboard | High (first impressions) |
+| **Core Workflow** | Main task screens | High (value delivery) |
+| **Settings/Admin** | Preferences, Account | Medium (necessary evil) |
+| **Support/Help** | Docs, Contact, FAQ | Low (failure recovery) |
+
+**Navigation Patterns:**
+| Pattern | When to Use | Example |
+|---------|-------------|---------|
+| **Hub & Spoke** | Dashboard-centric apps | Home → Task → Home |
+| **Linear Flow** | Wizard/checkout | Step 1 → Step 2 → Step 3 |
+| **Hierarchical** | Content-heavy apps | Category → List → Detail |
+| **Flat** | Simple single-purpose apps | All screens peer level |
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Screen explosion | >20 unique screens for MVP | Consolidate; use modals/panels |
+| Feature-per-screen | 1:1 FEA to SCR mapping | Group related features |
+| No shared components | Every screen is unique | Extract DES- patterns |
+| Navigation dead-ends | Can't get back | Ensure bidirectional paths |
+| Journey disconnect | SCR- not tied to UJ- | Every screen serves a journey |
+
+---
+
 ## ID Output Summary
 
 | Stage | Skill | Primary IDs |
@@ -290,6 +434,8 @@ id_outputs: [FEA-, BR-FEA-]
 | v0.3 | Pricing Model | BR- (pricing rules) |
 | v0.3 | Moat Definition | CFD- (moats), BR- (targeting, defensibility) |
 | v0.3 | Feature Value Planning | FEA- (features), BR-FEA- (governance) |
+| v0.4 | User Journey Mapping | UJ- (user journeys) |
+| v0.4 | Screen Flow Definition | SCR- (screens), DES- (design patterns) |
 
 ---
 

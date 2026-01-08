@@ -26,6 +26,12 @@
 | **v0.7 Build** | [Epic Scoping](#skill-epic-scoping) | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
 | **v0.7 Build** | [Test Planning](#skill-test-planning) | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
 | **v0.7 Build** | [Implementation Loop](#skill-implementation-loop) | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
+| **v0.8 Release** | [Release Planning](#skill-release-planning) | ✅ Ready | [`prd-v08-release-planning/`](prd-v08-release-planning/) |
+| **v0.8 Release** | [Runbook Creation](#skill-runbook-creation) | ✅ Ready | [`prd-v08-runbook-creation/`](prd-v08-runbook-creation/) |
+| **v0.8 Release** | [Monitoring Setup](#skill-monitoring-setup) | ✅ Ready | [`prd-v08-monitoring-setup/`](prd-v08-monitoring-setup/) |
+| **v0.9 Launch** | [GTM Strategy](#skill-gtm-strategy) | ✅ Ready | [`prd-v09-gtm-strategy/`](prd-v09-gtm-strategy/) |
+| **v0.9 Launch** | [Launch Metrics](#skill-launch-metrics) | ✅ Ready | [`prd-v09-launch-metrics/`](prd-v09-launch-metrics/) |
+| **v0.9 Launch** | [Feedback Loop Setup](#skill-feedback-loop-setup) | ✅ Ready | [`prd-v09-feedback-loop-setup/`](prd-v09-feedback-loop-setup/) |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 
@@ -106,6 +112,28 @@
 | Epic Scoping | API-, DBT-, FEA-, ARC- | Context-window-sized work packages | EPIC- |
 | Test Planning | API-, DBT-, BR-, UJ- | Test cases before implementation | TEST- |
 | Implementation Loop | EPIC-, TEST- | Working code with traceability | (updates existing IDs) |
+
+### v0.8 Deployment & Ops — Release Readiness
+
+**Purpose:** Prepare for production deployment with release criteria, operational runbooks, and monitoring infrastructure.
+**Gate:** Runbooks documented (RUN-), monitoring configured (MON-), rollback plan validated (DEP-).
+
+| Skill | Input | Output | IDs Created |
+|-------|-------|--------|-------------|
+| Release Planning | EPIC- (complete), TEST-, ARC- | Deployment environments, release criteria, rollback triggers | DEP- |
+| Runbook Creation | DEP-, RISK-, MON- (alerts) | Operational playbooks for incidents, deployments, maintenance | RUN- |
+| Monitoring Setup | DEP-, RUN-, KPI- | Metrics, alerts, dashboards, SLOs | MON- |
+
+### v0.9 Go-to-Market — Launch & Feedback
+
+**Purpose:** Coordinate launch activities, define success metrics, and establish feedback loops for continuous improvement.
+**Gate:** Launch metrics defined (KPI-), feedback channels active (CFD-), GTM execution underway.
+
+| Skill | Input | Output | IDs Created |
+|-------|-------|--------|-------------|
+| GTM Strategy | PER-, CFD-, BR- (product type), MON- (readiness) | Launch plan, messaging, channels, timeline | GTM- |
+| Launch Metrics | GTM-, KPI- (v0.3), MON- | Launch-specific success criteria and tracking | KPI- (launch variant) |
+| Feedback Loop Setup | GTM-, KPI-, all prior IDs | Feedback channels, processing workflow, CFD- templates | CFD- (post-launch) |
 
 ---
 
@@ -1573,6 +1601,320 @@ Within an EPIC's Phase C (Build), work through Context Windows sequentially:
 
 ---
 
+### SKILL: Release Planning
+
+```yaml
+name: prd-v08-release-planning
+stage: v0.8
+status: ready
+folder: prd-v08-release-planning/
+triggers: "release planning", "deployment plan", "how do we deploy", "release criteria", "rollback strategy", "go-live checklist"
+id_outputs: [DEP-]
+```
+
+**Purpose:** Transform completed EPICs into production-ready releases by defining deployment environments, release criteria, rollback triggers, and operational readiness gates.
+
+**Position in workflow:** v0.7 Implementation Loop → **v0.8 Release Planning** → v0.8 Runbook Creation
+
+**Execution:**
+1. Inventory completed EPICs (API-, DBT-, FEA- included)
+2. Define deployment environments (staging, production, preview)
+3. Establish release criteria (tests, performance, security)
+4. Define rollback triggers (error rate, latency thresholds)
+5. Document validation steps (smoke tests, journey verification)
+6. Create DEP- entries with full traceability
+
+**DEP- Output Template:**
+```
+DEP-XXX: [Deployment Item Title]
+Type: [Environment | Criteria | Rollback | Validation | Step]
+Stage: [Pre-deploy | Deploy | Post-deploy | Rollback]
+Description: [What this deployment item covers]
+Owner: [Who is responsible]
+Linked IDs: [EPIC-XXX, API-XXX, TEST-XXX related]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Deploy and pray | No validation steps defined | Add DEP- validation entries |
+| No rollback plan | "We'll figure it out" | Define triggers and procedures upfront |
+| Environment drift | Staging doesn't match production | Infrastructure as code, sync configs |
+| Unclear ownership | No one knows who approves | Assign owner to each DEP- |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **Runbook Creation** | DEP- rollback procedures become runbook inputs | DEP-003 → RUN-005 |
+| **Monitoring Setup** | DEP- thresholds inform alerting | DEP-003 (2% error) → MON-001 |
+| **v0.9 GTM Strategy** | Release readiness gates launch | All DEP- met → GTM-001 |
+
+---
+
+### SKILL: Runbook Creation
+
+```yaml
+name: prd-v08-runbook-creation
+stage: v0.8
+status: ready
+folder: prd-v08-runbook-creation/
+triggers: "create runbooks", "operational procedures", "incident response", "on-call guide", "how do we handle incidents", "maintenance procedures"
+id_outputs: [RUN-]
+```
+
+**Purpose:** Create step-by-step operational playbooks that enable anyone on-call to handle incidents, perform deployments, and execute maintenance tasks.
+
+**Position in workflow:** v0.8 Release Planning → **v0.8 Runbook Creation** → v0.8 Monitoring Setup
+
+**Execution:**
+1. Identify critical scenarios (alerts, deployments, RISK- responses)
+2. Map each scenario to a runbook
+3. Document step-by-step procedures with commands
+4. Define escalation paths
+5. Add verification steps
+6. Create RUN- entries with full traceability
+
+**RUN- Output Template:**
+```
+RUN-XXX: [Runbook Title]
+Category: [Incident | Deployment | Maintenance | Recovery | Escalation]
+Trigger: [What initiates this runbook]
+Owner: [Team or role responsible]
+Last Tested: [Date of last drill/use]
+Procedure: [Numbered steps with commands]
+Escalation: [When and who to escalate to]
+Linked IDs: [MON-XXX, DEP-XXX, RISK-XXX related]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Too vague | "Investigate the issue" | Add specific commands and checks |
+| No verification | Steps without confirmation | Add verification after each step |
+| Assuming knowledge | "You know how to do this" | Write for someone's first day |
+| No escalation | Dead ends with no help path | Always define escalation |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **Monitoring Setup** | RUN- procedures linked from alerts | MON-001 → RUN-001 |
+| **On-Call Team** | RUN- as operational reference | Night incident → RUN-001 |
+| **Post-Mortems** | RUN- gaps inform improvements | "Runbook missing step" → Update RUN- |
+
+---
+
+### SKILL: Monitoring Setup
+
+```yaml
+name: prd-v08-monitoring-setup
+stage: v0.8
+status: ready
+folder: prd-v08-monitoring-setup/
+triggers: "monitoring setup", "alerting strategy", "what should we monitor", "observability", "SLOs", "dashboards", "metrics"
+id_outputs: [MON-]
+```
+
+**Purpose:** Define what to measure, when to alert, and how to visualize system health—creating the observability foundation for rapid incident detection.
+
+**Position in workflow:** v0.8 Runbook Creation → **v0.8 Monitoring Setup** → v0.9 GTM Strategy
+
+**Execution:**
+1. Define SLOs (uptime, latency, error rate)
+2. Identify key metrics per layer (infrastructure, application, business)
+3. Set alert thresholds (warning, critical)
+4. Map alerts to runbooks
+5. Design dashboards
+6. Create MON- entries with full traceability
+
+**MON- Output Template:**
+```
+MON-XXX: [Monitoring Rule Title]
+Type: [Metric | Alert | Dashboard | SLO]
+Layer: [Infrastructure | Application | Business | User Experience]
+Owner: [Team responsible]
+For Metric: Name, Unit, Source, Aggregation
+For Alert: Threshold, Severity, Runbook link, Notification
+For SLO: Target, Window, Error Budget
+Linked IDs: [API-XXX, RUN-XXX, KPI-XXX related]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Alert fatigue | Too many alerts, team ignores | Tune thresholds, remove noise |
+| No runbook link | Alert fires, no one knows what to do | Every alert → RUN- |
+| Missing baselines | No historical comparison | Establish baselines before launch |
+| Over-monitoring | 500 metrics, can't find signal | Focus on RED/USE fundamentals |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **On-Call Team** | MON- alerts trigger response | MON-003 → page engineer |
+| **v0.9 Launch Metrics** | MON- provides baseline data | MON-001 baseline → KPI-010 |
+| **DEP- Rollback** | MON- thresholds trigger rollback | MON-002 breach → DEP-003 |
+
+---
+
+### SKILL: GTM Strategy
+
+```yaml
+name: prd-v09-gtm-strategy
+stage: v0.9
+status: ready
+folder: prd-v09-gtm-strategy/
+triggers: "go-to-market", "GTM", "launch plan", "how do we launch", "marketing strategy", "messaging", "launch channels"
+id_outputs: [GTM-]
+```
+
+**Purpose:** Define how the product reaches its target users—the channels, messaging, timing, and coordination required for a successful launch.
+
+**Position in workflow:** v0.8 Monitoring Setup → **v0.9 GTM Strategy** → v0.9 Launch Metrics
+
+**Execution:**
+1. Review target personas (PER-)
+2. Define core messaging (from CFD- value hypotheses)
+3. Select launch channels (match to personas)
+4. Plan launch timeline (pre-launch, launch day, post-launch)
+5. Assign ownership
+6. Create GTM- entries with full traceability
+
+**GTM- Output Template:**
+```
+GTM-XXX: [GTM Item Title]
+Type: [Messaging | Channel | Timeline | Task | Asset]
+Owner: [Person or team responsible]
+Status: [Planned | In Progress | Ready | Live]
+For Messaging: Audience (PER-), Message, Supporting Evidence (CFD-)
+For Channel: Channel, Strategy, Success Metric
+For Timeline: Phase, Activities, Dependencies, Milestones
+Linked IDs: [PER-XXX, CFD-XXX, KPI-XXX related]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Launch and leave | Big launch day, then silence | Plan 30 days of post-launch activity |
+| Everything everywhere | All channels, no focus | Pick 2-3 channels, do them well |
+| Features not benefits | "We have X, Y, Z" | "You can achieve X, Y, Z" |
+| No measurement | "The launch went well (I think)" | Define KPI- before launch |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **Launch Metrics** | GTM- channels inform tracking | GTM-002 (PH) → KPI-005 |
+| **Feedback Loop Setup** | GTM- channels become feedback sources | GTM-002 comments → CFD-100 |
+| **Sales** | GTM- messaging for outreach | GTM-001 → sales email template |
+
+---
+
+### SKILL: Launch Metrics
+
+```yaml
+name: prd-v09-launch-metrics
+stage: v0.9
+status: ready
+folder: prd-v09-launch-metrics/
+triggers: "launch metrics", "launch KPIs", "how do we measure launch success", "tracking setup", "success criteria", "analytics"
+id_outputs: [KPI-]
+```
+
+**Purpose:** Define how launch success is measured—specific metrics, targets, tracking infrastructure, and the dashboards that make progress visible.
+
+**Position in workflow:** v0.9 GTM Strategy → **v0.9 Launch Metrics** → v0.9 Feedback Loop Setup
+
+**Execution:**
+1. Review v0.3 Outcome Definition KPIs
+2. Define launch-specific metrics (reach, acquisition, activation, retention)
+3. Set targets per timeframe (Day 1, Day 7, Day 30, Day 90)
+4. Configure tracking infrastructure
+5. Create visibility (dashboards, alerts)
+6. Create/Update KPI- entries for launch
+
+**KPI- Output Template (Launch Variant):**
+```
+KPI-XXX: [Launch Metric Name]
+Tier: [Tier 1 | Tier 2 | Tier 3]
+Category: [Reach | Acquisition | Activation | Retention | Revenue | Referral]
+Stage: Launch (v0.9)
+Owner: [Who monitors this metric]
+Definition: [Exact calculation formula]
+Targets: Day 1, Day 7, Day 30, Day 90
+Action Thresholds: Red, Yellow, Green
+GTM Connection: [GTM-XXX channels this measures]
+v0.3 KPI Link: [KPI-YYY from Outcome Definition if applicable]
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Vanity metrics only | Tracking visitors but not activation | Focus on funnel progression |
+| No targets | "We got 1000 signups!" (is that good?) | Set explicit targets per timeframe |
+| Lagging only | Only tracking revenue | Add leading indicators (activation) |
+| No action thresholds | Metrics exist but no response plan | Define red/yellow/green zones |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **Feedback Loop Setup** | KPI- thresholds trigger feedback collection | KPI-103 <30% → investigate with CFD- |
+| **Daily Standup** | KPI- dashboard for launch status | "Activation at 42%, on track" |
+| **v1.0 Planning** | KPI- baselines for growth targets | KPI-102 baseline → 10% MoM growth |
+
+---
+
+### SKILL: Feedback Loop Setup
+
+```yaml
+name: prd-v09-feedback-loop-setup
+stage: v0.9
+status: ready
+folder: prd-v09-feedback-loop-setup/
+triggers: "feedback loop", "how do we collect feedback", "user research", "post-launch feedback", "customer feedback", "NPS", "voice of customer"
+id_outputs: [CFD-]
+```
+
+**Purpose:** Establish systematic channels for capturing, processing, and acting on post-launch user feedback—closing the loop between user experience and product iteration.
+
+**Position in workflow:** v0.9 Launch Metrics → **v0.9 Feedback Loop Setup** → v1.0 Market Adoption
+
+**Execution:**
+1. Map feedback touchpoints (support, in-app, community, surveys)
+2. Design feedback capture (widgets, taxonomies, workflows)
+3. Define processing workflow (triage, categorize, prioritize)
+4. Establish feedback → ID flow (CFD- → BR-, FEA-, RISK-)
+5. Set up monitoring (volume, sentiment, response time)
+6. Create CFD- entries for post-launch feedback
+
+**CFD- Output Template (Post-Launch Feedback):**
+```
+CFD-XXX: [Feedback Title]
+Type: [Support Ticket | Feature Request | Bug Report | NPS Response | Community Post | Survey Response]
+Source: [Channel where feedback came from]
+Date: [When received]
+User Segment: [PER-XXX if identifiable]
+Verbatim: "[Exact user quote]"
+Processed: Category, Sentiment, Priority, Frequency
+Impact Assessment: Users Affected, KPI Impact, Revenue Risk
+Action: Response, Internal Action, Linked IDs, Status
+Resolution: Outcome, Date, Follow-up
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Feedback graveyard | Collect but never act | Mandate weekly triage meeting |
+| No closing loop | Users never hear back | Require follow-up on High+ priority |
+| Volume without insight | "We got 500 tickets" | Categorize and trend analysis |
+| Anecdote-driven | "One user said..." | Require frequency data |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v1.0 Planning** | CFD- feedback informs roadmap | CFD-101 frequency → FEA-025 priority |
+| **Product Development** | CFD- → FEA-, BR- updates | "Users need X" → FEA-030 |
+| **Marketing** | CFD- testimonials for GTM- | Positive CFD- → case study |
+
+---
+
 ## ID Output Summary
 
 | Stage | Skill | Primary IDs |
@@ -1595,6 +1937,12 @@ Within an EPIC's Phase C (Build), work through Context Windows sequentially:
 | v0.7 | Epic Scoping | EPIC- (work packages) |
 | v0.7 | Test Planning | TEST- (test cases) |
 | v0.7 | Implementation Loop | (updates existing IDs, creates code) |
+| v0.8 | Release Planning | DEP- (deployment items) |
+| v0.8 | Runbook Creation | RUN- (runbooks) |
+| v0.8 | Monitoring Setup | MON- (monitoring rules) |
+| v0.9 | GTM Strategy | GTM- (go-to-market items) |
+| v0.9 | Launch Metrics | KPI- (launch metrics) |
+| v0.9 | Feedback Loop Setup | CFD- (post-launch feedback) |
 
 ---
 

@@ -42,6 +42,9 @@ authority: "Gear Heart Methodology"
 | **TECH** | Technology Choice | `TECH_STACK.md`                          |
 | **ARC**  | Architecture Decision | `ARCHITECTURE_DECISIONS.md`          |
 | **EPIC** | Work Package      | `epics/EPIC-XXX.md`                      |
+| **RUN**  | Runbook           | `RUNBOOKS.md`                            |
+| **MON**  | Monitoring Rule   | `MONITORING.md`                          |
+| **GTM**  | Go-to-Market Item | `GTM_PLAN.md`                            |
 
 ---
 

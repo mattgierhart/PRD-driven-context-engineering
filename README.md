@@ -47,23 +47,26 @@ So we treat team memory as a shared asset across humans and AI, not an individua
 This philosophy comes from two experiences.
 
 **First: Leading Human Teams**
-Before AI, I led software teams where alignment followed a clear pattern: rally around a single **Hero Artifact**—a mission document—and the team moved as one. Shared memory anchored there. Without it, even great talent drifted.
+Before AI, I led software teams where alignment followed a clear pattern: rally around a single **Source of Truth Artifact**—a mission document—and the team moved as one. Shared memory anchored there. Without it, even great talent drifted.
 
 **Second: Partnering with AI**
 When I began coding with AI, I noticed a similar pattern. Sometimes the AI was brilliant; other times it was dense. I realized the variable wasn't the model's intelligence—it was the **Context Density** I provided. When the context was rich and structured, the AI performed at a senior level. When it was vague, it hallucinated.
 
 **Context Engineering is the convergence of these truths.**
 
-Here, documentation is not an afterthought. **Documentation is the infrastructure of our shared memory.** The Hero Artifact anchors both humans and AI.
+Here, documentation is not an afterthought. **Documentation is the infrastructure of our shared memory.** The Source of Truth Artifact anchors both humans and AI.
 
 > **The Golden Rule**: If it isn't part of the memory infrastructure, it isn't true.
 
-When we define a User Journey and give it an ID (`UJ-101`), we create a node in our shared **Knowledge Graph**. We offload that complexity from individual brains into the file system.
-When the AI references `BR-004`, it is not guessing; it is retrieving a specific, immutable memory that we encoded.
+So how do we introduce team and AI memory into the repo? We do it with **Source of Truth Artifacts (SoT)**—durable documents that turn decisions into shared, queryable memory.
+Each SoT entry gets a **Unique ID**. That ID is referenceable and functions as a memory node with **weight and value** because it points to a validated decision, not a suggestion.
+
+When we define a User Journey and give it an ID (`UJ-101`), we create a node in our shared **Knowledge Graph** and offload that complexity from individual brains into the file system.
+When the AI references `BR-004`, it is not guessing; it is retrieving a specific, immutable memory we encoded.
 
 **Key Terms**
 
-- **Hero Artifact**: The single, clear document that anchors a team's shared memory for a product.
+- **Source of Truth Artifacts**: The clear, anchoring documents that hold a team's shared memory for a product.
 - **Context Density**: How much relevant, structured context we deliver per prompt or handoff.
 - **Knowledge Graph**: The linked network of IDs (`BR-xxx`, `UJ-xxx`, `API-xxx`) across files that makes memory retrievable for humans and AI.
 
@@ -90,7 +93,7 @@ This structure preserves alignment and momentum. By engineering context, we buil
 
 To make memory infrastructure practical, we use an **intentional architecture** designed to **manage Context Density**. This keeps human cognitive load and AI context windows within limits.
 
-### 1. The Instincts Layer (L0)
+### 1. Executive Functions: Building AI's instincts (L0)
 
 This layer orients attention and sets priorities.
 
@@ -98,11 +101,11 @@ This layer orients attention and sets priorities.
 - `PRD.md`: The Strategy. The "Why" and "What" of the product.
 - `CLAUDE.md`: The Physics. The rules of how the AI must behave.
 
-### 2. The Execution Layer (Active Memory)
+### 2. Focus Memory: The Execution Layer (Active Memory)
 
 - `epics/`: The work in progress. This is the only "variable" state. An Epic frames a specific problem (Context Window) so we can solve it without distraction.
 
-### 3. The Source of Truth (Long-Term Memory)
+### 3. Long-Term Memory: Source of Truth Artifacts
 
 - `SoT/SoT.*.md`: The immutable facts.
 
@@ -114,7 +117,7 @@ This layer orients attention and sets priorities.
 
     > **Just-in-Time Context**: Unique IDs allow us to pull _only_ what is needed for an active task. Instead of dumping the entire documentation into the context window, we reference specific IDs (`UJ-101`, `API-002`). This reduces input tokens while maintaining deep, specific understanding.
 
-### 4. The Temp Layer (Scratchpad)
+### 4. Short-Term Memory: Scratch Pad
 
 - `temp/`: The workspace for **Audits, Explorations, Tech Debt Analysis, and Concepting**.
   - **Naming Convention**: Files must be associated with the Active Epic (e.g., `temp/EPIC-05_audit_log.md` or `temp/EPIC-05_tech_debt.md`).
@@ -171,14 +174,16 @@ This allows the product to evolve without losing the structure that keeps humans
 
 ```text
 /
-├── README.md               # The Instincts (Dashboard & Status)
-├── PRD.md                  # The Strategic Source of Truth
-├── CLAUDE.md               # The Agent's Operating Instructions
+├── README.md               # Dashboard, structure, and status
+├── PRD.md                  # Product definition (Progressive PRD)
+├── CLAUDE.md               # The agent's operating instructions
 ├── epics/                  # Active Context Windows (Tasks)
 ├── SoT/                     # Shared Memory Store (SoT.* files)
-├── temp/                    # Scratchpad for explorations and audits
-└── .claude/                 # Agent configs and hooks
+├── temp/                    # Scratch Pad for explorations and audits
+└── .claude/                 # Agents, tools, skills, and hooks
 ```
+
+> **Agent Note**: `.claude/` can be replaced with `.gemini/`, `.codex/`, or any other agent structure, but the skills, hooks, custom commands, and agent model here were built with Anthropic's documentation model in mind.
 
 > **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy `README_template.md` to `README.md` and customize it for that product.
 
@@ -192,7 +197,7 @@ Thank you for helping us refine the **Context Engineering** methodology. This re
 
 Before contributing, please read:
 
-1.  **[`README.md`](README.md)**: The "Instincts Layer" and Project Dashboard.
+1.  **[`README.md`](README.md)**: The "Executive Functions" layer and Project Dashboard.
 2.  **[`CLAUDE.md`](CLAUDE.md)**: The Agent Operating Instructions.
 
 Our goal is to optimize **Context Density**: providing the AI (and humans) with exactly the right information at the right time.

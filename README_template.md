@@ -10,8 +10,8 @@
 
 | File                         | Purpose                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------- |
-| **[`PRD.md`](PRD.md)**       | **Product Definition**. The single narrative of "What we are building".    |
-| **[`CLAUDE.md`](CLAUDE.md)** | **AI Instructions**. How agents must behave in this repo.                  |
+| **[`PRD.md`](PRD.md)**       | **Product Definition**. The product definition (Progressive PRD).          |
+| **[`CLAUDE.md`](CLAUDE.md)** | **Agent Instructions**. The agent's operating instructions.                |
 | **[`epics/`](epics/)**       | **Execution**. Where work happens. Check here for the current sprint/task. |
 
 ---
@@ -105,8 +105,10 @@ npm test # or equivalent
 - **`epics/`**: The living state of work (Issues/Tickets).
 - **`SoT/`**: The Source of Truth (Requirements).
 - **`temp/`**: Scratchpad work tied to active epics.
-- **`.claude/`**: Optional agent configs and hooks.
+- **`.claude/`**: Agents, tools, skills, and hooks.
 
 ---
+
+> **Agent Note**: `.claude/` can be replaced with `.gemini/`, `.codex/`, or any other agent structure, but the skills, hooks, custom commands, and agent model here were built with Anthropic's documentation model in mind.
 
 > **Note**: This repository is an implementation of the [Gear Heart Methodology](README.md).

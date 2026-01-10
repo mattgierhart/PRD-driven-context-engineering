@@ -1,6 +1,6 @@
 ---
 title: "Customer Feedback Insights"
-scope: "source_of_truth/customer_feedback.md"
+scope: "source_of_truth/SoT.customer_feedback.md"
 updated: "2025-11-15"
 ---
 
@@ -74,9 +74,9 @@ updated: "2025-11-15"
 
 ### Linked Instruction Updates
 
-- `docs/prd/instructions/README.md` — directs editors to consult this entry before adjusting stage playbooks so field learnings propagate quickly.
-- `docs/prd/instructions/v0.4/` — embeds real-user loops and mobile-first validation requirements into both research and intake flows.
-- `docs/prd/instructions/v0.5/aura_intake.md` — adds a distribution readiness gate so launch motions are tracked with the same rigor as build tasks.
-- `docs/prd/instructions/v0.6/aura_intake.md` — codifies SoT-grounded prompt prep and device validation expectations before architecture sign-off.
+- `../PRD.md` — reflect mobile validation and distribution readiness in v0.4–v0.6 gates.
+- `../epics/EPIC_TEMPLATE.md` — add real-user loop and mobile-first validation reminders in execution checklists.
+- `SoT.USER_JOURNEYS.md` — capture mobile-specific validation steps in affected journeys.
+- `SoT.testing_playbook.md` — add device validation tests tied to UJ-XXX entries.
 
 ---

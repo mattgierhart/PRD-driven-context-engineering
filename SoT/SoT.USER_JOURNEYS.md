@@ -11,7 +11,7 @@ authority: This is a SoT file - IDs created here are referenced by PRD.md, EPICs
 > **Purpose**: Complete specifications for all user flows and journeys.
 > **ID Prefix**: UJ-XXX
 > **Status**: Active SoT file
-> **Cross-References**: Referenced by PRD.md, API_CONTRACTS.md, testing_playbook.md, EPICs
+> **Cross-References**: Referenced by PRD.md, SoT.API_CONTRACTS.md, SoT.testing_playbook.md, EPICs
 
 ## Navigation by Category
 
@@ -68,26 +68,26 @@ authority: This is a SoT file - IDs created here are referenced by PRD.md, EPICs
 ### Related IDs
 
 **APIs Used**:
-- [API-XXX](API_CONTRACTS.md#api-xxx) - {Endpoint description}
-- [API-YYY](API_CONTRACTS.md#api-yyy) - {Endpoint description}
+- [API-XXX](SoT.API_CONTRACTS.md#api-xxx) - {Endpoint description}
+- [API-YYY](SoT.API_CONTRACTS.md#api-yyy) - {Endpoint description}
 
 **Business Rules Enforced**:
-- [BR-XXX](BUSINESS_RULES.md#br-xxx) - {Rule description}
-- [BR-YYY](BUSINESS_RULES.md#br-yyy) - {Rule description}
+- [BR-XXX](SoT.BUSINESS_RULES.md#br-xxx) - {Rule description}
+- [BR-YYY](SoT.BUSINESS_RULES.md#br-yyy) - {Rule description}
 
 **Database Tables Accessed**:
-- [DBT-XXX](ACTUAL_SCHEMA.md#dbt-xxx) - {Table description}
-- [DBT-YYY](ACTUAL_SCHEMA.md#dbt-yyy) - {Table description}
+- [DBT-XXX](SoT.ACTUAL_SCHEMA.md#dbt-xxx) - {Table description}
+- [DBT-YYY](SoT.ACTUAL_SCHEMA.md#dbt-yyy) - {Table description}
 
 **Design Components**:
-- [DES-XXX]({product}-DesignBrief.md#des-xxx) - {Component description}
+- [DES-XXX](SoT.DESIGN_BRIEF.md#des-xxx) - {Component description}
 
 **Validated By**:
-- [TEST-XXX](testing_playbook.md#test-xxx) - {Test description}
-- [TEST-YYY](testing_playbook.md#test-yyy) - {Test description}
+- [TEST-XXX](SoT.testing_playbook.md#test-xxx) - {Test description}
+- [TEST-YYY](SoT.testing_playbook.md#test-yyy) - {Test description}
 
 **Related Feedback**:
-- [CFD-XXX](customer_feedback.md#cfd-xxx) - {Feedback about this journey}
+- [CFD-XXX](SoT.customer_feedback.md#cfd-xxx) - {Feedback about this journey}
 
 ### Error Flows
 
@@ -127,8 +127,7 @@ trackEvent('uj_001_abandon', { user_id, step, reason });
 
 ### Detailed Specification
 
-For detailed wireframes, mockups, and step-by-step specifications, see:
-- [user-journeys/{filename}.md](user-journeys/{filename}.md)
+For detailed wireframes, mockups, and step-by-step specifications, add appendices in this file or link external docs:
 - Figma: {Link to Figma file/frame}
 
 ### Version History
@@ -160,7 +159,7 @@ For detailed wireframes, mockups, and step-by-step specifications, see:
 
 ## Cross-Reference Index
 
-> **Auto-Generated Section**: Run `npm run codex:sync-journeys` to rebuild
+> **Auto-Generated Section**: Maintain manually unless you add tooling in a fork.
 
 **Journeys by API**:
 - API-045 used by: UJ-101, UJ-102, UJ-201
@@ -188,15 +187,15 @@ For detailed wireframes, mockups, and step-by-step specifications, see:
 ### Bidirectional Reference Checklist
 
 When adding a new UJ-XXX:
-- [ ] Update API_CONTRACTS.md "Used By" section for each API called in this journey
-- [ ] Update BUSINESS_RULES.md "Affects User Journeys" section for each rule enforced
-- [ ] Update ACTUAL_SCHEMA.md "Used in User Journeys" section for each table accessed
-- [ ] Update design-brief.md with DES-XXX references for UI components used
-- [ ] Update testing_playbook.md with TEST-XXX references for validation tests
-- [ ] Update EPIC Section 3A "IDs Created This EPIC" table
+- [ ] Update SoT.API_CONTRACTS.md "Used By" section for each API called in this journey
+- [ ] Update SoT.BUSINESS_RULES.md "Affects User Journeys" section for each rule enforced
+- [ ] Update SoT.ACTUAL_SCHEMA.md "Used in User Journeys" section for each table accessed
+- [ ] Update SoT.DESIGN_BRIEF.md with DES-XXX references for UI components used
+- [ ] Update SoT.testing_playbook.md with TEST-XXX references for validation tests
+- [ ] Update EPIC Section 2 "Context & IDs" list
 - [ ] Update README.md "Active IDs" section if part of current work
-- [ ] Run `npm run codex:sync-registry` to update ID_REGISTRY.md
+- [ ] Update the registry tables in SoT.UNIQUE_ID_SYSTEM.md if you maintain them
 
 ---
 
-*End of USER_JOURNEYS.md - This SoT file is the authoritative source for all UJ-XXX IDs*
+*End of SoT.USER_JOURNEYS.md - This SoT file is the authoritative source for all UJ-XXX IDs*

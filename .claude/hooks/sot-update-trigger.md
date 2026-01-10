@@ -95,10 +95,16 @@ echo '{"transcript": "Modified: src/api/handler.py containing BR-101"}' | python
 echo '{"transcript": "Just answered a question"}' | python3 .claude/hooks/sot-update-trigger.py
 ```
 
-## Integration with Session Closer
+## Boundaries
 
-This hook runs **before** the session-closer hook:
-1. `sot-update-trigger` - Reminds about spec updates
-2. `session-closer` - Captures session state for handoff
+**DO**:
 
-Both run on `Stop` event but serve different purposes.
+- Detect SoT references in modified files
+- Provide actionable reminder with specific IDs
+- Stay silent when no SoT impact detected
+
+**DON'T**:
+
+- Auto-modify SoT files (too risky)
+- Block session completion
+- Fire on every stop event (noise reduction)

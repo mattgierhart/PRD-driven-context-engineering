@@ -27,7 +27,7 @@ temp/
 
 1. **Stage Association**: Place files in the folder matching their PRD stage context.
 2. **Epic Association**: Every file SHOULD reference an Active Epic when applicable.
-3. **Extract, Then Archive**: When work completes, extract durable content to `SoT/`, then move the temp file to `archive/`.
+3. **Extract, Then Close**: When work completes, extract durable content to `SoT/`, then remove the temp file.
 
 ## Naming Convention
 

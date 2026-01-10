@@ -96,13 +96,13 @@ Where is their moat weakest? Which segments do they ignore? What's eroding?
 ### Step 6: Generate IDs
 
 **CFD entries** (customer_feedback.md):
-Template: [assets/cfd-moat-analysis-template.md](assets/cfd-moat-analysis-template.md)
+Template: [assets/cfd-moat-analysis.md](assets/cfd-moat-analysis.md)
 ```
 CFD-MOT-###: [Competitor] Moat Analysis — [Moat Type], [Strength Tier]
 ```
 
 **BR entries** (BUSINESS_RULES.md):
-Template: [assets/br-targeting-template.md](assets/br-targeting-template.md)
+Template: [assets/br-targeting.md](assets/br-targeting.md)
 ```
 BR-TGT-###: [Targeting Rule] — based on [Competitor] moat weakness
 ```
@@ -140,5 +140,5 @@ Before advancing to Our Moat Articulation:
 ## Detailed References
 
 - **Good/bad examples**: See `references/examples.md`
-- **CFD-MOT template**: See `assets/cfd-moat-analysis-template.md`
-- **BR-TGT template**: See `assets/br-targeting-template.md`
+- **CFD-MOT template**: See `assets/cfd-moat-analysis.md`
+- **BR-TGT template**: See `assets/br-targeting.md`

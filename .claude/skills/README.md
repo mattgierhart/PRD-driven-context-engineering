@@ -27,33 +27,58 @@ This library follows the [Agent Skills Specification](https://agentskills.io/spe
 
 ```
 skills/
-├── README.md                          # This file
-├── skills-inventory.md                # Full inventory with specifications
-├── SKILL_TEMPLATE/                    # Template for new skills
+├── README.md                              # This file
+├── skills-inventory.md                    # Full inventory with specifications
+├── SKILL_TEMPLATE/                        # Template for new skills
 │
-├── prd-v01-problem-framing/           # ✅ Ready
-├── prd-v01-user-value-articulation/   # ✅ Ready
-├── prd-v02-competitive-landscape-mapping/  # ✅ Ready
-├── prd-v02-product-type-classification/    # ✅ Ready
-├── prd-v03-outcome-definition/        # ✅ Ready
-├── prd-v03-pricing-model/             # ✅ Ready
-├── prd-v03-moat-definition/           # ✅ Ready
-└── prd-v03-features-value-planning/   # ✅ Ready
+├── prd-v01-problem-framing/               # v0.1 Spark
+├── prd-v01-user-value-articulation/       # v0.1 Spark
+├── prd-v02-competitive-landscape-mapping/ # v0.2 Market
+├── prd-v02-product-type-classification/   # v0.2 Market
+├── prd-v03-outcome-definition/            # v0.3 Commercial
+├── prd-v03-pricing-model/                 # v0.3 Commercial
+├── prd-v03-moat-definition/               # v0.3 Commercial
+├── prd-v03-features-value-planning/       # v0.3 Commercial
+├── prd-v04-persona-definition/            # v0.4 Journeys
+├── prd-v04-user-journey-mapping/          # v0.4 Journeys
+├── prd-v04-screen-flow-definition/        # v0.4 Journeys
+├── prd-v05-risk-discovery-interview/      # v0.5 Red Team
+├── prd-v05-technical-stack-selection/     # v0.5 Red Team
+├── prd-v06-architecture-design/           # v0.6 Architecture
+├── prd-v06-technical-specification/       # v0.6 Architecture
+├── prd-v07-epic-scoping/                  # v0.7 Build
+├── prd-v07-test-planning/                 # v0.7 Build
+├── prd-v07-implementation-loop/           # v0.7 Build
+├── prd-v08-release-planning/              # v0.8 Release
+├── prd-v08-runbook-creation/              # v0.8 Release
+├── prd-v08-monitoring-setup/              # v0.8 Release
+├── prd-v09-gtm-strategy/                  # v0.9 Launch
+├── prd-v09-launch-metrics/                # v0.9 Launch
+├── prd-v09-feedback-loop-setup/           # v0.9 Launch
+├── ghm-gate-check/                        # Methodology
+├── ghm-id-register/                       # Methodology
+├── ghm-status-sync/                       # Methodology
+└── ghm-harvest/                           # Methodology
 ```
 
-**Status Legend:**
-- ✅ Ready = SKILL.md + references + assets complete
-- 📋 Spec = specification in skills-inventory.md, needs implementation
+**29 skills total** covering the complete PRD lifecycle v0.1→v1.0.
 
 ---
 
 ## PRD Stage → Skill Mapping
 
-| Stage | Skills | Status |
-|-------|--------|--------|
-| **v0.1 Spark** | Problem Framing, User Value Articulation | ✅ ✅ |
-| **v0.2 Market** | Competitive Landscape, Product Type Classification | ✅ ✅ |
-| **v0.3 Commercial** | Outcome Definition, Pricing Model, Moat Definition, Feature Value Planning | ✅ ✅ ✅ ✅ |
+| Stage              | Skills                                                           | Count |
+| ------------------ | ---------------------------------------------------------------- | ----- |
+| **v0.1 Spark**     | Problem Framing, User Value Articulation                         | 2     |
+| **v0.2 Market**    | Competitive Landscape, Product Type Classification               | 2     |
+| **v0.3 Commercial**| Outcome Definition, Pricing Model, Moat Definition, Features     | 4     |
+| **v0.4 Journeys**  | Persona Definition, User Journey Mapping, Screen Flow Definition | 3     |
+| **v0.5 Red Team**  | Risk Discovery Interview, Technical Stack Selection              | 2     |
+| **v0.6 Arch**      | Architecture Design, Technical Specification                     | 2     |
+| **v0.7 Build**     | Epic Scoping, Test Planning, Implementation Loop                 | 3     |
+| **v0.8 Release**   | Release Planning, Runbook Creation, Monitoring Setup             | 3     |
+| **v0.9 Launch**    | GTM Strategy, Launch Metrics, Feedback Loop Setup                | 3     |
+| **Methodology**    | Gate Check, ID Register, Status Sync, Harvest                    | 4     |
 
 See [`skills-inventory.md`](skills-inventory.md) for full specifications.
 
@@ -124,13 +149,14 @@ README.md (Dashboard)
     ↓
 PRD.md (Strategy) ←→ skills/ (Capabilities)
     ↓
-epics/ (Execution) ←→ specs/ (Source of Truth)
+epics/ (Execution) ←→ SoT/ (Source of Truth)
 ```
 
 Skills can:
-- Reference `specs/SoT.*.md` for business rules
+
+- Reference `SoT/SoT.*.md` for business rules and specifications
 - Output to `epics/` for task tracking
-- Create IDs: CFD-, BR-, KPI-, UJ-, API-, FEA-
+- Create IDs: CFD-, BR-, KPI-, UJ-, API-, FEA-, DES-, TEST-, DEP-
 
 ---
 

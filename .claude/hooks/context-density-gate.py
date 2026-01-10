@@ -25,6 +25,24 @@ def count_sot_references(content: str) -> list:
     return list(set(re.findall(pattern, content, re.I)))
 
 
+def resolve_epic_path(epic_num: str, slug: str | None = None) -> str:
+    """Resolve EPIC-XX-<slug>.md path from epics/ directory."""
+    epics_dir = Path("epics")
+    if not epics_dir.exists():
+        return f"epics/EPIC-{epic_num}-<slug>.md"
+
+    if slug:
+        slug = slug.strip().lower()
+        candidate = epics_dir / f"EPIC-{epic_num}-{slug}.md"
+        if candidate.exists():
+            return str(candidate)
+
+    matches = sorted(epics_dir.glob(f"EPIC-{epic_num}-*.md"))
+    if matches:
+        return str(matches[0])
+    return f"epics/EPIC-{epic_num}-<slug>.md"
+
+
 def check_epic_density(epic_path: str) -> dict:
     """Assess epic file for context density."""
     path = Path(epic_path)
@@ -116,7 +134,7 @@ def main():
 
     # Check for epic work initiation
     epic_match = re.search(
-        r"(?:start|begin|work on|continue)\s+(?:work\s+on\s+)?epic[- ]?(\d+)",
+        r"(?:start|begin|work on|continue)\s+(?:work\s+on\s+)?epic[- ]?(\d{1,2})(?:-([A-Za-z0-9-]+))?",
         prompt,
         re.I,
     )
@@ -136,7 +154,8 @@ def main():
 
     if epic_match:
         epic_num = epic_match.group(1).zfill(2)
-        epic_path = f"epics/epic-{epic_num}.md"
+        slug = epic_match.group(2)
+        epic_path = resolve_epic_path(epic_num, slug)
         assessment = check_epic_density(epic_path)
         context_type = f"EPIC-{epic_num}"
 

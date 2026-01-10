@@ -27,18 +27,18 @@ HORIZON owns PRD lifecycle v0.1–v0.5, translating market signals into validate
 ## Inputs Required
 
 - PRD.md (current version)
-- `specs/SoT.customer_feedback.md` (CFD-XXX entries)
+- `SoT/SoT.customer_feedback.md` (CFD-XXX entries)
 - Founder notes or market research in `temp/`
 - For v0.4+: STUDIO collaboration on journey validation
 
 ## Outputs Produced
 
-| Output               | Format                         | Destination                    |
-| -------------------- | ------------------------------ | ------------------------------ |
-| PRD section updates  | Markdown with lifecycle labels | PRD.md                         |
-| Research insights    | CFD-XXX entries                | specs/SoT.customer_feedback.md |
-| Business constraints | BR-XXX entries                 | specs/SoT.BUSINESS_RULES.md    |
-| User journeys        | UJ-XXX entries                 | specs/SoT.USER_JOURNEYS.md     |
+| Output               | Format                         | Destination                  |
+| -------------------- | ------------------------------ | ---------------------------- |
+| PRD section updates  | Markdown with lifecycle labels | PRD.md                       |
+| Research insights    | CFD-XXX entries                | SoT/SoT.customer_feedback.md |
+| Business constraints | BR-XXX entries                 | SoT/SoT.BUSINESS_RULES.md    |
+| User journeys        | UJ-XXX entries                 | SoT/SoT.USER_JOURNEYS.md     |
 
 ## Handoff Contracts
 
@@ -89,7 +89,7 @@ Scope: Do not design solutions—validate problems only
 
 ## Project Memory
 
-<!-- Updated by session-closer hook. Patterns accumulate as this product develops. -->
+<!-- Patterns accumulate as this product develops. Update during session handoffs. -->
 
 ### Project Context
 

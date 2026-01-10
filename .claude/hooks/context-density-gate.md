@@ -25,10 +25,10 @@ When user initiates epic or gate work, this hook:
 The hook activates on prompts containing:
 
 **Epic patterns:**
-- "start work on epic-04"
-- "begin EPIC 2"
-- "work on epic-01"
-- "continue epic-03"
+- "start work on EPIC-04-onboarding-flow"
+- "begin EPIC 02"
+- "work on EPIC-01-auth-basics"
+- "continue EPIC-03-user-onboarding"
 
 **Gate patterns:**
 - "approve gate for v0.5"
@@ -105,7 +105,7 @@ Issues detected:
 
 ```bash
 # Test epic pattern
-echo '{"prompt": "start work on epic-04"}' | python3 .claude/hooks/context-density-gate.py
+echo '{"prompt": "start work on EPIC-04-onboarding-flow"}' | python3 .claude/hooks/context-density-gate.py
 
 # Test gate pattern
 echo '{"prompt": "approve gate for v0.5"}' | python3 .claude/hooks/context-density-gate.py

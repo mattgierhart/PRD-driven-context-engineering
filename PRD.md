@@ -8,10 +8,10 @@ last_updated: 2025-12-22
 
 **Authority & Workflow**
 
-- `README.md` — operational Command Center (always read first).
+- `README.md` — repository orientation (always read first).
 - `PRD.md` — this file. Owns the strategic narrative from v0.1 → v1.0.
 - `CLAUDE.md` — agent behavior. Confirms how to implement what this PRD asks for.
-- `epics/EPIC-{XX}.md` — execution window. Updates IDs created/modified when advancing v0.7+.
+- `epics/EPIC-{XX}-<slug>.md` — execution window. Updates IDs created/modified when advancing v0.7+.
 - See `README.md` for gate criteria and rituals.
 
 **Template Usage**
@@ -161,7 +161,7 @@ last_updated: 2025-12-22
 
 **UX / Research Assets**
 
-- Link: `user-journeys/UJ-###.md`
+- Link: `SoT/SoT.USER_JOURNEYS.md#uj-###`
 - Additional references: {Figma / research IDs}
 
 **Outstanding Work → v0.5**
@@ -229,7 +229,7 @@ last_updated: 2025-12-22
 
 **Definition of Done**
 
-- [ ] All IDs created/modified logged in EPIC Section 3A.
+- [ ] All IDs created/modified logged in EPIC Section 2.
 - [ ] README metrics updated via workflow.
 - [ ] Coverage thresholds defined.
 
@@ -296,7 +296,7 @@ last_updated: 2025-12-22
 ## Appendices & References
 
 - **Glossary**: {Terms and definitions}
-- **ID Index**: Link to `.codex/ID_REGISTRY.md` or manual list if registry not automated.
+- **ID Index**: Link to `SoT/SoT.UNIQUE_ID_SYSTEM.md` (Part 2: ID Registry).
 - **Supporting Docs**: {Links to research, design, architecture}
 
 > Maintain appendices as lightweight navigation helpers. All authoritative data must live in SoT files referenced above.

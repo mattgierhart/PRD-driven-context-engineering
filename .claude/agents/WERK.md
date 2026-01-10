@@ -32,13 +32,13 @@ WERK owns technical execution from architecture through deployment, translating 
 
 ## Outputs Produced
 
-| Output              | Format           | Destination                      |
-| ------------------- | ---------------- | -------------------------------- |
-| API contracts       | API-XXX entries  | specs/SoT.API_CONTRACTS.md       |
-| Schema definitions  | DBT-XXX entries  | specs/SoT.ACTUAL_SCHEMA.md       |
-| Test specifications | TEST-XXX entries | specs/SoT.testing_playbook.md    |
-| Deployment config   | DEP-XXX entries  | specs/SoT.deployment_playbook.md |
-| Implementation work | EPIC files       | epics/                           |
+| Output              | Format           | Destination                    |
+| ------------------- | ---------------- | ------------------------------ |
+| API contracts       | API-XXX entries  | SoT/SoT.API_CONTRACTS.md       |
+| Schema definitions  | DBT-XXX entries  | SoT/SoT.ACTUAL_SCHEMA.md       |
+| Test specifications | TEST-XXX entries | SoT/SoT.testing_playbook.md    |
+| Deployment config   | DEP-XXX entries  | SoT/SoT.deployment_playbook.md |
+| Implementation work | EPIC files       | epics/                         |
 
 ## Handoff Contracts
 
@@ -80,7 +80,7 @@ Scope: Do not implement—analyze and recommend only
 
 ## Project Memory
 
-<!-- Updated by session-closer hook. Patterns accumulate as this product develops. -->
+<!-- Patterns accumulate as this product develops. Update during session handoffs. -->
 
 ### Project Context
 

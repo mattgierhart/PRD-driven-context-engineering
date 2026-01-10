@@ -252,5 +252,5 @@ TEST- entries feed into:
 ## Detailed References
 
 - **Test planning examples**: See `references/examples.md`
-- **TEST- entry template**: See `assets/test-template.md`
+- **TEST- entry template**: See `assets/test.md`
 - **Test type decision guide**: See `references/test-types.md`

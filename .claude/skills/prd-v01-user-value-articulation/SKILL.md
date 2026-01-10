@@ -42,7 +42,7 @@ Problem Framing → User Value Articulation → v0.2 Market Definition
 | **Evidence Tier** | 1-5 per hierarchy |
 | **Supporting CFD** | New CFD-ID for value hypothesis |
 
-See `assets/value-statement-template.md` for copy-paste template.
+See `assets/value-statement.md` for copy-paste template.
 
 ## Pain → Value Transformation
 
@@ -121,7 +121,7 @@ See `references/transformation-examples.md` for worked examples.
 
 - **`references/transformation-examples.md`** — 3 worked examples from real PRDs with step-by-step transformation process.
 - **`references/research-prompts.md`** — Deep research templates when value evidence is Tier 4-5.
-- **`assets/value-statement-template.md`** — Copy-paste template for value tables and CFD entries.
+- **`assets/value-statement.md`** — Copy-paste template for value tables and CFD entries.
 
 ## Handoff
 

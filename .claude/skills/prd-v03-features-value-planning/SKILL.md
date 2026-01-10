@@ -136,5 +136,5 @@ FEA- entries feed into:
 ## Detailed References
 
 - **Good/bad examples**: See `references/examples.md`
-- **FEA- entry template**: See `assets/fea-template.md`
+- **FEA- entry template**: See `assets/fea.md`
 - **Competitive feature matrix**: See `assets/competitive-feature-matrix.md`

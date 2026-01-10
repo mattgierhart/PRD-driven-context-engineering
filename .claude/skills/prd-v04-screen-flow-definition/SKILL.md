@@ -207,6 +207,6 @@ SCR- and DES- entries feed into:
 ## Detailed References
 
 - **Screen flow examples**: See `references/examples.md`
-- **SCR- entry template**: See `assets/scr-template.md`
-- **DES- entry template**: See `assets/des-template.md`
+- **SCR- entry template**: See `assets/scr.md`
+- **DES- entry template**: See `assets/des.md`
 - **Navigation patterns guide**: See `references/navigation-patterns.md`

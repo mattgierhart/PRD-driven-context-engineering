@@ -21,25 +21,71 @@ def get_prd_version():
     return float(match.group(1)) if match else None
 
 
+def find_epic_path(epic_num: str, slug: str | None = None) -> str | None:
+    """Resolve EPIC file path using EPIC-XX-<slug>.md convention."""
+    epics_dir = Path("epics")
+    if not epics_dir.exists():
+        return None
+
+    if slug:
+        slug = slug.strip().lower()
+        candidate = epics_dir / f"EPIC-{epic_num}-{slug}.md"
+        if candidate.exists():
+            return str(candidate)
+
+    matches = sorted(epics_dir.glob(f"EPIC-{epic_num}-*.md"))
+    if matches:
+        return str(matches[0])
+    return None
+
+
 def get_active_epic():
     """Find active EPIC from README.md or epics/ directory."""
     readme = Path("README.md")
     if readme.exists():
         content = readme.read_text()
-        # Look for "Active: EPIC-XX" or "Current Epic: epic-XX"
-        match = re.search(r"(?:active|current)[:\s]+epic-?(\d+)", content, re.I)
-        if match:
-            epic_num = match.group(1).zfill(2)
-            epic_path = Path(f"epics/epic-{epic_num}.md")
-            if epic_path.exists():
-                return f"epics/epic-{epic_num}.md"
 
-    # Fallback: find most recent epic file
+        # Prefer explicit path if present
+        path_match = re.search(
+            r"(epics/EPIC-\d{2}(?:-[A-Za-z0-9-]+)?\.md)", content
+        )
+        if path_match:
+            epic_path = Path(path_match.group(1))
+            if epic_path.exists():
+                return str(epic_path)
+
+        # Look for "Active EPIC: EPIC-XX-slug" or similar
+        match = re.search(
+            r"(?:active|current)\s+epic[:\s]+EPIC-(\d{2})(?:-([A-Za-z0-9-]+))?",
+            content,
+            re.I,
+        )
+        if match:
+            epic_num = match.group(1)
+            slug = match.group(2)
+            resolved = find_epic_path(epic_num, slug)
+            if resolved:
+                return resolved
+
+        # Fallback: any EPIC mention in README
+        match = re.search(r"EPIC-(\d{2})(?:-([A-Za-z0-9-]+))?", content, re.I)
+        if match:
+            epic_num = match.group(1)
+            slug = match.group(2)
+            resolved = find_epic_path(epic_num, slug)
+            if resolved:
+                return resolved
+
+    # Fallback: find highest-numbered epic file
     epics_dir = Path("epics")
     if epics_dir.exists():
-        epics = sorted(epics_dir.glob("epic-*.md"), reverse=True)
-        if epics:
-            return str(epics[0])
+        candidates = list(epics_dir.glob("EPIC-*.md"))
+        if candidates:
+            def sort_key(path: Path) -> tuple[int, str]:
+                match = re.search(r"EPIC-(\d{2})-", path.name)
+                return (int(match.group(1)) if match else 0, path.name)
+
+            return str(sorted(candidates, key=sort_key, reverse=True)[0])
     return None
 
 

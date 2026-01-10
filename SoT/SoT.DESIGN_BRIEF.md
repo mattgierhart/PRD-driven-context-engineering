@@ -2,9 +2,9 @@
 
 ## Authority, Template Usage, and Standards
 
-- **Authority**: This document is governed by the processes and standards defined in [WORKFLOW_MASTER.md](../workflows/WORKFLOW_MASTER.md). All design activities must align with the established workflows.
-- **Template Usage**: For detailed instructions on how to use this template, refer to the [Template Usage Guide](./README.md). This brief is a critical input for the STUDIO Agent and must be completed before any design work begins.
-- **Standards**: All design outputs must adhere to the documentation and design standards outlined in [STANDARDS.md](../../STANDARDS.md). This includes naming conventions, design system usage, and accessibility requirements.
+- **Authority**: This document is governed by [`README.md`](../README.md) and [`PRD.md`](../PRD.md). Design decisions must align with the active PRD gate.
+- **Template Usage**: For instructions, see [`SoT.README.md`](SoT.README.md). This brief is a critical input for the [STUDIO Agent](../.claude/agents/STUDIO.md) and must be completed before any design work begins.
+- **Standards**: Use naming conventions from [`SoT.UNIQUE_ID_SYSTEM.md`](SoT.UNIQUE_ID_SYSTEM.md). Document any product-specific design standards in this file.
 
 **Version**: 1.0
 **Date**: [Date]
@@ -372,7 +372,7 @@ Design [screen/flow] with:
 
 **Used in User Journeys**:
 
-- [UJ-001](SoT.USER_JOURNEYS_template.md#uj-001) - First-time visitor onboarding
+- [UJ-001](SoT.USER_JOURNEYS.md#uj-001) - First-time visitor onboarding
 
 **Design System References**:
 
@@ -380,7 +380,7 @@ Design [screen/flow] with:
 
 **Implemented in EPICs**:
 
-- [EPIC-03](../epics/EPIC-template.md) - Landing page development
+- [EPIC-03](../epics/EPIC_TEMPLATE.md) - Landing page development
 
 ### Version History
 
@@ -392,7 +392,7 @@ Design [screen/flow] with:
 
 ## Cross-Reference Index
 
-> **Auto-Generated Section**: Run `npm run codex:sync-registry` to rebuild
+> **Auto-Generated Section**: Maintain manually unless you add tooling in a fork.
 
 **Components by User Journey**:
 
@@ -419,13 +419,13 @@ Design [screen/flow] with:
 
 When adding a new DES-XXX:
 
-- [ ] Update USER_JOURNEYS.md "Design Components" section with this DES-XXX
-- [ ] Update EPIC Section 3A "IDs Created This EPIC" table
+- [ ] Update SoT.USER_JOURNEYS.md "Design Components" section with this DES-XXX
+- [ ] Update EPIC Section 2 "Context & IDs" list
 - [ ] Update README.md "Active IDs" section if part of current work
 - [ ] Create corresponding React component file in `src/components/`
 - [ ] Add UXPilot export reference (if applicable)
 - [ ] Document accessibility requirements
-- [ ] Run `npm run codex:sync-registry` to update ID_REGISTRY.md
+- [ ] Update the registry tables in SoT.UNIQUE_ID_SYSTEM.md if you maintain them
 
 ---
 

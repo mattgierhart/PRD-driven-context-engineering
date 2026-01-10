@@ -39,13 +39,13 @@ Before responding to any task, read these files in order:
 1. `CLAUDE.md`
 2. `README.md`
 3. `PRD.md`
-4. `epics/epic-03.md`
+4. `epics/EPIC-03-onboarding-flow.md`
 
 This establishes:
 - Structural rules and documentation discipline (CLAUDE.md)
 - Current project status and navigation (README.md)
 - Product definition and current lifecycle stage (PRD.md)
-- Active work unit and acceptance criteria (epics/epic-03.md)
+- Active work unit and acceptance criteria (epics/EPIC-03-onboarding-flow.md)
 ```
 
 ## Key Design Decisions

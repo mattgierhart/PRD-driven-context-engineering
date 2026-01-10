@@ -257,5 +257,5 @@ ARC- entries feed into:
 ## Detailed References
 
 - **Architecture pattern examples**: See `references/examples.md`
-- **ARC- entry template**: See `assets/arc-template.md`
-- **Diagram templates**: See `references/diagram-templates.md`
+- **ARC- entry template**: See `assets/arc.md`
+- **Diagram templates**: See `references/diagrams.md`

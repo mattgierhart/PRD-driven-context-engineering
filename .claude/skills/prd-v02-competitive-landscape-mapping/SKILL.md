@@ -42,7 +42,7 @@ v0.1 Spark (Problem + Value) → Competitive Landscape Mapping → Product Type 
 | **Gap Analysis** | Where competition is weak | Reviews, complaints |
 | **1% Hypothesis** | How we win | Evidence-anchored |
 
-See `assets/landscape-template.md` for copy-paste template.
+See `assets/landscape.md` for copy-paste template.
 
 ## Step 1: Document Current Behavior
 
@@ -221,8 +221,8 @@ Applies To: [Scope]
 
 - **`references/research-prompts.md`** — Deep research templates for competitor discovery and gap analysis.
 - **`references/examples.md`** — Good/bad competitive analysis examples.
-- **`assets/landscape-template.md`** — Copy-paste template for landscape mapping.
-- **`assets/feature-matrix-template.md`** — Feature comparison matrix template.
+- **`assets/landscape.md`** — Copy-paste template for landscape mapping.
+- **`assets/feature-matrix.md`** — Feature comparison matrix template.
 
 ## Handoff
 

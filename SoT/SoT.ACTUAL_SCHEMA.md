@@ -3,7 +3,7 @@ version: 1.0
 purpose: Source of Truth file for actual database schema. Each table/view has a unique ID for cross-referencing.
 id_prefix: DBT-XXX
 last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs created here are referenced by API_CONTRACTS.md, USER_JOURNEYS.md, BUSINESS_RULES.md, testing_playbook.md
+authority: This is a SoT file - IDs created here are referenced by SoT.API_CONTRACTS.md, SoT.USER_JOURNEYS.md, SoT.BUSINESS_RULES.md, SoT.testing_playbook.md
 generation: Hybrid (auto-generated from migrations + human context)
 ---
 
@@ -13,7 +13,7 @@ generation: Hybrid (auto-generated from migrations + human context)
 > **ID Prefix**: DBT-XXX
 > **Status**: Active SoT file
 > **Generation**: Auto-generated schema + human-added context
-> **Cross-References**: Referenced by API_CONTRACTS.md, USER_JOURNEYS.md, BUSINESS_RULES.md, testing_playbook.md
+> **Cross-References**: Referenced by SoT.API_CONTRACTS.md, SoT.USER_JOURNEYS.md, SoT.BUSINESS_RULES.md, SoT.testing_playbook.md
 
 ## Navigation by Category
 
@@ -185,27 +185,27 @@ CREATE POLICY "Admins can view all {table_name}"
 ```
 
 **RLS Testing**:
-- [TEST-XXX](testing_playbook.md#test-xxx) - Validates user isolation
-- [TEST-YYY](testing_playbook.md#test-yyy) - Validates admin access
+- [TEST-XXX](SoT.testing_playbook.md#test-xxx) - Validates user isolation
+- [TEST-YYY](SoT.testing_playbook.md#test-yyy) - Validates admin access
 
 ### Related IDs
 
 **Accessed By APIs**:
-- [API-XXX](API_CONTRACTS.md#api-xxx) - {Endpoint name} (Read/Write/Update/Delete)
-- [API-YYY](API_CONTRACTS.md#api-yyy) - {Another endpoint} (Read only)
+- [API-XXX](SoT.API_CONTRACTS.md#api-xxx) - {Endpoint name} (Read/Write/Update/Delete)
+- [API-YYY](SoT.API_CONTRACTS.md#api-yyy) - {Another endpoint} (Read only)
 
 **Used in User Journeys**:
-- [UJ-XXX](USER_JOURNEYS.md#uj-xxx) - {Journey that interacts with this table}
-- [UJ-YYY](USER_JOURNEYS.md#uj-yyy) - {Another journey}
+- [UJ-XXX](SoT.USER_JOURNEYS.md#uj-xxx) - {Journey that interacts with this table}
+- [UJ-YYY](SoT.USER_JOURNEYS.md#uj-yyy) - {Another journey}
 
 **Enforces Business Rules**:
-- [BR-XXX](BUSINESS_RULES.md#br-xxx) - {Business rule via constraint}
-- [BR-YYY](BUSINESS_RULES.md#br-yyy) - {Another rule}
+- [BR-XXX](SoT.BUSINESS_RULES.md#br-xxx) - {Business rule via constraint}
+- [BR-YYY](SoT.BUSINESS_RULES.md#br-yyy) - {Another rule}
 
 **Validated By Tests**:
-- [TEST-XXX](testing_playbook.md#test-xxx) - {Schema validation test}
-- [TEST-YYY](testing_playbook.md#test-yyy) - {RLS policy test}
-- [TEST-ZZZ](testing_playbook.md#test-zzz) - {Data integrity test}
+- [TEST-XXX](SoT.testing_playbook.md#test-xxx) - {Schema validation test}
+- [TEST-YYY](SoT.testing_playbook.md#test-yyy) - {RLS policy test}
+- [TEST-ZZZ](SoT.testing_playbook.md#test-zzz) - {Data integrity test}
 
 **Foreign Key Relationships**:
 - **References**:
@@ -386,7 +386,7 @@ For migration files, seed data, and additional context, see:
 
 ## Cross-Reference Index
 
-> **Auto-Generated Section**: Run `npm run codex:sync-schema` to rebuild
+> **Auto-Generated Section**: Maintain manually unless you add tooling in a fork.
 
 **Tables by API Access**:
 - API-045 accesses: DBT-001 (RW), DBT-018 (R), DBT-019 (R)
@@ -417,7 +417,7 @@ auth.users
 
 ---
 
-*End of ACTUAL_SCHEMA.md - This SoT file is the authoritative source for all DBT-XXX IDs*
+*End of SoT.ACTUAL_SCHEMA.md - This SoT file is the authoritative source for all DBT-XXX IDs*
 
 ## Maintenance Protocol
 
@@ -426,19 +426,7 @@ auth.users
 2. Write SQL in migration file
 3. Test locally: `supabase db reset`
 4. Update this file (auto-generate + add context)
-5. Run `npm run codex:sync-schema` to rebuild cross-references
-6. Commit migration + updated ACTUAL_SCHEMA.md together
+5. Commit migration + updated SoT.ACTUAL_SCHEMA.md together
 
-**Auto-Generation Script** (example):
-
-```bash
-#!/bin/bash
-# Regenerate schema documentation from migrations
-npm run codex:generate-schema-docs
-
-# This script:
-# 1. Reads all migration files
-# 2. Generates table definitions
-# 3. Preserves human-added "Context" sections
-# 4. Rebuilds cross-reference index
-```
+**Optional Tooling**:
+If you add a schema doc generator in your product fork, document it here.

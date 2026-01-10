@@ -203,4 +203,4 @@ Before advancing to Moat Articulation:
 ## Detailed References
 
 - **Good/bad examples**: See `references/examples.md`
-- **BR- template worksheet**: See `assets/br-pricing-template.md`
+- **BR- template worksheet**: See `assets/br-pricing.md`

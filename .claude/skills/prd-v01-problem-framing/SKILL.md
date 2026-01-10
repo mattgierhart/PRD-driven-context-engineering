@@ -31,7 +31,7 @@ Populate this table for every problem statement:
 | **Why now?** | Market trigger creating urgency | Trend/event |
 | **What's impossible?** | Opportunity cost—what can't they do | User quote |
 
-See `assets/problem-statement-template.md` for copy-paste template.
+See `assets/problem-statement.md` for copy-paste template.
 
 ## Step 1: Gap Assessment
 
@@ -117,7 +117,7 @@ See `references/examples.md` for good/bad examples with explanations.
 
 - **`references/research-prompts.md`** — Deep research templates by gap type. Use when gap assessment shows ≥3 missing elements.
 - **`references/examples.md`** — Good/bad problem statement examples with explanations.
-- **`assets/problem-statement-template.md`** — Copy-paste template for problem tables and CFD entries.
+- **`assets/problem-statement.md`** — Copy-paste template for problem tables and CFD entries.
 
 ## Handoff
 

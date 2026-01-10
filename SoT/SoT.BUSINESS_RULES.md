@@ -3,7 +3,7 @@ version: 1.0
 purpose: Source of Truth file for all business rules and constraints. Each rule has a unique ID for cross-referencing.
 id_prefix: BR-XXX
 last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs created here are referenced by PRD.md, API_CONTRACTS.md, EPICs, and code
+authority: This is a SoT file - IDs created here are referenced by PRD.md, SoT.API_CONTRACTS.md, EPICs, and code
 ---
 
 # Business Rules (SoT File)
@@ -11,7 +11,7 @@ authority: This is a SoT file - IDs created here are referenced by PRD.md, API_C
 > **Purpose**: Complete specifications for all business constraints and enforcement policies.
 > **ID Prefix**: BR-XXX
 > **Status**: Active SoT file
-> **Cross-References**: Referenced by PRD.md, API_CONTRACTS.md, USER_JOURNEYS.md, testing_playbook.md, EPICs
+> **Cross-References**: Referenced by PRD.md, SoT.API_CONTRACTS.md, SoT.USER_JOURNEYS.md, SoT.testing_playbook.md, EPICs
 
 ## Navigation by Category
 
@@ -93,26 +93,26 @@ function validateBusinessRule_BR001(user: User, productCount: number): Validatio
 ### Related IDs
 
 **Enforced By APIs**:
-- [API-XXX](API_CONTRACTS.md#api-xxx) - {Endpoint that enforces this rule}
-- [API-YYY](API_CONTRACTS.md#api-yyy) - {Another enforcement point}
+- [API-XXX](SoT.API_CONTRACTS.md#api-xxx) - {Endpoint that enforces this rule}
+- [API-YYY](SoT.API_CONTRACTS.md#api-yyy) - {Another enforcement point}
 
 **Affects User Journeys**:
-- [UJ-XXX](USER_JOURNEYS.md#uj-xxx) - {Journey where rule applies}
-- [UJ-YYY](USER_JOURNEYS.md#uj-yyy) - {Another affected journey}
+- [UJ-XXX](SoT.USER_JOURNEYS.md#uj-xxx) - {Journey where rule applies}
+- [UJ-YYY](SoT.USER_JOURNEYS.md#uj-yyy) - {Another affected journey}
 
 **Database Constraints**:
-- [DBT-XXX](ACTUAL_SCHEMA.md#dbt-xxx) - {Table with constraint}
+- [DBT-XXX](SoT.ACTUAL_SCHEMA.md#dbt-xxx) - {Table with constraint}
 - Schema constraint: {SQL constraint if applicable}
 
 **Validated By Tests**:
-- [TEST-XXX](testing_playbook.md#test-xxx) - {Test validating compliance}
-- [TEST-YYY](testing_playbook.md#test-yyy) - {Test validating violation handling}
+- [TEST-XXX](SoT.testing_playbook.md#test-xxx) - {Test validating compliance}
+- [TEST-YYY](SoT.testing_playbook.md#test-yyy) - {Test validating violation handling}
 
 **Referenced in PRD**:
 - Section: [PRD.md#{section}](PRD.md#{section})
 
 **Customer Feedback**:
-- [CFD-XXX](customer_feedback.md#cfd-xxx) - {Feedback about this rule}
+- [CFD-XXX](SoT.customer_feedback.md#cfd-xxx) - {Feedback about this rule}
 
 ### Exceptions
 
@@ -182,8 +182,7 @@ free_tier_product_limit: 3  # Strict enforcement
 
 ### Detailed Specification
 
-For additional context, implementation notes, and historical decisions, see:
-- [business-rules/{filename}.md](business-rules/{filename}.md)
+For additional context, implementation notes, and historical decisions, add appendices in this file or link external docs:
 - Confluence/Wiki: {Link if applicable}
 
 ### Version History
@@ -216,7 +215,7 @@ For additional context, implementation notes, and historical decisions, see:
 
 ## Cross-Reference Index
 
-> **Auto-Generated Section**: Run `npm run codex:sync-business-rules` to rebuild
+> **Auto-Generated Section**: Maintain manually unless you add tooling in a fork.
 
 **Rules by API**:
 - API-045 enforces: BR-001, BR-102
@@ -242,4 +241,4 @@ For additional context, implementation notes, and historical decisions, see:
 
 ---
 
-*End of BUSINESS_RULES.md - This SoT file is the authoritative source for all BR-XXX IDs*
+*End of SoT.BUSINESS_RULES.md - This SoT file is the authoritative source for all BR-XXX IDs*

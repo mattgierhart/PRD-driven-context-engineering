@@ -271,5 +271,5 @@ API- and DBT- entries feed into:
 ## Detailed References
 
 - **API and data model examples**: See `references/examples.md`
-- **API- entry template**: See `assets/api-template.md`
-- **DBT- entry template**: See `assets/dbt-template.md`
+- **API- entry template**: See `assets/api.md`
+- **DBT- entry template**: See `assets/dbt.md`

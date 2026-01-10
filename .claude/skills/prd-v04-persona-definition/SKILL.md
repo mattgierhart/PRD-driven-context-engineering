@@ -153,4 +153,4 @@ PER- entries feed into:
 ## Detailed References
 
 - **Persona creation examples**: See `references/examples.md`
-- **PER- entry template**: See `assets/per-template.md`
+- **PER- entry template**: See `assets/per.md`

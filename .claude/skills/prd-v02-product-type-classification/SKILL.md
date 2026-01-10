@@ -100,7 +100,7 @@ Timeline Implication: [See references/gtm-constraints.md]
 - **Decision Framework**: See `references/decision-framework.md` for expanded decision trees
 - **Examples**: See `references/examples.md` for good/bad classification cases
 - **GTM Constraints**: See `references/gtm-constraints.md` for type → constraint mapping
-- **Classification Template**: See `assets/classification-template.md` for structured worksheet
+- **Classification Template**: See `assets/classification.md` for structured worksheet
 
 ## Downstream Impact
 

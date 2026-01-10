@@ -114,4 +114,4 @@ KPI- entries feed into:
 
 - **Good/bad examples**: See `references/examples.md`
 - **Benchmark sources**: See `references/benchmarks.md`
-- **KPI template worksheet**: See `assets/kpi-template.md`
+- **KPI template worksheet**: See `assets/kpi.md`

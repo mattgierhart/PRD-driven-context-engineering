@@ -3,7 +3,7 @@ version: 1.0
 purpose: Source of Truth file for all API endpoint specifications. Each endpoint has a unique ID for cross-referencing.
 id_prefix: API-XXX
 last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs created here are referenced by PRD.md, USER_JOURNEYS.md, testing_playbook.md, EPICs, and code
+authority: This is a SoT file - IDs created here are referenced by PRD.md, SoT.USER_JOURNEYS.md, SoT.testing_playbook.md, EPICs, and code
 ---
 
 # API Contracts (SoT File)
@@ -11,7 +11,7 @@ authority: This is a SoT file - IDs created here are referenced by PRD.md, USER_
 > **Purpose**: Complete specifications for all API endpoints and integrations.
 > **ID Prefix**: API-XXX
 > **Status**: Active SoT file
-> **Cross-References**: Referenced by PRD.md, USER_JOURNEYS.md, BUSINESS_RULES.md, testing_playbook.md, EPICs
+> **Cross-References**: Referenced by PRD.md, SoT.USER_JOURNEYS.md, SoT.BUSINESS_RULES.md, SoT.testing_playbook.md, EPICs
 
 ## Navigation by Category
 
@@ -71,7 +71,7 @@ Content-Type: application/json
 **Permissions Required**:
 - User Role: {role_name}
 - Scope: `{scope_name}`
-- Business Rule: [BR-XXX](BUSINESS_RULES.md#br-xxx) - {Permission rule}
+- Business Rule: [BR-XXX](SoT.BUSINESS_RULES.md#br-xxx) - {Permission rule}
 
 ### Request Format
 
@@ -208,28 +208,28 @@ interface SuccessResponse {
 ### Related IDs
 
 **Used By User Journeys**:
-- [UJ-XXX](USER_JOURNEYS.md#uj-xxx) - {Journey that calls this API}
-- [UJ-YYY](USER_JOURNEYS.md#uj-yyy) - {Another journey}
+- [UJ-XXX](SoT.USER_JOURNEYS.md#uj-xxx) - {Journey that calls this API}
+- [UJ-YYY](SoT.USER_JOURNEYS.md#uj-yyy) - {Another journey}
 
 **Enforces Business Rules**:
-- [BR-XXX](BUSINESS_RULES.md#br-xxx) - {Business rule enforced}
-- [BR-YYY](BUSINESS_RULES.md#br-yyy) - {Another rule}
+- [BR-XXX](SoT.BUSINESS_RULES.md#br-xxx) - {Business rule enforced}
+- [BR-YYY](SoT.BUSINESS_RULES.md#br-yyy) - {Another rule}
 
 **Database Operations**:
-- [DBT-XXX](ACTUAL_SCHEMA.md#dbt-xxx) - {Table accessed} (Read/Write/Update/Delete)
-- [DBT-YYY](ACTUAL_SCHEMA.md#dbt-yyy) - {Another table}
+- [DBT-XXX](SoT.ACTUAL_SCHEMA.md#dbt-xxx) - {Table accessed} (Read/Write/Update/Delete)
+- [DBT-YYY](SoT.ACTUAL_SCHEMA.md#dbt-yyy) - {Another table}
 
 **Calls External Services** (if applicable):
 - [API-ZZZ](#api-zzz-service-name) - {External service called}
 - Third-party: {Service name} (e.g., Stripe, Google Cloud, AWS)
 
 **Validated By Tests**:
-- [TEST-XXX](testing_playbook.md#test-xxx) - {Test validating happy path}
-- [TEST-YYY](testing_playbook.md#test-yyy) - {Test validating error handling}
-- [TEST-ZZZ](testing_playbook.md#test-zzz) - {Test validating business rules}
+- [TEST-XXX](SoT.testing_playbook.md#test-xxx) - {Test validating happy path}
+- [TEST-YYY](SoT.testing_playbook.md#test-yyy) - {Test validating error handling}
+- [TEST-ZZZ](SoT.testing_playbook.md#test-zzz) - {Test validating business rules}
 
 **Deployment Requirements**:
-- [DEP-XXX](deployment_playbook.md#dep-xxx) - {Deployment configuration}
+- [DEP-XXX](SoT.deployment_playbook.md#dep-xxx) - {Deployment configuration}
 
 ### Rate Limits & Quotas
 
@@ -372,8 +372,7 @@ Access-Control-Max-Age: 86400
 
 ### Detailed Specification
 
-For additional implementation details, migration guides, and historical context, see:
-- [api-contracts/{filename}.md](api-contracts/{filename}.md)
+For additional implementation details and historical context, add appendices in this file or link external docs:
 - OpenAPI/Swagger: `{link to interactive API docs}`
 - Postman Collection: `{link to collection}`
 
@@ -417,7 +416,7 @@ const response = await client.newEndpoint.get(id);
 
 ## Cross-Reference Index
 
-> **Auto-Generated Section**: Run `npm run codex:sync-api-contracts` to rebuild
+> **Auto-Generated Section**: Maintain manually unless you add tooling in a fork.
 
 **Endpoints by User Journey**:
 - UJ-101 calls: API-045, API-046, API-102
@@ -443,4 +442,4 @@ const response = await client.newEndpoint.get(id);
 
 ---
 
-*End of API_CONTRACTS.md - This SoT file is the authoritative source for all API-XXX IDs*
+*End of SoT.API_CONTRACTS.md - This SoT file is the authoritative source for all API-XXX IDs*

@@ -75,7 +75,7 @@
 
 ### Phase E: Finish (Harvest)
 
-- [ ] **Temp Cleanup**: Move any useful notes from `temp/` to `SoT/` or `archive/`.
+- [ ] **Temp Cleanup**: Move any useful notes from `temp/` to `SoT/`, then remove the temp file.
 - [ ] **Spec Finalization**: Ensure all specs in `SoT/` match the code.
 - [ ] **Session Audit**: Ensure Section 0 is clean.
 

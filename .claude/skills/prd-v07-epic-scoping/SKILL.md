@@ -223,5 +223,5 @@ EPIC- entries feed into:
 ## Detailed References
 
 - **Epic scoping examples**: See `references/examples.md`
-- **EPIC- entry template**: See `assets/epic-template.md`
+- **EPIC- entry template**: See `assets/epic.md`
 - **Dependency mapping guide**: See `references/dependency-mapping.md`

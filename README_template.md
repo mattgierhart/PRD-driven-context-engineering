@@ -1,4 +1,4 @@
-# Gear Heart Methodology (GHM) — Command Center
+# Gear Heart Methodology (GHM) — Product README
 
 > **Status**: Active
 > **Current PRD Version**: v0.1 (See `PRD.md`)
@@ -94,9 +94,6 @@
 ## 5. Quick Commands
 
 ```bash
-# Generate Visual Reports (if tools installed)
-python agents/tools/generate-visuals.py --all
-
 # Run Tests
 npm test # or equivalent
 ```
@@ -107,9 +104,8 @@ npm test # or equivalent
 
 - **`epics/`**: The living state of work (Issues/Tickets).
 - **`SoT/`**: The Source of Truth (Requirements).
-- **`agents/`**: AI Workforce & Tools.
-- **`templates/`**: (Deprecated). Use `SoT/templates/` or copy `epics/EPIC_TEMPLATE.md`.
-- **`archive/`**: where finished EPICs go to rest.
+- **`temp/`**: Scratchpad work tied to active epics.
+- **`.claude/`**: Optional agent configs and hooks.
 
 ---
 

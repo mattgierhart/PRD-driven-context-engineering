@@ -32,11 +32,11 @@ METRO owns launch execution and market adoption, translating shipped product int
 
 ## Outputs Produced
 
-| Output               | Format            | Destination                                    |
-| -------------------- | ----------------- | ---------------------------------------------- |
-| Launch assets        | METRO-XXX entries | specs/SoT.METRO_playbook.md (create if needed) |
-| Success metrics      | KPI-XXX entries   | README.md or dedicated metrics file            |
-| Post-launch feedback | CFD-XXX entries   | specs/SoT.customer_feedback.md                 |
+| Output               | Format          | Destination                    |
+| -------------------- | --------------- | ------------------------------ |
+| Launch assets        | GTM-XXX entries | SoT/SoT.deployment_playbook.md |
+| Success metrics      | KPI-XXX entries | README.md or metrics file      |
+| Post-launch feedback | CFD-XXX entries | SoT/SoT.customer_feedback.md   |
 
 ## Handoff Contracts
 
@@ -62,7 +62,7 @@ METRO owns launch execution and market adoption, translating shipped product int
 
 ## Project Memory
 
-<!-- Updated by session-closer hook. Patterns accumulate as this product develops. -->
+<!-- Patterns accumulate as this product develops. Update during session handoffs. -->
 
 ### Project Context
 

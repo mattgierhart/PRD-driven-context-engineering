@@ -169,5 +169,5 @@ UJ- entries feed into:
 ## Detailed References
 
 - **Journey mapping examples**: See `references/examples.md`
-- **UJ- entry template**: See `assets/uj-template.md`
+- **UJ- entry template**: See `assets/uj.md`
 - **Journey sequencing guide**: See `references/sequencing.md`

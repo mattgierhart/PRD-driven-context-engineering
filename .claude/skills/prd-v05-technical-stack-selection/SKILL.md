@@ -215,5 +215,5 @@ TECH- entries feed into:
 ## Detailed References
 
 - **Tech stack examples by product type**: See `references/examples.md`
-- **TECH- entry template**: See `assets/tech-template.md`
+- **TECH- entry template**: See `assets/tech.md`
 - **Evaluation scorecard**: See `assets/evaluation-scorecard.md`

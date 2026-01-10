@@ -27,8 +27,7 @@ This directory contains Claude Code configuration following Anthropic's official
 │   ├── context-density-gate.py # UserPromptSubmit: Epic/gate assessment
 │   ├── context-density-gate.md # Documentation
 │   ├── sot-update-trigger.py   # Stop: SoT update reminder
-│   ├── sot-update-trigger.md   # Documentation
-│   └── session-closer.md       # Stop: Session state capture (docs only)
+│   └── sot-update-trigger.md   # Documentation
 ├── agents/                     # Agent definitions (flat files only)
 │   ├── HORIZON.md              # Strategy Agent (v0.1-v0.5)
 │   ├── STUDIO.md               # Design Agent (v0.3-v0.6)
@@ -65,12 +64,11 @@ skills/prd-v01-problem-framing/
 
 Hooks are event-triggered automation. Configured in `settings.json`, documented in `hooks/`.
 
-| Hook | Trigger | File | Purpose |
-|------|---------|------|---------|
-| Context Validation | SessionStart | `context-validation.py` | Inject 3+1 file reading order |
+| Hook                 | Trigger          | File                      | Purpose                            |
+| -------------------- | ---------------- | ------------------------- | ---------------------------------- |
+| Context Validation   | SessionStart     | `context-validation.py`   | Inject 3+1 file reading order      |
 | Context Density Gate | UserPromptSubmit | `context-density-gate.py` | Assess epic/gate context readiness |
-| SoT Update Trigger | Stop | `sot-update-trigger.py` | Remind about spec updates |
-| Session Closer | Stop | (documentation only) | Capture session state for handoff |
+| SoT Update Trigger   | Stop             | `sot-update-trigger.py`   | Remind about spec updates          |
 
 ### Hook Execution Order
 
@@ -78,7 +76,7 @@ Hooks are event-triggered automation. Configured in `settings.json`, documented 
 
 **UserPromptSubmit**: `context-density-gate.py` runs only when prompt matches epic/gate patterns.
 
-**Stop**: `sot-update-trigger.py` runs first (reminder), then session-closer logic applies.
+**Stop**: `sot-update-trigger.py` runs, reminding about SoT updates.
 
 ## Agents
 

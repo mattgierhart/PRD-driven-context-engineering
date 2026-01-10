@@ -32,12 +32,12 @@ STUDIO translates user research into interaction patterns and visual concepts, c
 
 ## Outputs Produced
 
-| Output                | Format           | Destination                    |
-| --------------------- | ---------------- | ------------------------------ |
-| Design components     | DES-XXX entries  | specs/SoT.DESIGN_BRIEF.md      |
-| Wireframes/prototypes | Links in DES-XXX | External tool + reference      |
-| Design tokens         | System spec      | specs/SoT.DESIGN_BRIEF.md      |
-| Research insights     | CFD-XXX entries  | specs/SoT.customer_feedback.md |
+| Output                | Format           | Destination                  |
+| --------------------- | ---------------- | ---------------------------- |
+| Design components     | DES-XXX entries  | SoT/SoT.DESIGN_BRIEF.md      |
+| Wireframes/prototypes | Links in DES-XXX | External tool + reference    |
+| Design tokens         | System spec      | SoT/SoT.DESIGN_BRIEF.md      |
+| Research insights     | CFD-XXX entries  | SoT/SoT.customer_feedback.md |
 
 ## Handoff Contracts
 
@@ -66,7 +66,7 @@ STUDIO translates user research into interaction patterns and visual concepts, c
 
 ## Project Memory
 
-<!-- Updated by session-closer hook. Patterns accumulate as this product develops. -->
+<!-- Patterns accumulate as this product develops. Update during session handoffs. -->
 
 ### Project Context
 

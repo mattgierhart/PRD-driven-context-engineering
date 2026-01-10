@@ -1,8 +1,8 @@
 # Context Engineering: Memory as Infrastructure
 
-> **Purpose**: Context Engineering enables product teams to build with AI by turning **shared memory (humans + AI)** into maintained infrastructure, so teams move fast without losing alignment.
+> **Purpose**: Context Engineering enables product teams to build with AI by turning **shared memory (humans + AI)** into maintained infrastructure. This ensures teams move fast without losing alignment.
 >
-> This repository is one expression of that system. The same principles apply at any stage because documentation becomes a **Knowledge Graph** that humans and AI can query.
+> This repository is one expression of that system. The principles apply at any stage because documentation becomes a **Knowledge Graph** that humans and AI can query.
 
 See this philosophy in action at **[GearheartAI.org](https://gearheartai.org)**.
 
@@ -10,7 +10,7 @@ See this philosophy in action at **[GearheartAI.org](https://gearheartai.org)**.
 
 ## The Evolution
 
-Here is the progression.
+The progression of memory in software teams:
 
 - **Start-up / Waterfall** relied on **Static Memory**. We wrote everything down upfront. It created certainty, but made change slow and expensive.
 - **Agile** moved faster but created **Fragmented Memory**. We scattered knowledge across tickets, wikis, and chats and lost shared understanding.
@@ -22,13 +22,13 @@ Here is the progression.
 
 We are changing how we measure work, not just tools.
 
-| Traditional Agile      | Context Engineering     | The Shift (Automation & Infrastructure)                                                    |
-| :--------------------- | :---------------------- | :----------------------------------------------------------------------------------------- |
-| **Sprints**            | **Context Windows**     | We don't time-box based on dates; we _scope-box_ based on cognitive capacity.              |
-| **User Stories**       | **Prompts**             | We don't write descriptions; we engineer _prompts_ that deterministically load context.    |
-| **Tribal Knowledge**   | **Source of Truth**     | If it isn't in the Knowledge Graph (`SoT/`), it doesn't exist.                           |
-| **Standups**           | **Documentation Hooks** | We don't have status meetings. Event-based hooks auto-update the memory when work happens. |
-| **Project Management** | **Context Governance**  | We don't task-manage people. The system gates execution until context is verified valid.   |
+| Traditional Agile      | Context Engineering                | The Shift (Automation & Infrastructure)                                                                |
+| :--------------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| **Sprints**            | **Context Windows**                | We don't time-box based on dates; we _scope-box_ based on cognitive capacity.                          |
+| **User Stories**       | **Prompts**                        | We don't write descriptions; we engineer _prompts_ that deterministically load context.                |
+| **Tribal Knowledge**   | **Source of Truth**                | If it isn't in the Knowledge Graph (`SoT/`), it doesn't exist.                                         |
+| **Standups**           | **Documentation Hooks (optional)** | We don't have status meetings. Event-based hooks in `.claude/hooks` can update memory when configured. |
+| **Project Management** | **Context Governance**             | We don't task-manage people. The system gates execution until context is verified valid.               |
 
 ---
 
@@ -36,7 +36,7 @@ We are changing how we measure work, not just tools.
 
 We are building complex products together.
 
-As humans, we have limits. Our cognitive load can only hold so much state before we start forgetting edge cases or introducing bugs.
+As humans, we have limits; our cognitive load is finite. Push it too far, and we start forgetting edge cases or introducing bugs.
 Our AI partners have limits, too. Their context windows are vast but finite; flooding them leads to hallucination and drift.
 
 When we collaborate—human to human or human to AI—these limits compound. We miscommunicate. We overwrite assumptions. Shared memory drifts.
@@ -47,7 +47,7 @@ So we treat team memory as a shared asset across humans and AI, not an individua
 This philosophy comes from two experiences.
 
 **First: Leading Human Teams**
-Before AI, I led software teams where alignment followed a pattern: rally around a single **Hero Artifact**—a clear mission document—and the team moved as one. Shared memory anchored there; without it, even great talent drifted.
+Before AI, I led software teams where alignment followed a clear pattern: rally around a single **Hero Artifact**—a mission document—and the team moved as one. Shared memory anchored there. Without it, even great talent drifted.
 
 **Second: Partnering with AI**
 When I began coding with AI, I noticed a similar pattern. Sometimes the AI was brilliant; other times it was dense. I realized the variable wasn't the model's intelligence—it was the **Context Density** I provided. When the context was rich and structured, the AI performed at a senior level. When it was vague, it hallucinated.
@@ -62,6 +62,7 @@ When we define a User Journey and give it an ID (`UJ-101`), we create a node in 
 When the AI references `BR-004`, it is not guessing; it is retrieving a specific, immutable memory that we encoded.
 
 **Key Terms**
+
 - **Hero Artifact**: The single, clear document that anchors a team's shared memory for a product.
 - **Context Density**: How much relevant, structured context we deliver per prompt or handoff.
 - **Knowledge Graph**: The linked network of IDs (`BR-xxx`, `UJ-xxx`, `API-xxx`) across files that makes memory retrievable for humans and AI.
@@ -87,7 +88,7 @@ This structure preserves alignment and momentum. By engineering context, we buil
 
 ## The Documentation Ecosystem: 3+1+SoT+Temp
 
-To make memory infrastructure practical, we use a strict hierarchy designed to **manage Context Density**. This keeps human cognitive load and AI context windows within limits.
+To make memory infrastructure practical, we use an **intentional architecture** designed to **manage Context Density**. This keeps human cognitive load and AI context windows within limits.
 
 ### 1. The Instincts Layer (L0)
 
@@ -129,9 +130,9 @@ Instead, we use a **Progressive PRD**.
 
 `PRD.md` is a **Gated Workflow**, not just a document. We force the AI to focus on one section at a time (e.g., "Strategy", then "User Journeys", then "Data Model").
 
-1.  **Anti-One-Shot**: By constraining the context window to a single phase, we prevent the AI from "guessing" the architecture before it understands the user needs.
+1.  **Constrained Focus**: By limiting the context window to a single phase, we prevent the AI from "guessing" the architecture before it understands the user needs.
 2.  **ID Rigor**: Deep focus allows us to generate meaningful IDs (`UJ-xxx`, `BR-xxx`) without overwhelming the system. These IDs become the anchors for all future code.
-3.  **Desirability**: The result is not just a working product, but a _desirable_ one, built with care and speed.
+3.  **Outcome Quality**: The result is not just a working product, but a _desirable_ one, built with care and speed.
 
 ### The PRD Lifecycle (v0.1 to v1.0)
 
@@ -160,7 +161,7 @@ Because our documentation is modular and interlocked via hooks, we can revisit a
 
 1.  Open a context window for `PRD.md` (Strategy Section).
 2.  Update the `BR-xxx` rules.
-3.  Let the **Automation Hooks** propagate distinct changes to the active `epics/`.
+3.  If hooks are configured in `.claude/hooks`, use them to propagate changes to the active `epics/`. Otherwise, update the Epic manually.
 
 This allows the product to evolve without losing the structure that keeps humans and AI aligned.
 
@@ -178,3 +179,50 @@ This allows the product to evolve without losing the structure that keeps humans
 ├── temp/                    # Scratchpad for explorations and audits
 └── .claude/                 # Agent configs and hooks
 ```
+
+> **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy `README_template.md` to `README.md` and customize it for that product.
+
+---
+
+## Contributing
+
+Thank you for helping us refine the **Context Engineering** methodology. This repository is not just a codebase; it is a living system of **Memory as Infrastructure**.
+
+### Core Philosophy
+
+Before contributing, please read:
+
+1.  **[`README.md`](README.md)**: The "Instincts Layer" and Project Dashboard.
+2.  **[`CLAUDE.md`](CLAUDE.md)**: The Agent Operating Instructions.
+
+Our goal is to optimize **Context Density**: providing the AI (and humans) with exactly the right information at the right time.
+
+### Ways to Contribute
+
+#### 1. Refine the Methodology
+
+- **Templates**: Improve `SoT/` templates or `epics/EPIC_TEMPLATE.md`.
+- **Workflows**: Suggest automation hooks or better ways to manage the "Source of Truth".
+- **Documentation**: Clarify the "Rules of the Road" in `README.md`.
+
+#### 2. Report Friction
+
+- If you find a "Gate" in the PRD Lifecycle (`README.md#the-prd-lifecycle`) that slows you down without adding value, let us know.
+- If the AI struggles to find context, report it as a "Context Leak."
+
+### Getting Started
+
+1.  **Fork & Branch**: Create a branch for your feature or fix.
+2.  **Follow the Lifecycle**: Even for meta-changes, we respect the spirit of the **Gated Workflow**.
+3.  **Traceability**: If you add a new concept, give it an ID (e.g., `BR-XXX` or `UJ-XXX`) if it's durable.
+
+### Contribution Standards
+
+- **Terminology**: Use "Context Engineering", "Source of Truth", and "Epics" consistent with `README.md`.
+- **Links**: Always use relative links to files (e.g., `[Link](README.md)`), not absolute paths.
+- **Tone**: Professional, prescriptive, and rigorous.
+
+### Questions?
+
+- Open a GitHub Issue for discussion.
+- Check `README.md` for the current status of the methodology.

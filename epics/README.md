@@ -10,16 +10,16 @@ This folder stores the active and archived EPIC files that make up the "+1" laye
 
 ## Getting started
 
-1. Copy [`templates/epics/EPIC-template.md`](../templates/epics/EPIC-template.md).
+1. Copy [`epics/EPIC_TEMPLATE.md`](EPIC_TEMPLATE.md).
 2. Rename it using the format `EPIC-XX-short-slug.md` (e.g., `EPIC-07-onboarding-flow.md`).
 3. Update Section 0 with the lifecycle gate it advances and the owner.
-4. Use **Section 3A (ID Tracking)** to log every SoT ID created, modified, or referenced.
+4. Use **Section 2 (Context & IDs)** to log every SoT ID created, modified, or referenced.
 
 ## Workflow expectations
 
-- Only one EPIC should be marked as **Active** at a time; others stay in "Queued" or move to `archive/` once completed.
+- Only one EPIC should be marked as **Active** at a time; others stay in "Queued" or are marked "Complete".
 - Link to the EPIC from the product `README.md` (Current Work Surface) so agents can load it quickly.
-- Close the EPIC with a retrospective or learning summary and move the file into `archive/YYYY-MM/`.
+- Close the EPIC with a retrospective or learning summary.
 
 ## File hygiene checklist
 

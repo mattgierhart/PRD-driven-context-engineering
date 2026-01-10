@@ -182,5 +182,5 @@ RISK- entries feed into:
 ## Detailed References
 
 - **Interview question bank**: See `references/question-bank.md`
-- **RISK- entry template**: See `assets/risk-template.md`
+- **RISK- entry template**: See `assets/risk.md`
 - **Example risk register**: See `references/examples.md`

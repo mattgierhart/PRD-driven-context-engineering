@@ -1,44 +1,49 @@
 ---
-version: 1.0
-purpose: Defines the standard for maintaining template purity while preserving context efficiency
-created: 2026-01-10
-authority: This document codifies the principle discovered during Phase 1 SoT audit
-last_updated: 2026-01-10
+title: "Template Purity Standard"
+updated: "2026-01-10"
+authority: "Context Engineering Methodology"
 ---
 
 # Template Purity Standard
 
 > **Core Principle**: Templates should be self-documenting for maintenance while remaining free of methodology teaching.
 
-## The Discovery
+This document codifies the standard for maintaining SoT template quality discovered during Phase 1 SoT audit (2026-01-10), aligned with Context Engineering's **Just-in-Time Context** principle (README.md:117-118).
 
-During the Phase 1 SoT template audit (2026-01-10), we identified a critical distinction that aligns with the Context Engineering methodology's core principle of **Just-in-Time Context** (README.md:117-118).
+---
 
-**The Tension**:
+## 1. The Discovery
+
+### 1.1 The Tension
+
+During the Phase 1 SoT template audit, we identified a critical tension:
+
 - Templates need maintenance documentation to be self-documenting
 - But methodology teaching creates context bloat
 - Moving ALL instructions to CLAUDE.md violates context density optimization
 
-**The Resolution**:
-- **Template self-documentation** stays IN the template (loaded just-in-time)
-- **Methodology teaching** moves to skill references (loaded by skills when needed)
+### 1.2 The Resolution
 
----
+Two distinct content types require different placement:
 
-## The Litmus Test
+- **Template Self-Documentation** stays IN the template (loaded just-in-time)
+- **Methodology Teaching** moves to skill references (loaded by skills when needed)
+
+### 1.3 The Litmus Test
 
 When reviewing content in a SoT template, ask:
 
 > **"Is this teaching me how to maintain the file structure, or teaching me domain knowledge about what makes good content?"**
 
+**Decision Rule**:
 - **File structure maintenance** → Keep in template (just-in-time context)
 - **Domain knowledge/methodology** → Move to skill references (skill-loaded context)
 
 ---
 
-## Template Purity Categories
+## 2. Template Purity Categories
 
-### 🟢 KEEP: Template Self-Documentation
+### 2.1 🟢 KEEP: Template Self-Documentation
 
 **Definition**: Operational instructions for maintaining THIS specific file's structure and integrity.
 
@@ -64,12 +69,12 @@ When reviewing content in a SoT template, ask:
 - Aligns with "Just-in-Time Context" principle
 
 **Location Pattern**:
-- Place at end of template in "## Maintenance Protocol" or "## Update Protocol" section
+- Place at end of template in `## Maintenance Protocol` or `## Update Protocol` section
 - Can also appear in YAML frontmatter or navigation sections if brief
 
 ---
 
-### 🔴 MOVE: Methodology Teaching
+### 2.2 🔴 MOVE: Methodology Teaching
 
 **Definition**: Domain knowledge about what makes GOOD content for this template type.
 
@@ -104,7 +109,7 @@ When reviewing content in a SoT template, ask:
 
 ---
 
-### 🟡 BORDERLINE: Template Usage Instructions
+### 2.3 🟡 BORDERLINE: Template Usage Instructions
 
 **Definition**: High-level guidance on the PURPOSE of this template.
 
@@ -127,44 +132,46 @@ When reviewing content in a SoT template, ask:
 
 ---
 
-## Validation Checklist
+## 3. Validation Checklist
+
+### 3.1 Template Purity (No Contamination)
 
 After creating or updating a SoT template, verify:
-
-### Template Purity
 
 - [ ] No "how to analyze" or "how to evaluate" content (methodology → skill references)
 - [ ] No "best practices" or "key learnings" (domain knowledge → skill references)
 - [ ] No cross-file workflows (multi-file coordination → skill references)
 - [ ] No "what makes a good entry" evaluation criteria (methodology → skill references)
+- [ ] Examples show FORMAT only, not instructional CONTENT
 
-### Self-Documentation
+### 3.2 Template Self-Documentation (Correctly Included)
 
 - [ ] Has "Update Protocol" or "Maintenance Protocol" section
 - [ ] Documents when to add new IDs for this template type
 - [ ] Includes cross-reference integrity checks
 - [ ] Specifies required fields for new entries
-- [ ] Notes ID numbering conventions
-
-### Context Efficiency
-
 - [ ] Self-documentation is file-specific (not generic advice)
 - [ ] Self-documentation is under 20% of total file size
-- [ ] Methodology examples are in skill references, not template
+
+### 3.3 Context Efficiency
+
 - [ ] Template can be read without loading other files
+- [ ] Methodology examples are in skill references, not template
+- [ ] File-specific maintenance instructions are included
+- [ ] General governance is in SoT.README.md, not individual templates
 
 ---
 
-## Application Examples
+## 4. Application Examples
 
-### Example 1: SoT.customer_feedback.md
+### 4.1 Example: SoT.customer_feedback.md
 
-**Before Audit**:
+**Before Cleanup** (Contaminated):
 - Had "Key Learnings for GHM" section (methodology teaching)
 - Had "Implementation Notes" (cross-file workflow)
 - These violated template purity
 
-**After Cleanup**:
+**After Cleanup** (Pure):
 - **Kept**: "Update Protocol" (when to add CFD-XXX IDs)
 - **Moved**: "Key Learnings" → `.claude/skills/prd-v09-feedback-loop-setup/references/analysis-patterns.md`
 - **Moved**: "Implementation Notes" → same skill reference file
@@ -173,7 +180,7 @@ After creating or updating a SoT template, verify:
 
 ---
 
-### Example 2: SoT.USER_JOURNEYS.md
+### 4.2 Example: SoT.USER_JOURNEYS.md
 
 **Audit Finding**:
 - Has "Update Protocol" (lines 178-198)
@@ -187,7 +194,7 @@ After creating or updating a SoT template, verify:
 
 ---
 
-### Example 3: SoT.DESIGN_BRIEF.md
+### 4.3 Example: SoT.DESIGN_BRIEF.md
 
 **Audit Finding**:
 - Has "Update Protocol" (template maintenance)
@@ -201,9 +208,9 @@ After creating or updating a SoT template, verify:
 
 ---
 
-## Common Contamination Patterns
+## 5. Common Contamination Patterns
 
-### Pattern 1: "How to Use This Template"
+### 5.1 Pattern: Methodology Teaching (TRUE CONTAMINATION)
 
 **Contaminated Version**:
 ```markdown
@@ -236,7 +243,7 @@ Use the following evaluation criteria...
 
 ---
 
-### Pattern 2: "What to Do with This Data"
+### 5.2 Pattern: Cross-File Workflow Instructions (TRUE CONTAMINATION)
 
 **Contaminated Version**:
 ```markdown
@@ -262,7 +269,7 @@ After documenting customer feedback:
 
 ---
 
-### Pattern 3: "Key Learnings" or "Best Practices"
+### 5.3 Pattern: "Key Learnings" or "Best Practices" (TRUE CONTAMINATION)
 
 **Contaminated Version**:
 ```markdown
@@ -281,7 +288,7 @@ Template doesn't include this. Instead, it goes to:
 
 ---
 
-## Integration with CLAUDE.md
+## 6. Integration with CLAUDE.md
 
 CLAUDE.md should reference this standard in the "Documentation Discipline" section:
 
@@ -298,15 +305,15 @@ CLAUDE.md should reference this standard in the "Documentation Discipline" secti
 
 ---
 
-## Maintenance of This Standard
+## 7. Maintenance of This Standard
 
-### When to Update This Document
+### 7.1 When to Update This Document
 
 - New contamination pattern discovered
 - Ambiguous case needs clarification
 - Methodology evolves and affects template design
 
-### How to Propose Changes
+### 7.2 How to Propose Changes
 
 1. Identify pattern in actual template review
 2. Document the tension (why it's unclear)
@@ -314,38 +321,42 @@ CLAUDE.md should reference this standard in the "Documentation Discipline" secti
 4. Update this standard with new example
 5. Update CLAUDE.md if execution rules change
 
-### Version History
+### 7.3 Version History
 
-| Version | Date | Change | Reason |
-|---------|------|--------|--------|
-| 1.0 | 2026-01-10 | Initial standard created | Phase 1 SoT audit discovery |
+| Version | Date       | Change                  | Reason                   |
+| ------- | ---------- | ----------------------- | ------------------------ |
+| 1.0     | 2026-01-10 | Initial standard created | Phase 1 SoT audit discovery |
 
 ---
 
-## Quick Reference Card
+## 8. Quick Reference Card
 
-### The Litmus Test
+### 8.1 The Litmus Test
+
 **File structure maintenance** → Keep in template
 **Domain knowledge/methodology** → Move to skill references
 
-### KEEP in Templates
+### 8.2 KEEP in Templates
+
 - Update protocols (when/how to modify THIS file)
 - ID numbering conventions
 - Cross-reference integrity checks
 - Required fields checklist
 - File-specific maintenance procedures
 
-### MOVE to Skill References
+### 8.3 MOVE to Skill References
+
 - "Key learnings" or "best practices"
 - Evaluation criteria (what makes good content)
 - Example workflows or prompts
 - Cross-file coordination instructions
 - Good/bad pattern examples
 
-### Context Efficiency Rule
+### 8.4 Context Efficiency Rule
+
 If it's only useful when THIS template is active → Keep in template
 If it's useful when CREATING content for this template → Move to skill references
 
 ---
 
-*End of SoT.TEMPLATE_PURITY_STANDARD.md - This standard preserves context efficiency while maintaining template quality*
+*End of SoT.TEMPLATE_PURITY_STANDARD.md*

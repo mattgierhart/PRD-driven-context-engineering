@@ -1,10 +1,9 @@
 # [Product Name] Design Brief
 
-## Authority, Template Usage, and Standards
-
-- **Authority**: This document is governed by [`README.md`](../README.md) and [`PRD.md`](../PRD.md). Design decisions must align with the active PRD gate.
-- **Template Usage**: For instructions, see [`SoT.README.md`](SoT.README.md). This brief is a critical input for the [STUDIO Agent](../.claude/agents/STUDIO.md) and must be completed before any design work begins.
-- **Standards**: Use naming conventions from [`SoT.UNIQUE_ID_SYSTEM.md`](SoT.UNIQUE_ID_SYSTEM.md). Document any product-specific design standards in this file.
+> **Purpose**: Design specifications and component catalog for product UI/UX
+> **ID Prefix**: DES-XXX
+> **Status**: Active SoT file
+> **Cross-References**: Referenced by `SoT.USER_JOURNEYS.md`, PRD.md v0.4-v0.6
 
 **Version**: 1.0
 **Date**: [Date]
@@ -238,79 +237,7 @@ Landing Page
 
 ---
 
-## Design Tool Prompts
-
-### UX Pilot Prompt
-
-```
-Create a [screen/component] for [product name] that:
-- Serves [user persona] who wants to [user goal]
-- Follows [design system] guidelines
-- Includes [specific elements]
-- Optimizes for [device/context]
-- Achieves [success metric]
-
-Style: [Design aesthetic]
-Colors: [Color palette]
-Typography: [Font choices]
-Layout: [Grid/spacing approach]
-```
-
-### Lovable Prompt
-
-```
-Build a React component for [product name] that:
-- Implements [specific functionality]
-- Uses [design system/library]
-- Handles [user interactions]
-- Integrates with [APIs/data]
-- Follows [coding standards]
-
-Requirements:
-- Responsive design
-- Accessibility compliant
-- Performance optimized
-- Type-safe (TypeScript)
-```
-
-### Figma Instructions
-
-```
-Design [screen/flow] with:
-1. Create artboards for [breakpoints]
-2. Use [design system/library]
-3. Include [interactive states]
-4. Prepare for [dev handoff format]
-5. Export [asset specifications]
-```
-
----
-
-## Project Timeline & Handoffs
-
-### Design Phase Timeline
-
-**Week 1**: Initial mockups and wireframes
-**Week 2**: High-fidelity designs and prototype
-**Week 3**: Design system creation and documentation
-**Week 4**: Development handoff and integration
-
-### Handoff Requirements
-
-**To Development**:
-
-- [ ] All screens designed and approved
-- [ ] Design system documented
-- [ ] Assets exported and optimized
-- [ ] Specifications documented
-- [ ] Interactive prototype complete
-
-**Quality Gates**:
-
-- [ ] Stakeholder approval on designs
-- [ ] User testing validation (if applicable)
-- [ ] Technical feasibility confirmed
-- [ ] Performance budget validated
+> **Design Tool Usage**: For design tool prompt templates and workflow patterns, see `.claude/skills/prd-v04-screen-flow-definition/references/design-tool-examples.md`
 
 ---
 

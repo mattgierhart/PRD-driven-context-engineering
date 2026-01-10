@@ -1,66 +1,64 @@
-# AI Workforce
-
-This directory contains the tools, skills, and configurations for the AI Agents working on this project.
-
-## Structure
-
-- **`tools/`**: Python scripts and utilities (Skills) that Agents can execute.
-- **`.Claude/`**: Specific configuration rules for Claude.
-- **`.Gemini/`**: Specific configuration rules for Gemini.
-
-## Agent Manifest (The Roster)
-
-### 1. Research Lineup (v0.1 → v0.5)
-
-> **Goal**: Validate strategy and find the "Moat".
-
-| Agent              | Lifecycle Gate  | Core Question                | Tools                                                     |
-| ------------------ | --------------- | ---------------------------- | --------------------------------------------------------- |
-| **SPARK-SCOUT**    | v0.1 Spark      | "Is this the right problem?" | `web_search`, `research_topic`, `get_trending_searches`   |
-| **SEGMENTOR**      | v0.2 Market     | "Who is this for?"           | `web_search`, `analyze_content`, `get_interest_by_region` |
-| **MOAT-MAPPER**    | v0.3 Commercial | "Where is the gap?"          | `traverse_website`, `analyze_content`, `search_trends`    |
-| **JOURNEY-SCRIBE** | v0.4 Journeys   | "What is the flow?"          | `retrieve_content`, `analyze_content`                     |
-| **RISK-ORACLE**    | v0.5 Red Team   | "How does this fail?"        | `web_search`, `research_topic`                            |
-
-### 2. Build Lineup (v0.6 → v0.8)
-
-> **Goal**: Execute the Architecture and Code.
-
-| Agent                 | Lifecycle Gate | Core Question            | Tools                                          |
-| --------------------- | -------------- | ------------------------ | ---------------------------------------------- |
-| **ARCHITECT**         | v0.6 Specs     | "What is the blueprint?" | `traverse_website` (docs), `generate_llms_txt` |
-| **QA-MAESTRO**        | v0.7 Build     | "Does it work?"          | `validate_sessions`, `sot_diff`                |
-| **AUTOMATION-RUNNER** | v0.8 Release   | "How do we ship?"        | `sot_update`, `session_handoff`                |
-
-### 3. GTM Lineup (v0.8 → v1.0)
-
-> **Goal**: Launch and Expand.
-
-| Agent                | Lifecycle Gate | Core Question           | Tools                                 |
-| -------------------- | -------------- | ----------------------- | ------------------------------------- |
-| **LAUNCH-CALLER**    | v0.9 Launch    | "Are we go for launch?" | `search_trends`, `session_checkpoint` |
-| **ADOPTION-ANALYST** | v1.0 Growth    | "Are they staying?"     | `stream_content`, `analyze_content`   |
-
+---
+title: "Agent Ecosystem"
+updated: 2025-01-09
 ---
 
-## Tool Reference
+# Agent Ecosystem
 
-### Research Tools (MCP)
+## Architecture
 
-Provided by [RivalSearchMCP](https://github.com/damionrashford/RivalSearchMCP).
+Two-layer system:
+1. **Static layer** (`agents/{AGENT}.md`) — Methodology, role, handoffs
+2. **Memory layer** (`agents/memory/{AGENT}.project.md`) — Project-specific learning
 
-- `web_search`: Multi-engine search.
-- `traverse_website`: Deep crawl for docs or competitor pricing.
-- `analyze_content`: Extract insights from text.
-- `search_trends`: SEO and volume analysis.
+## Agents
 
-### Internal Tools (`agents/tools/`)
+| Agent | Domain | Lifecycle | File |
+|-------|--------|-----------|------|
+| AURA | Market & Product Strategy | v0.1–v0.5 | [AURA.md](AURA.md) |
+| Designer | User Experience | v0.3–v0.4, v0.6 | [Designer.md](Designer.md) |
+| APOLLO | Technical Leadership | v0.6–v0.8 | [APOLLO.md](APOLLO.md) |
+| GTM | Go-to-Market | v0.9–v1.0 | [GTM.md](GTM.md) |
 
-- `generate_visuals.py`: Create dependency graphs.
-- `validate_sessions.py`: Audit EPIC compliance.
+## Loading an Agent
 
-### Methodology Tools
+```
+Load agents/AURA.md for v0.3 Commercial work
+```
 
-- `/load-context`: Load the navigation stack.
-- `/gate-check`: Verify DoD.
-- `id_create`: Generate `BR-XXX` or `UJ-XXX`.
+The agent file provides:
+- Role boundaries and decision authority
+- Input/output specifications
+- Handoff contracts
+- Anti-patterns to avoid
+- Subagent templates (if applicable)
+
+## Memory Layer
+
+Project-specific patterns accumulate in `agents/memory/`:
+- Updated per session by Session-Closer
+- Harvested to skills/ when pattern reaches 3+ occurrences
+- Persists across product iterations
+
+See [memory/README.md](memory/README.md) for protocol.
+
+## Subagents
+
+Isolated-context helpers for repeatable tasks:
+- README-Status-Updater
+- ID-Registrar
+- Session-Closer
+- Gate-Checker
+- Harvest-Agent
+
+See [subagents/README.md](subagents/README.md) for definitions.
+
+## Tools
+
+Located in `agents/tools/`:
+- `generate_visuals.py` — Dependency graphs
+- `validate_sessions.py` — EPIC compliance audit
+
+## MCP Servers
+
+See `agents/tools/config/mcp_servers.yaml` for external tool configuration.

@@ -1,22 +1,46 @@
 # Phase 1: SoT Template Audit Report
 
 **Date**: 2026-01-10
+**Last Updated**: 2026-01-10 (Revised after context efficiency discussion)
 **Auditor**: Claude (via Matt's collaborator review)
 **Scope**: All 10 SoT template files for methodology contamination
 **Purpose**: Ensure templates provide pure structure without teaching methodology
 
 ---
 
+## Critical Discovery: The Template Self-Documentation Principle
+
+**Initial Concern**: All instructional content in templates was flagged as contamination.
+
+**Refinement**: During review, we identified a critical distinction aligned with Context Engineering's **Just-in-Time Context** principle (README.md:117-118):
+
+- **Template Self-Documentation** (KEEP): Operational instructions for maintaining the file structure
+  - Loaded only when template is in use (just-in-time context)
+  - Example: "Update Protocol" - when/how to add IDs to this specific file
+
+- **Methodology Teaching** (MOVE): Domain knowledge about what makes good content
+  - Should be loaded by skills when creating entries (skill-loaded context)
+  - Example: "Key Learnings" - evaluation criteria for feedback analysis
+
+**Impact**: This distinction prevents context bloat in CLAUDE.md while preserving template self-documentation.
+
+**Documentation**: See `SoT.TEMPLATE_PURITY_STANDARD.md` for the full standard.
+
+---
+
 ## Executive Summary
 
 **Total Files Audited**: 10
-**Contamination Found**: 4 files (40%)
-**Clean Templates**: 4 files (40%)
+**True Contamination Found**: 2 files (20%)
+**Template Self-Documentation (Correct)**: 5 files (50%)
+**Clean Templates**: 1 file (10%)
 **Appropriately Instructional**: 2 files (20%)
 
 ### Key Finding
 
-Matt's concern about `SoT.customer_feedback.md` is **valid and represents the most severe contamination** in the template library. This file contains methodology teaching ("Key Learnings for GHM") and procedural instructions that belong in skill reference files or CLAUDE.md, not in a structural template.
+Matt's concern about `SoT.customer_feedback.md` is **valid and represents the most severe contamination** in the template library. This file contains methodology teaching ("Key Learnings for GHM") and cross-file workflow instructions that belong in skill reference files, not in a structural template.
+
+However, "Update Protocol" sections in other templates are **correctly placed** as template self-documentation.
 
 ---
 
@@ -55,81 +79,97 @@ Matt's concern about `SoT.customer_feedback.md` is **valid and represents the mo
 
 ---
 
-### 🟡 MODERATE: SoT.DESIGN_BRIEF.md
+### 🟡 MIXED: SoT.DESIGN_BRIEF.md
 
-**Contamination Level**: Moderate
+**Contamination Level**: Moderate (Mixed Content)
 **Lines Affected**: 1-7, 242-286, 289-314, 409-429
 
-**Issues Identified**:
+**Content Identified**:
 
 1. **Lines 1-7: "Authority, Template Usage, and Standards"**
-   - Explains governance and how to use the template
-   - Should be in README.md or skill documentation
+   - Multi-section governance documentation
+   - Applies to all SoT files, not just design brief
 
 2. **Lines 242-286: "Design Tool Prompts"**
    - Example prompts for UX Pilot, Lovable, Figma
-   - This is methodology guidance, not design specification structure
-   - These examples belong in skill references
+   - Methodology guidance for using design tools
+   - These are workflow examples, not template structure
 
 3. **Lines 289-314: "Project Timeline & Handoffs"**
-   - Process/workflow instructions
+   - Process/workflow instructions across PRD lifecycle
    - Belongs in PRD lifecycle or skill documentation
 
 4. **Lines 409-429: "Update Protocol"**
    - Instructions on when/how to add DES-XXX IDs
-   - Process documentation, not template structure
+   - Template maintenance for this specific file
 
-**Why It's Contamination**:
-- Design brief should define WHAT gets documented (personas, journeys, components)
-- Should NOT teach WHEN or HOW to create designs
-- Prompt examples are useful but belong in skill references for v0.4 stage
+**Revised Assessment**:
 
-**Recommended Fix**:
-- Remove "Authority, Template Usage, and Standards" (move to README.md)
-- Move "Design Tool Prompts" to `.claude/skills/prd-v04-screen-flow-definition/references/design-tool-examples.md`
-- Move "Project Timeline" to PRD.md v0.4 gate description
-- Move "Update Protocol" to CLAUDE.md or skill documentation
+✅ **KEEP** (Template Self-Documentation):
+- Lines 409-429: "Update Protocol" - File-specific maintenance
+
+🔴 **MOVE** (Methodology Teaching):
+- Lines 1-7: "Authority, Template Usage, and Standards" → `SoT.README.md` (applies to all SoT files)
+- Lines 242-286: "Design Tool Prompts" → `.claude/skills/prd-v04-screen-flow-definition/references/design-tool-examples.md`
+- Lines 289-314: "Project Timeline" → PRD.md v0.4 gate description
+
+**Why**:
+- "Update Protocol" is file-specific maintenance (template self-documentation)
+- "Design Tool Prompts" are methodology examples (skill reference material)
+- "Authority and Standards" are general governance (belongs in SoT.README.md)
 
 ---
 
-### 🟢 MINOR: SoT.USER_JOURNEYS.md
+### ✅ CORRECT: SoT.USER_JOURNEYS.md
 
-**Contamination Level**: Minor
+**Contamination Level**: None (Template Self-Documentation)
 **Lines Affected**: 178-198
 
-**Issues Identified**:
+**Content Identified**:
 
 1. **Lines 178-198: "Update Protocol"**
    - "When to Add New UJ-XXX IDs"
    - "Bidirectional Reference Checklist"
-   - Process instructions for maintaining the template
+   - Process instructions for maintaining the template structure
 
-**Why It's Borderline**:
-- This section teaches template maintenance, not user journey methodology
-- Could be considered acceptable as "template self-documentation"
-- However, it's still instructional rather than structural
+**Why It's Correct** (Revised Assessment):
+- This is **template self-documentation**, not methodology teaching
+- Loaded only when the UJ template is actively in use (just-in-time context)
+- File-specific maintenance instructions (not generic advice)
+- Teaches HOW to maintain file structure, not WHAT makes a good user journey
 
-**Recommended Fix**:
-- **Option A** (Strict): Move to CLAUDE.md "Execution Rules" section
-- **Option B** (Pragmatic): Keep as-is since it's template maintenance, not methodology
-- **Recommended**: Option A for consistency
+**Alignment with Context Efficiency**:
+- Keeping this in the template prevents loading it in every session via CLAUDE.md
+- Follows "Just-in-Time Context" principle
+- Self-documenting template pattern
+
+**Recommended Action**: **Keep as-is**
 
 ---
 
-### 🟢 MINOR: SoT.ACTUAL_SCHEMA.md
+### ✅ CORRECT: SoT.ACTUAL_SCHEMA.md
 
-**Contamination Level**: Minor
+**Contamination Level**: None (Template Self-Documentation)
 **Lines Affected**: 422-433
 
-**Issues Identified**:
+**Content Identified**:
 
 1. **Lines 422-433: "Maintenance Protocol"**
    - Instructions on creating migrations and updating schema
-   - Process documentation for schema changes
+   - Process documentation for schema changes specific to this file
 
-**Recommended Fix**:
-- Move to CLAUDE.md or skill documentation for v0.6 Technical Specification
-- This is workflow instruction, not schema structure
+**Why It's Correct** (Revised Assessment):
+- This is **template self-documentation** for database schema maintenance
+- File-specific workflow (how to keep schema in sync with migrations)
+- Loaded only when working with schema documentation
+- Teaches HOW to maintain this file, not WHAT makes a good schema design
+
+**Alignment with Context Efficiency**:
+- Schema maintenance workflow is only relevant when updating DBT-XXX entries
+- Loading this in CLAUDE.md would bloat context for non-schema work
+- Just-in-time loading when template is active
+
+**Recommended Action**: **Keep as-is**
 
 ---
 
@@ -208,25 +248,36 @@ Matt's concern about `SoT.customer_feedback.md` is **valid and represents the mo
 
 ## Contamination Patterns Identified
 
-### Pattern 1: "How to Use This Template"
-- **Found in**: SoT.customer_feedback.md, SoT.DESIGN_BRIEF.md
-- **Problem**: Templates should be self-evident through structure
-- **Fix**: Move usage instructions to CLAUDE.md or skill references
+### Pattern 1: Methodology Teaching (TRUE CONTAMINATION)
+- **Found in**: SoT.customer_feedback.md ("Key Learnings for GHM")
+- **Problem**: Teaches WHAT to look for in feedback (domain knowledge)
+- **Why it's contamination**: This is loaded every time template is read, but only useful when creating entries
+- **Fix**: Move to `.claude/skills/prd-v09-feedback-loop-setup/references/analysis-patterns.md`
 
-### Pattern 2: "What to Do with This Data"
+### Pattern 2: Cross-File Workflow Instructions (TRUE CONTAMINATION)
 - **Found in**: SoT.customer_feedback.md ("Implementation Notes")
-- **Problem**: Templates store data; skills describe actions
-- **Fix**: Move action instructions to skill reference files
+- **Problem**: Tells agents what to do with feedback across multiple files
+- **Why it's contamination**: This is skill-level coordination, not template structure
+- **Fix**: Move to skill reference files
 
-### Pattern 3: "Update Protocol" Sections
-- **Found in**: SoT.USER_JOURNEYS.md, SoT.DESIGN_BRIEF.md, SoT.ACTUAL_SCHEMA.md
-- **Problem**: Process instructions embedded in templates
-- **Fix**: Consolidate all update protocols in CLAUDE.md "Execution Rules"
-
-### Pattern 4: "Example Prompts/Workflows"
+### Pattern 3: "Example Prompts/Workflows" (TRUE CONTAMINATION)
 - **Found in**: SoT.DESIGN_BRIEF.md ("Design Tool Prompts")
-- **Problem**: Methodology examples masquerading as template content
-- **Fix**: Move to skill references as "good examples"
+- **Problem**: Methodology examples for using design tools
+- **Why it's contamination**: These are workflow examples, not template structure
+- **Fix**: Move to `.claude/skills/prd-v04-screen-flow-definition/references/design-tool-examples.md`
+
+### Pattern 4: General Governance (MISPLACED, NOT CONTAMINATION)
+- **Found in**: SoT.DESIGN_BRIEF.md ("Authority, Template Usage, and Standards")
+- **Problem**: Applies to all SoT files, not just design brief
+- **Why it's misplaced**: Not contamination per se, just wrong location
+- **Fix**: Move to `SoT.README.md` (applies to all SoT files)
+
+### Pattern 5: "Update Protocol" Sections (CORRECT PLACEMENT - NOT CONTAMINATION)
+- **Found in**: SoT.USER_JOURNEYS.md, SoT.DESIGN_BRIEF.md, SoT.ACTUAL_SCHEMA.md
+- **Initial assessment**: Flagged as contamination
+- **Revised assessment**: This is **template self-documentation** (correct placement)
+- **Why it's correct**: File-specific maintenance loaded just-in-time when template is active
+- **Action**: Keep in templates
 
 ---
 
@@ -250,7 +301,7 @@ The same applies here: **Templates are the schema for the knowledge graph. Skill
 
 ---
 
-## Recommendations
+## Revised Recommendations
 
 ### Priority 1: Fix Severe Contamination
 
@@ -264,61 +315,84 @@ The same applies here: **Templates are the schema for the knowledge graph. Skill
 
 **Rationale**: This is Matt's primary concern and represents the clearest violation of template principles
 
+**Impact**: Removes methodology teaching while preserving template structure
+
+---
+
 ### Priority 2: Fix Moderate Contamination
 
 **File**: `SoT.DESIGN_BRIEF.md`
 
 **Actions**:
-1. Remove "Authority, Template Usage" header (move to README.md)
-2. Extract "Design Tool Prompts" to `.claude/skills/prd-v04-screen-flow-definition/references/design-tool-examples.md`
-3. Remove "Project Timeline" (move to PRD.md v0.4 gate)
-4. Move "Update Protocol" to CLAUDE.md
+1. Remove "Authority, Template Usage" header (move to `SoT.README.md`)
+2. Extract "Design Tool Prompts" (lines 242-286) to `.claude/skills/prd-v04-screen-flow-definition/references/design-tool-examples.md`
+3. Move "Project Timeline" (lines 289-314) to PRD.md v0.4 gate description
+4. **KEEP "Update Protocol" (lines 409-429)** - This is correct template self-documentation
 
-### Priority 3: Fix Minor Contamination
+**Rationale**: Separate methodology examples from template structure while preserving self-documentation
 
-**Files**: `SoT.USER_JOURNEYS.md`, `SoT.ACTUAL_SCHEMA.md`
-
-**Actions**:
-1. Consolidate all "Update Protocol" sections into CLAUDE.md under "Documentation Discipline"
-2. Create single section in CLAUDE.md: "SoT Maintenance Protocols"
-3. Remove from individual templates
-
-### Priority 4: Document the Standard
-
-**Action**: Add section to CLAUDE.md
-
-```markdown
-## Template Purity Standard
-
-SoT templates MUST contain only:
-1. YAML frontmatter (metadata)
-2. Field definitions and structure
-3. ID navigation and cross-references
-4. Example FORMAT (not example CONTENT that teaches)
-
-Templates MUST NOT contain:
-1. "How to use this template" instructions
-2. "When to create IDs" decision trees
-3. "What to do with this data" workflows
-4. Methodology teaching or best practices
-
-Rule: If it teaches HOW or WHEN, it belongs in CLAUDE.md or skill references.
-If it defines WHAT or WHERE, it belongs in the template.
-```
+**Impact**: Template becomes pure structure with file-specific maintenance instructions
 
 ---
 
-## Validation Checklist
+### Priority 3: Document the Standard
+
+**Action**: Create `SoT.TEMPLATE_PURITY_STANDARD.md` (COMPLETED)
+
+**Rationale**: Codify the distinction between template self-documentation and methodology teaching
+
+**Impact**: Provides reference for future template creation and maintenance
+
+---
+
+### Priority 4: Update CLAUDE.md with Standard Reference
+
+**Action**: Add reference to template purity standard in CLAUDE.md
+
+**Location**: "Documentation Discipline" section
+
+**Content**:
+```markdown
+### Documentation Discipline
+
+- **IDs**: Reference `BR-`, `UJ-`, `API-` IDs in code comments and commits.
+- **SoT Updates**: Update `SoT/` files _before_ or _during_ code changes.
+- **Template Purity**: Follow `SoT.TEMPLATE_PURITY_STANDARD.md`:
+  - Keep template self-documentation IN templates (just-in-time context)
+  - Move methodology teaching to skill references (skill-loaded context)
+  - Use the litmus test: "File structure or domain knowledge?"
+```
+
+**Rationale**: Ensure agents understand the standard without loading full details
+
+**Impact**: Maintains context efficiency while referencing comprehensive standard
+
+---
+
+## Revised Validation Checklist
 
 After fixes, each template should pass:
 
-- [ ] No "How to" instructions for using the template
-- [ ] No "When to" decision criteria for creating entries
-- [ ] No "What to do next" workflow instructions
-- [ ] No methodology teaching or best practices
-- [ ] Only structural elements (fields, IDs, cross-references)
-- [ ] Examples show FORMAT only, not instructional content
-- [ ] Can be understood by reading field names alone
+### Template Purity (No Contamination)
+- [ ] No methodology teaching (e.g., "Key Learnings", "Best Practices")
+- [ ] No "what makes a good entry" evaluation criteria
+- [ ] No cross-file workflow instructions (e.g., "Update PRD.md when...")
+- [ ] No example prompts/workflows for domain work
+- [ ] Examples show FORMAT only, not instructional CONTENT
+
+### Template Self-Documentation (Correctly Included)
+- [ ] Has "Update Protocol" or "Maintenance Protocol" section
+- [ ] Documents when to add new IDs for this template type
+- [ ] Includes cross-reference integrity checks (bidirectional links)
+- [ ] Specifies required fields for new entries
+- [ ] Self-documentation is file-specific (not generic)
+- [ ] Self-documentation is under 20% of total file size
+
+### Context Efficiency
+- [ ] Template can be understood without loading skill references
+- [ ] Methodology examples are referenced, not embedded
+- [ ] File-specific maintenance instructions are included
+- [ ] General governance is in SoT.README.md, not individual templates
 
 ---
 

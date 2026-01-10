@@ -20,7 +20,7 @@
 
 1. **Navigation Files**: `README` + `PRD` + `CLAUDE` = The map.
 2. **Active Work**: Happens in **EPICs**.
-3. **Specs**: All specs (rules, flows, APIs) live in `specs/` with unique IDs.
+3. **Specs**: All specs (rules, flows, APIs) live in `SoT/` with unique IDs.
    - `BR-XXX`: Business Rules
    - `UJ-XXX`: User Journeys
    - `API-XXX`: Contracts
@@ -106,9 +106,9 @@ npm test # or equivalent
 ## 5. Repository Guide
 
 - **`epics/`**: The living state of work (Issues/Tickets).
-- **`specs/`**: The Source of Truth (Requirements).
+- **`SoT/`**: The Source of Truth (Requirements).
 - **`agents/`**: AI Workforce & Tools.
-- **`templates/`**: (Deprecated). Use `specs/templates/` or copy `epics/EPIC_TEMPLATE.md`.
+- **`templates/`**: (Deprecated). Use `SoT/templates/` or copy `epics/EPIC_TEMPLATE.md`.
 - **`archive/`**: where finished EPICs go to rest.
 
 ---

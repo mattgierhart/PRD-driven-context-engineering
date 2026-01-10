@@ -15,7 +15,7 @@ Our goal is to optimize **Context Density**: providing the AI (and humans) with 
 
 ### 1. Refine the Methodology
 
-- **Templates**: Improve `specs/templates/` or `epics/EPIC_TEMPLATE.md`.
+- **Templates**: Improve `SoT/` templates or `epics/EPIC_TEMPLATE.md`.
 - **Workflows**: Suggest automation hooks or better ways to manage the "Source of Truth".
 - **Documentation**: Clarify the "Rules of the Road" in `README.md`.
 

@@ -29,7 +29,7 @@
 
 ## 2. Context & IDs
 
-> **Rule**: List all referenced IDs from `specs/`.
+> **Rule**: List all referenced IDs from `SoT/`.
 
 - **Business Rules**: `BR-{XXX}`
 - **User Journeys**: `UJ-{XXX}`
@@ -41,12 +41,12 @@
 
 ### Phase A: Plan
 
-- [ ] **Context Loaded**: Read `PRD.md`, `specs/`, and `README.md`.
+- [ ] **Context Loaded**: Read `PRD.md`, `SoT/`, and `README.md`.
 - [ ] **Strategy**: How will we approach this? (e.g., "Build Backend first, then UI").
 
 ### Phase B: Design
 
-- [ ] **Specs Updated**: Create/Update IDs in `specs/` (e.g., `API-XXX`) _drafts_.
+- [ ] **Specs Updated**: Create/Update IDs in `SoT/` (e.g., `API-XXX`) _drafts_.
 - [ ] **Architecture**: Document schema changes or component structure.
 
 ### Phase C: Build (The "Context Window")
@@ -75,8 +75,8 @@
 
 ### Phase E: Finish (Harvest)
 
-- [ ] **Temp Cleanup**: Move any useful notes from `temp/` to `specs/` or `archive/`.
-- [ ] **Spec Finalization**: Ensure all specs in `specs/` match the code.
+- [ ] **Temp Cleanup**: Move any useful notes from `temp/` to `SoT/` or `archive/`.
+- [ ] **Spec Finalization**: Ensure all specs in `SoT/` match the code.
 - [ ] **Session Audit**: Ensure Section 0 is clean.
 
 ---

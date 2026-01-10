@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "python3 .claude/hooks/context-validation.py",
+        "timeout": 10000
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "python3 .claude/hooks/context-density-gate.py",
+        "timeout": 10000
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "python3 .claude/hooks/sot-update-trigger.py",
+        "timeout": 15000
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git reset:*)"
+    ]
+  }
+}

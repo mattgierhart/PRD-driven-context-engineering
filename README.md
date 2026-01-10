@@ -1,8 +1,8 @@
 # Context Engineering: Memory as Infrastructure
 
-> **Purpose**: "Context Engineering" is a macro-philosophy for the next evolution of software development. It posits that as we move from human-only teams to hybrid AI-Human teams, **Memory must become Infrastructure**.
+> **Purpose**: Context Engineering enables product teams to build with AI by turning **shared memory (humans + AI)** into maintained infrastructure, so teams move fast without losing alignment.
 >
-> This repository is one expression of that philosophy: a blueprint for taking SaaS products from **Zero to One** with maximum velocity. But the principles here—treating documentation as a living, automated knowledge graph—apply to any stage of software evolution, from refactoring legacy code to managing mature platforms.
+> This repository is one expression of that system. The same principles apply at any stage because documentation becomes a **Knowledge Graph** that humans and AI can query.
 
 See this philosophy in action at **[GearheartAI.org](https://gearheartai.org)**.
 
@@ -10,23 +10,23 @@ See this philosophy in action at **[GearheartAI.org](https://gearheartai.org)**.
 
 ## The Evolution
 
-To understand where we are going, we must state where we have been.
+Here is the progression.
 
-- **Start-up / Waterfall** was the era of **Static Memory**. We wrote everything down upfront. It gave us certainty, but it killed our ability to react.
-- **Agile** was the era of **Fragmented Memory**. We broke work into sprints to move faster, accepting that truth changes. But we scattered our knowledge across tickets, wikis, and chats. We gained speed but lost the "Big Picture."
-- **Context Engineering** is the era of **Shared Memory**. It acknowledges that **AI is now a team member**, not just a tool. This requires a living system where documentation keeps pace with code, acting as the rigorous interface between Human and AI.
+- **Start-up / Waterfall** relied on **Static Memory**. We wrote everything down upfront. It created certainty, but made change slow and expensive.
+- **Agile** moved faster but created **Fragmented Memory**. We scattered knowledge across tickets, wikis, and chats and lost shared understanding.
+- **Context Engineering** builds **Shared Memory**. It treats **AI as a team member**, not just a tool, and keeps documentation synchronized with code so humans and AI can navigate the same truth.
 
 ---
 
 ## The Cognitive Shift
 
-We are not just changing tools; we are changing how we measure our work.
+We are changing how we measure work, not just tools.
 
 | Traditional Agile      | Context Engineering     | The Shift (Automation & Infrastructure)                                                    |
 | :--------------------- | :---------------------- | :----------------------------------------------------------------------------------------- |
 | **Sprints**            | **Context Windows**     | We don't time-box based on dates; we _scope-box_ based on cognitive capacity.              |
 | **User Stories**       | **Prompts**             | We don't write descriptions; we engineer _prompts_ that deterministically load context.    |
-| **Tribal Knowledge**   | **Source of Truth**     | If it isn't in the Knowledge Graph (`specs/`), it doesn't exist.                           |
+| **Tribal Knowledge**   | **Source of Truth**     | If it isn't in the Knowledge Graph (`SoT/`), it doesn't exist.                           |
 | **Standups**           | **Documentation Hooks** | We don't have status meetings. Event-based hooks auto-update the memory when work happens. |
 | **Project Management** | **Context Governance**  | We don't task-manage people. The system gates execution until context is verified valid.   |
 
@@ -34,56 +34,64 @@ We are not just changing tools; we are changing how we measure our work.
 
 ## The Manifesto
 
-I am building something complex.
+We are building complex products together.
 
-As a human, I have a limit. My "cognitive load" can only hold so much state before I start forgetting edge cases or introducing bugs.
-My AI partner has a limit, too. Its "context window" is vast but finite; freely dumping information into it leads to hallucination and logical drift.
+As humans, we have limits. Our cognitive load can only hold so much state before we start forgetting edge cases or introducing bugs.
+Our AI partners have limits, too. Their context windows are vast but finite; flooding them leads to hallucination and drift.
 
-When we try to collaborate—Human to Human, or Human to AI—these limits compound. We miscommunicate. We overwrite each other's assumptions. The context drifts.
+When we collaborate—human to human or human to AI—these limits compound. We miscommunicate. We overwrite assumptions. Shared memory drifts.
+So we treat team memory as a shared asset across humans and AI, not an individual burden.
 
 ### Memory as Infrastructure
 
-This philosophy is born from two distinct experiences.
+This philosophy comes from two experiences.
 
-**First, Leading Human Teams:**
-Before AI, I led software teams where success always followed a pattern: when we rallied around a single **"Hero Artifact"**—a clear, compelling mission document—alignment was automatic. The team moved as one because the shared memory was cemented in that artifact. Without it, even the best talent drifted into chaos.
+**First: Leading Human Teams**
+Before AI, I led software teams where alignment followed a pattern: rally around a single **Hero Artifact**—a clear mission document—and the team moved as one. Shared memory anchored there; without it, even great talent drifted.
 
-**Second, Partnering with AI:**
-When I began coding with AI, I noticed a similar pattern. Sometimes the AI amazed me with its brilliance; other times, it was disappointingly dense. I realized the variable wasn't the model's intelligence—it was the **Context Density** I provided. When the context was rich and structured, the AI performed like a senior engineer. When it was vague, the AI hallucinated.
+**Second: Partnering with AI**
+When I began coding with AI, I noticed a similar pattern. Sometimes the AI was brilliant; other times it was dense. I realized the variable wasn't the model's intelligence—it was the **Context Density** I provided. When the context was rich and structured, the AI performed at a senior level. When it was vague, it hallucinated.
 
 **Context Engineering is the convergence of these truths.**
 
-In this repository, documentation is not a chore I do at the end. **Documentation is the infrastructure of our shared memory.** It is the digital "Hero Artifact" that keeps both Human and AI aligned.
+Here, documentation is not an afterthought. **Documentation is the infrastructure of our shared memory.** The Hero Artifact anchors both humans and AI.
 
 > **The Golden Rule**: If it isn't part of the memory infrastructure, it isn't true.
 
-When I define a User Journey and give it an ID (`UJ-101`), I am creating a node in our shared **Knowledge Graph**. I am offloading that complexity from my brain into the file system.
-When the AI references `BR-004`, it is not guessing; it is retrieving a specific, immutable memory that I encoded.
+When we define a User Journey and give it an ID (`UJ-101`), we create a node in our shared **Knowledge Graph**. We offload that complexity from individual brains into the file system.
+When the AI references `BR-004`, it is not guessing; it is retrieving a specific, immutable memory that we encoded.
 
-We treat our Specs (`specs/SoT.*.md`) as the **External Brain** of the product.
+**Key Terms**
+- **Hero Artifact**: The single, clear document that anchors a team's shared memory for a product.
+- **Context Density**: How much relevant, structured context we deliver per prompt or handoff.
+- **Knowledge Graph**: The linked network of IDs (`BR-xxx`, `UJ-xxx`, `API-xxx`) across files that makes memory retrievable for humans and AI.
 
-- The **AI** reads the specs to understand constraints without needing infinite context.
-- **I** read the specs to remember what we decided last week.
-- **We** meet in the code, confident that we are building the same thing.
+We treat the `SoT/` files (`SoT.*.md`) as the long-term memory store of the product.
+
+- The **AI** reads the SoT files to understand constraints without needing infinite context.
+- **Humans** read the SoT files to remember what we decided last week.
+- **We** meet in the code, confident we are building the same thing.
 
 ### The Artifacts of Collaboration
 
-This approach changes the "First Person" experience of coding:
+This approach changes how teams work:
 
-1.  **I don't just write code; I design context.** I create the navigation paths (`README`, `PRD`, `CLAUDE.md`) that allow my AI partner to onboard itself in seconds.
-2.  **We don't rely on tribal knowledge.** If it's not in the Source of Truth (`specs/`), it doesn't exist. This ruthlessness frees us. We don't have to remember "that one conversation in Slack." We only have to trust the repo.
-3.  **We build complexity through references.** By linking small, testable units (`IDs`) together, we can build massive systems without ever needing to load the entire blueprint into our working memory at once.
-4.  **We optimize Context Density.** We navigate memory to deliver the perfect balance of information. **Too dense**, and the AI over-analyzes. **Too sparse**, and it drifts. We use the hierarchy to read exactly what is needed—no more, no less.
+1.  **We don't just write code; we design context.** We create the navigation paths (`README`, `PRD`, `CLAUDE.md`) so our AI partners onboard quickly.
+2.  **We don't rely on tribal knowledge.** If it's not in the Source of Truth (`SoT/`), it doesn't exist. This frees us. We don't have to remember "that one conversation in Slack." We trust the repo.
+3.  **We build complexity through references.** By linking small, testable units (`IDs`) together, we can build massive systems without ever needing to load the entire design into our working memory at once.
+4.  **We optimize Context Density.** We select context to deliver the right balance of information. **Too dense**, and the AI over-analyzes. **Too sparse**, and it drifts. We use the hierarchy to read exactly what is needed—no more, no less.
 
-We embrace this structure not because we love bureaucracy, but because we love **flow**. By engineering our context, we transcend our individual limits and build software that is smarter than any one of us.
+This structure preserves alignment and momentum. By engineering context, we build software no single person could hold in their head at once.
 
 ---
 
 ## The Documentation Ecosystem: 3+1+SoT+Temp
 
-To make this memory infrastructure practical, we use a strict hierarchy designed to **manage Context Density**. This structure ensures that neither human cognitive load nor AI context windows are ever overwhelmed.
+To make memory infrastructure practical, we use a strict hierarchy designed to **manage Context Density**. This keeps human cognitive load and AI context windows within limits.
 
 ### 1. The Instincts Layer (L0)
+
+This layer orients attention and sets priorities.
 
 - `README.md`: The Dashboard. The status, TOC, and "instincts" of the project (where am I? what is active?).
 - `PRD.md`: The Strategy. The "Why" and "What" of the product.
@@ -95,13 +103,13 @@ To make this memory infrastructure practical, we use a strict hierarchy designed
 
 ### 3. The Source of Truth (Long-Term Memory)
 
-- `specs/SoT.*.md`: The immutable facts.
+- `SoT/SoT.*.md`: The immutable facts.
 
   - **Business Rules (`BR-xxx`)**: Hard constraints.
   - **User Journeys (`UJ-xxx`)**: Critical paths.
   - **Data Contracts (`API-xxx`)**: Interfaces.
 
-    This is the "External Brain." We duplicate nothing here. We reference everything via **Unique IDs**.
+    This is the shared memory store. We duplicate nothing here. We reference everything via **Unique IDs**.
 
     > **Just-in-Time Context**: Unique IDs allow us to pull _only_ what is needed for an active task. Instead of dumping the entire documentation into the context window, we reference specific IDs (`UJ-101`, `API-002`). This reduces input tokens while maintaining deep, specific understanding.
 
@@ -115,15 +123,15 @@ To make this memory infrastructure practical, we use a strict hierarchy designed
 
 ## The Progressive PRD
 
-The most critical mistake in AI-assisted development is the "One-Shot"—asking the AI to build the entire app at once. This leads to generic code, hallucinations, and rapid context drift.
+A common mistake in AI-assisted development is the "One-Shot"—asking the AI to build the entire app at once. This leads to generic code, hallucinations, and rapid context drift.
 
 Instead, we use a **Progressive PRD**.
 
-The `PRD.md` is not just a document; it is a **Gated Workflow**. We force the AI to focus on one section at a time (e.g., "Strategy", then "User Journeys", then "Data Model").
+`PRD.md` is a **Gated Workflow**, not just a document. We force the AI to focus on one section at a time (e.g., "Strategy", then "User Journeys", then "Data Model").
 
 1.  **Anti-One-Shot**: By constraining the context window to a single phase, we prevent the AI from "guessing" the architecture before it understands the user needs.
 2.  **ID Rigor**: Deep focus allows us to generate meaningful IDs (`UJ-xxx`, `BR-xxx`) without overwhelming the system. These IDs become the anchors for all future code.
-3.  **Desirability**: The result is not just a working product, but a _desirable_ one, built with the thoughtfulness of a handcrafted system and the speed of an automated one.
+3.  **Desirability**: The result is not just a working product, but a _desirable_ one, built with care and speed.
 
 ### The PRD Lifecycle (v0.1 to v1.0)
 
@@ -144,17 +152,17 @@ We do not proceed to the next stage until the **Definition of Done (DoD)** is me
 
 ### The Iterative Ecosystem
 
-While the **PRD Lifecycle** is gated to ensure discipline, the **Documentation Ecosystem** allows for constant flexibility.
+While the **PRD Lifecycle** is gated for discipline, the **Documentation Ecosystem** allows flexibility.
 
-> **The Paradox**: Gates provide focus; The Ecosystem provides agility.
+> **The Paradox**: Gates provide focus; the ecosystem provides agility.
 
-Because our documentation is modular and interlocked via Hooks, we can revisit any section "Just-in-Time." If customer feedback changes the **Strategy** during the **Build** phase, we don't restart the waterfall. We simply:
+Because our documentation is modular and interlocked via hooks, we can revisit any section just-in-time. If customer feedback changes the **Strategy** during the **Build** phase, we don't restart the plan. We simply:
 
 1.  Open a context window for `PRD.md` (Strategy Section).
 2.  Update the `BR-xxx` rules.
 3.  Let the **Automation Hooks** propagate distinct changes to the active `epics/`.
 
-This allows the product to evolve continuously without losing the rigorous structure that keeps the AI on track.
+This allows the product to evolve without losing the structure that keeps humans and AI aligned.
 
 ---
 
@@ -166,7 +174,7 @@ This allows the product to evolve continuously without losing the rigorous struc
 ├── PRD.md                  # The Strategic Source of Truth
 ├── CLAUDE.md               # The Agent's Operating Instructions
 ├── epics/                  # Active Context Windows (Tasks)
-├── specs/                  # The External Brain (SoT.* files)
-├── agents/                 # AI Team Definitions
-└── archive/                # Completed memories
+├── SoT/                     # Shared Memory Store (SoT.* files)
+├── temp/                    # Scratchpad for explorations and audits
+└── .claude/                 # Agent configs and hooks
 ```

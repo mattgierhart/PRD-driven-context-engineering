@@ -58,10 +58,11 @@ skills/
 ├── ghm-gate-check/                        # Methodology
 ├── ghm-id-register/                       # Methodology
 ├── ghm-status-sync/                       # Methodology
-└── ghm-harvest/                           # Methodology
+├── ghm-harvest/                           # Methodology
+└── ghm-sot-builder/                       # Methodology
 ```
 
-**29 skills total** covering the complete PRD lifecycle v0.1→v1.0.
+**30 skills total** covering the complete PRD lifecycle v0.1→v1.0.
 
 ---
 
@@ -78,7 +79,7 @@ skills/
 | **v0.7 Build**     | Epic Scoping, Test Planning, Implementation Loop                 | 3     |
 | **v0.8 Release**   | Release Planning, Runbook Creation, Monitoring Setup             | 3     |
 | **v0.9 Launch**    | GTM Strategy, Launch Metrics, Feedback Loop Setup                | 3     |
-| **Methodology**    | Gate Check, ID Register, Status Sync, Harvest                    | 4     |
+| **Methodology**    | Gate Check, ID Register, Status Sync, Harvest, SoT Builder       | 5     |
 
 See [`skills-inventory.md`](skills-inventory.md) for full specifications.
 

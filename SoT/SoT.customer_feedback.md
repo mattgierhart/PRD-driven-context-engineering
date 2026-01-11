@@ -47,13 +47,6 @@ updated: "2025-11-15"
 
 **Pain Level**: Medium – Process gaps slow delivery and create avoidable churn, but do not block shipping entirely.
 
-### Key Learnings for GHM
-
-1. **Specification Discipline** — Reinforce that prompt quality is proportional to the clarity of SoT-backed requirements. Builders need quick reminders to translate user needs into explicit acceptance criteria before delegating to AI.  
-2. **Real-User Loops** — Encourage immediate testing with actual users (even one) to prevent overbuilding. Feedback loops should be visible in EPIC checklists.  
-3. **Mobile-First Verification** — Promote early validation on real devices, not just responsive previews, to avoid late-stage layout fixes.  
-4. **Distribution Visibility** — Highlight that launch tasks (audience building, pricing experiments) must appear in planning artifacts so builders do not stop at “code complete.”
-
 ### Related IDs
 
 - Referenced in PRD: Pending — incorporate into next PRD revision where mobile coverage or GTM strategy is defined.  
@@ -65,18 +58,5 @@ updated: "2025-11-15"
 **Decision Date**: 2025-11-15  
 **Decision Maker**: Repository maintainers  
 **Rationale**: Aligns with mission to make AI collaboration predictable; low implementation cost; high leverage across contributors.
-
-### Implementation Notes
-
-- Update CLAUDE.md execution rules to stress SoT-grounded prompts and early mobile testing.
-- Add distribution reminders to planning workflows when next revised.
-- Monitor future field reports to see if additional SoT entries (e.g., BR, UJ) should codify these behaviors.
-
-### Linked Instruction Updates
-
-- `../PRD.md` — reflect mobile validation and distribution readiness in v0.4–v0.6 gates.
-- `../epics/EPIC_TEMPLATE.md` — add real-user loop and mobile-first validation reminders in execution checklists.
-- `SoT.USER_JOURNEYS.md` — capture mobile-specific validation steps in affected journeys.
-- `SoT.testing_playbook.md` — add device validation tests tied to UJ-XXX entries.
 
 ---

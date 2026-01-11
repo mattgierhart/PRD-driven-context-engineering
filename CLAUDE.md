@@ -1,6 +1,6 @@
 ---
 title: "CLAUDE Agent Operating Guide"
-updated: "2025-12-22"
+updated: "2026-01-10"
 authority: "Gear Heart Methodology"
 ---
 
@@ -36,6 +36,10 @@ authority: "Gear Heart Methodology"
 
 - **IDs**: Reference `BR-`, `UJ-`, `API-` IDs in code comments and commits.
 - **SoT Updates**: Update `SoT/` (Source of Truth) files _before_ or _during_ code changes, never "later". Source of truth files always begin with `SoT.*.md`.
+- **Template Purity**: Follow `SoT.TEMPLATE_PURITY_STANDARD.md`:
+  - Keep template self-documentation IN templates (just-in-time context)
+  - Move methodology teaching to skill references (skill-loaded context)
+  - Use the litmus test: "File structure or domain knowledge?"
 - **Temp Files**: Use `temp/` for scratchpad, but harvest to SoT before closing the EPIC.
 
 ### Progressive Documentation Protocol
@@ -79,6 +83,7 @@ export class RateLimiter { ... }
 
 - **Lifecycle Guide**: See [`README.md`](README.md).
 - **ID System**: [`SoT/SoT.UNIQUE_ID_SYSTEM.md`](SoT/SoT.UNIQUE_ID_SYSTEM.md)
+- **Template Purity**: [`SoT/SoT.TEMPLATE_PURITY_STANDARD.md`](SoT/SoT.TEMPLATE_PURITY_STANDARD.md)
 - **Templates**: [`SoT/`](SoT/) or [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md)
 - **Active Context**: [`epics/`](epics/)
 

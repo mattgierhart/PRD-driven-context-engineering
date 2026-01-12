@@ -388,4 +388,4 @@
 
 ---
 
-*Template: Use this to create DEP-XXX entries in `SoT.deployment_playbook.md`*
+*Template: Use this to create DEP-XXX entries in `SoT.DEPLOYMENT.md`*

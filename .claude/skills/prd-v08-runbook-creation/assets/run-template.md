@@ -422,4 +422,4 @@ After incident resolved:
 
 ---
 
-*Template: Use this to create RUN-XXX entries in `SoT.deployment_playbook.md` or separate runbook repository.*
+*Template: Use this to create RUN-XXX entries in `SoT.DEPLOYMENT.md` or separate runbook repository.*

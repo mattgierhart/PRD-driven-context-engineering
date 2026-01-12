@@ -557,7 +557,7 @@ Refresh: 1 minute
 
 Links:
 - Service Dashboards: /dashboards/services
-- SLO Definitions: SoT.deployment_playbook.md (MON-XXX entries)
+- SLO Definitions: SoT.DEPLOYMENT.md (MON-XXX entries)
 - Incident Postmortems: /docs/postmortems/
 ```
 

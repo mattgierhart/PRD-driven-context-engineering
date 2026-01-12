@@ -1,7 +1,7 @@
 # Design Tool Prompt Examples
 
 > **Purpose**: Example prompts and workflow patterns for design tools (UX Pilot, Lovable, Figma)
-> **Source**: Extracted from SoT.DESIGN_BRIEF.md during Phase 1 template purity cleanup (2026-01-10)
+> **Source**: Extracted during Phase 1 template purity cleanup (2026-01-10). Design components now live in SoT.DESIGN_COMPONENTS.md.
 > **Use When**: Creating screen flows and design specifications during PRD v0.4
 
 ---
@@ -343,9 +343,9 @@ interface Task {
 
 ## Usage Guide
 
-### When Creating Design Brief (SoT.DESIGN_BRIEF.md)
+### When Creating Design Components (SoT.DESIGN_COMPONENTS.md)
 
-1. **Don't** embed these prompts in the template
+1. **Don't** embed these prompts in the design components file
 2. **Do** reference this file: "See `.claude/skills/prd-v04-screen-flow-definition/references/design-tool-examples.md` for tool usage patterns"
 3. **Do** customize prompts based on product-specific design system and constraints
 4. **Do** link to UJ-XXX, FEA-XXX, API-XXX IDs for context

@@ -35,9 +35,9 @@ WERK owns technical execution from architecture through deployment, translating 
 | Output              | Format           | Destination                    |
 | ------------------- | ---------------- | ------------------------------ |
 | API contracts       | API-XXX entries  | SoT/SoT.API_CONTRACTS.md       |
-| Schema definitions  | DBT-XXX entries  | SoT/SoT.ACTUAL_SCHEMA.md       |
-| Test specifications | TEST-XXX entries | SoT/SoT.testing_playbook.md    |
-| Deployment config   | DEP-XXX entries  | SoT/SoT.deployment_playbook.md |
+| Schema definitions  | DBT-XXX entries  | SoT/SoT.DATA_MODEL.md          |
+| Test specifications | TEST-XXX entries | SoT/SoT.TESTING.md             |
+| Deployment config   | DEP-XXX entries  | SoT/SoT.DEPLOYMENT.md          |
 | Implementation work | EPIC files       | epics/                         |
 
 ## Handoff Contracts

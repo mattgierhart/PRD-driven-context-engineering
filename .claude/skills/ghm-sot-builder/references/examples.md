@@ -132,8 +132,8 @@ When adding a new PIC-XXX:
 
 An enterprise product needs to track database migration procedures with rollback plans and dependencies. This doesn't fit existing SoT files:
 
-- `SoT.ACTUAL_SCHEMA.md` — Tracks schema state, not migration procedures
-- `SoT.deployment_playbook.md` — General deployment, not schema-specific
+- `SoT.DATA_MODEL.md` — Tracks schema state, not migration procedures
+- `SoT.DEPLOYMENT.md` — General deployment, not schema-specific
 
 ### Decision Process
 
@@ -249,7 +249,7 @@ CREATE TABLE user_preferences...
 **Status**: Pending
 **Created**: 2025-01-10
 **Dependencies**: None (first migration)
-**Affects Tables**: [DBT-015](SoT.ACTUAL_SCHEMA.md#dbt-015)
+**Affects Tables**: [DBT-015](SoT.DATA_MODEL.md#dbt-015)
 
 ### Migration Script
 

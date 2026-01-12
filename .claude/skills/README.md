@@ -165,4 +165,4 @@ Skills can:
 
 1. Check [`skills-inventory.md`](skills-inventory.md) for pending skills
 2. Follow the skill structure above
-3. See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines
+3. Copy `SKILL_TEMPLATE/` and customize for your PRD stage

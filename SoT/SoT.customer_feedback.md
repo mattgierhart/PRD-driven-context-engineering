@@ -66,7 +66,7 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOUR
 
 - [UJ-XXX](SoT.USER_JOURNEYS.md#uj-xxx) - {Affected journey}
 - [BR-XXX](SoT.BUSINESS_RULES.md#br-xxx) - {Related rule}
-- [FEA-XXX in PRD](PRD.md) - {Feature addressing this}
+- [FEA-XXX in PRD](../PRD.md) - {Feature addressing this}
 
 ### Product Decision
 

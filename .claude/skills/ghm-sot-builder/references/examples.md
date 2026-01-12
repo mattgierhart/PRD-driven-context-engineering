@@ -89,11 +89,11 @@ authority: This SoT defines all external service dependencies
 ### Integration Points
 
 **Our APIs that use this partner**:
-- [API-045](SoT.API_CONTRACTS.md#api-045) - POST /payments/charge
-- [API-046](SoT.API_CONTRACTS.md#api-046) - POST /subscriptions/create
+- [API-045](../../../../SoT/SoT.API_CONTRACTS.md#api-045) - POST /payments/charge
+- [API-046](../../../../SoT/SoT.API_CONTRACTS.md#api-046) - POST /subscriptions/create
 
 **Business Rules affected**:
-- [BR-101](SoT.BUSINESS_RULES.md#br-101) - Payment retry policy
+- [BR-101](../../../../SoT/SoT.BUSINESS_RULES.md#br-101) - Payment retry policy
 
 ### Fallback Provider
 
@@ -249,7 +249,7 @@ CREATE TABLE user_preferences...
 **Status**: Pending
 **Created**: 2025-01-10
 **Dependencies**: None (first migration)
-**Affects Tables**: [DBT-015](SoT.DATA_MODEL.md#dbt-015)
+**Affects Tables**: [DBT-015](../../../../SoT/SoT.DATA_MODEL.md#dbt-015)
 
 ### Migration Script
 

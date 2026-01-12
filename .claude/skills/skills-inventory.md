@@ -32,6 +32,7 @@
 | **v0.9 Launch** | [GTM Strategy](#skill-gtm-strategy) | ✅ Ready | [`prd-v09-gtm-strategy/`](prd-v09-gtm-strategy/) |
 | **v0.9 Launch** | [Launch Metrics](#skill-launch-metrics) | ✅ Ready | [`prd-v09-launch-metrics/`](prd-v09-launch-metrics/) |
 | **v0.9 Launch** | [Feedback Loop Setup](#skill-feedback-loop-setup) | ✅ Ready | [`prd-v09-feedback-loop-setup/`](prd-v09-feedback-loop-setup/) |
+| **Methodology** | [SoT Builder](#skill-sot-builder) | ✅ Ready | [`ghm-sot-builder/`](ghm-sot-builder/) |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 
@@ -1943,6 +1944,78 @@ Resolution: Outcome, Date, Follow-up
 | v0.9 | GTM Strategy | GTM- (go-to-market items) |
 | v0.9 | Launch Metrics | KPI- (launch metrics) |
 | v0.9 | Feedback Loop Setup | CFD- (post-launch feedback) |
+
+---
+
+### SKILL: SoT Builder
+
+```yaml
+name: ghm-sot-builder
+stage: Methodology
+status: ready
+folder: ghm-sot-builder/
+triggers: "create SoT", "new source of truth", "I need to track [X] but there's no SoT for it", "create new SoT file", "add artifact type"
+id_outputs: []  # Creates new SoT files, not IDs
+```
+
+**Purpose:** Create new Source of Truth files when existing templates don't fit your product's unique needs.
+
+**Position in workflow:** Used ad-hoc when forking the repo or when a new artifact type emerges (rare: 3-4 times per product lifecycle).
+
+**When to Use:**
+- Forking repo and existing SoT files don't cover your artifact types
+- Product needs to track a concept that doesn't fit existing ID prefixes
+- Need to consolidate scattered documentation into a canonical SoT
+
+**When NOT to Use:**
+- An existing SoT file covers your need (just add entries there)
+- You want to track temporary/session-specific data (use `temp/` instead)
+- The artifact type is already covered by `ghm-id-register`
+
+**Execution:**
+1. Confirm no existing SoT fits the need
+2. Design schema (ID prefix, categories, required fields)
+3. Draft template using `assets/sot-template.md`
+4. Validate template purity (no methodology teaching)
+5. Register in SoT.README.md and SoT.UNIQUE_ID_SYSTEM.md
+
+**Core Output:**
+A new `SoT/SoT.{NAME}.md` file with:
+- YAML frontmatter (version, purpose, id_prefix, authority)
+- Purpose block
+- Navigation by category
+- Entry template structure
+- Cross-reference index
+- Update protocol
+
+**Template Purity Litmus Test:**
+> "Is this teaching me how to maintain the FILE STRUCTURE, or teaching me DOMAIN KNOWLEDGE about what makes good content?"
+- File structure maintenance → Keep in template
+- Domain knowledge → Move to skill references
+
+**Quality Gates:**
+- [ ] ID prefix is unique across all SoT files
+- [ ] Template follows purity standard (no methodology teaching)
+- [ ] Update protocol included
+- [ ] Cross-reference index structure defined
+- [ ] SoT.README.md updated
+- [ ] SoT.UNIQUE_ID_SYSTEM.md updated
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Methodology in template | "Best practices for X" | Move to skill references |
+| Duplicate prefix | Using BR- for a new file | Choose unique prefix |
+| Too generic | "Notes.md" | Be specific: "Partner_Integrations.md" |
+| No update protocol | Template without maintenance section | Add "Update Protocol" section |
+| Orphan SoT | Not registered in SoT.README.md | Always register new files |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **ghm-id-register** | New SoT file for adding entries | Use new PIC- prefix |
+| **All PRD skills** | New IDs available for cross-referencing | FEA-001 → PIC-001 |
+| **SoT.UNIQUE_ID_SYSTEM.md** | New prefix in registry | PIC- added to prefixes |
 
 ---
 

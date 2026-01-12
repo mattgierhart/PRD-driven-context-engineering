@@ -1,6 +1,6 @@
 ---
 version: 2.0
-purpose: Progressive Product Requirements Document aligned to the Gear Heart Methodology lifecycle.
+purpose: Progressive Product Requirements Document aligned to the PRD Led Context Engineering lifecycle.
 last_updated: 2025-12-22
 ---
 
@@ -46,7 +46,7 @@ last_updated: 2025-12-22
 | v0.5 Red Team Review   | YYYY-MM-DD | {Owner} | Risks + mitigations                  | BR-###, TEST-###    |
 | v0.6 Architecture      | YYYY-MM-DD | {Owner} | Stack, schema, contracts baseline    | API-###, DBT-###    |
 | v0.7 Build Execution   | YYYY-MM-DD | {Owner} | EPIC backlog & QA strategy           | EPIC-{XX}, TEST-### |
-| v0.8 Deployment & Ops  | YYYY-MM-DD | {Owner} | Release criteria + ops playbook      | DEP-###             |
+| v0.8 Release & Deployment | YYYY-MM-DD | {Owner} | Release criteria + ops playbook   | DEP-###             |
 | v0.9 Go-to-Market      | YYYY-MM-DD | {Owner} | GTM, analytics, feedback loop        | GTM-### / CFD-###   |
 | v1.0 Market Adoption   | YYYY-MM-DD | {Owner} | Paying customers + optimization plan | BR-###, KPI-###     |
 
@@ -57,7 +57,7 @@ last_updated: 2025-12-22
 ## v0.1 Spark — Problem & Outcomes
 
 **Spark Summary**  
-{One paragraph describing the spark, audience, and outcomes.}
+{Short paragraph describing the spark, audience, and outcomes. Elevator pitch style.}
 
 **Problem Statement**
 
@@ -239,7 +239,7 @@ last_updated: 2025-12-22
 
 ---
 
-## v0.8 Deployment & Ops — Release Readiness
+## v0.8 Release & Deployment — Operational Readiness
 
 **Release Checklist**
 

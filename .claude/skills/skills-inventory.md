@@ -10,25 +10,25 @@
 |-------|-------|--------|--------|
 | **v0.1 Spark** | [Problem Framing](#skill-problem-framing) | ✅ Ready | [`prd-v01-problem-framing/`](prd-v01-problem-framing/) |
 | **v0.1 Spark** | [User Value Articulation](#skill-user-value-articulation) | ✅ Ready | [`prd-v01-user-value-articulation/`](prd-v01-user-value-articulation/) |
-| **v0.2 Market** | [Competitive Landscape Mapping](#skill-competitive-landscape-mapping) | ✅ Ready | [`prd-v02-competitive-landscape-mapping/`](prd-v02-competitive-landscape-mapping/) |
-| **v0.2 Market** | [Product Type Classification](#skill-product-type-classification) | ✅ Ready | [`prd-v02-product-type-classification/`](prd-v02-product-type-classification/) |
-| **v0.3 Commercial** | [Outcome Definition](#skill-outcome-definition) | ✅ Ready | [`prd-v03-outcome-definition/`](prd-v03-outcome-definition/) |
-| **v0.3 Commercial** | [Pricing Model Selection](#skill-pricing-model-selection) | ✅ Ready | [`prd-v03-pricing-model/`](prd-v03-pricing-model/) |
-| **v0.3 Commercial** | [Moat Definition](#skill-moat-definition) | ✅ Ready | [`prd-v03-moat-definition/`](prd-v03-moat-definition/) |
-| **v0.3 Commercial** | [Feature Value Planning](#skill-feature-value-planning) | ✅ Ready | [`prd-v03-features-value-planning/`](prd-v03-features-value-planning/) |
-| **v0.4 Journeys** | [Persona Definition](#skill-persona-definition) | ✅ Ready | [`prd-v04-persona-definition/`](prd-v04-persona-definition/) |
-| **v0.4 Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | ✅ Ready | [`prd-v04-user-journey-mapping/`](prd-v04-user-journey-mapping/) |
-| **v0.4 Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | ✅ Ready | [`prd-v04-screen-flow-definition/`](prd-v04-screen-flow-definition/) |
-| **v0.5 Review** | [Risk Discovery Interview](#skill-risk-discovery-interview) | ✅ Ready | [`prd-v05-risk-discovery-interview/`](prd-v05-risk-discovery-interview/) |
-| **v0.5 Review** | [Technical Stack Selection](#skill-technical-stack-selection) | ✅ Ready | [`prd-v05-technical-stack-selection/`](prd-v05-technical-stack-selection/) |
+| **v0.2 Market Definition** | [Competitive Landscape Mapping](#skill-competitive-landscape-mapping) | ✅ Ready | [`prd-v02-competitive-landscape-mapping/`](prd-v02-competitive-landscape-mapping/) |
+| **v0.2 Market Definition** | [Product Type Classification](#skill-product-type-classification) | ✅ Ready | [`prd-v02-product-type-classification/`](prd-v02-product-type-classification/) |
+| **v0.3 Commercial Model** | [Outcome Definition](#skill-outcome-definition) | ✅ Ready | [`prd-v03-outcome-definition/`](prd-v03-outcome-definition/) |
+| **v0.3 Commercial Model** | [Pricing Model Selection](#skill-pricing-model-selection) | ✅ Ready | [`prd-v03-pricing-model/`](prd-v03-pricing-model/) |
+| **v0.3 Commercial Model** | [Moat Definition](#skill-moat-definition) | ✅ Ready | [`prd-v03-moat-definition/`](prd-v03-moat-definition/) |
+| **v0.3 Commercial Model** | [Feature Value Planning](#skill-feature-value-planning) | ✅ Ready | [`prd-v03-features-value-planning/`](prd-v03-features-value-planning/) |
+| **v0.4 User Journeys** | [Persona Definition](#skill-persona-definition) | ✅ Ready | [`prd-v04-persona-definition/`](prd-v04-persona-definition/) |
+| **v0.4 User Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | ✅ Ready | [`prd-v04-user-journey-mapping/`](prd-v04-user-journey-mapping/) |
+| **v0.4 User Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | ✅ Ready | [`prd-v04-screen-flow-definition/`](prd-v04-screen-flow-definition/) |
+| **v0.5 Red Team Review** | [Risk Discovery Interview](#skill-risk-discovery-interview) | ✅ Ready | [`prd-v05-risk-discovery-interview/`](prd-v05-risk-discovery-interview/) |
+| **v0.5 Red Team Review** | [Technical Stack Selection](#skill-technical-stack-selection) | ✅ Ready | [`prd-v05-technical-stack-selection/`](prd-v05-technical-stack-selection/) |
 | **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | ✅ Ready | [`prd-v06-architecture-design/`](prd-v06-architecture-design/) |
 | **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | ✅ Ready | [`prd-v06-technical-specification/`](prd-v06-technical-specification/) |
-| **v0.7 Build** | [Epic Scoping](#skill-epic-scoping) | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
-| **v0.7 Build** | [Test Planning](#skill-test-planning) | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
-| **v0.7 Build** | [Implementation Loop](#skill-implementation-loop) | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
-| **v0.8 Release** | [Release Planning](#skill-release-planning) | ✅ Ready | [`prd-v08-release-planning/`](prd-v08-release-planning/) |
-| **v0.8 Release** | [Runbook Creation](#skill-runbook-creation) | ✅ Ready | [`prd-v08-runbook-creation/`](prd-v08-runbook-creation/) |
-| **v0.8 Release** | [Monitoring Setup](#skill-monitoring-setup) | ✅ Ready | [`prd-v08-monitoring-setup/`](prd-v08-monitoring-setup/) |
+| **v0.7 Build Execution** | [Epic Scoping](#skill-epic-scoping) | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
+| **v0.7 Build Execution** | [Test Planning](#skill-test-planning) | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
+| **v0.7 Build Execution** | [Implementation Loop](#skill-implementation-loop) | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
+| **v0.8 Release & Deployment** | [Release Planning](#skill-release-planning) | ✅ Ready | [`prd-v08-release-planning/`](prd-v08-release-planning/) |
+| **v0.8 Release & Deployment** | [Runbook Creation](#skill-runbook-creation) | ✅ Ready | [`prd-v08-runbook-creation/`](prd-v08-runbook-creation/) |
+| **v0.8 Release & Deployment** | [Monitoring Setup](#skill-monitoring-setup) | ✅ Ready | [`prd-v08-monitoring-setup/`](prd-v08-monitoring-setup/) |
 | **v0.9 Launch** | [GTM Strategy](#skill-gtm-strategy) | ✅ Ready | [`prd-v09-gtm-strategy/`](prd-v09-gtm-strategy/) |
 | **v0.9 Launch** | [Launch Metrics](#skill-launch-metrics) | ✅ Ready | [`prd-v09-launch-metrics/`](prd-v09-launch-metrics/) |
 | **v0.9 Launch** | [Feedback Loop Setup](#skill-feedback-loop-setup) | ✅ Ready | [`prd-v09-feedback-loop-setup/`](prd-v09-feedback-loop-setup/) |
@@ -83,7 +83,7 @@
 | User Journey Mapping | PER- (personas), FEA- (features), KPI- (outcomes) | User missions with step flows | UJ- |
 | Screen Flow Definition | UJ- (journeys), FEA- (features), BR- (constraints) | Screen inventory with navigation | SCR-, DES- |
 
-### v0.5 Red Team Review — Risks & Stack Selection
+### v0.5 Red Team Review — Risks & Technical Stack
 
 **Purpose:** Surface risks through guided interview and select technical stack for implementation.
 **Gate:** Risks documented with mitigations, technical stack decisions made (build/buy/integrate), research items identified.
@@ -103,7 +103,7 @@
 | Architecture Design | TECH- (stack), RISK- (constraints), FEA- (features) | System architecture with component relationships | ARC- |
 | Technical Specification | ARC- (architecture), TECH- (Build items), UJ- (flows), SCR- (screens) | API contracts and data models | API-, DBT- |
 
-### v0.7 Build Execution — Implementation Loop
+### v0.7 Build Execution — Implementation
 
 **Purpose:** Execute implementation in focused "context windows" (EPICs) with test-first discipline and continuous SoT updates.
 **Gate:** Code tested (TEST-), SoT matches code, all EPICs complete, ready for deployment.
@@ -114,7 +114,7 @@
 | Test Planning | API-, DBT-, BR-, UJ- | Test cases before implementation | TEST- |
 | Implementation Loop | EPIC-, TEST- | Working code with traceability | (updates existing IDs) |
 
-### v0.8 Deployment & Ops — Release Readiness
+### v0.8 Release & Deployment — Operational Readiness
 
 **Purpose:** Prepare for production deployment with release criteria, operational runbooks, and monitoring infrastructure.
 **Gate:** Runbooks documented (RUN-), monitoring configured (MON-), rollback plan validated (DEP-).

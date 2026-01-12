@@ -6,7 +6,7 @@ updated: "2025-11-15"
 
 # Customer Feedback (SoT File)
 
-> **Purpose**: Capture durable insights from teams applying Gear Heart Methodology in the field.
+> **Purpose**: Capture durable insights from teams applying PRD Led Context Engineering in the field.
 > **ID Prefix**: CFD-XXX
 > **Status**: Active SoT file
 > **Cross-References**: PRD.md, README.md, CLAUDE.md, EPIC files

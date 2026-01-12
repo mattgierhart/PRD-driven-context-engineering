@@ -1,7 +1,7 @@
 ---
 title: "Unique ID System"
-updated: "2025-12-22"
-authority: "Gear Heart Methodology"
+updated: "2026-01-12"
+authority: "PRD Led Context Engineering"
 ---
 
 # Unique ID System
@@ -26,20 +26,56 @@ This file serves as both the **governance guide** for the ID system and the **ce
 
 ### 1.2 Standard Prefixes
 
-| Prefix   | Meaning           | Spec File (SoT/)             |
-| -------- | ----------------- | ---------------------------- |
-| **BR**   | Business Rule     | `SoT.BUSINESS_RULES.md`      |
-| **UJ**   | User Journey      | `SoT.USER_JOURNEYS.md`       |
-| **API**  | API Contract      | `SoT.API_CONTRACTS.md`       |
-| **DBT**  | Data Schema       | `SoT.ACTUAL_SCHEMA.md`       |
-| **CFD**  | Customer Feedback | `SoT.customer_feedback.md`   |
-| **DES**  | Design Component  | `SoT.DESIGN_BRIEF.md`        |
-| **TEST** | Test Case         | `SoT.testing_playbook.md`    |
-| **DEP**  | Deployment Step   | `SoT.deployment_playbook.md` |
-| **GTM**  | Go-to-Market      | `SoT.deployment_playbook.md` |
-| **RUN**  | Runbook           | `SoT.deployment_playbook.md` |
-| **MON**  | Monitoring        | `SoT.deployment_playbook.md` |
-| **KPI**  | Key Metric        | `README.md`                  |
+#### Research & Discovery (v0.1–v0.3)
+
+| Prefix   | Meaning           | Spec File (SoT/)             | PRD Stage        |
+| -------- | ----------------- | ---------------------------- | ---------------- |
+| **CFD**  | Customer Feedback | `SoT.customer_feedback.md`   | v0.1 Spark       |
+| **KPI**  | Key Metric        | `README.md`                  | v0.3 Commercial  |
+| **FEA**  | Feature Value     | `SoT.FEATURES.md`            | v0.3 Commercial  |
+
+#### User Experience (v0.4)
+
+| Prefix   | Meaning           | Spec File (SoT/)             | PRD Stage          |
+| -------- | ----------------- | ---------------------------- | ------------------ |
+| **PER**  | Persona           | `SoT.PERSONAS.md`            | v0.4 User Journeys |
+| **UJ**   | User Journey      | `SoT.USER_JOURNEYS.md`       | v0.4 User Journeys |
+| **SCR**  | Screen Flow       | `SoT.SCREENS.md`             | v0.4 User Journeys |
+| **DES**  | Design Component  | `SoT.DESIGN_BRIEF.md`        | v0.4 User Journeys |
+
+#### Technical Planning (v0.5–v0.6)
+
+| Prefix   | Meaning           | Spec File (SoT/)             | PRD Stage        |
+| -------- | ----------------- | ---------------------------- | ---------------- |
+| **RISK** | Risk Register     | `SoT.RISKS.md`               | v0.5 Red Team    |
+| **TECH** | Tech Stack        | `SoT.TECHNICAL_DECISIONS.md` | v0.5 Red Team    |
+| **ARC**  | Architecture      | `SoT.TECHNICAL_DECISIONS.md` | v0.6 Architecture|
+| **API**  | API Contract      | `SoT.API_CONTRACTS.md`       | v0.6 Architecture|
+| **DBT**  | Data Schema       | `SoT.ACTUAL_SCHEMA.md`       | v0.6 Architecture|
+| **BR**   | Business Rule     | `SoT.BUSINESS_RULES.md`      | v0.6 Architecture|
+
+#### Implementation (v0.7)
+
+| Prefix   | Meaning           | Spec File (SoT/)             | PRD Stage        |
+| -------- | ----------------- | ---------------------------- | ---------------- |
+| **EPIC** | Work Package      | `epics/`                     | v0.7 Build       |
+| **TEST** | Test Case         | `SoT.testing_playbook.md`    | v0.7 Build       |
+
+#### Release & Operations (v0.8–v0.9)
+
+| Prefix   | Meaning           | Spec File (SoT/)             | PRD Stage        |
+| -------- | ----------------- | ---------------------------- | ---------------- |
+| **DEP**  | Deployment Step   | `SoT.deployment_playbook.md` | v0.8 Release     |
+| **MON**  | Monitoring        | `SoT.deployment_playbook.md` | v0.8 Release     |
+| **RUN**  | Runbook           | `SoT.deployment_playbook.md` | v0.8 Release     |
+| **GTM**  | Go-to-Market      | `SoT.deployment_playbook.md` | v0.9 Launch      |
+
+#### Compound/Governance IDs
+
+| Pattern    | Meaning                 | Example                        |
+| ---------- | ----------------------- | ------------------------------ |
+| **BR-FEA** | Feature governance rule | `BR-FEA-001` (ties BR to FEA)  |
+| **BR-API** | API validation rule     | `BR-API-045` (ties BR to API)  |
 
 ### 1.3 How to Assign IDs
 
@@ -93,16 +129,27 @@ CFD-089 (Request: Dark Mode)
 
 ### 2.1 Quick Stats
 
-| ID Type  | Count   | SoT File                   | Status     |
-| -------- | ------- | -------------------------- | ---------- |
-| UJ-XXX   | {count} | SoT.USER_JOURNEYS.md       | ✅ Active  |
-| BR-XXX   | {count} | SoT.BUSINESS_RULES.md      | ✅ Active  |
-| API-XXX  | {count} | SoT.API_CONTRACTS.md       | ✅ Active  |
-| DBT-XXX  | {count} | SoT.ACTUAL_SCHEMA.md       | ✅ Active  |
-| CFD-XXX  | {count} | SoT.customer_feedback.md   | ✅ Active  |
-| DES-XXX  | {count} | SoT.DESIGN_BRIEF.md        | ✅ Active  |
-| TEST-XXX | {count} | SoT.testing_playbook.md    | ✅ Active  |
-| DEP-XXX  | {count} | SoT.deployment_playbook.md | ✅ Active  |
+| ID Type   | Count   | SoT File                     | PRD Stage          | Status    |
+| --------- | ------- | ---------------------------- | ------------------ | --------- |
+| CFD-XXX   | {count} | SoT.customer_feedback.md     | v0.1 Spark         | ✅ Active |
+| KPI-XXX   | {count} | README.md                    | v0.3 Commercial    | ✅ Active |
+| FEA-XXX   | {count} | SoT.FEATURES.md              | v0.3 Commercial    | ✅ Active |
+| PER-XXX   | {count} | SoT.PERSONAS.md              | v0.4 User Journeys | ✅ Active |
+| UJ-XXX    | {count} | SoT.USER_JOURNEYS.md         | v0.4 User Journeys | ✅ Active |
+| SCR-XXX   | {count} | SoT.SCREENS.md               | v0.4 User Journeys | ✅ Active |
+| DES-XXX   | {count} | SoT.DESIGN_BRIEF.md          | v0.4 User Journeys | ✅ Active |
+| RISK-XXX  | {count} | SoT.RISKS.md                 | v0.5 Red Team      | ✅ Active |
+| TECH-XXX  | {count} | SoT.TECHNICAL_DECISIONS.md   | v0.5 Red Team      | ✅ Active |
+| ARC-XXX   | {count} | SoT.TECHNICAL_DECISIONS.md   | v0.6 Architecture  | ✅ Active |
+| BR-XXX    | {count} | SoT.BUSINESS_RULES.md        | v0.6 Architecture  | ✅ Active |
+| API-XXX   | {count} | SoT.API_CONTRACTS.md         | v0.6 Architecture  | ✅ Active |
+| DBT-XXX   | {count} | SoT.ACTUAL_SCHEMA.md         | v0.6 Architecture  | ✅ Active |
+| EPIC-XXX  | {count} | epics/                       | v0.7 Build         | ✅ Active |
+| TEST-XXX  | {count} | SoT.testing_playbook.md      | v0.7 Build         | ✅ Active |
+| DEP-XXX   | {count} | SoT.deployment_playbook.md   | v0.8 Release       | ✅ Active |
+| MON-XXX   | {count} | SoT.deployment_playbook.md   | v0.8 Release       | ✅ Active |
+| RUN-XXX   | {count} | SoT.deployment_playbook.md   | v0.8 Release       | ✅ Active |
+| GTM-XXX   | {count} | SoT.deployment_playbook.md   | v0.9 Launch        | ✅ Active |
 
 **Last Sync**: {timestamp}
 **Total IDs**: {total_count}
@@ -171,6 +218,7 @@ When forking this repo, validate:
 
 ## Change Log
 
-| Date       | Change                                              |
-| ---------- | --------------------------------------------------- |
-| 2025-12-22 | Combined UNIQUE_ID_SYSTEM and ID_REGISTRY into one  |
+| Date       | Change                                             |
+| ---------- | -------------------------------------------------- |
+| 2026-01-12 | Added 8 missing ID prefixes. Organized by PRD stage|
+| 2025-12-22 | Combined UNIQUE_ID_SYSTEM and ID_REGISTRY into one |

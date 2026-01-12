@@ -1,7 +1,7 @@
 ---
 title: "CLAUDE Agent Operating Guide"
 updated: "2026-01-10"
-authority: "Gear Heart Methodology"
+authority: "PRD Led Context Engineering"
 ---
 
 # CLAUDE.md — Agent Operating Guide

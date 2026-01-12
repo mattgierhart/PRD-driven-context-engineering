@@ -104,7 +104,7 @@ This structure preserves alignment and momentum. By engineering context, we buil
 
 To make memory infrastructure practical, we use an **intentional architecture** designed to **manage Context Density**. This keeps human cognitive load and AI context windows within limits.
 
-### 1. Executive Functions: Building AI's instincts (L0)
+### 1. Executive Functions: Building AI's instincts
 
 This layer orients attention and sets priorities.
 
@@ -112,7 +112,7 @@ This layer orients attention and sets priorities.
 - `PRD.md`: The Strategy. The "Why" and "What" of the product.
 - `CLAUDE.md`: The Physics. The rules of how the AI must behave.
 
-### 2. Focus Memory: The Execution Layer (Active Memory)
+### 2. Focus Memory: The Execution Layer
 
 - `epics/`: The work in progress. This is the only "variable" state. An Epic frames a specific problem (Context Window) so we can solve it without distraction.
 

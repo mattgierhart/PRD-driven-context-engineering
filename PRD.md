@@ -119,6 +119,8 @@ last_updated: 2025-12-22
 
 ## v0.3 Commercial Model — Pricing & Positioning
 
+> **ID Note**: FEA-XXX (Feature) IDs are defined inline in this section, not in a separate SoT file.
+
 **Anchor Competitors**
 | Competitor | Positioning | Pricing Signals | Reference |
 |------------|-------------|-----------------|-----------|
@@ -171,6 +173,8 @@ last_updated: 2025-12-22
 ---
 
 ## v0.5 Red Team Review — Risks & Mitigations
+
+> **ID Note**: RISK-XXX IDs are defined inline in this section, not in a separate SoT file.
 
 **Risk Register**
 | Category | Risk | Impact | Likelihood | Early Signal | Mitigation | Linked IDs |
@@ -258,6 +262,8 @@ last_updated: 2025-12-22
 ---
 
 ## v0.9 Go-to-Market — Launch & Feedback
+
+> **ID Note**: GTM-XXX (Go-to-Market) IDs are defined inline in this section, not in a separate SoT file.
 
 **Launch Plan Summary**
 

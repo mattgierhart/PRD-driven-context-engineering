@@ -76,14 +76,25 @@ We treat the `SoT/` files (`SoT.*.md`) as the long-term memory store of the prod
 - **Humans** read the SoT files to remember what we decided last week.
 - **We** meet in the code, confident we are building the same thing.
 
-### The Artifacts of Collaboration
+### The 4 Pillars of Context Engineering
 
-This approach changes how teams work:
+To make shared memory practical, we rely on four core concepts:
 
-1.  **We don't just write code; we design context.** We create the navigation paths (`README`, `PRD`, `CLAUDE.md`) so our AI partners onboard quickly.
-2.  **We don't rely on tribal knowledge.** If it's not in the Source of Truth (`SoT/`), it doesn't exist. This frees us. We don't have to remember "that one conversation in Slack." We trust the repo.
-3.  **We build complexity through references.** By linking small, testable units (`IDs`) together, we can build massive systems without ever needing to load the entire design into our working memory at once.
-4.  **We optimize Context Density.** We select context to deliver the right balance of information. **Too dense**, and the AI over-analyzes. **Too sparse**, and it drifts. We use the hierarchy to read exactly what is needed—no more, no less.
+1.  **Just-in-Time Context**
+    _IDs allow loading only what's needed._
+    We don't dump the entire repository into the context window. By using **Unique IDs** (`UJ-101`, `API-002`), we reference and load _only_ the specific context needed for a task. This eliminates noise and reduces hallucination.
+
+2.  **The Documentation Ecosystem**
+    _A living, connected system for shared memory._
+    Documentation is not a static PDF; it is a live graph. We connect `PRD` to `Epics` to `SoT` via links and hooks. When the logic changes in the Source of Truth, the ecosystem ensures both human and AI know.
+
+3.  **Context Validation**
+    _Tools to measure context density._
+    We treat context like code: we measure it. If context is **too sparse**, the AI drifts. If it is **too dense**, the AI gets confused. We validate that we are providing the optimal amount of information for performance.
+
+4.  **Progressive Documentation**
+    _Update in place; never create copies._
+    We never write `PRD_v2.md`. We update the single Source of Truth in place. As the product evolves from v0.1 to v1.0, the documentation evolves with it, maintaining a single, current reality for the team.
 
 This structure preserves alignment and momentum. By engineering context, we build software no single person could hold in their head at once.
 

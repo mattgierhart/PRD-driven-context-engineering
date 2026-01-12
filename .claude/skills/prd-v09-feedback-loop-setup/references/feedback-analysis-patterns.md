@@ -20,7 +20,7 @@
 - Quick reminders in EPIC checklists to ground prompts in Source of Truth
 
 **Evidence**:
-- CFD-401: Developer noted "AI produced quality code only when prompts were highly specific"
+- CFD-XXX: "AI produced quality code only when prompts were highly specific"
 
 ---
 
@@ -36,7 +36,7 @@
 - Don't wait for "complete" features before getting user input
 
 **Evidence**:
-- CFD-401: Developer highlighted "real-time feedback from target user prevented scope bloat"
+- CFD-XXX: "Real-time feedback from target user prevented scope bloat"
 
 ---
 
@@ -53,7 +53,7 @@
 - Test on actual phones/tablets, not simulators
 
 **Evidence**:
-- CFD-401: Developer noted "late mobile testing caused costly rework"
+- CFD-XXX: "Late mobile testing caused costly rework"
 
 ---
 
@@ -70,7 +70,7 @@
 - Consider distribution from v0.1-v0.2 (not just at the end)
 
 **Evidence**:
-- CFD-401: Developer stated "distribution remained the hardest part after launch"
+- CFD-XXX: "Distribution remained the hardest part after launch"
 
 ---
 
@@ -100,7 +100,7 @@ After analyzing feedback and identifying actionable insights, consider updates t
 - Example: Capture mobile-specific steps in affected user journeys
 - When: Journey definitions should include device considerations
 
-**SoT.testing_playbook.md** - TEST-XXX Entries:
+**SoT.TESTING.md** - TEST-XXX Entries:
 - Use when feedback shows gaps in test coverage
 - Example: Add device validation tests tied to UJ-XXX entries
 - When: Tests should have caught the issue before deployment

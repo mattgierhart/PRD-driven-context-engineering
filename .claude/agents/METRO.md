@@ -34,7 +34,7 @@ METRO owns launch execution and market adoption, translating shipped product int
 
 | Output               | Format          | Destination                    |
 | -------------------- | --------------- | ------------------------------ |
-| Launch assets        | GTM-XXX entries | SoT/SoT.deployment_playbook.md |
+| Launch assets        | GTM-XXX entries | PRD.md v0.9 section            |
 | Success metrics      | KPI-XXX entries | README.md or metrics file      |
 | Post-launch feedback | CFD-XXX entries | SoT/SoT.customer_feedback.md   |
 
@@ -55,7 +55,7 @@ METRO owns launch execution and market adoption, translating shipped product int
 ## Anti-patterns
 
 - ❌ Launch planning before v0.8 release criteria met
-- ❌ Distribution as afterthought (per CFD-401)
+- ❌ Distribution as afterthought
 - ❌ Vanity metrics without revenue/retention connection
 - ❌ Ignoring post-launch CFD-XXX collection
 - ❌ No feedback loop to HORIZON

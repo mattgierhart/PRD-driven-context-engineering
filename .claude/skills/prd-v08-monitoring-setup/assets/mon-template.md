@@ -156,4 +156,4 @@
 
 ---
 
-*Template: Use this to create MON-XXX entries in `SoT.deployment_playbook.md`*
+*Template: Use this to create MON-XXX entries in `SoT.DEPLOYMENT.md`*

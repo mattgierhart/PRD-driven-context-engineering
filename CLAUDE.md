@@ -1,6 +1,6 @@
 ---
 title: "CLAUDE Agent Operating Guide"
-updated: "2026-01-10"
+updated: "2026-01-12"
 authority: "PRD Led Context Engineering"
 ---
 
@@ -32,14 +32,29 @@ authority: "PRD Led Context Engineering"
 
 ## 2. Execution Rules
 
+### Document Ecosystem
+
+The methodology uses a layered document structure:
+
+| Layer | Files | Purpose |
+|-------|-------|---------|
+| **Navigation** | README.md | Entry point, dashboard, current status |
+| **Strategy** | PRD.md | Requirements evolving v0.1→v1.0 |
+| **Execution** | epics/EPIC-XX.md | Active work, session handoffs |
+| **Knowledge** | SoT/*.md | Durable specs with unique IDs |
+| **Scratchpad** | temp/*.md | Ephemeral notes, harvested to SoT |
+
+**ID Ownership**:
+- SoT files own: BR, UJ, PER, SCR, API, DBT, TEST, DEP, RUN, MON, CFD, DES, TECH, ARC, INT
+- PRD.md owns: FEA (v0.3), RISK (v0.5), GTM (v0.9)
+- README.md owns: KPI metrics
+
+**Cross-Reference Rule**: Every ID should link to related IDs. This creates a knowledge graph that agents can traverse.
+
 ### Documentation Discipline
 
 - **IDs**: Reference `BR-`, `UJ-`, `API-` IDs in code comments and commits.
-- **SoT Updates**: Update `SoT/` (Source of Truth) files _before_ or _during_ code changes, never "later". Source of truth files always begin with `SoT.*.md`.
-- **Template Purity**: Follow `SoT.TEMPLATE_PURITY_STANDARD.md`:
-  - Keep template self-documentation IN templates (just-in-time context)
-  - Move methodology teaching to skill references (skill-loaded context)
-  - Use the litmus test: "File structure or domain knowledge?"
+- **SoT Updates**: Update `SoT/` files _before_ or _during_ code changes, never "later".
 - **Temp Files**: Use `temp/` for scratchpad, but harvest to SoT before closing the EPIC.
 
 ### Progressive Documentation Protocol
@@ -81,10 +96,10 @@ export class RateLimiter { ... }
 
 ## 3. Quick Reference
 
-- **Lifecycle Guide**: See [`README.md`](README.md).
+- **Lifecycle Guide**: [`README.md`](README.md)
 - **ID System**: [`SoT/SoT.UNIQUE_ID_SYSTEM.md`](SoT/SoT.UNIQUE_ID_SYSTEM.md)
-- **Template Purity**: [`SoT/SoT.TEMPLATE_PURITY_STANDARD.md`](SoT/SoT.TEMPLATE_PURITY_STANDARD.md)
-- **Templates**: [`SoT/`](SoT/) or [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md)
-- **Active Context**: [`epics/`](epics/)
+- **SoT Index**: [`SoT/SoT.README.md`](SoT/SoT.README.md)
+- **EPIC Template**: [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md)
+- **Active Work**: [`epics/`](epics/)
 
 **When in doubt, follow the Source of Truth.**

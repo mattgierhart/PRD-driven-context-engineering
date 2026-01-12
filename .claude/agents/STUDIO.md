@@ -34,9 +34,9 @@ STUDIO translates user research into interaction patterns and visual concepts, c
 
 | Output                | Format           | Destination                  |
 | --------------------- | ---------------- | ---------------------------- |
-| Design components     | DES-XXX entries  | SoT/SoT.DESIGN_BRIEF.md      |
+| Design components     | DES-XXX entries  | SoT/SoT.DESIGN_COMPONENTS.md |
 | Wireframes/prototypes | Links in DES-XXX | External tool + reference    |
-| Design tokens         | System spec      | SoT/SoT.DESIGN_BRIEF.md      |
+| Design tokens         | System spec      | SoT/SoT.DESIGN_COMPONENTS.md |
 | Research insights     | CFD-XXX entries  | SoT/SoT.customer_feedback.md |
 
 ## Handoff Contracts
@@ -60,7 +60,7 @@ STUDIO translates user research into interaction patterns and visual concepts, c
 
 - ❌ Designing without UJ-XXX reference
 - ❌ Visual polish before interaction validation
-- ❌ Desktop-first without mobile validation (per CFD-401)
+- ❌ Desktop-first without mobile validation
 - ❌ Creating DES-XXX without WERK feasibility check
 - ❌ Ignoring BR-XXX constraints in UX decisions
 

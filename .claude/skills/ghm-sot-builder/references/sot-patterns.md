@@ -1,6 +1,6 @@
 # SoT Patterns Reference
 
-> Extracted from existing SoT files and the Template Purity Standard.
+> Extracted from existing SoT files in the PRD Led Context Engineering methodology.
 
 This reference documents the common structural patterns found across all Source of Truth files in the GHM methodology.
 
@@ -20,7 +20,7 @@ authority: "Source of authority"
 ---
 ```
 
-Used by: `SoT.UNIQUE_ID_SYSTEM.md`, `SoT.TEMPLATE_PURITY_STANDARD.md`, `SoT.README.md`
+Used by: `SoT.UNIQUE_ID_SYSTEM.md`, `SoT.README.md`
 
 ### Pattern B: Full Specification (Entry-based Files)
 
@@ -195,7 +195,7 @@ SoT.{ARTIFACT_TYPE}.md
 Examples:
 - `SoT.BUSINESS_RULES.md` (uppercase for emphasis)
 - `SoT.customer_feedback.md` (lowercase also acceptable)
-- `SoT.DESIGN_BRIEF.md`
+- `SoT.DESIGN_COMPONENTS.md`
 
 Conventions:
 - Always start with `SoT.`

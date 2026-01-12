@@ -108,10 +108,17 @@
 ## SoT Location Validation
 
 - [ ] **Correct SoT File**: ID type matches file
-  - BR → `SoT.business_rules.md` or `SoT.DESIGN_BRIEF.md`
+  - BR → `SoT.BUSINESS_RULES.md`
   - CFD → `SoT.customer_feedback.md`
-  - API → `SoT.api_contracts.md` or similar
-  - UJ → `SoT.user_journeys.md` or similar
+  - API → `SoT.API_CONTRACTS.md`
+  - UJ, PER, SCR → `SoT.USER_JOURNEYS.md`
+  - DBT → `SoT.DATA_MODEL.md`
+  - TEST → `SoT.TESTING.md`
+  - DEP, RUN, MON → `SoT.DEPLOYMENT.md`
+  - DES → `SoT.DESIGN_COMPONENTS.md`
+  - TECH, ARC → `SoT.TECHNICAL_DECISIONS.md`
+  - INT → `SoT.INTEGRATIONS.md`
+  - FEA, RISK, GTM → `PRD.md` (inline in respective sections)
 
 - [ ] **Template Purity**: No methodology in SoT entry (belongs in skill references)
 

@@ -1,4 +1,4 @@
-# Gear Heart Methodology (GHM) — Product README
+# {Product Name} — Product README
 
 > **Status**: Active
 > **Current PRD Version**: v0.1 (See `PRD.md`)
@@ -33,18 +33,18 @@
 
 **Lifecycle Stage**: `v0.1 Spark` (Target)
 
-| Gate                  | Status         | Owner    | Blocker? |
-| --------------------- | -------------- | -------- | -------- |
-| **v0.1 Spark**        | 🟡 In Progress | Strategy | -        |
-| **v0.2 Market**       | ⚪ Pending     | -        | -        |
-| **v0.3 Commercial**   | ⚪ Pending     | -        | -        |
-| **v0.4 Journeys**     | ⚪ Pending     | -        | -        |
-| **v0.5 Risks**        | ⚪ Pending     | -        | -        |
-| **v0.6 Architecture** | ⚪ Pending     | -        | -        |
-| **v0.7 Build**        | ⚪ Pending     | -        | -        |
-| **v0.8 Release**      | ⚪ Pending     | -        | -        |
-| **v0.9 Launch**       | ⚪ Pending     | -        | -        |
-| **v1.0 Growth**       | ⚪ Pending     | -        | -        |
+| Gate                          | Status         | Owner    | Blocker? |
+| ----------------------------- | -------------- | -------- | -------- |
+| **v0.1 Spark**                | 🟡 In Progress | Strategy | -        |
+| **v0.2 Market Definition**    | ⚪ Pending     | -        | -        |
+| **v0.3 Commercial Model**     | ⚪ Pending     | -        | -        |
+| **v0.4 User Journeys**        | ⚪ Pending     | -        | -        |
+| **v0.5 Red Team Review**      | ⚪ Pending     | -        | -        |
+| **v0.6 Architecture**         | ⚪ Pending     | -        | -        |
+| **v0.7 Build Execution**      | ⚪ Pending     | -        | -        |
+| **v0.8 Release & Deployment** | ⚪ Pending     | -        | -        |
+| **v0.9 Launch**               | ⚪ Pending     | -        | -        |
+| **v1.0 Growth**               | ⚪ Pending     | -        | -        |
 
 > _Update this table as you pass gates._
 
@@ -111,4 +111,4 @@ npm test # or equivalent
 
 > **Agent Note**: `.claude/` can be replaced with `.gemini/`, `.codex/`, or any other agent structure, but the skills, hooks, custom commands, and agent model here were built with Anthropic's documentation model in mind.
 
-> **Note**: This repository is an implementation of the [Gear Heart Methodology](README.md).
+> **Note**: This repository follows [PRD Led Context Engineering](https://github.com/mattgierhart/PRD-driven-context-engineering).

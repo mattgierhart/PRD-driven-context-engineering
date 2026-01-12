@@ -41,4 +41,4 @@ Each file focuses on one artifact type and uses a consistent ID prefix:
 - Add new IDs via EPIC Section 2 so the audit trail stays intact.
 - Keep tables tight; break large lists into sub-sections by domain or lifecycle stage.
 
-When the number of files grows, create subfolders (e.g., `source_of_truth/design/`) but preserve the ID prefixes and update the `SoT.README.md` table accordingly.
+When the number of files grows, create subfolders (e.g., `SoT/design/`) but preserve the ID prefixes and update the `SoT.README.md` table accordingly.

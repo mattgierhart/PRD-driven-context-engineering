@@ -12,7 +12,7 @@
 
 **Initial Concern**: All instructional content in templates was flagged as contamination.
 
-**Refinement**: During review, we identified a critical distinction aligned with Context Engineering's **Just-in-Time Context** principle (README.md:117-118):
+**Refinement**: During review, we identified a critical distinction aligned with PRD Led Context Engineering's **Just-in-Time Context** principle (README.md:117-118):
 
 - **Template Self-Documentation** (KEEP): Operational instructions for maintaining the file structure
   - Loaded only when template is in use (just-in-time context)

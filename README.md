@@ -1,6 +1,6 @@
-# Context Engineering: Memory as Infrastructure
+# PRD Led Context Engineering: Memory as Infrastructure
 
-> **Purpose**: Context Engineering enables product teams to build with AI by turning **shared memory (humans + AI)** into maintained infrastructure. This ensures teams move fast without losing alignment.
+> **Purpose**: PRD Led Context Engineering enables product teams to build with AI by turning **shared memory (humans + AI)** into maintained infrastructure. This ensures teams move fast without losing alignment.
 >
 > This repository is one expression of that system. The principles apply at any stage because documentation becomes a **Knowledge Graph** that humans and AI can query.
 
@@ -14,7 +14,7 @@ The progression of memory in software teams:
 
 - **Start-up / Waterfall** relied on **Static Memory**. We wrote everything down upfront. It created certainty, but made change slow and expensive.
 - **Agile** moved faster but created **Fragmented Memory**. We scattered knowledge across tickets, wikis, and chats and lost shared understanding.
-- **Context Engineering** builds **Shared Memory**. It treats **AI as a team member**, not just a tool, and keeps documentation synchronized with code so humans and AI can navigate the same truth.
+- **PRD Led Context Engineering** builds **Shared Memory**. It treats **AI as a team member**, not just a tool, and keeps documentation synchronized with code so humans and AI can navigate the same truth.
 
 ---
 
@@ -22,7 +22,7 @@ The progression of memory in software teams:
 
 We are changing how we measure work, not just tools.
 
-| Traditional Agile      | Context Engineering                | The Shift (Automation & Infrastructure)                                                                |
+| Traditional Agile      | PRD Led Context Engineering        | The Shift (Automation & Infrastructure)                                                                |
 | :--------------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------- |
 | **Sprints**            | **Context Windows**                | We don't time-box based on dates; we _scope-box_ based on cognitive capacity.                          |
 | **User Stories**       | **Prompts**                        | We don't write descriptions; we engineer _prompts_ that deterministically load context.                |
@@ -52,7 +52,7 @@ Before AI, I led software teams where alignment followed a clear pattern: rally 
 **Second: Partnering with AI**
 When I began coding with AI, I noticed a similar pattern. Sometimes the AI was brilliant; other times it was dense. I realized the variable wasn't the model's intelligence—it was the **Context Density** I provided. When the context was rich and structured, the AI performed at a senior level. When it was vague, it hallucinated.
 
-**Context Engineering is the convergence of these truths.**
+**PRD Led Context Engineering is the convergence of these truths.**
 
 Here, documentation is not an afterthought. **Documentation is the infrastructure of our shared memory.** The Source of Truth Artifact anchors both humans and AI.
 
@@ -141,18 +141,18 @@ Instead, we use a **Progressive PRD**.
 
 We do not proceed to the next stage until the **Definition of Done (DoD)** is met.
 
-| Version  | Name             | Focus               | Definition of Done (DoD)                                           |
-| :------- | :--------------- | :------------------ | :----------------------------------------------------------------- |
-| **v0.1** | **Spark**        | Problem & Outcomes  | Problem defined, Outcomes measurable, Open Questions list.         |
-| **v0.2** | **Market**       | Segments & ICP      | Segments sized, "Not For" defined, Business Rules (`BR-`) created. |
-| **v0.3** | **Commercial**   | Value & Pricing     | Competitors profiled, Pricing model, Monetization rules.           |
-| **v0.4** | **Journeys**     | Personas & Flows    | Core journeys mapped (`UJ-`), Dependencies (`API-`) noted.         |
-| **v0.5** | **Red Team**     | Risks & Feasibility | Risks (Market/Tech) identified, Mitigations linked to tests.       |
-| **v0.6** | **Architecture** | Technical Strategy  | Stack selected, API contracts (`API-`) drafted, Cost guardrails.   |
-| **v0.7** | **Build**        | Implementation Loop | Code tested (`TEST-`), SoT updated, Epic loop execution.           |
-| **v0.8** | **Release**      | Deployment & Ops    | Runbooks (`RUN-`), Monitoring (`MON-`), Rollback plan.             |
-| **v0.9** | **Launch**       | Go-to-Market        | Launch metrics (`KPI-`), Feedback channels (`CFD-`) active.        |
-| **v1.0** | **Growth**       | Market Adoption     | Paying customers, Retention analysis, Optimization loop.           |
+| Version  | Name                     | Focus                 | Definition of Done (DoD)                                           |
+| :------- | :----------------------- | :-------------------- | :----------------------------------------------------------------- |
+| **v0.1** | **Spark**                | Problem & Outcomes    | Problem defined, Outcomes measurable, Open Questions list.         |
+| **v0.2** | **Market Definition**    | Segments & ICP        | Segments sized, "Not For" defined, Business Rules (`BR-`) created. |
+| **v0.3** | **Commercial Model**     | Value & Pricing       | Competitors profiled, Pricing model, Monetization rules.           |
+| **v0.4** | **User Journeys**        | Personas & Flows      | Core journeys mapped (`UJ-`), Dependencies (`API-`) noted.         |
+| **v0.5** | **Red Team Review**      | Risks & Feasibility   | Risks (Market/Tech) identified, Mitigations linked to tests.       |
+| **v0.6** | **Architecture**         | Technical Strategy    | Stack selected, API contracts (`API-`) drafted, Cost guardrails.   |
+| **v0.7** | **Build Execution**      | Implementation Loop   | Code tested (`TEST-`), SoT updated, Epic loop execution.           |
+| **v0.8** | **Release & Deployment** | Operational Readiness | Runbooks (`RUN-`), Monitoring (`MON-`), Rollback plan.             |
+| **v0.9** | **Launch**               | Go-to-Market          | Launch metrics (`KPI-`), Feedback channels (`CFD-`) active.        |
+| **v1.0** | **Growth**               | Market Adoption       | Paying customers, Retention analysis, Optimization loop.           |
 
 ### The Iterative Ecosystem
 
@@ -191,7 +191,7 @@ This allows the product to evolve without losing the structure that keeps humans
 
 ## Contributing
 
-Thank you for helping us refine the **Context Engineering** methodology. This repository is not just a codebase; it is a living system of **Memory as Infrastructure**.
+Thank you for helping us refine the **PRD Led Context Engineering** methodology. This repository is not just a codebase; it is a living system of **Memory as Infrastructure**.
 
 ### Core Philosophy
 
@@ -223,7 +223,7 @@ Our goal is to optimize **Context Density**: providing the AI (and humans) with 
 
 ### Contribution Standards
 
-- **Terminology**: Use "Context Engineering", "Source of Truth", and "Epics" consistent with `README.md`.
+- **Terminology**: Use "PRD Led Context Engineering", "Source of Truth", and "Epics" consistent with `README.md`.
 - **Links**: Always use relative links to files (e.g., `[Link](README.md)`), not absolute paths.
 - **Tone**: Professional, prescriptive, and rigorous.
 

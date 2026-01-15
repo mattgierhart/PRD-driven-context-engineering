@@ -173,7 +173,7 @@ While the **PRD Lifecycle** is gated for discipline, the **Documentation Ecosyst
 
 Because our documentation is modular and interlocked via hooks, we can revisit any section just-in-time. If customer feedback changes the **Strategy** during the **Build** phase, we don't restart the plan. We simply:
 
-1.  Open a context window for `PRD.md` (Strategy Section).
+1.  Open a context window for `PRD.md` (Strategy Section). 
 2.  Update the `BR-xxx` rules.
 3.  If hooks are configured in `.claude/hooks`, use them to propagate changes to the active `epics/`. Otherwise, update the Epic manually.
 

@@ -26,7 +26,8 @@ authority: "PRD Led Context Engineering"
    - **Progress**: What specifically was done? (Link IDs)
    - **Stop Point**: File/Line where work ceased.
    - **Next**: Exact instructions for the next agent.
-2. **Commit**: `session: [EPIC-XX] summary of work`.
+2. **Run Learning Capture Protocol**: Answer the agent-specific questions in `.claude/agents/{AGENT}.md` and update Project Memory.
+3. **Commit**: `session: [EPIC-XX] summary of work`.
 
 ---
 

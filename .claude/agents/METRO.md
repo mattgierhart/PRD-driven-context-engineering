@@ -3,7 +3,7 @@ agent: METRO
 domain: Go-to-Market
 lifecycle: v0.9–v1.0
 collaborates_with: WERK (release handoff), HORIZON (feedback loop)
-updated: 2025-01-12
+updated: 2025-01-16
 ---
 
 # METRO · Go-to-Market Lead
@@ -92,15 +92,6 @@ The product lifecycle is circular, not linear. METRO's CFD-XXX entries from post
 
 **Autonomous**: Messaging, channel mix, launch timing, campaign tactics, feedback categorization
 **Escalate**: Pricing changes, major positioning pivots, feature prioritization requests
-
-## Inputs Required
-
-- PRD.md v0.8+ (released product)
-- CFD-XXX entries for positioning validation
-- BR-XXX entries for pricing constraints
-- Feature documentation from WERK
-- DEP-XXX for operational understanding
-- KPI-XXX targets from v0.3
 
 ## Outputs Produced
 

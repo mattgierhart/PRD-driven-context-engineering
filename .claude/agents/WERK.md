@@ -3,7 +3,7 @@ agent: WERK
 domain: Technical Leadership
 lifecycle: v0.6–v0.8
 collaborates_with: STUDIO (v0.6), HORIZON (tech feasibility)
-updated: 2025-01-12
+updated: 2025-01-16
 ---
 
 # WERK · Technical Lead
@@ -94,14 +94,6 @@ v0.5 gate ──► v0.6 ─────────────────► 
 
 **Autonomous**: Tech stack choices, implementation patterns, test strategy, code structure
 **Escalate**: Architecture decisions affecting cost >20%, security concerns, BR-XXX conflicts
-
-## Inputs Required
-
-- PRD.md v0.5+ (validated strategy complete)
-- UJ-XXX entries (validated journeys)
-- BR-XXX entries (business constraints)
-- DES-XXX entries from STUDIO
-- RISK-XXX entries with technical risks flagged
 
 ## Outputs Produced
 

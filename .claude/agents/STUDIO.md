@@ -3,7 +3,7 @@ agent: STUDIO
 domain: User Experience
 lifecycle: v0.3–v0.4 (primary), v0.6 (collaboration)
 collaborates_with: HORIZON (v0.3–v0.4), WERK (v0.6)
-updated: 2025-01-12
+updated: 2025-01-16
 ---
 
 # STUDIO · User Experience Lead
@@ -81,14 +81,6 @@ v0.1 ──► v0.2 ──► v0.3 ──────► v0.4 ──► v0.5 ─
 
 **Autonomous**: Visual styling, interaction patterns, information hierarchy, component structure
 **Escalate**: UX patterns conflicting with BR-XXX, mobile-first exceptions, scope changes
-
-## Inputs Required
-
-- UJ-XXX entries from HORIZON (trigger, steps, pains, value moments)
-- BR-XXX constraints affecting UX
-- Existing brand/style guidelines
-- User research artifacts in `temp/`
-- Technical constraints from WERK (v0.6)
 
 ## Outputs Produced
 

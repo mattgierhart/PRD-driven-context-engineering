@@ -104,9 +104,8 @@ After each PRD stage, ask:
 **IDs I Own**:
 | Prefix | Meaning | SoT Location |
 |--------|---------|--------------|
-| DES- | Design components & patterns | SoT.DESIGN_COMPONENTS.md |
+| DES- | Design components, patterns & tokens | SoT.DESIGN_COMPONENTS.md |
 | SCR- | Screen definitions | SoT.USER_JOURNEYS.md |
-| DS- | Design system tokens | SoT.DESIGN_COMPONENTS.md |
 
 **What I Learn** categories:
 - Usability Gotchas
@@ -310,7 +309,7 @@ Elements to **merge/refactor**:
 5. Validate ID ownership against SoT.UNIQUE_ID_SYSTEM.md
 
 ### Step 2: STUDIO.md
-Same pattern, with DS- prefix addition (design system tokens)
+Same pattern, consolidating design system tokens under DES-
 
 ### Step 3: WERK.md
 Same pattern, with extraction note unique to builder role
@@ -355,9 +354,8 @@ After implementation, each agent file should clearly answer:
 ## Open Questions
 
 1. **Should Learning Capture Protocol be automated via hooks?** — Could trigger at session end
-2. **DS- prefix not in SoT.UNIQUE_ID_SYSTEM.md** — Should we add it, or is it covered by DES-?
-3. **Compounding threshold** — Is 3 occurrences the right threshold for extraction?
-4. **Project Memory persistence** — How do patterns survive when agent files are forked?
+2. **Compounding threshold** — Is 3 occurrences the right threshold for extraction?
+3. **Project Memory persistence** — How do patterns survive when agent files are forked?
 
 ---
 

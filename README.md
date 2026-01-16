@@ -76,6 +76,29 @@ We treat the `SoT/` files (`SoT.*.md`) as the long-term memory store of the prod
 - **Humans** read the SoT files to remember what we decided last week.
 - **We** meet in the code, confident we are building the same thing.
 
+### Agents as Accumulated Memory
+
+When we work with AI agents, we obsess over **instructions**—crafting the perfect prompt, the right system message, the detailed behavioral spec. But the most effective AI collaboration doesn't come from better instructions. It comes from **richer memory**.
+
+Consider two versions of WERK starting the same task:
+
+**Instruction-driven WERK**: "Build an API endpoint for user creation."
+
+**Memory-driven WERK**: "Build an API endpoint for user creation. On my wall: we use tRPC (TECH-001), Supabase RLS requires explicit policies (ARC-003). In my diary: last time we forgot the email uniqueness constraint—that cost us a day."
+
+Same instructions. Wildly different outcomes.
+
+The second WERK has **context density**. It knows the patterns, constraints, and scars that make good decisions possible. It's not smarter—it just remembers more.
+
+In PRD Led Context Engineering, memory accumulates:
+- **IDs on the walls** = Structured facts (BR-, API-, UJ-)
+- **Patterns in the drawers** = Learned wisdom ("Supabase RLS works better when...")
+- **Entries in the diary** = Why we chose X over Y, what broke, what worked
+
+This memory compounds. Each session adds sticky notes. Each pattern makes future work faster. The agents become **more effective over time**, not because they get better instructions, but because their rooms get richer.
+
+That's the shift: from instructing agents to **growing their memory**.
+
 ### The 4 Pillars of Context Engineering
 
 To make shared memory practical, we rely on four core concepts:
@@ -97,6 +120,39 @@ To make shared memory practical, we rely on four core concepts:
     We never write `PRD_v2.md`. We update the single Source of Truth in place. As the product evolves from v0.1 to v1.0, the documentation evolves with it, maintaining a single, current reality for the team.
 
 This structure preserves alignment and momentum. By engineering context, we build software no single person could hold in their head at once.
+
+### Agents as Rooms, Not Roles
+
+When we talk about AI agents, we usually describe them by what they **do**—"WERK builds things," "HORIZON defines strategy." But that misses what actually makes agents effective.
+
+Agents are better thought of not as roles on your team, but as **rooms where work is done**.
+
+Walk into WERK's room and you see:
+- Architecture decisions pinned to the wall (ARC-)
+- API contracts spread across the desk (API-)
+- A notebook of implementation patterns in the drawer
+- A diary of "why we didn't do X" decisions
+
+That's not decoration. That's **memory as infrastructure**. And memory—not instructions—is what defines an agent's identity.
+
+| What You See In The Room | What It Represents |
+|--------------------------|-------------------|
+| **Walls** | The IDs they own (BR-, API-, DES-, etc.) |
+| **Desk** | The context they need loaded to work |
+| **Drawers** | The patterns they've learned across sessions |
+| **Trash** | Ephemeral data that doesn't persist |
+| **Diary** | Project Memory—decisions, friction, open questions |
+
+This distinction matters because:
+1. **Handoffs become context transfers**, not task assignments—you're walking someone into a room, not giving them a to-do list
+2. **Learning compounds**—each session adds to the walls, making the next session more effective
+3. **Agents develop genuine expertise** in their domain through accumulated patterns, not just instructions
+
+The four agents—HORIZON, STUDIO, WERK, METRO—each maintain their own room. Their `.claude/agents/*.md` files are not instruction manuals; they are the walls, the desk, the diary.
+
+When you fork this repo, each agent starts with empty rooms. As you work, the rooms fill with patterns that make future work easier. The sticky notes accumulate. The diary gets richer. The artifacts pile up.
+
+That's compound context engineering.
 
 ---
 
@@ -212,6 +268,14 @@ Before contributing, please read:
 2.  **[`CLAUDE.md`](CLAUDE.md)**: The Agent Operating Instructions.
 
 Our goal is to optimize **Context Density**: providing the AI (and humans) with exactly the right information at the right time.
+
+**For Agent Development**: When refining agent files, remember that agents are defined by memory, not just instructions:
+- **IDs Owned**: What structured facts does this agent maintain?
+- **Patterns Learned**: What wisdom should this agent accumulate?
+- **Context Required**: What must be loaded for effective work?
+- **Ephemeral**: What explicitly doesn't persist?
+
+Changes to agent files should strengthen their memory architecture, not just their behavioral instructions.
 
 ### Ways to Contribute
 

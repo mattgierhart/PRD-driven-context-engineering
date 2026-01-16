@@ -38,13 +38,7 @@ Having led hyper-growth startups, enterprise "squads of squads," and launched fi
 | **Waterfall** | Static Memory | Creates a "requirements trap" where we front-load certainty, making change slow and expensive. |
 | **Agile** | Fragmented Memory | Knowledge is scattered across tickets and ceremonies, eventually dying in "Definition of Done" checklists that no one reads. |
 
-**In the AI era, these gaps become fatal.** Without a shared history, AI agents guess. PRD-Led Context Engineering replaces tribal knowledge with a **Shared Knowledge Graph**—a living system of memory that both humans and AI use to navigate the product lifecycle with senior-level precision.
-
----
-
-## 1. Infrastructure of Thought
-
-In this system, documentation is the **Memory Bus** of the project. This manifests in key principles:
+**In the AI era, these gaps become fatal.** Without a shared history, AI agents guess. PRD-Led Context Engineering replaces tribal knowledge with a **Shared Knowledge Graph**—a living system of memory that both humans and AI use to navigate the product lifecycle with senior-level precision. In this system, documentation is the **Memory Bus** of the project. This manifests in key principles:
 
 ### The Golden Rule
 
@@ -56,7 +50,7 @@ In this system, documentation is the **Memory Bus** of the project. This manifes
 
 ---
 
-## 2. The Cognitive Stack
+## 1. The Cognitive Stack
 
 We organize the repository to reflect how intelligence functions. This hierarchy ensures that every participant operates with the correct level of focus.
 
@@ -92,7 +86,7 @@ See the [Epic Template](epics/EPIC_TEMPLATE.md) and [Epic README](epics/README.m
 
 ---
 
-## 3. Pattern Memory: The Role of Agentic Agents
+## 2. Pattern Memory: The Role of Agentic Agents
 
 We often mistake an agent's "role" for its "instructions." In this system, **Identity is Memory**. Agents are better thought of as **Rooms** where work is captured as sticky notes on the wall, artifacts created, and patterns documented. An agent's effectiveness is determined by the **Pattern Memory** it accumulates within its room:
 
@@ -115,7 +109,7 @@ We often mistake an agent's "role" for its "instructions." In this system, **Ide
 
 ---
 
-## 4. Principles of the System
+## 3. Principles of the System
 
 | Principle | Description |
 |:----------|:------------|

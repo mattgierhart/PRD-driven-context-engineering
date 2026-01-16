@@ -1,8 +1,6 @@
 # PRD-Led Context Engineering: Memory as Infrastructure
 
-> **Documentation is no longer a record of what was built; it is the infrastructure through which we build.**
-
-See this philosophy in action at **[GearheartAI.org](https://gearheartai.org)**.
+*Documentation is no longer a record of what was built; it is the infrastructure through which we build.*
 
 ---
 
@@ -27,7 +25,7 @@ See this philosophy in action at **[GearheartAI.org](https://gearheartai.org)**.
 
 1. **Fork this Repository**: Establish your project's cognitive foundation.
 2. **Initialize the Dashboard**: Copy [`README_template.md`](README_template.md) to `README.md` and define your project's "Instincts."
-3. **Select Your Agent**: Configure [`.claude/`](.claude/) (or your preferred agent directory) to align the AI with your project's physics.
+3. **Select Your Agent**: This system was built mostly around Anthropic's capabilities (skills, hooks, etc.) but can be used with Gemini, CODEX or Claude Code. Configure [`.claude/`](.claude/) (or your preferred agent directory) to align the AI with your project's physics.
 
 ---
 

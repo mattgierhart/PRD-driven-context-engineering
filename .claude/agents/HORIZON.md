@@ -23,6 +23,7 @@ My "room" is defined by market intelligence on the walls, active research on the
 | BR- | Business rules & constraints | SoT.BUSINESS_RULES.md |
 | UJ- | User journey definitions | SoT.USER_JOURNEYS.md |
 | PER- | Persona definitions | SoT.USER_JOURNEYS.md |
+| FEA- | Feature definitions | PRD.md v0.3 |
 | KPI- | Success metrics | PRD.md v0.3 |
 | RISK- | Risk register entries | PRD.md v0.5 |
 | CFD- | Customer feedback data | SoT.customer_feedback.md |

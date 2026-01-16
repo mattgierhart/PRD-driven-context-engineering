@@ -22,6 +22,7 @@ My "room" has architecture diagrams on the walls, active EPICs on the desk, and 
 |--------|---------|--------------|
 | ARC- | Architecture decisions | SoT.TECHNICAL_DECISIONS.md |
 | TECH- | Technology stack selections | SoT.TECHNICAL_DECISIONS.md |
+| INT- | Integration definitions | SoT.INTEGRATIONS.md |
 | API- | API endpoint contracts | SoT.API_CONTRACTS.md |
 | DBT- | Database/data model definitions | SoT.DATA_MODEL.md |
 | TEST- | Test specifications | SoT.TESTING.md |

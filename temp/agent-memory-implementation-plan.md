@@ -351,21 +351,100 @@ After implementation, each agent file should clearly answer:
 
 ---
 
-## Open Questions
+## Decisions Made
 
-1. **Should Learning Capture Protocol be automated via hooks?** — Could trigger at session end
-2. **Compounding threshold** — Is 3 occurrences the right threshold for extraction?
-3. **Project Memory persistence** — How do patterns survive when agent files are forked?
+| Question | Decision | Rationale |
+|----------|----------|-----------|
+| **Compounding threshold** | 3 occurrences | Start here, iterate based on feedback |
+| **Hook automation** | Yes, build per-agent hooks | Learning Capture Protocol triggers at session end |
+| **Fork persistence** | Clean slate on fork | Structure persists, content is product-specific |
+
+---
+
+## Fork Behavior
+
+**Key Principle**: Structure is durable. Content is ephemeral per-product.
+
+When this repo is forked for a new product:
+
+| Element | Behavior | Rationale |
+|---------|----------|-----------|
+| Memory Architecture section | **Persists** | Defines what the agent remembers |
+| IDs I Own | **Persists** | Structural ownership doesn't change |
+| What I Learn categories | **Persists** | Learning types are domain-constant |
+| What I Need Loaded | **Persists** | Context requirements are stage-constant |
+| What I Forget | **Persists** | Ephemeral rules don't change |
+| Learning Capture Protocol | **Persists** | Questions are domain-constant |
+| Project Memory tables | **Reset to empty** | Content is product-specific |
+| Patterns Learned | **Reset to empty** | New product = new patterns |
+| Harvest Queue | **Reset to empty** | Nothing to harvest yet |
+
+### Implementation Note
+
+Agent files should have a clear demarcation:
+
+```markdown
+---
+## Project Memory (RESET ON FORK)
+> Content below this line is product-specific and resets when forked.
+```
+
+This makes it explicit to future users what persists vs. what they populate.
+
+---
+
+## Memory Governance
+
+**New consideration**: What happens when Project Memory grows too large?
+
+### Proposed Governance Rules
+
+| Trigger | Action |
+|---------|--------|
+| Patterns Learned > 20 entries | Review for harvesting; extract mature patterns |
+| Harvest Queue > 10 items | Immediate harvest session required |
+| Single pattern > 5 occurrences | Must be extracted (overdue) |
+| Project Memory > 200 lines | Prune ephemeral, archive completed decisions |
+
+### Pruning Protocol
+
+When memory exceeds thresholds:
+
+1. **Harvest first**: Extract any 3+ occurrence patterns to their targets
+2. **Archive decisions**: Move completed Key Decisions to a `### Decision Archive` subsection
+3. **Clear resolved friction**: Remove Collaboration/Handoff Friction entries that are resolved
+4. **Summarize patterns**: Consolidate similar patterns into single entries with combined evidence
+
+### Memory Health Check (per agent hook)
+
+```
+At session end, check:
+- [ ] Patterns Learned count < 20?
+- [ ] Harvest Queue count < 10?
+- [ ] Any pattern with 5+ occurrences? (extract immediately)
+- [ ] Project Memory total lines < 200?
+
+If any check fails → flag for governance action before next session
+```
+
+---
+
+## Open Questions (Remaining)
+
+1. **Hook implementation details** — What's the exact hook structure for Learning Capture Protocol?
+2. **Governance enforcement** — Should memory health check block session start, or just warn?
 
 ---
 
 ## Next Steps
 
-1. Review this plan with Matt
-2. Decide on open questions
+1. ~~Review plan with Matt~~ ✓
+2. ~~Decide on open questions~~ ✓ (threshold, hooks, fork behavior)
 3. Implement Phase 1-4 sequentially
-4. Validate against criteria
-5. Commit with message: `feat(agents): implement Agent Memory Schema v1.0`
+4. Build Learning Capture Protocol hooks per agent
+5. Add memory governance checks
+6. Validate against criteria
+7. Commit with message: `feat(agents): implement Agent Memory Schema v1.0`
 
 ---
 

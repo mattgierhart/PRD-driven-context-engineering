@@ -106,12 +106,12 @@ We often mistake an agent's "role" for its "instructions." In this system, **Ide
 
 ### The Four Agents
 
-| Agent | Domain | Description |
+| Agent | Room | Description |
 |:------|:-------|:------------|
-| [`HORIZON`](.claude/agents/HORIZON.md) | Strategy | Product vision and market alignment |
-| [`STUDIO`](.claude/agents/STUDIO.md) | Design | User experience and interface design |
-| [`WERK`](.claude/agents/WERK.md) | Implementation | Code, architecture, and technical execution |
-| [`METRO`](.claude/agents/METRO.md) | Operations | Deployment, monitoring, and reliability |
+| [`HORIZON`](.claude/agents/HORIZON.md) | Market War Room | Product vision and market alignment |
+| [`STUDIO`](.claude/agents/STUDIO.md) | Design Studio | User experience and interface design |
+| [`WERK`](.claude/agents/WERK.md) | Development Garage | Code, architecture, and technical execution |
+| [`METRO`](.claude/agents/METRO.md) | GTM Command Center | Deployment, monitoring, and reliability |
 
 **Handoffs are no longer task assignments; they are Context Transfers.** You are walking a partner into a room where the memory is already prepared for them on the walls and in the diary.
 

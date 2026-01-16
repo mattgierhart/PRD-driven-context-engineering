@@ -158,37 +158,4 @@ By engineering the context, we can build complex and iterative software that giv
 
 ## Contributing
 
-Thank you for helping us refine the **PRD-Led Context Engineering** methodology. This repository is not just a codebase; it is a living system of **Memory as Infrastructure**.
-
-### Core Philosophy
-
-Before contributing, please read:
-
-1. **[`README.md`](README.md)**: The "Executive Functions" layer and Project Dashboard.
-2. **[`CLAUDE.md`](CLAUDE.md)**: The Agent Operating Instructions.
-
-Our goal is to optimize **Context Density**: providing the AI (and humans) with exactly the right information at the right time.
-
-### Ways to Contribute
-
-#### 1. Refine the Methodology
-
-- **Templates**: Improve [`SoT/`](SoT/) templates or [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md).
-- **Workflows**: Suggest automation hooks or better ways to manage the "Source of Truth".
-- **Documentation**: Clarify the principles in this README.
-
-#### 2. Report Friction
-
-- If you find a "Gate" in the PRD Lifecycle that slows you down without adding value, let us know.
-- If the AI struggles to find context, report it as a "Context Leak."
-
-### Getting Started
-
-1. **Fork & Branch**: Create a branch for your feature or fix.
-2. **Follow the Lifecycle**: Even for meta-changes, we respect the spirit of the **Gated Workflow**.
-3. **Traceability**: If you add a new concept, give it an ID (e.g., `BR-XXX` or `UJ-XXX`) if it's durable.
-
-### Questions?
-
-- Open a GitHub Issue for discussion.
-- Check this README for the current status of the methodology.
+Thank you for helping us refine the **PRD-Led Context Engineering** methodology. This repository is not just a codebase; it is a living system of **Memory as Infrastructure**. Look me up on LinkedIn or other social channels if you want to connect. I'm happy to hear ideas or if you need help applying it to your product.

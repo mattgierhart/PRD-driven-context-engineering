@@ -54,7 +54,7 @@ In this system, documentation is the **Memory Bus** of the project. This manifes
 
 ### Relative Context Density
 
-We do not optimize for *more* context; we optimize for *density*. Too much context and the AI loses focus, attempting to solve the world; too little, and it drifts into hallucination. We engineer the "Goldilocks zone" of information.
+> **We do not optimize for *more* context; we optimize for *density*. Too much context and the AI loses focus, attempting to solve the world; too little, and it drifts into hallucination. We engineer the "Goldilocks zone" of information.**
 
 ---
 

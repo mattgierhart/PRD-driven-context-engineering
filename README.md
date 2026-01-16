@@ -1,239 +1,132 @@
-# PRD Led Context Engineering: Memory as Infrastructure
+# PRD-Led Context Engineering: Memory as Infrastructure
 
-> **Purpose**: PRD Led Context Engineering enables product teams to build with AI by turning **shared memory (humans + AI)** into maintained infrastructure. This ensures teams move fast without losing alignment.
->
-> This repository is one expression of that system. The principles apply at any stage because documentation becomes a **Knowledge Graph** that humans and AI can query.
+> **Documentation is no longer a record of what was built; it is the infrastructure through which we build.**
 
 See this philosophy in action at **[GearheartAI.org](https://gearheartai.org)**.
 
 ---
 
-## The Evolution
+## Table of Contents
 
-The progression of memory in software teams:
-
-- **Start-up / Waterfall** relied on **Static Memory**. We wrote everything down upfront. It created certainty, but made change slow and expensive.
-- **Agile** moved faster but created **Fragmented Memory**. We scattered knowledge across tickets, wikis, and chats and lost shared understanding.
-- **PRD Led Context Engineering** builds **Shared Memory**. It treats **AI as a team member**, not just a tool, and keeps documentation synchronized with code so humans and AI can navigate the same truth.
-
----
-
-## The Cognitive Shift
-
-We are changing how we measure work, not just tools.
-
-| Traditional Agile      | PRD Led Context Engineering        | The Shift (Automation & Infrastructure)                                                                |
-| :--------------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| **Sprints**            | **Context Windows**                | We don't time-box based on dates; we _scope-box_ based on cognitive capacity.                          |
-| **User Stories**       | **Prompts**                        | We don't write descriptions; we engineer _prompts_ that deterministically load context.                |
-| **Tribal Knowledge**   | **Source of Truth**                | If it isn't in the Knowledge Graph (`SoT/`), it doesn't exist.                                         |
-| **Standups**           | **Documentation Hooks (optional)** | We don't have status meetings. Event-based hooks in `.claude/hooks` can update memory when configured. |
-| **Project Management** | **Context Governance**             | We don't task-manage people. The system gates execution until context is verified valid.               |
+- [Quick Start](#quick-start)
+- [The Perspective: The Memory Gap](#the-perspective-the-memory-gap)
+- [1. Infrastructure of Thought](#1-infrastructure-of-thought)
+- [2. The Cognitive Stack](#2-the-cognitive-stack)
+  - [Executive Functions (The Instincts)](#executive-functions-the-instincts)
+  - [Long-Term Memory (The Anchors)](#long-term-memory-the-anchors)
+  - [Working Memory (The Epic)](#working-memory-the-epic)
+  - [Short-Term Memory (The Scratchpad)](#short-term-memory-the-scratchpad)
+- [3. Pattern Memory: The Role of Agentic Agents](#3-pattern-memory-the-role-of-agentic-agents)
+- [4. Principles of the System](#4-principles-of-the-system)
+- [Repository Structure](#repository-structure)
+- [Contributing](#contributing)
 
 ---
 
-## The Manifesto
+## Quick Start
 
-We are building complex products together.
-
-As humans, we have limits; our cognitive load is finite. Push it too far, and we start forgetting edge cases or introducing bugs.
-Our AI partners have limits, too. Their context windows are vast but finite; flooding them leads to hallucination and drift.
-
-When we collaborate—human to human or human to AI—these limits compound. We miscommunicate. We overwrite assumptions. Shared memory drifts.
-So we treat team memory as a shared asset across humans and AI, not an individual burden.
-
-### Memory as Infrastructure
-
-This philosophy comes from two experiences.
-
-**First: Leading Human Teams**
-Before AI, I led software teams where alignment followed a clear pattern: rally around a single **Source of Truth Artifact**—a mission document—and the team moved as one. Shared memory anchored there. Without it, even great talent drifted.
-
-**Second: Partnering with AI**
-When I began coding with AI, I noticed a similar pattern. Sometimes the AI was brilliant; other times it was dense. I realized the variable wasn't the model's intelligence—it was the **Context Density** I provided. When the context was rich and structured, the AI performed at a senior level. When it was vague, it hallucinated.
-
-**PRD Led Context Engineering is the convergence of these truths.**
-
-Here, documentation is not an afterthought. **Documentation is the infrastructure of our shared memory.** The Source of Truth Artifact anchors both humans and AI.
-
-> **The Golden Rule**: If it isn't part of the memory infrastructure, it isn't true.
-
-So how do we introduce team and AI memory into the repo? We do it with **Source of Truth Artifacts (SoT)**—durable documents that turn decisions into shared, queryable memory.
-Each SoT entry gets a **Unique ID**. That ID is referenceable and functions as a memory node with **weight and value** because it points to a validated decision, not a suggestion.
-
-When we define a User Journey and give it an ID (`UJ-101`), we create a node in our shared **Knowledge Graph** and offload that complexity from individual brains into the file system.
-When the AI references `BR-004`, it is not guessing; it is retrieving a specific, immutable memory we encoded.
-
-**Key Terms**
-
-- **Source of Truth Artifacts**: The clear, anchoring documents that hold a team's shared memory for a product.
-- **Context Density**: How much relevant, structured context we deliver per prompt or handoff.
-- **Knowledge Graph**: The linked network of IDs (`BR-xxx`, `UJ-xxx`, `API-xxx`) across files that makes memory retrievable for humans and AI.
-
-We treat the `SoT/` files (`SoT.*.md`) as the long-term memory store of the product.
-
-- The **AI** reads the SoT files to understand constraints without needing infinite context.
-- **Humans** read the SoT files to remember what we decided last week.
-- **We** meet in the code, confident we are building the same thing.
-
-### Agents as Accumulated Memory
-
-When we work with AI agents, we obsess over **instructions**—crafting the perfect prompt, the right system message, the detailed behavioral spec. But the most effective AI collaboration doesn't come from better instructions. It comes from **richer memory**.
-
-Consider two versions of WERK starting the same task:
-
-**Instruction-driven WERK**: "Build an API endpoint for user creation."
-
-**Memory-driven WERK**: "Build an API endpoint for user creation. On my wall: we use tRPC (TECH-001), Supabase RLS requires explicit policies (ARC-003). In my diary: last time we forgot the email uniqueness constraint—that cost us a day."
-
-Same instructions. Wildly different outcomes.
-
-The second WERK has **context density**. It knows the patterns, constraints, and scars that make good decisions possible. It's not smarter—it just remembers more.
-
-In PRD Led Context Engineering, memory accumulates:
-- **IDs on the walls** = Structured facts (BR-, API-, UJ-)
-- **Patterns in the drawers** = Learned wisdom ("Supabase RLS works better when...")
-- **Entries in the diary** = Why we chose X over Y, what broke, what worked
-
-This memory compounds. Each session adds sticky notes. Each pattern makes future work faster. The agents become **more effective over time**, not because they get better instructions, but because their rooms get richer.
-
-That's the shift: from instructing agents to **growing their memory**.
-
-### The 4 Pillars of Context Engineering
-
-To make shared memory practical, we rely on four core concepts:
-
-1.  **Just-in-Time Context**
-    _IDs allow loading only what's needed._
-    We don't dump the entire repository into the context window. By using **Unique IDs** (`UJ-101`, `API-002`), we reference and load _only_ the specific context needed for a task. This eliminates noise and reduces hallucination.
-
-2.  **The Documentation Ecosystem**
-    _A living, connected system for shared memory._
-    Documentation is not a static PDF; it is a live graph. We connect `PRD` to `Epics` to `SoT` via links and hooks. When the logic changes in the Source of Truth, the ecosystem ensures both human and AI know.
-
-3.  **Context Validation**
-    _Tools to measure context density._
-    We treat context like code: we measure it. If context is **too sparse**, the AI drifts. If it is **too dense**, the AI gets confused. We validate that we are providing the optimal amount of information for performance.
-
-4.  **Progressive Documentation**
-    _Update in place; never create copies._
-    We never write `PRD_v2.md`. We update the single Source of Truth in place. As the product evolves from v0.1 to v1.0, the documentation evolves with it, maintaining a single, current reality for the team.
-
-This structure preserves alignment and momentum. By engineering context, we build software no single person could hold in their head at once.
-
-### Agents as Rooms, Not Roles
-
-When we talk about AI agents, we usually describe them by what they **do**—"WERK builds things," "HORIZON defines strategy." But that misses what actually makes agents effective.
-
-Agents are better thought of not as roles on your team, but as **rooms where work is done**.
-
-Walk into WERK's room and you see:
-- Architecture decisions pinned to the wall (ARC-)
-- API contracts spread across the desk (API-)
-- A notebook of implementation patterns in the drawer
-- A diary of "why we didn't do X" decisions
-
-That's not decoration. That's **memory as infrastructure**. And memory—not instructions—is what defines an agent's identity.
-
-| What You See In The Room | What It Represents |
-|--------------------------|-------------------|
-| **Walls** | The IDs they own (BR-, API-, DES-, etc.) |
-| **Desk** | The context they need loaded to work |
-| **Drawers** | The patterns they've learned across sessions |
-| **Trash** | Ephemeral data that doesn't persist |
-| **Diary** | Project Memory—decisions, friction, open questions |
-
-This distinction matters because:
-1. **Handoffs become context transfers**, not task assignments—you're walking someone into a room, not giving them a to-do list
-2. **Learning compounds**—each session adds to the walls, making the next session more effective
-3. **Agents develop genuine expertise** in their domain through accumulated patterns, not just instructions
-
-The four agents—HORIZON, STUDIO, WERK, METRO—each maintain their own room. Their `.claude/agents/*.md` files are not instruction manuals; they are the walls, the desk, the diary.
-
-When you fork this repo, each agent starts with empty rooms. As you work, the rooms fill with patterns that make future work easier. The sticky notes accumulate. The diary gets richer. The artifacts pile up.
-
-That's compound context engineering.
+1. **Fork this Repository**: Establish your project's cognitive foundation.
+2. **Initialize the Dashboard**: Copy [`README_template.md`](README_template.md) to `README.md` and define your project's "Instincts."
+3. **Select Your Agent**: Configure [`.claude/`](.claude/) (or your preferred agent directory) to align the AI with your project's physics.
 
 ---
 
-## The Documentation Ecosystem: 3+1+SoT+Temp
+## The Perspective: The Memory Gap
 
-To make memory infrastructure practical, we use an **intentional architecture** designed to **manage Context Density**. This keeps human cognitive load and AI context windows within limits.
+Having led hyper-growth startups, enterprise "squads of squads," and launched five products as a solo developer, I've seen where development breaks. It is rarely a failure of talent; it is a failure of memory.
 
-### 1. Executive Functions: Building AI's instincts
+| Approach | Memory Model | The Problem |
+|:---------|:-------------|:------------|
+| **Waterfall** | Static Memory | Creates a "requirements trap" where we front-load certainty, making change slow and expensive. |
+| **Agile** | Fragmented Memory | Knowledge is scattered across tickets and ceremonies, eventually dying in "Definition of Done" checklists that no one reads. |
 
-This layer orients attention and sets priorities.
-
-- `README.md`: The Dashboard. The status, TOC, and "instincts" of the project (where am I? what is active?).
-- `PRD.md`: The Strategy. The "Why" and "What" of the product.
-- `CLAUDE.md`: The Physics. The rules of how the AI must behave.
-
-### 2. Focus Memory: The Execution Layer
-
-- `epics/`: The work in progress. This is the only "variable" state. An Epic frames a specific problem (Context Window) so we can solve it without distraction.
-
-### 3. Long-Term Memory: Source of Truth Artifacts
-
-- `SoT/SoT.*.md`: The immutable facts.
-
-  - **Business Rules (`BR-xxx`)**: Hard constraints.
-  - **User Journeys (`UJ-xxx`)**: Critical paths.
-  - **Data Contracts (`API-xxx`)**: Interfaces.
-
-    This is the shared memory store. We duplicate nothing here. We reference everything via **Unique IDs**.
-
-    > **Just-in-Time Context**: Unique IDs allow us to pull _only_ what is needed for an active task. Instead of dumping the entire documentation into the context window, we reference specific IDs (`UJ-101`, `API-002`). This reduces input tokens while maintaining deep, specific understanding.
-
-### 4. Short-Term Memory: Scratch Pad
-
-- `temp/`: The workspace for **Audits, Explorations, Tech Debt Analysis, and Concepting**.
-  - **Naming Convention**: Files must be associated with the Active Epic (e.g., `temp/EPIC-05_audit_log.md` or `temp/EPIC-05_tech_debt.md`).
-  - **Rule**: We **Archive** these files when the associated Epic is marked complete. This preserves the context and logic that led to the final implementation.
+**In the AI era, these gaps become fatal.** Without a shared history, AI agents guess. PRD-Led Context Engineering replaces tribal knowledge with a **Shared Knowledge Graph**—a living system of memory that both humans and AI use to navigate the product lifecycle with senior-level precision.
 
 ---
 
-## The Progressive PRD
+## 1. Infrastructure of Thought
 
-A common mistake in AI-assisted development is the "One-Shot"—asking the AI to build the entire app at once. This leads to generic code, hallucinations, and rapid context drift.
+In this system, documentation is the **Memory Bus** of the project. This manifests in key principles:
 
-Instead, we use a **Progressive PRD**.
+### The Golden Rule
 
-`PRD.md` is a **Gated Workflow**, not just a document. We force the AI to focus on one section at a time (e.g., "Strategy", then "User Journeys", then "Data Model").
+> **If a decision is not part of the memory infrastructure, it does not exist.**
 
-1.  **Constrained Focus**: By limiting the context window to a single phase, we prevent the AI from "guessing" the architecture before it understands the user needs.
-2.  **ID Rigor**: Deep focus allows us to generate meaningful IDs (`UJ-xxx`, `BR-xxx`) without overwhelming the system. These IDs become the anchors for all future code.
-3.  **Outcome Quality**: The result is not just a working product, but a _desirable_ one, built with care and speed.
+### Relative Context Density
 
-### The PRD Lifecycle (v0.1 to v1.0)
+We do not optimize for *more* context; we optimize for *density*. Too much context and the AI loses focus, attempting to solve the world; too little, and it drifts into hallucination. We engineer the "Goldilocks zone" of information.
 
-We do not proceed to the next stage until the **Definition of Done (DoD)** is met.
+---
 
-| Version  | Name                     | Focus                 | Definition of Done (DoD)                                           |
-| :------- | :----------------------- | :-------------------- | :----------------------------------------------------------------- |
-| **v0.1** | **Spark**                | Problem & Outcomes    | Problem defined, Outcomes measurable, Open Questions list.         |
-| **v0.2** | **Market Definition**    | Segments & ICP        | Segments sized, "Not For" defined, Business Rules (`BR-`) created. |
-| **v0.3** | **Commercial Model**     | Value & Pricing       | Competitors profiled, Pricing model, Monetization rules.           |
-| **v0.4** | **User Journeys**        | Personas & Flows      | Core journeys mapped (`UJ-`), Dependencies (`API-`) noted.         |
-| **v0.5** | **Red Team Review**      | Risks & Feasibility   | Risks (Market/Tech) identified, Mitigations linked to tests.       |
-| **v0.6** | **Architecture**         | Technical Strategy    | Stack selected, API contracts (`API-`) drafted, Cost guardrails.   |
-| **v0.7** | **Build Execution**      | Implementation Loop   | Code tested (`TEST-`), SoT updated, Epic loop execution.           |
-| **v0.8** | **Release & Deployment** | Operational Readiness | Runbooks (`RUN-`), Monitoring (`MON-`), Rollback plan.             |
-| **v0.9** | **Launch**               | Go-to-Market          | Launch metrics (`KPI-`), Feedback channels (`CFD-`) active.        |
-| **v1.0** | **Growth**               | Market Adoption       | Paying customers, Retention analysis, Optimization loop.           |
+## 2. The Cognitive Stack
 
-### The Iterative Ecosystem
+We organize the repository to reflect how intelligence functions. This hierarchy ensures that every participant operates with the correct level of focus.
 
-While the **PRD Lifecycle** is gated for discipline, the **Documentation Ecosystem** allows flexibility.
+### Executive Functions (The Instincts)
 
-> **The Paradox**: Gates provide focus; the ecosystem provides agility.
+| File | Purpose |
+|:-----|:--------|
+| [`README.md`](README.md) | **The Dashboard.** Current status, priorities, and project instincts. |
+| [`PRD.md`](PRD.md) | **The Progressive Strategy.** A gated document that defines the "Why" and "What." It evolves in place from v0.1 (Spark) to v1.0 (Growth). For this lifecycle I've built my 20 years as a product manager into [24 skills](.claude/skills/skills-inventory.md) that guide the PRD progress into building market-ready products. |
+| [`CLAUDE.md`](CLAUDE.md) | **The Physics.** The non-negotiable rules of behavior and technical standards. |
 
-Because our documentation is modular and interlocked via hooks, we can revisit any section just-in-time. If customer feedback changes the **Strategy** during the **Build** phase, we don't restart the plan. We simply:
+### Long-Term Memory (The Anchors)
 
-1.  Open a context window for `PRD.md` (Strategy Section). 
-2.  Update the `BR-xxx` rules.
-3.  If hooks are configured in `.claude/hooks`, use them to propagate changes to the active `epics/`. Otherwise, update the Epic manually.
+| Directory | Purpose |
+|:----------|:--------|
+| [`SoT/`](SoT/) | **The Source of Truth.** This holds immutable facts: [Business Rules (`BR-`)](SoT/SoT.BUSINESS_RULES.md), [User Journeys (`UJ-`)](SoT/SoT.USER_JOURNEYS.md), [Data Contracts (`API-`)](SoT/SoT.API_CONTRACTS.md), and other key decisions as easy-to-reference anchors that prevent model drift. |
 
-This allows the product to evolve without losing the structure that keeps humans and AI aligned.
+See the complete [SoT Index](SoT/SoT.README.md) and [Unique ID System](SoT/SoT.UNIQUE_ID_SYSTEM.md) for details.
+
+### Working Memory (The Epic)
+
+| Directory | Purpose |
+|:----------|:--------|
+| [`epics/`](epics/) | **Where execution lives.** An Epic is not just a task; it is a **Context Window**. It frames a specific problem, pulling in only the necessary IDs from the SoT to solve a requirement without distracting the AI with the entire codebase. |
+
+See the [Epic Template](epics/EPIC_TEMPLATE.md) and [Epic README](epics/README.md) for guidance.
+
+### Short-Term Memory (The Scratchpad)
+
+| Directory | Purpose |
+|:----------|:--------|
+| [`temp/`](temp/) | **The workspace** for audits, technical debt analysis, and research. This memory is ephemeral; its reference structure keeps the context window clean. |
+
+---
+
+## 3. Pattern Memory: The Role of Agentic Agents
+
+We often mistake an agent's "role" for its "instructions." In this system, **Identity is Memory**. Agents are better thought of as **Rooms** where work is captured as sticky notes on the wall, artifacts created, and patterns documented. An agent's effectiveness is determined by the **Pattern Memory** it accumulates within its room:
+
+| Component | What It Represents |
+|:----------|:-------------------|
+| **Agent Responsibilities** | The Unique IDs (`BR-`, `API-`) they are responsible for maintaining. |
+| **Status Log** | The active Working Memory (Epic) currently under review and its point of view for how to collaborate with other agents. |
+| **Patterns** | The "learned wisdom" of the project—decisions on why we chose one architecture over another, previous friction points, and successful implementation patterns. |
+
+### The Four Agents
+
+| Agent | Domain | Description |
+|:------|:-------|:------------|
+| [`HORIZON`](.claude/agents/HORIZON.md) | Strategy | Product vision and market alignment |
+| [`STUDIO`](.claude/agents/STUDIO.md) | Design | User experience and interface design |
+| [`WERK`](.claude/agents/WERK.md) | Implementation | Code, architecture, and technical execution |
+| [`METRO`](.claude/agents/METRO.md) | Operations | Deployment, monitoring, and reliability |
+
+**Handoffs are no longer task assignments; they are Context Transfers.** You are walking a partner into a room where the memory is already prepared for them on the walls and in the diary.
+
+---
+
+## 4. Principles of the System
+
+| Principle | Description |
+|:----------|:------------|
+| **Unique IDs as Nodes** | Using `BR-101` or `UJ-202` turns flat files into a queryable **Knowledge Graph**. It allows for deterministic retrieval instead of probabilistic guessing. |
+| **Just-in-Time Context** | We use those IDs to pull only the specific nodes of memory required for a task, maintaining optimal **Context Density**. |
+| **Progressive Documentation** | We update in place. As the product matures, the documentation matures with it, ensuring there is only ever one version of the truth. |
+| **Gated Workflows** | We verify that the memory (the PRD and SoT) is valid before we allow the system to move from strategy to implementation. |
+
+By engineering the context, we can build complex and iterative software that gives teams a way to navigate their own shared cognitive load and gives AI the right context to focus.
 
 ---
 
@@ -245,64 +138,59 @@ This allows the product to evolve without losing the structure that keeps humans
 ├── PRD.md                  # Product definition (Progressive PRD)
 ├── CLAUDE.md               # The agent's operating instructions
 ├── epics/                  # Active Context Windows (Tasks)
-├── SoT/                     # Shared Memory Store (SoT.* files)
-├── temp/                    # Scratch Pad for explorations and audits
-└── .claude/                 # Agents, tools, skills, and hooks
+│   └── EPIC_TEMPLATE.md    # Template for new epics
+├── SoT/                    # Shared Memory Store (SoT.* files)
+│   ├── SoT.README.md       # Index of all SoT files
+│   ├── SoT.BUSINESS_RULES.md
+│   ├── SoT.USER_JOURNEYS.md
+│   ├── SoT.API_CONTRACTS.md
+│   └── ...
+├── temp/                   # Scratch Pad for explorations and audits
+└── .claude/                # Agents, tools, skills, and hooks
+    ├── agents/             # Agent definitions (HORIZON, STUDIO, WERK, METRO)
+    ├── skills/             # PRD lifecycle skills (24 total)
+    └── hooks/              # Automation triggers
 ```
 
 > **Agent Note**: `.claude/` can be replaced with `.gemini/`, `.codex/`, or any other agent structure, but the skills, hooks, custom commands, and agent model here were built with Anthropic's documentation model in mind.
 
-> **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy `README_template.md` to `README.md` and customize it for that product.
+> **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy [`README_template.md`](README_template.md) to `README.md` and customize it for that product.
 
 ---
 
 ## Contributing
 
-Thank you for helping us refine the **PRD Led Context Engineering** methodology. This repository is not just a codebase; it is a living system of **Memory as Infrastructure**.
+Thank you for helping us refine the **PRD-Led Context Engineering** methodology. This repository is not just a codebase; it is a living system of **Memory as Infrastructure**.
 
 ### Core Philosophy
 
 Before contributing, please read:
 
-1.  **[`README.md`](README.md)**: The "Executive Functions" layer and Project Dashboard.
-2.  **[`CLAUDE.md`](CLAUDE.md)**: The Agent Operating Instructions.
+1. **[`README.md`](README.md)**: The "Executive Functions" layer and Project Dashboard.
+2. **[`CLAUDE.md`](CLAUDE.md)**: The Agent Operating Instructions.
 
 Our goal is to optimize **Context Density**: providing the AI (and humans) with exactly the right information at the right time.
-
-**For Agent Development**: When refining agent files, remember that agents are defined by memory, not just instructions:
-- **IDs Owned**: What structured facts does this agent maintain?
-- **Patterns Learned**: What wisdom should this agent accumulate?
-- **Context Required**: What must be loaded for effective work?
-- **Ephemeral**: What explicitly doesn't persist?
-
-Changes to agent files should strengthen their memory architecture, not just their behavioral instructions.
 
 ### Ways to Contribute
 
 #### 1. Refine the Methodology
 
-- **Templates**: Improve `SoT/` templates or `epics/EPIC_TEMPLATE.md`.
+- **Templates**: Improve [`SoT/`](SoT/) templates or [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md).
 - **Workflows**: Suggest automation hooks or better ways to manage the "Source of Truth".
-- **Documentation**: Clarify the "Rules of the Road" in `README.md`.
+- **Documentation**: Clarify the principles in this README.
 
 #### 2. Report Friction
 
-- If you find a "Gate" in the PRD Lifecycle (`README.md#the-prd-lifecycle`) that slows you down without adding value, let us know.
+- If you find a "Gate" in the PRD Lifecycle that slows you down without adding value, let us know.
 - If the AI struggles to find context, report it as a "Context Leak."
 
 ### Getting Started
 
-1.  **Fork & Branch**: Create a branch for your feature or fix.
-2.  **Follow the Lifecycle**: Even for meta-changes, we respect the spirit of the **Gated Workflow**.
-3.  **Traceability**: If you add a new concept, give it an ID (e.g., `BR-XXX` or `UJ-XXX`) if it's durable.
-
-### Contribution Standards
-
-- **Terminology**: Use "PRD Led Context Engineering", "Source of Truth", and "Epics" consistent with `README.md`.
-- **Links**: Always use relative links to files (e.g., `[Link](README.md)`), not absolute paths.
-- **Tone**: Professional, prescriptive, and rigorous.
+1. **Fork & Branch**: Create a branch for your feature or fix.
+2. **Follow the Lifecycle**: Even for meta-changes, we respect the spirit of the **Gated Workflow**.
+3. **Traceability**: If you add a new concept, give it an ID (e.g., `BR-XXX` or `UJ-XXX`) if it's durable.
 
 ### Questions?
 
 - Open a GitHub Issue for discussion.
-- Check `README.md` for the current status of the methodology.
+- Check this README for the current status of the methodology.

@@ -121,7 +121,7 @@
 
 - [ ] **Temp Cleanup**: Move useful notes from `temp/` to `SoT/`, archive or delete temp files
 - [ ] **Spec Finalization**: All `SoT/` entries match final implementation
-- [ ] **Learning Capture**: Run WERK's Learning Capture Protocol (`.claude/agents/WERK.md`) and update Project Memory
+- [ ] **Learning Capture**: Run DEVLAB's Learning Capture Protocol (`.claude/agents/DEVLAB.md`) and update Project Memory
 - [ ] **Pattern Harvest**: Check Harvest Queue — extract any 3+ occurrence patterns to their targets
 - [ ] **Session State Clean**: Section 0 has no open next steps
 - [ ] **Change Log Updated**: Document completion in Section 4

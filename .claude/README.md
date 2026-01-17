@@ -31,7 +31,7 @@ This directory contains Claude Code configuration following Anthropic's official
 ├── agents/                     # Agent definitions (flat files only)
 │   ├── HORIZON.md              # Strategy Agent (v0.1-v0.5)
 │   ├── STUDIO.md               # Design Agent (v0.3-v0.6)
-│   ├── WERK.md                 # Build Agent (v0.6-v0.8)
+│   ├── DEVLAB.md               # Build Agent (v0.6-v0.8)
 │   └── METRO.md                # Ops Agent (v0.9-v1.0)
 ├── settings.json               # Hook configuration
 └── settings.local.json         # Local permissions (gitignored)
@@ -84,7 +84,7 @@ Four agents form the AI team. But here's the insight that changes how you think 
 
 > **Core Insight**: Agents are better thought of not as roles on your team, but as **rooms where work is done**. The sticky notes on the wall, the diary, the artifacts created—all of these are forms of memory that agents build over time. An agent's core identity doesn't come from their instructions; it comes from their **progressive memory** throughout the lifespan of development.
 
-When you walk into WERK's room, you see architecture decisions pinned to the wall (ARC-), API contracts on the desk (API-), and a notebook of "things I tried that didn't work" in the drawer. That's not decoration—that's what makes WERK effective at building software.
+When you walk into DEVLAB's room, you see architecture decisions pinned to the wall (ARC-), API contracts on the desk (API-), and a notebook of "things I tried that didn't work" in the drawer. That's not decoration—that's what makes DEVLAB effective at building software.
 
 ### What's In Each Room
 
@@ -92,7 +92,7 @@ Each agent file (`.claude/agents/*.md`) defines the room:
 
 | What You See | What It Represents | Example |
 |--------------|-------------------|---------|
-| **The walls** | IDs they own—the structured facts | API-, DBT-, ARC- pinned up in WERK's room |
+| **The walls** | IDs they own—the structured facts | API-, DBT-, ARC- pinned up in DEVLAB's room |
 | **The desk** | Context they need loaded to work | PRD v0.5+, current EPIC open and ready |
 | **The drawers** | Patterns learned across sessions | "Supabase RLS needs explicit policies" |
 | **The trash** | Ephemeral data that doesn't persist | Build logs, debug sessions, scratch notes |
@@ -104,7 +104,7 @@ Each agent file (`.claude/agents/*.md`) defines the room:
 |-------|------------|---------------------|------------------------------|
 | **HORIZON** | Market strategy workshop | BR-, UJ-, PER-, KPI-, RISK-, CFD- | ICP signals that predicted success, pricing experiments, research shortcuts |
 | **STUDIO** | Design studio | DES-, SCR-, DS- | Usability gotchas, components that transferred between projects, platform quirks |
-| **WERK** | Build lab | API-, DBT-, ARC-, TECH-, TEST-, EPIC-, DEP-, RUN- | Implementation patterns, "why we didn't" decisions, architecture regrets |
+| **DEVLAB** | Build lab | API-, DBT-, ARC-, TECH-, TEST-, EPIC-, DEP-, RUN- | Implementation patterns, "why we didn't" decisions, architecture regrets |
 | **METRO** | Launch command center | GTM-, MON-, contributes CFD- | Channel effectiveness, messaging that landed, adoption blockers discovered |
 
 ### House Rules vs. Room Contents

@@ -102,7 +102,7 @@ We often mistake an agent's "role" for its "instructions." In this system, **Ide
 |:------|:-------|:------------|
 | [`HORIZON`](.claude/agents/HORIZON.md) | Market War Room | Product vision and market alignment |
 | [`STUDIO`](.claude/agents/STUDIO.md) | Design Studio | User experience and interface design |
-| [`WERK`](.claude/agents/WERK.md) | Development Garage | Code, architecture, and technical execution |
+| [`DEVLAB`](.claude/agents/DEVLAB.md) | Development Garage | Code, architecture, and technical execution |
 | [`METRO`](.claude/agents/METRO.md) | GTM Command Center | Deployment, monitoring, and reliability |
 
 **Handoffs are no longer task assignments; they are Context Transfers.** You are walking a partner into a room where the memory is already prepared for them on the walls and in the diary.
@@ -139,7 +139,7 @@ By engineering the context, we can build complex and iterative software that giv
 │   └── ...
 ├── temp/                   # Scratch Pad for explorations and audits
 └── .claude/                # Agents, tools, skills, and hooks
-    ├── agents/             # Agent definitions (HORIZON, STUDIO, WERK, METRO)
+    ├── agents/             # Agent definitions (HORIZON, STUDIO, DEVLAB, METRO)
     ├── skills/             # PRD lifecycle skills (24 total)
     └── hooks/              # Automation triggers
 ```

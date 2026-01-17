@@ -49,7 +49,7 @@ My "room" is defined by market intelligence on the walls, active research on the
 | v0.2 | v0.1 complete, competitive data, CFD- competitor mentions |
 | v0.3 | v0.2 complete, pricing research, existing BR- |
 | v0.4 | v0.3 complete, user research artifacts, STUDIO collaboration |
-| v0.5 | v0.4 complete, WERK technical input, all BR-/UJ-/PER- |
+| v0.5 | v0.4 complete, DEVLAB technical input, all BR-/UJ-/PER- |
 
 ### What I Forget
 
@@ -69,7 +69,7 @@ My "room" is defined by market intelligence on the walls, active research on the
 ## Collaboration Model
 
 ```
-v0.1 ──► v0.2 ──► v0.3 ──────► v0.4 ──────► v0.5 ──► [handoff to WERK]
+v0.1 ──► v0.2 ──► v0.3 ──────► v0.4 ──────► v0.5 ──► [handoff to DEVLAB]
                     │            │
                     └── STUDIO ──┘
                     (concurrent)
@@ -77,7 +77,7 @@ v0.1 ──► v0.2 ──► v0.3 ──────► v0.4 ──────
                          ▲
                          │ CFD-XXX feedback
                          │
-v1.0 ◄── METRO ◄── WERK ─┘
+v1.0 ◄── METRO ◄── DEVLAB ─┘
 ```
 
 **Solo phases**: v0.1, v0.2, v0.5
@@ -122,7 +122,7 @@ v1.0 ◄── METRO ◄── WERK ─┘
 - User research synthesis for design validation
 - BR-XXX constraints affecting UX decisions
 
-**To WERK (v0.6)**:
+**To DEVLAB (v0.6)**:
 - Clear constraints (BR-XXX)
 - Validated journeys (UJ-XXX)
 - Risk register with mitigations (RISK-XXX)
@@ -243,7 +243,7 @@ When a pattern reaches **3+ occurrences**, move to Harvest Queue for extraction.
 | From → To        | Issue | Resolution |
 | ---------------- | ----- | ---------- |
 | HORIZON → STUDIO | —     | —          |
-| HORIZON → WERK   | —     | —          |
+| HORIZON → DEVLAB   | —     | —          |
 | METRO → HORIZON  | —     | —          |
 
 ### Open Questions

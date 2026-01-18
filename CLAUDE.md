@@ -17,15 +17,31 @@ authority: "PRD Led Context Engineering"
 ### Start of Session
 
 1. **Load Context**: `README.md`, `PRD.md`, and the Active EPIC.
-2. **Read Session State**: Check Section 0 of the Active EPIC for "Where we left off".
-3. **Check Git Status**: Confirm you are on the right branch/commit.
+2. **Read Session State**: Check Section 1 of the Active EPIC for Resume Instructions.
+3. **Check Git Status**: Confirm you are on the right branch (`epic/EPIC-{NUMBER}-{slug}`).
+4. **Verify Pre-load**: Load files listed in EPIC Section 0 (Context Capsule).
+
+### During Session (Checkpoint Discipline)
+
+**At every checkpoint**, before proceeding to the next phase:
+
+1. **Update EPIC Section 1** (Session State):
+   - Last Action: What was just completed (reference IDs)
+   - Stopping Point: Current file/line
+   - Next Steps: What comes next
+   - Decisions Made: Any choices made with rationale
+2. **Commit progress**: `checkpoint: [EPIC-XX] {phase} complete`
+3. **Verify checkpoint criteria**: Confirm the checkpoint's "done" state is actually true
+
+This creates natural save points. If context fills or session ends unexpectedly, work is recoverable.
 
 ### End of Session
 
-1. **Update EPIC Section 0**:
+1. **Update EPIC Section 1**:
    - **Progress**: What specifically was done? (Link IDs)
    - **Stop Point**: File/Line where work ceased.
    - **Next**: Exact instructions for the next agent.
+   - **Resume Instructions**: What the next session should do first.
 2. **Run Learning Capture Protocol**: Answer the agent-specific questions in `.claude/agents/{AGENT}.md` and update Project Memory.
 3. **Commit**: `session: [EPIC-XX] summary of work`.
 

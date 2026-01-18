@@ -23,6 +23,7 @@
 | **v0.5 Red Team Review** | [Technical Stack Selection](#skill-technical-stack-selection) | ✅ Ready | [`prd-v05-technical-stack-selection/`](prd-v05-technical-stack-selection/) |
 | **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | ✅ Ready | [`prd-v06-architecture-design/`](prd-v06-architecture-design/) |
 | **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | ✅ Ready | [`prd-v06-technical-specification/`](prd-v06-technical-specification/) |
+| **v0.6 Architecture** | [Environment Setup](#skill-environment-setup) | ✅ Ready | [`prd-v06-environment-setup/`](prd-v06-environment-setup/) |
 | **v0.7 Build Execution** | [Epic Scoping](#skill-epic-scoping) | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
 | **v0.7 Build Execution** | [Test Planning](#skill-test-planning) | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
 | **v0.7 Build Execution** | [Implementation Loop](#skill-implementation-loop) | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
@@ -95,13 +96,14 @@
 
 ### v0.6 Architecture — Technical Blueprint
 
-**Purpose:** Define system architecture and implementation contracts based on stack selections.
-**Gate:** Architecture decisions documented, API contracts defined, data models specified, integration patterns established.
+**Purpose:** Define system architecture, implementation contracts, and environment specifications based on stack selections.
+**Gate:** Architecture decisions documented, API contracts defined, data models specified, environment setup documented.
 
 | Skill | Input | Output | IDs Created |
 |-------|-------|--------|-------------|
 | Architecture Design | TECH- (stack), RISK- (constraints), FEA- (features) | System architecture with component relationships | ARC- |
 | Technical Specification | ARC- (architecture), TECH- (Build items), UJ- (flows), SCR- (screens) | API contracts and data models | API-, DBT- |
+| Environment Setup | TECH- (stack), ARC- (architecture) | Development environment, CI/CD, infrastructure specs | ENV- |
 
 ### v0.7 Build Execution — Implementation
 
@@ -1264,6 +1266,86 @@ Business Rules: [BR-XXX that affect this entity]
 | **v0.7 Build Execution** | API- and DBT- are implementation tasks | EPIC-01 implements API-001–005 |
 | **Testing** | API- defines test contracts | TEST-001 validates API-001 |
 | **Documentation** | API- becomes API docs | OpenAPI spec from API- entries |
+
+---
+
+### SKILL: Environment Setup
+
+```yaml
+name: prd-v06-environment-setup
+stage: v0.6
+status: ready
+folder: prd-v06-environment-setup/
+triggers: "what tools do I need", "environment setup", "dev environment", "CLI requirements", "project setup", "onboarding setup"
+id_outputs: [ENV-]
+```
+
+**Purpose:** Document development environment requirements for team consistency and AI agent understanding.
+
+**Position in workflow:** v0.6 Architecture / Technical Spec → **v0.6 Environment Setup** → v0.7 Build Execution
+
+**Mode:** Documentation — AI helps structure requirements, developer provides tool choices.
+
+**Execution:**
+1. Pull TECH- decisions (what technologies are we using?)
+2. Pull ARC- decisions (what architecture patterns apply?)
+3. Inventory tooling needs (CLIs, packages, configs)
+4. Categorize by scope (global vs per-project)
+5. Define configuration files with purpose
+6. Create verification commands
+7. Document in ENV- entries
+
+**Design Principles:**
+- **Prefer CLIs over MCPs** — CLIs work in all environments (local, CI/CD, cloud)
+- **Per-project over global** — Language packages in project, not global installs
+- **Structured over prose** — Tables and code blocks, not narrative paragraphs
+- **Verification required** — Every ENV- includes commands to confirm setup
+
+**ENV-001 Output Template:**
+```
+ENV-001: Development Environment
+Category: Development Setup
+Status: Approved | Date: YYYY-MM-DD
+Owner: {Team/Person}
+
+CLIs (Global):
+- {tool}: {purpose} — {install command}
+
+Packages (Per-Project):
+- {package}: {purpose}
+
+Configuration Files:
+| File | Purpose |
+|------|---------|
+| {file} | {purpose} |
+
+Scripts:
+{
+  "validate": "{quality check command}",
+  "fix": "{auto-fix command}",
+  "test": "{test command}"
+}
+
+Verification:
+# Commands to confirm environment is ready
+{verification commands}
+
+Related IDs: TECH-XXX, ARC-XXX
+```
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Global package pollution | `npm install -g` for project packages | Use devDependencies |
+| Missing verification | No way to confirm setup | Add verification commands |
+| MCP over CLI | Using MCP when CLI exists | Prefer CLI for portability |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.7 Build Execution** | ENV-001 defines dev setup | Developer follows ENV-001 |
+| **Onboarding** | ENV-001 as setup guide | New dev uses ENV-001 |
+| **CI/CD** | ENV-002 defines pipeline | GitHub Actions mirrors ENV-002 |
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Source-of-Truth Library Guide"
 scope: "SoT/"
-updated: "2026-01-12"
+updated: "2026-01-18"
 ---
 
 # Source-of-Truth (SoT) Library
@@ -23,7 +23,7 @@ Each file focuses on one artifact type with a consistent ID prefix (~100-150 lin
 | `SoT.DEPLOYMENT.md` | DEP, RUN, MON | Deployment, runbooks, monitoring |
 | `SoT.customer_feedback.md` | CFD-XXX | Customer feedback and insights |
 | `SoT.DESIGN_COMPONENTS.md` | DES-XXX | UI components and design tokens |
-| `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC | Tech stack and architecture |
+| `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC, ENV | Tech stack, architecture & environment |
 | `SoT.INTEGRATIONS.md` | INT-XXX | Third-party service integrations |
 
 **IDs in PRD/README** (not SoT files): FEA-XXX, RISK-XXX, GTM-XXX, KPI-XXX

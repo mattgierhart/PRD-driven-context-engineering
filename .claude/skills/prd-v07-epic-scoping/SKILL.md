@@ -23,6 +23,41 @@ Position in workflow: v0.6 Technical Specification → **v0.7 Epic Scoping** →
 
 **Rule of thumb**: If you can't describe the EPIC's goal in one sentence, it's too big.
 
+## Context Budget Guidelines
+
+EPICs are **context capsules** — work units sized for AI agent handoffs.
+
+| Dimension | Target | Rationale |
+|-----------|--------|-----------|
+| **Pre-load context** | <100k tokens | SoT files + EPIC + code references |
+| **Working room** | >100k tokens | Space for tool outputs, debugging, iteration |
+| **Session goal** | 1 checkpoint | Clear "done" state per session |
+
+**Context Monitoring**: Don't estimate upfront — monitor during work. If context exceeds 100k tokens mid-session, pause and checkpoint immediately.
+
+**Splitting Signal**: If you need to load >5 SoT files or >10 code files to understand the EPIC, it's probably too big.
+
+## Branch Convention
+
+Each EPIC gets its own branch. This creates:
+- Clear ownership (one EPIC = one branch = one PR)
+- Easy rollback (delete branch, EPIC never happened)
+- Natural checkpoint = commit
+
+**Naming**: `epic/EPIC-{NUMBER}-{slug}`
+
+Examples:
+- `epic/EPIC-01-auth-endpoints`
+- `epic/EPIC-02-user-dashboard`
+- `epic/EPIC-03-payment-integration`
+
+**Workflow**:
+1. EPIC created → `git checkout -b epic/EPIC-{NUMBER}-{slug}`
+2. Work happens → Commits reference IDs in messages
+3. Checkpoints → Commit with state saved in EPIC Section 1
+4. EPIC complete → PR opened
+5. PR merged → Branch deleted, EPIC marked Complete
+
 ## Scoping Process
 
 1. **Inventory implementation items** from API-, DBT-, FEA-, ARC-
@@ -59,14 +94,39 @@ Position in workflow: v0.6 Technical Specification → **v0.7 Epic Scoping** →
 EPIC-XXX: [Epic Name]
 State: [Planned | In Progress | Testing | Complete]
 Lifecycle: v0.7 Build Execution
+Branch: epic/EPIC-XXX-[slug]
 
-## 0. Session State (The "Brain Dump")
-- **Last Action**: [What was just completed]
+## 0. Context Capsule
+### Resource Envelope
+| Dimension | Target | Notes |
+|-----------|--------|-------|
+| Pre-load Context | ~[N]k tokens | SoT files + EPIC + code |
+| Working Room | ~[200-N]k tokens | Space for work |
+| Session Goal | [Checkpoint target] | What "done" looks like |
+
+### Dependencies
+| Type | Items | Status |
+|------|-------|--------|
+| Requires | EPIC-YYY | Complete/Pending |
+| External | [Setup needed] | Ready/Blocked |
+| Enables | EPIC-ZZZ | Blocked until this completes |
+
+### Pre-load Checklist
+- [ ] SoT/SoT.[X].md — IDs: [key IDs]
+- [ ] SoT/SoT.[Y].md — IDs: [key IDs]
+
+## 1. Session State (The "Brain Dump")
+### Current State
+- **Last Action**: [What was just completed — reference IDs]
 - **Stopping Point**: [File/line or test failure]
 - **Next Steps**: [Exact instructions for next session]
-- **Context**: [Key decisions, blockers, questions]
+- **Blockers**: [Any blockers — or "None"]
+- **Decisions Made**: [Key decisions with rationale]
 
-## 1. Objective & Scope
+### Resume Instructions
+[Exactly what the next session should do — or "N/A - EPIC Complete"]
+
+## 2. Objective & Scope
 Goal: [One sentence describing what this EPIC achieves]
 
 Deliverables:
@@ -76,38 +136,71 @@ Deliverables:
 
 Out of Scope: [What we are NOT doing in this EPIC]
 
-## 2. Context & IDs
-Business Rules: [BR-XXX, BR-YYY]
-User Journeys: [UJ-XXX, UJ-YYY]
-APIs: [API-XXX to API-ZZZ]
-Data Models: [DBT-XXX, DBT-YYY]
-Architecture: [ARC-XXX]
-Features: [FEA-XXX, FEA-YYY]
-Tests: [TEST-XXX to TEST-ZZZ] — Added during Test Planning
+## 3. Context & IDs
+| Type | IDs |
+|------|-----|
+| Business Rules | BR-XXX, BR-YYY |
+| User Journeys | UJ-XXX, UJ-YYY |
+| APIs | API-XXX to API-ZZZ |
+| Data Models | DBT-XXX, DBT-YYY |
+| Architecture | ARC-XXX |
+| Features | FEA-XXX, FEA-YYY |
+| Tests | TEST-XXX to TEST-ZZZ |
 
-## 3. Dependencies
-Requires: [EPIC-YYY must complete first]
-Enables: [EPIC-ZZZ depends on this]
-External: [Any external dependencies]
+## 4. Execution Plan (The 5 Phases)
 
-## 4. Context Windows (Build Phases)
-Window 1: [Focus Area] — e.g., "Database Schema"
+### Phase A: Plan
+- [ ] Context loaded
+- [ ] Dependencies verified
+- [ ] Strategy defined
+- [ ] Branch created
+
+**Checkpoint A**: Planning complete, branch exists.
+
+### Phase B: Design
+- [ ] Specs updated
+- [ ] Architecture documented
+- [ ] TEST- entries created
+
+**Checkpoint B**: Specs drafted, tests defined.
+
+### Phase C: Build (Context Windows)
+Window 1: [Focus Area]
   - [ ] Task A
   - [ ] Task B
+  - [ ] Verification: [How to confirm complete]
 
-Window 2: [Focus Area] — e.g., "API Endpoints"
+**Checkpoint C1**: [What exists when done]
+
+Window 2: [Focus Area]
   - [ ] Task C
   - [ ] Task D
 
-Window 3: [Focus Area] — e.g., "UI Integration"
-  - [ ] Task E
-  - [ ] Task F
+**Checkpoint C2**: [What exists when done]
 
-## 5. Validation Criteria
+### Phase D: Validate
 - [ ] All TEST- entries pass
 - [ ] Manual verification of UJ-
 - [ ] Code has @implements tags
-- [ ] specs/ updated to match implementation
+- [ ] SoT matches implementation
+
+**Checkpoint D**: Tests green, verification complete.
+
+### Phase E: Finish
+- [ ] Temp cleanup
+- [ ] SoT finalized
+- [ ] Learning capture
+- [ ] Resume Instructions = "N/A - EPIC Complete"
+- [ ] PR ready
+
+**Checkpoint E**: EPIC complete.
+
+## 5. Acceptance Criteria
+- [ ] All deliverables done
+- [ ] All TEST- entries pass
+- [ ] Resume Instructions = "N/A - EPIC Complete"
+- [ ] No orphan ID references
+- [ ] Branch merged or PR approved
 ```
 
 **Example EPIC- entry:**
@@ -115,14 +208,43 @@ Window 3: [Focus Area] — e.g., "UI Integration"
 EPIC-01: User Authentication
 State: Planned
 Lifecycle: v0.7 Build Execution
+Branch: epic/EPIC-01-auth
 
-## 0. Session State
+## 0. Context Capsule
+### Resource Envelope
+| Dimension | Target | Notes |
+|-----------|--------|-------|
+| Pre-load Context | ~40k tokens | Auth SoT + API specs + schema |
+| Working Room | ~160k tokens | Plenty of space |
+| Session Goal | Checkpoint C1 | Database schema complete |
+
+### Dependencies
+| Type | Items | Status |
+|------|-------|--------|
+| Requires | None | First EPIC |
+| External | Supabase project | Ready |
+| Enables | EPIC-02, EPIC-03 | Blocked until this completes |
+
+### Pre-load Checklist
+- [ ] SoT/SoT.BUSINESS_RULES.md — IDs: BR-001, BR-002
+- [ ] SoT/SoT.API_CONTRACTS.md — IDs: API-001 to API-005
+- [ ] SoT/SoT.TECHNICAL_DECISIONS.md — IDs: TECH-003, ARC-003
+
+## 1. Session State (The "Brain Dump")
+### Current State
 - **Last Action**: N/A (not started)
 - **Stopping Point**: N/A
-- **Next Steps**: Begin with Window 1 (Database Schema)
-- **Context**: Using Supabase Auth per TECH-003
+- **Next Steps**:
+  1. Create branch epic/EPIC-01-auth
+  2. Begin with Phase A: Plan
+  3. Load context from pre-load checklist
+- **Blockers**: None
+- **Decisions Made**: Using Supabase Auth per TECH-003
 
-## 1. Objective & Scope
+### Resume Instructions
+> Start fresh: create branch and load context per pre-load checklist.
+
+## 2. Objective & Scope
 Goal: Enable users to sign up, log in, and manage their sessions.
 
 Deliverables:
@@ -133,45 +255,58 @@ Deliverables:
 
 Out of Scope: Social auth (EPIC-02), team invites (EPIC-05)
 
-## 2. Context & IDs
-Business Rules: BR-001 (email uniqueness), BR-002 (password requirements)
-User Journeys: UJ-000 (onboarding), UJ-010 (password reset)
-APIs: API-001, API-002, API-003, API-004, API-005
-Data Models: DBT-010 (users), DBT-011 (sessions)
-Architecture: ARC-003 (Supabase Auth)
-Features: FEA-010, FEA-011
-Tests: TEST-001 to TEST-015 (to be defined in Test Planning)
+## 3. Context & IDs
+| Type | IDs |
+|------|-----|
+| Business Rules | BR-001, BR-002 |
+| User Journeys | UJ-000, UJ-010 |
+| APIs | API-001 to API-005 |
+| Data Models | DBT-010, DBT-011 |
+| Architecture | ARC-003, TECH-003 |
+| Features | FEA-010, FEA-011 |
+| Tests | TEST-001 to TEST-015 |
 
-## 3. Dependencies
-Requires: None (first EPIC)
-Enables: EPIC-02, EPIC-03, EPIC-04, EPIC-05
-External: Supabase project setup
+## 4. Execution Plan
 
-## 4. Context Windows
+### Phase A: Plan
+- [ ] Context loaded
+- [ ] Dependencies verified (Supabase ready)
+- [ ] Strategy: Database → API → UI
+- [ ] Branch created: epic/EPIC-01-auth
+
+**Checkpoint A**: Planning complete, branch exists.
+
+### Phase C: Build
 Window 1: Database Schema
   - [ ] Create users table with RLS
   - [ ] Create sessions table
   - [ ] Set up Supabase Auth triggers
 
+**Checkpoint C1**: Schema deployed, migrations tested.
+
 Window 2: API Endpoints
-  - [ ] Implement POST /auth/signup (API-001)
-  - [ ] Implement POST /auth/login (API-002)
-  - [ ] Implement POST /auth/logout (API-003)
-  - [ ] Implement POST /auth/refresh (API-004)
-  - [ ] Implement POST /auth/reset-password (API-005)
+  - [ ] POST /auth/signup (API-001)
+  - [ ] POST /auth/login (API-002)
+  - [ ] POST /auth/logout (API-003)
+  - [ ] POST /auth/refresh (API-004)
+  - [ ] POST /auth/reset-password (API-005)
+
+**Checkpoint C2**: All endpoints return correct responses.
 
 Window 3: UI Integration
-  - [ ] Build signup form (SCR-001)
-  - [ ] Build login form (SCR-002)
-  - [ ] Build password reset flow (SCR-003)
-  - [ ] Implement auth state management
+  - [ ] Signup form (SCR-001)
+  - [ ] Login form (SCR-002)
+  - [ ] Password reset flow (SCR-003)
+  - [ ] Auth state management
 
-## 5. Validation Criteria
+**Checkpoint C3**: Full auth flow works E2E.
+
+## 5. Acceptance Criteria
+- [ ] All deliverables done
 - [ ] TEST-001 to TEST-015 pass
-- [ ] Can complete UJ-000 (signup → dashboard)
-- [ ] Can complete UJ-010 (password reset)
-- [ ] All API endpoints return correct errors
-- [ ] Sessions expire correctly after timeout
+- [ ] Resume Instructions = "N/A - EPIC Complete"
+- [ ] UJ-000 and UJ-010 verified manually
+- [ ] Branch merged
 ```
 
 ## EPIC Phase Structure

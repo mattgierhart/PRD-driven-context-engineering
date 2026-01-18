@@ -37,6 +37,7 @@ This file serves as the **governance guide** for the ID system and the **central
 | **DES** | Design Component | `SoT.DESIGN_COMPONENTS.md` | v0.4 User Journeys |
 | **TECH** | Tech Stack | `SoT.TECHNICAL_DECISIONS.md` | v0.5 Red Team |
 | **ARC** | Architecture | `SoT.TECHNICAL_DECISIONS.md` | v0.6 Architecture |
+| **ENV** | Environment Setup | `SoT.TECHNICAL_DECISIONS.md` | v0.6 Architecture |
 | **INT** | Integration | `SoT.INTEGRATIONS.md` | v0.6 Architecture |
 | **API** | API Contract | `SoT.API_CONTRACTS.md` | v0.6 Architecture |
 | **DBT** | Data Schema | `SoT.DATA_MODEL.md` | v0.6 Architecture |
@@ -113,7 +114,7 @@ CFD-089 (Request: Dark Mode)
 | `SoT.DEPLOYMENT.md` | DEP, RUN, MON | ~130 | Operations & deployment |
 | `SoT.customer_feedback.md` | CFD-XXX | ~120 | Customer insights |
 | `SoT.DESIGN_COMPONENTS.md` | DES-XXX | ~100 | UI components |
-| `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC | ~115 | Tech & architecture |
+| `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC, ENV | ~130 | Tech, architecture & environment |
 | `SoT.INTEGRATIONS.md` | INT-XXX | ~105 | Third-party services |
 
 ---
@@ -132,6 +133,7 @@ When forking, validate:
 
 | Date | Change |
 |------|--------|
+| 2026-01-18 | Added ENV-XXX prefix for development environment specifications |
 | 2026-01-12 | Standardized: Updated file references, added INT-XXX, clarified PRD vs SoT homes |
 | 2026-01-12 | Added 8 missing ID prefixes. Organized by PRD stage |
 | 2025-12-22 | Combined UNIQUE_ID_SYSTEM and ID_REGISTRY into one |

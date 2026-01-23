@@ -59,14 +59,14 @@ We organize the repository to reflect how intelligence functions. This hierarchy
 | File | Purpose |
 |:-----|:--------|
 | [`README.md`](README.md) | **The Dashboard.** Current status, priorities, and project instincts. |
-| [`PRD.md`](PRD.md) | **The Progressive Strategy.** A gated document that defines the "Why" and "What." It evolves in place from v0.1 (Spark) to v1.0 (Growth). For this lifecycle I've built my 20 years as a product manager into [25 skills](.claude/skills/skills-inventory.md) that guide the PRD progress into building market-ready products. |
+| [`PRD.md`](PRD.md) | **The Progressive Strategy.** A gated document that defines the "Why" and "What." It evolves in place from v0.1 (Spark) to v1.0 (Growth). v0.7 (Build) includes deployment configuration — environment setup, CI/CD pipelines, and secrets management. For this lifecycle I've built my 20 years as a product manager into [25 skills](.claude/skills/skills-inventory.md) that guide the PRD progress into building market-ready products. |
 | [`CLAUDE.md`](CLAUDE.md) | **The Physics.** The non-negotiable rules of behavior and technical standards. |
 
 ### Long-Term Memory (The Anchors)
 
 | Directory | Purpose |
 |:----------|:--------|
-| [`SoT/`](SoT/) | **The Source of Truth.** This holds immutable facts: [Business Rules (`BR-`)](SoT/SoT.BUSINESS_RULES.md), [User Journeys (`UJ-`)](SoT/SoT.USER_JOURNEYS.md), [Data Contracts (`API-`)](SoT/SoT.API_CONTRACTS.md), [Technical Decisions (`TECH-`, `ARC-`, `ENV-`)](SoT/SoT.TECHNICAL_DECISIONS.md), and other key decisions as easy-to-reference anchors that prevent model drift. |
+| [`SoT/`](SoT/) | **The Source of Truth.** This holds immutable facts: [Business Rules (`BR-`)](SoT/SoT.BUSINESS_RULES.md), [User Journeys (`UJ-`)](SoT/SoT.USER_JOURNEYS.md), [Data Contracts (`API-`)](SoT/SoT.API_CONTRACTS.md), [Technical Decisions (`TECH-`, `ARC-`, `ENV-`)](SoT/SoT.TECHNICAL_DECISIONS.md), [Deployment (`DEP-`, `SEC-`, `MON-`)](SoT/SoT.DEPLOYMENT.md), and other key decisions as easy-to-reference anchors that prevent model drift. |
 
 See the complete [SoT Index](SoT/SoT.README.md) and [Unique ID System](SoT/SoT.UNIQUE_ID_SYSTEM.md) for details.
 

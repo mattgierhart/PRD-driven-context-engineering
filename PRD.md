@@ -237,6 +237,42 @@ last_updated: 2025-12-22
 - [ ] README metrics updated via workflow.
 - [ ] Coverage thresholds defined.
 
+### Deployment Configuration
+
+Deployment configuration should be established early in v0.7 to avoid late-stage integration issues. Document the following in `SoT/SoT.DEPLOYMENT.md`:
+
+#### Environments
+| Environment | Purpose | Trigger | URL Pattern |
+|-------------|---------|---------|-------------|
+| Production | Live users | Merge to main | Primary domain |
+| Preview/Staging | Pre-merge testing | Pull request | Branch-based URLs |
+| Development | Local development | N/A | localhost |
+
+#### Branch Strategy
+Define branch naming conventions and their deployment behavior:
+- `main` — Production deployments only
+- `feature/*` — Preview deployments for testing
+- `fix/*` — Preview deployments for bug verification
+- `experiment/*` — Preview deployments for exploration (may be abandoned)
+
+#### Quality Gates
+Specify required checks before code reaches production:
+1. **Automated** — Lint, type checking, unit tests (CI pipeline)
+2. **Manual** — Preview deployment smoke test
+3. **Optional** — E2E tests against preview environment
+
+#### Platform Configuration
+For each deployment target (web, mobile, API), document:
+- Hosting platform and tier
+- Environment variable management approach
+- Build configuration location
+- Secrets that require setup (reference `SoT/SoT.DEPLOYMENT.md` Secrets Inventory)
+
+#### Mobile-Specific (if applicable)
+- Code signing approach (manual, automated, or managed)
+- Beta distribution channel (TestFlight, Play Store Internal, etc.)
+- Release tagging convention (e.g., `v1.0.0` for production, `v1.0.0-beta.1` for beta)
+
 **Outstanding Work → v0.8**
 
 - {Deployment or operational prep item}

@@ -46,6 +46,7 @@ This file serves as the **governance guide** for the ID system and the **central
 | **DEP** | Deployment | `SoT.DEPLOYMENT.md` | v0.8 Release |
 | **MON** | Monitoring | `SoT.DEPLOYMENT.md` | v0.8 Release |
 | **RUN** | Runbook | `SoT.DEPLOYMENT.md` | v0.8 Release |
+| **SEC** | Secret/Credential | `SoT.DEPLOYMENT.md` | v0.7 Build |
 
 #### IDs in PRD/README (Not SoT Files)
 
@@ -111,7 +112,7 @@ CFD-089 (Request: Dark Mode)
 | `SoT.API_CONTRACTS.md` | API-XXX | ~120 | Endpoint specifications |
 | `SoT.DATA_MODEL.md` | DBT-XXX | ~120 | Database schema |
 | `SoT.TESTING.md` | TEST-XXX | ~120 | Test specifications |
-| `SoT.DEPLOYMENT.md` | DEP, RUN, MON | ~130 | Operations & deployment |
+| `SoT.DEPLOYMENT.md` | DEP, RUN, MON, SEC | ~320 | Operations, deployment & secrets |
 | `SoT.customer_feedback.md` | CFD-XXX | ~120 | Customer insights |
 | `SoT.DESIGN_COMPONENTS.md` | DES-XXX | ~100 | UI components |
 | `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC, ENV | ~130 | Tech, architecture & environment |
@@ -133,6 +134,7 @@ When forking, validate:
 
 | Date | Change |
 |------|--------|
+| 2026-01-23 | Added SEC-XXX prefix for secrets/credentials inventory |
 | 2026-01-18 | Added ENV-XXX prefix for development environment specifications |
 | 2026-01-12 | Standardized: Updated file references, added INT-XXX, clarified PRD vs SoT homes |
 | 2026-01-12 | Added 8 missing ID prefixes. Organized by PRD stage |

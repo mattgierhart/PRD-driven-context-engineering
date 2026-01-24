@@ -20,6 +20,20 @@
         "command": "python3 .claude/hooks/sot-update-trigger.py",
         "timeout": 15000
       }
+    ],
+    "SubagentStart": [
+      {
+        "type": "command",
+        "command": ".claude/hooks/subagent-memory-load.sh $AGENT_NAME",
+        "timeout": 5000
+      }
+    ],
+    "SubagentStop": [
+      {
+        "type": "command",
+        "command": ".claude/hooks/subagent-memory-save.sh $AGENT_NAME",
+        "timeout": 5000
+      }
     ]
   },
   "permissions": {

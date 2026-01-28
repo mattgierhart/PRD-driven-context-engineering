@@ -74,6 +74,30 @@ Before working, ensure you have loaded:
 | v0.4 | v0.3 complete, user research artifacts, STUDIO collaboration |
 | v0.5 | v0.4 complete, DEVLAB technical input, all BR-/UJ-/PER- |
 
+## Context Handling (JIT-C Compliance)
+
+### What This Agent Receives
+- Handoff contract from METRO (summaries + handles only for iteration cycles)
+- Active SoT references relevant to current PRD stage
+- Task ledger with open questions assigned to HORIZON
+
+### What This Agent Loads On-Demand
+- `SoT/SoT.BUSINESS_RULES.md` — when validating market constraints
+- `SoT/SoT.customer_feedback.md` — when positioning requires competitor context
+- Previous product feedback (CFD-) from METRO if v1.1+ iteration cycle
+
+### What This Agent Produces
+- Market analysis artifacts → PRD.md sections (v0.1–v0.5)
+- Business rules → `BR-xxx` entries in `SoT/SoT.BUSINESS_RULES.md`
+- User journeys → `UJ-xxx` entries in `SoT/SoT.USER_JOURNEYS.md`
+- Handoff contract for STUDIO/DEVLAB (summaries of findings + refs)
+
+### What This Agent Does NOT Pass Forward
+- Full conversation history from research sessions
+- Raw interview transcripts or research URLs
+- Intermediate reasoning chains from ICP analysis
+- Tool call logs from competitive research
+
 ## Primary Responsibilities
 
 - Frame problems with measurable outcomes (v0.1 Spark)

@@ -69,6 +69,33 @@ Before working, ensure you have loaded:
 | v0.9 | PRD v0.8+, DEP- documentation, feature list from DEVLAB, KPI- targets |
 | v1.0 | Complete GTM-, CFD- post-launch, adoption metrics, channel data |
 
+## Context Handling (JIT-C Compliance)
+
+### What This Agent Receives
+- Handoff contract from DEVLAB (release notes + deployment refs)
+- Feature documentation summaries for marketing
+- Known limitations list with handles to technical details
+- Task ledger with GTM questions
+
+### What This Agent Loads On-Demand
+- `SoT/SoT.DEPLOYMENT.md` — when configuring launch operations
+- `SoT/SoT.customer_feedback.md` — when categorizing new feedback against existing CFD-
+- PRD.md persona section — when targeting messaging to specific PER-
+- Previous GTM- entries — when referencing channel/messaging precedents
+
+### What This Agent Produces
+- Launch plan → `GTM-xxx` entries in PRD.md v0.9 section
+- Monitoring config → `MON-xxx` entries in `SoT/SoT.DEPLOYMENT.md`
+- Customer feedback → `CFD-xxx` entries in `SoT/SoT.customer_feedback.md`
+- Handoff contract for HORIZON (iteration insights + feedback refs)
+
+### What This Agent Does NOT Pass Forward
+- Full conversation history from launch sessions
+- Campaign draft iterations
+- Social post variations or A/B test versions
+- Raw analytics exports
+- Tool call logs from metric analysis
+
 ## Primary Responsibilities
 
 - Define launch plan with channel strategy (v0.9)

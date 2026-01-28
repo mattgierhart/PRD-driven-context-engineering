@@ -114,7 +114,7 @@ We often mistake an agent's "role" for its "instructions." In this system, **Ide
 | Principle | Description |
 |:----------|:------------|
 | **Unique IDs as Nodes** | Using `BR-101` or `UJ-202` turns flat files into a queryable **Knowledge Graph**. It allows for deterministic retrieval instead of probabilistic guessing. |
-| **Just-in-Time Context** | We use those IDs to pull only the specific nodes of memory required for a task, maintaining optimal **Context Density**. |
+| **Just-in-Time Context (JIT-C)** | Agents hold handles to knowledge, not knowledge itself. IDs (`BR-xxx`, `UJ-xxx`) enable on-demand loading without context pollution. The discipline: pass references + summaries (not full content), retrieve when reasoning requires it, cap retrieval at ~2K tokens, offload after task completion. Multi-agent handoffs pass handles, not content—preventing context rot by phase 3. |
 | **Progressive Documentation** | We update in place. As the product matures, the documentation matures with it, ensuring there is only ever one version of the truth. |
 | **Gated Workflows** | We verify that the memory (the PRD and SoT) is valid before we allow the system to move from strategy to implementation. |
 

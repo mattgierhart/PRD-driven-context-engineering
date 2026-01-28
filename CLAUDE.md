@@ -88,6 +88,30 @@ The methodology uses a layered document structure:
 - **Consolidation**: Validation and Verification steps should happen in bulk to save tokens.
 - **Pruning**: if context is full, suggest a `session_handoff` where you summarize state and clear history.
 
+### Just-In-Time Context (JIT-C)
+
+Agents hold handles to artifacts, not content. This is a structural discipline, not a suggestion.
+
+**Rules**:
+1. **Never context dump**: Do not place full SoT documents in handoffs or prompts
+2. **Reference by ID**: Use Unique IDs (`BR-001`, `UJ-101`) as retrieval handles
+3. **Load on demand**: Retrieve specific content only when reasoning requires it
+4. **Offload after use**: Artifacts exit working context after task completion
+5. **Summarize at boundaries**: Phase handoffs include 75-word summaries, not full content
+
+**Handoff format**:
+```
+Artifact: {ID}
+Summary: {75-word max}
+Path: {SoT/file.md}
+Status: {reference-only | loaded | offloaded}
+```
+
+**Violation indicators**:
+- Handoff contracts exceeding 2K tokens of artifact content
+- Agents receiving full conversation history from previous phases
+- Context window >50% filled before agent begins work
+
 ### Coding Standards
 
 #### Traceability Protocol (MANDATORY)

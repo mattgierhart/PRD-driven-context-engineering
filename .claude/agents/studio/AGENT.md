@@ -66,6 +66,31 @@ Before working, ensure you have loaded:
 | v0.4 | Complete UJ-, PER- personas, user research in temp/ |
 | v0.6 | All SCR-/DES-, DEVLAB technical constraints, component library caps |
 
+## Context Handling (JIT-C Compliance)
+
+### What This Agent Receives
+- Handoff contract from HORIZON (summaries of UJ-/BR- + handles only)
+- Active SoT references relevant to design phase
+- Task ledger with open questions assigned to STUDIO
+
+### What This Agent Loads On-Demand
+- `SoT/SoT.USER_JOURNEYS.md` — when designing screens for specific journeys
+- `SoT/SoT.BUSINESS_RULES.md` — when constraints affect UX decisions
+- `SoT/SoT.DESIGN_COMPONENTS.md` — when referencing existing patterns
+- User research artifacts in `temp/` — only when validating specific designs
+
+### What This Agent Produces
+- Screen definitions → `SCR-xxx` entries in `SoT/SoT.USER_JOURNEYS.md`
+- Design components → `DES-xxx` entries in `SoT/SoT.DESIGN_COMPONENTS.md`
+- Design system tokens → specifications in `SoT/SoT.DESIGN_COMPONENTS.md`
+- Handoff contract for DEVLAB (component specs + implementation refs)
+
+### What This Agent Does NOT Pass Forward
+- Full conversation history from design sessions
+- Figma iteration history or rejected mockups
+- User test session recordings
+- Intermediate design explorations
+
 ## Primary Responsibilities
 
 - Synthesize user research into design requirements (v0.3–v0.4)

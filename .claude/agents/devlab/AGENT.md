@@ -74,6 +74,36 @@ Before working, ensure you have loaded:
 | v0.7 | Complete API-/DBT-/ARC-, current EPIC, TEST- for scope |
 | v0.8 | All EPICs complete, DEP- drafts, RUN- drafts, MON- requirements |
 
+## Context Handling (JIT-C Compliance)
+
+### What This Agent Receives
+- Handoff contract from STUDIO (DES- summaries + implementation refs)
+- Handoff contract from HORIZON (BR-/UJ- summaries + constraint refs)
+- Active EPIC with pre-load manifest
+- Task ledger with technical questions
+
+### What This Agent Loads On-Demand
+- `SoT/SoT.BUSINESS_RULES.md` — when validating implementation against BR-
+- `SoT/SoT.USER_JOURNEYS.md` — when implementing specific UJ- flows
+- `SoT/SoT.DESIGN_COMPONENTS.md` — when building DES- components
+- `SoT/SoT.API_CONTRACTS.md` — when referencing existing API- patterns
+- `SoT/SoT.TECHNICAL_DECISIONS.md` — when checking ARC-/TECH- precedents
+
+### What This Agent Produces
+- Architecture decisions → `ARC-xxx` entries in `SoT/SoT.TECHNICAL_DECISIONS.md`
+- API contracts → `API-xxx` entries in `SoT/SoT.API_CONTRACTS.md`
+- Database models → `DBT-xxx` entries in `SoT/SoT.DATA_MODEL.md`
+- Test specs → `TEST-xxx` entries in `SoT/SoT.TESTING.md`
+- Deployment config → `DEP-xxx` entries in `SoT/SoT.DEPLOYMENT.md`
+- Handoff contract for METRO (release notes + deployment refs)
+
+### What This Agent Does NOT Pass Forward
+- Full conversation history from implementation sessions
+- Build logs or debug session notes
+- Dependency upgrade experiment branches
+- Performance profiling raw data
+- Tool call logs from coding sessions
+
 ## Primary Responsibilities
 
 - Define system architecture with API contracts (v0.6)

@@ -54,7 +54,7 @@ This file serves as the **governance guide** for the ID system and the **central
 |--------|---------|----------|-----------|
 | **KPI** | Key Metric | `README.md` | v0.3 Commercial |
 | **FEA** | Feature | `PRD.md` Section 3 | v0.3 Commercial |
-| **RISK** | Risk | `PRD.md` v0.5 Section | v0.5 Red Team |
+| **RISK** | Risk (scored: Market/User/Technical) | `PRD.md` v0.5 Section | v0.5+ (continuous) |
 | **GTM** | Go-to-Market | `PRD.md` v0.9 Section | v0.9 Launch |
 | **EPIC** | Work Package | `epics/` folder | v0.7 Build |
 
@@ -101,6 +101,15 @@ CFD-089 (Request: Dark Mode)
       └─→ UJ-105 (Theme Switcher Flow)
 ```
 
+#### D. Risk Drives Architecture
+
+```text
+RISK-003 (API Dependency Outage) [Technical, Score: 3, Status: mitigating]
+  ├─→ ARC-012 (Circuit Breaker Pattern)
+  ├─→ FEA-020 (Payment Processing)
+  └─→ README Risk Scorecard (Technical category)
+```
+
 ---
 
 ## Part 2: SoT File Registry
@@ -134,6 +143,7 @@ When forking, validate:
 
 | Date | Change |
 |------|--------|
+| 2026-02-06 | RISK- updated: scoring categories (Market/User/Technical), continuous lifecycle (v0.5+), graph pattern |
 | 2026-01-23 | Added SEC-XXX prefix for secrets/credentials inventory |
 | 2026-01-18 | Added ENV-XXX prefix for development environment specifications |
 | 2026-01-12 | Standardized: Updated file references, added INT-XXX, clarified PRD vs SoT homes |

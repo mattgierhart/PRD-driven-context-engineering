@@ -175,11 +175,21 @@ last_updated: 2025-12-22
 ## v0.5 Red Team Review — Risks & Mitigations
 
 > **ID Note**: RISK-XXX IDs are defined inline in this section, not in a separate SoT file.
+> **Scoring**: Each RISK- maps to a scoring category (Market/User/Technical). Score = Impact × Likelihood × Status Weight. See `assets/risk.md` for full scoring reference.
+> **Continuous**: This register is a living document. New RISK- entries can be added at any stage (v0.5–v1.0). Update the README Risk Scorecard when entries change.
 
 **Risk Register**
-| Category | Risk | Impact | Likelihood | Early Signal | Mitigation | Linked IDs |
-|----------|------|--------|------------|--------------|------------|------------|
-| Market | {Risk description} | {H/M/L} | {H/M/L} | {Signal} | {Mitigation action} | BR-### |
+
+| ID | Scoring | Risk | Impact | Likelihood | Raw | Status | Eff. Score | Mitigation | Linked IDs |
+|----|---------|------|--------|------------|-----|--------|------------|------------|------------|
+| RISK-### | {Market/User/Technical} | {Risk description} | {H/M/L} | {H/M/L} | {1-9} | {open} | {score} | {Mitigation action} | BR-### |
+
+<!-- Risk Scoring Quick Reference:
+  Impact: High=3, Medium=2, Low=1 | Likelihood: High=3, Medium=2, Low=1
+  Raw = Impact × Likelihood
+  Status Weights: open=1.0, accepted=1.0, mitigating=0.5, mitigated=0.25, resolved=0.0
+  Effective Score = Raw × Status Weight
+-->
 
 **Development Challenges (Flag for EPIC Planning)**
 

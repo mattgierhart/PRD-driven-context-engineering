@@ -18,6 +18,8 @@ This is an **interactive interview skill**. The AI asks questions, the user refl
 
 ## Risk Categories
 
+### Discovery Categories (Interview Prompts)
+
 | Category | Focus Area | Example Questions |
 |----------|------------|-------------------|
 | **Market** | Competitors, timing, demand | "What if [competitor] launches this feature next month?" |
@@ -26,6 +28,16 @@ This is an **interactive interview skill**. The AI asks questions, the user refl
 | **Resource** | Team, budget, time | "If you had to cut scope by 50%, what stays?" |
 | **Dependency** | External factors, integrations, partners | "What external factor could block launch?" |
 | **Timing** | Deadlines, market windows, seasonality | "Is there a deadline we must hit? Why?" |
+
+### Scoring Categories (README Scorecard)
+
+Each RISK- entry maps to one of 3 scoring categories for the README Risk Scorecard:
+
+| Scoring Category | Discovery Categories | Measures |
+|---|---|---|
+| **Market** | Market, Timing | Will anyone buy this? |
+| **User** | Adoption, Dependency | Will users succeed with this? |
+| **Technical** | Technical, Resource | Can we build and run this? |
 
 ## Interview Flow
 
@@ -91,12 +103,15 @@ For each identified risk, create RISK- entry with user input on severity and res
 
 ```
 RISK-XXX: [Risk Title]
-Category: [Market | Technical | Adoption | Resource | Dependency | Timing]
+Scoring Category: [Market | User | Technical]
+Discovery Category: [Market | Technical | Adoption | Resource | Dependency | Timing]
 Description: [What could go wrong]
 Trigger: [What would cause this to happen]
 Impact: [High | Medium | Low] — User assessed
 Likelihood: [High | Medium | Low] — User assessed
-Priority: [Impact × Likelihood ranking]
+Raw Score: [Impact × Likelihood, 1-9]
+Status: [open | mitigating | mitigated | resolved | accepted]
+Effective Score: [Raw Score × Status Weight]
 
 Early Signal: [How we'd know this is happening]
 Response: [Mitigate | Accept | Avoid | Transfer]
@@ -105,17 +120,23 @@ Owner: [Who is responsible for monitoring]
 
 Linked IDs: [FEA-XXX, UJ-XXX, BR-XXX affected]
 Review Date: [When to reassess this risk]
+Added: [PRD stage when discovered, e.g., v0.5]
 ```
+
+**Status weights**: open=1.0, accepted=1.0, mitigating=0.5, mitigated=0.25, resolved=0.0
 
 **Example RISK- entry:**
 ```
 RISK-001: Primary API Dependency (Stripe) Outage
-Category: Dependency
+Scoring Category: Technical
+Discovery Category: Dependency
 Description: Stripe API outage would block all payment processing
 Trigger: Stripe infrastructure failure or rate limiting
-Impact: High — All revenue blocked during outage
-Likelihood: Low — Stripe has 99.99% uptime SLA
-Priority: 3 (High × Low)
+Impact: High (3) — All revenue blocked during outage
+Likelihood: Low (1) — Stripe has 99.99% uptime SLA
+Raw Score: 3
+Status: mitigating
+Effective Score: 1.5
 
 Early Signal: Stripe status page, payment failure rate spike
 Response: Mitigate
@@ -127,6 +148,7 @@ Owner: Tech Lead
 
 Linked IDs: FEA-020 (payments), UJ-005 (checkout), BR-030 (pricing)
 Review Date: Before launch, quarterly thereafter
+Added: v0.5
 ```
 
 ## Risk Response Types
@@ -157,6 +179,16 @@ Review Date: Before launch, quarterly thereafter
 | **Interview becomes lecture** | AI talks more than user | Ask, listen, summarize |
 | **Killing ideas** | Every risk leads to "don't do it" | Frame as "how to succeed despite" |
 
+## Phase 5: Score & Scorecard
+
+After documenting all risks:
+
+1. **Assign scoring categories**: Map each RISK- to Market, User, or Technical
+2. **Calculate scores**: Raw Score = Impact × Likelihood; Effective = Raw × Status Weight (all start as `open`)
+3. **Sum by category**: Add effective scores within each scoring category
+4. **Determine risk level**: Total score → Low (0-12), Moderate (13-25), Elevated (26-40), High (41+)
+5. **Update README scorecard**: Fill in the Risk Scorecard table in README.md
+
 ## Quality Gates
 
 Before proceeding to Technical Stack Selection:
@@ -167,6 +199,31 @@ Before proceeding to Technical Stack Selection:
 - [ ] Top 5 risks have specific mitigation plans
 - [ ] "Accept" decisions are explicit, not accidental
 - [ ] Every RISK- has an owner
+- [ ] Every RISK- has a scoring category (Market/User/Technical)
+- [ ] README Risk Scorecard updated with baseline scores
+
+## Continuous Risk Management
+
+v0.5 establishes the **baseline** risk register, but risk discovery does not end here. New RISK- entries can be added at any stage:
+
+| Stage | Typical New Risks | Score Impact |
+|-------|-------------------|--------------|
+| v0.6 Architecture | Infrastructure complexity, integration unknowns | Technical score rises |
+| v0.7 Build | Implementation blockers, test coverage gaps | Technical score rises |
+| v0.8 Deployment | Operational risks, security findings | Technical score rises |
+| v0.9 GTM | Market timing shifts, competitive moves | Market score rises |
+| v1.0 Growth | Real adoption data contradicting assumptions | User score rises |
+
+**Protocol when adding risks after v0.5**:
+1. Use the same RISK- template (assign next available number)
+2. Set `Added: v0.X` to record which stage surfaced it
+3. Recalculate category and total scores
+4. Update README Risk Scorecard
+
+**Protocol when risk status changes**:
+1. Update the RISK- entry status in PRD.md
+2. Recalculate effective score (Raw × new Status Weight)
+3. Update README Risk Scorecard totals
 
 ## Downstream Connections
 
@@ -174,6 +231,7 @@ RISK- entries feed into:
 
 | Consumer | What It Uses | Example |
 |----------|--------------|---------|
+| **README Risk Scorecard** | Aggregated scores by category | Total score determines project risk level |
 | **v0.5 Technical Stack Selection** | RISK- constraints affect tech choices | RISK-003 (latency) → choose edge hosting |
 | **v0.6 Architecture Design** | Risk mitigations become architecture requirements | RISK-005 → add circuit breaker |
 | **v0.7 Build Execution** | Risk monitoring in EPIC | Track RISK-001 early signals |

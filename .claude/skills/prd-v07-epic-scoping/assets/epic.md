@@ -87,7 +87,7 @@ Updated: [Date]
 - [ ] All TEST- entries for this EPIC pass
 - [ ] Manual verification of UJ- journeys
 - [ ] Code has `// @implements` tags for all IDs
-- [ ] specs/ files updated to match implementation
+- [ ] SoT/ files updated to match implementation
 - [ ] No orphaned code (everything traces to an ID)
 
 ---

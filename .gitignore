@@ -9,6 +9,9 @@ Thumbs.db
 *.swo
 *~
 
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
+
 # Environment files
 .env
 .env.local

@@ -22,7 +22,8 @@ IMPLEMENTATION_PATTERNS = [
 ]
 
 # SoT reference pattern
-SOT_PATTERN = r"\b(BR|UJ|API|CFD|KPI|COMP|UI|ERR|SEC|PERF|TEST)-\d{3}\b"
+SOT_PATTERN = r"\b[A-Z]{2,4}(?:-[A-Z]{2,4})?-\d{3}\b"
+SOT_RE = re.compile(SOT_PATTERN, re.I)
 
 
 def is_implementation_file(path: str) -> bool:
@@ -55,9 +56,9 @@ def check_sot_references_in_files(files: list) -> list:
         path = Path(f)
         if path.exists() and path.is_file():
             try:
-                content = path.read_text()
-                refs = re.findall(SOT_PATTERN, content, re.I)
-                sot_refs.update(refs)
+                content = path.read_text(encoding="utf-8", errors="ignore")
+                refs = SOT_RE.findall(content)
+                sot_refs.update(r.upper() for r in refs)
             except Exception:
                 pass
     return list(sot_refs)
@@ -84,11 +85,12 @@ def main():
     # Check for implementation files
     impl_files = [f for f in modified_files if is_implementation_file(f)]
 
-    # Check for SoT references in modified files
-    sot_refs = check_sot_references_in_files(modified_files)
+    # Check for SoT references in modified implementation files (if any)
+    sot_refs = check_sot_references_in_files(impl_files) if impl_files else []
 
     # Determine if SoT update reminder needed
-    needs_reminder = bool(impl_files) or bool(sot_refs)
+    # Fire only when implementation files were modified to avoid noise on doc-only edits.
+    needs_reminder = bool(impl_files)
 
     if not needs_reminder:
         sys.exit(0)

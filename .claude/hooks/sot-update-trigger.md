@@ -17,7 +17,7 @@ After agent completes work, this hook:
 
 1. Parses session for modified files (from tool outputs)
 2. Identifies implementation files (.py, .ts, .js, etc.)
-3. Checks if modified files contain SoT references (BR-, UJ-, API-)
+3. Optionally extracts ID references from modified implementation files (for display)
 4. If potential SoT impact detected, outputs reminder
 
 ## Detection Logic
@@ -26,10 +26,8 @@ After agent completes work, this hook:
 - `.py`, `.ts`, `.js`, `.tsx`, `.jsx`
 - `.go`, `.rs`, `.java`, `.rb`
 
-**SoT reference pattern:**
-- `BR-XXX`, `UJ-XXX`, `API-XXX`, `CFD-XXX`
-- `KPI-XXX`, `COMP-XXX`, `UI-XXX`, `ERR-XXX`
-- `SEC-XXX`, `PERF-XXX`, `TEST-XXX`
+**ID reference pattern:**
+- `BR-101`, `API-045`, `BR-FEA-001`, `CFD-MOT-123` (case-insensitive)
 
 ## Output Example
 
@@ -59,14 +57,11 @@ After agent completes work, this hook:
 
 ## When It Fires
 
-- Implementation code modified (any language)
-- Modified files contain SoT ID references
-- Both conditions trigger the reminder
+- An implementation file was modified (any supported language)
 
 ## When It Stays Silent
 
 - Only documentation modified
-- No SoT references in modified files
 - No files modified at all
 
 ## Configuration
@@ -99,9 +94,9 @@ echo '{"transcript": "Just answered a question"}' | python3 .claude/hooks/sot-up
 
 **DO**:
 
-- Detect SoT references in modified files
+- Detect ID references in modified implementation files
 - Provide actionable reminder with specific IDs
-- Stay silent when no SoT impact detected
+- Stay silent when no implementation files were modified
 
 **DON'T**:
 

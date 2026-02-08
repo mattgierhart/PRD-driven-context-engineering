@@ -1,5 +1,5 @@
 ---
-name: prd-v03-feature-value-planning
+name: prd-v03-features-value-planning
 description: Define and prioritize features with strategic traceability during PRD v0.3 Commercial Model. Triggers on requests to define features, prioritize capabilities, scope MVP, map features to pricing tiers, identify parity vs. delta features, or when user asks "what features do we build?", "what's in MVP?", "which features matter?", "feature priority", "parity features", "what's our delta?". Consumes KPI- (Outcome Definition), BR- (Pricing Model, Moat), and CFD- (Market Moat Analysis) from v0.3. Outputs FEA- entries with strategic traceability and BR-FEA- governance rules. Feeds v0.4 User Journeys.
 ---
 

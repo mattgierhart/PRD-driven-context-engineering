@@ -44,7 +44,7 @@ This skill executes the build. It's the iterative cycle of: **Load Context → T
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  6. UPDATE SoT                                              │
-│     Update specs/ if implementation reveals changes         │
+│     Update SoT/ if implementation reveals changes           │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
@@ -149,12 +149,12 @@ export async function createUser(req: Request, res: Response) {
 
 ## SoT Update Rules
 
-The Source of Truth (`specs/`) must stay in sync with implementation:
+The Source of Truth (`SoT/`) must stay in sync with implementation:
 
 | Situation | Action |
 |-----------|--------|
 | Spec matches implementation | No update needed |
-| Implementation reveals new constraint | Add BR- entry to specs/ |
+| Implementation reveals new constraint | Add BR- entry to SoT/ |
 | API shape changed during build | Update API- entry |
 | New field needed in schema | Update DBT- entry |
 | Spec was wrong/incomplete | Fix spec AND code |
@@ -264,11 +264,11 @@ For each Context Window:
 - [ ] Manual verification of UJ- journeys
 - [ ] `@implements` tags present in all major code units
 - [ ] No orphaned code (everything traces to an ID)
-- [ ] specs/ updated to match implementation
+- [ ] SoT/ updated to match implementation
 
 ### Phase E: Finish (Harvest)
-- [ ] Move useful temp/ notes to specs/ or archive/
-- [ ] Verify all specs/ files match final code
+- [ ] Move useful temp/ notes to SoT/ or archive/
+- [ ] Verify all SoT/ files match final code
 - [ ] Clean Session State (Section 0)
 - [ ] Update EPIC state to Complete
 - [ ] Log completion in Change Log
@@ -290,7 +290,7 @@ For each Context Window:
 | Anti-Pattern | Signal | Fix |
 |--------------|--------|-----|
 | **Test-after** | Code written, then "add tests" | Write TEST- implementation first |
-| **Spec drift** | Code diverges from specs/ | Update SoT during implementation |
+| **Spec drift** | Code diverges from SoT/ | Update SoT during implementation |
 | **Missing traceability** | Code has no @implements tags | Add tags as you write |
 | **Session amnesia** | No Section 0 update | ALWAYS update before stopping |
 | **Context switching** | Jumping between EPICs | Finish one EPIC before starting another |
@@ -303,7 +303,7 @@ Before marking EPIC complete:
 
 - [ ] All TEST- entries pass
 - [ ] All code has @implements tags
-- [ ] specs/ matches implementation
+- [ ] SoT/ matches implementation
 - [ ] Session State is clean
 - [ ] Manual UJ- verification done
 - [ ] Change Log updated

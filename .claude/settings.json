@@ -23,8 +23,6 @@
     ]
   },
   "permissions": {
-    "allow": [
-      "Bash(git reset:*)"
-    ]
+    "allow": []
   }
 }

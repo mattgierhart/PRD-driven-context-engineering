@@ -16,7 +16,7 @@ description: >
 When user initiates epic or gate work, this hook:
 
 1. Parses prompt for epic/gate reference patterns
-2. If epic: Assesses token count and SoT references
+2. If epic: Assesses token count and ID references (e.g., BR-, UJ-, API-)
 3. If gate: Checks gate requirements for that version
 4. Outputs assessment as advisory (non-blocking)
 
@@ -39,10 +39,10 @@ The hook activates on prompts containing:
 
 | Condition | Threshold | Assessment |
 |-----------|-----------|------------|
-| Sparse | < 500 tokens AND no SoT refs | Not enough context to start |
+| Sparse | < 500 tokens AND no ID refs | Not enough context to start |
 | Ready | 500-4000 tokens | Good to proceed |
 | Dense | > 4000 tokens | Epic may need splitting |
-| Broad | > 10 SoT references | Scope too wide |
+| Broad | > 10 ID references | Scope too wide |
 
 ## Output Examples
 
@@ -50,7 +50,7 @@ The hook activates on prompts containing:
 ```markdown
 ## Context Check: EPIC-03
 
-Context check passed: ~1200 tokens, 5 SoT references.
+Context check passed: ~1200 tokens, 5 ID references.
 
 Proceeding with work.
 ```
@@ -60,8 +60,8 @@ Proceeding with work.
 ## Context Check: EPIC-03
 
 Issues detected:
-- **SPARSE**: Epic has ~150 tokens and no SoT references.
-  -> Add acceptance criteria, link relevant specs (BR-, UJ-), or decompose from PRD requirements before starting.
+- **SPARSE**: Epic has ~150 tokens and no ID references.
+  -> Add acceptance criteria, link relevant SoT/ IDs (BR-, UJ-, API-, etc.), or decompose from PRD requirements before starting.
 
 **Recommendation:** Address these before starting to reduce drift risk.
 ```

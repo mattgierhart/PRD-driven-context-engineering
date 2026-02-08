@@ -62,7 +62,7 @@ skills/
 └── ghm-sot-builder/                       # Methodology
 ```
 
-**30 skills total** covering the complete PRD lifecycle v0.1→v1.0.
+**29 skills total** covering the complete PRD lifecycle v0.1→v1.0.
 
 ---
 

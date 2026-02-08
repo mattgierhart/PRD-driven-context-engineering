@@ -224,7 +224,7 @@ During implementation of API-001, you realize:
 **Do**: Update spec AND code together
 
 ```markdown
-# Update to specs/API_CONTRACTS.md
+# Update to SoT/SoT.API_CONTRACTS.md
 
 API-001: POST /users
 ...

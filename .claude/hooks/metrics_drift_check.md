@@ -1,5 +1,5 @@
 ---
-name: metrics-drift-check
+name: metrics_drift_check
 trigger: Library (called by context-validation, sot-update-trigger, subagent-memory-save)
 description: >
   Reusable validation that compares status/metrics.json against README.md
@@ -50,10 +50,10 @@ report = format_drift_report(result, context="SessionStart")
 
 ```bash
 # Pre-commit validation: exits 0 if consistent, 1 if drift
-python3 .claude/hooks/metrics-drift-check.py
+python3 .claude/hooks/metrics_drift_check.py
 
 # Pipe into pre-commit hook
-python3 .claude/hooks/metrics-drift-check.py || exit 1
+python3 .claude/hooks/metrics_drift_check.py || exit 1
 ```
 
 ### As a pre-commit hook template
@@ -63,7 +63,7 @@ Projects can wire this into their git pre-commit:
 ```bash
 # In .husky/pre-commit or .git/hooks/pre-commit
 if git diff --cached --name-only | grep -qE "(metrics\.json|README\.md)"; then
-    python3 .claude/hooks/metrics-drift-check.py
+    python3 .claude/hooks/metrics_drift_check.py
 fi
 ```
 
@@ -101,12 +101,12 @@ The script handles common shapes:
 
 ```bash
 # With no metrics.json (should exit 0 silently)
-python3 .claude/hooks/metrics-drift-check.py
+python3 .claude/hooks/metrics_drift_check.py
 
 # Create test fixtures and run
 mkdir -p status
 echo '{"tests":{"passed":100,"total":100},"coverage":{"statements":85.5}}' > status/metrics.json
 # Then edit README Truth Table to have different values and run again
-python3 .claude/hooks/metrics-drift-check.py
+python3 .claude/hooks/metrics_drift_check.py
 echo $?  # Should be 1
 ```

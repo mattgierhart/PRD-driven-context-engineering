@@ -14,7 +14,7 @@ Design principles (from HomeFalcon learnings):
 Usage:
   As library:  from cascade_checklist import get_checklists
   As script:   echo '["src/api/handler.py", "tests/test_auth.py"]' | \
-               python3 .claude/hooks/cascade-checklist.py
+               python3 .claude/hooks/cascade_checklist.py
 """
 import json
 import re

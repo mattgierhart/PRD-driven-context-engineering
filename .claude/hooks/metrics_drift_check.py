@@ -13,7 +13,7 @@ Design principles (from HomeFalcon learnings):
 
 Usage:
   As library:  from metrics_drift_check import check_drift
-  As script:   python3 .claude/hooks/metrics-drift-check.py
+  As script:   python3 .claude/hooks/metrics_drift_check.py
                Exits 0 if consistent (or no metrics.json), 1 if drift detected.
 """
 import json

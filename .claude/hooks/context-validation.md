@@ -58,7 +58,7 @@ This establishes:
 | Warn on missing files, don't block | Project may be initializing |
 | Version-aware EPIC detection | EPICs only exist at v0.7+ |
 | Drift check at session start | Prevents stale context propagation (HomeFalcon root cause #4) |
-| Graceful import fallback | Works even if metrics-drift-check.py is missing |
+| Graceful import fallback | Works even if metrics_drift_check.py is missing |
 
 ## Configuration
 

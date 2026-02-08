@@ -1,5 +1,5 @@
 ---
-name: cascade-checklist
+name: cascade_checklist
 trigger: Library (called by sot-update-trigger)
 description: >
   Generates context-specific cascade checklists based on which files changed.
@@ -44,7 +44,7 @@ output = format_checklists(checklists)
 ### As a standalone script
 
 ```bash
-echo '["tests/test_auth.py", "src/api/handler.py"]' | python3 .claude/hooks/cascade-checklist.py
+echo '["tests/test_auth.py", "src/api/handler.py"]' | python3 .claude/hooks/cascade_checklist.py
 ```
 
 ## Change Categories
@@ -62,7 +62,7 @@ echo '["tests/test_auth.py", "src/api/handler.py"]' | python3 .claude/hooks/casc
 
 ## Customization
 
-Projects should customize the `CHECKLISTS` dict in `cascade-checklist.py` to match their file structure. The default patterns cover common conventions but may need adjustment for:
+Projects should customize the `CHECKLISTS` dict in `cascade_checklist.py` to match their file structure. The default patterns cover common conventions but may need adjustment for:
 
 - Non-standard test directory names
 - Custom API route locations
@@ -81,14 +81,14 @@ Projects should customize the `CHECKLISTS` dict in `cascade-checklist.py` to mat
 
 ```bash
 # Test with test files
-echo '["tests/test_auth.py"]' | python3 .claude/hooks/cascade-checklist.py
+echo '["tests/test_auth.py"]' | python3 .claude/hooks/cascade_checklist.py
 
 # Test with API files
-echo '["src/api/handler.py", "src/routes/index.ts"]' | python3 .claude/hooks/cascade-checklist.py
+echo '["src/api/handler.py", "src/routes/index.ts"]' | python3 .claude/hooks/cascade_checklist.py
 
 # Test with mixed files
-echo '["tests/test_auth.py", "epics/EPIC-04-auth.md", "src/api/handler.py"]' | python3 .claude/hooks/cascade-checklist.py
+echo '["tests/test_auth.py", "epics/EPIC-04-auth.md", "src/api/handler.py"]' | python3 .claude/hooks/cascade_checklist.py
 
 # Test with no matching patterns (should produce no output)
-echo '["assets/logo.png"]' | python3 .claude/hooks/cascade-checklist.py
+echo '["assets/logo.png"]' | python3 .claude/hooks/cascade_checklist.py
 ```

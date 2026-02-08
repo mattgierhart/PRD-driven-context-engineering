@@ -19,8 +19,8 @@ After agent completes work, this hook:
 1. Parses session for modified files (from tool outputs)
 2. Identifies implementation files (.py, .ts, .js, etc.)
 3. Checks if modified files contain SoT references (BR-, UJ-, API-)
-4. Generates **context-specific cascade checklists** via `cascade-checklist.py`
-5. Checks for metrics drift via `metrics-drift-check.py`
+4. Generates **context-specific cascade checklists** via `cascade_checklist.py`
+5. Checks for metrics drift via `metrics_drift_check.py`
 
 ## Detection Logic
 
@@ -69,7 +69,7 @@ The following files were modified. Complete these cascade steps:
 |----------|-----------|
 | Context-specific checklists | Generic "update SoT" was too abstract for subagents |
 | Section anchors, not line numbers | Line numbers drift; markers are stable |
-| Graceful fallback to generic | Works even without cascade-checklist.py |
+| Graceful fallback to generic | Works even without cascade_checklist.py |
 | Drift check at stop | Catches drift introduced during the session |
 | Non-blocking | Work is already complete |
 | Exit silently if no impact | Avoid noise on every stop |

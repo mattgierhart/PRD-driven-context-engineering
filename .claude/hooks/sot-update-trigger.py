@@ -2,11 +2,28 @@
 """
 GHM SoT Update Trigger Hook (Stop)
 Reminds about Source of Truth updates after execution.
+Now provides context-specific cascade checklists instead of generic reminders.
 """
 import json
 import sys
 import re
 from pathlib import Path
+
+# Import cascade checklist and drift checker (same directory)
+sys.path.insert(0, str(Path(__file__).parent))
+try:
+    from cascade_checklist import get_checklists, format_checklists
+
+    HAS_CASCADE = True
+except ImportError:
+    HAS_CASCADE = False
+
+try:
+    from metrics_drift_check import check_drift, format_drift_report
+
+    HAS_DRIFT_CHECK = True
+except ImportError:
+    HAS_DRIFT_CHECK = False
 
 # File patterns that likely implement spec'd behavior
 IMPLEMENTATION_PATTERNS = [
@@ -95,7 +112,7 @@ def main():
     if not needs_reminder:
         sys.exit(0)
 
-    # Build reminder message
+    # Build context-specific guidance instead of generic reminder
     reminder_parts = ["## SoT Update Check"]
 
     if impl_files:
@@ -108,15 +125,41 @@ def main():
             f"\n**SoT references found:** {', '.join(sorted(set(sot_refs)))}"
         )
 
-    reminder_parts.append(
-        """
+    # Generate context-specific cascade checklists if available
+    if HAS_CASCADE and modified_files:
+        checklists = get_checklists(modified_files)
+        cascade_output = format_checklists(checklists)
+        if cascade_output:
+            reminder_parts.append("\n" + cascade_output)
+        else:
+            # Fallback to generic reminder if no checklists matched
+            reminder_parts.append(
+                """
 **Action:** If this work affects documented specifications:
 1. Check `README.md` -> SoT Directory for affected spec files
 2. Update relevant Source of Truth files (SoT/)
 3. Ensure Unique IDs remain consistent
 
 *This is a reminder, not a blocker. Skip if changes are implementation-only.*"""
-    )
+            )
+    else:
+        # Fallback when cascade_checklist module not available
+        reminder_parts.append(
+            """
+**Action:** If this work affects documented specifications:
+1. Check `README.md` -> SoT Directory for affected spec files
+2. Update relevant Source of Truth files (SoT/)
+3. Ensure Unique IDs remain consistent
+
+*This is a reminder, not a blocker. Skip if changes are implementation-only.*"""
+        )
+
+    # Check for metrics drift introduced during this session
+    if HAS_DRIFT_CHECK:
+        drift_result = check_drift()
+        drift_report = format_drift_report(drift_result, context="post-work check")
+        if drift_report:
+            reminder_parts.append("\n" + drift_report)
 
     # Output as non-blocking feedback
     output = {"additionalContext": "\n".join(reminder_parts)}

@@ -3,10 +3,42 @@
 > **State**: `Planned` | `In Progress` | `Testing` | `Complete`
 > **Lifecycle**: v0.7 Build Execution (See `README.md`)
 > **Epic Lead**: {Agent or Team Member}
+> **Branch**: `epic/EPIC-{NUMBER}-{slug}`
 
 ---
 
-## 0. Session State (The "Brain Dump")
+## 0. Context Capsule
+
+> **Purpose**: Define the boundaries of this work unit for context management and handoffs.
+
+### Resource Envelope
+
+| Dimension | Target | Notes |
+|-----------|--------|-------|
+| **Pre-load Context** | ~{N}k tokens | SoT files + EPIC + referenced code |
+| **Working Room** | ~{200-N}k tokens | Space for tool outputs and problem-solving |
+| **Session Goal** | {Checkpoint target} | What "done" looks like for this session |
+
+**Context Guideline**: If pre-loaded context exceeds 100k tokens, consider splitting the EPIC or reducing scope per session.
+
+### Dependencies
+
+| Type | Items | Status |
+|------|-------|--------|
+| **Requires** | EPIC-{XX} | `Complete` / `Pending` |
+| **External** | {Setup/config needed} | `Ready` / `Blocked` |
+| **Enables** | EPIC-{YY}, EPIC-{ZZ} | Blocked until this completes |
+
+### Pre-load Checklist
+
+Files to read at session start (agent should `@`-mention or read these):
+- [ ] `SoT/SoT.{RELEVANT}.md` — IDs: {list key IDs}
+- [ ] `SoT/SoT.{RELEVANT}.md` — IDs: {list key IDs}
+- [ ] {Any other critical context files}
+
+---
+
+## 1. Session State (The "Brain Dump")
 
 > **CRITICAL**: Update this section before ending every session. This is what enables continuity across sessions and agents.
 
@@ -18,7 +50,12 @@
   1. {First specific action for next session}
   2. {Second specific action}
   3. {Third specific action if needed}
-- **Context**: {Key decisions made, blockers hit, questions open}
+- **Blockers**: {Any blockers encountered — or "None"}
+- **Decisions Made**: {Key decisions this session with rationale}
+
+### Resume Instructions
+
+> For the next agent/session: {Exactly what to do to continue — if EPIC is complete, write "N/A - EPIC Complete"}
 
 ### Session State Guidelines
 
@@ -34,15 +71,11 @@
 - Good: "1. Add rate limiter middleware per BR-005 / 2. Update TEST-008 / 3. Move to API-003"
 - Bad: "Continue working"
 
-**Context** — Capture decisions, blockers, and open questions:
-- Include: Architecture decisions, blockers encountered, deviations from spec
-- Exclude: Obvious facts, routine steps, already-resolved issues
-
 ---
 
-## 1. Objective & Scope
+## 2. Objective & Scope
 
-> **Goal**: What specific outcome does this EPIC achieve?
+> **Goal**: {One sentence describing what this EPIC achieves}
 
 ### Deliverables
 
@@ -57,7 +90,7 @@
 
 ---
 
-## 2. Context & IDs
+## 3. Context & IDs
 
 > **Rule**: List all referenced IDs from `SoT/`. Every ID used in this EPIC should be tracked here.
 
@@ -69,16 +102,20 @@
 | Data Models | DBT-XXX |
 | Tests | TEST-XXX to TEST-ZZZ |
 | Screens | SCR-XXX |
+| Architecture | ARC-XXX |
 
 ---
 
-## 3. Execution Plan (The 5 Phases)
+## 4. Execution Plan (The 5 Phases)
 
 ### Phase A: Plan
 
 - [ ] **Context Loaded**: Read `PRD.md`, `SoT/`, and `README.md`
 - [ ] **Dependencies Verified**: Check required EPICs are complete
 - [ ] **Strategy Defined**: Document approach (e.g., "Backend first, then UI")
+- [ ] **Branch Created**: `git checkout -b epic/EPIC-{NUMBER}-{slug}`
+
+**Checkpoint A**: Planning complete, branch exists, ready to design.
 
 ### Phase B: Design
 
@@ -86,9 +123,11 @@
 - [ ] **Architecture Documented**: Schema changes, component structure
 - [ ] **TEST- Entries Created**: Define test coverage before implementation
 
+**Checkpoint B**: All specs drafted, tests defined, ready to build.
+
 ### Phase C: Build (Context Windows)
 
-> **Concept**: Break work into "Context Windows" to maintain focus and enable clean handoffs.
+> **Concept**: Break work into "Context Windows" — focused work units with clear checkpoints.
 
 **Context Window 1: {Focus Area}** (e.g., "Database Schema")
 
@@ -96,17 +135,27 @@
 - [ ] Task B
 - [ ] Verification: {How to confirm this window is complete}
 
+**Checkpoint C1**: {What exists when Window 1 is done — specific files, passing tests}
+
+---
+
 **Context Window 2: {Focus Area}** (e.g., "API Endpoints")
 
 - [ ] Task C
 - [ ] Task D
 - [ ] Verification: {How to confirm this window is complete}
 
+**Checkpoint C2**: {What exists when Window 2 is done}
+
+---
+
 **Context Window 3: {Focus Area}** (e.g., "UI Integration")
 
 - [ ] Task E
 - [ ] Task F
 - [ ] Verification: {How to confirm this window is complete}
+
+**Checkpoint C3**: {What exists when Window 3 is done}
 
 > _Add Context Windows as needed. Each should be completable in a focused session._
 
@@ -117,18 +166,56 @@
 - [ ] **Code Traceability**: Verify `// @implements ID` tags present in all major code units
 - [ ] **SoT Sync**: Specs match implementation
 
+**Checkpoint D**: All tests green, manual verification complete.
+
 ### Phase E: Finish (Harvest)
 
 - [ ] **Temp Cleanup**: Move useful notes from `temp/` to `SoT/`, archive or delete temp files
 - [ ] **Spec Finalization**: All `SoT/` entries match final implementation
-- [ ] **Session State Clean**: Section 0 has no open next steps
-- [ ] **Change Log Updated**: Document completion in Section 4
+- [ ] **Learning Capture**: Run agent's Learning Capture Protocol and update Project Memory
+- [ ] **Pattern Harvest**: Check Harvest Queue — extract any 3+ occurrence patterns to their targets
+- [ ] **Session State Clean**: Section 1 Resume Instructions = "N/A - EPIC Complete"
+- [ ] **PR Ready**: All commits pushed, PR created or ready to create
+
+**Checkpoint E**: EPIC complete, PR merged or ready for review.
 
 ---
 
-## 4. Change Log
+## 5. Acceptance Criteria
+
+> **Hook validation**: These criteria are checked before EPIC can be marked Complete.
+
+- [ ] All deliverables (Section 2) marked done
+- [ ] All TEST- entries for this EPIC pass
+- [ ] Resume Instructions indicate completion ("N/A - EPIC Complete")
+- [ ] No orphan ID references (all IDs exist in SoT)
+- [ ] Branch merged or PR approved
+
+---
+
+## 6. Change Log
 
 | Date | Author | Action |
 | ---- | ------ | ------ |
 | YYYY-MM-DD | {Name} | Created EPIC |
 | | | |
+
+---
+
+## Branch Convention
+
+**Naming**: `epic/EPIC-{NUMBER}-{slug}`
+
+Examples:
+- `epic/EPIC-01-auth-endpoints`
+- `epic/EPIC-02-user-dashboard`
+- `epic/EPIC-03-payment-integration`
+
+**Workflow**:
+1. EPIC created → Branch created from `main`
+2. Work happens → Commits on branch (reference IDs in commit messages)
+3. Checkpoints → Commits with checkpoint state
+4. EPIC complete → PR opened
+5. PR merged → Branch deleted, EPIC archived
+
+**Force Gate**: If you must bypass completion criteria, use `--force-gate` flag and document the reason in the Change Log. This should be exceptional.

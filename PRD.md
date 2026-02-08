@@ -175,11 +175,21 @@ last_updated: 2025-12-22
 ## v0.5 Red Team Review — Risks & Mitigations
 
 > **ID Note**: RISK-XXX IDs are defined inline in this section, not in a separate SoT file.
+> **Scoring**: Each RISK- maps to a scoring category (Market/User/Technical). Score = Impact × Likelihood × Status Weight. See `assets/risk.md` for full scoring reference.
+> **Continuous**: This register is a living document. New RISK- entries can be added at any stage (v0.5–v1.0). Update the README Risk Scorecard when entries change.
 
 **Risk Register**
-| Category | Risk | Impact | Likelihood | Early Signal | Mitigation | Linked IDs |
-|----------|------|--------|------------|--------------|------------|------------|
-| Market | {Risk description} | {H/M/L} | {H/M/L} | {Signal} | {Mitigation action} | BR-### |
+
+| ID | Scoring | Risk | Impact | Likelihood | Raw | Status | Eff. Score | Mitigation | Linked IDs |
+|----|---------|------|--------|------------|-----|--------|------------|------------|------------|
+| RISK-### | {Market/User/Technical} | {Risk description} | {H/M/L} | {H/M/L} | {1-9} | {open} | {score} | {Mitigation action} | BR-### |
+
+<!-- Risk Scoring Quick Reference:
+  Impact: High=3, Medium=2, Low=1 | Likelihood: High=3, Medium=2, Low=1
+  Raw = Impact × Likelihood
+  Status Weights: open=1.0, accepted=1.0, mitigating=0.5, mitigated=0.25, resolved=0.0
+  Effective Score = Raw × Status Weight
+-->
 
 **Development Challenges (Flag for EPIC Planning)**
 
@@ -236,6 +246,42 @@ last_updated: 2025-12-22
 - [ ] All IDs created/modified logged in EPIC Section 2.
 - [ ] README metrics updated via workflow.
 - [ ] Coverage thresholds defined.
+
+### Deployment Configuration
+
+Deployment configuration should be established early in v0.7 to avoid late-stage integration issues. Document the following in `SoT/SoT.DEPLOYMENT.md`:
+
+#### Environments
+| Environment | Purpose | Trigger | URL Pattern |
+|-------------|---------|---------|-------------|
+| Production | Live users | Merge to main | Primary domain |
+| Preview/Staging | Pre-merge testing | Pull request | Branch-based URLs |
+| Development | Local development | N/A | localhost |
+
+#### Branch Strategy
+Define branch naming conventions and their deployment behavior:
+- `main` — Production deployments only
+- `feature/*` — Preview deployments for testing
+- `fix/*` — Preview deployments for bug verification
+- `experiment/*` — Preview deployments for exploration (may be abandoned)
+
+#### Quality Gates
+Specify required checks before code reaches production:
+1. **Automated** — Lint, type checking, unit tests (CI pipeline)
+2. **Manual** — Preview deployment smoke test
+3. **Optional** — E2E tests against preview environment
+
+#### Platform Configuration
+For each deployment target (web, mobile, API), document:
+- Hosting platform and tier
+- Environment variable management approach
+- Build configuration location
+- Secrets that require setup (reference `SoT/SoT.DEPLOYMENT.md` Secrets Inventory)
+
+#### Mobile-Specific (if applicable)
+- Code signing approach (manual, automated, or managed)
+- Beta distribution channel (TestFlight, Play Store Internal, etc.)
+- Release tagging convention (e.g., `v1.0.0` for production, `v1.0.0-beta.1` for beta)
 
 **Outstanding Work → v0.8**
 

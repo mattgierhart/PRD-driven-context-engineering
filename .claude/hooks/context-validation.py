@@ -2,12 +2,22 @@
 """
 GHM Context Validation Hook (SessionStart)
 Ensures agent loads 3+1 files in correct order.
+Also checks for metrics drift at session start to prevent stale context propagation.
 """
 import json
 import sys
 import re
 from pathlib import Path
 from typing import Optional
+
+# Import drift checker (same directory)
+sys.path.insert(0, str(Path(__file__).parent))
+try:
+    from metrics_drift_check import check_drift, format_drift_report
+
+    HAS_DRIFT_CHECK = True
+except ImportError:
+    HAS_DRIFT_CHECK = False
 
 
 def get_prd_lifecycle_gate() -> Optional[float]:
@@ -165,6 +175,13 @@ This establishes:
 
     if warning:
         directive = warning + "\n\n" + directive
+
+    # Check for metrics drift at session start (prevents stale context propagation)
+    if HAS_DRIFT_CHECK:
+        drift_result = check_drift()
+        drift_report = format_drift_report(drift_result, context="SessionStart")
+        if drift_report:
+            directive = directive + "\n" + drift_report
 
     output = {"additionalContext": directive}
     print(json.dumps(output))

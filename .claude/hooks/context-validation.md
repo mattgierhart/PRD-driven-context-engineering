@@ -4,12 +4,13 @@ trigger: SessionStart
 description: >
   Ensures agent loads 3+1 files (CLAUDE.md, README.md, PRD.md, current EPIC) at session start.
   Injects reading order guidance rather than file contents to preserve context window.
+  Also checks for metrics drift to prevent stale context propagation.
 ---
 
 # Context Validation Hook
 
 **Trigger**: `SessionStart` (every session start, resume, or clear)
-**Purpose**: Enforce 3+1 file loading order for methodology compliance.
+**Purpose**: Enforce 3+1 file loading order and detect metrics drift at session start.
 
 ## What This Hook Does
 
@@ -19,6 +20,7 @@ On every session start, this hook:
 2. Determines PRD version to assess if EPICs apply (v0.7+)
 3. Finds active EPIC if applicable
 4. Injects reading order directive into context
+5. Checks for metrics drift between `status/metrics.json` and `README.md` (v0.7+ projects)
 
 ## Logic Flow
 
@@ -55,6 +57,8 @@ This establishes:
 | Inject pointers, not content | Preserves context window for actual work |
 | Warn on missing files, don't block | Project may be initializing |
 | Version-aware EPIC detection | EPICs only exist at v0.7+ |
+| Drift check at session start | Prevents stale context propagation (HomeFalcon root cause #4) |
+| Graceful import fallback | Works even if metrics_drift_check.py is missing |
 
 ## Configuration
 

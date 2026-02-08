@@ -155,10 +155,13 @@ Copy this template to `epics/EPIC-{NUMBER}-{slug}.md`:
 
 ## 5. Acceptance Criteria
 
+- [ ] All TEST- entries for this EPIC pass
+- [ ] Manual verification of UJ- journeys
+- [ ] Code has `// @implements` tags for all IDs
+- [ ] SoT/ files updated to match implementation
+- [ ] No orphaned code (everything traces to an ID)
 - [ ] All deliverables marked done
-- [ ] All TEST- entries pass
 - [ ] Resume Instructions = "N/A - EPIC Complete"
-- [ ] No orphan ID references
 - [ ] Branch merged or PR approved
 
 ---

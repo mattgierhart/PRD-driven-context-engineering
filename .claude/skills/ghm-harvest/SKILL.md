@@ -33,7 +33,7 @@ Extract durable insights from temporary files to Source of Truth during EPIC Pha
 | Business rule discovered | Extract | `SoT/SoT.BUSINESS_RULES.md` |
 | User flow documented | Extract | `SoT/SoT.USER_JOURNEYS.md` |
 | API design finalized | Extract | `SoT/SoT.API_CONTRACTS.md` |
-| Customer feedback captured | Extract | `SoT/SoT.CUSTOMER_FEEDBACK.md` |
+| Customer feedback captured | Extract | `SoT/SoT.customer_feedback.md` |
 | Session notes | Archive only | `archive/YYYY-MM/` |
 | Scratch work | Discard | Delete after review |
 

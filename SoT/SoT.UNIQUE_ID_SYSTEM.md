@@ -41,7 +41,7 @@ This file serves as the **governance guide** for the ID system and the **central
 | **INT** | Integration | `SoT.INTEGRATIONS.md` | v0.6 Architecture |
 | **API** | API Contract | `SoT.API_CONTRACTS.md` | v0.6 Architecture |
 | **DBT** | Data Schema | `SoT.DATA_MODEL.md` | v0.6 Architecture |
-| **BR** | Business Rule | `SoT.BUSINESS_RULES.md` | v0.6 Architecture |
+| **BR** | Business Rule | `SoT.BUSINESS_RULES.md` | v0.2 Market Definition |
 | **TEST** | Test Case | `SoT.TESTING.md` | v0.7 Build |
 | **DEP** | Deployment | `SoT.DEPLOYMENT.md` | v0.8 Release |
 | **MON** | Monitoring | `SoT.DEPLOYMENT.md` | v0.8 Release |

@@ -316,7 +316,7 @@ Each EPIC follows 5 phases:
 | Phase | Purpose | Activities |
 |-------|---------|------------|
 | **A: Plan** | Load context | Read EPIC, load referenced IDs, verify Session State |
-| **B: Design** | Update specs | Draft/refine ID entries in specs/ before coding |
+| **B: Design** | Update SoT | Draft/refine ID entries in SoT/ before coding |
 | **C: Build** | Implement | Work through Context Windows, test-first |
 | **D: Validate** | Verify | Run tests, manual checks, traceability audit |
 | **E: Finish** | Clean up | Update SoT, archive temp/, mark complete |
@@ -327,7 +327,7 @@ Each EPIC follows 5 phases:
 |--------------|--------|-----|
 | **Epic explosion** | 20+ EPICs for MVP | Consolidate; most MVPs need 3-7 |
 | **One mega-EPIC** | Everything in one EPIC | Split by architectural boundary |
-| **No ID references** | EPIC without BR-, API-, DBT- links | Every EPIC must reference specs/ |
+| **No ID references** | EPIC without BR-, API-, DBT- links | Every EPIC must reference SoT/ |
 | **Circular dependencies** | EPIC-01 needs EPIC-02 needs EPIC-01 | Identify shared foundation, extract to EPIC-00 |
 | **Context overload** | Agent can't hold full EPIC context | Split into smaller Context Windows |
 | **Missing sequencing** | No build order defined | Establish explicit dependency chain |

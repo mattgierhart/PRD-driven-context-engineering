@@ -7,11 +7,15 @@ import json
 import sys
 import re
 from pathlib import Path
+from typing import Optional
 
 # Thresholds (tokens ~ chars/4)
 MIN_EPIC_TOKENS = 500
 MAX_EPIC_TOKENS = 4000
 MAX_SOT_REFERENCES = 10
+
+# Matches IDs like BR-101, BR-FEA-001, CFD-MOT-123, etc. (case-insensitive)
+ID_PATTERN = re.compile(r"\b[A-Z]{2,4}(?:-[A-Z]{2,4})?-\d{3}\b", re.I)
 
 
 def estimate_tokens(text: str) -> int:
@@ -19,13 +23,21 @@ def estimate_tokens(text: str) -> int:
     return len(text) // 4
 
 
-def count_sot_references(content: str) -> list:
-    """Find SoT ID references (BR-, UJ-, API-, CFD-, etc.)."""
-    pattern = r"\b(BR|UJ|API|CFD|KPI|COMP|UI|ERR|SEC|PERF|TEST)-\d{3}\b"
-    return list(set(re.findall(pattern, content, re.I)))
+def find_id_references(content: str) -> list:
+    """Find unique ID references (e.g., BR-101, API-045, BR-FEA-001)."""
+    return sorted({m.upper() for m in ID_PATTERN.findall(content)})
 
 
-def resolve_epic_path(epic_num: str, slug: str | None = None) -> str:
+def id_type(id_str: str) -> str:
+    """Return the ID "type" bucket used for breadth checks (e.g., BR, API, BR-FEA)."""
+    parts = id_str.split("-")
+    # Compound IDs are PREFIX-SUBPREFIX-NNN (e.g., BR-FEA-001, CFD-MOT-123)
+    if len(parts) == 3:
+        return f"{parts[0]}-{parts[1]}"
+    return parts[0]
+
+
+def resolve_epic_path(epic_num: str, slug: Optional[str] = None) -> str:
     """Resolve EPIC-XX-<slug>.md path from epics/ directory."""
     epics_dir = Path("epics")
     if not epics_dir.exists():
@@ -53,9 +65,9 @@ def check_epic_density(epic_path: str) -> dict:
             "recommendation": "Create the epic file before starting work.",
         }
 
-    content = path.read_text()
+    content = path.read_text(encoding="utf-8", errors="ignore")
     tokens = estimate_tokens(content)
-    sot_refs = count_sot_references(content)
+    sot_refs = find_id_references(content)
 
     issues = []
 
@@ -64,8 +76,8 @@ def check_epic_density(epic_path: str) -> dict:
         issues.append(
             {
                 "type": "sparse",
-                "message": f"Epic has ~{tokens} tokens and no SoT references.",
-                "recommendation": "Add acceptance criteria, link relevant specs (BR-, UJ-), or decompose from PRD requirements before starting.",
+                "message": f"Epic has ~{tokens} tokens and no ID references.",
+                "recommendation": "Add acceptance criteria, link relevant SoT/ IDs (BR-, UJ-, API-, etc.), or decompose from PRD requirements before starting.",
             }
         )
 
@@ -81,11 +93,11 @@ def check_epic_density(epic_path: str) -> dict:
 
     # Check for scope creep
     if len(sot_refs) > MAX_SOT_REFERENCES:
-        unique_types = set(r[0] for r in sot_refs)
+        unique_types = {id_type(r) for r in sot_refs}
         issues.append(
             {
                 "type": "broad",
-                "message": f"Epic references {len(sot_refs)} SoT items across {len(unique_types)} spec types.",
+                "message": f"Epic references {len(sot_refs)} IDs across {len(unique_types)} ID types.",
                 "recommendation": "Scope may be too broad. Consider splitting by spec type or domain.",
             }
         )
@@ -93,7 +105,7 @@ def check_epic_density(epic_path: str) -> dict:
     if not issues:
         return {
             "status": "ready",
-            "message": f"Context check passed: ~{tokens} tokens, {len(sot_refs)} SoT references.",
+            "message": f"Context check passed: ~{tokens} tokens, {len(sot_refs)} ID references.",
             "recommendation": None,
         }
 
@@ -112,19 +124,23 @@ def check_gate_readiness(version: str) -> dict:
 
     # Gate requirements by version (simplified)
     gate_requirements = {
-        "0.1": ["Problem statement defined"],
-        "0.2": ["Market definition complete", "Product type classified"],
-        "0.3": ["Success metrics defined", "KPIs established"],
-        "0.5": ["Core features specified", "User journeys documented"],
-        "0.7": ["Technical architecture defined", "EPICs created"],
-        "1.0": ["All specs complete", "Ready for development"],
+        "0.1": ["Problem defined", "Outcomes measurable", "Open Questions list"],
+        "0.2": ["Segments sized", "\"Not For\" defined", "Business Rules (BR-) created"],
+        "0.3": ["Competitors profiled", "Pricing model selected", "Monetization rules defined"],
+        "0.4": ["Core journeys mapped (UJ-)", "Dependencies noted (API-)"],
+        "0.5": ["Risks identified (Market/Tech)", "Mitigations linked to tests (TEST-)"],
+        "0.6": ["Stack selected (TECH-)", "API contracts drafted (API-)", "Cost guardrails documented"],
+        "0.7": ["EPIC backlog created (EPIC-)", "Code tested (TEST-)", "SoT updated to match build"],
+        "0.8": ["Runbooks (RUN-) complete", "Monitoring (MON-) configured", "Rollback plan validated (DEP-)"],
+        "0.9": ["Launch metrics (KPI-) defined", "Feedback channels (CFD-) active"],
+        "1.0": ["Paying customers", "Retention analysis", "Optimization loop defined"],
     }
 
     reqs = gate_requirements.get(version, [])
     return {
         "status": "info",
         "message": f"Gate v{version} requirements: {', '.join(reqs) if reqs else 'No specific requirements defined.'}",
-        "recommendation": "Verify these items are complete in PRD.md before approving gate.",
+        "recommendation": "Verify these items against `README.md` and your PRD.md gate criteria. For full validation, run `/ghm-gate-check`.",
     }
 
 

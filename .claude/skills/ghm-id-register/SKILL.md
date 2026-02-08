@@ -33,7 +33,7 @@ Validate and register new Source of Truth IDs with cross-reference integrity che
 | `BR-` | Business Rules | `SoT/SoT.BUSINESS_RULES.md` |
 | `UJ-` | User Journeys | `SoT/SoT.USER_JOURNEYS.md` |
 | `API-` | API Contracts | `SoT/SoT.API_CONTRACTS.md` |
-| `CFD-` | Customer Feedback | `SoT/SoT.CUSTOMER_FEEDBACK.md` |
+| `CFD-` | Customer Feedback | `SoT/SoT.customer_feedback.md` |
 
 ## Step 1: Validate Format
 

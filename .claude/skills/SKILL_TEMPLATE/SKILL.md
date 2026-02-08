@@ -52,7 +52,7 @@ See `assets/output-template.md` for copy-paste template.
 
 ### Testability Check
 - [ ] Can this output be validated?
-- [ ] Does it reference IDs from specs/?
+- [ ] Does it reference IDs from SoT/?
 
 ## Anti-Patterns
 

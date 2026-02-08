@@ -8,7 +8,7 @@ authority: "PRD Led Context Engineering"
 
 > **Mission**: Build software in lockstep with the PRD Version Lifecycle.
 > **Authority**: Load `README.md` → `PRD.md` → `CLAUDE.md` → Active EPIC.
-> **Core Rule**: If it's not in the ID Graph (Specs), it doesn't exist.
+> **Core Rule**: If it's not in the ID Graph (SoT), it doesn't exist.
 
 ---
 

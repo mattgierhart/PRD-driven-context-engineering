@@ -1,8 +1,21 @@
 # {Product Name} — Product README
 
+<!-- SECTION: status-header -->
 > **Status**: Active
 > **Current PRD Version**: v0.1 (See `PRD.md`)
 > **Active EPIC**: None (See `epics/`)
+<!-- /SECTION: status-header -->
+
+<!-- Metric Separation Principle:
+  README is the human-authored view. status/metrics.json is the machine-writable source.
+  Validation ensures agreement. Never auto-generate README content from JSON.
+
+  Metric Deduplication Rule:
+  Each metric value MUST appear in at most 2 locations: the Truth Table (authoritative)
+  and the status header (quick reference). All other sections MUST reference the Truth
+  Table rather than restating values. This prevents cascade drift where updating one
+  location but missing another creates contradictions.
+-->
 
 ---
 
@@ -29,6 +42,7 @@
 
 ---
 
+<!-- SECTION: status-dashboard -->
 ## 3. Product Status Dashboard
 
 **Lifecycle Stage**: `v0.1 Spark` (Target)
@@ -47,9 +61,11 @@
 | **v1.0 Growth**               | ⚪ Pending     | -        | -        |
 
 > _Update this table as you pass gates._
+<!-- /SECTION: status-dashboard -->
 
 ---
 
+<!-- SECTION: guardrails -->
 ## 4. Risk Scorecard
 
 > Baseline established in v0.5 Red Team Review. Updated continuously as risks evolve.
@@ -96,8 +112,24 @@
     v0.5 establishes baseline. Any stage (v0.6-v1.0) can add new RISK- entries.
     Score updates whenever RISK- status changes.
 -->
+<!-- /SECTION: guardrails -->
 
 ---
+
+<!-- SECTION: truth-table -->
+<!-- Truth Table: Add project-specific metrics here at v0.7+ when metrics.json exists.
+  This section is the AUTHORITATIVE location for metric values in README.
+  The status-header may duplicate values for quick reference. No other section should.
+
+  Example (uncomment and customize when entering Build phase):
+  ## 4a. Truth Table
+  | Metric | Value | Source |
+  |--------|-------|--------|
+  | Test Count | 0/0 | status/metrics.json |
+  | Coverage (stmts) | 0% | status/metrics.json |
+  | Risk Score | 0 | PRD.md v0.5 |
+-->
+<!-- /SECTION: truth-table -->
 
 ## 5. Product Roadmap
 

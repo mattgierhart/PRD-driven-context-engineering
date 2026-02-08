@@ -1,6 +1,6 @@
 ---
 title: "CLAUDE Agent Operating Guide"
-updated: "2026-01-18"
+updated: "2026-02-08"
 authority: "PRD Led Context Engineering"
 ---
 
@@ -73,6 +73,36 @@ The methodology uses a layered document structure:
 - **IDs**: Reference `BR-`, `UJ-`, `API-` IDs in code comments and commits.
 - **SoT Updates**: Update `SoT/` files _before_ or _during_ code changes, never "later".
 - **Temp Files**: Use `temp/` for scratchpad, but harvest to SoT before closing the EPIC.
+
+### Metrics & Dashboard Integrity
+
+> README is the human-authored view. `status/metrics.json` is the machine-writable source. Validation ensures agreement. Never auto-generate README content from JSON.
+
+**Metric Deduplication Rule**: Each metric value MUST appear in at most 2 locations: the Truth Table (`<!-- SECTION: truth-table -->`) and the status header (`<!-- SECTION: status-header -->`). All other sections MUST reference the Truth Table rather than restating values.
+
+**`status/metrics.json`** (v0.7+ artifact): When a project enters Build Execution, `status/metrics.json` becomes the machine-readable metrics feed. The cascade for metric changes is:
+
+```
+Test Run -> metrics.json (auto via posttest hook) -> README Truth Table (manual) -> SoT files (as needed)
+```
+
+Projects should implement a posttest hook to keep `metrics.json` current automatically. The `context-validation` hook (SessionStart) and `sot-update-trigger` hook (Stop) both check for drift between `metrics.json` and README.
+
+### Cascade Checklists
+
+Abstract cascade rules ("update README") are insufficient for subagents. The `.claude/hooks/cascade_checklist.py` generates context-specific checklists based on which files changed. When modifying project CLAUDE.md files, include **specific checklists** with:
+
+- Section anchors (e.g., `<!-- SECTION: truth-table -->`), not line numbers
+- Exact field names to update
+- A triggering event ("After test suite changes", "After EPIC phase completion")
+
+**Standard section markers** (used in README for durable references):
+- `<!-- SECTION: status-header -->` — Quick-glance status line
+- `<!-- SECTION: status-dashboard -->` — Gate progress table
+- `<!-- SECTION: truth-table -->` — Authoritative metric values
+- `<!-- SECTION: guardrails -->` — Risk scorecard
+
+These markers are zero-cost additions that make cascade checklists and validation scripts durable across README edits.
 
 ### Progressive Documentation Protocol
 
@@ -195,5 +225,17 @@ If forcing gates frequently, escalate to human — the methodology may need adju
 - **Active Work**: [`epics/`](epics/)
 - **Stage Gate Validation**: [`scripts/check-stage-gate.sh`](scripts/check-stage-gate.sh)
 - **Hook Documentation**: [`.claude/hooks/`](.claude/hooks/)
+
+### Hook Inventory
+
+| Hook | Trigger | Purpose |
+|------|---------|---------|
+| `context-validation.py` | SessionStart | Loads 3+1 files, detects metrics drift |
+| `context-density-gate.py` | UserPromptSubmit | Checks epic/gate context sizing |
+| `sot-update-trigger.py` | Stop | Context-specific cascade checklists + drift check |
+| `metrics_drift_check.py` | Library | Reusable metrics.json vs README validator |
+| `cascade_checklist.py` | Library | Generates file-specific cascade guidance |
+| `subagent-memory-load.sh` | SubagentStart | Loads agent memory |
+| `subagent-memory-save.sh` | SubagentStop | Memory save + post-delegation drift check |
 
 **When in doubt, follow the Source of Truth.**

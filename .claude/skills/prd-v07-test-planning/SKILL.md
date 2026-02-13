@@ -235,7 +235,7 @@ Before proceeding to Implementation Loop:
 - [ ] Every BR- rule has at least 1 TEST- entry
 - [ ] Every core UJ- journey has an E2E TEST-
 - [ ] Critical tests are marked for automation
-- [ ] TEST- entries added to EPIC- Section 2
+- [ ] TEST- entries added to EPIC Context & IDs section
 - [ ] Total test count is reasonable (30-50 for MVP)
 
 ## Downstream Connections

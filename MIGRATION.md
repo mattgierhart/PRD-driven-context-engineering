@@ -87,5 +87,5 @@ If your repo is not a product development repo (e.g., dotfiles, infrastructure, 
 - [ ] Copy `.claude/skills/` directory from template
 - [ ] Copy `.claude/hooks/` directory from template
 - [ ] Copy `.claude/agents/` directory from template
-- [ ] Update `settings.json` to wire hooks
+- [ ] Update `.claude/settings.json` to wire hooks
 - [ ] Standardize SoT file structure to match new template

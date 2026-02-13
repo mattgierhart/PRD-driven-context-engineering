@@ -12,7 +12,7 @@ Synchronize the README.md Command Center with the current project state after ga
 
 ## Workflow Overview
 
-1. **Load Context** → Read README.md, PRD.md metadata, Active EPIC Section 0
+1. **Load Context** → Read README.md, PRD.md metadata, Active EPIC Session State section
 2. **Extract State** → Pull lifecycle stage, blockers, metrics
 3. **Update Dashboard** → Sync README sections with current truth
 
@@ -23,19 +23,19 @@ Synchronize the README.md Command Center with the current project state after ga
 | **Lifecycle Stage** | Current PRD version from PRD.md | `Current Lifecycle Gate: v0.X` |
 | **Gate Status** | Visual progress indicators | 🟢 Complete / 🟡 In Progress / ⚪ Pending |
 | **Active EPIC** | Current work from EPIC header | `EPIC-XX: Title` |
-| **Blockers** | Open blockers from EPIC Section 0 | List with severity |
+| **Blockers** | Open blockers from EPIC Session State section | List with severity |
 
 ## Step 1: Load Context
 
 Read these files in order:
 1. `README.md` (current state)
 2. `PRD.md` (metadata block for lifecycle stage)
-3. Active EPIC Section 0 (blockers, progress)
+3. Active EPIC Session State section (blockers, progress)
 
 ### Checklist
 - [ ] README.md loaded
 - [ ] PRD.md metadata extracted
-- [ ] Active EPIC identified and Section 0 read
+- [ ] Active EPIC identified and Session State section read
 
 ## Step 2: Extract Current State
 
@@ -46,7 +46,7 @@ Pull authoritative values:
 | Lifecycle Stage | PRD.md `Current Lifecycle Gate` |
 | Gate Progress | PRD.md gate table |
 | Active EPIC | README.md `Active Work` section |
-| Blockers | EPIC Section 0 |
+| Blockers | EPIC Session State section |
 | Metrics | README.md Truth Table |
 
 ## Step 3: Update README Dashboard
@@ -59,7 +59,7 @@ Apply synchronization rules:
    - 🟡 = Current gate (in progress)
    - ⚪ = Future gates (not started)
 3. **Active EPIC**: Update metadata in Active Work section
-4. **Blockers**: Sync from EPIC Section 0
+4. **Blockers**: Sync from EPIC Session State section
 
 ## Quality Gates
 
@@ -78,7 +78,7 @@ Apply synchronization rules:
 | Pattern | Example | Fix |
 |---------|---------|-----|
 | Stale gate status | 🟢 on gate with missing criteria | → Verify all criteria before marking complete |
-| Missing blockers | EPIC has blockers, README shows none | → Always sync from EPIC Section 0 |
+| Missing blockers | EPIC has blockers, README shows none | → Always sync from EPIC Session State section |
 | Wrong EPIC reference | README points to closed EPIC | → Check EPIC status before updating |
 
 ## Boundaries

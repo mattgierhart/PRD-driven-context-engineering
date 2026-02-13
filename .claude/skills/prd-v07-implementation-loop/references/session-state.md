@@ -7,7 +7,7 @@ Session State is the "brain dump" that enables:
 - **Context preservation**: Decisions, blockers, and reasoning are captured
 - **Debugging**: If something goes wrong, you know what changed
 
-## Section 0 Template
+## Session State Template
 
 ```markdown
 ## 0. Session State (The "Brain Dump")
@@ -86,7 +86,7 @@ Capture anything that isn't in the code or specs:
 ## Session State Lifecycle
 
 ### At Session Start
-1. Read Section 0
+1. Read the Session State section
 2. Verify you understand the stopping point
 3. Review Next Steps
 4. Note any new Context to add

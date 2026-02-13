@@ -109,7 +109,7 @@ authority: This is a SoT file - IDs created here are referenced by {list files: 
 When adding a new {PREFIX}-XXX:
 - [ ] Update {relevant SoT file} "{section}" for each {relationship}
 - [ ] Update {another SoT file} "{section}" for each {relationship}
-- [ ] Update EPIC Section 2 "Context & IDs" if part of active work
+- [ ] Update EPIC **Context & IDs** section if part of active work
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry tables
 
 ### Required Fields Validation

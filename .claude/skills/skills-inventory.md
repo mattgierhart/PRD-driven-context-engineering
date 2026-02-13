@@ -1362,7 +1362,7 @@ Window 3: [Focus Area] — e.g., "UI Integration"
 |----------|--------------|---------|
 | **Test Planning** | EPIC- scope defines test boundaries | TEST- entries for EPIC-01 scope |
 | **Implementation Loop** | EPIC- is execution unit | Work happens inside EPIC context |
-| **Session Management** | EPIC Section 0 tracks progress | Where to resume next session |
+| **Session Management** | EPIC Session State section tracks progress | Where to resume next session |
 
 ---
 
@@ -1498,7 +1498,7 @@ id_outputs: []  # Updates existing IDs, creates code
 5. Tag Code         → Add // @implements ID comments
 6. Update SoT       → Update specs/ if implementation reveals changes
 7. Validate         → Run tests, check traceability
-8. Update Session   → Write to Section 0 before stopping
+8. Update Session   → Write to Session State section before stopping
 → REPEAT until EPIC complete
 ```
 
@@ -1570,7 +1570,7 @@ Within an EPIC's Phase C (Build), work through Context Windows sequentially:
 **Phase E Finish (Harvest):**
 - [ ] Move useful temp/ notes to specs/ or archive/
 - [ ] Verify all specs/ files match final code
-- [ ] Clean Session State (Section 0)
+- [ ] Clean Session State section
 - [ ] Update EPIC state to Complete
 - [ ] Log completion in Change Log
 
@@ -1580,7 +1580,7 @@ Within an EPIC's Phase C (Build), work through Context Windows sequentially:
 | Test-after | Code written, then "add tests" | Write TEST- implementation first |
 | Spec drift | Code diverges from specs/ | Update SoT during implementation, not later |
 | Missing traceability | Code has no @implements tags | Add tags as you write, not in cleanup |
-| Session amnesia | No Section 0 update | ALWAYS update before stopping |
+| Session amnesia | No Session State update | ALWAYS update before stopping |
 | Context switching | Jumping between EPICs | Finish one EPIC before starting another |
 | One-shot building | No iteration, just code dump | Follow the loop: test → code → tag → update |
 | Orphaned implementation | Code not linked to any ID | Every function serves an ID |

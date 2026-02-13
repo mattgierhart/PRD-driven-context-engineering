@@ -103,7 +103,7 @@ Updated: [Date]
 
 ## Session State Protocol
 
-**MANDATORY**: Update Section 0 before ending ANY session.
+**MANDATORY**: Update the Session State section before ending ANY session.
 
 This is the "brain dump" that allows the next session (human or AI) to resume exactly where you left off.
 

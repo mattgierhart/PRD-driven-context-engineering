@@ -178,7 +178,7 @@ Every SoT file ends with an update protocol:
 When adding a new {PREFIX}-XXX:
 - [ ] Update {OTHER_FILE}.md "Used By" section
 - [ ] Update {ANOTHER_FILE}.md "Related" section
-- [ ] Update EPIC Section 2 "Context & IDs"
+- [ ] Update EPIC **Context & IDs** section
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry tables
 ```
 

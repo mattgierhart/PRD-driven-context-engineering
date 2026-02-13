@@ -39,7 +39,7 @@ Extract durable insights from temporary files to Source of Truth during EPIC Pha
 
 ## Step 1: Enumerate Temp Files
 
-1. Read EPIC Section 3A for temp file references
+1. Read EPIC Execution Plan for temp file references
 2. List all files in `temp/` directory
 3. Match temps to EPIC (by date or naming)
 

@@ -95,7 +95,7 @@ Before marking a Context Window complete:
 - [ ] Related SoT entries are updated if spec changed
 - [ ] Tests exist and pass for all TEST- entries in scope
 - [ ] No orphaned code (code without ID linkage)
-- [ ] Session State (Section 0) updated
+- [ ] Session State section updated
 
 ---
 

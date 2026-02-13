@@ -3,12 +3,13 @@ title: "Unique ID System"
 updated: "2026-01-12"
 authority: "PRD Led Context Engineering"
 ---
+<!-- SECTION: template-structure -->
 
 # Unique ID System
 
 > **Rule**: Every durable concept gets an ID. IDs are stable. Names are not.
 
-This file serves as the **governance guide** for the ID system and the **central registry** of all ID prefixes.
+This file serves as the **governance guide** for the ID system and the **central registry** of all ID prefixes. The canonical machine-readable prefix registry is in [`.claude/domain-profile.yaml`](../.claude/domain-profile.yaml).
 
 ---
 
@@ -99,7 +100,10 @@ CFD-089 (Request: Dark Mode)
       └─→ UJ-105 (Theme Switcher Flow)
 ```
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Part 2: SoT File Registry
 
@@ -115,6 +119,8 @@ CFD-089 (Request: Dark Mode)
 | `SoT.DESIGN_COMPONENTS.md` | DES-XXX | ~100 | UI components |
 | `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC | ~115 | Tech & architecture |
 | `SoT.INTEGRATIONS.md` | INT-XXX | ~105 | Third-party services |
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

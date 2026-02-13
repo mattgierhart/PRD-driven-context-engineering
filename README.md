@@ -8,6 +8,7 @@ See this philosophy in action at **[GearheartAI.org](https://gearheartai.org)**.
 
 ---
 
+<!-- SECTION: evolution -->
 ## The Evolution
 
 The progression of memory in software teams:
@@ -15,9 +16,11 @@ The progression of memory in software teams:
 - **Start-up / Waterfall** relied on **Static Memory**. We wrote everything down upfront. It created certainty, but made change slow and expensive.
 - **Agile** moved faster but created **Fragmented Memory**. We scattered knowledge across tickets, wikis, and chats and lost shared understanding.
 - **PRD Led Context Engineering** builds **Shared Memory**. It treats **AI as a team member**, not just a tool, and keeps documentation synchronized with code so humans and AI can navigate the same truth.
+<!-- /SECTION: evolution -->
 
 ---
 
+<!-- SECTION: cognitive-shift -->
 ## The Cognitive Shift
 
 We are changing how we measure work, not just tools.
@@ -29,9 +32,11 @@ We are changing how we measure work, not just tools.
 | **Tribal Knowledge**   | **Source of Truth**                | If it isn't in the Knowledge Graph (`SoT/`), it doesn't exist.                                         |
 | **Standups**           | **Documentation Hooks (optional)** | We don't have status meetings. Event-based hooks in `.claude/hooks` can update memory when configured. |
 | **Project Management** | **Context Governance**             | We don't task-manage people. The system gates execution until context is verified valid.               |
+<!-- /SECTION: cognitive-shift -->
 
 ---
 
+<!-- SECTION: manifesto -->
 ## The Manifesto
 
 We are building complex products together.
@@ -97,9 +102,11 @@ To make shared memory practical, we rely on four core concepts:
     We never write `PRD_v2.md`. We update the single Source of Truth in place. As the product evolves from v0.1 to v1.0, the documentation evolves with it, maintaining a single, current reality for the team.
 
 This structure preserves alignment and momentum. By engineering context, we build software no single person could hold in their head at once.
+<!-- /SECTION: manifesto -->
 
 ---
 
+<!-- SECTION: doc-ecosystem -->
 ## The Documentation Ecosystem: 3+1+SoT+Temp
 
 To make memory infrastructure practical, we use an **intentional architecture** designed to **manage Context Density**. This keeps human cognitive load and AI context windows within limits.
@@ -133,9 +140,11 @@ This layer orients attention and sets priorities.
 - `temp/`: The workspace for **Audits, Explorations, Tech Debt Analysis, and Concepting**.
   - **Naming Convention**: Files must be associated with the Active Epic (e.g., `temp/EPIC-05_audit_log.md` or `temp/EPIC-05_tech_debt.md`).
   - **Rule**: We **Archive** these files when the associated Epic is marked complete. This preserves the context and logic that led to the final implementation.
+<!-- /SECTION: doc-ecosystem -->
 
 ---
 
+<!-- SECTION: lifecycle -->
 ## The Progressive PRD
 
 A common mistake in AI-assisted development is the "One-Shot"—asking the AI to build the entire app at once. This leads to generic code, hallucinations, and rapid context drift.
@@ -178,9 +187,11 @@ Because our documentation is modular and interlocked via hooks, we can revisit a
 3.  If hooks are configured in `.claude/hooks`, use them to propagate changes to the active `epics/`. Otherwise, update the Epic manually.
 
 This allows the product to evolve without losing the structure that keeps humans and AI aligned.
+<!-- /SECTION: lifecycle -->
 
 ---
 
+<!-- SECTION: repo-structure -->
 ## Repository Structure
 
 ```text
@@ -197,9 +208,11 @@ This allows the product to evolve without losing the structure that keeps humans
 > **Agent Note**: `.claude/` can be replaced with `.gemini/`, `.codex/`, or any other agent structure, but the skills, hooks, custom commands, and agent model here were built with Anthropic's documentation model in mind.
 
 > **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy `README_template.md` to `README.md` and customize it for that product.
+<!-- /SECTION: repo-structure -->
 
 ---
 
+<!-- SECTION: contributing -->
 ## Contributing
 
 Thank you for helping us refine the **PRD Led Context Engineering** methodology. This repository is not just a codebase; it is a living system of **Memory as Infrastructure**.
@@ -242,3 +255,4 @@ Our goal is to optimize **Context Density**: providing the AI (and humans) with 
 
 - Open a GitHub Issue for discussion.
 - Check `README.md` for the current status of the methodology.
+<!-- /SECTION: contributing -->

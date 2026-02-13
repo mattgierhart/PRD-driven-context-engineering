@@ -5,6 +5,7 @@ id_prefix: TECH-XXX, ARC-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and code
 ---
+<!-- SECTION: template-structure -->
 
 # Technical Decisions (SoT File)
 
@@ -83,7 +84,10 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and co
 - [DBT-XXX](SoT.DATA_MODEL.md#dbt-xxx) - {Data model affected}
 - [UJ-XXX](SoT.USER_JOURNEYS.md#uj-xxx) - {Journey this supports}
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Decisions
 
@@ -93,6 +97,8 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and co
 **Replacement**: [TECH-YYY](#tech-yyy-decision-name)
 **Reason**: {Why decision was changed}
 **Migration**: {How to transition}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

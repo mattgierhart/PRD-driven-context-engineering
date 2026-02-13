@@ -5,6 +5,7 @@ id_prefix: BR-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTRACTS.md, EPICs, and code
 ---
+<!-- SECTION: template-structure -->
 
 # Business Rules (SoT File)
 
@@ -75,7 +76,10 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTR
 - **User Message**: "{User-friendly error}"
 - **Recovery**: {What user can do}
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Rules
 
@@ -84,6 +88,8 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTR
 **Status**: Deprecated (YYYY-MM-DD)
 **Replacement**: [BR-YYY](#br-yyy-rule-name) | None
 **Reason**: {Why deprecated}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

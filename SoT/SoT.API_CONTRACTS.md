@@ -5,6 +5,7 @@ id_prefix: API-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOURNEYS.md, SoT.TESTING.md, EPICs, and code
 ---
+<!-- SECTION: template-structure -->
 
 # API Contracts (SoT File)
 
@@ -69,7 +70,10 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOUR
 - [INT-XXX](SoT.INTEGRATIONS.md#int-xxx) - {External service called}
 - [TEST-XXX](SoT.TESTING.md#test-xxx) - {Test validating this}
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Endpoints
 
@@ -79,6 +83,8 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOUR
 **Replacement**: [API-YYY](#api-yyy-name) | None
 **Sunset Date**: YYYY-MM-DD
 **Reason**: {Why deprecated}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

@@ -5,6 +5,7 @@ id_prefix: CFD-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOURNEYS.md, EPICs
 ---
+<!-- SECTION: template-structure -->
 
 # Customer Feedback (SoT File)
 
@@ -75,7 +76,10 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOUR
 **Decision Maker**: {Role/Name}
 **Rationale**: {Why this decision was made}
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Entries
 
@@ -83,6 +87,8 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOUR
 
 **Status**: Deprecated (YYYY-MM-DD)
 **Reason**: {Why deprecated - addressed, no longer relevant, etc.}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

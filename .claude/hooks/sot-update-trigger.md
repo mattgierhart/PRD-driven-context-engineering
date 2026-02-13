@@ -48,6 +48,19 @@ After agent completes work, this hook:
 *This is a reminder, not a blocker. Skip if changes are implementation-only.*
 ```
 
+## Dependencies
+
+**Python variant** (`sot-update-trigger.py`):
+- Python 3.10+ standard library only (`json`, `sys`, `re`, `pathlib`)
+- No external packages required
+- No local module imports
+
+**Shell variant** (`sot-update-trigger.sh`):
+- POSIX shell, `grep`, `sed`, `wc`
+- No external packages required
+
+> See [HOOK_CONTRACT.md](HOOK_CONTRACT.md) for the universal hook interface specification.
+
 ## Key Design Decisions
 
 | Decision | Rationale |
@@ -88,11 +101,13 @@ After agent completes work, this hook:
 ## Testing
 
 ```bash
-# Test with transcript containing file modifications
+# Test Python variant
 echo '{"transcript": "Modified: src/api/handler.py containing BR-101"}' | python3 .claude/hooks/sot-update-trigger.py
+echo '{"transcript": "Just answered a question"}' | python3 .claude/hooks/sot-update-trigger.py  # silent
 
-# Test with no modifications (should exit silently)
-echo '{"transcript": "Just answered a question"}' | python3 .claude/hooks/sot-update-trigger.py
+# Test Shell variant
+echo '{"transcript": "Modified: src/api/handler.py containing BR-101"}' | bash .claude/hooks/sot-update-trigger.sh
+echo '{"transcript": "Just answered a question"}' | bash .claude/hooks/sot-update-trigger.sh  # silent
 ```
 
 ## Boundaries

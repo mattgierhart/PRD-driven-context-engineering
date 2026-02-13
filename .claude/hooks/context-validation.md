@@ -48,6 +48,19 @@ This establishes:
 - Active work unit and acceptance criteria (epics/EPIC-03-onboarding-flow.md)
 ```
 
+## Dependencies
+
+**Python variant** (`context-validation.py`):
+- Python 3.10+ standard library only (`json`, `sys`, `re`, `pathlib`)
+- No external packages required
+- No local module imports
+
+**Shell variant** (`context-validation.sh`):
+- POSIX shell, `grep`, `sed`, `head`, `wc`
+- No external packages required
+
+> See [HOOK_CONTRACT.md](HOOK_CONTRACT.md) for the universal hook interface specification.
+
 ## Key Design Decisions
 
 | Decision | Rationale |
@@ -75,9 +88,11 @@ This establishes:
 ## Testing
 
 ```bash
-# Test with minimal input
+# Test Python variant
 echo '{}' | python3 .claude/hooks/context-validation.py
-
-# Verify JSON output is valid
 echo '{}' | python3 .claude/hooks/context-validation.py | python3 -m json.tool
+
+# Test Shell variant
+echo '{}' | bash .claude/hooks/context-validation.sh
+echo '{}' | bash .claude/hooks/context-validation.sh | python3 -m json.tool
 ```

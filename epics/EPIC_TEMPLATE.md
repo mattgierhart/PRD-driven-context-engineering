@@ -1,3 +1,7 @@
+---
+template_version: "3.0.0"
+---
+
 # EPIC-{NUMBER} {EPIC NAME}
 
 > **State**: `Planned` | `In Progress` | `Testing` | `Complete` > **Lifecycle**: v0.7 Build Execution (See `README.md`)
@@ -5,7 +9,8 @@
 
 ---
 
-## 0. Session State (The "Brain Dump")
+<!-- SECTION: session-state -->
+## Session State (The "Brain Dump")
 
 > **Crucial**: Update this section before ending every session.
 
@@ -13,10 +18,12 @@
 - **Stopping Point**: {Exact file/line or test failure}
 - **Next Steps**: {Exact instructions for the next agent}
 - **Context**: {Key decisions or blockers}
+<!-- /SECTION: session-state -->
 
 ---
 
-## 1. Objective & Scope
+<!-- CUSTOMIZABLE: objective-scope -->
+## Objective & Scope
 
 > **Goal**: What specific outcome does this Epic achieve?
 
@@ -24,20 +31,24 @@
   - [ ] {Feature A}
   - [ ] {Feature B}
 - **Out of Scope**: {What we are NOT doing}
+<!-- /CUSTOMIZABLE: objective-scope -->
 
 ---
 
-## 2. Context & IDs
+<!-- CUSTOMIZABLE: context-ids -->
+## Context & IDs
 
 > **Rule**: List all referenced IDs from `SoT/`.
 
 - **Business Rules**: `BR-{XXX}`
 - **User Journeys**: `UJ-{XXX}`
 - **APIs**: `API-{XXX}`
+<!-- /CUSTOMIZABLE: context-ids -->
 
 ---
 
-## 3. Execution Plan (The 5 Phases)
+<!-- SECTION: execution-plan -->
+## Execution Plan (The 5 Phases)
 
 ### Phase A: Plan
 
@@ -77,12 +88,15 @@
 
 - [ ] **Temp Cleanup**: Move any useful notes from `temp/` to `SoT/`, then remove the temp file.
 - [ ] **Spec Finalization**: Ensure all specs in `SoT/` match the code.
-- [ ] **Session Audit**: Ensure Section 0 is clean.
+- [ ] **Session Audit**: Ensure **Session State** section is clean.
+<!-- /SECTION: execution-plan -->
 
 ---
 
-## 4. Change Log
+<!-- SECTION: change-log -->
+## Change Log
 
 | Date       | Agent  | Action       |
 | ---------- | ------ | ------------ |
 | YYYY-MM-DD | {Name} | Created EPIC |
+<!-- /SECTION: change-log -->

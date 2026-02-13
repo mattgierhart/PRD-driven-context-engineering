@@ -1,7 +1,8 @@
 ---
 title: "CLAUDE Agent Operating Guide"
-updated: "2026-01-12"
+updated: "2026-02-12"
 authority: "PRD Led Context Engineering"
+template_version: "3.0.0"
 ---
 
 # CLAUDE.md — Agent Operating Guide
@@ -12,24 +13,27 @@ authority: "PRD Led Context Engineering"
 
 ---
 
+<!-- SECTION: session-protocols -->
 ## 1. Session Protocols (MANDATORY)
 
 ### Start of Session
 
 1. **Load Context**: `README.md`, `PRD.md`, and the Active EPIC.
-2. **Read Session State**: Check Section 0 of the Active EPIC for "Where we left off".
+2. **Read Session State**: Check the **Session State** section of the Active EPIC for "Where we left off".
 3. **Check Git Status**: Confirm you are on the right branch/commit.
 
 ### End of Session
 
-1. **Update EPIC Section 0**:
+1. **Update the EPIC Session State section**:
    - **Progress**: What specifically was done? (Link IDs)
    - **Stop Point**: File/Line where work ceased.
    - **Next**: Exact instructions for the next agent.
 2. **Commit**: `session: [EPIC-XX] summary of work`.
+<!-- /SECTION: session-protocols -->
 
 ---
 
+<!-- SECTION: execution-rules -->
 ## 2. Execution Rules
 
 ### Document Ecosystem
@@ -44,7 +48,7 @@ The methodology uses a layered document structure:
 | **Knowledge** | SoT/*.md | Durable specs with unique IDs |
 | **Scratchpad** | temp/*.md | Ephemeral notes, harvested to SoT |
 
-**ID Ownership**:
+**ID Ownership** (see [`.claude/domain-profile.yaml`](.claude/domain-profile.yaml) for full registry):
 - SoT files own: BR, UJ, PER, SCR, API, DBT, TEST, DEP, RUN, MON, CFD, DES, TECH, ARC, INT
 - PRD.md owns: FEA (v0.3), RISK (v0.5), GTM (v0.9)
 - README.md owns: KPI metrics
@@ -91,9 +95,11 @@ export class RateLimiter { ... }
 
 - **Do Not Skip**: Verify the Gate Checklist in `PRD.md` or `README.md` (PRD Lifecycle) before advancing.
 - **Blockers**: If a gate cannot be passed, update the EPIC and STOP.
+<!-- /SECTION: execution-rules -->
 
 ---
 
+<!-- SECTION: quick-reference -->
 ## 3. Quick Reference
 
 - **Lifecycle Guide**: [`README.md`](README.md)
@@ -101,5 +107,8 @@ export class RateLimiter { ... }
 - **SoT Index**: [`SoT/SoT.README.md`](SoT/SoT.README.md)
 - **EPIC Template**: [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md)
 - **Active Work**: [`epics/`](epics/)
+- **Domain Profile**: [`.claude/domain-profile.yaml`](.claude/domain-profile.yaml)
+- **Hook Contract**: [`.claude/hooks/HOOK_CONTRACT.md`](.claude/hooks/HOOK_CONTRACT.md)
 
 **When in doubt, follow the Source of Truth.**
+<!-- /SECTION: quick-reference -->

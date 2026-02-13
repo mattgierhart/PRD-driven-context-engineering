@@ -2,6 +2,7 @@
 version: 2.0
 purpose: Progressive Product Requirements Document aligned to the PRD Led Context Engineering lifecycle.
 last_updated: 2025-12-22
+template_version: "3.0.0"
 ---
 
 # [Product Name] · Product Requirements Document (PRD)

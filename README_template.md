@@ -1,3 +1,7 @@
+---
+template_version: "3.0.0"
+---
+
 # {Product Name} — Product README
 
 > **Status**: Active
@@ -6,6 +10,7 @@
 
 ---
 
+<!-- SECTION: quick-navigation -->
 ## 1. Quick Navigation
 
 | File                         | Purpose                                                                    |
@@ -13,9 +18,11 @@
 | **[`PRD.md`](PRD.md)**       | **Product Definition**. The product definition (Progressive PRD).          |
 | **[`CLAUDE.md`](CLAUDE.md)** | **Agent Instructions**. The agent's operating instructions.                |
 | **[`epics/`](epics/)**       | **Execution**. Where work happens. Check here for the current sprint/task. |
+<!-- /SECTION: quick-navigation -->
 
 ---
 
+<!-- SECTION: core-principles -->
 ## 2. Core Principles (The 3+1 System)
 
 1. **Navigation Files**: `README` + `PRD` + `CLAUDE` = The map.
@@ -26,9 +33,11 @@
    - `API-XXX`: Contracts
    - `CFD-XXX`: Customer Feedback
 4. **Gates**: We do not advance the PRD version without meeting the **Definition of Done** (see [`README.md`](README.md)).
+<!-- /SECTION: core-principles -->
 
 ---
 
+<!-- CUSTOMIZABLE: product-dashboard -->
 ## 3. Product Status Dashboard
 
 **Lifecycle Stage**: `v0.1 Spark` (Target)
@@ -88,6 +97,7 @@
 
 - [ ] **Signal**: Customer adoption rate meets expectations.
 - [ ] **Objective**: Optimization and Scale.
+<!-- /CUSTOMIZABLE: product-dashboard -->
 
 ---
 

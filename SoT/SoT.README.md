@@ -1,13 +1,15 @@
 ---
 title: "Source-of-Truth Library Guide"
 scope: "SoT/"
-updated: "2026-01-12"
+updated: "2026-02-12"
+template_version: "3.0.0"
 ---
 
 # Source-of-Truth (SoT) Library
 
 This directory holds the durable, ID-based specifications that make up the knowledge graph for your product.
 
+<!-- SECTION: sot-registry -->
 ## Structure
 
 Each file focuses on one artifact type with a consistent ID prefix (~100-150 lines each):
@@ -27,6 +29,7 @@ Each file focuses on one artifact type with a consistent ID prefix (~100-150 lin
 | `SoT.INTEGRATIONS.md` | INT-XXX | Third-party service integrations |
 
 **IDs in PRD/README** (not SoT files): FEA-XXX, RISK-XXX, GTM-XXX, KPI-XXX
+<!-- /SECTION: sot-registry -->
 
 > See [SoT.UNIQUE_ID_SYSTEM.md](SoT.UNIQUE_ID_SYSTEM.md) for full ID specifications.
 
@@ -41,7 +44,7 @@ Each file focuses on one artifact type with a consistent ID prefix (~100-150 lin
 
 - **Never delete IDs** — mark as deprecated and link to replacement
 - **Update timestamps** — change `Last Updated` when entry changes
-- **Add via EPICs** — new IDs should be tracked in EPIC Section 2
+- **Add via EPICs** — new IDs should be tracked in the EPIC **Context & IDs** section
 - **Keep files lean** — target 80-120 lines per SoT file
 
 ## Template Contract

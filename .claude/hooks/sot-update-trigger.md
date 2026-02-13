@@ -50,12 +50,6 @@ After agent completes work, this hook:
 
 ## Dependencies
 
-**Python variant** (`sot-update-trigger.py`):
-- Python 3.10+ standard library only (`json`, `sys`, `re`, `pathlib`)
-- No external packages required
-- No local module imports
-
-**Shell variant** (`sot-update-trigger.sh`):
 - POSIX shell, `grep`, `sed`, `wc`
 - No external packages required
 
@@ -89,9 +83,13 @@ After agent completes work, this hook:
   "hooks": {
     "Stop": [
       {
-        "type": "command",
-        "command": "python3 .claude/hooks/sot-update-trigger.py",
-        "timeout": 15000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sot-update-trigger.sh",
+            "timeout": 15
+          }
+        ]
       }
     ]
   }
@@ -101,11 +99,6 @@ After agent completes work, this hook:
 ## Testing
 
 ```bash
-# Test Python variant
-echo '{"transcript": "Modified: src/api/handler.py containing BR-101"}' | python3 .claude/hooks/sot-update-trigger.py
-echo '{"transcript": "Just answered a question"}' | python3 .claude/hooks/sot-update-trigger.py  # silent
-
-# Test Shell variant
 echo '{"transcript": "Modified: src/api/handler.py containing BR-101"}' | bash .claude/hooks/sot-update-trigger.sh
 echo '{"transcript": "Just answered a question"}' | bash .claude/hooks/sot-update-trigger.sh  # silent
 ```

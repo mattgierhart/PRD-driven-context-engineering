@@ -2,23 +2,35 @@
   "hooks": {
     "SessionStart": [
       {
-        "type": "command",
-        "command": "python3 .claude/hooks/context-validation.py",
-        "timeout": 10000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context-validation.sh",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
       {
-        "type": "command",
-        "command": "python3 .claude/hooks/context-density-gate.py",
-        "timeout": 10000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context-density-gate.sh",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "Stop": [
       {
-        "type": "command",
-        "command": "python3 .claude/hooks/sot-update-trigger.py",
-        "timeout": 15000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sot-update-trigger.sh",
+            "timeout": 15
+          }
+        ]
       }
     ]
   },

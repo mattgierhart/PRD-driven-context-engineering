@@ -79,12 +79,6 @@ Issues detected:
 
 ## Dependencies
 
-**Python variant** (`context-density-gate.py`):
-- Python 3.10+ standard library only (`json`, `sys`, `re`, `pathlib`)
-- No external packages required
-- No local module imports
-
-**Shell variant** (`context-density-gate.sh`):
 - POSIX shell, `grep`, `sed`, `wc`
 - No external packages required
 
@@ -105,9 +99,13 @@ Issues detected:
   "hooks": {
     "UserPromptSubmit": [
       {
-        "type": "command",
-        "command": "python3 .claude/hooks/context-density-gate.py",
-        "timeout": 10000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context-density-gate.sh",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }
@@ -117,12 +115,6 @@ Issues detected:
 ## Testing
 
 ```bash
-# Test Python variant
-echo '{"prompt": "start work on EPIC-04-onboarding-flow"}' | python3 .claude/hooks/context-density-gate.py
-echo '{"prompt": "approve gate for v0.5"}' | python3 .claude/hooks/context-density-gate.py
-echo '{"prompt": "fix the login bug"}' | python3 .claude/hooks/context-density-gate.py  # passthrough
-
-# Test Shell variant
 echo '{"prompt": "start work on EPIC-04-onboarding-flow"}' | bash .claude/hooks/context-density-gate.sh
 echo '{"prompt": "approve gate for v0.5"}' | bash .claude/hooks/context-density-gate.sh
 echo '{"prompt": "fix the login bug"}' | bash .claude/hooks/context-density-gate.sh  # passthrough

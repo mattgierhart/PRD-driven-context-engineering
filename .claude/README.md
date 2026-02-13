@@ -27,14 +27,11 @@ This directory contains Claude Code configuration following Anthropic's official
 │   └── ghm-harvest/            # Methodology: Extract temps to SoT
 ├── hooks/                      # Event-triggered automation
 │   ├── HOOK_CONTRACT.md        # Universal hook interface specification
-│   ├── context-validation.py   # SessionStart: Load 3+1 files (Python)
-│   ├── context-validation.sh   # SessionStart: Load 3+1 files (Shell)
+│   ├── context-validation.sh   # SessionStart: Load 3+1 files
 │   ├── context-validation.md   # Documentation
-│   ├── context-density-gate.py # UserPromptSubmit: Epic/gate assessment (Python)
-│   ├── context-density-gate.sh # UserPromptSubmit: Epic/gate assessment (Shell)
+│   ├── context-density-gate.sh # UserPromptSubmit: Epic/gate assessment
 │   ├── context-density-gate.md # Documentation
-│   ├── sot-update-trigger.py   # Stop: SoT update reminder (Python)
-│   ├── sot-update-trigger.sh   # Stop: SoT update reminder (Shell)
+│   ├── sot-update-trigger.sh   # Stop: SoT update reminder
 │   └── sot-update-trigger.md   # Documentation
 ├── agents/                     # Agent definitions (subdirectories)
 │   ├── horizon/                # Strategy Agent (v0.1-v0.5)
@@ -82,13 +79,13 @@ skills/prd-v01-problem-framing/
 
 Hooks are event-triggered automation. Configured in `settings.json`, documented in `hooks/`. See [HOOK_CONTRACT.md](hooks/HOOK_CONTRACT.md) for the universal interface specification.
 
-| Hook | Trigger | Python | Shell | Purpose |
-|------|---------|--------|-------|---------|
-| Context Validation | SessionStart | `context-validation.py` | `context-validation.sh` | Inject 3+1 file reading order |
-| Context Density Gate | UserPromptSubmit | `context-density-gate.py` | `context-density-gate.sh` | Assess epic/gate context readiness |
-| SoT Update Trigger | Stop | `sot-update-trigger.py` | `sot-update-trigger.sh` | Remind about spec updates |
+| Hook | Trigger | Script | Purpose |
+|------|---------|--------|---------|
+| Context Validation | SessionStart | `context-validation.sh` | Inject 3+1 file reading order |
+| Context Density Gate | UserPromptSubmit | `context-density-gate.sh` | Assess epic/gate context readiness |
+| SoT Update Trigger | Stop | `sot-update-trigger.sh` | Remind about spec updates |
 
-**Default**: `settings.json` uses Python. To use Shell instead, change `python3 ... .py` to `bash ... .sh` in `settings.json`.
+All hooks are POSIX shell scripts with zero external dependencies.
 
 ### Hook Execution Order
 
@@ -116,5 +113,6 @@ See [`.claude/domain-profile.yaml`](domain-profile.yaml) for the full agent regi
 
 ## Reference
 
-- [Claude Code Skills](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills)
-- [Claude Code Hooks](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/hooks)
+- [Claude Code Skills](https://code.claude.com/docs/en/skills)
+- [Claude Code Hooks](https://code.claude.com/docs/en/hooks)
+- [Claude Code Sub-agents](https://code.claude.com/docs/en/sub-agents)

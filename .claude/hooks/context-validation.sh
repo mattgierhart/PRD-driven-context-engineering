@@ -106,7 +106,7 @@ ${directive}"
   # Output JSON — escape for JSON string (POSIX-portable)
   local json_context
   json_context=$(printf '%s' "$directive" | sed 's/\\/\\\\/g; s/"/\\"/g' | awk '{if(NR>1) printf "\\n"; printf "%s", $0}')
-  printf '{"additionalContext": "%s"}\n' "$json_context"
+  printf '{"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": "%s"}}\n' "$json_context"
   exit 0
 }
 

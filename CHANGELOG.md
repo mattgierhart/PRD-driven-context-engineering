@@ -40,8 +40,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Template version
 ### Added
 - Complete skill library: 26 PRD lifecycle skills (v0.1–v0.9) + 5 methodology skills (ghm-*)
 - Skill-per-directory structure with SKILL.md + assets/ + references/
-- 3 Python hooks: context-validation, context-density-gate, sot-update-trigger
-- Hook .md documentation paired with each .py file
+- 3 hooks: context-validation, context-density-gate, sot-update-trigger
+- Hook .md documentation paired with each script
 - 4 agent definitions: HORIZON, STUDIO, WERK, METRO
 - 12 SoT files standardized to ~100-150 lines each
 - EPIC template with 5-phase execution model

@@ -42,9 +42,9 @@ These require manual action in derivative repos:
 - [ ] `MIGRATION.md` — Copy from template
 - [ ] `.claude/domain-profile.yaml` — Copy from template, customize `id_prefixes` if you use a non-product domain
 - [ ] `.claude/hooks/HOOK_CONTRACT.md` — Copy from template
-- [ ] `.claude/hooks/context-validation.sh` — Shell variant of SessionStart hook
-- [ ] `.claude/hooks/context-density-gate.sh` — Shell variant of UserPromptSubmit hook
-- [ ] `.claude/hooks/sot-update-trigger.sh` — Shell variant of Stop hook
+- [ ] `.claude/hooks/context-validation.sh` — SessionStart hook
+- [ ] `.claude/hooks/context-density-gate.sh` — UserPromptSubmit hook
+- [ ] `.claude/hooks/sot-update-trigger.sh` — Stop hook
 
 ### Files to Update
 
@@ -65,7 +65,7 @@ If your repo is not a product development repo (e.g., dotfiles, infrastructure, 
   - Replace `id_prefixes` with your domain's taxonomy
   - Remove `prd-v*` domain skills, keep `ghm-*` core skills
   - Remove `agents` section if role specialization doesn't apply
-- [ ] Use shell hook variants (`.sh`) instead of Python if your repo has no Python dependency
+- [ ] Hooks are shell-only (POSIX sh) — no Python dependency needed
 - [ ] Drop SoT files that don't map to your domain; create domain-specific ones using `ghm-sot-builder`
 
 ---
@@ -77,7 +77,7 @@ If your repo is not a product development repo (e.g., dotfiles, infrastructure, 
 ### Changes
 
 - Complete skill library added (26 PRD lifecycle + 5 methodology skills)
-- 3 Python hooks added (context-validation, context-density-gate, sot-update-trigger)
+- 3 hooks added (context-validation, context-density-gate, sot-update-trigger)
 - 4 agent definitions added (HORIZON, STUDIO, WERK, METRO)
 - 12 SoT files standardized to ~100-150 lines each
 - Methodology renamed to "PRD Led Context Engineering"

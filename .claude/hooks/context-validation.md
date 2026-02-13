@@ -50,12 +50,6 @@ This establishes:
 
 ## Dependencies
 
-**Python variant** (`context-validation.py`):
-- Python 3.10+ standard library only (`json`, `sys`, `re`, `pathlib`)
-- No external packages required
-- No local module imports
-
-**Shell variant** (`context-validation.sh`):
 - POSIX shell, `grep`, `sed`, `head`, `wc`
 - No external packages required
 
@@ -76,9 +70,13 @@ This establishes:
   "hooks": {
     "SessionStart": [
       {
-        "type": "command",
-        "command": "python3 .claude/hooks/context-validation.py",
-        "timeout": 10000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context-validation.sh",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }
@@ -88,11 +86,6 @@ This establishes:
 ## Testing
 
 ```bash
-# Test Python variant
-echo '{}' | python3 .claude/hooks/context-validation.py
-echo '{}' | python3 .claude/hooks/context-validation.py | python3 -m json.tool
-
-# Test Shell variant
 echo '{}' | bash .claude/hooks/context-validation.sh
 echo '{}' | bash .claude/hooks/context-validation.sh | python3 -m json.tool
 ```

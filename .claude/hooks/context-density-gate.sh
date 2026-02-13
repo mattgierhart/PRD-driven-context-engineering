@@ -49,7 +49,7 @@ json_output() {
   local context="$1"
   local json_context
   json_context=$(printf '%s' "$context" | sed 's/\\/\\\\/g; s/"/\\"/g' | awk '{if(NR>1) printf "\\n"; printf "%s", $0}')
-  printf '{"additionalContext": "%s"}\n' "$json_context"
+  printf '{"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": "%s"}}\n' "$json_context"
 }
 
 # --- Main ---

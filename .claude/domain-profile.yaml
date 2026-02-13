@@ -1,0 +1,103 @@
+# Domain Profile — PRD Led Context Engineering
+# Defines the ID taxonomy, SoT file mapping, skill taxonomy, and agent registry.
+# Derivatives customize this file for their domain.
+#
+# Profiles:
+#   product        — Full PRD lifecycle (default)
+#   library        — Open-source library development
+#   infrastructure — Config management, DevOps, dotfiles
+#   research       — Exploration-heavy, lighter process
+#
+# To adapt for a non-product repo:
+#   1. Change `profile` to your domain type
+#   2. Replace `id_prefixes` with your domain's taxonomy
+#   3. Remove domain skills you don't need
+#   4. Remove agents if role specialization doesn't apply
+
+profile: product
+
+# --- ID Prefix Registry ---
+# Each prefix maps to a SoT file and description.
+# Hooks and skills read from this section to resolve ID → file lookups.
+id_prefixes:
+  # SoT-owned IDs
+  BR:   { file: "SoT/SoT.BUSINESS_RULES.md",       description: "Business rules & constraints" }
+  UJ:   { file: "SoT/SoT.USER_JOURNEYS.md",         description: "User journeys" }
+  PER:  { file: "SoT/SoT.USER_JOURNEYS.md",         description: "Personas" }
+  SCR:  { file: "SoT/SoT.USER_JOURNEYS.md",         description: "Screens" }
+  API:  { file: "SoT/SoT.API_CONTRACTS.md",          description: "API endpoints" }
+  DBT:  { file: "SoT/SoT.DATA_MODEL.md",            description: "Database tables" }
+  TEST: { file: "SoT/SoT.TESTING.md",               description: "Test cases" }
+  DEP:  { file: "SoT/SoT.DEPLOYMENT.md",            description: "Deployment steps" }
+  RUN:  { file: "SoT/SoT.DEPLOYMENT.md",            description: "Runbooks" }
+  MON:  { file: "SoT/SoT.DEPLOYMENT.md",            description: "Monitoring rules" }
+  CFD:  { file: "SoT/SoT.customer_feedback.md",     description: "Customer feedback" }
+  DES:  { file: "SoT/SoT.DESIGN_COMPONENTS.md",     description: "Design components" }
+  TECH: { file: "SoT/SoT.TECHNICAL_DECISIONS.md",   description: "Tech stack decisions" }
+  ARC:  { file: "SoT/SoT.TECHNICAL_DECISIONS.md",   description: "Architecture decisions" }
+  INT:  { file: "SoT/SoT.INTEGRATIONS.md",          description: "Integrations" }
+
+  # PRD/README-owned IDs
+  FEA:  { file: "PRD.md",    description: "Features (PRD-owned, v0.3)" }
+  RISK: { file: "PRD.md",    description: "Risks (PRD-owned, v0.5)" }
+  GTM:  { file: "PRD.md",    description: "Go-to-market (PRD-owned, v0.9)" }
+  KPI:  { file: "README.md", description: "KPI metrics (README-owned)" }
+
+  # Execution IDs
+  EPIC: { file: "epics/",    description: "Execution work packages" }
+
+# --- Skill Taxonomy ---
+# Core skills work in any domain. Domain skills are product-specific.
+skills:
+  core:
+    - ghm-gate-check
+    - ghm-harvest
+    - ghm-id-register
+    - ghm-sot-builder
+    - ghm-status-sync
+    - SKILL_TEMPLATE
+  domain:
+    - prd-v01-problem-framing
+    - prd-v01-user-value-articulation
+    - prd-v02-competitive-landscape-mapping
+    - prd-v02-product-type-classification
+    - prd-v03-features-value-planning
+    - prd-v03-moat-definition
+    - prd-v03-outcome-definition
+    - prd-v03-pricing-model
+    - prd-v04-persona-definition
+    - prd-v04-screen-flow-definition
+    - prd-v04-user-journey-mapping
+    - prd-v05-risk-discovery-interview
+    - prd-v05-technical-stack-selection
+    - prd-v06-architecture-design
+    - prd-v06-technical-specification
+    - prd-v07-epic-scoping
+    - prd-v07-implementation-loop
+    - prd-v07-test-planning
+    - prd-v08-monitoring-setup
+    - prd-v08-release-planning
+    - prd-v08-runbook-creation
+    - prd-v09-feedback-loop-setup
+    - prd-v09-gtm-strategy
+    - prd-v09-launch-metrics
+
+# --- Agent Registry ---
+# Product-lifecycle agents. Non-product repos may drop these entirely.
+agents:
+  - name: horizon
+    role: Strategy
+    lifecycle: "v0.1-v0.5"
+    path: ".claude/agents/horizon/"
+  - name: studio
+    role: Design
+    lifecycle: "v0.3-v0.6"
+    path: ".claude/agents/studio/"
+  - name: werk
+    role: Build
+    lifecycle: "v0.6-v0.8"
+    path: ".claude/agents/werk/"
+  - name: metro
+    role: Ops
+    lifecycle: "v0.9-v1.0"
+    path: ".claude/agents/metro/"

@@ -12,8 +12,8 @@ This folder stores the active and archived EPIC files that make up the "+1" laye
 
 1. Copy [`epics/EPIC_TEMPLATE.md`](EPIC_TEMPLATE.md).
 2. Rename it using the format `EPIC-XX-short-slug.md` (e.g., `EPIC-07-onboarding-flow.md`).
-3. Update Section 0 with the lifecycle gate it advances and the owner.
-4. Use **Section 2 (Context & IDs)** to log every SoT ID created, modified, or referenced.
+3. Update the **Session State** section with the lifecycle gate it advances and the owner.
+4. Use the **Context & IDs** section to log every SoT ID created, modified, or referenced.
 
 ## Workflow expectations
 

@@ -352,7 +352,7 @@ EPIC- entries feed into:
 |----------|--------------|---------|
 | **Test Planning** | EPIC scope defines test boundaries | TEST- entries for EPIC-01 scope |
 | **Implementation Loop** | EPIC is execution unit | Work happens inside EPIC context |
-| **Session Management** | Section 0 tracks progress | Resume from where we left off |
+| **Session Management** | Session State section tracks progress | Resume from where we left off |
 | **Progress Tracking** | EPIC state shows overall progress | 3/7 EPICs complete |
 
 ## Detailed References

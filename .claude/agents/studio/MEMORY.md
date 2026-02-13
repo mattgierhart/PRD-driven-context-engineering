@@ -1,66 +1,63 @@
+<!-- CUSTOMIZABLE: project-memory -->
 # STUDIO Project Memory
 
-> **Purpose**: Continuity across sessions. Read at start, update at end.
-> **Behavior**: Resets to empty structure on repo fork.
+> **Why This Matters**: Project Memory is my continuity system. Without it, each session starts from zero. With it, I accumulate design intelligence across sessions, remember user feedback patterns, and maintain design consistency. This section is NOT optional—it is the foundation of effective multi-session collaboration.
 
-## How to Use Project Memory
+### How to Use Project Memory
 
 1. **Read first**: At session start, load this section before any work
 2. **Update always**: At session end, capture patterns, decisions, and open questions
 3. **Reference in work**: Cite memory entries when making design decisions
 4. **Harvest patterns**: When a pattern appears 3+ times, flag for skill extraction
 
-## Project Context
+### Project Context
 
 **Product**: {Product name when forked}
 **Current PRD Stage**: v0.{x}
 **Design System**: {Primary design framework}
 **Key Constraint**: {Primary UX constraint}
 
-## Patterns Learned
+### Patterns Observed
 
-| Date | Category | Pattern | Evidence (IDs) | Compounded To |
-|------|----------|---------|----------------|---------------|
-| —    | —        | —       | —              | —             |
+| Session | Pattern | Evidence (IDs) | Recommendation |
+| ------- | ------- | -------------- | -------------- |
+| —       | —       | —              | —              |
 
-*Categories: Usability Gotchas, Accessibility Wins, Component Reuse, Design-Dev Friction, Persona Behaviors, Platform Quirks*
-
-## Key Decisions
+### Key Decisions
 
 | Date | Decision | Rationale | Outcome |
 | ---- | -------- | --------- | ------- |
 | —    | —        | —         | —       |
 
-## Collaboration Notes
+### Collaboration Notes
 
 | Partner | What Worked | What Didn't | Adjustment |
 | ------- | ----------- | ----------- | ---------- |
 | HORIZON | —           | —           | —          |
-| DEVLAB  | —           | —           | —          |
+| WERK    | —           | —           | —          |
 
-## Handoff Friction
+### Handoff Friction
 
 | From → To        | Issue | Resolution |
 | ---------------- | ----- | ---------- |
 | HORIZON → STUDIO | —     | —          |
-| STUDIO → DEVLAB  | —     | —          |
+| STUDIO → WERK    | —     | —          |
 
-## Open Questions
+### Open Questions
 
 - {UX questions this agent is tracking}
 
-## Harvest Queue
+### Harvest Candidates
 
-Patterns with 3+ occurrences ready for extraction:
+Patterns ready for skill extraction (3+ occurrences):
 
-| Pattern | Occurrences | Target Extraction |
-|---------|-------------|-------------------|
-| —       | —           | —                 |
+| Pattern | Occurrences | Skill Target |
+| ------- | ----------- | ------------ |
+| —       | —           | —            |
 
-*Targets: CLAUDE.md (universal), skill:{name} (stage-specific), STUDIO.md (domain pattern), DES-XXX (reusable component)*
-
-## Design System Evolution
+### Design System Evolution
 
 | Date | Change | Reason | Impact |
 | ---- | ------ | ------ | ------ |
 | —    | —      | —      | —      |
+<!-- /CUSTOMIZABLE: project-memory -->

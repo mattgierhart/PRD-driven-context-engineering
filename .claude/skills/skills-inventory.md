@@ -23,7 +23,6 @@
 | **v0.5 Red Team Review** | [Technical Stack Selection](#skill-technical-stack-selection) | ✅ Ready | [`prd-v05-technical-stack-selection/`](prd-v05-technical-stack-selection/) |
 | **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | ✅ Ready | [`prd-v06-architecture-design/`](prd-v06-architecture-design/) |
 | **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | ✅ Ready | [`prd-v06-technical-specification/`](prd-v06-technical-specification/) |
-| **v0.6 Architecture** | [Environment Setup](#skill-environment-setup) | ✅ Ready | [`prd-v06-environment-setup/`](prd-v06-environment-setup/) |
 | **v0.7 Build Execution** | [Epic Scoping](#skill-epic-scoping) | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
 | **v0.7 Build Execution** | [Test Planning](#skill-test-planning) | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
 | **v0.7 Build Execution** | [Implementation Loop](#skill-implementation-loop) | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
@@ -33,10 +32,6 @@
 | **v0.9 Launch** | [GTM Strategy](#skill-gtm-strategy) | ✅ Ready | [`prd-v09-gtm-strategy/`](prd-v09-gtm-strategy/) |
 | **v0.9 Launch** | [Launch Metrics](#skill-launch-metrics) | ✅ Ready | [`prd-v09-launch-metrics/`](prd-v09-launch-metrics/) |
 | **v0.9 Launch** | [Feedback Loop Setup](#skill-feedback-loop-setup) | ✅ Ready | [`prd-v09-feedback-loop-setup/`](prd-v09-feedback-loop-setup/) |
-| **Methodology** | [Gate Check](#skill-gate-check) | ✅ Ready | [`ghm-gate-check/`](ghm-gate-check/) |
-| **Methodology** | [Status Sync](#skill-status-sync) | ✅ Ready | [`ghm-status-sync/`](ghm-status-sync/) |
-| **Methodology** | [ID Register](#skill-id-register) | ✅ Ready | [`ghm-id-register/`](ghm-id-register/) |
-| **Methodology** | [Harvest](#skill-harvest) | ✅ Ready | [`ghm-harvest/`](ghm-harvest/) |
 | **Methodology** | [SoT Builder](#skill-sot-builder) | ✅ Ready | [`ghm-sot-builder/`](ghm-sot-builder/) |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
@@ -100,14 +95,13 @@
 
 ### v0.6 Architecture — Technical Blueprint
 
-**Purpose:** Define system architecture, implementation contracts, and environment specifications based on stack selections.
-**Gate:** Architecture decisions documented, API contracts defined, data models specified, environment setup documented.
+**Purpose:** Define system architecture and implementation contracts based on stack selections.
+**Gate:** Architecture decisions documented, API contracts defined, data models specified, integration patterns established.
 
 | Skill | Input | Output | IDs Created |
 |-------|-------|--------|-------------|
 | Architecture Design | TECH- (stack), RISK- (constraints), FEA- (features) | System architecture with component relationships | ARC- |
 | Technical Specification | ARC- (architecture), TECH- (Build items), UJ- (flows), SCR- (screens) | API contracts and data models | API-, DBT- |
-| Environment Setup | TECH- (stack), ARC- (architecture) | Development environment, CI/CD, infrastructure specs | ENV- |
 
 ### v0.7 Build Execution — Implementation
 
@@ -593,7 +587,7 @@ Our Moat Strategy: [How we'll build defensibility]
 ### SKILL: Feature Value Planning
 
 ```yaml
-name: prd-v03-features-value-planning
+name: prd-v03-feature-value-planning
 stage: v0.3
 status: ready
 folder: prd-v03-features-value-planning/
@@ -1273,86 +1267,6 @@ Business Rules: [BR-XXX that affect this entity]
 
 ---
 
-### SKILL: Environment Setup
-
-```yaml
-name: prd-v06-environment-setup
-stage: v0.6
-status: ready
-folder: prd-v06-environment-setup/
-triggers: "what tools do I need", "environment setup", "dev environment", "CLI requirements", "project setup", "onboarding setup"
-id_outputs: [ENV-]
-```
-
-**Purpose:** Document development environment requirements for team consistency and AI agent understanding.
-
-**Position in workflow:** v0.6 Architecture / Technical Spec → **v0.6 Environment Setup** → v0.7 Build Execution
-
-**Mode:** Documentation — AI helps structure requirements, developer provides tool choices.
-
-**Execution:**
-1. Pull TECH- decisions (what technologies are we using?)
-2. Pull ARC- decisions (what architecture patterns apply?)
-3. Inventory tooling needs (CLIs, packages, configs)
-4. Categorize by scope (global vs per-project)
-5. Define configuration files with purpose
-6. Create verification commands
-7. Document in ENV- entries
-
-**Design Principles:**
-- **Prefer CLIs over MCPs** — CLIs work in all environments (local, CI/CD, cloud)
-- **Per-project over global** — Language packages in project, not global installs
-- **Structured over prose** — Tables and code blocks, not narrative paragraphs
-- **Verification required** — Every ENV- includes commands to confirm setup
-
-**ENV-001 Output Template:**
-```
-ENV-001: Development Environment
-Category: Development Setup
-Status: Approved | Date: YYYY-MM-DD
-Owner: {Team/Person}
-
-CLIs (Global):
-- {tool}: {purpose} — {install command}
-
-Packages (Per-Project):
-- {package}: {purpose}
-
-Configuration Files:
-| File | Purpose |
-|------|---------|
-| {file} | {purpose} |
-
-Scripts:
-{
-  "validate": "{quality check command}",
-  "fix": "{auto-fix command}",
-  "test": "{test command}"
-}
-
-Verification:
-# Commands to confirm environment is ready
-{verification commands}
-
-Related IDs: TECH-XXX, ARC-XXX
-```
-
-**Anti-Patterns:**
-| Pattern | Signal | Fix |
-|---------|--------|-----|
-| Global package pollution | `npm install -g` for project packages | Use devDependencies |
-| Missing verification | No way to confirm setup | Add verification commands |
-| MCP over CLI | Using MCP when CLI exists | Prefer CLI for portability |
-
-**Downstream Connections:**
-| Consumer | What It Uses | Example |
-|----------|--------------|---------|
-| **v0.7 Build Execution** | ENV-001 defines dev setup | Developer follows ENV-001 |
-| **Onboarding** | ENV-001 as setup guide | New dev uses ENV-001 |
-| **CI/CD** | ENV-002 defines pipeline | GitHub Actions mirrors ENV-002 |
-
----
-
 ### SKILL: Epic Scoping
 
 ```yaml
@@ -1427,8 +1341,8 @@ Window 3: [Focus Area] — e.g., "UI Integration"
 | 4 | Supporting feature EPICs | Secondary features, admin, settings |
 
 **EPIC Template Structure (5 Phases):**
-- **Phase A: Plan** — Load context (PRD, SoT, README)
-- **Phase B: Design** — Update/create ID drafts in SoT/
+- **Phase A: Plan** — Load context (PRD, specs, README)
+- **Phase B: Design** — Update/create ID drafts in specs/
 - **Phase C: Build** — Nested Context Windows for focus
 - **Phase D: Validate** — Tests, manual checks, code traceability
 - **Phase E: Finish** — Temp cleanup, spec finalization
@@ -1438,7 +1352,7 @@ Window 3: [Focus Area] — e.g., "UI Integration"
 |---------|--------|-----|
 | Epic explosion | 20+ EPICs for MVP | Consolidate; most MVPs need 3-7 |
 | One mega-EPIC | Everything in one EPIC | Split by architectural boundary |
-| No ID references | EPIC without BR-, API-, DBT- links | Every EPIC must reference SoT/ |
+| No ID references | EPIC without BR-, API-, DBT- links | Every EPIC must reference specs/ |
 | Circular dependencies | EPIC-01 needs EPIC-02 which needs EPIC-01 | Identify shared foundation, make it EPIC-00 |
 | Context overload | Agent can't hold full EPIC in mind | Split into smaller Context Windows |
 | Missing sequencing | No build order defined | Establish explicit dependency chain |
@@ -1448,7 +1362,7 @@ Window 3: [Focus Area] — e.g., "UI Integration"
 |----------|--------------|---------|
 | **Test Planning** | EPIC- scope defines test boundaries | TEST- entries for EPIC-01 scope |
 | **Implementation Loop** | EPIC- is execution unit | Work happens inside EPIC context |
-| **Session Management** | EPIC Section 0 tracks progress | Where to resume next session |
+| **Session Management** | EPIC Session State section tracks progress | Where to resume next session |
 
 ---
 
@@ -1582,9 +1496,9 @@ id_outputs: []  # Updates existing IDs, creates code
 3. Write Test       → Implement TEST- entry (Red)
 4. Write Code       → Implement to pass test (Green)
 5. Tag Code         → Add // @implements ID comments
-6. Update SoT       → Update SoT/ if implementation reveals changes
+6. Update SoT       → Update specs/ if implementation reveals changes
 7. Validate         → Run tests, check traceability
-8. Update Session   → Write to Section 0 before stopping
+8. Update Session   → Write to Session State section before stopping
 → REPEAT until EPIC complete
 ```
 
@@ -1651,12 +1565,12 @@ Within an EPIC's Phase C (Build), work through Context Windows sequentially:
 - [ ] `// @implements` tags present in all major code units
 - [ ] Manual flow verification against UJ-
 - [ ] No orphaned code (everything traces to an ID)
-- [ ] SoT/ updated to match implementation
+- [ ] specs/ updated to match implementation
 
 **Phase E Finish (Harvest):**
-- [ ] Move useful temp/ notes to SoT/ or archive/
-- [ ] Verify all SoT/ files match final code
-- [ ] Clean Session State (Section 0)
+- [ ] Move useful temp/ notes to specs/ or archive/
+- [ ] Verify all specs/ files match final code
+- [ ] Clean Session State section
 - [ ] Update EPIC state to Complete
 - [ ] Log completion in Change Log
 
@@ -1664,9 +1578,9 @@ Within an EPIC's Phase C (Build), work through Context Windows sequentially:
 | Pattern | Signal | Fix |
 |---------|--------|-----|
 | Test-after | Code written, then "add tests" | Write TEST- implementation first |
-| Spec drift | Code diverges from SoT/ | Update SoT during implementation, not later |
+| Spec drift | Code diverges from specs/ | Update SoT during implementation, not later |
 | Missing traceability | Code has no @implements tags | Add tags as you write, not in cleanup |
-| Session amnesia | No Section 0 update | ALWAYS update before stopping |
+| Session amnesia | No Session State update | ALWAYS update before stopping |
 | Context switching | Jumping between EPICs | Finish one EPIC before starting another |
 | One-shot building | No iteration, just code dump | Follow the loop: test → code → tag → update |
 | Orphaned implementation | Code not linked to any ID | Every function serves an ID |
@@ -2030,88 +1944,6 @@ Resolution: Outcome, Date, Follow-up
 | v0.9 | GTM Strategy | GTM- (go-to-market items) |
 | v0.9 | Launch Metrics | KPI- (launch metrics) |
 | v0.9 | Feedback Loop Setup | CFD- (post-launch feedback) |
-
----
-
-### SKILL: Gate Check
-
-```yaml
-name: ghm-gate-check
-stage: Methodology
-status: ready
-folder: ghm-gate-check/
-triggers: "gate check", "approve gate", "advance to v0.", "/ghm-gate-check"
-id_outputs: []  # Produces a pass/block report; does not create new IDs
-```
-
-**Purpose:** Validate gate criteria before advancing the PRD lifecycle version.
-
-**Execution:**
-1. Read PRD.md for the target gate criteria
-2. Verify required evidence exists (SoT/ + PRD/README as applicable)
-3. Output PASS/BLOCK with an explicit missing-artifacts list (IDs)
-
----
-
-### SKILL: Status Sync
-
-```yaml
-name: ghm-status-sync
-stage: Methodology
-status: ready
-folder: ghm-status-sync/
-triggers: "status sync", "sync README", "update dashboard", "/ghm-status-sync"
-id_outputs: []  # Updates README.md
-```
-
-**Purpose:** Synchronize README.md (Command Center) with PRD.md and the active EPIC.
-
-**Execution:**
-1. Read README.md + PRD.md metadata
-2. Pull active EPIC state and blockers (Section 0)
-3. Update README.md lifecycle stage, active work, and blockers (no PRD edits)
-
----
-
-### SKILL: ID Register
-
-```yaml
-name: ghm-id-register
-stage: Methodology
-status: ready
-folder: ghm-id-register/
-triggers: "register ID", "new BR-", "new UJ-", "new API-", "new CFD-", "/ghm-id-register"
-id_outputs: []  # Registers new IDs (BR-, UJ-, API-, CFD-, etc.) in SoT/
-```
-
-**Purpose:** Validate and register new IDs in the correct SoT file with cross-reference integrity.
-
-**Execution:**
-1. Validate ID format and prefix
-2. Check uniqueness (no collisions)
-3. Verify outbound references resolve
-4. Add formatted entry to the appropriate SoT file
-
----
-
-### SKILL: Harvest
-
-```yaml
-name: ghm-harvest
-stage: Methodology
-status: ready
-folder: ghm-harvest/
-triggers: "harvest", "extract temps", "finish EPIC", "/ghm-harvest"
-id_outputs: []  # Often produces new SoT entries + archive manifest
-```
-
-**Purpose:** Extract durable insights from temp/ into SoT/ during EPIC completion, and archive the rest.
-
-**Execution:**
-1. Enumerate temp/ files associated with the EPIC
-2. Decide Extract vs Archive vs Discard
-3. Format extracted content into SoT entries (using ghm-id-register as needed)
-4. Generate an archive manifest and clean up temp/
 
 ---
 

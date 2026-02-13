@@ -44,7 +44,7 @@ This skill executes the build. It's the iterative cycle of: **Load Context → T
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  6. UPDATE SoT                                              │
-│     Update SoT/ if implementation reveals changes           │
+│     Update specs/ if implementation reveals changes         │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
@@ -56,7 +56,7 @@ This skill executes the build. It's the iterative cycle of: **Load Context → T
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  8. UPDATE SESSION STATE                                    │
-│     Write to Section 0 before stopping                      │
+│     Write to Session State before stopping                      │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            └──────────► REPEAT until EPIC complete
@@ -64,7 +64,7 @@ This skill executes the build. It's the iterative cycle of: **Load Context → T
 
 ## Session State Protocol (MANDATORY)
 
-**Before ending ANY session**, update EPIC Section 0:
+**Before ending ANY session**, update the EPIC Session State section:
 
 ```markdown
 ## 0. Session State (The "Brain Dump")
@@ -149,12 +149,12 @@ export async function createUser(req: Request, res: Response) {
 
 ## SoT Update Rules
 
-The Source of Truth (`SoT/`) must stay in sync with implementation:
+The Source of Truth (`specs/`) must stay in sync with implementation:
 
 | Situation | Action |
 |-----------|--------|
 | Spec matches implementation | No update needed |
-| Implementation reveals new constraint | Add BR- entry to SoT/ |
+| Implementation reveals new constraint | Add BR- entry to specs/ |
 | API shape changed during build | Update API- entry |
 | New field needed in schema | Update DBT- entry |
 | Spec was wrong/incomplete | Fix spec AND code |
@@ -240,7 +240,7 @@ export async function createUser(req, res) {
 ### Phase A: Plan (Load Context)
 - [ ] Read EPIC file
 - [ ] Review all referenced IDs (BR-, API-, DBT-)
-- [ ] Check Session State (Section 0)
+- [ ] Check Session State section
 - [ ] Verify git branch is correct
 - [ ] Confirm dependencies are complete
 
@@ -264,12 +264,12 @@ For each Context Window:
 - [ ] Manual verification of UJ- journeys
 - [ ] `@implements` tags present in all major code units
 - [ ] No orphaned code (everything traces to an ID)
-- [ ] SoT/ updated to match implementation
+- [ ] specs/ updated to match implementation
 
 ### Phase E: Finish (Harvest)
-- [ ] Move useful temp/ notes to SoT/ or archive/
-- [ ] Verify all SoT/ files match final code
-- [ ] Clean Session State (Section 0)
+- [ ] Move useful temp/ notes to specs/ or archive/
+- [ ] Verify all specs/ files match final code
+- [ ] Clean Session State section
 - [ ] Update EPIC state to Complete
 - [ ] Log completion in Change Log
 - [ ] Commit with message: `feat(EPIC-XX): [summary]`
@@ -290,9 +290,9 @@ For each Context Window:
 | Anti-Pattern | Signal | Fix |
 |--------------|--------|-----|
 | **Test-after** | Code written, then "add tests" | Write TEST- implementation first |
-| **Spec drift** | Code diverges from SoT/ | Update SoT during implementation |
+| **Spec drift** | Code diverges from specs/ | Update SoT during implementation |
 | **Missing traceability** | Code has no @implements tags | Add tags as you write |
-| **Session amnesia** | No Section 0 update | ALWAYS update before stopping |
+| **Session amnesia** | No Session State update | ALWAYS update before stopping |
 | **Context switching** | Jumping between EPICs | Finish one EPIC before starting another |
 | **One-shot building** | No iteration, just code dump | Follow the loop: test → code → tag |
 | **Orphaned code** | Code not linked to any ID | Every function serves an ID |
@@ -303,7 +303,7 @@ Before marking EPIC complete:
 
 - [ ] All TEST- entries pass
 - [ ] All code has @implements tags
-- [ ] SoT/ matches implementation
+- [ ] specs/ matches implementation
 - [ ] Session State is clean
 - [ ] Manual UJ- verification done
 - [ ] Change Log updated

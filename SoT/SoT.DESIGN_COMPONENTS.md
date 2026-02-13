@@ -5,6 +5,7 @@ id_prefix: DES-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by SoT.USER_JOURNEYS.md, EPICs, and code
 ---
+<!-- SECTION: template-structure -->
 
 # Design Components (SoT File)
 
@@ -63,7 +64,10 @@ authority: This is a SoT file - IDs here are referenced by SoT.USER_JOURNEYS.md,
 - Figma: {Link to design file}
 - Code: `src/components/{ComponentName}.tsx`
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Components
 
@@ -72,6 +76,8 @@ authority: This is a SoT file - IDs here are referenced by SoT.USER_JOURNEYS.md,
 **Status**: Deprecated (YYYY-MM-DD)
 **Replacement**: [DES-YYY](#des-yyy-component-name) | None
 **Reason**: {Why deprecated}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

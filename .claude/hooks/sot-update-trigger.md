@@ -61,6 +61,13 @@ The following files were modified. Complete these cascade steps:
 *Skip steps that don't apply. These are context-specific reminders, not blockers.*
 ```
 
+## Dependencies
+
+- POSIX shell, `grep`, `sed`, `wc`
+- No external packages required
+
+> See [HOOK_CONTRACT.md](HOOK_CONTRACT.md) for the universal hook interface specification.
+
 ## Key Design Decisions
 
 | Decision | Rationale |
@@ -88,9 +95,13 @@ The following files were modified. Complete these cascade steps:
   "hooks": {
     "Stop": [
       {
-        "type": "command",
-        "command": "python3 .claude/hooks/sot-update-trigger.py",
-        "timeout": 15000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sot-update-trigger.sh",
+            "timeout": 15
+          }
+        ]
       }
     ]
   }
@@ -100,11 +111,8 @@ The following files were modified. Complete these cascade steps:
 ## Testing
 
 ```bash
-# Test with transcript containing file modifications
-echo '{"transcript": "Modified: src/api/handler.py containing BR-101"}' | python3 .claude/hooks/sot-update-trigger.py
-
-# Test with no modifications (should exit silently)
-echo '{"transcript": "Just answered a question"}' | python3 .claude/hooks/sot-update-trigger.py
+echo '{"transcript": "Modified: src/api/handler.py containing BR-101"}' | bash .claude/hooks/sot-update-trigger.sh
+echo '{"transcript": "Just answered a question"}' | bash .claude/hooks/sot-update-trigger.sh  # silent
 ```
 
 ## Boundaries

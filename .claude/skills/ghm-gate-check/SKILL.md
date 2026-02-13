@@ -84,7 +84,7 @@ Check downstream requirements:
 3. Documentation is current
 
 ### Checklist
-- [ ] EPIC Section 0 has no blockers
+- [ ] EPIC Session State section has no blockers
 - [ ] README.md is synchronized
 - [ ] Handoff documentation exists
 

@@ -1,6 +1,6 @@
 # Session State Template
 
-Copy this to EPIC Section 0 and update at the END of every session:
+Copy this to the EPIC Session State section and update at the END of every session:
 
 ```markdown
 ## 0. Session State (The "Brain Dump")

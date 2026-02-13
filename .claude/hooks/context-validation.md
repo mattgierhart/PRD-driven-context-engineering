@@ -51,6 +51,13 @@ This establishes:
 - Active work unit and acceptance criteria (epics/EPIC-03-onboarding-flow.md)
 ```
 
+## Dependencies
+
+- POSIX shell, `grep`, `sed`, `head`, `wc`
+- No external packages required
+
+> See [HOOK_CONTRACT.md](HOOK_CONTRACT.md) for the universal hook interface specification.
+
 ## Key Design Decisions
 
 | Decision | Rationale |
@@ -68,9 +75,13 @@ This establishes:
   "hooks": {
     "SessionStart": [
       {
-        "type": "command",
-        "command": "python3 .claude/hooks/context-validation.py",
-        "timeout": 10000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context-validation.sh",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }
@@ -80,9 +91,6 @@ This establishes:
 ## Testing
 
 ```bash
-# Test with minimal input
-echo '{}' | python3 .claude/hooks/context-validation.py
-
-# Verify JSON output is valid
-echo '{}' | python3 .claude/hooks/context-validation.py | python3 -m json.tool
+echo '{}' | bash .claude/hooks/context-validation.sh
+echo '{}' | bash .claude/hooks/context-validation.sh | python3 -m json.tool
 ```

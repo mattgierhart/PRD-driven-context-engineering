@@ -5,6 +5,7 @@ id_prefix: TEST-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTRACTS.md, SoT.BUSINESS_RULES.md, EPICs
 ---
+<!-- SECTION: template-structure -->
 
 # Testing (SoT File)
 
@@ -73,7 +74,10 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTR
 **File**: `tests/{category}/{name}.test.ts`
 **Traceability**: `// @implements TEST-001`
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Tests
 
@@ -82,6 +86,8 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTR
 **Status**: Deprecated (YYYY-MM-DD)
 **Replacement**: [TEST-YYY](#test-yyy-name) | None
 **Reason**: {Why deprecated}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

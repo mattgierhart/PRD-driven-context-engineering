@@ -5,6 +5,7 @@ id_prefix: INT-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by SoT.API_CONTRACTS.md, EPICs, and code
 ---
+<!-- SECTION: template-structure -->
 
 # Integrations (SoT File)
 
@@ -71,7 +72,10 @@ authority: This is a SoT file - IDs here are referenced by SoT.API_CONTRACTS.md,
 - [DEP-XXX](SoT.DEPLOYMENT.md#dep-xxx) - {Deployment config for this}
 - [TECH-XXX](SoT.TECHNICAL_DECISIONS.md#tech-xxx) - {Why this was chosen}
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Integrations
 
@@ -81,6 +85,8 @@ authority: This is a SoT file - IDs here are referenced by SoT.API_CONTRACTS.md,
 **Replacement**: [INT-YYY](#int-yyy-integration-name) | None
 **Reason**: {Why deprecated}
 **Migration Guide**: {How to transition}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

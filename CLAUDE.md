@@ -1,52 +1,39 @@
 ---
 title: "CLAUDE Agent Operating Guide"
-updated: "2026-02-08"
+updated: "2026-02-12"
 authority: "PRD Led Context Engineering"
+template_version: "3.0.0"
 ---
 
 # CLAUDE.md — Agent Operating Guide
 
 > **Mission**: Build software in lockstep with the PRD Version Lifecycle.
 > **Authority**: Load `README.md` → `PRD.md` → `CLAUDE.md` → Active EPIC.
-> **Core Rule**: If it's not in the ID Graph (SoT), it doesn't exist.
+> **Core Rule**: If it's not in the ID Graph (Specs), it doesn't exist.
 
 ---
 
+<!-- SECTION: session-protocols -->
 ## 1. Session Protocols (MANDATORY)
 
 ### Start of Session
 
 1. **Load Context**: `README.md`, `PRD.md`, and the Active EPIC.
-2. **Read Session State**: Check Section 1 of the Active EPIC for Resume Instructions.
-3. **Check Git Status**: Confirm you are on the right branch (`epic/EPIC-{NUMBER}-{slug}`).
-4. **Verify Pre-load**: Load files listed in EPIC Section 0 (Context Capsule).
-
-### During Session (Checkpoint Discipline)
-
-**At every checkpoint**, before proceeding to the next phase:
-
-1. **Update EPIC Section 1** (Session State):
-   - Last Action: What was just completed (reference IDs)
-   - Stopping Point: Current file/line
-   - Next Steps: What comes next
-   - Decisions Made: Any choices made with rationale
-2. **Commit progress**: `checkpoint: [EPIC-XX] {phase} complete`
-3. **Verify checkpoint criteria**: Confirm the checkpoint's "done" state is actually true
-
-This creates natural save points. If context fills or session ends unexpectedly, work is recoverable.
+2. **Read Session State**: Check the **Session State** section of the Active EPIC for "Where we left off".
+3. **Check Git Status**: Confirm you are on the right branch/commit.
 
 ### End of Session
 
-1. **Update EPIC Section 1**:
+1. **Update the EPIC Session State section**:
    - **Progress**: What specifically was done? (Link IDs)
    - **Stop Point**: File/Line where work ceased.
    - **Next**: Exact instructions for the next agent.
-   - **Resume Instructions**: What the next session should do first.
-2. **Run Learning Capture Protocol**: Answer the agent-specific questions in `.claude/agents/{AGENT}.md` and update Project Memory.
-3. **Commit**: `session: [EPIC-XX] summary of work`.
+2. **Commit**: `session: [EPIC-XX] summary of work`.
+<!-- /SECTION: session-protocols -->
 
 ---
 
+<!-- SECTION: execution-rules -->
 ## 2. Execution Rules
 
 ### Document Ecosystem
@@ -61,7 +48,7 @@ The methodology uses a layered document structure:
 | **Knowledge** | SoT/*.md | Durable specs with unique IDs |
 | **Scratchpad** | temp/*.md | Ephemeral notes, harvested to SoT |
 
-**ID Ownership**:
+**ID Ownership** (see [`.claude/domain-profile.yaml`](.claude/domain-profile.yaml) for full registry):
 - SoT files own: BR, UJ, PER, SCR, API, DBT, TEST, DEP, RUN, MON, CFD, DES, TECH, ARC, INT
 - PRD.md owns: FEA (v0.3), RISK (v0.5), GTM (v0.9)
 - README.md owns: KPI metrics
@@ -73,36 +60,6 @@ The methodology uses a layered document structure:
 - **IDs**: Reference `BR-`, `UJ-`, `API-` IDs in code comments and commits.
 - **SoT Updates**: Update `SoT/` files _before_ or _during_ code changes, never "later".
 - **Temp Files**: Use `temp/` for scratchpad, but harvest to SoT before closing the EPIC.
-
-### Metrics & Dashboard Integrity
-
-> README is the human-authored view. `status/metrics.json` is the machine-writable source. Validation ensures agreement. Never auto-generate README content from JSON.
-
-**Metric Deduplication Rule**: Each metric value MUST appear in at most 2 locations: the Truth Table (`<!-- SECTION: truth-table -->`) and the status header (`<!-- SECTION: status-header -->`). All other sections MUST reference the Truth Table rather than restating values.
-
-**`status/metrics.json`** (v0.7+ artifact): When a project enters Build Execution, `status/metrics.json` becomes the machine-readable metrics feed. The cascade for metric changes is:
-
-```
-Test Run -> metrics.json (auto via posttest hook) -> README Truth Table (manual) -> SoT files (as needed)
-```
-
-Projects should implement a posttest hook to keep `metrics.json` current automatically. The `context-validation` hook (SessionStart) and `sot-update-trigger` hook (Stop) both check for drift between `metrics.json` and README.
-
-### Cascade Checklists
-
-Abstract cascade rules ("update README") are insufficient for subagents. The `.claude/hooks/cascade_checklist.py` generates context-specific checklists based on which files changed. When modifying project CLAUDE.md files, include **specific checklists** with:
-
-- Section anchors (e.g., `<!-- SECTION: truth-table -->`), not line numbers
-- Exact field names to update
-- A triggering event ("After test suite changes", "After EPIC phase completion")
-
-**Standard section markers** (used in README for durable references):
-- `<!-- SECTION: status-header -->` — Quick-glance status line
-- `<!-- SECTION: status-dashboard -->` — Gate progress table
-- `<!-- SECTION: truth-table -->` — Authoritative metric values
-- `<!-- SECTION: guardrails -->` — Risk scorecard
-
-These markers are zero-cost additions that make cascade checklists and validation scripts durable across README edits.
 
 ### Progressive Documentation Protocol
 
@@ -117,30 +74,6 @@ These markers are zero-cost additions that make cascade checklists and validatio
 - **Batching**: Ask for comprehensive plans (Opus-style) before executing piecemeal (Sonnet-style).
 - **Consolidation**: Validation and Verification steps should happen in bulk to save tokens.
 - **Pruning**: if context is full, suggest a `session_handoff` where you summarize state and clear history.
-
-### Just-In-Time Context (JIT-C)
-
-Agents hold handles to artifacts, not content. This is a structural discipline, not a suggestion.
-
-**Rules**:
-1. **Never context dump**: Do not place full SoT documents in handoffs or prompts
-2. **Reference by ID**: Use Unique IDs (`BR-001`, `UJ-101`) as retrieval handles
-3. **Load on demand**: Retrieve specific content only when reasoning requires it
-4. **Offload after use**: Artifacts exit working context after task completion
-5. **Summarize at boundaries**: Phase handoffs include 75-word summaries, not full content
-
-**Handoff format**:
-```
-Artifact: {ID}
-Summary: {75-word max}
-Path: {SoT/file.md}
-Status: {reference-only | loaded | offloaded}
-```
-
-**Violation indicators**:
-- Handoff contracts exceeding 2K tokens of artifact content
-- Agents receiving full conversation history from previous phases
-- Context window >50% filled before agent begins work
 
 ### Coding Standards
 
@@ -162,60 +95,11 @@ export class RateLimiter { ... }
 
 - **Do Not Skip**: Verify the Gate Checklist in `PRD.md` or `README.md` (PRD Lifecycle) before advancing.
 - **Blockers**: If a gate cannot be passed, update the EPIC and STOP.
-- **Validation Script**: Run `./scripts/check-stage-gate.sh <target_stage>` to verify gate criteria.
-
-### Branch Convention
-
-Each EPIC gets its own branch following this convention:
-
-**Naming**: `epic/EPIC-{NUMBER}-{slug}`
-
-Examples:
-- `epic/EPIC-01-auth-endpoints`
-- `epic/EPIC-02-user-dashboard`
-- `epic/EPIC-03-payment-integration`
-
-**Workflow**:
-1. EPIC created → `git checkout -b epic/EPIC-{NUMBER}-{slug}`
-2. Work happens → Commits reference IDs in messages
-3. Checkpoints → Commit with state saved in EPIC Section 1
-4. EPIC complete → PR opened
-5. PR merged → Branch deleted, EPIC marked Complete
-
-**One EPIC = One Branch = One PR** — This creates clear ownership and easy rollback.
-
-### Context Management
-
-EPICs are **context capsules** — work units sized for AI agent handoffs.
-
-| Dimension | Target | Rationale |
-|-----------|--------|-----------|
-| **Pre-load context** | <100k tokens | SoT files + EPIC + code references |
-| **Working room** | >100k tokens | Space for tool outputs, debugging |
-| **Session goal** | 1 checkpoint | Clear "done" state per session |
-
-**Context Monitoring**: Don't estimate upfront — monitor during work. If context exceeds 100k tokens mid-session, **pause and checkpoint immediately**:
-1. Update EPIC Section 1 (Session State)
-2. Commit current progress
-3. Consider splitting remaining work
-
-### Force Gate Override
-
-In exceptional cases, you can bypass gate validation:
-
-1. **Document the reason** in PRD.md Change Log or EPIC Change Log
-2. **Use `--force-gate`** flag when relevant (mechanism varies by context)
-3. **Create follow-up task** to address missing artifacts
-
-**This should be rare.** Log format:
-```
-| YYYY-MM-DD | Agent | Force-gate: v0.X→v0.Y, reason: {why} | {follow-up task} |
-```
-
-If forcing gates frequently, escalate to human — the methodology may need adjustment.
+<!-- /SECTION: execution-rules -->
 
 ---
 
+<!-- SECTION: quick-reference -->
 ## 3. Quick Reference
 
 - **Lifecycle Guide**: [`README.md`](README.md)
@@ -223,19 +107,8 @@ If forcing gates frequently, escalate to human — the methodology may need adju
 - **SoT Index**: [`SoT/SoT.README.md`](SoT/SoT.README.md)
 - **EPIC Template**: [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md)
 - **Active Work**: [`epics/`](epics/)
-- **Stage Gate Validation**: [`scripts/check-stage-gate.sh`](scripts/check-stage-gate.sh)
-- **Hook Documentation**: [`.claude/hooks/`](.claude/hooks/)
-
-### Hook Inventory
-
-| Hook | Trigger | Purpose |
-|------|---------|---------|
-| `context-validation.py` | SessionStart | Loads 3+1 files, detects metrics drift |
-| `context-density-gate.py` | UserPromptSubmit | Checks epic/gate context sizing |
-| `sot-update-trigger.py` | Stop | Context-specific cascade checklists + drift check |
-| `metrics_drift_check.py` | Library | Reusable metrics.json vs README validator |
-| `cascade_checklist.py` | Library | Generates file-specific cascade guidance |
-| `subagent-memory-load.sh` | SubagentStart | Loads agent memory |
-| `subagent-memory-save.sh` | SubagentStop | Memory save + post-delegation drift check |
+- **Domain Profile**: [`.claude/domain-profile.yaml`](.claude/domain-profile.yaml)
+- **Hook Contract**: [`.claude/hooks/HOOK_CONTRACT.md`](.claude/hooks/HOOK_CONTRACT.md)
 
 **When in doubt, follow the Source of Truth.**
+<!-- /SECTION: quick-reference -->

@@ -5,6 +5,7 @@ id_prefix: DEP-XXX, RUN-XXX, MON-XXX, SEC-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and operations docs
 ---
+<!-- SECTION: template-structure -->
 
 # Deployment (SoT File)
 
@@ -272,7 +273,10 @@ Use this checklist when initializing deployment for a new product.
 - [RUN-XXX](#run-xxx-runbook-name) - {Runbook if threshold breached}
 - [BR-XXX](SoT.BUSINESS_RULES.md#br-xxx) - {SLA or requirement}
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Entries
 
@@ -281,6 +285,8 @@ Use this checklist when initializing deployment for a new product.
 **Status**: Deprecated (YYYY-MM-DD)
 **Replacement**: [DEP-YYY](#dep-yyy-name) | None
 **Reason**: {Why deprecated}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

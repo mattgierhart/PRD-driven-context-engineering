@@ -5,6 +5,7 @@ id_prefix: DBT-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTRACTS.md, SoT.USER_JOURNEYS.md, EPICs
 ---
+<!-- SECTION: template-structure -->
 
 # Data Model (SoT File)
 
@@ -74,7 +75,10 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTR
 - **References**: `auth.users` (user_id → id)
 - **Referenced By**: [DBT-XXX](#dbt-xxx-child-table) (parent_id → id)
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Tables
 
@@ -83,6 +87,8 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTR
 **Status**: Deprecated (YYYY-MM-DD)
 **Replacement**: [DBT-YYY](#dbt-yyy-name) | None
 **Reason**: {Why deprecated}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

@@ -5,6 +5,7 @@ id_prefix: UJ-XXX, PER-XXX, SCR-XXX
 last_updated: YYYY-MM-DD
 authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and other SoT files
 ---
+<!-- SECTION: template-structure -->
 
 # User Journeys (SoT File)
 
@@ -103,7 +104,10 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and ot
 - [DES-XXX](SoT.DESIGN_COMPONENTS.md#des-xxx) - {Components used}
 - [TEST-XXX](SoT.TESTING.md#test-xxx) - {Tests validating this}
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Deprecated Entries
 
@@ -112,6 +116,8 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and ot
 **Status**: Deprecated (YYYY-MM-DD)
 **Replacement**: [UJ-YYY](#uj-yyy-name) | None
 **Reason**: {Why deprecated}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

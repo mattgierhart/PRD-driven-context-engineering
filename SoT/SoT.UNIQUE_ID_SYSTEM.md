@@ -3,12 +3,13 @@ title: "Unique ID System"
 updated: "2026-01-12"
 authority: "PRD Led Context Engineering"
 ---
+<!-- SECTION: template-structure -->
 
 # Unique ID System
 
 > **Rule**: Every durable concept gets an ID. IDs are stable. Names are not.
 
-This file serves as the **governance guide** for the ID system and the **central registry** of all ID prefixes.
+This file serves as the **governance guide** for the ID system and the **central registry** of all ID prefixes. The canonical machine-readable prefix registry is in [`.claude/domain-profile.yaml`](../.claude/domain-profile.yaml).
 
 ---
 
@@ -37,16 +38,14 @@ This file serves as the **governance guide** for the ID system and the **central
 | **DES** | Design Component | `SoT.DESIGN_COMPONENTS.md` | v0.4 User Journeys |
 | **TECH** | Tech Stack | `SoT.TECHNICAL_DECISIONS.md` | v0.5 Red Team |
 | **ARC** | Architecture | `SoT.TECHNICAL_DECISIONS.md` | v0.6 Architecture |
-| **ENV** | Environment Setup | `SoT.TECHNICAL_DECISIONS.md` | v0.6 Architecture |
 | **INT** | Integration | `SoT.INTEGRATIONS.md` | v0.6 Architecture |
 | **API** | API Contract | `SoT.API_CONTRACTS.md` | v0.6 Architecture |
 | **DBT** | Data Schema | `SoT.DATA_MODEL.md` | v0.6 Architecture |
-| **BR** | Business Rule | `SoT.BUSINESS_RULES.md` | v0.2 Market Definition |
+| **BR** | Business Rule | `SoT.BUSINESS_RULES.md` | v0.6 Architecture |
 | **TEST** | Test Case | `SoT.TESTING.md` | v0.7 Build |
 | **DEP** | Deployment | `SoT.DEPLOYMENT.md` | v0.8 Release |
 | **MON** | Monitoring | `SoT.DEPLOYMENT.md` | v0.8 Release |
 | **RUN** | Runbook | `SoT.DEPLOYMENT.md` | v0.8 Release |
-| **SEC** | Secret/Credential | `SoT.DEPLOYMENT.md` | v0.7 Build |
 
 #### IDs in PRD/README (Not SoT Files)
 
@@ -54,7 +53,7 @@ This file serves as the **governance guide** for the ID system and the **central
 |--------|---------|----------|-----------|
 | **KPI** | Key Metric | `README.md` | v0.3 Commercial |
 | **FEA** | Feature | `PRD.md` Section 3 | v0.3 Commercial |
-| **RISK** | Risk (scored: Market/User/Technical) | `PRD.md` v0.5 Section | v0.5+ (continuous) |
+| **RISK** | Risk | `PRD.md` v0.5 Section | v0.5 Red Team |
 | **GTM** | Go-to-Market | `PRD.md` v0.9 Section | v0.9 Launch |
 | **EPIC** | Work Package | `epics/` folder | v0.7 Build |
 
@@ -101,16 +100,10 @@ CFD-089 (Request: Dark Mode)
       └─→ UJ-105 (Theme Switcher Flow)
 ```
 
-#### D. Risk Drives Architecture
-
-```text
-RISK-003 (API Dependency Outage) [Technical, Score: 3, Status: mitigating]
-  ├─→ ARC-012 (Circuit Breaker Pattern)
-  ├─→ FEA-020 (Payment Processing)
-  └─→ README Risk Scorecard (Technical category)
-```
+<!-- /SECTION: template-structure -->
 
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## Part 2: SoT File Registry
 
@@ -121,11 +114,13 @@ RISK-003 (API Dependency Outage) [Technical, Score: 3, Status: mitigating]
 | `SoT.API_CONTRACTS.md` | API-XXX | ~120 | Endpoint specifications |
 | `SoT.DATA_MODEL.md` | DBT-XXX | ~120 | Database schema |
 | `SoT.TESTING.md` | TEST-XXX | ~120 | Test specifications |
-| `SoT.DEPLOYMENT.md` | DEP, RUN, MON, SEC | ~320 | Operations, deployment & secrets |
+| `SoT.DEPLOYMENT.md` | DEP, RUN, MON | ~130 | Operations & deployment |
 | `SoT.customer_feedback.md` | CFD-XXX | ~120 | Customer insights |
 | `SoT.DESIGN_COMPONENTS.md` | DES-XXX | ~100 | UI components |
-| `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC, ENV | ~130 | Tech, architecture & environment |
+| `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC | ~115 | Tech & architecture |
 | `SoT.INTEGRATIONS.md` | INT-XXX | ~105 | Third-party services |
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 
@@ -143,9 +138,6 @@ When forking, validate:
 
 | Date | Change |
 |------|--------|
-| 2026-02-06 | RISK- updated: scoring categories (Market/User/Technical), continuous lifecycle (v0.5+), graph pattern |
-| 2026-01-23 | Added SEC-XXX prefix for secrets/credentials inventory |
-| 2026-01-18 | Added ENV-XXX prefix for development environment specifications |
 | 2026-01-12 | Standardized: Updated file references, added INT-XXX, clarified PRD vs SoT homes |
 | 2026-01-12 | Added 8 missing ID prefixes. Organized by PRD stage |
 | 2025-12-22 | Combined UNIQUE_ID_SYSTEM and ID_REGISTRY into one |

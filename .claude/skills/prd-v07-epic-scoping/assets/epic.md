@@ -1,81 +1,44 @@
 # EPIC- Template
 
-Copy this template to `epics/EPIC-{NUMBER}-{slug}.md`:
+Copy this template to `epics/EPIC-XXX.md`:
 
 ```markdown
-# EPIC-{NUMBER}: {Epic Name}
+# EPIC-XXX: [Epic Name]
 
-> **State**: `Planned` | `In Progress` | `Testing` | `Complete`
-> **Lifecycle**: v0.7 Build Execution
-> **Epic Lead**: {Agent or Team Member}
-> **Branch**: `epic/EPIC-{NUMBER}-{slug}`
-
----
-
-## 0. Context Capsule
-
-### Resource Envelope
-
-| Dimension | Target | Notes |
-|-----------|--------|-------|
-| **Pre-load Context** | ~{N}k tokens | SoT files + EPIC + referenced code |
-| **Working Room** | ~{200-N}k tokens | Space for tool outputs |
-| **Session Goal** | {Checkpoint target} | What "done" looks like |
-
-**Guideline**: If pre-load exceeds 100k tokens, split EPIC or reduce session scope.
-
-### Dependencies
-
-| Type | Items | Status |
-|------|-------|--------|
-| **Requires** | EPIC-{XX} | `Complete` / `Pending` |
-| **External** | {Setup needed} | `Ready` / `Blocked` |
-| **Enables** | EPIC-{YY} | Blocked until this completes |
-
-### Pre-load Checklist
-
-- [ ] `SoT/SoT.{X}.md` — IDs: {key IDs}
-- [ ] `SoT/SoT.{Y}.md` — IDs: {key IDs}
+State: [Planned | In Progress | Testing | Complete]
+Lifecycle: v0.7 Build Execution
+Created: [Date]
+Updated: [Date]
 
 ---
 
-## 1. Session State (The "Brain Dump")
+## 0. Session State (The "Brain Dump")
 
 > Update this section at the END of every session.
 
-### Current State
-
-- **Last Action**: {What was just completed — reference IDs}
-- **Stopping Point**: {Exact file:line or test failure}
-- **Next Steps**:
-  1. {First action}
-  2. {Second action}
-  3. {Third action}
-- **Blockers**: {Any blockers — or "None"}
-- **Decisions Made**: {Key decisions with rationale}
-
-### Resume Instructions
-
-> {Exactly what the next session should do — or "N/A - EPIC Complete"}
+- **Last Action**: [What was just completed]
+- **Stopping Point**: [Exact file:line or test failure]
+- **Next Steps**: [Exact instructions for next session]
+- **Context**: [Key decisions made, blockers hit, questions open]
 
 ---
 
-## 2. Objective & Scope
+## 1. Objective & Scope
 
-**Goal**: {One sentence describing what this EPIC achieves}
+**Goal**: [One sentence describing what this EPIC achieves]
 
 ### Deliverables
-- [ ] {Specific deliverable A}
-- [ ] {Specific deliverable B}
-- [ ] {Specific deliverable C}
+- [ ] [Specific deliverable A]
+- [ ] [Specific deliverable B]
+- [ ] [Specific deliverable C]
 
 ### Out of Scope
-- {What we are explicitly NOT doing}
-- {Deferred to EPIC-YYY}
+- [What we are explicitly NOT doing]
+- [Deferred to EPIC-YYY]
 
 ---
 
-## 3. Context & IDs
+## 2. Context & IDs
 
 | Type | IDs |
 |------|-----|
@@ -90,79 +53,42 @@ Copy this template to `epics/EPIC-{NUMBER}-{slug}.md`:
 
 ---
 
-## 4. Execution Plan (The 5 Phases)
+## 3. Dependencies
 
-### Phase A: Plan
-- [ ] Context loaded (PRD, SoT, README)
-- [ ] Dependencies verified
-- [ ] Strategy defined
-- [ ] Branch created: `epic/EPIC-{NUMBER}-{slug}`
+### Requires (must complete before this)
+- [ ] EPIC-YYY: [Reason]
+- [ ] External: [Setup/config needed]
 
-**Checkpoint A**: Planning complete, branch exists.
+### Enables (blocked until this completes)
+- EPIC-ZZZ: [What they need from us]
 
-### Phase B: Design
-- [ ] Specs updated in SoT/
-- [ ] Architecture documented
-- [ ] TEST- entries created
+---
 
-**Checkpoint B**: Specs drafted, tests defined.
+## 4. Context Windows (Build Phases)
 
-### Phase C: Build (Context Windows)
-
-**Window 1: {Focus Area}**
+### Window 1: [Focus Area, e.g., "Database Schema"]
 - [ ] Task A
 - [ ] Task B
-- [ ] Verification: {completion criteria}
-
-**Checkpoint C1**: {What exists when done}
-
----
-
-**Window 2: {Focus Area}**
 - [ ] Task C
+
+### Window 2: [Focus Area, e.g., "API Endpoints"]
 - [ ] Task D
-- [ ] Verification: {completion criteria}
-
-**Checkpoint C2**: {What exists when done}
-
----
-
-**Window 3: {Focus Area}**
 - [ ] Task E
 - [ ] Task F
-- [ ] Verification: {completion criteria}
 
-**Checkpoint C3**: {What exists when done}
-
-### Phase D: Validate
-- [ ] All TEST- entries pass
-- [ ] Manual verification of UJ-
-- [ ] Code has `// @implements` tags
-- [ ] SoT matches implementation
-
-**Checkpoint D**: Tests green, verification complete.
-
-### Phase E: Finish (Harvest)
-- [ ] Temp files cleaned up
-- [ ] SoT entries finalized
-- [ ] Learning capture complete
-- [ ] Resume Instructions = "N/A - EPIC Complete"
-- [ ] PR ready
-
-**Checkpoint E**: EPIC complete, PR ready.
+### Window 3: [Focus Area, e.g., "UI Integration"]
+- [ ] Task G
+- [ ] Task H
 
 ---
 
-## 5. Acceptance Criteria
+## 5. Validation Criteria
 
 - [ ] All TEST- entries for this EPIC pass
 - [ ] Manual verification of UJ- journeys
 - [ ] Code has `// @implements` tags for all IDs
-- [ ] SoT/ files updated to match implementation
+- [ ] specs/ files updated to match implementation
 - [ ] No orphaned code (everything traces to an ID)
-- [ ] All deliverables marked done
-- [ ] Resume Instructions = "N/A - EPIC Complete"
-- [ ] Branch merged or PR approved
 
 ---
 
@@ -170,52 +96,32 @@ Copy this template to `epics/EPIC-{NUMBER}-{slug}.md`:
 
 | Date | Change | By |
 |------|--------|-----|
-| {Date} | Created EPIC | {Author} |
+| [Date] | Created EPIC | [Author] |
 | | | |
+
 ```
 
 ## Session State Protocol
 
-**MANDATORY**: Update Section 1 before ending ANY session.
+**MANDATORY**: Update the Session State section before ending ANY session.
+
+This is the "brain dump" that allows the next session (human or AI) to resume exactly where you left off.
 
 Good example:
 ```
-### Current State
 - **Last Action**: Completed API-002 (login endpoint), tests passing
 - **Stopping Point**: src/auth/login.ts:45 — need to add rate limiting
 - **Next Steps**:
   1. Add rate limiter to login endpoint per BR-005
   2. Update TEST-003 to verify rate limiting
   3. Move to Window 3 (UI)
-- **Blockers**: None
-- **Decisions Made**: Using Supabase's built-in rate limiting rather than custom
-
-### Resume Instructions
-> Continue with rate limiting implementation. File: src/auth/login.ts:45. Reference BR-005 for limits.
+- **Context**: Decided to use Supabase's built-in rate limiting rather than custom
 ```
 
 Bad example:
 ```
-### Current State
 - **Last Action**: Working on auth
 - **Stopping Point**: Somewhere in the code
 - **Next Steps**: Continue
-- **Blockers**: None
-- **Decisions Made**: None
-
-### Resume Instructions
-> Keep working
+- **Context**: N/A
 ```
-
-## Branch Convention
-
-**Naming**: `epic/EPIC-{NUMBER}-{slug}`
-
-**Workflow**:
-1. EPIC created → `git checkout -b epic/EPIC-{NUMBER}-{slug}`
-2. Work happens → Commits reference IDs
-3. Checkpoints → Commit with checkpoint state
-4. EPIC complete → PR opened
-5. PR merged → Branch deleted
-
-**Force Gate**: Use `--force-gate` to bypass checks. Document reason in Change Log. Should be exceptional.

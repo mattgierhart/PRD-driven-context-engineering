@@ -5,6 +5,7 @@ id_prefix: TECH-XXX, ARC-XXX, ENV-XXX
 last_updated: 2026-01-18
 authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and code
 ---
+<!-- SECTION: template-structure -->
 
 # Technical Decisions (SoT File)
 
@@ -87,7 +88,10 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and co
 - [DBT-XXX](SoT.DATA_MODEL.md#dbt-xxx) - {Data model affected}
 - [UJ-XXX](SoT.USER_JOURNEYS.md#uj-xxx) - {Journey this supports}
 
+<!-- /SECTION: template-structure -->
+
 ---
+<!-- CUSTOMIZABLE: entries -->
 
 ## ENV-001: Development Environment
 
@@ -290,6 +294,8 @@ Document production hosting and services configuration.
 **Replacement**: [TECH-YYY](#tech-yyy-decision-name)
 **Reason**: {Why decision was changed}
 **Migration**: {How to transition}
+
+<!-- /CUSTOMIZABLE: entries -->
 
 ---
 

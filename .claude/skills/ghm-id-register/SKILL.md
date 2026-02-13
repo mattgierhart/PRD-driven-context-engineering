@@ -134,5 +134,5 @@ Add formatted entry to SoT file:
 After ID registration:
 - New ID is in SoT file
 - Cross-references are valid
-- EPIC Section 3A updated with new ID
+- EPIC Execution Plan updated with new ID
 - Ready for implementation

@@ -33,6 +33,7 @@
 | **v0.9 Launch** | [Launch Metrics](#skill-launch-metrics) | ✅ Ready | [`prd-v09-launch-metrics/`](prd-v09-launch-metrics/) |
 | **v0.9 Launch** | [Feedback Loop Setup](#skill-feedback-loop-setup) | ✅ Ready | [`prd-v09-feedback-loop-setup/`](prd-v09-feedback-loop-setup/) |
 | **Methodology** | [SoT Builder](#skill-sot-builder) | ✅ Ready | [`ghm-sot-builder/`](ghm-sot-builder/) |
+| **Methodology** | [Template Sync](#skill-template-sync) | ✅ Ready | [`ghm-template-sync/`](ghm-template-sync/) |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 

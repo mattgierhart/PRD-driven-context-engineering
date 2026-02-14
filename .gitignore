@@ -50,6 +50,7 @@ out/
 /private/
 /internal/
 *.private.md
+/aspirational-expansion/
 
 # Backup files
 *.backup

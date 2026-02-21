@@ -23,7 +23,7 @@ estimate_tokens() {
 
 count_sot_references() {
   local file="$1"
-  grep -oE '\b(BR|UJ|API|CFD|KPI|COMP|UI|ERR|SEC|PERF|TEST)-[0-9]{3}\b' "$file" 2>/dev/null | sort -u | wc -l | tr -d ' '
+  grep -oE '\b(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)-[0-9]{3}\b' "$file" 2>/dev/null | sort -u | wc -l | tr -d ' '
 }
 
 resolve_epic_path() {

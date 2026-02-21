@@ -1,48 +1,83 @@
-#!/bin/bash
-# Hook: SubagentStop - Prompt for memory update + post-delegation drift check
-# This hook reminds the orchestrator to capture memory updates and validates
-# that the subagent's work didn't introduce metrics drift.
+#!/usr/bin/env bash
+# GHM Subagent Memory Save Hook (SubagentStop)
+# Shell variant — see HOOK_CONTRACT.md for interface spec.
+#
+# Dependencies: POSIX shell, grep, sed, awk (standard utilities)
+# No external packages required
+set -euo pipefail
 
-AGENT_NAME="$1"
-AGENT_DIR=".claude/agents/${AGENT_NAME}"
-MEMORY_FILE="${AGENT_DIR}/MEMORY.md"
-HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# --- Helpers ---
 
-# --- Memory checkpoint (existing behavior) ---
-if [ -f "$MEMORY_FILE" ]; then
-    echo ""
-    echo "--- MEMORY UPDATE CHECKPOINT ---"
-    echo "Agent: ${AGENT_NAME}"
-    echo "Memory file: ${MEMORY_FILE}"
-    echo ""
-    echo "Before concluding, ensure the following were captured:"
-    echo "  - New patterns discovered -> Patterns Learned table"
-    echo "  - Decisions made -> Key Decisions table"
-    echo "  - Collaboration friction -> Relevant section"
-    echo "  - Open questions -> Open Questions list"
-    echo "--- END CHECKPOINT ---"
-fi
+json_output() {
+  local context="$1"
+  local json_context
+  json_context=$(printf '%s' "$context" | sed 's/\\/\\\\/g; s/"/\\"/g' | awk '{if(NR>1) printf "\\n"; printf "%s", $0}')
+  printf '{"systemMessage": "%s"}\n' "$json_context"
+}
 
-# --- Post-delegation drift check ---
-# After subagent completes, check if metrics.json and README.md still agree.
-# This catches the "subagent handoff gap" where a subagent changes values
-# (e.g., removes tests) without cascading to README.
-if [ -f "status/metrics.json" ] && [ -f "README.md" ]; then
-    DRIFT_CHECK="${HOOK_DIR}/metrics_drift_check.py"
-    if [ -f "$DRIFT_CHECK" ]; then
-        DRIFT_OUTPUT=$(python3 "$DRIFT_CHECK" 2>&1)
-        DRIFT_EXIT=$?
-        if [ $DRIFT_EXIT -ne 0 ] && [ -n "$DRIFT_OUTPUT" ]; then
-            echo ""
-            echo "--- POST-DELEGATION DRIFT CHECK ---"
-            echo "$DRIFT_OUTPUT"
-            echo ""
-            echo "The subagent's work may have changed metrics without cascading."
-            echo "Review and update README Truth Table before continuing."
-            echo "--- END DRIFT CHECK ---"
-        fi
+# --- Main ---
+
+main() {
+  # Read stdin JSON (contains agent_id, agent_type, agent_transcript_path, stop_hook_active)
+  local input
+  input=$(cat)
+
+  # Extract agent_type from stdin JSON
+  local agent_type
+  agent_type=$(printf '%s' "$input" | sed -n 's/.*"agent_type"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+
+  if [ -z "$agent_type" ]; then
+    exit 0
+  fi
+
+  local agent_dir=".claude/agents/${agent_type}"
+  local memory_file="${agent_dir}/MEMORY.md"
+  local hook_dir
+  hook_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+  local reminder=""
+
+  # --- Memory checkpoint ---
+  if [ -f "$memory_file" ]; then
+    reminder="## Memory Update Checkpoint
+
+Agent: ${agent_type}
+Memory file: ${memory_file}
+
+Before concluding, ensure the following were captured:
+  - New patterns discovered -> Patterns Learned table
+  - Decisions made -> Key Decisions table
+  - Collaboration friction -> Relevant section
+  - Open questions -> Open Questions list"
+  fi
+
+  # --- Post-delegation drift check ---
+  if [ -f "status/metrics.json" ] && [ -f "README.md" ]; then
+    local drift_check="${hook_dir}/metrics_drift_check.py"
+    if [ -f "$drift_check" ]; then
+      local drift_output
+      drift_output=$(python3 "$drift_check" 2>&1) || true
+      local drift_exit=$?
+      if [ $drift_exit -ne 0 ] && [ -n "$drift_output" ]; then
+        local drift_msg="
+
+## Post-Delegation Drift Check
+
+${drift_output}
+
+The subagent's work may have changed metrics without cascading.
+Review and update README Truth Table before continuing."
+        reminder="${reminder}${drift_msg}"
+      fi
     fi
-fi
+  fi
 
-# Exit cleanly regardless - don't block agents
-exit 0
+  # Only output if there's something to say
+  if [ -n "$reminder" ]; then
+    json_output "$reminder"
+  fi
+
+  exit 0
+}
+
+main

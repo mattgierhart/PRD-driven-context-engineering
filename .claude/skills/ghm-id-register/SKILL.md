@@ -76,6 +76,8 @@ For each ID referenced in the new entry:
 - [ ] All `UJ-XXX` references exist in USER_JOURNEYS
 - [ ] All `API-XXX` references exist in API_CONTRACTS
 - [ ] All `CFD-XXX` references exist in CUSTOMER_FEEDBACK
+- [ ] Each cross-reference includes a relationship type (see `references/cross-reference-patterns.md`)
+- [ ] Relationship types match the directional hierarchy (vertical types for cross-layer, lateral types for same-layer)
 
 ## Step 4: Register Entry
 
@@ -86,7 +88,8 @@ Add formatted entry to SoT file:
 
 **Status**: Draft
 **Created**: YYYY-MM-DD
-**Cross-References**: [List of related IDs]
+**Cross-References**:
+- [ID-XXX](SoT.FILE.md#anchor) — {type}: {description}
 
 [Description]
 
@@ -115,6 +118,7 @@ Add formatted entry to SoT file:
 | Orphan reference | References UJ-999 that doesn't exist | → Verify all cross-refs |
 | Wrong prefix | Using BR- for an API contract | → Match prefix to domain |
 | Missing zero-pad | BR-5 instead of BR-005 | → Always use 3 digits |
+| Untyped cross-ref | `Cross-References: BR-045` | → Add relationship type: `BR-045 — enforces: ...` |
 
 ## Boundaries
 

@@ -89,6 +89,16 @@ template_version: "3.0.0"
 - [ ] **Temp Cleanup**: Move any useful notes from `temp/` to `SoT/`, then remove the temp file.
 - [ ] **Spec Finalization**: Ensure all specs in `SoT/` match the code.
 - [ ] **Session Audit**: Ensure **Session State** section is clean.
+- [ ] **Agent Observations**: Review and triage observations below.
+
+#### Agent Observations
+
+> Agents log proposed SoT entries, pattern discoveries, and improvement suggestions here during execution. During Phase E harvest, the EPIC lead triages each observation into: (a) create SoT entry, (b) update existing entry, or (c) discard.
+
+| # | Observation | Proposed Action | Triage |
+|---|-------------|-----------------|--------|
+| 1 | {Pattern or insight discovered during execution} | {Create BR-XXX / Update API-YYY / None} | {Pending / Accepted / Discarded} |
+
 <!-- /SECTION: execution-plan -->
 
 ---

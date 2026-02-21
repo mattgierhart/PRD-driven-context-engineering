@@ -165,6 +165,43 @@ BR-099: "Some random rule" (no CFD, no FEA) ❌ Orphan
 
 ---
 
+## Relationship Type Vocabulary
+
+Every cross-reference in a SoT entry SHOULD include a relationship type annotation. This enables agents to traverse the graph with purpose rather than inferring relationship meaning from context.
+
+### Format
+
+```
+- [ID-XXX](SoT.FILE.md#anchor) — {relationship-type}: {Description}
+```
+
+The em-dash (—) separates the link from the annotation. The relationship type is lowercase-hyphenated, followed by a colon and description.
+
+### Canonical Types
+
+| Type | Direction | Meaning | Example |
+|------|-----------|---------|---------|
+| `informed-by` | ← upstream | This ID was informed by evidence | BR-091 — informed-by: CFD-089 user demand |
+| `driven-by` | ← upstream | This ID exists because of a rule/decision | FEA-023 — driven-by: BR-045 rate limit rule |
+| `implements` | → downstream | This ID implements a higher-level concept | API-034 — implements: FEA-067 export feature |
+| `enforces` | → downstream | This ID enforces a business rule | API-045 — enforces: BR-001 user limit |
+| `validated-by` | → downstream | This ID is validated by a test/metric | BR-045 — validated-by: TEST-301 limit check |
+| `uses` | → lateral | This ID consumes/depends on another | API-034 — uses: DBT-012 exports table |
+| `depends-on` | → lateral | This ID requires another to function | FEA-023 — depends-on: FEA-015 auth flow |
+| `supersedes` | → temporal | This ID replaces a deprecated one | BR-078 — supersedes: BR-045 old limit |
+| `conflicts-with` | ↔ lateral | These IDs may contradict (needs resolution) | BR-045 — conflicts-with: BR-078 premium override |
+| `designed-for` | ← upstream | This ID is designed for a persona | UJ-045 — designed-for: PER-101 power user |
+
+### Type Selection Rules
+
+1. **Vertical relationships** (between layers) use directional types: `informed-by`, `driven-by`, `implements`, `enforces`, `validated-by`
+2. **Lateral relationships** (within same layer) use: `depends-on`, `uses`, `conflicts-with`
+3. **Temporal relationships** use: `supersedes`
+4. When unsure, use the description to clarify — the type is a hint, not a straitjacket
+5. Existing entries without types remain valid — types are additive, not retroactive
+
+---
+
 ## Complex Reference Patterns
 
 ### Pattern: Problem → Solution → Validation
@@ -201,13 +238,49 @@ FEA-045 (Feature): "Specialized version of feature X"
 
 ---
 
+## Conflict Patterns
+
+### When Conflicts Arise
+
+Conflicts occur when two IDs in the same domain make contradictory claims. Unlike invalid references (which are structural errors), conflicts are semantic — both IDs are valid individually but incompatible together.
+
+### Example: Overlapping Business Rules
+
+```
+BR-045: "Free tier: 100 API calls/day"
+BR-078: "Premium users: unlimited API calls"
+```
+
+These don't conflict if scope is clear (different tiers). They DO conflict if:
+- BR-078 says "all users" (contradicts BR-045's limit)
+- No tier system exists yet (ambiguous precedence)
+
+### Resolution Protocol
+
+1. Add `conflicts-with` relationship to both entries
+2. Document the conflict in the active EPIC
+3. Resolve by: scoping (add conditions), deprecating (one wins), or merging (combine into one rule)
+4. Update Version History with resolution reason
+
+### Detection Checklist (Manual)
+
+When creating a new ID, check:
+- [ ] Same-prefix entries with overlapping scope
+- [ ] BR- entries that govern the same feature/resource
+- [ ] API- entries for the same endpoint or resource
+- [ ] KPI- entries measuring the same outcome with different targets
+
+---
+
 ## Cross-Reference Checklist
 
 When creating new ID:
 
 - [ ] **Identify Upstream**: What informed this ID?
 - [ ] **Identify Downstream**: What will this ID inform?
-- [ ] **Validate Direction**: Is relationship top-down?
+- [ ] **Assign Relationship Types**: Use vocabulary from Relationship Type Vocabulary section above
+- [ ] **Validate Direction**: Is relationship top-down? Do types match direction?
+- [ ] **Check for Conflicts**: Any same-domain IDs with overlapping scope? (See Conflict Patterns)
 - [ ] **Check for Duplicates**: Does existing ID cover this?
 - [ ] **Verify Existence**: Do all referenced IDs exist?
 

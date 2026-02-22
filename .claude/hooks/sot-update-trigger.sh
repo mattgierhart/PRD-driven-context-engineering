@@ -9,7 +9,11 @@ set -euo pipefail
 
 # Implementation file patterns
 IMPL_EXTENSIONS="py|ts|js|tsx|jsx|go|rs|java|rb"
-SOT_PATTERN='\b(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)-[0-9]{3}\b'
+
+# Generate ID prefix pattern from domain-profile.yaml (Issue #59)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PREFIX_GROUP="$(bash "${SCRIPT_DIR}/../../scripts/generate-id-pattern.sh" 2>/dev/null || echo '(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)')"
+SOT_PATTERN="\\b${PREFIX_GROUP}-[0-9]{3}\\b"
 
 # --- Helpers ---
 

@@ -9,7 +9,7 @@ set -euo pipefail
 
 # Implementation file patterns
 IMPL_EXTENSIONS="py|ts|js|tsx|jsx|go|rs|java|rb"
-SOT_PATTERN='\b(BR|UJ|API|CFD|KPI|COMP|UI|ERR|SEC|PERF|TEST)-[0-9]{3}\b'
+SOT_PATTERN='\b(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)-[0-9]{3}\b'
 
 # --- Helpers ---
 

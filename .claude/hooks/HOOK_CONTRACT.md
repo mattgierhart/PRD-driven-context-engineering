@@ -127,12 +127,14 @@ If the hook has nothing to output, exit 0 with no stdout.
 | Context Validation | `SessionStart` | `context-validation.sh` | Inject 3+1 file reading order |
 | Context Density Gate | `UserPromptSubmit` | `context-density-gate.sh` | Assess epic/gate context readiness |
 | SoT Update Trigger | `Stop` | `sot-update-trigger.sh` | Remind about spec updates |
+| Subagent Memory Load | `SubagentStart` | `subagent-memory-load.sh` | Inject agent MEMORY.md into subagent context |
+| Subagent Memory Save | `SubagentStop` | `subagent-memory-save.sh` | Prompt memory update + post-delegation drift check |
 
 All hooks are POSIX shell scripts requiring only `grep`, `sed`, `wc`, and `awk` (standard on macOS and Linux). No Python or external dependencies needed.
 
 ## Supported Events
 
-Claude Code supports 14 hook events. This template uses 3 (SessionStart, UserPromptSubmit, Stop). See the [full reference](https://code.claude.com/docs/en/hooks#hook-events) for all events:
+Claude Code supports 14 hook events. This template uses 5 (SessionStart, UserPromptSubmit, Stop, SubagentStart, SubagentStop). See the [full reference](https://code.claude.com/docs/en/hooks#hook-events) for all events:
 
 `SessionStart` · `UserPromptSubmit` · `PreToolUse` · `PermissionRequest` · `PostToolUse` · `PostToolUseFailure` · `Notification` · `SubagentStart` · `SubagentStop` · `Stop` · `TeammateIdle` · `TaskCompleted` · `PreCompact` · `SessionEnd`
 

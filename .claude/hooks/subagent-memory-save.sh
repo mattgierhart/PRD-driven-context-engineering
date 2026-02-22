@@ -56,9 +56,9 @@ Before concluding, ensure the following were captured:
     local drift_check="${hook_dir}/metrics_drift_check.py"
     if [ -f "$drift_check" ]; then
       local drift_output
-      drift_output=$(python3 "$drift_check" 2>&1) || true
-      local drift_exit=$?
-      if [ $drift_exit -ne 0 ] && [ -n "$drift_output" ]; then
+      local drift_exit=0
+      drift_output=$(python3 "$drift_check" 2>&1) || drift_exit=$?
+      if [ "$drift_exit" -ne 0 ] && [ -n "$drift_output" ]; then
         local drift_msg="
 
 ## Post-Delegation Drift Check

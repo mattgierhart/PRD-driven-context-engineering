@@ -12,6 +12,11 @@ MIN_EPIC_TOKENS=500
 MAX_EPIC_TOKENS=4000
 MAX_SOT_REFERENCES=10
 
+# Generate ID prefix pattern from domain-profile.yaml (Issue #59)
+HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PREFIX_GROUP="$(bash "${HOOK_DIR}/../../scripts/generate-id-pattern.sh" 2>/dev/null || echo '(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)')"
+SOT_PATTERN="\\b${PREFIX_GROUP}-[0-9]{3}\\b"
+
 # --- Helpers ---
 
 estimate_tokens() {
@@ -23,7 +28,7 @@ estimate_tokens() {
 
 count_sot_references() {
   local file="$1"
-  grep -oE '\b(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)-[0-9]{3}\b' "$file" 2>/dev/null | sort -u | wc -l | tr -d ' '
+  grep -oE "$SOT_PATTERN" "$file" 2>/dev/null | sort -u | wc -l | tr -d ' '
 }
 
 resolve_epic_path() {
@@ -68,11 +73,11 @@ main() {
   # Check for epic work initiation
   local epic_num=""
   local slug=""
-  epic_num=$(printf '%s' "$prompt" | grep -oiE '(start|begin|work on|continue)\s+(work\s+on\s+)?epic[- ]?([0-9]{1,2})' | grep -oE '[0-9]+' | head -1 || true)
+  epic_num=$(printf '%s' "$prompt" | grep -oiE '(start|begin|work on|continue)[[:space:]]+(work[[:space:]]+on[[:space:]]+)?epic[- ]?([0-9]{1,2})' | grep -oE '[0-9]+' | head -1 || true)
 
   # Check for gate approval request
   local gate_version=""
-  gate_version=$(printf '%s' "$prompt" | grep -oiE '(approve|check|assess)\s+(the\s+)?gate\s+(for\s+)?v?[0-9]+\.[0-9]+' | grep -oE '[0-9]+\.[0-9]+' | head -1 || true)
+  gate_version=$(printf '%s' "$prompt" | grep -oiE '(approve|check|assess)[[:space:]]+(the[[:space:]]+)?gate[[:space:]]+(for[[:space:]]+)?v?[0-9]+\.[0-9]+' | grep -oE '[0-9]+\.[0-9]+' | head -1 || true)
 
   if [ -z "$epic_num" ] && [ -z "$gate_version" ]; then
     exit 0

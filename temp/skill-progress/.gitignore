@@ -1,0 +1,12 @@
+# Temporary working files for skill improvement initiative
+# This folder is used for drafts, scratch notes, and working documents
+# during development and should not be committed to the repo.
+
+# Ignore all files in this directory
+*
+!.gitignore
+
+# Note: The actual skill improvements are committed via:
+# - Updated .claude/skills/prd-v*/SKILL.md files
+# - .claude/skills/PRINCIPLES.md governance document
+# - .claude/projects/.../memory/ context preservation files

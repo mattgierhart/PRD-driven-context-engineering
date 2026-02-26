@@ -11,9 +11,112 @@ description: >
 
 Position in workflow: v0.8 Monitoring Setup → **v0.9 GTM Strategy** → v0.9 Launch Metrics
 
-## Purpose
+## Consumes
 
-Define how the product reaches its target users—the channels, messaging, timing, and coordination required for a successful launch.
+This skill requires prior work from v0.2-v0.8:
+
+- **PER-*** persona entries** (from v0.4 Persona Definition) — Target audience definition; messaging and channel selection must match persona behaviors and preferences
+- **CFD-*** customer feedback entries** (from v0.1-v0.2 value hypotheses and competitive analysis) — Evidence-based value propositions; messaging must anchor in validated CFD- evidence, not speculation
+- **BR-*** business rules and product type** (from v0.2-v0.3 Commercial Model) — Product type (Clone/Unbundle/Undercut/Slice/Innovation) determines channel strategy and positioning narrative
+- **DEP-*** deployment criteria** (from v0.8 Release Planning) — Release readiness gates inform launch timing and go/no-go decision window
+- **MON-*** monitoring setup** (from v0.8 Monitoring Setup) — Baseline metrics and dashboards to track during launch; MON- thresholds inform launch day response triggers
+
+This skill assumes v0.8 Monitoring Setup is complete and DEP- release criteria are met.
+
+## Produces
+
+This skill creates/updates:
+
+- **GTM-*** entries** (launch campaign specifications, type-based) — Messaging, channel strategy, launch timeline, task assignments, creative assets with explicit links to personas, evidence, and product positioning
+- **Launch campaign roadmap** — Pre-launch, launch day, and post-launch phases with dependencies and milestones
+- **Channel-to-persona matrix** — Validation showing each channel reaches target PER- personas and messaging matches PER- values
+
+All GTM- entries are **campaign specifications**, not confidence-based. They are:
+- **Evidence-grounded** (messaging anchors in CFD- value hypotheses)
+- **Persona-targeted** (channel selection based on PER- behaviors)
+- **Executable** (every GTM- has owner, timeline, deliverable)
+- **Measurable** (GTM- channels trace to KPI- metrics for launch)
+- **Coordinated** (timeline shows dependencies; tasks assigned)
+
+Example GTM- entries:
+```markdown
+GTM-001: Primary Value Proposition
+Type: Messaging
+Owner: Product Marketing
+Status: Ready
+
+Audience: PER-001 (Startup Founder), PER-002 (Team Lead)
+Format: Value Prop
+Message: "Ship faster with AI that understands your codebase. Context-aware coding assistance that reduces debugging time by 40%."
+Supporting Evidence: CFD-010 (40% time savings validated in 5 user interviews), CFD-025 (competitive analysis shows context awareness as key differentiator)
+Where Used: GTM-005 (Landing Page Hero), GTM-010 (Product Hunt), GTM-002 (Email Campaign)
+
+Linked IDs: PER-001, PER-002, CFD-010, CFD-025, KPI-101/102/103
+
+---
+
+GTM-002: Product Hunt Launch
+Type: Channel
+Owner: Growth Team
+Status: Planned
+
+Channel: Product Hunt
+Audience Fit: PER-001 (Startup Founder) + PER-002 (Team Lead) — both frequent PH for tools; developer-focused community
+Strategy:
+  - Launch on Tuesday 12:01 AM PT (optimal PH timing)
+  - Engage with comments first 24 hours
+  - Share founder story (GTM-003)
+  - Demo video showing AI in action
+Content Plan:
+  - Tagline: GTM-001 (Primary Value Prop)
+  - Maker comment: GTM-003 (Founder Story)
+  - Demo video: GTM-006 (Product Demo)
+Success Metric: Top 5 product of the day, 500+ upvotes, 100+ engaged comments
+
+Linked IDs: PER-001, PER-002, GTM-001, GTM-003, GTM-006, KPI-101 (traffic), KPI-102 (conversions)
+
+---
+
+GTM-003: Launch Week Timeline
+Type: Timeline
+Owner: Launch Coordinator
+Status: Planned
+
+Phase: Launch Week
+
+Day -7 (Pre-launch):
+  - [ ] Email list teaser (GTM-004)
+  - [ ] Social media hints across GTM channels
+  - [ ] PR outreach to tech media
+  - [ ] Staging environment verification
+
+Day -1 (Final):
+  - [ ] All GTM assets approved
+  - [ ] MON- dashboards live and verified
+  - [ ] Team roles + escalation paths confirmed
+  - [ ] Support team briefed (CFD- processing workflow ready)
+
+Day 0 (Launch):
+  - [ ] Product Hunt live at 12:01 AM PT (GTM-002)
+  - [ ] Social media posts scheduled (GTM channels)
+  - [ ] Email to waitlist with GTM-001 messaging
+  - [ ] Monitor KPI-101 (reach), KPI-102 (acquisition), MON- dashboards
+
+Day 1-3:
+  - [ ] Respond to all PH comments and support tickets
+  - [ ] Share early wins (feedback testimonials)
+  - [ ] Watch KPI-103 (activation) — adjust onboarding if needed
+
+Day 4-7:
+  - [ ] Analyze KPI- metrics vs targets
+  - [ ] Publish case study from early adopter (CFD-)
+  - [ ] Plan rapid iteration based on KPI- signals
+
+Dependencies: DEP-002 (release criteria met), MON-005 (dashboards ready), GTM-assets ready
+Milestones: 1000 signups (Day 3), 40%+ activation (Day 7), First paying customer (Day 14)
+
+Linked IDs: DEP-001/002/003, MON-005, KPI-101/102/103, GTM-001/002/004/005/006
+```
 
 ## Core Concept: Launch as Campaign
 

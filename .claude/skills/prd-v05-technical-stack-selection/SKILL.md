@@ -13,10 +13,10 @@ Position in workflow: v0.5 Risk Discovery Interview → **v0.5 Technical Stack S
 
 This skill requires prior work from v0.3-v0.5:
 
-- **FEA-*** feature entries** (from v0.3 Features Value Planning) — Every feature translates to technical capability requirements; derives which capability areas need technology decisions
-- **SCR-*** screen entries** (from v0.4 Screen Flow Definition) — Screen count and component complexity informs frontend technology needs; DES- components reveal design system constraints
-- **RISK-*** risk entries** (from v0.5 Risk Discovery Interview) — RISK- constraints directly affect technology choices (RISK-003: latency → choose edge hosting; RISK-004: compliance → choose HIPAA-ready provider)
-- **Existing TECH-*** entries** (from prior products if brownfield) — If product family exists, inherited technology decisions constrain new choices
+- **FEA-\* feature entries** (from v0.3 Features Value Planning) — Every feature translates to technical capability requirements; derives which capability areas need technology decisions
+- **SCR-\* screen entries** (from v0.4 Screen Flow Definition) — Screen count and component complexity informs frontend technology needs; DES- components reveal design system constraints
+- **RISK-\* risk entries** (from v0.5 Risk Discovery Interview) — RISK- constraints directly affect technology choices (RISK-003: latency → choose edge hosting; RISK-004: compliance → choose HIPAA-ready provider)
+- **Existing TECH-\* entries** (from prior products if brownfield) — If product family exists, inherited technology decisions constrain new choices
 - **Product family information** (from user discovery if brownfield) — Shared infrastructure, existing databases, established frameworks narrow the evaluation space
 
 This skill assumes v0.5 Risk Discovery Interview is complete and FEA-/SCR-/RISK- entries provide the constraint foundation.
@@ -25,7 +25,7 @@ This skill assumes v0.5 Risk Discovery Interview is complete and FEA-/SCR-/RISK-
 
 This skill creates/updates:
 
-- **TECH-*** entries** (technology decisions, decision type + rationale) — Decisions for each capability area with categories (Reuse/Extend/New/Replace), options considered, choice made, and rationale tied to FEA-/RISK- constraints
+- **TECH-\* entries** (technology decisions, decision type + rationale) — Decisions for each capability area with categories (Reuse/Extend/New/Replace), options considered, choice made, and rationale tied to FEA-/RISK- constraints
 - **Risk-to-Technology mapping table** — Validation showing every RISK- entry has corresponding TECH- response or explicit acceptance
 - **Technical feasibility artifact** — Confidence assessment on whether technology choices support feature MVP-SCOPE and risk mitigations
 

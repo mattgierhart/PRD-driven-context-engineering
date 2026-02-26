@@ -13,11 +13,11 @@ Technical specification defines the **contracts** developers build against: API 
 
 This skill requires prior work from v0.3-v0.6:
 
-- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure (monolith vs microservices) determines API organization; integration patterns guide webhook/adapter design
-- **TECH-*** Build items** (from v0.5 Technical Stack Selection) — Technologies chosen define data model types (PostgreSQL requires relational schema; MongoDB requires document schema)
-- **UJ-*** user journeys** (from v0.4 User Journey Mapping) — Journey steps determine API call sequences; value moments determine response contracts
-- **SCR-*** screen entries** (from v0.4 Screen Flow Definition) — Screen data requirements determine API response shape; form submissions map to POST/PUT/PATCH endpoints
-- **BR-*** business rules** (from v0.3 Commercial Model) — Business constraints enforced in API responses (rate limits, validation rules, field constraints)
+- **ARC-\* architecture decisions** (from v0.6 Architecture Design) — System structure (monolith vs microservices) determines API organization; integration patterns guide webhook/adapter design
+- **TECH-\* Build items** (from v0.5 Technical Stack Selection) — Technologies chosen define data model types (PostgreSQL requires relational schema; MongoDB requires document schema)
+- **UJ-\* user journeys** (from v0.4 User Journey Mapping) — Journey steps determine API call sequences; value moments determine response contracts
+- **SCR-\* screen entries** (from v0.4 Screen Flow Definition) — Screen data requirements determine API response shape; form submissions map to POST/PUT/PATCH endpoints
+- **BR-\* business rules** (from v0.3 Commercial Model) — Business constraints enforced in API responses (rate limits, validation rules, field constraints)
 
 This skill assumes v0.6 Architecture Design is complete with ARC- entries providing system structure.
 
@@ -25,8 +25,8 @@ This skill assumes v0.6 Architecture Design is complete with ARC- entries provid
 
 This skill creates/updates:
 
-- **API-*** entries** (API endpoint contracts) — REST/GraphQL endpoint specifications with request/response shapes, auth requirements, error codes, tied to UJ-/SCR- consumers and DBT- data sources
-- **DBT-*** entries** (database schema contracts) — Data model specifications with fields, relationships, indexes, constraints, tied to API- accessors and BR- rules
+- **API-\* entries** (API endpoint contracts) — REST/GraphQL endpoint specifications with request/response shapes, auth requirements, error codes, tied to UJ-/SCR- consumers and DBT- data sources
+- **DBT-\* entries** (database schema contracts) — Data model specifications with fields, relationships, indexes, constraints, tied to API- accessors and BR- rules
 - **Screen-to-API validation matrix** — Verification showing every SCR-* has supporting API-* and every UJ-* step can be completed via API calls
 - **API-to-Data validation matrix** — Verification showing every API-* response field maps to DBT-* and every DBT-* is used by at least one API-*
 

@@ -23,7 +23,7 @@ This skill assumes you have **zero prior research**. It is the starting point.
 
 This skill creates/updates:
 
-- **CFD-*** entries** (customer feedback) — 1-5 per problem dimension, with confidence scoring (see PRINCIPLES.md)
+- **CFD-\* entries** (customer feedback) — 1-5 per problem dimension, with confidence scoring (see PRINCIPLES.md)
 - **PRD.md Why section** — Evidence-anchored problem statement table
 - **MVP scope signal** — Identifies which problem dimensions will drive MVP feature scope (handed to v0.3)
 

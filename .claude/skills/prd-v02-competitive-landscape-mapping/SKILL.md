@@ -23,8 +23,8 @@ v0.1 Spark (Problem + Value) → Competitive Landscape Mapping → Product Type 
 
 This skill requires prior work from v0.1:
 
-- **CFD-*** entries (problem statements, from Problem Framing) — Evidence for what users need/want
-- **CFD-*** entries (value hypotheses, from User Value Articulation) — Desired outcomes users are seeking
+- **CFD-\* entries (problem statements, from Problem Framing) — Evidence for what users need/want
+- **CFD-\* entries (value hypotheses, from User Value Articulation) — Desired outcomes users are seeking
 - **PRD.md Why section** — Problem framing and market signals
 
 This skill assumes v0.1 Spark is complete (both problem and value).
@@ -33,8 +33,8 @@ This skill assumes v0.1 Spark is complete (both problem and value).
 
 This skill creates/updates:
 
-- **CFD-*** entries** (competitive intelligence) — Analysis of direct competitors, adjacent solutions, workarounds
-- **BR-*** entries** (positioning rules) — Constraints derived from landscape analysis
+- **CFD-\* entries** (competitive intelligence) — Analysis of direct competitors, adjacent solutions, workarounds
+- **BR-\* entries** (positioning rules) — Constraints derived from landscape analysis
 - **Landscape map artifact** — Current behavior documentation, feature matrix, 1% better hypothesis
 
 All CFD competitive intelligence entries should include:

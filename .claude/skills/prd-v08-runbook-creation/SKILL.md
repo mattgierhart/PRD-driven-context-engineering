@@ -15,12 +15,12 @@ Position in workflow: v0.8 Release Planning → **v0.8 Runbook Creation** → v0
 
 This skill requires prior work from v0.8 Release Planning and earlier stages:
 
-- **DEP-*** deployment entries** (from v0.8 Release Planning) — Deployment procedures from DEP- rollback/validation sections inform RUN- deployment and recovery runbooks
-- **RISK-*** risk entries** (from v0.5 Risk Discovery) — High/medium RISK- entries must have response runbooks; mitigations become procedures
-- **MON-*** monitoring specifications** (planned from v0.8 Monitoring Setup, or anticipated) — Key alerts from MON- (before formalization) inform incident response runbooks; runbooks will be referenced FROM monitoring
-- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure (single service vs microservices, databases, integrations) determines incident scope and escalation paths
-- **TECH-*** technology stack** (from v0.5 Technical Stack Selection) — Technology choices (database, cloud provider, APM tools) determine specific commands and tools in runbook procedures
-- **API-*** endpoint contracts** (from v0.6 Technical Specification) — For reference if incident involves specific endpoints or payloads
+- **DEP-\* deployment entries** (from v0.8 Release Planning) — Deployment procedures from DEP- rollback/validation sections inform RUN- deployment and recovery runbooks
+- **RISK-\* risk entries** (from v0.5 Risk Discovery) — High/medium RISK- entries must have response runbooks; mitigations become procedures
+- **MON-\* monitoring specifications** (planned from v0.8 Monitoring Setup, or anticipated) — Key alerts from MON- (before formalization) inform incident response runbooks; runbooks will be referenced FROM monitoring
+- **ARC-\* architecture decisions** (from v0.6 Architecture Design) — System structure (single service vs microservices, databases, integrations) determines incident scope and escalation paths
+- **TECH-\* technology stack** (from v0.5 Technical Stack Selection) — Technology choices (database, cloud provider, APM tools) determine specific commands and tools in runbook procedures
+- **API-\* endpoint contracts** (from v0.6 Technical Specification) — For reference if incident involves specific endpoints or payloads
 
 This skill assumes DEP- entries are complete with rollback procedures and post-deploy validation steps defined.
 
@@ -28,7 +28,7 @@ This skill assumes DEP- entries are complete with rollback procedures and post-d
 
 This skill creates/updates:
 
-- **RUN-*** entries** (operational runbooks, category-based) — Step-by-step procedures for incident response, deployment execution, maintenance tasks, recovery from failures, and escalation paths
+- **RUN-\* entries** (operational runbooks, category-based) — Step-by-step procedures for incident response, deployment execution, maintenance tasks, recovery from failures, and escalation paths
 - **Incident response matrix** — Mapping of scenarios (connection pool exhaustion, latency spike, deployment failure, etc.) to RUN- procedures
 - **Runbook cross-reference** — Links from RUN- procedures to DEP- rollback conditions, anticipated MON- alerts, and RISK- entries they address
 

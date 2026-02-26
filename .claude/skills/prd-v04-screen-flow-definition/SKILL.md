@@ -13,11 +13,11 @@ Screens are where journeys become tangible. This skill transforms user journeys 
 
 This skill requires prior work from v0.3-v0.4:
 
-- **UJ-*** user journey entries** (from v0.4 User Journey Mapping) — Journey steps become screens; each step asks "What screen enables this action?"
-- **FEA-*** feature entries** (from v0.3 Features Value Planning) — Features map to screens showing which features appear on which screens
-- **PER-*** persona entries** (from v0.4 Persona Definition) — Persona context (technical level, role) shapes screen design choices and complexity
+- **UJ-\* user journey entries** (from v0.4 User Journey Mapping) — Journey steps become screens; each step asks "What screen enables this action?"
+- **FEA-\* feature entries** (from v0.3 Features Value Planning) — Features map to screens showing which features appear on which screens
+- **PER-\* persona entries** (from v0.4 Persona Definition) — Persona context (technical level, role) shapes screen design choices and complexity
 - **MVP-SCOPE artifact** (from v0.3 Features Value Planning) — Explicit feature boundary; screens must render only MVP-scoped features, backlog features deferred
-- **BR-*** business rules** (from v0.3 Commercial Model) — Constraints affecting screen layout (pricing tier rules affect which settings appear, role-based visibility, data refresh rates, etc.)
+- **BR-\* business rules** (from v0.3 Commercial Model) — Constraints affecting screen layout (pricing tier rules affect which settings appear, role-based visibility, data refresh rates, etc.)
 
 This skill assumes v0.4 User Journey Mapping is complete.
 
@@ -25,8 +25,8 @@ This skill assumes v0.4 User Journey Mapping is complete.
 
 This skill creates/updates:
 
-- **SCR-*** entries** (screens, confidence 2-3/5) — Screen inventory with journey/feature/persona mappings showing purpose, actions, navigation, and constraints
-- **DES-*** entries** (design system components, confidence 2-3/5) — Reusable UI elements and patterns identified across screens
+- **SCR-\* entries** (screens, confidence 2-3/5) — Screen inventory with journey/feature/persona mappings showing purpose, actions, navigation, and constraints
+- **DES-\* entries** (design system components, confidence 2-3/5) — Reusable UI elements and patterns identified across screens
 - **Feature-to-Screen matrix** — Validation artifact showing every FEA- and every UJ- step mapped to SCR-
 - **Screen count and complexity assessment** — Critical for v0.5 technical stack selection (number of screens informs frontend framework needs)
 

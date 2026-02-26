@@ -12,8 +12,8 @@ Position in HORIZON workflow: v0.2 Competitive Landscape → **v0.2 Product Type
 This skill requires prior work from v0.2:
 
 - **Landscape map artifact** (from Competitive Landscape Mapping) — Current behavior documentation, feature matrix, competitor analysis
-- **CFD-*** entries** (competitive intelligence, from Competitive Landscape Mapping) — Evidence from 3+ direct competitors + adjacent solutions
-- **BR-*** positioning rules** (from Competitive Landscape Mapping) — Constraints derived from competitive analysis
+- **CFD-\* entries** (competitive intelligence, from Competitive Landscape Mapping) — Evidence from 3+ direct competitors + adjacent solutions
+- **BR-\* positioning rules** (from Competitive Landscape Mapping) — Constraints derived from competitive analysis
 
 This skill assumes v0.2 Competitive Landscape is complete with documented landscape analysis.
 
@@ -21,8 +21,8 @@ This skill assumes v0.2 Competitive Landscape is complete with documented landsc
 
 This skill creates/updates:
 
-- **BR-*** entries** (product type classification) — Decision record showing which of the six types this product is
-- **BR-*** entries** (GTM constraints inherited from type) — Pricing, channel, scope, and timeline implications of the chosen type
+- **BR-\* entries** (product type classification) — Decision record showing which of the six types this product is
+- **BR-\* entries** (GTM constraints inherited from type) — Pricing, channel, scope, and timeline implications of the chosen type
 - **Product type artifact** — Named decision: "We are building a [Type] product because [specific evidence from landscape]"
 
 Example product type classification entry:

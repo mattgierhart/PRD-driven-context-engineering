@@ -15,12 +15,11 @@ Position in workflow: v0.9 Launch Metrics → **v0.9 Feedback Loop Setup** → v
 
 This skill requires prior work from v0.9 Launch Metrics and v0.1-v0.8:
 
-- **GTM-*** launch channels** (from v0.9 GTM Strategy) — Active launch channels (Product Hunt, email, paid ads, etc.) become feedback sources; GTM- messaging and channels inform where feedback will arrive
-- **MON-*** monitoring dashboards and alerts** (from v0.8 Monitoring Setup) — MON- thresholds (latency, error rate, performance) define what qualifies as critical feedback; monitoring alerts can trigger deep-dive user research
-- **KPI-*** launch targets** (from v0.9 Launch Metrics) — KPI- thresholds and Day 1/7/30/90 targets inform feedback urgency; KPI gaps trigger feedback investigation ("why are we below target?")
-- **CFD-*** baseline entries** (from v0.1-v0.4) — Baseline customer feedback hypotheses (user pain points, value propositions, competitive alternatives) become validation targets post-launch; feedback loop confirms or contradicts CFD- assumptions
-- **PER-*** personas** (from v0.4 Persona Definition) — Persona segments (PER-001 Startup Founder, PER-002 Team Lead) enable feedback categorization by user type and prioritization by persona importance
-- **KPI-*** baseline metrics** (from v0.9 Launch Metrics) — Baseline performance metrics (p95 latency, error rate, conversion rate) provide context for performance feedback; "slow" is quantified relative to baselines
+- **GTM-\* launch channels** (from v0.9 GTM Strategy) — Active launch channels (Product Hunt, email, paid ads, etc.) become feedback sources; GTM- messaging and channels inform where feedback will arrive
+- **MON-\* monitoring dashboards and alerts** (from v0.8 Monitoring Setup) — MON- thresholds (latency, error rate, performance) define what qualifies as critical feedback; monitoring alerts can trigger deep-dive user research
+- **KPI-\* launch targets and baselines** (from v0.9 Launch Metrics) — KPI- thresholds (Day 1/7/30/90 targets) inform feedback urgency and trigger investigation when below target; baseline performance metrics (p95 latency, error rate, conversion rate) provide context for performance feedback
+- **CFD-\* baseline entries** (from v0.1-v0.4) — Baseline customer feedback hypotheses (user pain points, value propositions, competitive alternatives) become validation targets post-launch; feedback loop confirms or contradicts CFD- assumptions
+- **PER-\* personas** (from v0.4 Persona Definition) — Persona segments (PER-001 Startup Founder, PER-002 Team Lead) enable feedback categorization by user type and prioritization by persona importance
 
 This skill assumes v0.9 Launch Metrics is live with KPI- thresholds established, GTM- channels are active, and MON- dashboards are displaying baseline metrics.
 
@@ -28,9 +27,9 @@ This skill assumes v0.9 Launch Metrics is live with KPI- thresholds established,
 
 This skill creates/updates:
 
-- **CFD-*** post-launch feedback entries** (feedback capture specifications, channel/type-based) — Every piece of user feedback becomes a CFD- entry with source, sentiment, impact, and action taken; traced to GTM- channels and user personas
+- **CFD-\* post-launch feedback entries** (feedback capture specifications, channel/type-based) — Every piece of user feedback becomes a CFD- entry with source, sentiment, impact, and action taken; traced to GTM- channels and user personas
 - **Feedback processing workflow/matrix** — Triage → Categorization → Prioritization → Action mapping showing how feedback flows from capture to ID updates (CFD- → FEA-/BR-/RISK- → EPIC-)
-- **CFD-*** update entries** — CFD- entries updated with resolution status, outcome, and follow-up evidence, enabling confidence progression (initial feedback → validated pattern → implemented action → confirmed outcome)
+- **CFD-\* update entries** — CFD- entries updated with resolution status, outcome, and follow-up evidence, enabling confidence progression (initial feedback → validated pattern → implemented action → confirmed outcome)
 
 All CFD-* post-launch entries are **evidential feedback records**, not confidence-based themselves but supporting confidence scoring on OTHER IDs:
 - **Timestamped** (when feedback was received, to track trends and velocity)
@@ -250,109 +249,7 @@ Resolution:
   Follow-up: [Did we close the loop with user?]
 ```
 
-**Example CFD- entries:**
-
-```
-CFD-101: "Can't figure out how to export my data"
-Type: Support Ticket
-Source: Intercom
-Date: 2025-01-15
-User Segment: PER-001 (Startup Founder)
-
-Verbatim: "I've been using the tool for a week and I can't find
-          any way to export my work. I need to share results with
-          my team. Is this possible? If not, this is a dealbreaker."
-
-Processed:
-  Category: Feature Gap
-  Sentiment: Frustrated
-  Priority: High
-  Frequency: Repeated (3rd request this week)
-
-Impact Assessment:
-  Users Affected: ~50 (based on support volume)
-  KPI Impact: KPI-104 (D7 Retention) — export needed for team use case
-  Revenue Risk: High — multiple users mentioned "dealbreaker"
-
-Action:
-  Response: "Thanks for reaching out! Export is on our roadmap.
-             We're prioritizing this for our next release."
-  Internal Action: Escalated to product team, added to backlog
-  Linked IDs: FEA-025 (Export Feature) created, EPIC-05 updated
-  Status: In Progress
-
-Resolution:
-  Outcome: FEA-025 shipped in v1.2
-  Date: 2025-02-01
-  Follow-up: Emailed user with release notes
-```
-
-```
-CFD-102: NPS Detractor Response
-Type: NPS Response
-Source: In-App Survey
-Date: 2025-01-18
-User Segment: PER-002 (Team Lead)
-
-Verbatim: "Score: 4. Too slow. Takes forever to load projects
-          and I give up waiting half the time."
-
-Processed:
-  Category: Performance
-  Sentiment: Negative
-  Priority: Critical
-  Frequency: Trending (NPS dropped 10 points this week)
-
-Impact Assessment:
-  Users Affected: ~200 (20% of NPS responses mention speed)
-  KPI Impact: KPI-103 (Activation), KPI-104 (Retention)
-  Revenue Risk: High — performance is activation blocker
-
-Action:
-  Response: N/A (anonymous survey)
-  Internal Action: Performance spike investigation started
-  Linked IDs: RISK-012 (Performance Degradation) escalated
-  Status: In Progress
-
-Resolution:
-  Outcome: Database query optimization deployed
-  Date: 2025-01-22
-  Follow-up: Next NPS cycle will measure improvement
-```
-
-```
-CFD-103: Community Feature Discussion
-Type: Community Post
-Source: Discord #feature-requests
-Date: 2025-01-20
-User Segment: Power Users (multiple PER-)
-
-Verbatim: "Thread: 47 messages discussing dark mode.
-          Summary: 15 unique users requesting dark mode.
-          Top comment: 'I work at night and this is eye-strain city.'"
-
-Processed:
-  Category: Feature Gap
-  Sentiment: Neutral (constructive)
-  Priority: Medium
-  Frequency: Repeated (ongoing thread)
-
-Impact Assessment:
-  Users Affected: 15+ vocal, likely more silent
-  KPI Impact: Minor — nice-to-have, not activation blocker
-  Revenue Risk: Low
-
-Action:
-  Response: Community manager acknowledged, added to public roadmap
-  Internal Action: Added to backlog as P2
-  Linked IDs: FEA-030 (Dark Mode) created
-  Status: Acknowledged
-
-Resolution:
-  Outcome: Pending — scheduled for Q2
-  Date: N/A
-  Follow-up: Posted on public roadmap
-```
+**Note:** See Produces section above for detailed CFD- examples with full traceability links.
 
 ## Feedback Collection Methods
 
@@ -416,16 +313,6 @@ CAPTURE → TRIAGE → CATEGORIZE → PRIORITIZE → ACTION → CLOSE LOOP
    - Verify resolution
 ```
 
-## Feedback → ID Flow
-
-| Feedback Type | Creates/Updates | Example |
-|---------------|-----------------|---------|
-| **Feature Request** | FEA-, BR-FEA- | CFD-101 → FEA-025 |
-| **Bug Report** | RISK- (or direct fix) | CFD-102 → RISK-012 |
-| **UX Confusion** | SCR-, UJ- refinement | "Can't find X" → SCR-005 update |
-| **Performance** | MON-, RISK- | "Too slow" → MON-010 threshold |
-| **Praise** | CFD- (testimonial), GTM- | "Love this!" → GTM-015 (social proof) |
-
 ## Sentiment Monitoring
 
 Track aggregate sentiment over time:
@@ -460,16 +347,6 @@ Before proceeding to v1.0 Market Adoption:
 - [ ] Processing workflow documented and assigned
 - [ ] Feedback → ID flow established
 - [ ] Sentiment metrics baselined
-
-## Downstream Connections
-
-| Consumer | What It Uses | Example |
-|----------|--------------|---------|
-| **v1.0 Planning** | CFD- feedback informs roadmap | CFD-101 frequency → FEA-025 priority |
-| **Product Development** | CFD- → FEA-, BR- updates | "Users need X" → FEA-030 |
-| **Support Team** | CFD- patterns for FAQ | Repeated CFD-102 → knowledge base |
-| **Marketing** | CFD- testimonials for GTM- | Positive CFD- → case study |
-| **Risk Management** | CFD- negative trends → RISK- | Sentiment drop → RISK-015 |
 
 ## Detailed References
 

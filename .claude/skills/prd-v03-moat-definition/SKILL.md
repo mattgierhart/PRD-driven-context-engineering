@@ -12,8 +12,8 @@ Position in HORIZON workflow: v0.2 Competitive Landscape → **v0.3 Moat Definit
 This skill requires prior work from v0.2:
 
 - **Landscape map artifact** (from Competitive Landscape Mapping) — Current behavior documentation, feature matrix, competitor analysis
-- **CFD-*** entries** (competitive intelligence, from Competitive Landscape Mapping) — Documented competitors with pricing, features, user feedback
-- **BR-*** product type entry** (from Product Type Classification) — Classification constrains which competitors are relevant to analyze
+- **CFD-\* entries** (competitive intelligence, from Competitive Landscape Mapping) — Documented competitors with pricing, features, user feedback
+- **BR-\* product type entry** (from Product Type Classification) — Classification constrains which competitors are relevant to analyze
 
 This skill assumes v0.2 analysis is complete with documented competitors.
 
@@ -21,8 +21,8 @@ This skill assumes v0.2 analysis is complete with documented competitors.
 
 This skill creates/updates:
 
-- **CFD-*** entries** (competitor moat analysis) — Assessment of each competitor's defensibility by moat type
-- **BR-*** entries** (targeting rules) — Constraints derived from moat analysis, defining where to compete vs. avoid
+- **CFD-\* entries** (competitor moat analysis) — Assessment of each competitor's defensibility by moat type
+- **BR-\* entries** (targeting rules) — Constraints derived from moat analysis, defining where to compete vs. avoid
 - **Moat strength inventory artifact** — Summary of competitor moats with vulnerability signals
 
 All CFD moat analysis entries should include:

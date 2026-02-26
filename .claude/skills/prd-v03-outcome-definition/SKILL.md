@@ -11,8 +11,8 @@ Position in HORIZON workflow: v0.2 Product Type Classification → **v0.3 Outcom
 
 This skill requires prior work from v0.2:
 
-- **BR-*** product type entry** (from Product Type Classification) — Classification determines which metrics are relevant
-- **CFD-*** entries** (from Problem Framing and Competitive Landscape) — Customer evidence about desired outcomes
+- **BR-\* product type entry** (from Product Type Classification) — Classification determines which metrics are relevant
+- **CFD-\* entries** (from Problem Framing and Competitive Landscape) — Customer evidence about desired outcomes
 - **Market benchmarks and competitor metrics** — Reference data for Tier 1/2 targets
 
 This skill assumes v0.2 classification is complete.
@@ -21,8 +21,8 @@ This skill assumes v0.2 classification is complete.
 
 This skill creates/updates:
 
-- **KPI-*** entries** (outcome definitions) — Measurable success metrics tied to product type
-- **BR-*** outcome rules** (optional) — Constraints derived from KPI thresholds (e.g., "Launch blocked if LTV:CAC < 3:1")
+- **KPI-\* entries** (outcome definitions) — Measurable success metrics tied to product type
+- **BR-\* outcome rules** (optional) — Constraints derived from KPI thresholds (e.g., "Launch blocked if LTV:CAC < 3:1")
 - **Success criteria artifact** — Dashboard of leading + lagging indicators that define product-market fit
 
 All KPI entries should include:

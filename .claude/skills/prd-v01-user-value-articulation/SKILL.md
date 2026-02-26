@@ -23,7 +23,7 @@ Problem Framing → User Value Articulation → v0.2 Market Definition
 
 This skill requires prior work from v0.1:
 
-- **CFD-*** entries (pain points, from Problem Framing) — Evidence for what problems users face
+- **CFD-\* entries (pain points, from Problem Framing) — Evidence for what problems users face
 - **PRD.md Why section** (problem statement table) — Context for pain-to-value transformation
 
 This skill assumes v0.1 Problem Framing is complete.
@@ -32,7 +32,7 @@ This skill assumes v0.1 Problem Framing is complete.
 
 This skill creates/updates:
 
-- **CFD-*** entries** (tagged as value hypotheses) — Transformation of pain points into value statements, with confidence scoring
+- **CFD-\* entries** (tagged as value hypotheses) — Transformation of pain points into value statements, with confidence scoring
 - **MVP scope signal** — Identifies which value dimensions will drive MVP feature scope (handed to v0.3)
 
 All CFD value hypothesis entries should include:

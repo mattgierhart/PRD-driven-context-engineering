@@ -15,12 +15,12 @@ Position in workflow: v0.8 Runbook Creation → **v0.8 Monitoring Setup** → v0
 
 This skill requires prior work from v0.8 Runbook Creation and earlier stages:
 
-- **RUN-*** runbook entries** (from v0.8 Runbook Creation) — Incident response runbooks define alerting scenarios; critical alerts must link to RUN- procedures
-- **DEP-*** deployment entries** (from v0.8 Release Planning) — DEP- rollback thresholds and post-deploy validation steps inform MON- alert conditions and SLO targets
-- **API-*** endpoint contracts** (from v0.6 Technical Specification) — Define baseline latency, throughput, and error rates for application-layer metrics
-- **KPI-*** metrics** (from v0.3 Outcome Definition and v0.9 Launch Metrics) — Business metrics (signups, conversions, retention) inform dashboard design and business layer monitoring
-- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure determines which components to monitor (monolith has different metrics than distributed services)
-- **TECH-*** technology stack** (from v0.5 Technical Stack Selection) — Technology choices (database, cloud provider, APM tools) determine available metrics and monitoring tools
+- **RUN-\* runbook entries** (from v0.8 Runbook Creation) — Incident response runbooks define alerting scenarios; critical alerts must link to RUN- procedures
+- **DEP-\* deployment entries** (from v0.8 Release Planning) — DEP- rollback thresholds and post-deploy validation steps inform MON- alert conditions and SLO targets
+- **API-\* endpoint contracts** (from v0.6 Technical Specification) — Define baseline latency, throughput, and error rates for application-layer metrics
+- **KPI-\* metrics** (from v0.3 Outcome Definition and v0.9 Launch Metrics) — Business metrics (signups, conversions, retention) inform dashboard design and business layer monitoring
+- **ARC-\* architecture decisions** (from v0.6 Architecture Design) — System structure determines which components to monitor (monolith has different metrics than distributed services)
+- **TECH-\* technology stack** (from v0.5 Technical Stack Selection) — Technology choices (database, cloud provider, APM tools) determine available metrics and monitoring tools
 
 This skill assumes DEP- and RUN- entries are complete with thresholds, rollback conditions, and incident procedures defined.
 
@@ -28,7 +28,7 @@ This skill assumes DEP- and RUN- entries are complete with thresholds, rollback 
 
 This skill creates/updates:
 
-- **MON-*** entries** (monitoring specifications, metric/alert/dashboard/SLO types) — Concrete monitoring rules with thresholds, alert conditions, dashboards, SLO definitions, linked to RUN- procedures
+- **MON-\* entries** (monitoring specifications, metric/alert/dashboard/SLO types) — Concrete monitoring rules with thresholds, alert conditions, dashboards, SLO definitions, linked to RUN- procedures
 - **Alert routing configuration** — Mapping of MON- alerts to notification channels and teams; links alerts to RUN- incident procedures
 - **Observability baseline** — Metrics gathered from staging/production, establishing normal operating ranges for alert thresholds
 

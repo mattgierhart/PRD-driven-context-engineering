@@ -13,10 +13,10 @@ Features are the unit of scope. Every feature must trace back to why it exists: 
 
 This skill requires prior work from v0.1-v0.3:
 
-- **CFD-*** entries** (customer feedback, from v0.1-v0.2) — Evidence for what users need/want
-- **KPI-*** entries** (outcome definitions, from v0.3 Outcome Definition) — What metrics does each feature support
-- **BR-*** moat entries** (from v0.3 Moat Definition) — What features defend our competitive position
-- **BR-*** pricing entries** (from v0.3 Pricing Model) — What features differentiate tiers
+- **CFD-\* entries** (customer feedback, from v0.1-v0.2) — Evidence for what users need/want
+- **KPI-\* entries** (outcome definitions, from v0.3 Outcome Definition) — What metrics does each feature support
+- **BR-\* moat entries** (from v0.3 Moat Definition) — What features defend our competitive position
+- **BR-\* pricing entries** (from v0.3 Pricing Model) — What features differentiate tiers
 - **Market landscape analysis** (from v0.2) — Competitive feature comparison
 
 This skill assumes v0.1-v0.2 research is complete and risk/tech decisions (v0.5) are not yet made.
@@ -25,8 +25,8 @@ This skill assumes v0.1-v0.2 research is complete and risk/tech decisions (v0.5)
 
 This skill creates/updates:
 
-- **FEA-*** entries** (feature definitions, with confidence scoring) — Every feature in scope with traceability
-- **BR-FEA-*** entries** (governance rules for feature decisions) — Scope protection rules
+- **FEA-\* entries** (feature definitions, with confidence scoring) — Every feature in scope with traceability
+- **BR-FEA-\* entries** (governance rules for feature decisions) — Scope protection rules
 - **MVP-SCOPE artifact** — Explicit list: "These X features (FEA-001, FEA-005, FEA-008) define our MVP"
   - Example: `MVP-SCOPE: 5 P0 features + 3 P1 features = 8 total. Rationale: Delivers value on [KPI-001, KPI-002]. Competitive parity [FEA-001-003], Delta [FEA-004], Pricing [FEA-005]`
   - This becomes the definition for v0.4 user journeys and v0.7 build scope

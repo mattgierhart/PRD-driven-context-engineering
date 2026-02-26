@@ -13,12 +13,12 @@ This is an **interactive interview skill**. The AI asks questions, the user refl
 
 This skill requires prior work from v0.1-v0.4:
 
-- **CFD-*** all customer feedback entries** (from v0.1-v0.2) — User research foundation; reveals confidence tier in market assumptions
-- **BR-*** all business rules** (from v0.2-v0.3) — Constraints on what can change (pricing, moat, product type constrain risk responses)
-- **FEA-*** feature entries** (from v0.3) — Feature complexity and priorities signal technical risks
-- **PER-*** persona entries** (from v0.4) — Persona distribution and behaviors reveal adoption risks and churn signals
-- **UJ-*** journey entries** (from v0.4) — Journey complexity signals friction points; long journeys increase adoption risk
-- **SCR-*** screen entries** (from v0.4) — Screen count and design complexity informs technical resource risk
+- **CFD-\* all customer feedback entries** (from v0.1-v0.2) — User research foundation; reveals confidence tier in market assumptions
+- **BR-\* all business rules** (from v0.2-v0.3) — Constraints on what can change (pricing, moat, product type constrain risk responses)
+- **FEA-\* feature entries** (from v0.3) — Feature complexity and priorities signal technical risks
+- **PER-\* persona entries** (from v0.4) — Persona distribution and behaviors reveal adoption risks and churn signals
+- **UJ-\* journey entries** (from v0.4) — Journey complexity signals friction points; long journeys increase adoption risk
+- **SCR-\* screen entries** (from v0.4) — Screen count and design complexity informs technical resource risk
 
 This skill assumes v0.1-v0.4 work is complete and serves as context for interview discovery.
 
@@ -26,7 +26,7 @@ This skill assumes v0.1-v0.4 work is complete and serves as context for intervie
 
 This skill creates/updates:
 
-- **RISK-*** entries** (risk discovery, owner-assigned severity) — Identified risks with Impact/Likelihood scoring (raw score from 1-9), response type (Mitigate/Accept/Avoid/Transfer), specific mitigations, and owners
+- **RISK-\* entries** (risk discovery, owner-assigned severity) — Identified risks with Impact/Likelihood scoring (raw score from 1-9), response type (Mitigate/Accept/Avoid/Transfer), specific mitigations, and owners
 - **README Risk Scorecard** — Baseline risk profile aggregated by category (Market/User/Technical) with total scores and risk level assessment
 - **Risk mitigation summary** — Top 3-5 risks requiring active mitigation before v0.6 architecture work
 

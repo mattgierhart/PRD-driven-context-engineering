@@ -11,10 +11,10 @@ Position in HORIZON workflow: v0.2 Product Type Classification → **v0.3 Pricin
 
 This skill requires prior work from v0.2-v0.3:
 
-- **BR-*** product type entry** (from Product Type Classification) — Determines which pricing model makes sense
-- **CFD-*** competitive intelligence entries** (from Competitive Landscape Mapping) — Competitor pricing, WTP signals
-- **BR-*** moat entries** (from Moat Definition, parallel v0.3 work) — Price as potential moat element
-- **KPI-*** outcome entries** (from Outcome Definition, parallel v0.3 work) — Success metrics tied to pricing
+- **BR-\* product type entry** (from Product Type Classification) — Determines which pricing model makes sense
+- **CFD-\* competitive intelligence entries** (from Competitive Landscape Mapping) — Competitor pricing, WTP signals
+- **BR-\* moat entries** (from Moat Definition, parallel v0.3 work) — Price as potential moat element
+- **KPI-\* outcome entries** (from Outcome Definition, parallel v0.3 work) — Success metrics tied to pricing
 - **Cost structure estimates** (from own analysis) — Unit economics to validate price floors
 
 This skill assumes v0.2 competitive analysis is complete and product type is defined.
@@ -23,9 +23,9 @@ This skill assumes v0.2 competitive analysis is complete and product type is def
 
 This skill creates/updates:
 
-- **BR-PRC-*** entries** (pricing constraints) — Rules governing price floors, ceilings, discounts
-- **BR-PKG-*** entries** (packaging rules) — Tier boundaries and feature gates
-- **BR-CMP-*** entries** (competitive positioning) — Price anchor targets and undercut thresholds
+- **BR-PRC-\* entries** (pricing constraints) — Rules governing price floors, ceilings, discounts
+- **BR-PKG-\* entries** (packaging rules) — Tier boundaries and feature gates
+- **BR-CMP-\* entries** (competitive positioning) — Price anchor targets and undercut thresholds
 - **Pricing model artifact** — Named decision: "We will use [Model] because [evidence]" with tier definitions
 
 All BR pricing entries should include:

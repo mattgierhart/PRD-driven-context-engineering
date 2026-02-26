@@ -19,8 +19,46 @@ v0.1 Spark (Problem + Value) → Competitive Landscape Mapping → Product Type 
        (what hurts)                 (who else solves it)           (how we compete)
 ```
 
-**Input:** Problem statements (CFD-) and value hypotheses (CFD-) from v0.1
-**Output:** Landscape map, feature matrix, 1% better hypothesis (CFD-, BR-)
+## Consumes
+
+This skill requires prior work from v0.1:
+
+- **CFD-*** entries (problem statements, from Problem Framing) — Evidence for what users need/want
+- **CFD-*** entries (value hypotheses, from User Value Articulation) — Desired outcomes users are seeking
+- **PRD.md Why section** — Problem framing and market signals
+
+This skill assumes v0.1 Spark is complete (both problem and value).
+
+## Produces
+
+This skill creates/updates:
+
+- **CFD-*** entries** (competitive intelligence) — Analysis of direct competitors, adjacent solutions, workarounds
+- **BR-*** entries** (positioning rules) — Constraints derived from landscape analysis
+- **Landscape map artifact** — Current behavior documentation, feature matrix, 1% better hypothesis
+
+All CFD competitive intelligence entries should include:
+- `confidence: 2-3/5` (based on evidence tier from public sources + user validation)
+- Evidence source (G2 reviews, pricing pages, user interviews, etc.)
+- Forward target: "Would move to 4/5 if we validate gap with 5+ target users"
+
+Example competitive intelligence entry:
+```markdown
+CFD-042: Competitive Intelligence — Competitor Landscape Analysis
+
+Type: Competitive Intelligence
+Date: 2026-02-01
+Confidence: 3/5 (source: public-research + 3-customer-interviews)
+Competitors Analyzed: 4 direct + 2 adjacent
+Primary Gap: All competitors require enterprise licensing; SMB segment underserved
+
+Feature Matrix: [Link to matrix]
+1% Hypothesis: "SMB sales teams can get 80% of [Competitor A] features for 40% of price"
+Evidence:
+  - CFD-001: 3 SMB teams paying $500/mo but using only 5 of 20 features
+  - CFD-015: Value hypothesis shows $12,500/year need for core 5 features only
+Next Target: "Would move to 4/5 if we validate with 5+ SMB prospects willing to pay $200/mo"
+```
 
 ## Workflow Overview
 

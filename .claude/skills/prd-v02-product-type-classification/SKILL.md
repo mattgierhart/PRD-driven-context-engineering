@@ -7,6 +7,47 @@ description: Classify product approach into one of six types (Clone, Unbundle, U
 
 Position in HORIZON workflow: v0.2 Competitive Landscape → **v0.2 Product Type Classification** → v0.3 Outcome Definition
 
+## Consumes
+
+This skill requires prior work from v0.2:
+
+- **Landscape map artifact** (from Competitive Landscape Mapping) — Current behavior documentation, feature matrix, competitor analysis
+- **CFD-*** entries** (competitive intelligence, from Competitive Landscape Mapping) — Evidence from 3+ direct competitors + adjacent solutions
+- **BR-*** positioning rules** (from Competitive Landscape Mapping) — Constraints derived from competitive analysis
+
+This skill assumes v0.2 Competitive Landscape is complete with documented landscape analysis.
+
+## Produces
+
+This skill creates/updates:
+
+- **BR-*** entries** (product type classification) — Decision record showing which of the six types this product is
+- **BR-*** entries** (GTM constraints inherited from type) — Pricing, channel, scope, and timeline implications of the chosen type
+- **Product type artifact** — Named decision: "We are building a [Type] product because [specific evidence from landscape]"
+
+Example product type classification entry:
+```markdown
+BR-042: Product Type Classification
+
+Type: Classification Decision
+Date: 2026-02-01
+Confidence: 70% (source: competitive-landscape-analysis + 3-customer-interviews)
+
+Classification: UNDERCUT
+Rationale: All 3 direct competitors (Notion, Linear, Figma) serve enterprise/mid-market first; SMB segment underserved. We can deliver 80% of feature set at 40% price for SMB-specific workflows.
+
+Evidence:
+  - CFD-015 (landscape): "All competitors start at $50/user/month enterprise pricing"
+  - CFD-018 (landscape): "3 SMB teams using workarounds because pricing doesn't fit budget"
+  - CFD-001 (value hypothesis): "$12,500/year value for 5 core features only"
+
+GTM Constraints (inherited):
+  - Pricing: Must be <$200/user/month to justify switching
+  - Channel: Direct sales to SMB, not marketplace/enterprise
+  - Scope: Ruthlessly cut features; 5 core + 3 differentiators max
+  - Timeline: Fast iteration with SMB feedback; can't outspend enterprise marketing
+```
+
 ## Six Product Types
 
 | Type | Definition | When Evidence Shows |

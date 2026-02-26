@@ -11,9 +11,168 @@ description: >
 
 Position in workflow: v0.9 GTM Strategy → **v0.9 Launch Metrics** → v0.9 Feedback Loop Setup
 
-## Purpose
+## Consumes
 
-Define how launch success is measured—specific metrics, targets, tracking infrastructure, and the dashboards that make progress visible.
+This skill requires prior work from v0.3-v0.9:
+
+- **KPI-*** outcome entries from v0.3** (from v0.3 Outcome Definition) — Baseline KPI- entries define success metrics for the product; launch-specific KPI- entries are calibrated variants
+- **GTM-*** campaign specifications** (from v0.9 GTM Strategy) — GTM channels inform launch-specific KPI- tracking (e.g., Product Hunt channel → KPI for PH-originated signups); timeline defines metric collection windows (Day 1, Day 7, Day 30, Day 90)
+- **BR-*** product type** (from v0.2 Product Type Classification) — Product type (Clone/Unbundle/Undercut/Slice/Innovation) determines metric targets and benchmarks (Fast Follow = higher activation expected, lower retention)
+- **CFD-*** market benchmarks** (from v0.1-v0.2 research) — Competitive analysis and market data inform realistic KPI- targets (e.g., "developer tools average 30-50% activation")
+- **DEP-*** deployment infrastructure** (from v0.8 Release Planning) — Deployment baselines from staging inform KPI- thresholds (e.g., error rate baseline → activation threshold)
+- **MON-*** monitoring setup** (from v0.8 Monitoring Setup) — Infrastructure metrics (latency, error rate) inform KPI- dashboards and alert conditions during launch
+
+This skill assumes GTM- entries are complete and tracking infrastructure is configured.
+
+## Produces
+
+This skill creates/updates:
+
+- **KPI-*** launch-specific entries** (launch metrics with targets and thresholds) — Funnel metrics (Reach → Acquisition → Activation → Retention → Revenue → Referral) with Day 1/7/30/90 targets, action thresholds (Red/Yellow/Green), and channel attribution
+- **Launch dashboard specification** — Visual layout and refresh rate for real-time launch monitoring; links KPI- to MON- infrastructure
+- **Metric tracking schema** — Event definitions and tracking setup for conversion funnel
+
+All KPI- entries for launch are **measurement specifications**, not confidence-based. They are:
+- **Actionable** (Red/Yellow/Green thresholds trigger specific responses)
+- **Calibrated** (targets account for product type and market benchmarks from CFD-)
+- **Traceable** (each KPI- links to GTM- channels and v0.3 baseline KPI-XX)
+- **Measurable** (specific event tracking, data sources, calculation formulas)
+- **Time-bound** (explicit timeframes: Day 1, Week 1, Month 1)
+
+Example KPI- entries:
+```markdown
+KPI-101: Website Visitors (Launch Week)
+Tier: Tier 3 (Leading)
+Category: Reach
+Stage: Launch (v0.9)
+Owner: Growth Team
+
+Definition: Unique visitors to marketing website from all GTM- channels
+Unit: count
+Source: Google Analytics 4 / Plausible
+
+Targets:
+  Day 1: 5,000 (from GTM-002 PH expectations + GTM-007 paid channel)
+  Day 7: 25,000 (cumulative from all GTM channels)
+  Day 30: 50,000 (post-launch momentum)
+  Day 90: 100,000
+
+Evidence: CFD-025 (competitor benchmarks show 5-10% market awareness for Fast Follow), CFD-008 (our GTM reach model projects this based on channel scale)
+Product Type Calibration: Fast Follow — higher reach expected due to known category
+
+Tracking:
+  Dashboard: Launch Dashboard > Reach panel
+  Alert: <1,000 on Day 1 (channel distribution problem)
+
+Action Thresholds:
+  Red: <2,500 Day 7 (channel underperformance)
+  Yellow: <20,000 Day 7 (80% of target)
+  Green: >25,000 Day 7
+
+GTM Connection: GTM-002 (Product Hunt), GTM-007 (Website), GTM-008 (Paid ads), GTM-010 (Email)
+v0.3 KPI Link: N/A (launch-specific)
+
+---
+
+KPI-102: Trial Signups
+Tier: Tier 2 (Conversion)
+Category: Acquisition
+Stage: Launch (v0.9)
+Owner: Product Team
+
+Definition: Completed signup flow (email verified, profile created)
+Unit: count
+Source: Application database + Mixpanel
+
+Targets:
+  Day 1: 500 (5-10% conversion from reach)
+  Day 7: 2,000 (extrapolated from Day 1 + momentum)
+  Day 30: 5,000 (post-launch plateau)
+  Day 90: 15,000 (month 3 growth)
+
+Evidence: CFD-030 (developer SaaS benchmarks show 5-10% landing-to-signup), CFD-031 (our onboarding tested with 8% conversion)
+Product Type Calibration: Fast Follow = 8-10% expected (higher than average because users understand category)
+
+Tracking:
+  Event: signup_completed { source, campaign_id, user_segment }
+  Dashboard: Launch Dashboard > Acquisition panel
+  Alert: Conversion rate <5%
+
+Action Thresholds:
+  Red: <100 Day 1 (messaging/channel mismatch — escalate GTM)
+  Yellow: <400 Day 1 (funnel friction — investigate landing page)
+  Green: >500 Day 1
+
+GTM Connection: GTM-002, GTM-004 (Landing Page), GTM-005 (Email), GTM-008 (Ads)
+v0.3 KPI Link: KPI-001 (Trial Signups baseline from Outcome Definition)
+
+---
+
+KPI-103: Activation Rate (First Value Achievement)
+Tier: Tier 1 (Critical)
+Category: Activation
+Stage: Launch (v0.9)
+Owner: Product Team
+
+Definition: % of signups who complete first core action (generate code suggestion) within 24h
+Unit: percentage
+Source: Mixpanel + Application events
+
+Targets:
+  Day 1: 40% (from CFD-035 developer tool benchmarks)
+  Day 7: 45% (slight improvement with onboarding refinement)
+  Day 30: 50% (post-launch optimizations)
+  Day 90: 55% (mature product experience)
+
+Evidence: CFD-035 (activation benchmarks for dev tools: 30-50%), CFD-015 (our UJ-001 usability test showed 45% completed core action)
+Product Type Calibration: Fast Follow = higher baseline (users already understand AI coding assists)
+
+Tracking:
+  Event: first_value_achieved { user_id, action_type, time_to_value_seconds }
+  Dashboard: Launch Dashboard > Activation panel
+  Alert: Drops below 30% (onboarding broken)
+
+Action Thresholds:
+  Red: <25% (product experience broken — pause marketing, investigate UJ-001)
+  Yellow: <35% (friction in onboarding — iterate SCR-001/002)
+  Green: >45% (strong PMF signal)
+
+GTM Connection: Quality indicator for all GTM- channels (tells us if messaging matches product)
+v0.3 KPI Link: KPI-002 (Activation Rate from Outcome Definition)
+
+---
+
+KPI-104: Day 7 Retention
+Tier: Tier 1 (Critical)
+Category: Retention
+Stage: Launch (v0.9)
+Owner: Product Team
+
+Definition: % of Day 0 signups who return and take an action on Day 7
+Unit: percentage
+Source: Mixpanel cohort analysis
+
+Targets:
+  Day 7: 25% (from CFD-040 B2B SaaS benchmarks)
+  Day 30: 20% of original (cohort retention)
+  Day 90: 15% of original (monthly cohort)
+
+Evidence: CFD-040 (B2B SaaS D7 retention benchmarks 20-30%), CFD-015 (our beta test: 22% D7 retention with 50 users)
+Product Type Calibration: Fast Follow = critical (users can easily switch back to competitors) — retention signal validates PMF
+
+Tracking:
+  Event: session_start { user_id, cohort_day }
+  Dashboard: Launch Dashboard > Retention panel
+  Alert: Day 7 retention <15% (fundamental problem)
+
+Action Thresholds:
+  Red: <15% (product-market fit issue — consider pivot in features, messaging)
+  Yellow: <20% (value delivery problem — investigate UJ-/feature completeness)
+  Green: >30% (strong retention, ready for growth)
+
+GTM Connection: Quality indicator for all GTM- channels
+v0.3 KPI Link: KPI-003 (Retention Rate from Outcome Definition)
+```
 
 ## Core Concept: Metrics as North Star
 

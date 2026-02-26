@@ -11,9 +11,148 @@ description: >
 
 Position in workflow: v0.8 Runbook Creation → **v0.8 Monitoring Setup** → v0.9 GTM Strategy
 
-## Purpose
+## Consumes
 
-Define what to measure, when to alert, and how to visualize system health—creating the observability foundation that enables rapid incident detection and resolution.
+This skill requires prior work from v0.8 Runbook Creation and earlier stages:
+
+- **RUN-*** runbook entries** (from v0.8 Runbook Creation) — Incident response runbooks define alerting scenarios; critical alerts must link to RUN- procedures
+- **DEP-*** deployment entries** (from v0.8 Release Planning) — DEP- rollback thresholds and post-deploy validation steps inform MON- alert conditions and SLO targets
+- **API-*** endpoint contracts** (from v0.6 Technical Specification) — Define baseline latency, throughput, and error rates for application-layer metrics
+- **KPI-*** metrics** (from v0.3 Outcome Definition and v0.9 Launch Metrics) — Business metrics (signups, conversions, retention) inform dashboard design and business layer monitoring
+- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure determines which components to monitor (monolith has different metrics than distributed services)
+- **TECH-*** technology stack** (from v0.5 Technical Stack Selection) — Technology choices (database, cloud provider, APM tools) determine available metrics and monitoring tools
+
+This skill assumes DEP- and RUN- entries are complete with thresholds, rollback conditions, and incident procedures defined.
+
+## Produces
+
+This skill creates/updates:
+
+- **MON-*** entries** (monitoring specifications, metric/alert/dashboard/SLO types) — Concrete monitoring rules with thresholds, alert conditions, dashboards, SLO definitions, linked to RUN- procedures
+- **Alert routing configuration** — Mapping of MON- alerts to notification channels and teams; links alerts to RUN- incident procedures
+- **Observability baseline** — Metrics gathered from staging/production, establishing normal operating ranges for alert thresholds
+
+All MON- entries are **operational monitoring specifications**, not confidence-based. They are:
+- **Measurable** (every metric has a source, unit, and aggregation method)
+- **Actionable** (every alert has a RUN- procedure; no orphaned alerts)
+- **Thresholded** (critical/warning severity with specific numeric conditions)
+- **Dashboarded** (MON- dashboard entries provide visibility to operators and stakeholders)
+- **SLO-backed** (SLO entries tie monitoring to product commitments)
+
+Example MON- entries:
+```markdown
+MON-001: API Request Latency (p95)
+Type: Metric
+Layer: Application
+Owner: Backend Team
+
+Name: api.request.latency.p95
+Description: 95th percentile response time for all API endpoints (from API-001–020)
+Unit: ms
+Source: Application APM (Datadog custom instrumentation)
+Aggregation: p95 over 5-minute window
+Retention: 90 days
+
+Linked IDs: API-001 to API-020, DEP-004 (baseline from staging)
+
+---
+
+MON-002: High Latency Alert (Warning)
+Type: Alert
+Layer: Application
+Owner: Backend Team
+
+Metric: MON-001 (api.request.latency.p95)
+Condition: >500ms (from DEP-002 baseline)
+Window: 5 minutes
+Severity: Warning
+Runbook: RUN-001 (Performance Degradation Investigation)
+
+Notification:
+  - Channel: Slack #backend-alerts
+  - Recipients: Backend on-call, team notified during business hours
+
+Silencing: During scheduled maintenance windows (DEP-004 notifications)
+
+Linked IDs: MON-001, RUN-001, DEP-002
+
+---
+
+MON-003: Critical Latency Alert
+Type: Alert
+Layer: Application
+Owner: Backend Team
+
+Metric: MON-001 (api.request.latency.p95)
+Condition: >2000ms (SLA breach, from KPI-001 target)
+Window: 2 minutes
+Severity: Critical
+Runbook: RUN-001 (Performance Degradation Investigation)
+
+Notification:
+  - Channel: PagerDuty (wake on-call)
+  - Recipients: Backend on-call, Tech Lead, escalate if not acknowledged in 5 min
+
+Silencing: None (critical alerts never silenced)
+
+Linked IDs: MON-001, RUN-001, KPI-001
+
+---
+
+MON-004: API Availability SLO
+Type: SLO
+Layer: Application
+Owner: Platform Team
+
+Objective: API endpoints return non-5xx response
+Target: 99.9% uptime (from DEP-002 / KPI-001)
+Window: Rolling 30 days
+Error Budget: 43.2 minutes/month
+
+Alerting:
+  - 50% error budget consumed → Warning to engineering (slow-burn alert)
+  - 75% error budget consumed → Critical, freeze non-essential deploys
+  - 100% error budget consumed → Post-incident review required (RUN-008 procedure)
+
+Linked IDs: API-001–020, DEP-003 (rollback triggers), RUN-008 (incident review)
+
+---
+
+MON-005: System Health Dashboard
+Type: Dashboard
+Layer: Infrastructure + Application
+Owner: Platform Team
+
+Purpose: Quick health check for on-call engineers (run from RUN-002, RUN-001)
+Audience: On-call engineers, engineering leadership, ops team
+Panels:
+  - API Request Rate (last 1h): Should be steady or increasing
+  - API Latency (p50, p95, p99): Watch for p95/p99 creeping up
+  - Error Rate by Endpoint: Any 5xx > 0 is concerning
+  - Active Critical Alerts: Should be none
+  - Database Connection Pool (from MON-006): Trending toward threshold
+  - CPU/Memory by Service: Identify resource exhaustion
+  - Deployment Status: Current version, time of last deploy
+Refresh: 30 seconds
+
+Linked IDs: MON-001, MON-002, MON-003, MON-006, DEP-001, RUN-001/002
+
+---
+
+MON-006: Database Connection Pool Utilization
+Type: Metric
+Layer: Infrastructure
+Owner: Database Team
+
+Name: db.connection_pool.utilized_percent
+Description: Percentage of available connections in use (from DEP-001 pool size)
+Unit: percentage
+Source: Database monitoring (RDS Enhanced Monitoring or custom query)
+Aggregation: avg over 1-minute window
+Retention: 30 days
+
+Linked IDs: DEP-001 (pool config), RUN-001 (incident when >90%)
+```
 
 ## Core Concept: Monitoring as Early Warning
 

@@ -5,9 +5,36 @@ description: Define and prioritize features with strategic traceability during P
 
 # Feature Value Planning
 
-Position in HORIZON workflow: v0.3 Market Moat Analysis → **v0.3 Feature Value Planning** → v0.4 User Journeys
+Position in workflow: v0.3 Commercial Model → **v0.3 Feature Value Planning** → v0.4 User Journeys
 
-Features are the unit of value. Every feature must trace back to why it exists (outcome, moat, competitive position, or pricing tier).
+Features are the unit of scope. Every feature must trace back to why it exists: outcome, moat, competitive position, or pricing tier.
+
+## Consumes
+
+This skill requires prior work from v0.1-v0.3:
+
+- **CFD-*** entries** (customer feedback, from v0.1-v0.2) — Evidence for what users need/want
+- **KPI-*** entries** (outcome definitions, from v0.3 Outcome Definition) — What metrics does each feature support
+- **BR-*** moat entries** (from v0.3 Moat Definition) — What features defend our competitive position
+- **BR-*** pricing entries** (from v0.3 Pricing Model) — What features differentiate tiers
+- **Market landscape analysis** (from v0.2) — Competitive feature comparison
+
+This skill assumes v0.1-v0.2 research is complete and risk/tech decisions (v0.5) are not yet made.
+
+## Produces
+
+This skill creates/updates:
+
+- **FEA-*** entries** (feature definitions, with confidence scoring) — Every feature in scope with traceability
+- **BR-FEA-*** entries** (governance rules for feature decisions) — Scope protection rules
+- **MVP-SCOPE artifact** — Explicit list: "These X features (FEA-001, FEA-005, FEA-008) define our MVP"
+  - Example: `MVP-SCOPE: 5 P0 features + 3 P1 features = 8 total. Rationale: Delivers value on [KPI-001, KPI-002]. Competitive parity [FEA-001-003], Delta [FEA-004], Pricing [FEA-005]`
+  - This becomes the definition for v0.4 user journeys and v0.7 build scope
+
+All FEA- entries include confidence:
+- `confidence: 2-3/5` (based on CFD- evidence strength)
+- Evidence: "CFD-001, CFD-005, competitive-analysis"
+- Forward target: "Would move to 4/5 if beta cohort uses it"
 
 ## Feature Classification Framework
 
@@ -124,14 +151,17 @@ Enforcement: [When/how applied]
 
 ## Downstream Connections
 
-FEA- entries feed into:
+This skill's outputs feed into multiple downstream skills:
 
-| Consumer | What It Uses | Example |
-|----------|--------------|---------|
-| **v0.4 User Journeys** | Features become journey steps | UJ-001 uses FEA-001, FEA-003 |
-| **v0.5 Red Team** | Feature risk assessment | "FEA-002 has technical risk" |
-| **v0.7 Build Execution** | EPIC scope definition | EPIC-01 delivers FEA-001–005 |
-| **v0.9 GTM** | Feature-based messaging | "Launch with FEA-002 (delta)" |
+| Consumer | Consumes | Purpose |
+|----------|----------|---------|
+| **v0.4 User Journeys** | FEA-* entries + MVP-SCOPE artifact | Design journey paths through MVP features |
+| **v0.5 Red Team Review** | FEA-* entries | Assess technical/risk feasibility of features |
+| **v0.6 Architecture** | FEA-* entries + MVP-SCOPE | Design system that supports MVP features |
+| **v0.7 Build Execution** | FEA-* entries + MVP-SCOPE | Define EPIC scope (which features = which EPICs) |
+| **v0.9 GTM** | FEA-* entries (especially Delta) | Build launch messaging around delta features |
+
+**Critical handoff**: The MVP-SCOPE artifact is the boundary. Everything in the list goes to v0.4+. Everything outside gets deferred to post-launch backlog.
 
 ## Detailed References
 

@@ -2,7 +2,7 @@
 
 Use for Replace, Build, Buy, Integrate, and Research decisions.
 
-```markdown
+```
 TECH-XXX: [Technology/Capability Name]
 Category: [Replace | Build | Buy | Integrate | Research]
 Layer: [Derived from capability area — e.g., AI/ML, Database, Auth, Infrastructure]
@@ -23,7 +23,7 @@ Trade-offs:
   - Pro: [Key advantage]
   - Con: [Key disadvantage]
 
-Cost: [Pricing model and estimated cost at your current stage. For MVP/early stage, optimize for time-to-market over cost. Cost optimization comes after product-market fit.]
+Cost: [Pricing model, estimated cost at current scale AND 10x scale]
 Integration Complexity: [Low | Medium | High]
 Lock-in Risk: [Low | Medium | High — explain mitigation if Medium/High]
 
@@ -43,7 +43,7 @@ Product Family Notes: [Shared infrastructure, reuse decisions, cross-product imp
 ## Category Selection Guide
 
 | If... | Category is... |
-| --- | --- |
+|-------|----------------|
 | Existing asset is wrong for this product | Replace |
 | This is a core differentiator, nothing fits | Build |
 | Proven solutions exist, not differentiating | Buy |
@@ -54,7 +54,7 @@ Product Family Notes: [Shared infrastructure, reuse decisions, cross-product imp
 
 - [ ] Purpose is clear and tied to FEA- entries
 - [ ] Alternatives have been considered (at least 2)
-- [ ] Cost is realistic for your stage (MVP prioritizes time-to-market, not cost optimization)
+- [ ] Cost is realistic (not just free tier — include 10x scale)
 - [ ] Trade-offs are acknowledged honestly
 - [ ] Does not conflict with any RISK- entry
 - [ ] Cross-references are bidirectional (TECH → FEA, TECH → RISK)

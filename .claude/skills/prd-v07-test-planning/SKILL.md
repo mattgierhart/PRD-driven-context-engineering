@@ -7,6 +7,93 @@ description: Define test cases BEFORE implementation, ensuring every API, busine
 
 Position in workflow: v0.7 Epic Scoping → **v0.7 Test Planning** → v0.7 Implementation Loop
 
+## Consumes
+
+This skill requires prior work from v0.7 Epic Scoping and v0.6 specifications:
+
+- **EPIC-*** entries** (from v0.7 Epic Scoping) — EPIC scope defines test boundaries; test plan must cover all APIs/BRs/UJs within EPIC Context & IDs section
+- **API-*** endpoint contracts** (from v0.6 Technical Specification) — Each endpoint has request/response shape and error codes that must be tested
+- **DBT-*** data model specifications** (from v0.6 Technical Specification) — Schema constraints, relationships, and business rules enforce data integrity tests
+- **BR-*** business rules** (from v0.3 Commercial Model) — Each rule must have at least one test verifying positive (rule allows) and negative (rule blocks) cases
+- **UJ-*** user journey entries** (from v0.4 User Journeys) — Critical journeys need E2E tests verifying complete flow from trigger to value moment
+
+This skill assumes EPIC- entries are complete with full API-/DBT-/BR-/UJ- references in Context & IDs section.
+
+## Produces
+
+This skill creates/updates:
+
+- **TEST-*** entries** (test case specifications, automation path) — Concrete, verifiable test cases with Given-When-Then format, test type, and coverage mapping to upstream IDs
+- **Test coverage matrix** (per EPIC) — Validation showing every API- endpoint, BR- rule, and core UJ- journey has TEST- entries; identifies gaps
+- **Test automation specification** — For each Critical/High priority TEST-, identifies test file path and automation framework (unit/integration/E2E)
+
+All TEST- entries are **acceptance criteria specifications**, not confidence-based. They are:
+- **Derivable from upstream IDs** (every TEST- ties to specific API-/BR-/UJ-/DBT-)
+- **Executable** (Given-When-Then format is testable; automation paths are specified)
+- **Complete for acceptance** (passing all TEST- for EPIC means EPIC is done)
+- **Focused on behavior** (tests what the system does, not implementation details)
+
+Example TEST- entry (API endpoint test):
+```markdown
+TEST-001: User creation succeeds with valid data
+Type: Integration
+Tests: API-001 (POST /users), BR-001 (email uniqueness), DBT-010 (users table)
+EPIC: EPIC-01
+
+Given: No user with email "test@example.com" exists, database ready
+When: POST /api/users with { email: "test@example.com", password: "Valid123!" }
+Then:
+  - Response status: 201 Created
+  - Response body contains user id and email
+  - User record exists in DBT-010 (users table)
+  - Password is hashed, not plaintext
+  - Email verification email queued
+
+Validation Method: Automated
+Automation: tests/api/users.test.ts (Integration test)
+Priority: Critical
+```
+
+Example TEST- entry (Business rule test):
+```markdown
+TEST-005: Password validation enforces minimum length
+Type: Unit
+Tests: BR-002 (password requirements)
+EPIC: EPIC-01
+
+Given: Password validation function configured per BR-002
+When: Validate password "weak" (length 4)
+Then:
+  - Returns validation failure
+  - Error message: "Password must be at least 8 characters"
+  - No user record created
+
+Validation Method: Automated
+Automation: tests/unit/validation.test.ts
+Priority: High
+```
+
+Example TEST- entry (User journey E2E test):
+```markdown
+TEST-010: Onboarding journey completes successfully
+Type: E2E
+Tests: UJ-000 (onboarding), API-001 (signup), API-002 (login), SCR-001 (dashboard)
+EPIC: EPIC-01
+
+Given: New user on signup page, all services ready
+When: User enters email/password → submits → verifies email → enters profile info → confirms
+Then:
+  - User redirected to dashboard (SCR-001)
+  - Welcome message displayed with user name
+  - User session is active and persisted
+  - KPI-001 (activation) event tracked with timestamp
+  - UJ-000 completion confirmed
+
+Validation Method: Both (Automated + manual verification of final state)
+Automation: tests/e2e/onboarding.spec.ts
+Priority: Critical
+```
+
 ## Core Principle: Test-First
 
 > Tests are not an afterthought. They are the **contract** that defines what "done" means.

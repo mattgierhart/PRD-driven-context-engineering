@@ -9,6 +9,61 @@ Position in workflow: v0.3 Feature Value Planning → **v0.4 Persona Definition*
 
 Personas are not demographic profiles—they are behavioral models synthesized from evidence. Every persona must trace back to CFD- research, BR- targeting rules, and FEA- features they care about.
 
+## Consumes
+
+This skill requires prior work from v0.1-v0.3:
+
+- **CFD-*** problem statements and pain points** (from v0.1 Problem Framing) — Behavioral signals about what users struggle with
+- **CFD-*** value hypotheses** (from v0.1 User Value Articulation) — Evidence about what users want to accomplish
+- **CFD-*** competitive intelligence and segment gaps** (from v0.2 Competitive Landscape) — Market segmentation and underserved signals
+- **BR-*** targeting rules** (from v0.3 Moat Definition) — Constraints on which segments to pursue (switchers vs. new-to-category, etc.)
+- **BR-*** product type classification** (from v0.2 Product Type Classification) — Determines which personas matter (Clone = feature parity users; Undercut = price-sensitive niche)
+- **FEA-*** entries** (from v0.3 Features Value Planning) — Feature list to validate which features each persona cares about
+- **MVP-SCOPE artifact** (from v0.3 Features Value Planning) — The explicit list of features defining MVP; personas map to MVP feature set only
+
+This skill assumes v0.1-v0.3 work is complete.
+
+## Produces
+
+This skill creates/updates:
+
+- **PER-*** entries** (persona definitions, confidence 2-3/5) — Behavioral profiles tied to CFD/BR/FEA evidence with acquisition channels and pricing sensitivity
+- **Persona coverage artifact** — Map of which personas are Primary/Secondary and which product type segments they represent
+
+All PER- entries should include:
+- `confidence: 2-3/5` (based on evidence tier from CFD interviews and BR targeting decisions)
+- Evidence source citations (CFD-ID references + BR-ID targeting rules)
+- Forward target: "Would move to 4/5 if we validate persona behaviors with 5+ actual customers"
+
+Example PER- entry with confidence:
+```markdown
+PER-001: The Overwhelmed Ops Manager
+Source IDs: CFD-003 (pain: manual tracking), CFD-012 (value: automation), BR-041 (targeting: switchers at renewal)
+Type: Primary
+Confidence: 3/5 (source: 4-customer-interviews-jan-2026 + competitive-landscape confirms segment underserved)
+Segment: SMB SaaS companies (10-50 employees)
+
+Demographics:
+  Role: Operations Manager / Head of Ops
+  Context: Growing startup, wearing multiple hats, no dedicated tools budget
+  Technical Level: Intermediate (comfortable with SaaS, not a developer)
+
+Behavioral Profile:
+  Goals: Reduce time spent on manual reporting (CFD-012)
+  Frustrations: Current tools require too much setup (CFD-003)
+  Decision Factors: Ease of use > feature count, must show ROI to CEO (CFD-025)
+  Current Workflow: Spreadsheets + manual data entry + weekly report compilation
+
+Product Relationship:
+  Primary Value: CFD-012 ("Save 5 hours/week on reporting")
+  Key Features: FEA-001 (auto-sync), FEA-003 (one-click reports), FEA-007 (dashboard) — all in MVP-SCOPE
+  Pricing Sensitivity: BR-030 (SMB tier ≤$50/mo)
+  Acquisition Channel: BR-041 (target at contract renewal of competing tools)
+
+Marketing Hook: "Stop building reports. Start using them."
+Next Target: "Would move to 4/5 if 5+ actual SMB ops managers validate this behavior in paid usage"
+```
+
 ## Core Constraint
 
 **Maximum 5 personas. Most products need 1-2.**

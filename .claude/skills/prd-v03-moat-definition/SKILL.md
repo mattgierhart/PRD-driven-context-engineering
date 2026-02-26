@@ -7,6 +7,58 @@ description: Assess competitor defensibility and define our own moat strategy du
 
 Position in HORIZON workflow: v0.2 Competitive Landscape → **v0.3 Moat Definition** → v0.3 Pricing Model Selection
 
+## Consumes
+
+This skill requires prior work from v0.2:
+
+- **Landscape map artifact** (from Competitive Landscape Mapping) — Current behavior documentation, feature matrix, competitor analysis
+- **CFD-*** entries** (competitive intelligence, from Competitive Landscape Mapping) — Documented competitors with pricing, features, user feedback
+- **BR-*** product type entry** (from Product Type Classification) — Classification constrains which competitors are relevant to analyze
+
+This skill assumes v0.2 analysis is complete with documented competitors.
+
+## Produces
+
+This skill creates/updates:
+
+- **CFD-*** entries** (competitor moat analysis) — Assessment of each competitor's defensibility by moat type
+- **BR-*** entries** (targeting rules) — Constraints derived from moat analysis, defining where to compete vs. avoid
+- **Moat strength inventory artifact** — Summary of competitor moats with vulnerability signals
+
+All CFD moat analysis entries should include:
+- `confidence: 2-3/5` (based on public evidence + user interviews about switching friction)
+- Evidence source (pricing pages, reviews, customer interviews)
+- Forward target: "Would move to 4/5 if we interview 5+ current/former customers about switching costs"
+
+Example moat analysis entry:
+```markdown
+CFD-055: Competitor Moat Analysis — Notion
+
+Competitor: Notion
+Primary Moat Type: Switching Costs (data lock-in)
+Moat Strength Tier: Strong
+Confidence: 3/5 (source: public-research + 2-user-interviews)
+Date: 2026-02-01
+
+Switching Cost Quantification:
+  - Financial: Multi-year contract, no early termination ($0 direct cost)
+  - Time/Effort: 20+ hours migration, team retraining
+  - Data Migration: Proprietary database format (complex export)
+  - Workflow Retraining: Unique templates, team habits
+  - Integration Rework: Deep Slack/GitHub dependencies
+
+Total Switching Cost: $3K in labor + 20 hours = Material friction
+Moat Verdict: Strong — switching costs >$3K + meaningful time investment
+
+Vulnerability Signal: SMB segment with small teams; they use <20% of feature set (opportunity for simpler tool)
+Targeting Decision: Avoid direct competition. Wedge in SMB with simplified, cheaper offering.
+
+Evidence:
+  - CFD-042 (landscape): Reviews show enterprise love; SMB complaints focus on cost + complexity
+  - CFD-015 (value hypothesis): SMB would save $12,500/year with simpler tool
+Next Target: "Would move to 4/5 if we interview 5+ SMB teams about exact switching cost dollars"
+```
+
 ## Moat Type Taxonomy
 
 Every moat falls into one of six types. Identify primary + secondary moats per competitor:

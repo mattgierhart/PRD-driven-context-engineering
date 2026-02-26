@@ -9,6 +9,87 @@ Position in workflow: v0.5 Technical Stack Selection → **v0.6 Architecture Des
 
 Architecture defines how your system components connect. This skill transforms stack selections into a coherent system design with explicit boundaries and integration patterns.
 
+## Consumes
+
+This skill requires prior work from v0.3-v0.5:
+
+- **TECH-*** technology decisions** (from v0.5 Technical Stack Selection) — Tech choices become components; Build items become internal services, Buy/Integrate items become external connections
+- **RISK-*** risk entries** (from v0.5 Risk Discovery Interview) — High-priority RISK-* entries must have architectural mitigations; drives design decisions on failover, security, scaling
+- **FEA-*** feature entries** (from v0.3 Features Value Planning) — Features determine what components must be built; complex features may require distributed patterns
+- **ARC-*** existing architecture decisions** (from prior products if brownfield) — Inherited patterns constrain new designs (monolith with microservice, library reuse, auth pattern, etc.)
+
+This skill assumes v0.5 Technical Stack Selection is complete with TECH- entries providing technology foundations.
+
+## Produces
+
+This skill creates/updates:
+
+- **ARC-*** entries** (architecture decisions, status-based) — Decisions for structure, integration, security, performance, data, DevOps with rationale, alternatives considered, and consequences. No confidence scores; decisions have Status: Proposed/Accepted/Superseded
+- **System boundary diagram** — Visual representation showing trust boundaries, components, and external integrations
+- **RISK-to-Architecture mapping** — Validation showing every high-priority RISK-* has corresponding ARC-* mitigation or explicit acceptance
+
+All ARC- entries should include:
+- **Category**: Structure/Integration/Security/Performance/Data/DevOps
+- **Context**: What prompted this decision (derived from TECH-/RISK-/FEA- inputs)
+- **Decision**: What was chosen
+- **Rationale**: Why (not just what)
+- **Alternatives Rejected**: Options considered and why not chosen
+- **Consequences**: What this enables and constrains
+- **Related IDs**: TECH-XXX, RISK-XXX, FEA-XXX references
+
+Example ARC- entry (Structure):
+```markdown
+ARC-001: Monolith with Module Boundaries
+Category: Structure
+Context: Team of 2 developers; unclear domain boundaries at v0.6; TECH-001 (Next.js) supports monolith pattern
+Decision: Single Next.js application with domain-based module folders (auth/, reports/, data-sources/), clear module interfaces
+
+Rationale:
+  - TECH-001 (Next.js) designed for monoliths
+  - Avoids ops complexity of microservices
+  - Can extract services later when scaling needs emerge
+  - Enables fast iteration for MVP
+
+Alternatives Rejected:
+  - Microservices: Premature (team too small); adds ops burden
+  - Serverless: Harder to share code; cold start latency concerns (impacts UJ-001 response time)
+  - Layered monolith: Less clear boundaries; module pattern better for future extraction
+
+Consequences:
+  - Enables: Fast iteration, simple deployment, shared state across domains
+  - Constrains: Single scaling unit (can't scale auth independently); must be disciplined about module boundaries
+
+Related IDs: TECH-001 (Next.js), RISK-005 (scaling concerns), FEA-001..FEA-020 (all features in one deployment)
+Status: Accepted
+```
+
+Example ARC- entry (Security, addressing RISK-):
+```markdown
+ARC-005: JWT with HTTP-Only Cookies
+Category: Security
+Context: Need session management for authenticated users; RISK-008 (security compliance) and TECH-003 (Clerk auth) guide this
+Decision: JWTs stored in HTTP-only cookies, 1-hour expiry, refresh via /refresh endpoint
+
+Rationale:
+  - HTTP-only prevents XSS token theft (mitigates RISK-008 surface area)
+  - Short expiry limits damage window if token stolen
+  - Refresh flow handles long sessions gracefully
+  - TECH-003 (Clerk) handles token lifecycle, we just enforce storage pattern
+
+Alternatives Rejected:
+  - localStorage: Vulnerable to XSS (RISK-008 violation)
+  - Long-lived tokens: Increases risk exposure time (RISK-008)
+  - Server sessions: Scaling complexity; would require Redis (not in TECH-)
+
+Consequences:
+  - Enables: Stateless auth, horizontal scaling
+  - Constrains: Must handle refresh flow in frontend; logout requires token invalidation
+
+Related IDs: TECH-003 (Clerk handles token generation), RISK-008 (security compliance), BR-010 (auth requirements)
+Status: Accepted
+```
+
+
 ## Architecture Decision Categories
 
 | Category | What It Covers | Example Decisions |

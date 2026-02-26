@@ -7,6 +7,56 @@ description: Define measurable success metrics (KPIs) tied to product type durin
 
 Position in HORIZON workflow: v0.2 Product Type Classification → **v0.3 Outcome Definition** → v0.3 Pricing Model Selection
 
+## Consumes
+
+This skill requires prior work from v0.2:
+
+- **BR-*** product type entry** (from Product Type Classification) — Classification determines which metrics are relevant
+- **CFD-*** entries** (from Problem Framing and Competitive Landscape) — Customer evidence about desired outcomes
+- **Market benchmarks and competitor metrics** — Reference data for Tier 1/2 targets
+
+This skill assumes v0.2 classification is complete.
+
+## Produces
+
+This skill creates/updates:
+
+- **KPI-*** entries** (outcome definitions) — Measurable success metrics tied to product type
+- **BR-*** outcome rules** (optional) — Constraints derived from KPI thresholds (e.g., "Launch blocked if LTV:CAC < 3:1")
+- **Success criteria artifact** — Dashboard of leading + lagging indicators that define product-market fit
+
+All KPI entries should include:
+- `confidence: 2-3/5` (based on benchmark evidence, not just assumptions)
+- Evidence source (competitor benchmarks, CFD validation, industry reports)
+- Forward target: "Would move to 4/5 if we observe real customer data"
+
+Example KPI entry with confidence:
+```markdown
+KPI-001: Time to First Revenue
+
+Type: Tier 1 (Revenue)
+Category: Lagging
+Definition: Days from market signal identification to first paying customer
+Target: ≤14 days
+Confidence: 2/5 (source: GearHeart-methodology + 0-customer-validation)
+Evidence: BR-001 (GearHeart standard); No pre-customer validation yet
+Next Target: "Would move to 4/5 if actual customer reaches paying status in ≤14 days"
+Downstream Gate: v0.5 Red Team — if not hit by Day 21, evaluate pivot
+
+---
+
+KPI-002: Conversion Rate (Trial → Paid)
+
+Type: Tier 2 (Leading Indicator)
+Category: Leading
+Definition: (Paid customers / Trial signups) × 100, measured over 60-day trial period
+Target: ≥15% (benchmark: SaaS median 10-15%)
+Confidence: 3/5 (source: SaaS-benchmarks + 1-SMB-validation-conversation)
+Evidence: CFD-042 (competitive landscape shows SMB conversion patterns)
+Next Target: "Would move to 4/5 if we see actual cohort conversion in our product"
+Downstream Gate: v0.7 Build Execution — EPIC complete when KPI-002 validated
+```
+
 ## Metric Quality Hierarchy
 
 Not all metrics are equal. Use this tier system:

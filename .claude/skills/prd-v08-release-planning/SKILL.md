@@ -11,9 +11,100 @@ description: >
 
 Position in workflow: v0.7 Implementation Loop → **v0.8 Release Planning** → v0.8 Runbook Creation
 
-## Purpose
+## Consumes
 
-Transform completed EPICs into production-ready releases by defining deployment environments, release criteria, rollback triggers, and operational readiness gates.
+This skill requires prior work from v0.7 Implementation Loop and v0.6-v0.9:
+
+- **EPIC-*** completed entries** (from v0.7 Implementation Loop) — Finished work packages define what's being released; must have State=Complete, all TEST- passing
+- **TEST-*** test entries** (from v0.7 Test Planning) — All TEST- must pass in staging before release criteria can be met
+- **API-*** endpoint contracts** (referenced in EPIC Context & IDs) — Define SLA and performance baselines for release criteria
+- **ENV-*** environment specifications** (from v0.6 Environment Setup) — Local/CI/CD/production configurations inform DEP- entries for each environment
+- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure (monolith, microservices, deployment topology) drives environment setup
+- **TECH-*** technology stack** (from v0.5 Technical Stack Selection) — Technology choices inform infrastructure requirements and deployment tooling
+- **RISK-*** high-priority entries** (from v0.5 Risk Discovery) — High RISK- must be mitigated or explicitly accepted before release
+- **KPI-*** metrics** (from v0.3 and v0.9) — Target KPI values inform monitoring baselines and rollback thresholds
+
+This skill assumes v0.7 Implementation is complete with all EPIC- entries marked Complete and all TEST- passing.
+
+## Produces
+
+This skill creates/updates:
+
+- **DEP-*** entries** (deployment specifications, environment/criteria/rollback/validation types) — Release readiness checklist with environment configs, go/no-go criteria, rollback triggers and thresholds, post-deploy validation steps
+- **Release readiness checklist** — Pre-deploy validation matrix showing which DEP- criteria must be met before release proceeds
+- **Rollback decision tree** — Mapping of DEP- rollback triggers to execution procedures and escalation paths (feeds v0.8 Runbook Creation)
+
+All DEP- entries are **operational contracts**, not confidence-based. They are:
+- **Environment-specific** (each environment from staging to production has defined configuration)
+- **Verifiable** (each criterion has a concrete check or metric threshold)
+- **Enforceable** (release stops if DEP- criteria not met)
+- **Traceable** (each DEP- links to EPIC-, TEST-, API-, KPI- that validate it)
+
+Example DEP- entries:
+```markdown
+DEP-001: Production Environment Configuration
+Type: Environment
+Stage: Pre-deploy
+
+Description: AWS production environment setup for application
+Name: production
+Infrastructure: AWS us-east-1, ECS Fargate, RDS PostgreSQL
+Configuration:
+  - NODE_ENV=production
+  - LOG_LEVEL=info
+  - RATE_LIMIT=100/min
+  - METRICS_COLLECTION=enabled
+Secrets: AWS Secrets Manager, rotated monthly
+Access: DevOps team (deploy), On-call (read-only access)
+
+Linked IDs: ARC-001 (monolith structure), TECH-005 (AWS)
+
+---
+
+DEP-002: All Tests Pass in Staging
+Type: Criteria
+Stage: Pre-deploy
+
+Description: Complete test suite must pass in staging environment before production release
+Requirement: All TEST- entries pass with >95% success rate, including smoke tests and E2E tests
+Verification: CI/CD pipeline reports green; test report generated and reviewed
+Blocker: Yes — Release cannot proceed if this fails
+Owner: QA Lead
+
+Linked IDs: TEST-001 to TEST-050 (from EPIC-01 through EPIC-07)
+
+---
+
+DEP-003: Error Rate Rollback Trigger
+Type: Rollback
+Stage: Post-deploy
+
+Description: Automatic rollback if error rate exceeds baseline post-deployment
+Trigger: 5xx error rate exceeds pre-deployment baseline
+Threshold: >2% of requests for 5 minutes (currently 0.5% baseline from MON-001)
+Procedure:
+  1. Alert on-call engineer (PagerDuty)
+  2. Pause traffic to new version
+  3. Revert to pre-deploy git tag
+  4. Investigate root cause
+Notification: #incidents Slack, PagerDuty, Engineering Lead
+
+Linked IDs: MON-001 (error rate metric), RUN-002 (rollback procedure), API-001–020 (endpoints affected)
+
+---
+
+DEP-004: Post-Deployment Smoke Tests
+Type: Validation
+Stage: Post-deploy
+
+Description: Automated smoke tests to verify critical user journeys work post-deployment
+Check: All critical UJ- (UJ-000, UJ-001, UJ-005, UJ-010) complete successfully
+Method: Automated (tests/e2e/smoke.spec.ts) + manual spot-check
+Success Criteria: All journeys complete <2 seconds, no auth failures, data persists
+Escalation: If smoke tests fail, execute DEP-003 rollback and investigate
+
+Linked IDs: UJ-000/001/005/010 (critical journeys), TEST-050 (E2E suite)
+```
 
 ## Core Concept: Release as Contract
 

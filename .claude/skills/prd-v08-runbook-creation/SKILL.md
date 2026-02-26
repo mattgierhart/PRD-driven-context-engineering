@@ -11,9 +11,202 @@ description: >
 
 Position in workflow: v0.8 Release Planning → **v0.8 Runbook Creation** → v0.8 Monitoring Setup
 
-## Purpose
+## Consumes
 
-Create step-by-step operational playbooks that enable anyone on-call to handle incidents, perform deployments, and execute maintenance tasks without requiring deep system knowledge.
+This skill requires prior work from v0.8 Release Planning and earlier stages:
+
+- **DEP-*** deployment entries** (from v0.8 Release Planning) — Deployment procedures from DEP- rollback/validation sections inform RUN- deployment and recovery runbooks
+- **RISK-*** risk entries** (from v0.5 Risk Discovery) — High/medium RISK- entries must have response runbooks; mitigations become procedures
+- **MON-*** monitoring specifications** (planned from v0.8 Monitoring Setup, or anticipated) — Key alerts from MON- (before formalization) inform incident response runbooks; runbooks will be referenced FROM monitoring
+- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure (single service vs microservices, databases, integrations) determines incident scope and escalation paths
+- **TECH-*** technology stack** (from v0.5 Technical Stack Selection) — Technology choices (database, cloud provider, APM tools) determine specific commands and tools in runbook procedures
+- **API-*** endpoint contracts** (from v0.6 Technical Specification) — For reference if incident involves specific endpoints or payloads
+
+This skill assumes DEP- entries are complete with rollback procedures and post-deploy validation steps defined.
+
+## Produces
+
+This skill creates/updates:
+
+- **RUN-*** entries** (operational runbooks, category-based) — Step-by-step procedures for incident response, deployment execution, maintenance tasks, recovery from failures, and escalation paths
+- **Incident response matrix** — Mapping of scenarios (connection pool exhaustion, latency spike, deployment failure, etc.) to RUN- procedures
+- **Runbook cross-reference** — Links from RUN- procedures to DEP- rollback conditions, anticipated MON- alerts, and RISK- entries they address
+
+All RUN- entries are **operational procedures**, not confidence-based. They are:
+- **Executable** (numbered steps with specific commands and tools)
+- **Verifiable** (each step has a verification check confirming success)
+- **Scoped** (explicit "Handles" and "Does NOT handle" sections)
+- **Escalatable** (clear escalation paths and contact information)
+- **Tested** (should be drilled regularly; includes "Last Tested" date)
+
+Example RUN- entries:
+```markdown
+RUN-001: Database Connection Pool Exhaustion
+Category: Incident
+Trigger: MON-005 alert (connection pool >90%) — from v0.8 Monitoring Setup
+Owner: Backend Team
+Last Tested: 2025-02-20
+
+## Scope
+- **Handles**: Connection pool saturation, slow queries causing pooling
+- **Does NOT handle**: Database server crash (see RUN-010), Network failure (see RUN-011)
+
+## Prerequisites
+- [ ] Access to AWS RDS console
+- [ ] PostgreSQL read credentials in LastPass
+- [ ] PagerDuty access for escalation
+- [ ] Datadog dashboard access (MON-005 source)
+
+## Procedure
+
+### Step 1: Verify Alert
+Check current connection pool status:
+
+Commands:
+\`\`\`sql
+SELECT count(*) FROM pg_stat_activity WHERE state = 'active';
+SELECT * FROM pg_stat_activity WHERE state = 'active' ORDER BY query_start;
+\`\`\`
+
+Verification:
+- [ ] Connection count ≥90% of max pool (check DEP-001 pool config)
+
+### Step 2: Identify Problematic Queries
+Find long-running or blocked queries:
+
+Commands:
+\`\`\`sql
+SELECT pid, now() - pg_stat_activity.query_start AS duration, query
+FROM pg_stat_activity
+WHERE (now() - pg_stat_activity.query_start) > interval '5 minutes';
+\`\`\`
+
+Verification:
+- [ ] At least one query identified running >5 minutes
+
+### Step 3: Kill Problematic Queries (if safe)
+Only kill queries that are clearly stuck:
+
+Commands:
+\`\`\`sql
+SELECT pg_terminate_backend(pid) FROM pg_stat_activity
+WHERE pid = <problematic_pid>;
+\`\`\`
+
+Verification:
+- [ ] Connection count dropping within 2 minutes
+- [ ] MON-005 alert resolving
+
+### Step 4: Investigate Root Cause
+- Check recent deployments (last 24h via git log)
+- Review application logs for query patterns (Datadog logs)
+- Check for missing indexes on recent queries
+
+## Escalation
+- **When to escalate**: Issue persists >15 minutes, data integrity concern, cannot kill queries safely
+- **Who to contact**: Database Team Lead (Slack: @db-team, PagerDuty)
+- **What to provide**: Timeline, queries identified, actions taken, connection count trend
+
+## Post-Incident
+- [ ] Document incident timeline (who was paged, when actions taken)
+- [ ] File ticket for query optimization if needed
+- [ ] Update this runbook if steps were wrong/missing
+- [ ] Schedule team drill of this runbook within 1 week if escalated
+
+Linked IDs: MON-005 (alert), DEP-001 (pool config), RISK-008 (data integrity)
+
+---
+
+RUN-002: Production Deployment Procedure
+Category: Deployment
+Trigger: Scheduled release when all DEP- criteria met
+Owner: DevOps Team
+Last Tested: 2025-02-18
+
+## Scope
+- **Handles**: Standard production deployments (mainline releases)
+- **Does NOT handle**: Hotfix deployments (see RUN-003), Database migrations (see RUN-004), Emergency rollback (see RUN-005)
+
+## Prerequisites
+- [ ] All DEP- criteria verified
+  - [ ] DEP-002: All tests pass in staging
+  - [ ] DEP-003: No critical RISK- blockers
+  - [ ] DEP-004: Security review complete
+- [ ] Staging deployment successful
+- [ ] Release approval from Tech Lead in #deployments channel
+- [ ] On-call engineer available for rollback (next 30 minutes)
+
+## Procedure
+
+### Step 1: Pre-Deploy Announcement
+Notify stakeholders of upcoming deployment:
+
+Commands:
+\`\`\`bash
+./scripts/notify-deploy.sh --env production --version v${VERSION} --channel #deployments
+\`\`\`
+
+Verification:
+- [ ] Message posted to #deployments
+
+### Step 2: Create Deployment Checkpoint
+Tag current production for rollback (per DEP-003):
+
+Commands:
+\`\`\`bash
+git tag -a "pre-deploy-$(date +%Y%m%d-%H%M)" -m "Checkpoint before v${VERSION}"
+git push origin --tags
+\`\`\`
+
+Verification:
+- [ ] Tag created and pushed to git
+
+### Step 3: Execute Deployment
+Deploy to production using CI/CD:
+
+Commands:
+\`\`\`bash
+./scripts/deploy.sh --env production --version v${VERSION}
+\`\`\`
+
+Verification:
+- [ ] Deployment pipeline exits with status 0
+- [ ] New version visible: curl https://api.prod.example.com/health | jq .version
+
+### Step 4: Post-Deploy Validation
+Run smoke tests (per DEP-004):
+
+Commands:
+\`\`\`bash
+./scripts/smoke-test.sh --env production --suite critical
+\`\`\`
+
+Verification:
+- [ ] All smoke tests pass
+- [ ] Manual spot-check: key UJ- flows work (test signup, login, create report)
+- [ ] Error rate within baseline: curl https://api.prod.example.com/metrics | jq .error_rate_5m
+
+### Step 5: Monitor for 30 Minutes
+Watch dashboards for anomalies:
+
+Verification:
+- [ ] No new critical/warning alerts (check Datadog/Slack #alerts)
+- [ ] Latency (MON-001) within normal range (<500ms p95)
+- [ ] Error rate (MON-002) within baseline (<0.5%)
+- [ ] Business metrics dashboard shows expected traffic
+
+## Escalation
+- **When to escalate**: Smoke tests fail, error rate >2%, user reports critical issue, latency >2s
+- **Who to contact**: On-call engineer (PagerDuty), then Tech Lead
+- **What to provide**: Version deployed, failure mode, logs from Datadog, timeline
+
+## Post-Deployment
+- [ ] Post deployment success to #deployments
+- [ ] Update deployment log in runbook folder
+- [ ] If issues: Escalate and execute RUN-005 (emergency rollback)
+
+Linked IDs: DEP-001/002/003/004 (release criteria), RUN-005 (emergency rollback)
+```
 
 ## Core Concept: Runbook as Insurance
 

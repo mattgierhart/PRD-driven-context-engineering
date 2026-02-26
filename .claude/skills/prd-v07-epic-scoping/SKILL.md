@@ -7,6 +7,88 @@ description: Transform v0.6 specifications into context-window-sized work packag
 
 Position in workflow: v0.6 Technical Specification → **v0.7 Epic Scoping** → v0.7 Test Planning
 
+## Consumes
+
+This skill requires prior work from v0.6 Technical Specification:
+
+- **API-*** endpoint contracts** (from v0.6 Technical Specification) — Endpoints define what must be built; API count signals complexity
+- **DBT-*** data model specifications** (from v0.6 Technical Specification) — Data entities and relationships inform natural boundaries
+- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure, module boundaries, and integration patterns define scoping boundaries
+- **FEA-*** feature entries with MVP-SCOPE** (from v0.3 Features Value Planning) — MVP boundary determines EPIC scope; post-MVP features defer to backlog
+- **Existing EPIC-*** entries** (if brownfield) — Inherited work packages constrain and sequence new EPICs
+
+This skill assumes v0.6 Technical Specification is complete with API-/DBT- entries providing implementation contracts.
+
+## Produces
+
+This skill creates/updates:
+
+- **EPIC-*** entries** (context-window-sized work packages, status-based) — Scope of work that fits in AI agent working memory with explicit dependencies, pre-load context budget, session state tracking, and acceptance criteria
+- **EPIC dependency graph** — Sequencing showing which EPICs must complete before others; identifies infrastructure/foundation EPICs, critical path EPICs, and optional/secondary EPICs
+- **Context capsule specification** — Pre-load checklist (SoT files, key IDs, code references) and working room estimate ensuring EPIC doesn't exceed 100k context tokens
+
+All EPIC- entries are **work package specifications**, not confidence-based. They are:
+- **Sized for context windows** (3-5 APIs, 2-4 DBT tables, 1-2 UJs, <100k pre-load tokens)
+- **Fully traceable** (every EPIC references API-, DBT-, BR-, UJ-, TEST- from upstream)
+- **Sequenced explicitly** (dependencies form a DAG; no circular dependencies)
+- **Deliverable-focused** (measurable completion with acceptance criteria)
+
+Example EPIC- entry (Auth Infrastructure):
+```markdown
+EPIC-01: User Authentication
+State: Planned
+Lifecycle: v0.7 Build Execution
+Branch: epic/EPIC-01-auth
+
+## 0. Context Capsule
+### Resource Envelope
+| Dimension | Target | Notes |
+|-----------|--------|-------|
+| Pre-load Context | ~40k tokens | Auth SoT + API-001–005 specs + DBT-010/011 schema |
+| Working Room | ~160k tokens | Plenty of space for implementation |
+| Session Goal | Checkpoint C1 | Database schema complete |
+
+### Dependencies
+| Type | Items | Status |
+|------|-------|--------|
+| Requires | None | First EPIC — foundation |
+| External | Supabase project created | Ready |
+| Enables | EPIC-02 (reports), EPIC-03 (data sources) | Blocked until auth completes |
+
+### Pre-load Checklist
+- [ ] SoT/SoT.BUSINESS_RULES.md — IDs: BR-001, BR-002 (auth rules)
+- [ ] SoT/SoT.API_CONTRACTS.md — IDs: API-001–005 (auth endpoints)
+- [ ] SoT/SoT.TECHNICAL_DECISIONS.md — IDs: TECH-003 (Clerk), ARC-003 (JWT strategy)
+
+## 2. Objective & Scope
+Goal: Enable users to authenticate with email/password, manage sessions, and maintain security.
+
+Deliverables:
+  - [ ] User registration with email/password (API-001)
+  - [ ] Login/logout functionality (API-002, API-003)
+  - [ ] Session management with refresh tokens (API-004)
+  - [ ] Password reset flow (API-005)
+  - [ ] Users and sessions schema (DBT-010, DBT-011)
+
+Out of Scope: Social auth (EPIC-02), team invites (EPIC-05), admin user management (EPIC-07)
+
+## 3. Context & IDs
+| Type | IDs |
+|------|-----|
+| Business Rules | BR-001 (email uniqueness), BR-002 (password requirements), BR-010 (auth workflow) |
+| User Journeys | UJ-000 (onboarding), UJ-010 (login) |
+| APIs | API-001 to API-005 |
+| Data Models | DBT-010 (users), DBT-011 (sessions) |
+| Architecture | ARC-003 (JWT strategy), TECH-003 (Clerk) |
+| Features | FEA-010 (signup), FEA-011 (login) — both in MVP-SCOPE |
+| Tests | TEST-001 to TEST-015 (auth test suite) |
+
+## 4. Execution Plan (5 Phases)
+[Phase structure from skill as is]
+
+Related IDs: TECH-003, ARC-003, FEA-010/011, API-001–005, DBT-010/011, BR-001/002/010
+```
+
 ## Core Concept: Epic = Context Window
 
 > An EPIC is not a "big user story." It is a **cognitive boundary**—a scope of work that fits in working memory (human or AI). The goal is to load exactly what's needed to complete a focused task without distraction.

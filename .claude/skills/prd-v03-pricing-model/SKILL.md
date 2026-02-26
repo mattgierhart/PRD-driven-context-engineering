@@ -7,6 +7,63 @@ description: Select and validate pricing model for PRD v0.3 Commercial Model. Tr
 
 Position in HORIZON workflow: v0.2 Product Type Classification → **v0.3 Pricing Model Selection** → v0.3 Moat Articulation
 
+## Consumes
+
+This skill requires prior work from v0.2-v0.3:
+
+- **BR-*** product type entry** (from Product Type Classification) — Determines which pricing model makes sense
+- **CFD-*** competitive intelligence entries** (from Competitive Landscape Mapping) — Competitor pricing, WTP signals
+- **BR-*** moat entries** (from Moat Definition, parallel v0.3 work) — Price as potential moat element
+- **KPI-*** outcome entries** (from Outcome Definition, parallel v0.3 work) — Success metrics tied to pricing
+- **Cost structure estimates** (from own analysis) — Unit economics to validate price floors
+
+This skill assumes v0.2 competitive analysis is complete and product type is defined.
+
+## Produces
+
+This skill creates/updates:
+
+- **BR-PRC-*** entries** (pricing constraints) — Rules governing price floors, ceilings, discounts
+- **BR-PKG-*** entries** (packaging rules) — Tier boundaries and feature gates
+- **BR-CMP-*** entries** (competitive positioning) — Price anchor targets and undercut thresholds
+- **Pricing model artifact** — Named decision: "We will use [Model] because [evidence]" with tier definitions
+
+All BR pricing entries should include:
+- `confidence: 2-3/5` (based on WTP evidence tier and competitor benchmarks, not assumptions)
+- Evidence source (competitor pricing, customer interviews, cost structure)
+- Forward target: "Would move to 4/5 if real customers validate WTP"
+
+Example pricing rule entry:
+```markdown
+BR-PRC-001: Entry Price Floor
+
+Rule: Entry tier never below $15/mo (annual) or $19/mo (monthly)
+Confidence: 2/5 (source: CAC-estimate + competitor-benchmarks)
+Rationale: Below $15/mo, CAC payback exceeds 6 months, unsustainable
+Enforcement: Stripe product configuration, pricing page, contract templates
+Evidence:
+  - CFD-042 (competitor pricing): Similar tools start at $15-25/mo
+  - KPI-001 (outcome): CAC estimate $45, need 3-month payback = $15/mo minimum
+Enforcement: Set in Stripe, document in pricing page, enforce in sales contracts
+Exception: Founding customer 50% discount (must be approved by founder)
+Next Target: "Would move to 4/5 if 5+ paying customers validate willingness at $15/mo"
+
+---
+
+BR-CMP-002: Competitive Undercut Threshold
+
+Rule: Maintain ≥50% savings vs [Competitor Name] at SMB level (5 users)
+Confidence: 3/5 (source: competitor-pricing + 2-SMB-interviews)
+Rationale: Price advantage is core differentiator for SMB segment (per product type: UNDERCUT)
+Enforcement: Quarterly competitive price audit; triggers price review if competitor drops
+Evidence:
+  - BR-001 (product type: Undercut)
+  - CFD-015 (value hypothesis): SMB would save $12,500/year at target price
+  - CFD-042 (competitor pricing): Competitor at $30/user/mo = $1,800/year for SMB
+Exception: If competitor drops price, floor (BR-PRC-001) takes precedence
+Next Target: "Would move to 4/5 if SMB cohort pays premium for our service over incumbent"
+```
+
 ## Core Principle
 
 **Pricing follows value timing**: When and how customers receive value determines the pricing model. Don't copy competitors without understanding their value delivery pattern.

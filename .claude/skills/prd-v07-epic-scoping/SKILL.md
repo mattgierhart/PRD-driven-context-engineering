@@ -11,11 +11,11 @@ Position in workflow: v0.6 Technical Specification → **v0.7 Epic Scoping** →
 
 This skill requires prior work from v0.6 Technical Specification:
 
-- **API-*** endpoint contracts** (from v0.6 Technical Specification) — Endpoints define what must be built; API count signals complexity
-- **DBT-*** data model specifications** (from v0.6 Technical Specification) — Data entities and relationships inform natural boundaries
-- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure, module boundaries, and integration patterns define scoping boundaries
-- **FEA-*** feature entries with MVP-SCOPE** (from v0.3 Features Value Planning) — MVP boundary determines EPIC scope; post-MVP features defer to backlog
-- **Existing EPIC-*** entries** (if brownfield) — Inherited work packages constrain and sequence new EPICs
+- **API-\* endpoint contracts** (from v0.6 Technical Specification) — Endpoints define what must be built; API count signals complexity
+- **DBT-\* data model specifications** (from v0.6 Technical Specification) — Data entities and relationships inform natural boundaries
+- **ARC-\* architecture decisions** (from v0.6 Architecture Design) — System structure, module boundaries, and integration patterns define scoping boundaries
+- **FEA-\* feature entries with MVP-SCOPE** (from v0.3 Features Value Planning) — MVP boundary determines EPIC scope; post-MVP features defer to backlog
+- **Existing EPIC-\* entries** (if brownfield) — Inherited work packages constrain and sequence new EPICs
 
 This skill assumes v0.6 Technical Specification is complete with API-/DBT- entries providing implementation contracts.
 
@@ -23,7 +23,7 @@ This skill assumes v0.6 Technical Specification is complete with API-/DBT- entri
 
 This skill creates/updates:
 
-- **EPIC-*** entries** (context-window-sized work packages, status-based) — Scope of work that fits in AI agent working memory with explicit dependencies, pre-load context budget, session state tracking, and acceptance criteria
+- **EPIC-\* entries** (context-window-sized work packages, status-based) — Scope of work that fits in AI agent working memory with explicit dependencies, pre-load context budget, session state tracking, and acceptance criteria
 - **EPIC dependency graph** — Sequencing showing which EPICs must complete before others; identifies infrastructure/foundation EPICs, critical path EPICs, and optional/secondary EPICs
 - **Context capsule specification** — Pre-load checklist (SoT files, key IDs, code references) and working room estimate ensuring EPIC doesn't exceed 100k context tokens
 

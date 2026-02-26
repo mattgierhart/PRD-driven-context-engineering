@@ -13,10 +13,10 @@ Architecture defines how your system components connect. This skill transforms s
 
 This skill requires prior work from v0.3-v0.5:
 
-- **TECH-*** technology decisions** (from v0.5 Technical Stack Selection) — Tech choices become components; Build items become internal services, Buy/Integrate items become external connections
-- **RISK-*** risk entries** (from v0.5 Risk Discovery Interview) — High-priority RISK-* entries must have architectural mitigations; drives design decisions on failover, security, scaling
-- **FEA-*** feature entries** (from v0.3 Features Value Planning) — Features determine what components must be built; complex features may require distributed patterns
-- **ARC-*** existing architecture decisions** (from prior products if brownfield) — Inherited patterns constrain new designs (monolith with microservice, library reuse, auth pattern, etc.)
+- **TECH-\* technology decisions** (from v0.5 Technical Stack Selection) — Tech choices become components; Build items become internal services, Buy/Integrate items become external connections
+- **RISK-\* risk entries** (from v0.5 Risk Discovery Interview) — High-priority RISK-* entries must have architectural mitigations; drives design decisions on failover, security, scaling
+- **FEA-\* feature entries** (from v0.3 Features Value Planning) — Features determine what components must be built; complex features may require distributed patterns
+- **ARC-\* existing architecture decisions** (from prior products if brownfield) — Inherited patterns constrain new designs (monolith with microservice, library reuse, auth pattern, etc.)
 
 This skill assumes v0.5 Technical Stack Selection is complete with TECH- entries providing technology foundations.
 
@@ -24,7 +24,7 @@ This skill assumes v0.5 Technical Stack Selection is complete with TECH- entries
 
 This skill creates/updates:
 
-- **ARC-*** entries** (architecture decisions, status-based) — Decisions for structure, integration, security, performance, data, DevOps with rationale, alternatives considered, and consequences. No confidence scores; decisions have Status: Proposed/Accepted/Superseded
+- **ARC-\* entries** (architecture decisions, status-based) — Decisions for structure, integration, security, performance, data, DevOps with rationale, alternatives considered, and consequences. No confidence scores; decisions have Status: Proposed/Accepted/Superseded
 - **System boundary diagram** — Visual representation showing trust boundaries, components, and external integrations
 - **RISK-to-Architecture mapping** — Validation showing every high-priority RISK-* has corresponding ARC-* mitigation or explicit acceptance
 

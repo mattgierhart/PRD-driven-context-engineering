@@ -13,8 +13,8 @@ Environment setup documents the **tools, packages, and configurations** develope
 
 This skill requires prior work from v0.5-v0.6:
 
-- **TECH-*** technology decisions** (from v0.5 Technical Stack Selection) — Choices for frontend/backend/database/CI/CD determine which tools, languages, and package managers developers need
-- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — Architectural patterns (monolith vs microservices, container strategy, deployment topology) inform infrastructure and scripting needs
+- **TECH-\* technology decisions** (from v0.5 Technical Stack Selection) — Choices for frontend/backend/database/CI/CD determine which tools, languages, and package managers developers need
+- **ARC-\* architecture decisions** (from v0.6 Architecture Design) — Architectural patterns (monolith vs microservices, container strategy, deployment topology) inform infrastructure and scripting needs
 
 This skill assumes v0.5 Technical Stack Selection is complete with TECH- entries specifying the tech stack.
 

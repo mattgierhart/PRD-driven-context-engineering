@@ -15,14 +15,14 @@ Position in workflow: v0.7 Implementation Loop → **v0.8 Release Planning** →
 
 This skill requires prior work from v0.7 Implementation Loop and v0.6-v0.9:
 
-- **EPIC-*** completed entries** (from v0.7 Implementation Loop) — Finished work packages define what's being released; must have State=Complete, all TEST- passing
-- **TEST-*** test entries** (from v0.7 Test Planning) — All TEST- must pass in staging before release criteria can be met
-- **API-*** endpoint contracts** (referenced in EPIC Context & IDs) — Define SLA and performance baselines for release criteria
-- **ENV-*** environment specifications** (from v0.6 Environment Setup) — Local/CI/CD/production configurations inform DEP- entries for each environment
-- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure (monolith, microservices, deployment topology) drives environment setup
-- **TECH-*** technology stack** (from v0.5 Technical Stack Selection) — Technology choices inform infrastructure requirements and deployment tooling
-- **RISK-*** high-priority entries** (from v0.5 Risk Discovery) — High RISK- must be mitigated or explicitly accepted before release
-- **KPI-*** metrics** (from v0.3 and v0.9) — Target KPI values inform monitoring baselines and rollback thresholds
+- **EPIC-\* completed entries** (from v0.7 Implementation Loop) — Finished work packages define what's being released; must have State=Complete, all TEST- passing
+- **TEST-\* test entries** (from v0.7 Test Planning) — All TEST- must pass in staging before release criteria can be met
+- **API-\* endpoint contracts** (referenced in EPIC Context & IDs) — Define SLA and performance baselines for release criteria
+- **ENV-\* environment specifications** (from v0.6 Environment Setup) — Local/CI/CD/production configurations inform DEP- entries for each environment
+- **ARC-\* architecture decisions** (from v0.6 Architecture Design) — System structure (monolith, microservices, deployment topology) drives environment setup
+- **TECH-\* technology stack** (from v0.5 Technical Stack Selection) — Technology choices inform infrastructure requirements and deployment tooling
+- **RISK-\* high-priority entries** (from v0.5 Risk Discovery) — High RISK- must be mitigated or explicitly accepted before release
+- **KPI-\* metrics** (from v0.3 and v0.9) — Target KPI values inform monitoring baselines and rollback thresholds
 
 This skill assumes v0.7 Implementation is complete with all EPIC- entries marked Complete and all TEST- passing.
 
@@ -30,7 +30,7 @@ This skill assumes v0.7 Implementation is complete with all EPIC- entries marked
 
 This skill creates/updates:
 
-- **DEP-*** entries** (deployment specifications, environment/criteria/rollback/validation types) — Release readiness checklist with environment configs, go/no-go criteria, rollback triggers and thresholds, post-deploy validation steps
+- **DEP-\* entries** (deployment specifications, environment/criteria/rollback/validation types) — Release readiness checklist with environment configs, go/no-go criteria, rollback triggers and thresholds, post-deploy validation steps
 - **Release readiness checklist** — Pre-deploy validation matrix showing which DEP- criteria must be met before release proceeds
 - **Rollback decision tree** — Mapping of DEP- rollback triggers to execution procedures and escalation paths (feeds v0.8 Runbook Creation)
 

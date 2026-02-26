@@ -13,12 +13,12 @@ Personas are not demographic profiles—they are behavioral models synthesized f
 
 This skill requires prior work from v0.1-v0.3:
 
-- **CFD-*** problem statements and pain points** (from v0.1 Problem Framing) — Behavioral signals about what users struggle with
-- **CFD-*** value hypotheses** (from v0.1 User Value Articulation) — Evidence about what users want to accomplish
-- **CFD-*** competitive intelligence and segment gaps** (from v0.2 Competitive Landscape) — Market segmentation and underserved signals
-- **BR-*** targeting rules** (from v0.3 Moat Definition) — Constraints on which segments to pursue (switchers vs. new-to-category, etc.)
-- **BR-*** product type classification** (from v0.2 Product Type Classification) — Determines which personas matter (Clone = feature parity users; Undercut = price-sensitive niche)
-- **FEA-*** entries** (from v0.3 Features Value Planning) — Feature list to validate which features each persona cares about
+- **CFD-\* problem statements and pain points** (from v0.1 Problem Framing) — Behavioral signals about what users struggle with
+- **CFD-\* value hypotheses** (from v0.1 User Value Articulation) — Evidence about what users want to accomplish
+- **CFD-\* competitive intelligence and segment gaps** (from v0.2 Competitive Landscape) — Market segmentation and underserved signals
+- **BR-\* targeting rules** (from v0.3 Moat Definition) — Constraints on which segments to pursue (switchers vs. new-to-category, etc.)
+- **BR-\* product type classification** (from v0.2 Product Type Classification) — Determines which personas matter (Clone = feature parity users; Undercut = price-sensitive niche)
+- **FEA-\* entries** (from v0.3 Features Value Planning) — Feature list to validate which features each persona cares about
 - **MVP-SCOPE artifact** (from v0.3 Features Value Planning) — The explicit list of features defining MVP; personas map to MVP feature set only
 
 This skill assumes v0.1-v0.3 work is complete.
@@ -27,7 +27,7 @@ This skill assumes v0.1-v0.3 work is complete.
 
 This skill creates/updates:
 
-- **PER-*** entries** (persona definitions, confidence 2-3/5) — Behavioral profiles tied to CFD/BR/FEA evidence with acquisition channels and pricing sensitivity
+- **PER-\* entries** (persona definitions, confidence 2-3/5) — Behavioral profiles tied to CFD/BR/FEA evidence with acquisition channels and pricing sensitivity
 - **Persona coverage artifact** — Map of which personas are Primary/Secondary and which product type segments they represent
 
 All PER- entries should include:

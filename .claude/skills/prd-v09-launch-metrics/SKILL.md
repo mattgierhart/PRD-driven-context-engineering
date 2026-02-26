@@ -15,12 +15,12 @@ Position in workflow: v0.9 GTM Strategy → **v0.9 Launch Metrics** → v0.9 Fee
 
 This skill requires prior work from v0.3-v0.9:
 
-- **KPI-*** outcome entries from v0.3** (from v0.3 Outcome Definition) — Baseline KPI- entries define success metrics for the product; launch-specific KPI- entries are calibrated variants
-- **GTM-*** campaign specifications** (from v0.9 GTM Strategy) — GTM channels inform launch-specific KPI- tracking (e.g., Product Hunt channel → KPI for PH-originated signups); timeline defines metric collection windows (Day 1, Day 7, Day 30, Day 90)
-- **BR-*** product type** (from v0.2 Product Type Classification) — Product type (Clone/Unbundle/Undercut/Slice/Innovation) determines metric targets and benchmarks (Fast Follow = higher activation expected, lower retention)
-- **CFD-*** market benchmarks** (from v0.1-v0.2 research) — Competitive analysis and market data inform realistic KPI- targets (e.g., "developer tools average 30-50% activation")
-- **DEP-*** deployment infrastructure** (from v0.8 Release Planning) — Deployment baselines from staging inform KPI- thresholds (e.g., error rate baseline → activation threshold)
-- **MON-*** monitoring setup** (from v0.8 Monitoring Setup) — Infrastructure metrics (latency, error rate) inform KPI- dashboards and alert conditions during launch
+- **KPI-\* outcome entries from v0.3** (from v0.3 Outcome Definition) — Baseline KPI- entries define success metrics for the product; launch-specific KPI- entries are calibrated variants
+- **GTM-\* campaign specifications** (from v0.9 GTM Strategy) — GTM channels inform launch-specific KPI- tracking (e.g., Product Hunt channel → KPI for PH-originated signups); timeline defines metric collection windows (Day 1, Day 7, Day 30, Day 90)
+- **BR-\* product type** (from v0.2 Product Type Classification) — Product type (Clone/Unbundle/Undercut/Slice/Innovation) determines metric targets and benchmarks (Fast Follow = higher activation expected, lower retention)
+- **CFD-\* market benchmarks** (from v0.1-v0.2 research) — Competitive analysis and market data inform realistic KPI- targets (e.g., "developer tools average 30-50% activation")
+- **DEP-\* deployment infrastructure** (from v0.8 Release Planning) — Deployment baselines from staging inform KPI- thresholds (e.g., error rate baseline → activation threshold)
+- **MON-\* monitoring setup** (from v0.8 Monitoring Setup) — Infrastructure metrics (latency, error rate) inform KPI- dashboards and alert conditions during launch
 
 This skill assumes GTM- entries are complete and tracking infrastructure is configured.
 
@@ -28,7 +28,7 @@ This skill assumes GTM- entries are complete and tracking infrastructure is conf
 
 This skill creates/updates:
 
-- **KPI-*** launch-specific entries** (launch metrics with targets and thresholds) — Funnel metrics (Reach → Acquisition → Activation → Retention → Revenue → Referral) with Day 1/7/30/90 targets, action thresholds (Red/Yellow/Green), and channel attribution
+- **KPI-\* launch-specific entries** (launch metrics with targets and thresholds) — Funnel metrics (Reach → Acquisition → Activation → Retention → Revenue → Referral) with Day 1/7/30/90 targets, action thresholds (Red/Yellow/Green), and channel attribution
 - **Launch dashboard specification** — Visual layout and refresh rate for real-time launch monitoring; links KPI- to MON- infrastructure
 - **Metric tracking schema** — Event definitions and tracking setup for conversion funnel
 

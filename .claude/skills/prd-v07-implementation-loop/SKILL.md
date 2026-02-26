@@ -11,11 +11,11 @@ Position in workflow: v0.7 Test Planning → **v0.7 Implementation Loop** → v0
 
 This skill requires prior work from v0.7 Epic Scoping and v0.7 Test Planning:
 
-- **EPIC-*** entries** (from v0.7 Epic Scoping) — EPIC context, objectives, Context & IDs table, execution plan phases, Session State tracking
-- **TEST-*** test specifications** (from v0.7 Test Planning) — Acceptance criteria in Given-When-Then format; tests define "done" for each deliverable
-- **API-*** endpoint contracts** (referenced in EPIC Context & IDs) — Implementation targets with request/response shapes, error codes, constraints
-- **DBT-*** schema specifications** (referenced in EPIC Context & IDs) — Data model, field types, relationships, constraints to implement
-- **BR-*** business rules** (referenced in EPIC Context & IDs) — Product logic constraints to enforce in code
+- **EPIC-\* entries** (from v0.7 Epic Scoping) — EPIC context, objectives, Context & IDs table, execution plan phases, Session State tracking
+- **TEST-\* test specifications** (from v0.7 Test Planning) — Acceptance criteria in Given-When-Then format; tests define "done" for each deliverable
+- **API-\* endpoint contracts** (referenced in EPIC Context & IDs) — Implementation targets with request/response shapes, error codes, constraints
+- **DBT-\* schema specifications** (referenced in EPIC Context & IDs) — Data model, field types, relationships, constraints to implement
+- **BR-\* business rules** (referenced in EPIC Context & IDs) — Product logic constraints to enforce in code
 - **Existing SoT files** (if brownfield) — Durable specs that guide implementation without re-research
 
 This skill assumes EPIC- and TEST- entries are complete, with all upstream IDs fully specified.

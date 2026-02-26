@@ -15,11 +15,11 @@ Position in workflow: v0.8 Monitoring Setup → **v0.9 GTM Strategy** → v0.9 L
 
 This skill requires prior work from v0.2-v0.8:
 
-- **PER-*** persona entries** (from v0.4 Persona Definition) — Target audience definition; messaging and channel selection must match persona behaviors and preferences
-- **CFD-*** customer feedback entries** (from v0.1-v0.2 value hypotheses and competitive analysis) — Evidence-based value propositions; messaging must anchor in validated CFD- evidence, not speculation
-- **BR-*** business rules and product type** (from v0.2-v0.3 Commercial Model) — Product type (Clone/Unbundle/Undercut/Slice/Innovation) determines channel strategy and positioning narrative
-- **DEP-*** deployment criteria** (from v0.8 Release Planning) — Release readiness gates inform launch timing and go/no-go decision window
-- **MON-*** monitoring setup** (from v0.8 Monitoring Setup) — Baseline metrics and dashboards to track during launch; MON- thresholds inform launch day response triggers
+- **PER-\* persona entries** (from v0.4 Persona Definition) — Target audience definition; messaging and channel selection must match persona behaviors and preferences
+- **CFD-\* customer feedback entries** (from v0.1-v0.2 value hypotheses and competitive analysis) — Evidence-based value propositions; messaging must anchor in validated CFD- evidence, not speculation
+- **BR-\* business rules and product type** (from v0.2-v0.3 Commercial Model) — Product type (Clone/Unbundle/Undercut/Slice/Innovation) determines channel strategy and positioning narrative
+- **DEP-\* deployment criteria** (from v0.8 Release Planning) — Release readiness gates inform launch timing and go/no-go decision window
+- **MON-\* monitoring setup** (from v0.8 Monitoring Setup) — Baseline metrics and dashboards to track during launch; MON- thresholds inform launch day response triggers
 
 This skill assumes v0.8 Monitoring Setup is complete and DEP- release criteria are met.
 
@@ -27,7 +27,7 @@ This skill assumes v0.8 Monitoring Setup is complete and DEP- release criteria a
 
 This skill creates/updates:
 
-- **GTM-*** entries** (launch campaign specifications, type-based) — Messaging, channel strategy, launch timeline, task assignments, creative assets with explicit links to personas, evidence, and product positioning
+- **GTM-\* entries** (launch campaign specifications, type-based) — Messaging, channel strategy, launch timeline, task assignments, creative assets with explicit links to personas, evidence, and product positioning
 - **Launch campaign roadmap** — Pre-launch, launch day, and post-launch phases with dependencies and milestones
 - **Channel-to-persona matrix** — Validation showing each channel reaches target PER- personas and messaging matches PER- values
 

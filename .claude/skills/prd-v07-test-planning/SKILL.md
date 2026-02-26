@@ -11,11 +11,11 @@ Position in workflow: v0.7 Epic Scoping → **v0.7 Test Planning** → v0.7 Impl
 
 This skill requires prior work from v0.7 Epic Scoping and v0.6 specifications:
 
-- **EPIC-*** entries** (from v0.7 Epic Scoping) — EPIC scope defines test boundaries; test plan must cover all APIs/BRs/UJs within EPIC Context & IDs section
-- **API-*** endpoint contracts** (from v0.6 Technical Specification) — Each endpoint has request/response shape and error codes that must be tested
-- **DBT-*** data model specifications** (from v0.6 Technical Specification) — Schema constraints, relationships, and business rules enforce data integrity tests
-- **BR-*** business rules** (from v0.3 Commercial Model) — Each rule must have at least one test verifying positive (rule allows) and negative (rule blocks) cases
-- **UJ-*** user journey entries** (from v0.4 User Journeys) — Critical journeys need E2E tests verifying complete flow from trigger to value moment
+- **EPIC-\* entries** (from v0.7 Epic Scoping) — EPIC scope defines test boundaries; test plan must cover all APIs/BRs/UJs within EPIC Context & IDs section
+- **API-\* endpoint contracts** (from v0.6 Technical Specification) — Each endpoint has request/response shape and error codes that must be tested
+- **DBT-\* data model specifications** (from v0.6 Technical Specification) — Schema constraints, relationships, and business rules enforce data integrity tests
+- **BR-\* business rules** (from v0.3 Commercial Model) — Each rule must have at least one test verifying positive (rule allows) and negative (rule blocks) cases
+- **UJ-\* user journey entries** (from v0.4 User Journeys) — Critical journeys need E2E tests verifying complete flow from trigger to value moment
 
 This skill assumes EPIC- entries are complete with full API-/DBT-/BR-/UJ- references in Context & IDs section.
 
@@ -23,7 +23,7 @@ This skill assumes EPIC- entries are complete with full API-/DBT-/BR-/UJ- refere
 
 This skill creates/updates:
 
-- **TEST-*** entries** (test case specifications, automation path) — Concrete, verifiable test cases with Given-When-Then format, test type, and coverage mapping to upstream IDs
+- **TEST-\* entries** (test case specifications, automation path) — Concrete, verifiable test cases with Given-When-Then format, test type, and coverage mapping to upstream IDs
 - **Test coverage matrix** (per EPIC) — Validation showing every API- endpoint, BR- rule, and core UJ- journey has TEST- entries; identifies gaps
 - **Test automation specification** — For each Critical/High priority TEST-, identifies test file path and automation framework (unit/integration/E2E)
 

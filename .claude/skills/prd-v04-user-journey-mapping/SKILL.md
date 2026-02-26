@@ -13,11 +13,11 @@ User journeys transform features into paths. A journey answers: "How does [perso
 
 This skill requires prior work from v0.3-v0.4:
 
-- **PER-*** persona entries** (from v0.4 Persona Definition) — Behavioral profiles that journeys are built around; each journey belongs to a specific persona
-- **FEA-*** feature entries** (from v0.3 Features Value Planning) — Feature list that becomes journey steps; validates that journeys use only MVP-scoped features
-- **KPI-*** outcome definitions** (from v0.3 Outcome Definition) — Success metrics that journeys drive; Core journeys must tie to Tier 1/2 KPIs
+- **PER-\* persona entries** (from v0.4 Persona Definition) — Behavioral profiles that journeys are built around; each journey belongs to a specific persona
+- **FEA-\* feature entries** (from v0.3 Features Value Planning) — Feature list that becomes journey steps; validates that journeys use only MVP-scoped features
+- **KPI-\* outcome definitions** (from v0.3 Outcome Definition) — Success metrics that journeys drive; Core journeys must tie to Tier 1/2 KPIs
 - **MVP-SCOPE artifact** (from v0.3 Features Value Planning) — Explicit feature boundary; journeys must use only features in MVP-SCOPE, no backlog features
-- **BR-*** business rules** (from v0.3 Commercial Model) — Constraints that affect journey design (pricing tiers affect onboarding paths, moat rules affect targeting journeys, etc.)
+- **BR-\* business rules** (from v0.3 Commercial Model) — Constraints that affect journey design (pricing tiers affect onboarding paths, moat rules affect targeting journeys, etc.)
 
 This skill assumes v0.4 Persona Definition is complete.
 
@@ -25,7 +25,7 @@ This skill assumes v0.4 Persona Definition is complete.
 
 This skill creates/updates:
 
-- **UJ-*** entries** (user journeys, confidence 2-3/5) — Paths from trigger through steps to value moment, tied to PER-/FEA-/KPI- with pain point identification
+- **UJ-\* entries** (user journeys, confidence 2-3/5) — Paths from trigger through steps to value moment, tied to PER-/FEA-/KPI- with pain point identification
 - **Journey sequencing artifact** — Dependency map showing which journeys gate which (Onboarding gates Core; Core gates Power User)
 
 All UJ- entries should include:

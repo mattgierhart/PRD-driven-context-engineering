@@ -19,8 +19,40 @@ Problem Framing → User Value Articulation → v0.2 Market Definition
      (pain)              (value)                  (who cares most)
 ```
 
-**Input:** CFD-IDs from Problem Framing (pain points)
-**Output:** CFD-IDs tagged as value hypotheses
+## Consumes
+
+This skill requires prior work from v0.1:
+
+- **CFD-*** entries (pain points, from Problem Framing) — Evidence for what problems users face
+- **PRD.md Why section** (problem statement table) — Context for pain-to-value transformation
+
+This skill assumes v0.1 Problem Framing is complete.
+
+## Produces
+
+This skill creates/updates:
+
+- **CFD-*** entries** (tagged as value hypotheses) — Transformation of pain points into value statements, with confidence scoring
+- **MVP scope signal** — Identifies which value dimensions will drive MVP feature scope (handed to v0.3)
+
+All CFD value hypothesis entries should include:
+- `confidence: 2-3/5` (based on evidence tier from users or market)
+- Evidence tier (1-5 per value hierarchy)
+- Forward target: "Would move to 4/5 if we validate with beta cohort"
+
+Example value hypothesis entry:
+```markdown
+CFD-015: Value Hypothesis — Eliminate manual reconciliation workflow
+
+Source Pain: CFD-001 (sales teams waste 5+ hours/week)
+Evidence Tier: 2-3 (workaround + quantified cost)
+Confidence: 3/5 (source: 3-customer-interviews-jan-2026)
+Value Statement: "Reclaim 5 hours/week for strategic pipeline management"
+Transformation: [5 hours wasted] → [5 hours available for growth]
+Framing Type: Negative Removal (acute quantified loss)
+Quantification: 5 hours/week = ~250 hours/year = $12,500 (at $50/hr)
+Next Target: "Would move to 4/5 if we observe beta cohort using this feature"
+```
 
 ## Workflow Overview
 

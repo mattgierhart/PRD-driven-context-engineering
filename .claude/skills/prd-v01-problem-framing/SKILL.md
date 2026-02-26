@@ -11,13 +11,34 @@ description: >
 
 Transform market signals into evidence-anchored problem statements.
 
+## Consumes
+
+This skill assumes you have **zero prior research**. It is the starting point.
+
+- No prior CFD- entries needed
+- No prior PR D required
+- Assumes: Founder/PM has observed market signals but hasn't validated them
+
+## Produces
+
+This skill creates/updates:
+
+- **CFD-*** entries** (customer feedback) — 1-5 per problem dimension, with confidence scoring (see PRINCIPLES.md)
+- **PRD.md Why section** — Evidence-anchored problem statement table
+- **MVP scope signal** — Identifies which problem dimensions will drive MVP feature scope (handed to v0.3)
+
+All CFD- entries should include:
+- `confidence: 1-3/5` (pre-product research, no usage data)
+- Evidence source (competitive analysis, interviews, workarounds, etc.)
+- Forward target: "Would move to 4/5 if we observe 10+ paying customers with this pain"
+
 ## Workflow Overview
 
-1. **Assess gaps** → Identify what evidence is missing
-2. **Anchor evidence** → Create CFD-IDs for each pain point
-3. **Extract dimensions** → Pull multiple problems from each source
-4. **Quantify costs** → Add time/money/risk numbers
-5. **Draft statement** → Populate the problem table
+1. **Assess gaps** → Identify what evidence is missing before you can confidently state a problem
+2. **Anchor evidence** → Create CFD- entries for each pain point dimension with confidence scoring
+3. **Extract dimensions** → Pull multiple distinct problems from each source
+4. **Quantify costs** → Add time/money/risk numbers to make pain concrete
+5. **Draft statement** → Populate the problem table, tied to CFD- entries
 
 ## Core Output Template
 
@@ -49,22 +70,46 @@ Before drafting, create this status table:
 
 ## Step 2: Evidence Anchoring
 
-Create CFD entries for each pain point:
+Create CFD entries for each pain point with confidence scoring:
 
 ```
-CFD-###
-Source: [Platform/Person]
-Tier: [1-5]
-Quote: "[Verbatim]"
-Dimensions: [List problems extracted]
+CFD-###: [Pain Point Name]
+Source: [Where this evidence came from]
+Tier: [1-5 evidence quality]
+Confidence: [1-5]/5 (pre-product research)
+Quote: "[Verbatim from source]"
+Dimensions: [List distinct problems extracted from this source]
+Next Target: "Would move to 3/5 if we interview X more customers"
 ```
 
-**Evidence Tier Hierarchy**:
-- **Tier 1**: Buying behavior (invoices, subscriptions, job budgets)
-- **Tier 2**: Active workarounds (spreadsheets, hired help)
-- **Tier 3**: Complaints with cost ("costs me X hours")
-- **Tier 4**: General complaints ("this is annoying")
-- **Tier 5**: Speculation — **REJECT**
+**Evidence Tier Hierarchy** (strength of observation):
+- **Tier 1**: Buying behavior (invoices, subscriptions, job budgets) — users spend money to solve this
+- **Tier 2**: Active workarounds (spreadsheets, hired help, manual processes) — users invest labor
+- **Tier 3**: Complaints with cost ("costs me X hours/week") — users quantify the pain
+- **Tier 4**: General complaints ("this is annoying") — users acknowledge it but haven't quantified
+- **Tier 5**: Speculation — **REJECT** ("users probably want...")
+
+**Confidence Scoring** (pre-product, see PRINCIPLES.md):
+- **1/5**: PM assumption or single data point
+- **2/5**: Secondary research (competitive analysis, market reports)
+- **3/5**: Pre-product interviews (3-5 user conversations)
+- **4/5**: Beta cohort validation (observed behavior, not questions)
+- **5/5**: Production usage (reserved for post-launch)
+
+**Example entry with confidence**:
+```
+CFD-001: Sales teams waste 5+ hours/week on spreadsheet workflow
+
+Source: 3 customer interviews (SaaS sales director, SMB sales rep, enterprise sales manager)
+Tier: 2-3 (workaround + cost quantification)
+Confidence: 3/5 (source: 3-customer-interviews-jan-2026)
+Quote: "I spend 5 hours every Friday reconciling our pipeline with the actual numbers in our CRM"
+Dimensions:
+  - Manual data reconciliation between systems (workaround)
+  - Inventory work (scheduling impact)
+  - Single source of truth fragmentation (data quality risk)
+Next Target: "Would move to 4/5 if we validate with 5 more sales leaders or observe workflows directly"
+```
 
 ## Step 3: Pain Dimension Extraction
 

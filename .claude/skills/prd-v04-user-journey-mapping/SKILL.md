@@ -9,6 +9,58 @@ Position in workflow: v0.4 Persona Definition → **v0.4 User Journey Mapping** 
 
 User journeys transform features into paths. A journey answers: "How does [persona] go from [trigger] to [value moment] using [features]?"
 
+## Consumes
+
+This skill requires prior work from v0.3-v0.4:
+
+- **PER-*** persona entries** (from v0.4 Persona Definition) — Behavioral profiles that journeys are built around; each journey belongs to a specific persona
+- **FEA-*** feature entries** (from v0.3 Features Value Planning) — Feature list that becomes journey steps; validates that journeys use only MVP-scoped features
+- **KPI-*** outcome definitions** (from v0.3 Outcome Definition) — Success metrics that journeys drive; Core journeys must tie to Tier 1/2 KPIs
+- **MVP-SCOPE artifact** (from v0.3 Features Value Planning) — Explicit feature boundary; journeys must use only features in MVP-SCOPE, no backlog features
+- **BR-*** business rules** (from v0.3 Commercial Model) — Constraints that affect journey design (pricing tiers affect onboarding paths, moat rules affect targeting journeys, etc.)
+
+This skill assumes v0.4 Persona Definition is complete.
+
+## Produces
+
+This skill creates/updates:
+
+- **UJ-*** entries** (user journeys, confidence 2-3/5) — Paths from trigger through steps to value moment, tied to PER-/FEA-/KPI- with pain point identification
+- **Journey sequencing artifact** — Dependency map showing which journeys gate which (Onboarding gates Core; Core gates Power User)
+
+All UJ- entries should include:
+- `confidence: 2-3/5` (based on design validation and feature implementation certainty)
+- Evidence source citations (PER-ID, FEA-ID, KPI-ID references)
+- Forward target: "Would move to 4/5 if validated in beta with actual persona users"
+
+Example UJ- entry with confidence:
+```markdown
+UJ-001: First Report Generation
+Persona: PER-001 (Overwhelmed Ops Manager)
+Type: Core
+Trigger: User completes onboarding and sees empty dashboard
+Goal: Generate first automated report to see time-saving value
+Confidence: 2/5 (source: design-validation + feature-status-in-development; KPI-002 links to conversion)
+
+Steps:
+  1. Click "Create Report" → FEA-003 (one-click reports) [In MVP-SCOPE]
+  2. Select data source → FEA-001 (auto-sync) [In MVP-SCOPE]
+  3. Choose report template → FEA-008 (templates) [In MVP-SCOPE]
+  4. Preview report → FEA-003 [In MVP-SCOPE]
+  5. Export/share report → FEA-009 (export) [In MVP-SCOPE]
+
+Pain Points:
+  - Step 2: User may not have connected data source yet (dependency on UJ-002)
+  - Step 3: Template overload if too many choices (design concern; recommend 3-5 templates max)
+
+Moment of Value: Seeing the completed report with their actual data
+KPI Link: KPI-002 (activation rate — user completes first valuable action)
+Success Metric: Time from "Create Report" click to export ≤ 5 minutes
+Dependencies: BR-015 (data format rules), UJ-002 (data source connection must precede)
+
+Next Target: "Would move to 4/5 if 5+ beta users complete this journey in ≤5 minutes and report value"
+```
+
 ## Journey Types
 
 | Type | Purpose | Priority Signal | Example |

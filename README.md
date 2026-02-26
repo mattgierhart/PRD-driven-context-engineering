@@ -30,7 +30,7 @@ We are changing how we measure work, not just tools.
 | **Sprints**            | **Context Windows**                | We don't time-box based on dates; we _scope-box_ based on cognitive capacity.                          |
 | **User Stories**       | **Prompts**                        | We don't write descriptions; we engineer _prompts_ that deterministically load context.                |
 | **Tribal Knowledge**   | **Source of Truth**                | If it isn't in the Knowledge Graph (`SoT/`), it doesn't exist.                                         |
-| **Standups**           | **Documentation Hooks (optional)** | We don't have status meetings. Event-based hooks in `.claude/hooks` can update memory when configured. |
+| **Standups**           | **Documentation Hooks (event-driven)** | We don't have status meetings. `.claude/hooks` handles context loading, gate checks, SoT reminders, and subagent memory handoffs. |
 | **Project Management** | **Context Governance**             | We don't task-manage people. The system gates execution until context is verified valid.               |
 <!-- /SECTION: cognitive-shift -->
 
@@ -91,7 +91,7 @@ To make shared memory practical, we rely on four core concepts:
 
 2.  **The Documentation Ecosystem**
     _A living, connected system for shared memory._
-    Documentation is not a static PDF; it is a live graph. We connect `PRD` to `Epics` to `SoT` via links and hooks. When the logic changes in the Source of Truth, the ecosystem ensures both human and AI know.
+    Documentation is not a static PDF; it is a live graph. We connect `PRD` to `Epics` to `SoT` via links, skills, and hooks. When the logic changes in the Source of Truth, the ecosystem ensures both human and AI know.
 
 3.  **Context Validation**
     _Tools to measure context density._
@@ -184,7 +184,7 @@ Because our documentation is modular and interlocked via hooks, we can revisit a
 
 1.  Open a context window for `PRD.md` (Strategy Section).
 2.  Update the `BR-xxx` rules.
-3.  If hooks are configured in `.claude/hooks`, use them to propagate changes to the active `epics/`. Otherwise, update the Epic manually.
+3.  Let `.claude/settings.json` hooks handle context reload + gate checks + SoT reminders; if hooks are disabled, update the active Epic manually.
 
 This allows the product to evolve without losing the structure that keeps humans and AI aligned.
 <!-- /SECTION: lifecycle -->
@@ -202,10 +202,22 @@ This allows the product to evolve without losing the structure that keeps humans
 ├── epics/                  # Active Context Windows (Tasks)
 ├── SoT/                     # Shared Memory Store (SoT.* files)
 ├── temp/                    # Scratch Pad for explorations and audits
-└── .claude/                 # Agents, tools, skills, and hooks
+└── .claude/                 # Methodology runtime (skills, hooks, agents)
+    ├── skills/              # Stage skills (`prd-v*`) + methodology skills (`ghm-*`)
+    ├── hooks/               # Session/user/stop hooks + subagent memory hooks
+    ├── agents/              # Role agents with persistent `MEMORY.md`
+    ├── domain-profile.yaml  # ID registry + skill taxonomy
+    └── settings.json        # Hook wiring and execution config
 ```
 
 > **Agent Note**: `.claude/` can be replaced with `.gemini/`, `.codex/`, or any other agent structure, but the skills, hooks, custom commands, and agent model here were built with Anthropic's documentation model in mind.
+
+### `.claude` Methodology Layer (Current Behavior)
+
+- **Skills are split by intent**: `prd-v*` skills map to lifecycle stages; `ghm-*` skills handle operational work like gate checks, ID hygiene, SoT building, and status synchronization.
+- **Hooks are event-driven**: `SessionStart` injects read order, `UserPromptSubmit` checks context density for epic/gate prompts, and `Stop` reminds on SoT cascade updates.
+- **Subagent memory is automated**: `SubagentStart` loads agent memory, while `SubagentStop` prompts memory updates and runs a post-delegation drift check.
+- **Hook behavior is standardized**: `.claude/hooks/HOOK_CONTRACT.md` keeps the interface consistent even when scripts are swapped or extended.
 
 > **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy `README_template.md` to `README.md` and customize it for that product.
 <!-- /SECTION: repo-structure -->

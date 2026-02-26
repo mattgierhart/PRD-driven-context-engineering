@@ -9,6 +9,80 @@ Position in workflow: v0.4 User Journey Mapping → **v0.4 Screen Flow Definitio
 
 Screens are where journeys become tangible. This skill transforms user journeys into a screen inventory with navigation paths and feature mappings.
 
+## Consumes
+
+This skill requires prior work from v0.3-v0.4:
+
+- **UJ-*** user journey entries** (from v0.4 User Journey Mapping) — Journey steps become screens; each step asks "What screen enables this action?"
+- **FEA-*** feature entries** (from v0.3 Features Value Planning) — Features map to screens showing which features appear on which screens
+- **PER-*** persona entries** (from v0.4 Persona Definition) — Persona context (technical level, role) shapes screen design choices and complexity
+- **MVP-SCOPE artifact** (from v0.3 Features Value Planning) — Explicit feature boundary; screens must render only MVP-scoped features, backlog features deferred
+- **BR-*** business rules** (from v0.3 Commercial Model) — Constraints affecting screen layout (pricing tier rules affect which settings appear, role-based visibility, data refresh rates, etc.)
+
+This skill assumes v0.4 User Journey Mapping is complete.
+
+## Produces
+
+This skill creates/updates:
+
+- **SCR-*** entries** (screens, confidence 2-3/5) — Screen inventory with journey/feature/persona mappings showing purpose, actions, navigation, and constraints
+- **DES-*** entries** (design system components, confidence 2-3/5) — Reusable UI elements and patterns identified across screens
+- **Feature-to-Screen matrix** — Validation artifact showing every FEA- and every UJ- step mapped to SCR-
+- **Screen count and complexity assessment** — Critical for v0.5 technical stack selection (number of screens informs frontend framework needs)
+
+All SCR- entries should include:
+- `confidence: 2-3/5` (based on journey validation and feature implementation status)
+- Evidence source citations (UJ-ID, FEA-ID, PER-ID references)
+- Forward target: "Would move to 4/5 if validated in wireframe review or prototype testing"
+
+Example SCR- entry with confidence:
+```markdown
+SCR-001: Main Dashboard
+Type: Page
+Purpose: Central hub showing key metrics and quick actions
+Journeys: UJ-001 (Step 4), UJ-002 (Step 5), UJ-003 (Step 1)
+Features: FEA-007 (dashboard), FEA-003 (reports preview), FEA-012 (notifications) — all in MVP-SCOPE
+Confidence: 2/5 (source: journey-mapping + design-validation; not yet wireframed)
+
+Primary Actions: Create Report, View Data Sources, Access Settings
+Secondary Actions: Invite Team, View Help
+
+Navigation:
+  From: SCR-000 (Login), any screen via nav bar
+  To: SCR-002 (Report Builder), SCR-003 (Data Sources), SCR-010 (Settings)
+
+Content:
+  - Key metrics summary (3-5 cards) → DES-001 (Data Card)
+  - Recent reports list → DES-002 (Report List)
+  - Data source health status → DES-003 (Status Badge)
+  - Notification bell → FEA-012
+
+Constraints: BR-015 (data refresh rate), BR-020 (role-based visibility)
+Design Notes: PER-001 needs "busy dashboard" - show progress at a glance without overwhelming
+
+Next Target: "Would move to 4/5 if wireframe validated with 3+ target personas"
+```
+
+Example DES- entry with confidence:
+```markdown
+DES-001: Data Card
+Type: Component
+Used In: SCR-001 (Dashboard), SCR-005 (Analytics)
+Purpose: Display single metric with trend indicator
+Confidence: 2/5 (source: design-pattern-research; component not yet coded)
+
+States:
+  - Default: Shows value + trend arrow
+  - Loading: Skeleton placeholder
+  - Empty: "No data yet" message
+  - Error: "Failed to load" with retry
+
+Variants: Small (dashboard, 120px width), Large (detail view, 240px width)
+Accessibility: ARIA labels for trend direction, keyboard navigation support
+
+Next Target: "Would move to 4/5 if implemented and tested across both use cases"
+```
+
 ## Screen Types
 
 | Type | Definition | Design Priority | Example |

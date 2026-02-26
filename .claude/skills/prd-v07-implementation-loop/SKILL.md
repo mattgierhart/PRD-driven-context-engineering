@@ -7,7 +7,88 @@ description: Execute implementation within EPICs following test-first developmen
 
 Position in workflow: v0.7 Test Planning → **v0.7 Implementation Loop** → v0.8 Release
 
-This skill executes the build. It's the iterative cycle of: **Load Context → Test → Code → Tag → Update → Validate → Repeat**.
+## Consumes
+
+This skill requires prior work from v0.7 Epic Scoping and v0.7 Test Planning:
+
+- **EPIC-*** entries** (from v0.7 Epic Scoping) — EPIC context, objectives, Context & IDs table, execution plan phases, Session State tracking
+- **TEST-*** test specifications** (from v0.7 Test Planning) — Acceptance criteria in Given-When-Then format; tests define "done" for each deliverable
+- **API-*** endpoint contracts** (referenced in EPIC Context & IDs) — Implementation targets with request/response shapes, error codes, constraints
+- **DBT-*** schema specifications** (referenced in EPIC Context & IDs) — Data model, field types, relationships, constraints to implement
+- **BR-*** business rules** (referenced in EPIC Context & IDs) — Product logic constraints to enforce in code
+- **Existing SoT files** (if brownfield) — Durable specs that guide implementation without re-research
+
+This skill assumes EPIC- and TEST- entries are complete, with all upstream IDs fully specified.
+
+## Produces
+
+This skill updates/creates:
+
+- **Working code** (implementation of API-, DBT-, BR-, tested against TEST-) — Runnable code with @implements tags tracing back to specifications; passes all TEST- for EPIC
+- **Updated SoT entries** (if implementation reveals changes) — When building reveals new constraints or edge cases, update API-/DBT-/BR- entries immediately (not deferred)
+- **Session State updates** (EPIC.md Section 1) — "Brain dump" tracking exact stopping point, Next Steps for resume, blockers, decisions, Context
+
+All implementation outputs are **code and live SoT**, not confidence-based. They are:
+- **Traceable** (every function tagged with @implements pointing to specification ID)
+- **Tested** (all TEST- for EPIC pass before marking phase/EPIC complete)
+- **SoT-synchronized** (implementation matches specs/ or specs/ updated to match implementation reality)
+- **Session-state-preserved** (Session State section allows seamless resume from exact stopping point)
+
+Example code with traceability (from EPIC-01):
+```typescript
+// @implements API-001 (POST /users)
+// @see BR-001 (email uniqueness), BR-002 (password requirements), DBT-010 (users table)
+export async function createUser(req: Request, res: Response) {
+  // @implements BR-002 (password validation)
+  const passwordResult = validatePassword(req.body.password);
+  if (!passwordResult.valid) {
+    return res.status(400).json({
+      error: { code: 'INVALID_PASSWORD', message: passwordResult.errors[0] }
+    });
+  }
+
+  // @implements BR-001 (email uniqueness check)
+  const existingUser = await db.users.findByEmail(req.body.email);
+  if (existingUser) {
+    return res.status(409).json({
+      error: { code: 'EMAIL_EXISTS', message: 'User already exists' }
+    });
+  }
+
+  // @implements DBT-010 (users table creation)
+  const user = await db.users.create({
+    email: req.body.email,
+    passwordHash: await hashPassword(req.body.password),
+    createdAt: new Date(),
+  });
+
+  return res.status(201).json({ data: { id: user.id, email: user.email } });
+}
+```
+
+Example Session State update (EPIC-01 mid-session):
+```markdown
+## 1. Session State (The "Brain Dump")
+- **Last Action**: Completed API-001–003 implementation; all tests passing. Password reset flow complete.
+- **Stopping Point**: src/api/auth/reset.ts:85 — need to add rate limiting per BR-005
+- **Next Steps**:
+  1. Add rate limiter middleware to password reset endpoint (BR-005)
+  2. Update TEST-012 to verify rate limiting (5 attempts per hour)
+  3. Run full test suite for EPIC-01
+  4. Move to API-005 (verify email endpoint)
+- **Blockers**: None
+- **Context**: Decided to implement rate limiting in middleware rather than at function level for reuse across endpoints. Using `express-rate-limit`.
+- **Decisions Made**: POST /reset-password should return 429 with retry-after header when limit exceeded (API-001 error response spec). Using Redis for distributed rate limit tracking.
+
+### Resume Instructions
+> 1. Load EPIC-01 context (done in previous session)
+> 2. Create new branch session if needed
+> 3. Begin with Step 3 above (add rate limiter middleware)
+> 4. When complete, run: `npm run test -- tests/api/auth.test.ts`
+> 5. Update this Session State with new stopping point
+```
+
+## This skill executes the build. It's the iterative cycle of: **Load Context → Test → Code → Tag → Update → Validate → Repeat**.
 
 ## The Core Loop (The Heartbeat)
 

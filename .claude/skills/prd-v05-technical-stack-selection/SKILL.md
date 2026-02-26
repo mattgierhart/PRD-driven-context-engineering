@@ -9,6 +9,85 @@ Make technology decisions for every capability your product needs — starting w
 
 Position in workflow: v0.5 Risk Discovery Interview → **v0.5 Technical Stack Selection** → v0.6 Architecture Design
 
+## Consumes
+
+This skill requires prior work from v0.3-v0.5:
+
+- **FEA-*** feature entries** (from v0.3 Features Value Planning) — Every feature translates to technical capability requirements; derives which capability areas need technology decisions
+- **SCR-*** screen entries** (from v0.4 Screen Flow Definition) — Screen count and component complexity informs frontend technology needs; DES- components reveal design system constraints
+- **RISK-*** risk entries** (from v0.5 Risk Discovery Interview) — RISK- constraints directly affect technology choices (RISK-003: latency → choose edge hosting; RISK-004: compliance → choose HIPAA-ready provider)
+- **Existing TECH-*** entries** (from prior products if brownfield) — If product family exists, inherited technology decisions constrain new choices
+- **Product family information** (from user discovery if brownfield) — Shared infrastructure, existing databases, established frameworks narrow the evaluation space
+
+This skill assumes v0.5 Risk Discovery Interview is complete and FEA-/SCR-/RISK- entries provide the constraint foundation.
+
+## Produces
+
+This skill creates/updates:
+
+- **TECH-*** entries** (technology decisions, decision type + rationale) — Decisions for each capability area with categories (Reuse/Extend/New/Replace), options considered, choice made, and rationale tied to FEA-/RISK- constraints
+- **Risk-to-Technology mapping table** — Validation showing every RISK- entry has corresponding TECH- response or explicit acceptance
+- **Technical feasibility artifact** — Confidence assessment on whether technology choices support feature MVP-SCOPE and risk mitigations
+
+All TECH- entries should include:
+- **Decision Category**: Reuse/Extend/New/Replace/Build/Buy/Integrate/Research
+- **Features Served**: FEA-XXX references (every TECH- must serve at least one feature)
+- **Risk Constraints**: RISK-XXX references (if any risks constrain this decision)
+- **Rationale**: Why this choice; trade-offs considered
+- **Cost Assessment**: Current stage cost AND 10x scale cost for Buy decisions (MVP stage: prioritize speed and quality, not optimization)
+
+Example TECH- entry (Buy decision with RISK constraint):
+```markdown
+TECH-003: Authentication & Authorization
+Decision Category: Buy (managed service)
+Features Served: FEA-010 (user auth), FEA-020 (role-based access control) — both in MVP-SCOPE
+Risk Constraints: RISK-005 (security: we have no in-house security expertise), RISK-008 (compliance: need SOC2 certification path)
+
+Choice: Clerk (platform auth)
+Rationale:
+  - Reduces security surface (RISK-005 mitigation: no password storage, no token handling)
+  - Provides SOC2 compliance path (RISK-008 mitigation)
+  - Includes MFA, passwordless, social login; UI handles all FEA-010 requirements without build
+  - 30 day free tier; $25–$500/mo at growth stage (acceptable for MVP runway)
+
+Trade-offs:
+  - Plus: Zero auth code to maintain; future-proofs as compliance requirements evolve
+  - Minus: Vendor lock-in; customer data in Clerk's tables (acceptable for SMB stage)
+
+Cost:
+  - MVP stage (0–10k users): ~$50–200/mo (free tier covers launch)
+  - 10x scale (100k users): ~$500–2000/mo (still cheaper than building in-house team)
+
+Product Family Notes: If sibling products exist, Clerk can SSO across them using shared realm config (document in shared infrastructure EPIC)
+
+Alternatives Considered:
+  - Firebase Auth: Similar, but tighter Google lock-in and slightly higher cost at scale
+  - Auth0: Too expensive for MVP stage; better for enterprise products
+  - Build custom: Rejected — RISK-005 says we lack in-house security expertise; not a differentiator
+
+Next Step: If TECH-005 (Research: custom data encryption) decides to build, reconsider Auth0 for compliance sync
+```
+
+Example TECH- entry (Reuse decision from brownfield):
+```markdown
+TECH-001: Frontend Framework
+Decision Category: Reuse
+Features Served: FEA-006 (dashboard), FEA-007 (reports), all screen components — every UI in MVP-SCOPE
+Risk Constraints: None (no frontend risk identified)
+
+Existing Asset: React + Next.js (running in sibling product since 2023)
+Rationale:
+  - Already deployed, proven stable at 50k users
+  - Team expertise established; no learning curve
+  - Incremental cost: just new feature builds, no framework evaluation/migration risk
+  - Shared component library available (DES-001–005 can import existing primitives)
+
+Cost: $0 incremental (infrastructure already paid)
+
+Product Family Notes: Share component library and auth context across products using monorepo structure (document in shared infrastructure EPIC)
+```
+
+
 ## Workflow Overview
 
 1. **Discover Existing Assets** → Read SOT or interview user for current tech stack

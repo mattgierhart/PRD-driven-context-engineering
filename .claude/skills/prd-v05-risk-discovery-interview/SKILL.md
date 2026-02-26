@@ -9,6 +9,51 @@ Position in workflow: v0.4 Screen Flow Definition → **v0.5 Risk Discovery Inte
 
 This is an **interactive interview skill**. The AI asks questions, the user reflects and decides. The goal is to surface risks so the user can mitigate or accept them—not to kill ideas.
 
+## Consumes
+
+This skill requires prior work from v0.1-v0.4:
+
+- **CFD-*** all customer feedback entries** (from v0.1-v0.2) — User research foundation; reveals confidence tier in market assumptions
+- **BR-*** all business rules** (from v0.2-v0.3) — Constraints on what can change (pricing, moat, product type constrain risk responses)
+- **FEA-*** feature entries** (from v0.3) — Feature complexity and priorities signal technical risks
+- **PER-*** persona entries** (from v0.4) — Persona distribution and behaviors reveal adoption risks and churn signals
+- **UJ-*** journey entries** (from v0.4) — Journey complexity signals friction points; long journeys increase adoption risk
+- **SCR-*** screen entries** (from v0.4) — Screen count and design complexity informs technical resource risk
+
+This skill assumes v0.1-v0.4 work is complete and serves as context for interview discovery.
+
+## Produces
+
+This skill creates/updates:
+
+- **RISK-*** entries** (risk discovery, owner-assigned severity) — Identified risks with Impact/Likelihood scoring (raw score from 1-9), response type (Mitigate/Accept/Avoid/Transfer), specific mitigations, and owners
+- **README Risk Scorecard** — Baseline risk profile aggregated by category (Market/User/Technical) with total scores and risk level assessment
+- **Risk mitigation summary** — Top 3-5 risks requiring active mitigation before v0.6 architecture work
+
+All RISK- entries are created through user decision during the interview; they reflect explicit owner choices on severity, not AI assumptions:
+
+Example RISK- entry (user-scored):
+```markdown
+RISK-001: Market — Competitor Feature Parity
+Description: Competitor X launches report scheduling feature (our FEA-003 planned) within 60 days
+Trigger: Competitor announces roadmap; sees our landing page
+Impact: High (3) — User severity assessment based on competitive urgency
+Likelihood: Medium (2) — User assessment of competitor execution speed
+Raw Score: 6 (3 × 2)
+Status: open
+Effective Score: 6.0
+
+Early Signal: Competitor job postings for feature area, beta announcement
+Response: Mitigate
+Mitigation: Accelerate FEA-003 launch by 30 days; add scheduling as P0 (links to FEA-003, KPI-002)
+Owner: Product Lead
+Linked IDs: FEA-003 (report scheduling), KPI-002 (activation rate), BR-042 (undercut positioning)
+Review Date: Weekly during v0.6 (architecture phase)
+Added: v0.5
+```
+
+Note: Confidence scores are NOT part of RISK- entries. Risks are binary facts (discovered or not); severity is user-decided. Confidence applies to CFD-/FEA-/KPI- entries, not risks.
+
 ## Design Principles
 
 1. **Interview, not inquisition** — Facilitate discovery, don't interrogate

@@ -1,19 +1,56 @@
-#!/bin/bash
-# Hook: SubagentStart - Load agent memory if it exists
-# Prints memory content to STDOUT for injection into subagent context
+#!/usr/bin/env bash
+# GHM Subagent Memory Load Hook (SubagentStart)
+# Shell variant — see HOOK_CONTRACT.md for interface spec.
+#
+# Dependencies: POSIX shell, sed, awk (standard utilities)
+# No external packages required
+set -euo pipefail
 
-AGENT_NAME="$1"
-AGENT_DIR=".claude/agents/${AGENT_NAME}"
-MEMORY_FILE="${AGENT_DIR}/MEMORY.md"
+# --- Helpers ---
 
-# Check if this agent has a memory file
-if [ -f "$MEMORY_FILE" ]; then
-    echo "--- LOADING PROJECT MEMORY ---"
-    cat "$MEMORY_FILE"
-    echo "--- END PROJECT MEMORY ---"
-    echo ""
-    echo "Remember: Update this memory before returning results."
-else
-    # No memory file - agent operates without memory (this is fine)
-    echo "Note: No memory file for ${AGENT_NAME}. Proceeding without project memory."
-fi
+json_output() {
+  local context="$1"
+  local json_context
+  json_context=$(printf '%s' "$context" | sed 's/\\/\\\\/g; s/"/\\"/g' | awk '{if(NR>1) printf "\\n"; printf "%s", $0}')
+  printf '{"hookSpecificOutput": {"hookEventName": "SubagentStart", "additionalContext": "%s"}}\n' "$json_context"
+}
+
+# --- Main ---
+
+main() {
+  # Read stdin JSON (contains agent_id, agent_type)
+  local input
+  input=$(cat)
+
+  # Extract agent_type from stdin JSON (maps to agent directory name)
+  local agent_type
+  agent_type=$(printf '%s' "$input" | sed -n 's/.*"agent_type"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+
+  if [ -z "$agent_type" ]; then
+    exit 0
+  fi
+
+  local agent_dir=".claude/agents/${agent_type}"
+  local memory_file="${agent_dir}/MEMORY.md"
+
+  # If no memory file exists, nothing to inject
+  if [ ! -f "$memory_file" ]; then
+    exit 0
+  fi
+
+  local memory_content
+  memory_content=$(cat "$memory_file")
+
+  local directive="## Agent Memory Loaded
+
+The following project memory was loaded from \`${memory_file}\`:
+
+${memory_content}
+
+**Reminder**: Update this memory before returning results."
+
+  json_output "$directive"
+  exit 0
+}
+
+main

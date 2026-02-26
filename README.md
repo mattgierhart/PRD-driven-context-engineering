@@ -4,8 +4,6 @@
 >
 > This repository is one expression of that system. The principles apply at any stage because documentation becomes a **Knowledge Graph** that humans and AI can query.
 
-See this philosophy in action at **[GearheartAI.org](https://gearheartai.org)**.
-
 ---
 
 <!-- SECTION: evolution -->

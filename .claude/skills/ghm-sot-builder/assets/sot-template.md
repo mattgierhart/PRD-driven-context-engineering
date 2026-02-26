@@ -50,17 +50,16 @@ authority: This is a SoT file - IDs created here are referenced by {list files: 
 
 ### Related IDs
 
-**{Relationship Type A}**:
-- [{OTHER-PREFIX}-XXX](SoT.OTHER_FILE.md#{anchor}) - {Description}
+- [{OTHER-PREFIX}-XXX](SoT.OTHER_FILE.md#{anchor}) — {relationship-type}: {Description}
+- [{OTHER-PREFIX}-YYY](SoT.OTHER_FILE.md#{anchor}) — {relationship-type}: {Description}
 
-**{Relationship Type B}**:
-- [{OTHER-PREFIX}-YYY](SoT.OTHER_FILE.md#{anchor}) - {Description}
+> **Convention**: Use types from the [Relationship Type Vocabulary](../../ghm-id-register/references/cross-reference-patterns.md#relationship-type-vocabulary). Common types: `informed-by`, `implements`, `enforces`, `validated-by`, `uses`, `depends-on`.
 
 ### Version History
 
-| Version | Date | Changes | Updated By |
-|---------|------|---------|------------|
-| 1.0 | {YYYY-MM-DD} | Initial creation | {Name} |
+| Date | Field | Previous | New | Reason | EPIC |
+|------|-------|----------|-----|--------|------|
+| {YYYY-MM-DD} | — | — | Initial creation | Created | EPIC-{XXX} |
 
 ---
 

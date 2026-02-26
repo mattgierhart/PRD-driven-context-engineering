@@ -79,26 +79,28 @@ This file serves as the **governance guide** for the ID system and the **central
 
 ```text
 BR-001 (User Limit)
-  └─→ API-045 (POST /users validation)
-      └─→ TEST-301 (Unit test)
+  └─ implements → API-045 (POST /users validation)
+      └─ validated-by → TEST-301 (Unit test)
 ```
 
 #### B. User Journey Dependencies
 
 ```text
 UJ-101 (Onboarding Flow)
-  ├─→ API-045 (Create User)
-  ├─→ DES-042 (Sign Up Component)
-  └─→ BR-001 (Limit Check)
+  ├─ uses → API-045 (Create User)
+  ├─ uses → DES-042 (Sign Up Component)
+  └─ enforces → BR-001 (Limit Check)
 ```
 
 #### C. Feedback Drives Features
 
 ```text
 CFD-089 (Request: Dark Mode)
-  └─→ FEA-015 in PRD (Theme Feature)
-      └─→ UJ-105 (Theme Switcher Flow)
+  └─ informed-by → FEA-015 in PRD (Theme Feature)
+      └─ implements → UJ-105 (Theme Switcher Flow)
 ```
+
+> **Relationship types**: `informed-by`, `implements`, `enforces`, `validated-by`, `uses`, `depends-on`, `driven-by`, `supersedes`, `conflicts-with`, `designed-for`. See `ghm-id-register` skill for full vocabulary.
 
 <!-- /SECTION: template-structure -->
 

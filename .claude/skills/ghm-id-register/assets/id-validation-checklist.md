@@ -71,6 +71,23 @@
 
 ---
 
+## Conflict Detection
+
+### Scope Overlap Check
+
+- [ ] **Search Same Domain**: Are there existing IDs in the same prefix with overlapping scope?
+- [ ] **Value Contradiction**: Does this ID's value/rule contradict any existing ID?
+- [ ] **Precedence Clear**: If multiple IDs govern the same area, is precedence documented?
+
+**Common Conflict Patterns**:
+- Two BR- entries governing the same feature with different limits (e.g., BR-045 "100/day" vs BR-078 "unlimited for premium")
+- Two API- entries for the same resource with different schemas
+- Two UJ- entries for the same persona with contradictory flows
+
+**Resolution**: If conflict detected, add `conflicts-with` typed relationship to both entries and document resolution in the EPIC.
+
+---
+
 ## Type-Specific Validation
 
 ### BR (Business Rule)
@@ -161,9 +178,10 @@ Before registering new ID:
 
 ## Versioning Validation
 
-- [ ] **Version History**: Table present
-- [ ] **Initial Version**: 1.0 logged
-- [ ] **Change Tracking**: (For updates, not new IDs)
+- [ ] **Version History**: Table present with columns: Date, Field, Previous, New, Reason, EPIC
+- [ ] **Initial Entry**: Row logged with "Initial creation" and EPIC reference
+- [ ] **Field-Level Tracking**: For updates, each changed field gets its own row with previous and new values
+- [ ] **EPIC Traceability**: Every change row references the EPIC that prompted the change
 
 ---
 

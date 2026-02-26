@@ -35,16 +35,24 @@
     ],
     "SubagentStart": [
       {
-        "type": "command",
-        "command": ".claude/hooks/subagent-memory-load.sh $AGENT_NAME",
-        "timeout": 5000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/subagent-memory-load.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "SubagentStop": [
       {
-        "type": "command",
-        "command": ".claude/hooks/subagent-memory-save.sh $AGENT_NAME",
-        "timeout": 5000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/subagent-memory-save.sh",
+            "timeout": 5
+          }
+        ]
       }
     ]
   },

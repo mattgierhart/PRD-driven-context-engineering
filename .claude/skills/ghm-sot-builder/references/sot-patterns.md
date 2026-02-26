@@ -97,21 +97,20 @@ Each entry follows a consistent structure:
 
 ### Related IDs
 
-**{Relationship Type}**:
-- [{OTHER-PREFIX}-XXX](SoT.OTHER_FILE.md#{id-anchor}) - {Description}
-- [{OTHER-PREFIX}-YYY](SoT.OTHER_FILE.md#{id-anchor}) - {Description}
+- [{OTHER-PREFIX}-XXX](SoT.OTHER_FILE.md#{id-anchor}) — {relationship-type}: {Description}
+- [{OTHER-PREFIX}-YYY](SoT.OTHER_FILE.md#{id-anchor}) — {relationship-type}: {Description}
 
 ### Version History
 
-| Version | Date | Changes | Updated By |
-|---------|------|---------|------------|
-| 1.0 | YYYY-MM-DD | Initial creation | {Name} |
+| Date | Field | Previous | New | Reason | EPIC |
+|------|-------|----------|-----|--------|------|
+| YYYY-MM-DD | — | — | Initial creation | Created | EPIC-{XXX} |
 ```
 
 Key principles:
 - Metadata comes first (scannable)
-- Related IDs use full markdown links for navigation
-- Version history tracks changes over time
+- Related IDs use full markdown links with typed relationships (see cross-reference-patterns.md)
+- Version History tracks field-level changes with previous/new values for drift detection
 
 ---
 

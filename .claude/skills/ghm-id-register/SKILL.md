@@ -76,6 +76,8 @@ For each ID referenced in the new entry:
 - [ ] All `UJ-XXX` references exist in USER_JOURNEYS
 - [ ] All `API-XXX` references exist in API_CONTRACTS
 - [ ] All `CFD-XXX` references exist in CUSTOMER_FEEDBACK
+- [ ] Each cross-reference includes a relationship type (see `references/cross-reference-patterns.md`)
+- [ ] Relationship types match the directional hierarchy (vertical types for cross-layer, lateral types for same-layer)
 
 ## Step 3.5: Evaluate Confidence (NEW)
 

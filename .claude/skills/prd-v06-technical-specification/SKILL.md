@@ -9,6 +9,97 @@ Position in workflow: v0.6 Architecture Design → **v0.6 Technical Specificatio
 
 Technical specification defines the **contracts** developers build against: API endpoints and data models. This is the bridge between architecture and implementation.
 
+## Consumes
+
+This skill requires prior work from v0.3-v0.6:
+
+- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — System structure (monolith vs microservices) determines API organization; integration patterns guide webhook/adapter design
+- **TECH-*** Build items** (from v0.5 Technical Stack Selection) — Technologies chosen define data model types (PostgreSQL requires relational schema; MongoDB requires document schema)
+- **UJ-*** user journeys** (from v0.4 User Journey Mapping) — Journey steps determine API call sequences; value moments determine response contracts
+- **SCR-*** screen entries** (from v0.4 Screen Flow Definition) — Screen data requirements determine API response shape; form submissions map to POST/PUT/PATCH endpoints
+- **BR-*** business rules** (from v0.3 Commercial Model) — Business constraints enforced in API responses (rate limits, validation rules, field constraints)
+
+This skill assumes v0.6 Architecture Design is complete with ARC- entries providing system structure.
+
+## Produces
+
+This skill creates/updates:
+
+- **API-*** entries** (API endpoint contracts) — REST/GraphQL endpoint specifications with request/response shapes, auth requirements, error codes, tied to UJ-/SCR- consumers and DBT- data sources
+- **DBT-*** entries** (database schema contracts) — Data model specifications with fields, relationships, indexes, constraints, tied to API- accessors and BR- rules
+- **Screen-to-API validation matrix** — Verification showing every SCR-* has supporting API-* and every UJ-* step can be completed via API calls
+- **API-to-Data validation matrix** — Verification showing every API-* response field maps to DBT-* and every DBT-* is used by at least one API-*
+
+All API- and DBT- entries are implementation contracts (not confidence-based). They are:
+- **Derivable from** upstream IDs (UJ-/SCR-/ARC-/BR-/TECH-)
+- **Testable** (API responses have concrete shape, DBT constraints are verifiable)
+- **Complete enough for developers** to implement without re-research
+
+Example API- entry (from UJ- and SCR-):
+```markdown
+API-001: Create Report
+Method: POST
+Path: /api/reports
+Purpose: Create new report from selected data source and template (implements UJ-001 Step 1)
+Auth: User
+
+Journey: UJ-001 (Step 1 - Create Report)
+Screen: SCR-002 (Report Builder)
+
+Request:
+  Body:
+    {
+      title: string (required) — Report name
+      templateId: string (required) — Selected template (FEA-008)
+      dataSourceId: string (required) — Connected data source (FEA-001)
+      options: { dateRange: { start, end }, filters: [...] }
+    }
+
+Response:
+  Success (201):
+    {
+      data: { id, title, status: "pending|generating|ready", createdAt }
+    }
+  Errors:
+    - 400: Invalid input — Missing required field
+    - 403: Forbidden — User doesn't own data source
+    - 404: Not found — Template or data source not found
+    - 429: Rate limit exceeded
+
+Business Rules: BR-015 (max 100 reports per user)
+Data: DBT-001 (reports table), DBT-002 (data_sources table)
+```
+
+Example DBT- entry (referenced by API- entries):
+```markdown
+DBT-001: Reports
+Purpose: Stores user-generated reports (entities created by API-001, updated by API-004)
+Table: reports
+
+Fields:
+  - id: uuid — Primary key
+  - user_id: uuid — Report owner (FK → users) [NOT NULL]
+  - title: varchar(255) — Display name [NOT NULL]
+  - status: enum('pending','generating','ready','failed') [NOT NULL]
+  - created_at: timestamp [NOT NULL, DEFAULT now()]
+
+Relationships:
+  - belongs_to: users via user_id
+  - belongs_to: templates via template_id
+
+Indexes:
+  - user_id — List reports by user (API-003)
+  - (user_id, created_at DESC) — Recent reports (API-003)
+  - status — Find pending reports (background job)
+
+Constraints:
+  - title: NOT NULL, length 1-255
+  - status: valid enum only
+
+Business Rules: BR-015 (max 100 per user — enforce in API-001)
+APIs: API-001 (create), API-002 (get), API-003 (list), API-005 (delete)
+```
+
 ## Specification Types
 
 | Type | What It Defines | Example |

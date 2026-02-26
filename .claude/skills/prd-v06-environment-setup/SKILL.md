@@ -9,6 +9,119 @@ Position in workflow: v0.6 Architecture Design / Technical Specification → **v
 
 Environment setup documents the **tools, packages, and configurations** developers need to work on the project. This eliminates environment drift and speeds up onboarding.
 
+## Consumes
+
+This skill requires prior work from v0.5-v0.6:
+
+- **TECH-*** technology decisions** (from v0.5 Technical Stack Selection) — Choices for frontend/backend/database/CI/CD determine which tools, languages, and package managers developers need
+- **ARC-*** architecture decisions** (from v0.6 Architecture Design) — Architectural patterns (monolith vs microservices, container strategy, deployment topology) inform infrastructure and scripting needs
+
+This skill assumes v0.5 Technical Stack Selection is complete with TECH- entries specifying the tech stack.
+
+## Produces
+
+This skill creates/updates:
+
+- **ENV-001: Development Environment** — Local setup specification with CLIs (global), packages (per-project), config files, verification steps. Enables consistent development experience across team
+- **ENV-002: CI/CD Pipeline** (optional) — Automated testing and deployment workflow specifications with required secrets and pipeline stages
+- **ENV-003: Production Infrastructure** (optional) — Production hosting, environment variables, services, and deployment topology
+
+All ENV- entries are **specifications, not confidence-based**. They are:
+- **Concrete and verifiable** (each CLI/package has an install command; each config file has a purpose)
+- **Preferring CLIs over MCPs** (standard tools work in CI/CD; MCPs don't scale)
+- **Per-project, not global** (package managers install dependencies in the project, not globally)
+
+Example ENV-001 entry (Development Environment):
+```markdown
+ENV-001: Development Environment
+Category: Development Setup
+Status: Approved | Date: 2026-02-26
+Owner: Engineering Team
+
+Purpose:
+Local development setup for team consistency and AI agent understanding.
+
+CLIs (Global, install once):
+- Node.js 20.x: https://nodejs.org — Language runtime
+  Install: `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash && nvm install 20`
+  Verify: `node --version`
+- mise: https://mise.jdx.dev — Version manager
+  Install: `curl https://mise.jdx.dev/install.sh | sh`
+  Verify: `mise --version`
+
+Packages (Per-Project):
+- typescript: Type checking (devDependency)
+- eslint, prettier: Code quality (devDependencies)
+- jest: Testing framework (devDependency)
+- Listed in package.json, installed via: `npm install`
+
+Configuration Files:
+| File | Purpose |
+|------|---------|
+| package.json | Dependencies, scripts, project metadata |
+| tsconfig.json | TypeScript compiler options |
+| .eslintrc.json | Linting rules |
+| .prettierrc | Code formatting rules |
+| .env.example | Template for environment variables |
+
+Scripts:
+{
+  "validate": "npm run lint && npm run type-check",
+  "lint": "eslint src/",
+  "fix": "eslint src/ --fix && prettier --write src/",
+  "type-check": "tsc --noEmit",
+  "test": "jest",
+  "dev": "next dev",
+  "build": "next build"
+}
+
+Verification:
+# 1. Check global CLIs
+node --version
+mise --version
+
+# 2. Check per-project packages
+npm list | head -20
+
+# 3. Run validation
+npm run validate
+
+# 4. Run tests
+npm run test
+
+Related IDs: TECH-001 (Next.js), TECH-002 (TypeScript), ARC-001 (monolith structure)
+```
+
+Example ENV-002 entry (CI/CD):
+```markdown
+ENV-002: CI/CD Pipeline
+Category: Automation
+Status: Approved | Date: 2026-02-26
+
+Purpose:
+Automated testing and deployment configuration.
+
+Workflow Files:
+- .github/workflows/test.yml: Run tests on push to any branch
+- .github/workflows/deploy.yml: Deploy main branch to production on merge
+
+Required Secrets (set in GitHub Settings → Secrets):
+| Secret | Purpose |
+|--------|---------|
+| VERCEL_TOKEN | Authentication for Vercel deployment |
+| DATABASE_URL | Production database connection string |
+| API_KEY | Third-party API credentials |
+
+Pipeline Stages:
+1. Install: `npm install`
+2. Lint: `npm run validate` (must pass)
+3. Test: `npm run test` (must pass)
+4. Build: `npm run build` (must succeed)
+5. Deploy: Push to Vercel (main branch only)
+
+Related IDs: ENV-001, TECH-002 (Node.js), ARC-001 (monolith deployment)
+```
+
 ## Environment Types
 
 | Type | What It Defines | When Required |

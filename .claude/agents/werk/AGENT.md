@@ -84,6 +84,7 @@ v0.5 gate ──► v0.6 ─────────────────► 
 | v0.5 | `prd-v05-technical-stack-selection` | Evaluate and select technologies |
 | v0.6 | `prd-v06-architecture-design` | Define system architecture |
 | v0.6 | `prd-v06-technical-specification` | Create API and data model specs |
+| v0.6 | `prd-v06-environment-setup` | Document dev environment requirements |
 | v0.7 | `prd-v07-epic-scoping` | Break work into context windows |
 | v0.7 | `prd-v07-test-planning` | Define test coverage |
 | v0.7 | `prd-v07-implementation-loop` | Execute build with traceability |

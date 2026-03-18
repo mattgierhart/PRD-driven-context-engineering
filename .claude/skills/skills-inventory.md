@@ -19,10 +19,12 @@
 | **v0.4 User Journeys** | [Persona Definition](#skill-persona-definition) | ✅ Ready | [`prd-v04-persona-definition/`](prd-v04-persona-definition/) |
 | **v0.4 User Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | ✅ Ready | [`prd-v04-user-journey-mapping/`](prd-v04-user-journey-mapping/) |
 | **v0.4 User Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | ✅ Ready | [`prd-v04-screen-flow-definition/`](prd-v04-screen-flow-definition/) |
+| **v0.4 User Journeys** | [Visual Prototype Gate](#skill-visual-prototype-gate) | ✅ Ready | [`prd-v04-visual-prototype-gate/`](prd-v04-visual-prototype-gate/) |
 | **v0.5 Red Team Review** | [Risk Discovery Interview](#skill-risk-discovery-interview) | ✅ Ready | [`prd-v05-risk-discovery-interview/`](prd-v05-risk-discovery-interview/) |
 | **v0.5 Red Team Review** | [Technical Stack Selection](#skill-technical-stack-selection) | ✅ Ready | [`prd-v05-technical-stack-selection/`](prd-v05-technical-stack-selection/) |
 | **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | ✅ Ready | [`prd-v06-architecture-design/`](prd-v06-architecture-design/) |
 | **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | ✅ Ready | [`prd-v06-technical-specification/`](prd-v06-technical-specification/) |
+| **v0.6 Architecture** | [Environment Setup](#skill-environment-setup) | ✅ Ready | [`prd-v06-environment-setup/`](prd-v06-environment-setup/) |
 | **v0.7 Build Execution** | [Epic Scoping](#skill-epic-scoping) | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
 | **v0.7 Build Execution** | [Test Planning](#skill-test-planning) | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
 | **v0.7 Build Execution** | [Implementation Loop](#skill-implementation-loop) | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
@@ -83,6 +85,7 @@
 | Persona Definition | CFD- (v0.1-v0.3), BR- (targeting), FEA- (features) | Behavioral personas (max 5) | PER- |
 | User Journey Mapping | PER- (personas), FEA- (features), KPI- (outcomes) | User missions with step flows | UJ- |
 | Screen Flow Definition | UJ- (journeys), FEA- (features), BR- (constraints) | Screen inventory with navigation | SCR-, DES- |
+| Visual Prototype Gate | SCR- (screens), PER- (personas), UJ- (journeys), DES- (components) | Stitch prompts per SCR-, Feedback Capture Template | (none — routes feedback to existing IDs) |
 
 ### v0.5 Red Team Review — Risks & Technical Stack
 
@@ -103,6 +106,7 @@
 |-------|-------|--------|-------------|
 | Architecture Design | TECH- (stack), RISK- (constraints), FEA- (features) | System architecture with component relationships | ARC- |
 | Technical Specification | ARC- (architecture), TECH- (Build items), UJ- (flows), SCR- (screens) | API contracts and data models | API-, DBT- |
+| Environment Setup | TECH- (stack selections), ARC- (architecture decisions) | Development, CI/CD, and infrastructure environment specs | ENV- |
 
 ### v0.7 Build Execution — Implementation
 
@@ -890,6 +894,61 @@ States: [Default, Loading, Error, Empty, etc.]
 
 ---
 
+### SKILL: Visual Prototype Gate
+
+```yaml
+name: prd-v04-visual-prototype-gate
+stage: v0.4
+status: ready
+folder: prd-v04-visual-prototype-gate/
+triggers: "make a prototype", "visualize screens", "generate Stitch prompt", "I need a visual demo", "prototype the workflow", "show me what this looks like", "get this to a demo", "visual gate"
+id_outputs: [] # No new IDs — routes feedback to existing SCR-, DES-, CFD-, BR-
+```
+
+**Purpose:** Convert SCR- entries into structured prompts for Google Stitch (or equivalent UI generation tool), then capture stakeholder feedback routed back to specific SoT IDs.
+
+**Position in workflow:** v0.4 Screen Flow Definition → **v0.4 Visual Prototype Gate** → v0.5 Red Team Review
+
+**Execution:**
+1. Confirm SCR- entries exist (minimum 3 with Purpose, Key Elements, Related IDs)
+2. Write Prototype Context Brief (product context + persona + design style)
+3. Generate per-screen Stitch prompts (1:1 SCR- to prompt mapping)
+4. Identify the Money Shot (single screen communicating core value)
+5. Output Feedback Capture Template for structured stakeholder review
+
+**Consumes:** SCR-\* (screens), PER-\* (personas), UJ-\* (journeys), DES-\* (components), BR-\* (constraints)
+
+**Produces:** Stitch prompt blocks, Prototype Context Brief, Feedback Capture Template
+
+**Per-Screen Prompt Template:**
+```
+SCREEN: [SCR-XXX] — [Screen Name]
+Journey position: [UJ-XXX], Step [N] of [Total]
+User goal: [From SCR- Purpose field]
+Situation: [What just happened — derived from prior UJ- step]
+Key UI elements: [From SCR- Key Elements, using specific UI/UX keywords]
+Constraints: [BR-XXX rules affecting this screen]
+Emotional beat: [Derived from journey position]
+Layout: [UI surface type — full page, sidebar panel, modal, card grid, etc.]
+```
+
+**Quality Gates (v0.4 → v0.5):**
+- [ ] All SCR- entries have a corresponding visual prototype screen
+- [ ] At least one stakeholder has reviewed the prototype
+- [ ] Feedback Capture Template completed with dispositions
+- [ ] Money Shot identified and captured
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Feedback without ID | "I don't like screen 3" with no SCR- ref | Require feedback template use |
+| Redesign in review | Reviewer sketches new screen | Route to UJ- review — problem is upstream |
+| Infinite loops | 3+ review cycles | Escalate: persona or journey needs work |
+| Technical gatekeeping | "We can't build this" | Note for v0.5/v0.6 — don't change prototype |
+| Aesthetic bikeshedding | Color/font debates | Remind: prototype tests workflow, not polish |
+
+---
+
 ### SKILL: Risk Discovery Interview
 
 ```yaml
@@ -1265,6 +1324,62 @@ Business Rules: [BR-XXX that affect this entity]
 | **v0.7 Build Execution** | API- and DBT- are implementation tasks | EPIC-01 implements API-001–005 |
 | **Testing** | API- defines test contracts | TEST-001 validates API-001 |
 | **Documentation** | API- becomes API docs | OpenAPI spec from API- entries |
+
+---
+
+### SKILL: Environment Setup
+
+```yaml
+name: prd-v06-environment-setup
+stage: v0.6
+status: ready
+folder: prd-v06-environment-setup/
+triggers: "environment setup", "dev environment", "what tools do I need", "CLI requirements", "project setup", "onboarding setup"
+id_outputs: [ENV-]
+```
+
+**Purpose:** Document development environment requirements for team consistency and AI agent understanding.
+
+**Position in workflow:** v0.6 Architecture Design / Technical Specification → **v0.6 Environment Setup** → v0.7 Build Execution
+
+**Execution:**
+1. Pull TECH- decisions (what technologies are we using?)
+2. Pull ARC- decisions (what architecture patterns apply?)
+3. Inventory tooling needs (what do developers need installed?)
+4. Categorize by scope (global CLIs vs per-project packages)
+5. Define configuration files and their purposes
+6. Create verification steps
+7. Document in ENV- entries
+
+**ENV- Output Template:**
+```
+ENV-001: Development Environment
+Category: Development Setup
+Status: Approved | Date: YYYY-MM-DD
+
+CLIs (Global): {tool}: {purpose} — {install command}
+Packages (Per-Project): {package}: {purpose}
+Configuration Files: {file} | {purpose}
+Scripts: validate, fix, test commands
+Verification: commands to confirm setup
+Related IDs: TECH-XXX, ARC-XXX
+```
+
+**Design Principles:**
+| Principle | Rule |
+|-----------|------|
+| **CLIs over MCPs** | CLIs work in CI/CD; MCPs don't scale |
+| **Per-project over global** | Package managers install in project, not globally |
+| **Structured over prose** | Tables and code blocks, not narrative |
+| **Verification required** | Every spec includes verification commands |
+
+**Anti-Patterns:**
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| Global package pollution | `npm install -g` for project packages | Use devDependencies |
+| Missing verification | No way to confirm setup | Add verification commands |
+| MCP over CLI | Using MCP when CLI exists | Prefer CLI for portability |
+| Undocumented config | Config files without explanation | Document purpose of each |
 
 ---
 

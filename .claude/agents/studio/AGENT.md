@@ -76,6 +76,7 @@ v0.1 ──► v0.2 ──► v0.3 ──────► v0.4 ──► v0.5 ─
 | v0.4 | `prd-v04-persona-definition` | Validate persona assumptions through design |
 | v0.4 | `prd-v04-user-journey-mapping` | Co-design journey flows with HORIZON |
 | v0.4 | `prd-v04-screen-flow-definition` | Define screens and navigation |
+| v0.4 | `prd-v04-visual-prototype-gate` | Generate visual prototypes and capture feedback |
 
 ## Handoff Contracts
 

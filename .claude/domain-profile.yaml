@@ -68,9 +68,11 @@ skills:
     - prd-v04-persona-definition
     - prd-v04-screen-flow-definition
     - prd-v04-user-journey-mapping
+    - prd-v04-visual-prototype-gate
     - prd-v05-risk-discovery-interview
     - prd-v05-technical-stack-selection
     - prd-v06-architecture-design
+    - prd-v06-environment-setup
     - prd-v06-technical-specification
     - prd-v07-epic-scoping
     - prd-v07-implementation-loop

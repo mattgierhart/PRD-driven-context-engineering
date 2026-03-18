@@ -6,6 +6,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Template version
 
 ---
 
+## [3.1.0] — 2026-03-18
+
+### Added
+- `prd-v04-visual-prototype-gate` skill — converts SCR- entries into structured prompts for Google Stitch (or equivalent UI generation tool), captures stakeholder feedback routed back to SoT IDs. Sits between Screen Flow Definition and v0.5 Red Team Review.
+- `prd-v06-environment-setup` registered in domain-profile.yaml, skills-inventory.md, and WERK agent (skill existed on disk but was missing from all registries)
+
+### Changed
+- `.claude/domain-profile.yaml` — domain skills list updated (24 → 26 entries)
+- `.claude/skills/skills-inventory.md` — added Visual Prototype Gate and Environment Setup entries (Quick Nav, stage overview tables, full skill specs)
+- `.claude/agents/studio/AGENT.md` — added `prd-v04-visual-prototype-gate` to Skills I Invoke
+- `.claude/agents/werk/AGENT.md` — added `prd-v06-environment-setup` to Skills I Invoke
+- `.claude/README.md` — updated v0.4 skill count (3 → 4) and v0.6 skill count (2 → 3)
+- Skill count: 26 → 28 PRD lifecycle skills + 5 methodology skills
+
+---
+
 ## [3.0.0] — 2026-02-12
 
 ### Added
@@ -38,7 +54,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Template version
 ## [2.0.0] — 2026-01-12
 
 ### Added
-- Complete skill library: 26 PRD lifecycle skills (v0.1–v0.9) + 5 methodology skills (ghm-*)
+- Complete skill library: 26 PRD lifecycle skills (v0.1–v0.9) + 5 methodology skills (ghm-*) (note: count updated to 28 in v3.1.0)
 - Skill-per-directory structure with SKILL.md + assets/ + references/
 - 3 hooks: context-validation, context-density-gate, sot-update-trigger
 - Hook .md documentation paired with each script

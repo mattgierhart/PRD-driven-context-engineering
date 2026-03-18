@@ -6,6 +6,43 @@ This document helps derivative repos sync with template changes. Each version se
 
 ---
 
+## v3.0.0 → v3.1.0
+
+**Released**: 2026-03-18
+
+### What Changed
+
+Two new skills added, one pre-existing skill registered. No breaking changes.
+
+| Skill | Stage | What It Does |
+|-------|-------|-------------|
+| `prd-v04-visual-prototype-gate` | v0.4 | Converts SCR- entries into structured prompts for Google Stitch (or equivalent), captures feedback routed to SoT IDs |
+| `prd-v06-environment-setup` | v0.6 | Documents dev environment requirements (CLIs, packages, config). **Already existed on disk — now registered in all indexes** |
+
+### Migration Checklist
+
+- [ ] **Copy new skill folder**: `.claude/skills/prd-v04-visual-prototype-gate/` (SKILL.md + assets/ + references/)
+- [ ] **Update `.claude/domain-profile.yaml`** — add two entries to `domain:` list:
+  - `prd-v04-visual-prototype-gate` (after `prd-v04-user-journey-mapping`)
+  - `prd-v06-environment-setup` (after `prd-v06-architecture-design`) — skip if you already have this skill registered
+- [ ] **Update `.claude/skills/skills-inventory.md`** — add entries to Quick Nav table, stage overview table, and skill spec section (or copy the file from template)
+- [ ] **Update `.claude/agents/studio/AGENT.md`** — add `prd-v04-visual-prototype-gate` to "Skills I Invoke" table at v0.4
+- [ ] **Update `.claude/agents/werk/AGENT.md`** — add `prd-v06-environment-setup` to "Skills I Invoke" table at v0.6
+- [ ] **Update `.claude/README.md`** — update skill counts in directory tree comments (v0.4: 3→4, v0.6: 2→3)
+- [ ] **Update `.claude/VERSION`** — set to `3.1.0`
+- [ ] **Update `template_version`** in CLAUDE.md frontmatter — set to `3.1.0`
+
+### Notes for Repos Already Past v0.4
+
+If your product has already completed v0.4 and advanced to v0.5+, the Visual Prototype Gate skill is **not retroactively required**. It becomes available for:
+- Future products using the template
+- Iteration cycles where you revisit v0.4 screens based on post-launch feedback
+- New features that need visual validation before build
+
+The environment-setup skill (v0.6) is similarly non-breaking — it adds ENV- entries to existing v0.6 workflows.
+
+---
+
 ## v2.0.0 → v3.0.0
 
 **Released**: 2026-02-12

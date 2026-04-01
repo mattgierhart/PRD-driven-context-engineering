@@ -11,6 +11,7 @@ Thumbs.db
 
 # Claude Code local settings (machine-specific)
 .claude/settings.local.json
+CLAUDE.local.md
 
 # Environment files
 .env

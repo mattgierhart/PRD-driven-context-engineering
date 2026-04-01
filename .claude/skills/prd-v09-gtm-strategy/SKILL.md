@@ -5,6 +5,15 @@ description: >
   Triggers on requests to plan launch, define GTM strategy, or when user asks "how do we launch?",
   "go-to-market", "launch plan", "marketing strategy", "messaging", "launch channels", "GTM".
   Outputs GTM- entries with launch plan components.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # GTM Strategy

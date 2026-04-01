@@ -2,7 +2,7 @@
 title: "Source-of-Truth Library Guide"
 scope: "SoT/"
 updated: "2026-02-12"
-template_version: "3.0.0"
+template_version: "3.2.0"
 ---
 
 # Source-of-Truth (SoT) Library
@@ -27,6 +27,7 @@ Each file focuses on one artifact type with a consistent ID prefix (~100-150 lin
 | `SoT.DESIGN_COMPONENTS.md` | DES-XXX | UI components and design tokens |
 | `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC | Tech stack and architecture |
 | `SoT.INTEGRATIONS.md` | INT-XXX | Third-party service integrations |
+| `SoT.LESSONS_LEARNED.md` | LL-XXX | Cross-session behavioral feedback |
 
 **IDs in PRD/README** (not SoT files): FEA-XXX, RISK-XXX, GTM-XXX, KPI-XXX
 <!-- /SECTION: sot-registry -->

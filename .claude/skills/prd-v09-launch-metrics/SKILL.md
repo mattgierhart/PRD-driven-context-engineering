@@ -5,6 +5,15 @@ description: >
   Triggers on requests to define launch metrics, set up tracking, or when user asks "how do we measure launch success?",
   "launch KPIs", "tracking setup", "success criteria", "analytics", "launch goals".
   Outputs KPI- entries specialized for launch measurement.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # Launch Metrics

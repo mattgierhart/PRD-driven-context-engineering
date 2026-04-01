@@ -5,6 +5,14 @@ description: >
   Triggers on requests to create runbooks, document procedures, or when user asks "how do we handle incidents?",
   "runbook", "operational procedures", "on-call guide", "incident response", "maintenance procedures".
   Outputs RUN- entries with step-by-step operational procedures.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Runbook Creation

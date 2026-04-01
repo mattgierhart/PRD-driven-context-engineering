@@ -6,6 +6,15 @@ description: >
   "competitive analysis", "who else solves this", "market landscape", "what alternatives exist",
   "competitor research", "feature comparison". Outputs CFD- entries for competitive intelligence
   and BR- entries for positioning rules.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # Competitive Landscape Mapping

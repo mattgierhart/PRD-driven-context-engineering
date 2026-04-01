@@ -1,6 +1,13 @@
 ---
 name: prd-v06-environment-setup
 description: Document development environment requirements for team consistency and AI agent understanding during PRD v0.6 Architecture. Triggers on requests to define environment setup, document tooling, create dev setup guide, or when user asks "what tools do I need?", "environment setup", "dev environment", "CLI requirements", "project setup", "onboarding setup". Consumes TECH- (stack selections), ARC- (architecture decisions). Outputs ENV- entries for development, CI/CD, and infrastructure environments. Feeds v0.7 Build Execution.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # Environment Setup

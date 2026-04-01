@@ -46,6 +46,7 @@ This file serves as the **governance guide** for the ID system and the **central
 | **DEP** | Deployment | `SoT.DEPLOYMENT.md` | v0.8 Release |
 | **MON** | Monitoring | `SoT.DEPLOYMENT.md` | v0.8 Release |
 | **RUN** | Runbook | `SoT.DEPLOYMENT.md` | v0.8 Release |
+| **LL** | Lesson Learned | `SoT.LESSONS_LEARNED.md` | Cross-EPIC |
 
 #### IDs in PRD/README (Not SoT Files)
 
@@ -102,6 +103,16 @@ CFD-089 (Request: Dark Mode)
 
 > **Relationship types**: `informed-by`, `implements`, `enforces`, `validated-by`, `uses`, `depends-on`, `driven-by`, `supersedes`, `conflicts-with`, `designed-for`. See `ghm-id-register` skill for full vocabulary.
 
+### 1.5 Staleness Protocol
+
+Every SoT entry SHOULD include a `Verified: YYYY-MM-DD` field. Interpretation:
+
+- **< 30 days**: Current. Use with confidence.
+- **30-90 days**: Review before depending on it. Mark `⚠️ STALE` if unverified.
+- **> 90 days**: Treat as historical. Verify against current code/state before using.
+
+Agents encountering entries older than 90 days without recent verification SHOULD flag them in the EPIC's Agent Observations table for Phase E triage.
+
 <!-- /SECTION: template-structure -->
 
 ---
@@ -121,6 +132,7 @@ CFD-089 (Request: Dark Mode)
 | `SoT.DESIGN_COMPONENTS.md` | DES-XXX | ~100 | UI components |
 | `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC | ~115 | Tech & architecture |
 | `SoT.INTEGRATIONS.md` | INT-XXX | ~105 | Third-party services |
+| `SoT.LESSONS_LEARNED.md` | LL-XXX | ~80 | Cross-session feedback |
 
 <!-- /CUSTOMIZABLE: entries -->
 

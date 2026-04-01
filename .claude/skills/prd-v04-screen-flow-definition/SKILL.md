@@ -1,6 +1,13 @@
 ---
 name: prd-v04-screen-flow-definition
 description: Connect user journeys to screens, defining the UI structure and navigation paths during PRD v0.4 User Journeys. Triggers on requests to define screens, design screen flows, map UI structure, plan navigation, or when user asks "what screens do we need?", "define screens", "screen flow", "UI structure", "information architecture", "navigation design", "wireframe planning". Consumes UJ- (User Journey Mapping), FEA- (Feature Value Planning), BR- (constraints). Outputs SCR- entries for screens and DES- entries for design system elements. Feeds v0.5 Red Team Review.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # Screen Flow Definition

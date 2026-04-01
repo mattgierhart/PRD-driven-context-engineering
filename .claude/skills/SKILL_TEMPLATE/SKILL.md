@@ -4,6 +4,13 @@ description: >
   [1-2 sentence description of what this skill does].
   Triggers on [specific phrases/contexts that should activate this skill].
   Outputs [what the skill produces].
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # [Skill Name]

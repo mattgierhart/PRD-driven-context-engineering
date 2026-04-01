@@ -1,6 +1,14 @@
 ---
 name: prd-v07-implementation-loop
 description: Execute implementation within EPICs following test-first development, continuous SoT updates, and code traceability during PRD v0.7 Build Execution. Triggers on requests to start building, implement an epic, begin coding, or when user asks "start building", "implement epic", "coding", "development", "build execution", "implementation", "write code". Consumes EPIC- (context), TEST- (acceptance criteria). Updates existing IDs and creates code. Outputs working code with @implements traceability tags.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Implementation Loop

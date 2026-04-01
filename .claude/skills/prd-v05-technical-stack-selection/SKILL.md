@@ -1,6 +1,15 @@
 ---
 name: prd-v05-technical-stack-selection
 description: Determine technologies needed to build the product, making build/buy/integrate decisions during PRD v0.5 Red Team Review. Handles both greenfield and brownfield contexts. Triggers on requests to select tech stack, evaluate technologies, make build vs. buy decisions, discover existing assets, or when user asks "what technologies?", "select tech stack", "build or buy?", "what do we reuse?", "existing stack", "technical decisions", "what tools do we need?", "evaluate solutions". Consumes FEA- (features), SCR- (screens), RISK- (constraints). Outputs TECH- entries with decisions, rationale, and trade-offs. Feeds v0.6 Architecture Design.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # Technical Stack Selection

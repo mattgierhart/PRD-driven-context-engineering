@@ -1,6 +1,15 @@
 ---
 name: prd-v03-outcome-definition
 description: Define measurable success metrics (KPIs) tied to product type during PRD v0.3 Commercial Model. Triggers on requests to define success metrics, set KPI targets, determine what to measure, establish go/no-go thresholds, or when user asks "how do we measure success?", "what metrics matter?", "what's our target?", "how do we know if this works?", "define KPIs", "success criteria". Consumes Product Type Classification (BR-) from v0.2. Outputs KPI- entries with thresholds, evidence sources, and downstream gate linkages.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # Outcome Definition

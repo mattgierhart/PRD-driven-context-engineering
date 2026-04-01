@@ -1,6 +1,15 @@
 ---
 name: prd-v05-risk-discovery-interview
 description: Surface risks through guided questioning, helping users consider pivots, constraints, and prioritization during PRD v0.5 Red Team Review. Triggers on requests to identify risks, stress-test the idea, perform red team review, or when user asks "what could go wrong?", "identify risks", "red team", "risk assessment", "challenge assumptions", "stress test the idea". Consumes all prior IDs (CFD-, BR-, FEA-, PER-, UJ-, SCR-) as interview context. Outputs RISK- entries with owner decisions and mitigations. Feeds v0.5 Technical Stack Selection.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # Risk Discovery Interview

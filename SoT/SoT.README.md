@@ -2,7 +2,7 @@
 title: "Source-of-Truth Library Guide"
 scope: "SoT/"
 updated: "2026-02-12"
-template_version: "3.0.0"
+template_version: "3.2.0"
 ---
 
 # Source-of-Truth (SoT) Library

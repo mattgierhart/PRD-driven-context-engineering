@@ -25,24 +25,34 @@ This directory contains Claude Code configuration following Anthropic's official
 │   ├── ghm-gate-check/         # Methodology: Validate gate criteria
 │   ├── ghm-sot-builder/        # Methodology: Create new SoT files
 │   └── ghm-harvest/            # Methodology: Extract temps to SoT
+├── rules/                      # Modular rule files (auto-loaded via alwaysApply)
+│   ├── 01-session-protocols.md
+│   ├── 02-document-ecosystem.md
+│   ├── 03-documentation-discipline.md
+│   ├── 04-coding-standards.md
+│   ├── 05-lifecycle-gates.md
+│   └── 06-cross-agent-communication.md
 ├── hooks/                      # Event-triggered automation
 │   ├── HOOK_CONTRACT.md        # Universal hook interface specification
-│   ├── context-validation.sh   # SessionStart: Load 3+1 files
-│   ├── context-validation.md   # Documentation
+│   ├── context-validation.sh   # SessionStart: Load 3+1 files + session lock check
 │   ├── context-density-gate.sh # UserPromptSubmit: Epic/gate assessment
-│   ├── context-density-gate.md # Documentation
 │   ├── sot-update-trigger.sh   # Stop: SoT update reminder
-│   └── sot-update-trigger.md   # Documentation
+│   ├── subagent-memory-load.sh # SubagentStart: Inject agent MEMORY.md
+│   ├── subagent-memory-save.sh # SubagentStop: Active memory extraction + git staging
+│   ├── traceability-gate.sh    # PreToolUse (Write|Edit): Verify active EPIC
+│   └── sot-sync-reminder.sh    # PostToolUse (Write|Edit): SoT update reminder
 ├── agents/                     # Agent definitions (subdirectories)
 │   ├── horizon/                # Strategy Agent (v0.1-v0.5)
 │   │   ├── AGENT.md            # Identity, responsibilities, skills
 │   │   └── MEMORY.md           # Project memory (RESET ON FORK)
 │   ├── studio/                 # Design Agent (v0.3-v0.6)
 │   │   ├── AGENT.md
-│   │   └── MEMORY.md
-│   ├── devlab/                   # Build Agent (v0.6-v0.8)
+│   │   ├── MEMORY.md
+│   │   └── MEMORY_ARCHIVE.md
+│   ├── devlab/                 # Build Agent (v0.6-v0.8)
 │   │   ├── AGENT.md
-│   │   └── MEMORY.md
+│   │   ├── MEMORY.md
+│   │   └── MEMORY_ARCHIVE.md
 │   └── metro/                  # Ops Agent (v0.9-v1.0)
 │       ├── AGENT.md
 │       └── MEMORY.md
@@ -81,19 +91,15 @@ Hooks are event-triggered automation. Configured in `settings.json`, documented 
 
 | Hook | Trigger | Script | Purpose |
 |------|---------|--------|---------|
-| Context Validation | SessionStart | `context-validation.sh` | Inject 3+1 file reading order |
+| Context Validation | SessionStart | `context-validation.sh` | Inject 3+1 file reading order + session lock check |
 | Context Density Gate | UserPromptSubmit | `context-density-gate.sh` | Assess epic/gate context readiness |
+| Traceability Gate | PreToolUse (Write\|Edit) | `traceability-gate.sh` | Verify active EPIC before source code writes |
+| SoT Sync Reminder | PostToolUse (Write\|Edit) | `sot-sync-reminder.sh` | Remind to update SoT after source code writes |
 | SoT Update Trigger | Stop | `sot-update-trigger.sh` | Remind about spec updates |
+| Subagent Memory Load | SubagentStart | `subagent-memory-load.sh` | Inject agent MEMORY.md into subagent context |
+| Subagent Memory Save | SubagentStop | `subagent-memory-save.sh` | Active memory extraction + git auto-staging |
 
-All hooks are POSIX shell scripts with zero external dependencies.
-
-### Hook Execution Order
-
-**SessionStart**: `context-validation` runs first, injecting reading order.
-
-**UserPromptSubmit**: `context-density-gate` runs only when prompt matches epic/gate patterns.
-
-**Stop**: `sot-update-trigger` runs, reminding about SoT updates.
+All hooks are POSIX shell scripts. Python is used optionally for date math in `context-validation.sh` (graceful fallback if unavailable).
 <!-- /SECTION: hooks-table -->
 
 <!-- SECTION: agents-table -->

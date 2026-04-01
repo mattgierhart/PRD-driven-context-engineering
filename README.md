@@ -213,8 +213,10 @@ This allows the product to evolve without losing the structure that keeps humans
 ### `.claude` Methodology Layer (Current Behavior)
 
 - **Skills are split by intent**: `prd-v*` skills map to lifecycle stages; `ghm-*` skills handle operational work like gate checks, ID hygiene, SoT building, and status synchronization.
-- **Hooks are event-driven**: `SessionStart` injects read order, `UserPromptSubmit` checks context density for epic/gate prompts, and `Stop` reminds on SoT cascade updates.
-- **Subagent memory is automated**: `SubagentStart` loads agent memory, while `SubagentStop` prompts memory updates and runs a post-delegation drift check.
+- **Hooks are event-driven**: `SessionStart` injects read order, `UserPromptSubmit` checks context density for epic/gate prompts, `PreToolUse` verifies an active EPIC before code writes, and `Stop` reminds on SoT cascade updates.
+- **Agent memory persists across the PRD lifecycle**: Each agent (horizon, studio, devlab, metro) accumulates Feedback, Patterns, Decisions, and Handoff Notes in `MEMORY.md`. The `SubagentStop` hook actively extracts memories from the conversation — not a passive reminder, but an instruction the agent must follow. During EPIC Phase E, entries with cross-EPIC relevance are promoted to `SoT/SoT.LESSONS_LEARNED.md` as durable LL-XXX entries. The 50th session is smarter than the 1st because the knowledge graph grows with every EPIC.
+- **Multi-agent EPIC coordination**: EPICs support a `multi-agent` coordination mode where the human orchestrates parallel agent work. Phase A defines an Agent Routing table mapping agents to phases. A Synthesis Checkpoint between planning and implementation requires the coordinator to produce specific implementation specs and self-contained prompts before workers begin — workers cannot see the EPIC or conversation history, only their prompt. This prevents the "telephone game" where context degrades through delegation.
+- **Squad dashboard**: The `## Squad Status` section in README.md shows agent activity (last active, current EPIC, status) and EPIC status at a glance — replacing async standups with file-based coordination. Updated by the `ghm-status-sync` skill.
 - **Hook behavior is standardized**: `.claude/hooks/HOOK_CONTRACT.md` keeps the interface consistent even when scripts are swapped or extended.
 
 > **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy `README_template.md` to `README.md` and customize it for that product.

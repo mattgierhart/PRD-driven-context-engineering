@@ -1,5 +1,5 @@
 ---
-template_version: "3.1.0"
+template_version: "3.2.0"
 ---
 
 # EPIC-{NUMBER} {EPIC NAME}

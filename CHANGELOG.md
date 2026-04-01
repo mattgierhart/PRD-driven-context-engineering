@@ -6,6 +6,42 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Template version
 
 ---
 
+## [3.2.0] — 2026-04-01
+
+### Added
+- `.claude/rules/` directory with 6 modular rule files (01-session-protocols through 06-cross-agent-communication) — auto-loaded by Claude Code via `alwaysApply: true` frontmatter
+- `SoT/SoT.LESSONS_LEARNED.md` — new SoT file with LL-XXX prefix for cross-session behavioral corrections and validated patterns
+- Staleness protocol in `SoT/SoT.UNIQUE_ID_SYSTEM.md` — <30d current, 30-90d review, >90d verify before use
+- `MEMORY_ARCHIVE.md` for all 4 agents — stores entries promoted to SoT during Phase E harvest
+- `.claude/hooks/traceability-gate.sh` — PreToolUse hook (Write|Edit) verifies active EPIC before source code writes
+- `.claude/hooks/sot-sync-reminder.sh` — PostToolUse hook (Write|Edit) reminds agent to update SoT after code writes
+- EPIC template: coordinator pattern (multi-agent routing table, synthesis checkpoint, self-contained worker prompts)
+- EPIC template: memory harvest step in Phase E (agent memory → SoT.LESSONS_LEARNED.md)
+- EPIC template: session ownership/locking with Active Session field (2-hour staleness threshold)
+- Squad Status dashboard in README.md (agent activity + EPIC status tables)
+- Cross-agent communication protocol rule (file-based async via SoT cross-references, EPIC observations, session state blockers)
+- Git-based memory sync: `subagent-memory-save.sh` auto-stages MEMORY.md changes; commit convention `memory({agent}): {summary}`
+- `context` and `allowed-tools` frontmatter fields added to all 33 skills
+- `CLAUDE.local.md` added to `.gitignore` for per-developer overrides
+- Context loading order documented as intentional cache architecture (stable→volatile for prompt cache efficiency)
+
+### Changed
+- **Agent renamed**: `werk` → `devlab` across all files (AGENT.md, domain-profile.yaml, CHANGELOG, MIGRATION, all cross-references in horizon/studio/metro AGENT.md files)
+- Agent MEMORY.md simplified from 5-8 complex tables → 4 sections (Feedback, Patterns, Decisions, Handoff Notes) — prior format was never populated
+- `subagent-memory-save.sh` upgraded from passive `systemMessage` → active `hookSpecificOutput` with `additionalContext` (matches load hook pattern)
+- CLAUDE.md slimmed from 114 lines → ~30 lines (pointer to `.claude/rules/`)
+- `settings.json` expanded from 5 hook events → 7 (added PreToolUse, PostToolUse)
+- HOOK_CONTRACT.md updated with new hooks inventory, git commit conventions, Python dependency note
+- `domain-profile.yaml` — added LL prefix, agent registry updated (werk → devlab)
+
+### Breaking
+- **Agent `werk` removed** — renamed to `devlab`. Repos referencing `werk` in EPIC leads, agent routing, or custom hooks must update to `devlab`
+- **CLAUDE.md content moved** — rules now in `.claude/rules/*.md`. CLAUDE.md is a pointer only. Repos that grep CLAUDE.md for rule content must update to search `.claude/rules/`
+- **MEMORY.md format changed** — old tables replaced with 4-section format. Repos with populated MEMORY.md files should migrate content into the new sections
+- **settings.json schema expanded** — PreToolUse and PostToolUse entries added. Repos using `/localize` must re-sync settings.json
+
+---
+
 ## [3.1.0] — 2026-03-18
 
 ### Added

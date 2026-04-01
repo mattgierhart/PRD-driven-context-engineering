@@ -2,7 +2,7 @@
 title: "CLAUDE Agent Operating Guide"
 updated: "2026-04-01"
 authority: "PRD Led Context Engineering"
-template_version: "3.1.0"
+template_version: "3.2.0"
 ---
 
 # CLAUDE.md — Agent Operating Guide

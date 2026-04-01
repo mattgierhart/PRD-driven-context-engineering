@@ -4,6 +4,13 @@ description: >
   Synchronizes README.md Command Center with current project state.
   Triggers on gate changes, EPIC status changes, or explicit `/ghm-status-sync` invocation.
   Outputs updated README.md dashboard with current lifecycle stage, blockers, and metrics.
+context: inline
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # Status Sync
@@ -60,6 +67,10 @@ Apply synchronization rules:
    - ⚪ = Future gates (not started)
 3. **Active EPIC**: Update metadata in Active Work section
 4. **Blockers**: Sync from EPIC Session State section
+5. **Squad Status** (Section: `squad-status`): Update agent and EPIC tables:
+   - For each agent in `.claude/agents/`: check MEMORY.md mtime for "Last Active", grep EPICs for agent name for "Current EPIC"
+   - For each EPIC in `epics/`: read State field, Epic Lead, and Change Log last date
+   - Status values: `active` (session <2h old), `idle` (no recent activity), `blocked` (blocker in session state)
 
 ## Quality Gates
 

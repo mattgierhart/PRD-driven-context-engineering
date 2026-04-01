@@ -5,6 +5,14 @@ description: >
   Triggers on requests to plan releases, define deployment criteria, or when user asks "how do we deploy?",
   "release criteria", "deployment plan", "rollback strategy", "go-live checklist".
   Outputs DEP- entries with deployment steps and release criteria.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Release Planning

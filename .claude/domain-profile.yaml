@@ -36,6 +36,7 @@ id_prefixes:
   TECH: { file: "SoT/SoT.TECHNICAL_DECISIONS.md",   description: "Tech stack decisions" }
   ARC:  { file: "SoT/SoT.TECHNICAL_DECISIONS.md",   description: "Architecture decisions" }
   INT:  { file: "SoT/SoT.INTEGRATIONS.md",          description: "Integrations" }
+  LL:   { file: "SoT/SoT.LESSONS_LEARNED.md",       description: "Lessons learned (cross-session feedback)" }
 
   # PRD/README-owned IDs
   FEA:  { file: "PRD.md",    description: "Features (PRD-owned, v0.3)" }
@@ -95,10 +96,10 @@ agents:
     role: Design
     lifecycle: "v0.3-v0.6"
     path: ".claude/agents/studio/"
-  - name: werk
+  - name: devlab
     role: Build
     lifecycle: "v0.6-v0.8"
-    path: ".claude/agents/werk/"
+    path: ".claude/agents/devlab/"
   - name: metro
     role: Ops
     lifecycle: "v0.9-v1.0"

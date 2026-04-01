@@ -1,6 +1,15 @@
 ---
 name: prd-v03-pricing-model
 description: Select and validate pricing model for PRD v0.3 Commercial Model. Triggers on requests to set pricing, choose monetization model, design pricing tiers, validate willingness to pay, or when user asks "how much should we charge?", "what pricing model?", "freemium vs paid?", "how to structure tiers?", "price point?". Consumes Competitive Landscape (CFD-) and Product Type (BR-) from v0.2. Outputs BR- entries for pricing rules, tier boundaries, and competitive positioning.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # Pricing Model Selection

@@ -4,6 +4,12 @@ description: >
   Validates and registers new SoT IDs with cross-reference integrity.
   Triggers when creating BR-XXX, UJ-XXX, API-XXX, or CFD-XXX entries.
   Outputs formatted SoT entry with validated cross-references.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Grep
 ---
 
 # ID Register

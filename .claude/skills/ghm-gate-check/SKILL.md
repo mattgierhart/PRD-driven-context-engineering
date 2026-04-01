@@ -4,6 +4,11 @@ description: >
   Validates gate criteria before PRD lifecycle advancement.
   Triggers before advancing from v0.X to v0.Y or explicit `/ghm-gate-check` invocation.
   Outputs pass/block summary with missing artifacts list.
+context: inline
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
 ---
 
 # Gate Check

@@ -5,6 +5,13 @@ description: >
   Triggers on requests to create a new SoT file, add a new artifact type, or when user says
   "I need to track [X] but there's no SoT for it", "create SoT", "new source of truth".
   Outputs a properly structured SoT.*.md file with ID prefix, frontmatter, and update protocol.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # SoT Builder

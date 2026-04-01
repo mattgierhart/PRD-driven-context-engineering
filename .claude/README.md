@@ -40,7 +40,7 @@ This directory contains Claude Code configuration following Anthropic's official
 │   ├── studio/                 # Design Agent (v0.3-v0.6)
 │   │   ├── AGENT.md
 │   │   └── MEMORY.md
-│   ├── werk/                   # Build Agent (v0.6-v0.8)
+│   ├── devlab/                   # Build Agent (v0.6-v0.8)
 │   │   ├── AGENT.md
 │   │   └── MEMORY.md
 │   └── metro/                  # Ops Agent (v0.9-v1.0)
@@ -105,7 +105,7 @@ Four primary agents form the AI team. Each agent has an `AGENT.md` (identity + s
 |-------|-----------|------|-----------|
 | **HORIZON** | `agents/horizon/` | Strategy | v0.1-v0.5 |
 | **STUDIO** | `agents/studio/` | Design | v0.3-v0.6 |
-| **WERK** | `agents/werk/` | Build | v0.6-v0.8 |
+| **DEVLAB** | `agents/devlab/` | Build | v0.6-v0.8 |
 | **METRO** | `agents/metro/` | Ops | v0.9-v1.0 |
 
 See [`.claude/domain-profile.yaml`](domain-profile.yaml) for the full agent registry and skill taxonomy (core vs domain).

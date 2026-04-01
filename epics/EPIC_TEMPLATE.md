@@ -1,11 +1,13 @@
 ---
-template_version: "3.0.0"
+template_version: "3.1.0"
 ---
 
 # EPIC-{NUMBER} {EPIC NAME}
 
 > **State**: `Planned` | `In Progress` | `Testing` | `Complete` > **Lifecycle**: v0.7 Build Execution (See `README.md`)
 > **Epic Lead**: {Agent Name}
+> **Agents**: {Primary: devlab | Supporting: studio, horizon}
+> **Coordination Mode**: `single` | `multi-agent`
 
 ---
 
@@ -14,6 +16,7 @@ template_version: "3.0.0"
 
 > **Crucial**: Update this section before ending every session.
 
+- **Active Session**: none
 - **Last Action**: {What was just completed}
 - **Stopping Point**: {Exact file/line or test failure}
 - **Next Steps**: {Exact instructions for the next agent}
@@ -54,6 +57,26 @@ template_version: "3.0.0"
 
 - [ ] **Context Loaded**: Read `PRD.md`, `SoT/`, and `README.md`.
 - [ ] **Strategy**: How will we approach this? (e.g., "Build Backend first, then UI").
+- [ ] **Agent Assignment** _(multi-agent only)_: Map agents to phases/windows below.
+
+#### Agent Routing (multi-agent only)
+
+> Skip this table for single-agent EPICs.
+
+| Phase/Window | Agent | Mode | Context Required |
+|---|---|---|---|
+| {Phase or Window} | {agent} | {research / implement / verify} | {IDs to preload} |
+
+### Synthesis Checkpoint (before implementation)
+
+> **Rule**: The coordinator must synthesize findings before directing implementation. Good spec: specific file paths, line numbers, exact changes. Bad spec: "based on your findings, fix it."
+
+After research/design phases complete, the coordinator MUST produce:
+
+- [ ] **Implementation Spec**: Specific files to create/modify, with line-level guidance
+- [ ] **ID Traceability Map**: Every change traced to BR-/UJ-/API- IDs
+- [ ] **Agent Prompts** _(multi-agent only)_: Self-contained prompts for each implementation worker (worker cannot see conversation history or this EPIC)
+- [ ] **Merge Strategy** _(multi-agent only)_: How worker branches/worktrees merge back
 
 ### Phase B: Design
 
@@ -62,15 +85,18 @@ template_version: "3.0.0"
 
 ### Phase C: Build (The "Context Window")
 
-> **Concept**: Break work into "Context Windows" (sprints)to maintain focus.
+> **Concept**: Break work into "Context Windows" (sprints) to maintain focus.
+> **Multi-agent**: Each window can be assigned to a different worker agent.
 
 **Context Window 1: {Focus Area}** (e.g., "Core Logic")
+- **Agent**: {devlab} _(multi-agent only)_
 
 - [ ] **Step 1**: {Task}
 - [ ] **Step 2**: {Task}
 - [ ] **Test**: {Verification Step}
 
 **Context Window 2: {Focus Area}** (e.g., "UI Implementation")
+- **Agent**: {devlab} _(multi-agent only)_
 
 - [ ] **Step 1**: {Task}
 - [ ] **Step 2**: {Task}
@@ -89,6 +115,11 @@ template_version: "3.0.0"
 - [ ] **Temp Cleanup**: Move any useful notes from `temp/` to `SoT/`, then remove the temp file.
 - [ ] **Spec Finalization**: Ensure all specs in `SoT/` match the code.
 - [ ] **Session Audit**: Ensure **Session State** section is clean.
+- [ ] **Memory Harvest**: For each participating agent:
+  1. Read `.claude/agents/{agent}/MEMORY.md`
+  2. Promote entries with 3+ occurrences or cross-EPIC relevance → `SoT/SoT.LESSONS_LEARNED.md` as LL-XXX
+  3. Archive promoted entries → agent's `MEMORY_ARCHIVE.md` (preserve provenance)
+  4. Update `Verified` dates on SoT entries this EPIC touched
 - [ ] **Agent Observations**: Review and triage observations below.
 
 #### Agent Observations

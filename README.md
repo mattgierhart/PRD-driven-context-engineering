@@ -111,7 +111,7 @@ To make memory infrastructure practical, we use an **intentional architecture** 
 
 ### 1. Executive Functions: Building AI's instincts
 
-This layer orients attention and sets priorities.
+This layer orients attention and sets priorities. Files load in stable→volatile order (README → PRD → EPIC) to maximize prompt cache hits across turns.
 
 - `README.md`: The Dashboard. The status, TOC, and "instincts" of the project (where am I? what is active?).
 - `PRD.md`: The Strategy. The "Why" and "What" of the product.
@@ -219,6 +219,29 @@ This allows the product to evolve without losing the structure that keeps humans
 
 > **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy `README_template.md` to `README.md` and customize it for that product.
 <!-- /SECTION: repo-structure -->
+
+---
+
+<!-- SECTION: squad-status -->
+## Squad Status
+
+<!-- Updated by ghm-status-sync skill -->
+
+### Agent Activity
+
+| Agent | Role | Last Active | Current EPIC | Status |
+|-------|------|-------------|--------------|--------|
+| horizon | Strategy (v0.1-v0.5) | — | — | idle |
+| studio | Design (v0.3-v0.6) | — | — | idle |
+| devlab | Build (v0.6-v0.8) | — | — | idle |
+| metro | Ops (v0.9-v1.0) | — | — | idle |
+
+### EPIC Status
+
+| EPIC | State | Lead | Last Updated |
+|------|-------|------|--------------|
+| _(no active EPICs)_ | — | — | — |
+<!-- /SECTION: squad-status -->
 
 ---
 

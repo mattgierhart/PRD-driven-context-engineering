@@ -5,6 +5,15 @@ description: >
   Triggers on requests to set up feedback systems, capture user input, or when user asks "how do we collect feedback?",
   "feedback loop", "user research", "post-launch feedback", "customer feedback", "NPS", "voice of customer".
   Outputs CFD- entries specialized for post-launch feedback capture.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # Feedback Loop Setup

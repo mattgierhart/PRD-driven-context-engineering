@@ -27,7 +27,7 @@ Two new skills added, one pre-existing skill registered. No breaking changes.
   - `prd-v06-environment-setup` (after `prd-v06-architecture-design`) — skip if you already have this skill registered
 - [ ] **Update `.claude/skills/skills-inventory.md`** — add entries to Quick Nav table, stage overview table, and skill spec section (or copy the file from template)
 - [ ] **Update `.claude/agents/studio/AGENT.md`** — add `prd-v04-visual-prototype-gate` to "Skills I Invoke" table at v0.4
-- [ ] **Update `.claude/agents/werk/AGENT.md`** — add `prd-v06-environment-setup` to "Skills I Invoke" table at v0.6
+- [ ] **Update `.claude/agents/devlab/AGENT.md`** — add `prd-v06-environment-setup` to "Skills I Invoke" table at v0.6
 - [ ] **Update `.claude/README.md`** — update skill counts in directory tree comments (v0.4: 3→4, v0.6: 2→3)
 - [ ] **Update `.claude/VERSION`** — set to `3.1.0`
 - [ ] **Update `template_version`** in CLAUDE.md frontmatter — set to `3.1.0`
@@ -54,7 +54,7 @@ These require manual action in derivative repos:
 - [ ] **Agents restructured**: flat files → subdirectories
   - `.claude/agents/HORIZON.md` → `.claude/agents/horizon/AGENT.md` + `MEMORY.md`
   - `.claude/agents/STUDIO.md` → `.claude/agents/studio/AGENT.md` + `MEMORY.md`
-  - `.claude/agents/WERK.md` → `.claude/agents/werk/AGENT.md` + `MEMORY.md`
+  - `.claude/agents/DEVLAB.md` → `.claude/agents/devlab/AGENT.md` + `MEMORY.md`
   - `.claude/agents/METRO.md` → `.claude/agents/metro/AGENT.md` + `MEMORY.md`
   - **Split point**: Everything above `## Project Memory (CRITICAL)` goes in AGENT.md; everything from that heading onward goes in MEMORY.md (promote header to H1)
   - **Note**: If your agents have accumulated project-specific memory, preserve MEMORY.md content — only the AGENT.md structure should match the template
@@ -115,7 +115,7 @@ If your repo is not a product development repo (e.g., dotfiles, infrastructure, 
 
 - Complete skill library added (26 PRD lifecycle + 5 methodology skills)
 - 3 hooks added (context-validation, context-density-gate, sot-update-trigger)
-- 4 agent definitions added (HORIZON, STUDIO, WERK, METRO)
+- 4 agent definitions added (HORIZON, STUDIO, DEVLAB, METRO)
 - 12 SoT files standardized to ~100-150 lines each
 - Methodology renamed to "PRD Led Context Engineering"
 

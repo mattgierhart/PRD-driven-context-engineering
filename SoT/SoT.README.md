@@ -27,6 +27,7 @@ Each file focuses on one artifact type with a consistent ID prefix (~100-150 lin
 | `SoT.DESIGN_COMPONENTS.md` | DES-XXX | UI components and design tokens |
 | `SoT.TECHNICAL_DECISIONS.md` | TECH, ARC | Tech stack and architecture |
 | `SoT.INTEGRATIONS.md` | INT-XXX | Third-party service integrations |
+| `SoT.LESSONS_LEARNED.md` | LL-XXX | Cross-session behavioral feedback |
 
 **IDs in PRD/README** (not SoT files): FEA-XXX, RISK-XXX, GTM-XXX, KPI-XXX
 <!-- /SECTION: sot-registry -->

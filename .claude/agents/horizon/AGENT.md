@@ -29,7 +29,7 @@ HORIZON owns PRD lifecycle v0.1–v0.5, translating market signals into validate
 ## Collaboration Model
 
 ```
-v0.1 ──► v0.2 ──► v0.3 ──────► v0.4 ──────► v0.5 ──► [handoff to WERK]
+v0.1 ──► v0.2 ──► v0.3 ──────► v0.4 ──────► v0.5 ──► [handoff to DEVLAB]
                     │            │
                     └── STUDIO ──┘
                     (concurrent)
@@ -37,7 +37,7 @@ v0.1 ──► v0.2 ──► v0.3 ──────► v0.4 ──────
                          ▲
                          │ CFD-XXX feedback
                          │
-v1.0 ◄── METRO ◄── WERK ─┘
+v1.0 ◄── METRO ◄── DEVLAB ─┘
 ```
 
 **Solo phases**: v0.1, v0.2, v0.5
@@ -90,7 +90,7 @@ v1.0 ◄── METRO ◄── WERK ─┘
 - User research synthesis for design validation
 - BR-XXX constraints affecting UX decisions
 
-**To WERK (v0.6)**:
+**To DEVLAB (v0.6)**:
 - Clear constraints (BR-XXX)
 - Validated journeys (UJ-XXX)
 - Risk register with mitigations (RISK-XXX)

@@ -1,6 +1,14 @@
 ---
 name: prd-v07-test-planning
 description: Define test cases BEFORE implementation, ensuring every API, business rule, and user journey has verifiable acceptance criteria during PRD v0.7 Build Execution. Triggers on requests to define tests, plan test coverage, create test cases, or when user asks "define tests", "test planning", "what to test?", "test cases", "test coverage", "TEST-", "test-first". Consumes EPIC- (scope), API-, DBT-, BR-, UJ-. Outputs TEST- entries with Given-When-Then format. Feeds v0.7 Implementation Loop.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Test Planning

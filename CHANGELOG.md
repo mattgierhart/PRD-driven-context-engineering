@@ -10,13 +10,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Template version
 
 ### Added
 - `prd-v04-visual-prototype-gate` skill — converts SCR- entries into structured prompts for Google Stitch (or equivalent UI generation tool), captures stakeholder feedback routed back to SoT IDs. Sits between Screen Flow Definition and v0.5 Red Team Review.
-- `prd-v06-environment-setup` registered in domain-profile.yaml, skills-inventory.md, and WERK agent (skill existed on disk but was missing from all registries)
+- `prd-v06-environment-setup` registered in domain-profile.yaml, skills-inventory.md, and DEVLAB agent (skill existed on disk but was missing from all registries)
 
 ### Changed
 - `.claude/domain-profile.yaml` — domain skills list updated (24 → 26 entries)
 - `.claude/skills/skills-inventory.md` — added Visual Prototype Gate and Environment Setup entries (Quick Nav, stage overview tables, full skill specs)
 - `.claude/agents/studio/AGENT.md` — added `prd-v04-visual-prototype-gate` to Skills I Invoke
-- `.claude/agents/werk/AGENT.md` — added `prd-v06-environment-setup` to Skills I Invoke
+- `.claude/agents/devlab/AGENT.md` — added `prd-v06-environment-setup` to Skills I Invoke
 - `.claude/README.md` — updated v0.4 skill count (3 → 4) and v0.6 skill count (2 → 3)
 - Skill count: 26 → 28 PRD lifecycle skills + 5 methodology skills
 
@@ -42,7 +42,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Template version
 - CLAUDE.md: "Section 0" references → "Session State" semantic references
 - ID Ownership in CLAUDE.md now references `domain-profile.yaml` as canonical registry
 - `.claude/README.md` updated to reflect actual directory structure (agents, hooks, skills)
-- Agent files restructured: flat `.claude/agents/WERK.md` → `.claude/agents/werk/AGENT.md` + `MEMORY.md`
+- Agent files restructured: flat `.claude/agents/DEVLAB.md` → `.claude/agents/devlab/AGENT.md` + `MEMORY.md`
 
 ### Breaking
 - Agent paths changed: `agents/{NAME}.md` → `agents/{name}/AGENT.md` + `agents/{name}/MEMORY.md`
@@ -58,7 +58,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Template version
 - Skill-per-directory structure with SKILL.md + assets/ + references/
 - 3 hooks: context-validation, context-density-gate, sot-update-trigger
 - Hook .md documentation paired with each script
-- 4 agent definitions: HORIZON, STUDIO, WERK, METRO
+- 4 agent definitions: HORIZON, STUDIO, DEVLAB, METRO
 - 12 SoT files standardized to ~100-150 lines each
 - EPIC template with 5-phase execution model
 - Progressive documentation protocol in CLAUDE.md

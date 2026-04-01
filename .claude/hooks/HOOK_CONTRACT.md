@@ -128,9 +128,23 @@ If the hook has nothing to output, exit 0 with no stdout.
 | Context Density Gate | `UserPromptSubmit` | `context-density-gate.sh` | Assess epic/gate context readiness |
 | SoT Update Trigger | `Stop` | `sot-update-trigger.sh` | Remind about spec updates |
 | Subagent Memory Load | `SubagentStart` | `subagent-memory-load.sh` | Inject agent MEMORY.md into subagent context |
-| Subagent Memory Save | `SubagentStop` | `subagent-memory-save.sh` | Prompt memory update + post-delegation drift check |
+| Subagent Memory Save | `SubagentStop` | `subagent-memory-save.sh` | Active memory extraction + git auto-staging + drift check |
+| Traceability Gate | `PreToolUse` (Write\|Edit) | `traceability-gate.sh` | Verify active EPIC before source code writes |
+| SoT Sync Reminder | `PostToolUse` (Write\|Edit) | `sot-sync-reminder.sh` | Remind to update SoT after source code writes |
 
-All hooks are POSIX shell scripts requiring only `grep`, `sed`, `wc`, and `awk` (standard on macOS and Linux). No Python or external dependencies needed.
+All hooks are POSIX shell scripts requiring only `grep`, `sed`, `wc`, and `awk` (standard on macOS and Linux). Python is used optionally for date math in `context-validation.sh` (graceful fallback if unavailable).
+
+## Git Commit Conventions
+
+Agent memory changes should be committed separately from code changes using the `memory()` prefix:
+
+```
+memory(horizon): add feedback — users prefer annual pricing over monthly
+memory(devlab): add decision — chose SQLite over Postgres for MVP
+memory(studio): add pattern — mobile-first layouts need 3 breakpoints minimum
+```
+
+The `subagent-memory-save.sh` hook auto-stages MEMORY.md changes after extraction. The human should commit these with the convention above.
 
 ## Supported Events
 

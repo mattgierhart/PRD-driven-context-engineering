@@ -1,6 +1,15 @@
 ---
 name: prd-v03-moat-definition
 description: Assess competitor defensibility and define our own moat strategy during PRD v0.3 Commercial Model. Triggers on requests to analyze competitor moats, define our defensibility, assess switching costs, identify vulnerabilities, find wedge opportunities, or when user asks "what's our moat?", "how defensible are they?", "where can we compete?", "switching costs?", "defensibility", "who to target". Consumes Competitive Landscape (v0.2) CFD- entries. Outputs CFD- entries for competitor moats and BR- entries for targeting rules and our defensibility strategy.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # Moat Definition

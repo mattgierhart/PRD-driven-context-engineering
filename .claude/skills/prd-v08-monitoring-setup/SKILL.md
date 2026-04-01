@@ -5,6 +5,14 @@ description: >
   Triggers on requests to set up monitoring, define alerts, or when user asks "what should we monitor?",
   "alerting strategy", "observability", "metrics", "SLOs", "dashboards", "monitoring setup".
   Outputs MON- entries with monitoring rules and alert configurations.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Monitoring Setup

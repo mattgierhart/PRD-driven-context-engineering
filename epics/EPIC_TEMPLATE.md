@@ -21,6 +21,14 @@ template_version: "3.2.0"
 - **Stopping Point**: {Exact file/line or test failure}
 - **Next Steps**: {Exact instructions for the next agent}
 - **Context**: {Key decisions or blockers}
+
+### Assumptions & Ambiguities Log
+
+> Track assumptions made and ambiguities encountered during execution. **Type**: `ASSUMPTION` = agent chose an interpretation; `AMBIGUITY` = agent cannot proceed without clarification. Review this table at session start to catch incorrect assumptions early.
+
+| # | Related ID | Type | Description | Evidence / Reasoning | Resolution |
+|---|-----------|------|-------------|---------------------|------------|
+| — | — | — | _(none yet)_ | — | — |
 <!-- /SECTION: session-state -->
 
 ---

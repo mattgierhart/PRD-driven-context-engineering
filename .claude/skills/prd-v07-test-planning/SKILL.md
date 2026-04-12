@@ -109,6 +109,8 @@ Priority: Critical
 
 Write TEST- entries **before** writing code. This forces clarity about what you're building.
 
+If you cannot write a concrete Given-When-Then for a specification, the requirement is ambiguous. Do not write a vague test and move on. Instead, identify the specific ID (API-XXX, BR-XXX) that is unclear, note the competing interpretations, and log an AMBIGUITY in the EPIC's Assumptions & Ambiguities table. A test you cannot write precisely is more valuable as a flagged gap than a test you write by guessing.
+
 ## Test Types
 
 | Type | What It Tests | When to Use | Scope |
@@ -136,6 +138,7 @@ Write TEST- entries **before** writing code. This forces clarity about what you'
 2. **For each API-**: Define request/response tests
    - Happy path: Valid input → expected output
    - Error cases: Invalid input, auth failures, not found
+   - **Verify first**: Can you state the exact response body shape and every error code from the spec? If API- says "returns error" without specifying the code/shape, flag it: "API-XXX spec missing [specific gap]." Do not invent details.
 
 3. **For each BR-**: Define rule validation tests
    - Positive: Rule allows expected behavior
@@ -287,6 +290,15 @@ Then: Success
 ```
 (No specifics — useless as a test spec)
 
+### Suspicious: Looks Good But Smuggles Assumptions
+
+```
+Given: User has 3 reports, account is on "Pro" plan
+When: User clicks "Export All" and selects "PDF"
+Then: 3 PDF files generated, each under 10MB, with company logo
+```
+Ask: Does BR-XXX or API-XXX actually specify PDF format? Does any spec mention a 10MB limit or company logo? If these details came from the agent's assumptions rather than spec IDs, the test is encoding unreviewed requirements. Either add the details to the spec (making them reviewable) or remove them from the test.
+
 ## Test Categories by EPIC Phase
 
 ### For Database Schema (Window 1)
@@ -321,6 +333,7 @@ TEST-XXX: [UJ-XXX] completes end-to-end
 | **Vague assertions** | "System works correctly" | Specific, measurable outcomes |
 | **No automation path** | Manual-only critical tests | Critical tests must be automatable |
 | **Testing implementation** | Test verifies internal details | Test behavior, not implementation |
+| **Tests from assumptions** | TEST- contains details not in any spec | Every assertion must trace to API-/BR-/UJ-. Missing detail? Fix the spec first. |
 
 ## Quality Gates
 
@@ -331,6 +344,7 @@ Before proceeding to Implementation Loop:
 - [ ] Every core UJ- journey has an E2E TEST-
 - [ ] Critical tests are marked for automation
 - [ ] TEST- entries added to EPIC Context & IDs section
+- [ ] Every assertion in TEST- entries traces to a specific detail in an upstream spec (no invented response shapes, error codes, or thresholds)
 - [ ] Total test count is reasonable (30-50 for MVP)
 
 ## Downstream Connections

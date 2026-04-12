@@ -104,24 +104,32 @@ Example Session State update (EPIC-01 mid-session):
 ┌─────────────────────────────────────────────────────────────┐
 │  1. LOAD CONTEXT                                            │
 │     Read EPIC, referenced IDs, Session State                │
+│     → Can you state this session's goal in one sentence     │
+│       with specific IDs? If not, clarify before proceeding. │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  2. SELECT FOCUS                                            │
 │     Choose a Context Window from Phase C                    │
+│     → Pick the smallest scope that yields a verifiable      │
+│       outcome. One TEST- passing > three half-implemented.  │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  3. WRITE TEST (Red)                                        │
 │     Implement TEST- entry, watch it fail                    │
+│     → Assertions must derive from TEST-/API-/BR- specs.     │
+│       Missing detail = spec gap — flag it, don't guess.     │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  4. WRITE CODE (Green)                                      │
 │     Implement to pass test                                  │
+│     → Minimum code to pass. No TEST- requires it? Don't     │
+│       build it. No speculative features or error handling.   │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
@@ -134,12 +142,16 @@ Example Session State update (EPIC-01 mid-session):
 ┌─────────────────────────────────────────────────────────────┐
 │  6. UPDATE SoT                                              │
 │     Update specs/ if implementation reveals changes         │
+│     → Only update specs YOUR implementation changed.        │
+│       Don't "improve" adjacent specs you happened to read.  │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  7. VALIDATE                                                │
 │     Run tests, check traceability                           │
+│     → Name the specific TEST- IDs that pass. "It works"     │
+│       is not validation — cite IDs.                         │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
@@ -172,6 +184,13 @@ Example Session State update (EPIC-01 mid-session):
   2. Update TEST-008 to verify rate limiting
   3. Move to API-003 (logout)
 - **Context**: Decided to use Supabase's built-in rate limiting rather than custom middleware
+```
+
+**Assumptions & Ambiguities**: During implementation, log assumptions and ambiguities in the EPIC's structured table (see EPIC template). This makes "Think Before Coding" persistent across sessions.
+
+Example row during implementation:
+```
+| 3 | API-001 | ASSUMPTION | Response includes created_at field | Spec says "user object" but doesn't enumerate fields | Implemented with created_at; needs spec update |
 ```
 
 **Bad Example:**
@@ -251,6 +270,8 @@ The Source of Truth (`specs/`) must stay in sync with implementation:
 
 **Rule**: Update specs **during** implementation, not "later."
 
+**Counter-rule**: Only update specs that YOUR current work directly affects. If you notice that API-020 has a typo while working on API-001, log it in the Assumptions & Ambiguities table for a future session. Do not fix it now. Unplanned spec changes create invisible scope creep and break traceability for any parallel work.
+
 ## Context Window Navigation
 
 Work through Context Windows sequentially within an EPIC:
@@ -296,6 +317,8 @@ describe('POST /api/users', () => {
 });
 ```
 
+**Constraint**: If the test requires details not in the TEST- spec (response field names, error codes, status codes), look them up in API-/BR- specs. Do not invent them. If the spec lacks the detail, log an AMBIGUITY in the Assumptions & Ambiguities table before proceeding.
+
 ### Phase 2: Green (Make Test Pass)
 
 Write the minimum code to make the test pass:
@@ -307,6 +330,8 @@ export async function createUser(req, res) {
   return res.status(201).json({ data: user });
 }
 ```
+
+**Constraint**: "Minimum code" means literally what makes this one test go green. No additional validation, no extra error handling, no service layer abstractions unless a TEST- requires that behavior. This feels uncomfortable. That is correct.
 
 ### Phase 3: Refactor (Improve Code Quality)
 
@@ -324,14 +349,20 @@ export async function createUser(req, res) {
 }
 ```
 
+**Constraint**: Refactor only code you just wrote. Do not "improve" existing code that was already working. Do not extract abstractions unless you have 3+ concrete uses (not hypothetical future uses). Do not touch files outside the current focus area. See `references/behavioral-examples.md` for detailed good/bad comparisons.
+
 ## EPIC Phases (Detailed)
 
 ### Phase A: Plan (Load Context)
 - [ ] Read EPIC file
 - [ ] Review all referenced IDs (BR-, API-, DBT-)
 - [ ] Check Session State section
+- [ ] Review Assumptions & Ambiguities table for unresolved items
 - [ ] Verify git branch is correct
 - [ ] Confirm dependencies are complete
+- [ ] Can state session goal in one sentence with specific IDs
+
+If you cannot articulate what this session accomplishes in terms of specific TEST- or API- IDs, you are not ready to build. Refine the goal until it names IDs.
 
 ### Phase B: Design (Update Specs)
 - [ ] Draft/refine any unclear specs
@@ -373,6 +404,8 @@ For each Context Window:
 | Lost context mid-session | Load Session State, verify EPIC context |
 | Spec and code diverging | Stop, update spec to match reality |
 | Test is testing implementation | Rewrite to test behavior |
+| Writing code not required by any TEST- | Speculative — remove it, or write the TEST- first |
+| Editing files outside current Context Window | Scope creep — note in Assumptions & Ambiguities table, defer |
 
 ## Anti-Patterns to Avoid
 
@@ -385,6 +418,9 @@ For each Context Window:
 | **Context switching** | Jumping between EPICs | Finish one EPIC before starting another |
 | **One-shot building** | No iteration, just code dump | Follow the loop: test → code → tag |
 | **Orphaned code** | Code not linked to any ID | Every function serves an ID |
+| **Speculative error handling** | try/catch for scenarios no TEST- covers | Remove it. If the scenario matters, write TEST- first. |
+| **Drive-by improvements** | "While I was here, I also improved..." | Revert non-essential changes. Note in Assumptions & Ambiguities table. |
+| **Vague completion claims** | "Auth is working" without naming IDs | Always cite IDs: "TEST-001 through TEST-005 pass. API-001, API-002 verified." |
 
 ## Quality Gates
 
@@ -413,3 +449,4 @@ Implementation Loop outputs feed into:
 - **Implementation examples**: See `references/examples.md`
 - **Traceability patterns**: See `references/traceability.md`
 - **Session state guide**: See `references/session-state.md`
+- **Behavioral examples (good/bad)**: See `references/behavioral-examples.md`

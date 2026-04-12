@@ -127,6 +127,8 @@ EPICs are **context capsules** — work units sized for AI agent handoffs.
 
 **Splitting Signal**: If you need to load >5 SoT files or >10 code files to understand the EPIC, it's probably too big.
 
+**Simplicity Signal**: Resist creating more EPICs "just in case." Each EPIC adds coordination overhead (context capsule, session state, branch management, dependency tracking). If the MVP has 12 APIs and 6 tables, 3-5 EPICs is almost always sufficient. The overhead of an unnecessary EPIC is higher than a slightly larger EPIC that stays within context budget.
+
 ## Branch Convention
 
 Each EPIC gets its own branch. This creates:
@@ -157,6 +159,7 @@ Examples:
    - Feature clusters (features that work together)
    - Data domains (tables that belong together)
    - Architectural seams (module boundaries from ARC-)
+   - **Surface ambiguous assignments**: When an API/DBT could logically belong to either EPIC, state the ambiguity explicitly: "API-012 could belong to EPIC-02 or EPIC-03 because it serves both UJ-005 and UJ-008." Record the reasoning for the final placement in the EPIC's Context & IDs section. Do not silently assign items to whichever EPIC you encounter first.
 
 3. **Size each potential EPIC** against context window capacity
    - Can an agent hold all relevant IDs in one session?
@@ -422,6 +425,7 @@ Each EPIC follows 5 phases:
 | **Context overload** | Agent can't hold full EPIC context | Split into smaller Context Windows |
 | **Missing sequencing** | No build order defined | Establish explicit dependency chain |
 | **Vague objectives** | "Build the backend" | Specific, measurable: "Implement API-001–005" |
+| **Silent scope assumptions** | EPIC assigns items without explaining boundary rationale | Every ambiguous assignment must note "API-XXX placed here because [reason]; alternative was EPIC-YYY" |
 
 ## Quality Gates
 

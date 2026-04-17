@@ -142,6 +142,43 @@ This layer orients attention and sets priorities. Files load in stable→volatil
 
 ---
 
+<!-- SECTION: readiness-scoring -->
+## Readiness Scoring
+
+The ecosystem is self-assessing. Before advancing a stage or starting an EPIC, the repo knows whether it's ready — and why.
+
+Readiness scoring is a **three-layer graph** over the artifacts you already author:
+
+1. **SoT files** — the primitive. Each file is scored on entry count, depth, cross-reference density, and orphan rate. A placeholder `SoT.TESTING.md` scores 0.
+2. **EPICs** — composed from SoT scores. An EPIC inherits the readiness of every file it references via its Section 3 "Context & IDs". Dangling refs, empty test files, or unresolved assumptions surface as unmet criteria. Each cap cites the SoT file that caused it.
+3. **PRD stage** — composed from both. Answers "can we advance v0.X → v0.Y?" by checking gate-criteria's mandatory artifacts plus the relevant SoT and EPIC scores.
+
+All three layers write to one file: `status/readiness.json`. The causal links stay in the JSON — an EPIC's unmet criterion points at its `caused_by` SoT file; a SoT file's block lists its `consumed_by_epics`; the top-level `summary.top_blockers` ranks files by downstream impact. This is the leverage view: the highest-impact fix might not be the lowest-scoring file — it's the lowest-scoring file blocking the most EPICs.
+
+### Invocation
+
+```bash
+python scripts/readiness.py run        # compute all layers + print report
+python scripts/readiness.py status     # print last-computed report
+python scripts/readiness.py run --json # machine-readable output for hooks/CI
+```
+
+Exit codes: `0` all pass, `1` something in WARN band, `2` something in BLOCK band. Thresholds default to warn=70, block=50 and can be overridden per-item in `readiness_inputs:` frontmatter.
+
+### Where scores show up
+
+- `status/readiness.json` — the single machine-readable source.
+- `readiness.py`'s text report — one-page "what to fix first" output.
+- `ghm-gate-check` skill — delegates to `readiness.py` for stage-advancement decisions (rule 05 still applies: if WARN or BLOCK, update the EPIC and STOP).
+
+### Deeper reading
+
+- [`.claude/rules/07-readiness-protocol.md`](.claude/rules/07-readiness-protocol.md) — the discipline rule.
+- [`docs/READINESS_PROTOCOL.md`](docs/READINESS_PROTOCOL.md) — full schema reference: `readiness_inputs` YAML shape, `readiness.json` structure, every dimension with its formula, penalty math, critical caps, and how to extend it.
+<!-- /SECTION: readiness-scoring -->
+
+---
+
 <!-- SECTION: lifecycle -->
 ## The Progressive PRD
 

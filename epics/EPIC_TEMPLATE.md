@@ -1,5 +1,13 @@
 ---
-template_version: "3.2.0"
+template_version: "3.3.0"
+readiness_inputs:
+  work_type: epic
+  depends_on_epics: []
+  required_tests: auto
+  context_budget: { preload: 40000, working_room: 160000 }
+  threshold_warn: 70
+  threshold_block: 50
+  dimension_overrides: {}
 ---
 
 # EPIC-{NUMBER} {EPIC NAME}
@@ -145,7 +153,8 @@ After research/design phases complete, the coordinator MUST produce:
 <!-- SECTION: change-log -->
 ## Change Log
 
-| Date       | Agent  | Action       |
-| ---------- | ------ | ------------ |
-| YYYY-MM-DD | {Name} | Created EPIC |
+| Date       | Agent  | Action                                                                        |
+| ---------- | ------ | ----------------------------------------------------------------------------- |
+| 2026-04-17 | —      | Template 3.3.0: added `readiness_inputs` frontmatter for readiness scoring    |
+| YYYY-MM-DD | {Name} | Created EPIC                                                                  |
 <!-- /SECTION: change-log -->

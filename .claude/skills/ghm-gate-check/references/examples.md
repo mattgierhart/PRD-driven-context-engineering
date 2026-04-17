@@ -2,6 +2,87 @@
 
 **Purpose**: Good and bad patterns for gate validation with pass/fail scenarios.
 
+> **Note**: As of `ghm-gate-check@evolved-2026-04-17`, verdicts come from `scripts/readiness.py` — a graduated score (0–100) across three layers. The examples below show the JSON-driven report shape; the "Pass/Fail Pattern Summary" at the end covers the *content* patterns (what makes a CFD entry good, what makes a risk actionable).
+
+---
+
+## Graduated-Score Report Example (BLOCK)
+
+**Context**: OriginStamp, evaluating v0.7 → v0.8 transition. `readiness.py run` exits 2.
+
+```markdown
+## Gate Check Report: v0.7 → v0.8 (Build → Deployment)
+
+**Verdict**: BLOCK
+**Stage Score**: 36.6 / 100  (warn < 70, block < 50)
+**Date**: 2026-04-17
+
+### Stage Dimensions
+
+| Dimension | Score | Weight |
+|-----------|-------|--------|
+| required_ids_present | 50.0 | 0.300 |
+| relevant_sot_readiness | 55.4 | 0.300 |
+| cross_ref_integrity | 95.6 | 0.200 |
+| downstream_epic_readiness | 54.3 | 0.200 |
+
+### Top Blockers (leverage view)
+
+1. **SoT/SoT.TESTING.md** (score 0.0) — blocks 8 EPICs: EPIC-01..EPIC-08 — impact 800
+2. **SoT/SoT.API_CONTRACTS.md** (score 55.8) — blocks 7 EPICs: EPIC-02..EPIC-08 — impact 309
+3. **SoT/SoT.USER_JOURNEYS.md** (score 0.0) — blocks 1 EPIC: EPIC-07 — impact 100
+
+### Unmet Criteria (high severity first)
+
+- [high] TEST: Found 0 TEST- entries; gate requires ≥1
+- [high] SoT/SoT.TESTING.md scores 0.0 — drags down stage readiness
+- [high] 7 dangling ID reference(s) across repo: TEST-008, UJ-001, UJ-002, …
+
+### Recommendation
+
+Do not advance. Address top blockers in order — fixing the highest-impact SoT file cascades up the graph.
+
+**Next action**: Populate SoT.TESTING.md with TEST- entries covering every API-/BR- in scope. Unblocks all 8 EPICs at once.
+```
+
+The power here is in the leverage view: 8 EPICs at WARN suggests 8 problems; the connected scorer reveals 1 root cause (empty `SoT.TESTING.md`). That's the fix-first action.
+
+---
+
+## Graduated-Score Report Example (PASS)
+
+**Context**: Hypothetical mature repo advancing v0.6 → v0.7. Score 84.
+
+```markdown
+## Gate Check Report: v0.6 → v0.7 (Architecture → Build)
+
+**Verdict**: PASS
+**Stage Score**: 84.0 / 100  (warn < 70, block < 50)
+
+### Stage Dimensions
+
+| Dimension | Score | Weight |
+|-----------|-------|--------|
+| required_ids_present | 100.0 | 0.375 |
+| relevant_sot_readiness | 82.3 | 0.375 |
+| cross_ref_integrity | 98.0 | 0.250 |
+| downstream_epic_readiness | n/a | — |
+
+### Top Blockers
+
+None — all SoT files passing.
+
+### Recommendation
+
+Advance to v0.7. Run `ghm-status-sync` to update the README dashboard.
+```
+
+---
+
+## Content Patterns — Good vs Bad Artifacts
+
+The scorer enforces structure (IDs exist, files are populated, refs resolve). The patterns below cover *content quality* — what makes individual artifacts good, which is still a human judgment the scorer can't fully automate.
+
 ---
 
 ## Good Example: v0.2 → v0.3 Gate Pass

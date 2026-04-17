@@ -1,0 +1,7 @@
+# Dependencies for scripts/readiness.py and the three scoring scripts.
+# Install: pip install -r scripts/requirements.txt
+
+pyyaml>=6.0
+
+# Dev/CI: test runner for tests/test_readiness.py
+pytest>=7.0

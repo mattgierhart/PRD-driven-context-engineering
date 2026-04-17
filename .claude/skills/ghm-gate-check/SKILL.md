@@ -1,11 +1,13 @@
 ---
 name: ghm-gate-check
 description: >
-  Validates gate criteria before PRD lifecycle advancement.
-  Triggers before advancing from v0.X to v0.Y or explicit `/ghm-gate-check` invocation.
-  Outputs pass/block summary with missing artifacts list.
+  Validates gate criteria before PRD lifecycle advancement by delegating to
+  the readiness scoring pipeline (scripts/readiness.py). Returns a graduated
+  PASS / WARN / BLOCK verdict with top blockers and their causal chain.
+  Triggers before advancing from v0.X to v0.Y or explicit `/ghm-gate-check`.
 context: inline
 allowed-tools:
+  - Bash
   - Read
   - Glob
   - Grep
@@ -13,141 +15,135 @@ allowed-tools:
 
 # Gate Check
 
-Validate all gate criteria are met before advancing the PRD lifecycle version.
+Validate whether the PRD stage is ready to advance to the next version. Delegates to the three-layer readiness scorer — SoT files → EPICs → stage — then surfaces the leverage view (what to fix first, and which EPICs it unblocks).
 
 ## Workflow Overview
 
-1. **Load Gate Criteria** → Read target gate requirements from PRD.md
-2. **Verify Evidence** → Check required artifacts exist with valid IDs
-3. **Assess Readiness** → Evaluate handoff requirements
-4. **Report** → Pass/Block with specific gaps
+1. **Compute** → run `scripts/readiness.py run --quiet` to refresh `status/readiness.json`
+2. **Read** → parse `status/readiness.json`
+3. **Report** → PASS / WARN / BLOCK verdict with top blockers and causal links
+4. **Recommend** → actionable next steps (always highest-leverage first)
 
-## Core Output Template
+## Authority
 
-| Element | Definition | Evidence |
-|---------|------------|----------|
-| **Target Gate** | Version being validated | `v0.3 → v0.4` |
-| **Status** | Pass or Block | Clear determination |
-| **Missing Artifacts** | What's not complete | Specific list with IDs |
-| **Recommendation** | Action to take | Proceed / Address gaps |
+`references/gate-criteria.md` remains the canonical source of mandatory artifacts per gate. The scorer's `GATE_REQUIREMENTS` table mirrors it. Do not hand-roll checklists here — the scoring engine is the single source of truth.
 
-## Gate Reference
+## Step 1: Compute
 
-| Gate | Focus | Key Artifacts |
-|------|-------|---------------|
-| v0.1 → v0.2 | Problem validated | CFD-XXX evidence |
-| v0.2 → v0.3 | Market defined | Segment definitions |
-| v0.3 → v0.4 | Commercial viable | BR-XXX, pricing |
-| v0.4 → v0.5 | Journeys mapped | UJ-XXX complete |
-| v0.5 → v0.6 | Risks addressed | Risk register |
-| v0.6 → v0.7 | Architecture set | API-XXX, schemas |
-| v0.7 → v0.8 | Build complete | Tests passing |
-| v0.8 → v0.9 | Deployed | Live environment |
-| v0.9 → v1.0 | Launched | Metrics tracking |
+Run the orchestrator. It runs SoT → EPIC → stage in dependency order and writes `status/readiness.json`.
 
-## Step 1: Load Gate Criteria
+```bash
+python scripts/readiness.py run --quiet
+# exit 0 = all pass, 1 = warn, 2 = block, 3 = error
+```
 
-1. Read PRD.md gate section for target version
-2. Extract all required criteria
-3. Identify artifact types needed (BR, UJ, API, CFD)
+If the exit code is `3`, report a runtime error and stop. If `0/1/2`, proceed to Step 2.
 
-### Checklist
-- [ ] Target gate identified
-- [ ] All criteria extracted
-- [ ] Required artifact types listed
+### Fallback: no scripts available
 
-## Step 2: Verify Evidence
+If `scripts/readiness.py` is missing or Python is unavailable, fall back to reading `status/readiness.json` directly. If that's also absent, report: "Readiness not yet computed — install scripts/requirements.txt and run `python scripts/readiness.py run`."
 
-For each required criterion:
+## Step 2: Read
 
-1. Check artifact exists in SoT/
-2. Verify artifact status is not "Draft"
-3. Confirm cross-references are valid
-4. Check for required CFD-XXX evidence
+```bash
+cat status/readiness.json
+```
 
-### Evidence Matrix
+Extract:
+- `summary.current_stage` — the gate being evaluated and its score
+- `summary.top_blockers` — ranked SoT files blocking progress
+- `stages.{target}` — detailed stage block (dimensions, unmet_criteria, caps)
+- `epics.{id}` — per-EPIC scores (cite the lowest ones)
 
-| Criterion Type | Verification |
-|----------------|--------------|
-| Business Rule | BR-XXX exists, status Active |
-| User Journey | UJ-XXX exists, all steps defined |
-| API Contract | API-XXX exists, endpoints specified |
-| Customer Evidence | CFD-XXX linked to BR-XXX |
+## Step 3: Report
 
-### Checklist
-- [ ] All required BR-XXX verified
-- [ ] All required UJ-XXX verified
-- [ ] All required API-XXX verified
-- [ ] Evidence chain (CFD → BR) validated
-
-## Step 3: Assess Handoff Readiness
-
-Check downstream requirements:
-
-1. Next agent has context needed
-2. No open blockers in current EPIC
-3. Documentation is current
-
-### Checklist
-- [ ] EPIC Session State section has no blockers
-- [ ] README.md is synchronized
-- [ ] Handoff documentation exists
-
-## Step 4: Generate Report
+Use this template. Fill every field from the JSON — do not improvise scores.
 
 ```markdown
-## Gate Check Report: v0.X → v0.Y
+## Gate Check Report: {stage.gate_description}
 
-**Status**: [PASS / BLOCK]
-**Date**: YYYY-MM-DD
+**Verdict**: [PASS | WARN | BLOCK]
+**Stage Score**: {stage.score} / 100  (warn < {threshold_warn}, block < {threshold_block})
+**Date**: {now}
 
-### Criteria Assessment
+### Stage Dimensions
 
-| Criterion | Status | Evidence |
-|-----------|--------|----------|
-| [Criterion 1] | ✅/❌ | [ID or gap] |
-| [Criterion 2] | ✅/❌ | [ID or gap] |
+| Dimension | Score | Weight |
+|-----------|-------|--------|
+| required_ids_present | {score} | {weight} |
+| relevant_sot_readiness | {score} | {weight} |
+| cross_ref_integrity | {score} | {weight} |
+| downstream_epic_readiness | {score or "n/a"} | {weight or "—"} |
 
-### Missing Artifacts
-- [ ] [Specific gap with required action]
+### Top Blockers (leverage view)
+
+1. **{file}** (score {score}) — blocks {N} EPICs: {EPIC-XX, …} — impact {impact}
+2. …
+
+### Unmet Criteria (high severity first)
+
+- [high] {ref}: {reason}
+- [medium] {ref}: {reason}
 
 ### Recommendation
-[Proceed to v0.Y / Address [N] gaps before advancing]
+
+**If PASS**: Advance to {next_version}. Run `ghm-status-sync` to update the README dashboard.
+
+**If WARN / BLOCK**: Do not advance. Address top blockers in order — fixing the highest-impact SoT file cascades up the graph.
+
+**Next action**: {top_blockers[0] → concrete fix}
 ```
+
+### Verdict bands
+
+| Stage score | Verdict | Meaning |
+|---|---|---|
+| ≥ 70 | PASS | Safe to advance |
+| 50–69 | WARN | Advance with documented risk; log in PRD change log |
+| < 50 | BLOCK | Cannot advance — per rule 05-lifecycle-gates, update the EPIC and STOP |
+
+## Step 4: Recommend
+
+Always prioritize by `impact = (100 − score) × #EPICs blocked`. The top blocker is the single highest-leverage fix; cite its `blocking_epics` list so the human understands what unblocks.
 
 ## Quality Gates
 
-### Pass Checklist
-- [ ] All criteria evaluated (none skipped)
-- [ ] Evidence is traceable to IDs
-- [ ] Recommendation is actionable
-
-### Testability Check
-- [ ] Report can be validated against PRD.md criteria
-- [ ] Missing artifacts are specific and findable
+- [ ] Stage score cited from JSON, not estimated
+- [ ] Top blockers include their consumer EPICs
+- [ ] Recommendation is actionable (specific file, specific action)
+- [ ] Verdict matches the score band exactly (don't round up)
 
 ## Anti-Patterns
 
 | Pattern | Example | Fix |
-|---------|---------|-----|
-| Skipping criteria | "Probably fine" | → Verify each explicitly |
-| Vague gaps | "Needs more work" | → Cite specific missing ID |
-| Override blocks | Advancing despite fails | → Address gaps first |
+|---|---|---|
+| Ignoring the score | "Feels ready; pass" | Cite `stage.score` verbatim |
+| Skipping blockers | "Minor stuff, advance anyway" | Block if score < 50; warn if < 70 |
+| Hand-rolling criteria | Re-checking IDs manually | Trust the scorer; if wrong, fix `GATE_REQUIREMENTS` in `_readiness/stage.py` |
+| Forcing PASS | Overriding the verdict | Never override; the score is the contract |
 
 ## Boundaries
 
 **DO**:
-- Validate against documented criteria
-- Identify specific gaps
-- Provide actionable recommendations
+- Delegate computation to `readiness.py`
+- Cite specific scores, files, and EPICs from the JSON
+- Surface the `top_blockers` leverage view
 
 **DON'T**:
-- Create missing artifacts (just report)
-- Override gate blocks
-- Make subjective quality judgments
+- Modify `status/readiness.json` directly — it's computed output
+- Create missing artifacts inside this skill (that's the author's job)
+- Override PASS/BLOCK verdicts subjectively
 
 ## Handoff
 
-After gate check:
-- If PASS: Advance PRD version, trigger `ghm-status-sync`
-- If BLOCK: Return to current stage, address gaps
+After a report:
+- **PASS**: Trigger `ghm-status-sync`; the gate advancement updates the README dashboard
+- **WARN**: Same as PASS but note the risks in the PRD change log
+- **BLOCK**: Return control to the human. The `top_blockers[0]` fix is the single most important next action
+
+## References
+
+- `references/gate-criteria.md` — canonical gate requirements (consumed by scorer)
+- `references/examples.md` — pass/warn/block report examples
+- `.claude/rules/07-readiness-protocol.md` — the discipline rule
+- `docs/READINESS_PROTOCOL.md` — full schema

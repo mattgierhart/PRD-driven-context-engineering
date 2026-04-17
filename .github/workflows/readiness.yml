@@ -1,0 +1,36 @@
+name: Readiness
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+      - name: Run pytest
+        run: python -m pytest tests/ -v
+
+  smoke:
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+      - name: Repo self-scoring (non-blocking)
+        # Score the repo itself. Continues on non-zero exit so a WARN/BLOCK
+        # on PRD-CE's own state doesn't fail CI — the tests job already
+        # validates the scoring engine. This step is a self-dogfooding check
+        # that surfaces the score in the Actions log.
+        continue-on-error: true
+        run: python scripts/readiness.py run || true

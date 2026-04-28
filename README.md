@@ -165,12 +165,12 @@ We do not proceed to the next stage until the **Definition of Done (DoD)** is me
 | **v0.2** | **Market Definition**    | Segments & ICP        | Segments sized, "Not For" defined, Business Rules (`BR-`) created. |
 | **v0.3** | **Commercial Model**     | Value & Pricing       | Competitors profiled, Pricing model, Monetization rules.           |
 | **v0.4** | **User Journeys**        | Personas & Flows      | Core journeys mapped (`UJ-`), Dependencies (`API-`) noted.         |
-| **v0.5** | **Red Team Review**      | Risks & Feasibility   | Risks (Market/Tech) identified, Mitigations linked to tests.       |
+| **v0.5** | **Red Team Review**      | Risks & Feasibility   | Multi-perspective review (6 personas), risks identified, mitigations linked. |
 | **v0.6** | **Architecture**         | Technical Strategy    | Stack selected, API contracts (`API-`) drafted, Cost guardrails.   |
-| **v0.7** | **Build Execution**      | Implementation Loop   | Code tested (`TEST-`), SoT updated, Epic loop execution.           |
-| **v0.8** | **Release & Deployment** | Operational Readiness | Runbooks (`RUN-`), Monitoring (`MON-`), Rollback plan.             |
+| **v0.7** | **Build Execution**      | Implementation Loop   | A/B test design, code tested (`TEST-`), SoT updated, Epic loop execution. |
+| **v0.8** | **Release & Deployment** | Operational Readiness | Release notes, Runbooks (`RUN-`), Monitoring (`MON-`), Rollback plan. |
 | **v0.9** | **Launch**               | Go-to-Market          | Launch metrics (`KPI-`), Feedback channels (`CFD-`) active.        |
-| **v1.0** | **Growth**               | Market Adoption       | Paying customers, Retention analysis, Optimization loop.           |
+| **v1.0** | **Growth**               | Market Adoption       | Retention analysis, Churn patterns, Optimization loop.           |
 
 ### The Iterative Ecosystem
 
@@ -186,6 +186,72 @@ Because our documentation is modular and interlocked via hooks, we can revisit a
 
 This allows the product to evolve without losing the structure that keeps humans and AI aligned.
 <!-- /SECTION: lifecycle -->
+
+---
+
+<!-- SECTION: pm-governance -->
+## PM Governance: Shipping Rules, Compliance Gates, & Observability
+
+To scale **PRD Led Context Engineering** with distributed teams, we enforce three governance layers. These rules define what PMs can ship directly, what guardrails AI features must satisfy before merge, and what observability must be in place before any feature review.
+
+### 4A. PM Shipping Zone
+
+Clarifies which decisions PMs can make autonomously vs. which require engineering escalation.
+
+**PMs can commit directly:**
+- Copy (CTAs, tooltips, error messages, onboarding text)
+- Feature flags (toggling and value adjustments within documented ranges)
+- Config values (non-secret thresholds, rate limits)
+- AI prompts (system prompts and examples—subject to 4B compliance)
+- Design tweaks (CSS, spacing, color on pre-approved components)
+- Planning docs (PRD.md, Epics, SoT entries, README updates)
+- Release notes (user-facing announcements and stakeholder summaries)
+
+**Must escalate to engineering:**
+- Database schemas (tables, columns, indices)
+- API routes (new endpoints, request/response changes)
+- Middleware (auth, rate limiting, validation)
+- Infrastructure (env vars, secrets, deployment config)
+- Package dependencies (additions/removals/upgrades)
+- Changes touching >3 files outside `/planning/` or `/docs/`
+- Breaking changes (DB migrations, API version bumps)
+
+**Escalation protocol:** Open a `<!-- PM ESCALATION -->` comment in the active EPIC. Tag the engineering owner; do not merge until acknowledged.
+
+### 4B. AI Prompt Compliance Gate
+
+Before any system prompt, few-shot example, or AI-facing instruction change merges, it must satisfy **all** of these:
+
+**Required Documentation:**
+- ≥5 Good examples (inputs that should produce desired output)
+- ≥5 Bad examples (inputs that should be rejected or handled gracefully)
+- ≥5 Reject examples (adversarial or out-of-scope inputs)
+- Eval harness result (pass rate vs. baseline)
+- Cost delta (token count change)
+- Latency delta (p50/p95 change)
+- PII rejection example (at least one test case)
+- Fallback behavior documented (what if the model refuses or returns unexpected format?)
+
+**Approval Thresholds:**
+- Cost increase ≤10%: PM self-approval
+- Cost increase 10–25%: Engineering + PM sign-off
+- Cost increase >25%: Product leadership sign-off
+- Latency increase >20%: Engineering review required
+- Eval pass rate drops >5%: Block merge; root-cause before proceeding
+
+### 4C. Observability Definition of Done
+
+No feature advances to review (v0.8 gate) without:
+
+- **Primary metric dashboard:** A dashboard panel tracking the main KPI- for this feature
+- **Guardrail metric alerts:** Thresholds defined for all guardrails; alerts fire before KPI- regresses
+- **Error rate monitoring:** Feature-specific errors tracked and alerted
+- **AI feature cost/latency alerting:** For AI features, cost per call and p95 latency alerted if >110% of baseline (from 4B)
+- **Daily monitoring plan:** Named owner checks dashboard daily for 7 days post-launch
+- **MON- entry:** A documented monitoring specification in `SoT/SoT.DEPLOYMENT.md` required before gate passes
+
+For more details, see [`CLAUDE.md` Section 4](CLAUDE.md#4-pm-governance-rules).
+<!-- /SECTION: pm-governance -->
 
 ---
 
@@ -212,10 +278,11 @@ This allows the product to evolve without losing the structure that keeps humans
 
 ### `.claude` Methodology Layer (Current Behavior)
 
-- **Skills are split by intent**: `prd-v*` skills map to lifecycle stages; `ghm-*` skills handle operational work like gate checks, ID hygiene, SoT building, and status synchronization.
+- **Skills are split by intent**: `prd-v*` skills map to lifecycle stages; `ghm-*` skills handle operational work like gate checks, ID hygiene, SoT building, and status synchronization. New lifecycle skills enhance specific stages: `prd-v05-multi-perspective-review` (Red Team with 6 reviewer personas), `prd-v07-ab-test-design` (experiment design before build), `prd-v08-release-notes-writer` (user-facing release notes), `prd-v10-retention-analyzer` (post-launch growth analysis).
 - **Hooks are event-driven**: `SessionStart` injects read order, `UserPromptSubmit` checks context density for epic/gate prompts, and `Stop` reminds on SoT cascade updates.
 - **Subagent memory is automated**: `SubagentStart` loads agent memory, while `SubagentStop` prompts memory updates and runs a post-delegation drift check.
 - **Hook behavior is standardized**: `.claude/hooks/HOOK_CONTRACT.md` keeps the interface consistent even when scripts are swapped or extended.
+- **PM Governance enforced**: `CLAUDE.md` Section 4 defines PM Shipping Zone (what can commit directly), AI Prompt Compliance Gate (eval requirements before merge), and Observability DoD (monitoring gates before feature review). See [`CLAUDE.md` Section 4](CLAUDE.md#4-pm-governance-rules) for details.
 
 > **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy `README_template.md` to `README.md` and customize it for that product.
 <!-- /SECTION: repo-structure -->

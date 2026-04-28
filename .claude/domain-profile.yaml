@@ -70,19 +70,23 @@ skills:
     - prd-v04-user-journey-mapping
     - prd-v04-visual-prototype-gate
     - prd-v05-risk-discovery-interview
+    - prd-v05-multi-perspective-review
     - prd-v05-technical-stack-selection
     - prd-v06-architecture-design
     - prd-v06-environment-setup
     - prd-v06-technical-specification
     - prd-v07-epic-scoping
+    - prd-v07-ab-test-design
     - prd-v07-implementation-loop
     - prd-v07-test-planning
     - prd-v08-monitoring-setup
+    - prd-v08-release-notes-writer
     - prd-v08-release-planning
     - prd-v08-runbook-creation
     - prd-v09-feedback-loop-setup
     - prd-v09-gtm-strategy
     - prd-v09-launch-metrics
+    - prd-v10-retention-analyzer
 
 # --- Agent Registry ---
 # Product-lifecycle agents. Non-product repos may drop these entirely.

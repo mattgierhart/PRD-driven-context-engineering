@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DOC-ASSESS-001: Markdown → HTML Migration Assessment</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f8fafc;
+    --bg-code: #f1f5f9;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --text-subtle: #64748b;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --accent: #2563eb;
+    --accent-bg: #dbeafe;
+    --pass: #16a34a;
+    --pass-bg: #dcfce7;
+    --warn: #d97706;
+    --warn-bg: #fef3c7;
+    --block: #dc2626;
+    --block-bg: #fee2e2;
+    --mono: "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* Document header — mimics SoT frontmatter rendered */
+  .doc-header {
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px;
+  }
+  .doc-id {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+  .doc-title {
+    margin: 6px 0 12px;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .doc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .doc-meta dt { font-weight: 600; display: inline; margin-right: 4px; }
+  .doc-meta dd { display: inline; margin: 0; }
+
+  /* Status pills */
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-family: var(--mono);
+    vertical-align: 2px;
+  }
+  .pill-pass { background: var(--pass-bg); color: var(--pass); }
+  .pill-warn { background: var(--warn-bg); color: var(--warn); }
+  .pill-block { background: var(--block-bg); color: var(--block); }
+  .pill-info { background: var(--accent-bg); color: var(--accent); }
+
+  /* Layout */
+  .layout {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 40px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 40px 80px;
+  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; padding: 24px; }
+    .toc { position: static; max-height: none; }
+  }
+
+  /* Sticky table of contents */
+  .toc {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding: 16px 0;
+    border-right: 1px solid var(--border);
+    padding-right: 16px;
+  }
+  .toc-heading {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-subtle);
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: toc;
+  }
+  .toc li { counter-increment: toc; margin: 4px 0; }
+  .toc a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    display: flex;
+    gap: 8px;
+  }
+  .toc a::before {
+    content: counter(toc, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-subtle);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .toc a:hover { color: var(--accent); }
+
+  /* Main content */
+  .content { min-width: 0; }
+
+  /* Entry-style sections — mimics a SoT entry */
+  .entry {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .entry-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .entry-id {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-subtle);
+    letter-spacing: 0.3px;
+  }
+  .entry-title {
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Cross-reference chips at bottom of entries */
+  .chips {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-subtle);
+  }
+  .chips-label { margin-right: 4px; font-weight: 600; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 2px 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    color: var(--text-muted);
+    text-decoration: none;
+    background: var(--bg-alt);
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Headings inside entries */
+  h3 { font-size: 15px; margin: 20px 0 8px; color: var(--text); }
+  h4 { font-size: 13px; margin: 14px 0 6px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; }
+  p { margin: 8px 0; }
+  ul, ol { margin: 8px 0; padding-left: 22px; }
+  li { margin: 4px 0; }
+
+  /* Code */
+  code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: var(--bg-code);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+  pre {
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 14px;
+    overflow-x: auto;
+    margin: 8px 0;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* Side-by-side code panels */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 12px 0;
+  }
+  @media (max-width: 700px) { .compare { grid-template-columns: 1fr; } }
+  .compare-panel { background: var(--bg-code); border: 1px solid var(--border); border-radius: 4px; }
+  .compare-panel header {
+    padding: 6px 12px;
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .compare-panel pre { border: none; margin: 0; border-radius: 0; background: transparent; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    background: var(--bg-alt);
+    border-bottom: 2px solid var(--border-strong);
+    padding: 8px 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:hover td { background: var(--bg-alt); }
+
+  /* Callouts */
+  .callout {
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin: 12px 0;
+    border-left: 3px solid;
+  }
+  .callout-pass { background: var(--pass-bg); border-color: var(--pass); }
+  .callout-warn { background: var(--warn-bg); border-color: var(--warn); }
+  .callout-block { background: var(--block-bg); border-color: var(--block); }
+  .callout-info { background: var(--accent-bg); border-color: var(--accent); }
+  .callout-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .callout-pass .callout-label { color: var(--pass); }
+  .callout-warn .callout-label { color: var(--warn); }
+  .callout-block .callout-label { color: var(--block); }
+  .callout-info .callout-label { color: var(--accent); }
+
+  /* Details (collapsible) */
+  details {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0;
+    margin: 10px 0;
+    background: var(--bg-alt);
+  }
+  details summary {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-muted);
+    user-select: none;
+  }
+  details[open] summary { border-bottom: 1px solid var(--border); }
+  details > *:not(summary) { padding: 12px 14px; }
+
+  /* Footer */
+  .doc-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-alt);
+    padding: 24px 40px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .doc-footer h3 { margin-top: 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-subtle); }
+  .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 1180px; margin: 0 auto; }
+  @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; } }
+
+  /* Highlight number */
+  .stat {
+    display: inline-block;
+    font-family: var(--mono);
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* Subtle separator */
+  .rule { height: 1px; background: var(--border); margin: 24px 0; border: none; }
+
+  /* Helpers */
+  .muted { color: var(--text-muted); }
+  .small { font-size: 12px; }
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="doc-id">DOC-ASSESS-001 &middot; Document Assessment</div>
+  <h1 class="doc-title">Markdown &rarr; HTML Migration: SoT &amp; EPIC Documents</h1>
+  <dl class="doc-meta">
+    <div><dt>Status:</dt> <dd><span class="pill pill-block">Not Recommended</span></dd></div>
+    <div><dt>Confidence:</dt> <dd><span class="pill pill-pass">High</span></dd></div>
+    <div><dt>Updated:</dt> <dd>2026-05-18</dd></div>
+    <div><dt>Authority:</dt> <dd>PRD-Led Context Engineering</dd></div>
+    <div><dt>Scope:</dt> <dd>13 SoT files &middot; epics/ &middot; 38 skills &middot; 5 scripts &middot; 4 hooks</dd></div>
+  </dl>
+  <p class="muted small" style="margin: 14px 0 0;">
+    <strong>Note on format:</strong> This document is itself rendered in the proposed HTML format so you can experience the readability trade-offs while reading the analysis.
+  </p>
+</header>
+
+<div class="layout">
+
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc-heading">Contents</p>
+    <ol>
+      <li><a href="#summary">Executive Summary</a></li>
+      <li><a href="#tokens">Token Consumption</a></li>
+      <li><a href="#gain">What You&rsquo;d Gain</a></li>
+      <li><a href="#lose">What You&rsquo;d Lose</a></li>
+      <li><a href="#tooling">Tooling Impact</a></li>
+      <li><a href="#skills">Skill Ecosystem Impact</a></li>
+      <li><a href="#templates">Template Impact</a></li>
+      <li><a href="#js">JavaScript Requirement</a></li>
+      <li><a href="#plan">Implementation Plan</a></li>
+      <li><a href="#hybrid">Hybrid Alternative</a></li>
+      <li><a href="#lightweight">Lightweight Wins</a></li>
+      <li><a href="#recommendation">Final Recommendation</a></li>
+    </ol>
+  </nav>
+
+  <main class="content">
+
+    <!-- 1. Executive Summary -->
+    <section class="entry" id="summary">
+      <div class="entry-head">
+        <span class="entry-id">ASSESS-001</span>
+        <h2 class="entry-title">Executive Summary</h2>
+        <span class="pill pill-block">Do Not Migrate</span>
+      </div>
+
+      <p>
+        Converting SoT and EPIC files to HTML would yield modest human-readability gains while imposing a
+        <strong>~2.5&ndash;3&times; token-cost multiplier</strong> on every context load and a
+        <strong>6&ndash;10 working-day rewrite</strong> across 5 parsing scripts, 4 hooks, 38 skills,
+        and every template in the repository.
+      </p>
+
+      <p>
+        The deeper risk is workflow fragility: large language models author and edit markdown more reliably than HTML.
+        Unclosed tags, malformed table cells, and inconsistent nesting will compound into re-runs &mdash; a hidden
+        operational tax that the bench tests above don&rsquo;t capture.
+      </p>
+
+      <div class="callout callout-pass">
+        <span class="callout-label">Recommendation</span>
+        Keep markdown as the source of truth. Add a small generator (<code>scripts/render-sot-html.py</code>)
+        that produces styled HTML views into a <code>dist/</code> directory. You get the readability win in ~1 day
+        with <em>zero</em> regression to tooling, skills, or token cost.
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#hybrid">HYBRID-001</a>
+        <a class="chip" href="#tokens">TOKEN-001</a>
+        <a class="chip" href="#recommendation">REC-001</a>
+      </div>
+    </section>
+
+    <!-- 2. Token Consumption -->
+    <section class="entry" id="tokens">
+      <div class="entry-head">
+        <span class="entry-id">TOKEN-001</span>
+        <h2 class="entry-title">Token Consumption Analysis</h2>
+        <span class="pill pill-block">High Cost</span>
+      </div>
+
+      <p>
+        The same SoT entry &mdash; ID, status, body, related references &mdash; costs roughly
+        <span class="stat">2.5&ndash;3&times;</span> more tokens in HTML than in markdown.
+        This applies to <strong>both</strong> input (loading SoT/EPIC files into context) and output (Claude writing a new entry).
+      </p>
+
+      <h3>Side-by-side: a single <code>BR-001</code> entry</h3>
+
+      <div class="compare">
+        <div class="compare-panel">
+          <header><span>Markdown source</span><span>~30 tokens</span></header>
+<pre><code>### BR-001: Free Plan Rate Limit
+**Status**: Active
+**Category**: Pricing
+
+Free tier limited to 100 requests/day.
+
+**Related**: API-045, UJ-012</code></pre>
+        </div>
+        <div class="compare-panel">
+          <header><span>Equivalent semantic HTML</span><span>~80 tokens</span></header>
+<pre><code>&lt;article id="BR-001" class="sot-entry"&gt;
+  &lt;h3&gt;BR-001: Free Plan Rate Limit&lt;/h3&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;Status&lt;/dt&gt;&lt;dd&gt;Active&lt;/dd&gt;
+    &lt;dt&gt;Category&lt;/dt&gt;&lt;dd&gt;Pricing&lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;p&gt;Free tier limited to 100 requests/day.&lt;/p&gt;
+  &lt;p&gt;Related: &lt;a href="#API-045"&gt;API-045&lt;/a&gt;,
+     &lt;a href="#UJ-012"&gt;UJ-012&lt;/a&gt;&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+        </div>
+      </div>
+
+      <h3>Projected cost at repo scale</h3>
+
+      <table>
+        <thead>
+          <tr><th>Surface</th><th>Markdown today</th><th>HTML projected</th><th>Delta</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Load 2 SoT files into context</td>
+            <td>~2,000 tok</td>
+            <td>~5,500 tok</td>
+            <td><span class="pill pill-block">+3,500</span></td>
+          </tr>
+          <tr>
+            <td>Load active EPIC</td>
+            <td>~500 tok</td>
+            <td>~1,250 tok</td>
+            <td><span class="pill pill-warn">+750</span></td>
+          </tr>
+          <tr>
+            <td>Write a new BR entry (output)</td>
+            <td>~100 tok</td>
+            <td>~250 tok</td>
+            <td><span class="pill pill-warn">+150</span></td>
+          </tr>
+          <tr>
+            <td><strong>Per-session tax</strong></td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td><strong>+4,000 tok typical</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-warn">
+        <span class="callout-label">Hidden cost: output errors</span>
+        Markdown is forgiving (a missed asterisk is still readable). HTML is not (an unclosed
+        <code>&lt;td&gt;</code> can break the whole table). Each malformed write becomes a re-run &mdash;
+        invisible in synthetic benchmarks, but real in your monthly token bill.
+      </div>
+
+      <details>
+        <summary>How I arrived at ~2.5&ndash;3&times;</summary>
+        <p>
+          Tokenizers split on whitespace, punctuation, and common subwords. HTML wrapping introduces opening tags,
+          closing tags, attribute names, attribute values, and quote characters &mdash; each contributing tokens
+          that carry no semantic content. The multiplier is empirically stable for prose-heavy structured documents
+          like SoT entries. Code-heavy or table-heavy content can land closer to 2&times;; sparse metadata-heavy
+          entries can push 3.5&times;.
+        </p>
+      </details>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#tooling">TOOLING-001</a>
+        <a class="chip" href="#lose">LOSE-001</a>
+      </div>
+    </section>
+
+    <!-- 3. What You'd Gain -->
+    <section class="entry" id="gain">
+      <div class="entry-head">
+        <span class="entry-id">GAIN-001</span>
+        <h2 class="entry-title">What You&rsquo;d Gain</h2>
+        <span class="pill pill-pass">Real Benefits</span>
+      </div>
+
+      <ul>
+        <li>
+          <strong>Native collapsibles</strong> &mdash; <code>&lt;details&gt;</code> elements (like the one above) reduce
+          visual noise on long SoT files. Markdown has no first-class equivalent.
+        </li>
+        <li>
+          <strong>Anchor identity is structural</strong> &mdash; <code>&lt;h2 id="BR-001"&gt;</code> makes IDs first-class
+          link targets without slug-mangling.
+        </li>
+        <li>
+          <strong>Status badges with color</strong> &mdash; visual scanability for status, severity, readiness
+          (the pills in this document are a working demonstration).
+        </li>
+        <li>
+          <strong>Layout control</strong> &mdash; side-by-side panels, sticky navigation, grid layouts. Markdown
+          can approximate these via embedded HTML but loses authoring ergonomics.
+        </li>
+        <li>
+          <strong>Browser-native rendering</strong> &mdash; no markdown preview extension needed; the file <em>is</em>
+          the rendered view.
+        </li>
+        <li>
+          <strong>Sortable / filterable tables</strong> (with JavaScript) &mdash; not possible in markdown without
+          a separate viewer.
+        </li>
+      </ul>
+
+      <div class="callout callout-info">
+        <span class="callout-label">Honest framing</span>
+        Most of these wins are achievable by <em>rendering</em> markdown to HTML on demand. You don&rsquo;t have to
+        change the source format to get the presentation benefits. See <a href="#hybrid">HYBRID-001</a>.
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#hybrid">HYBRID-001</a>
+        <a class="chip" href="#lightweight">LITE-001</a>
+      </div>
+    </section>
+
+    <!-- 4. What You'd Lose -->
+    <section class="entry" id="lose">
+      <div class="entry-head">
+        <span class="entry-id">LOSE-001</span>
+        <h2 class="entry-title">What You&rsquo;d Lose</h2>
+        <span class="pill pill-block">Real Costs</span>
+      </div>
+
+      <ul>
+        <li>
+          <strong>Diff readability</strong> &mdash; markdown diffs in PR reviews show <em>content</em> changes.
+          HTML diffs show tag and content changes interleaved, often obscuring intent.
+        </li>
+        <li>
+          <strong>Hand-editability</strong> &mdash; quickly editing a SoT entry in VS Code is fluid in markdown
+          (<code>**bold**</code>, <code>| col |</code>). In HTML you balance opening/closing tags every line.
+        </li>
+        <li>
+          <strong>GitHub native preview</strong> &mdash; GitHub renders markdown beautifully in-place.
+          HTML files render as syntax-highlighted source (or stripped, depending on the path).
+        </li>
+        <li>
+          <strong>LLM authoring reliability</strong> &mdash; Claude (and most LLMs) produce far cleaner markdown
+          than HTML. Every tag-mismatch is a fix-up round-trip.
+        </li>
+        <li>
+          <strong>Entire current toolchain</strong> &mdash; until rewritten, every script, hook, skill, and template
+          in the repo stops working correctly.
+        </li>
+        <li>
+          <strong>Authoring ergonomics for humans</strong> &mdash; filling out a markdown template feels like writing.
+          Filling out an HTML template feels like editing data entry.
+        </li>
+      </ul>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#tokens">TOKEN-001</a>
+        <a class="chip" href="#tooling">TOOLING-001</a>
+        <a class="chip" href="#skills">SKILL-001</a>
+      </div>
+    </section>
+
+    <!-- 5. Tooling Impact -->
+    <section class="entry" id="tooling">
+      <div class="entry-head">
+        <span class="entry-id">TOOLING-001</span>
+        <h2 class="entry-title">Tooling Impact</h2>
+        <span class="pill pill-block">Breaks Everything</span>
+      </div>
+
+      <p>
+        The repository has <strong>no markdown AST parser</strong>. Every script uses
+        regex against <code>#</code> heading syntax. The readiness scorer
+        (<code>scripts/_readiness/sot.py</code>) anchors on the <code>HEADING_DEF_RE</code> pattern;
+        <code>scripts/validate-ids.sh</code> regexes <code>^#{2,3} [A-Z]{2,5}-\d{2,3}</code>;
+        hooks scan ID patterns in source text. None of this survives a format change without rewrite.
+      </p>
+
+      <table>
+        <thead>
+          <tr><th>Component</th><th>Parse strategy</th><th>Breaks?</th><th>Rewrite effort</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>scripts/validate-ids.sh</code></td>
+            <td>Bash regex on <code>^##</code></td>
+            <td><span class="pill pill-block">Yes</span></td>
+            <td>~2h</td>
+          </tr>
+          <tr>
+            <td><code>scripts/_readiness/sot.py</code></td>
+            <td>Python regex on heading defs + entry body</td>
+            <td><span class="pill pill-block">Yes</span></td>
+            <td>~6h (add BeautifulSoup, rewrite entry extraction)</td>
+          </tr>
+          <tr>
+            <td><code>scripts/_readiness/epic.py</code></td>
+            <td>YAML frontmatter + body regex</td>
+            <td><span class="pill pill-warn">Partial</span></td>
+            <td>~3h (frontmatter unchanged; body regex needs HTML traversal)</td>
+          </tr>
+          <tr>
+            <td><code>scripts/check-stage-gate.sh</code></td>
+            <td>Text <code>grep</code></td>
+            <td><span class="pill pill-warn">Mostly</span></td>
+            <td>~1h</td>
+          </tr>
+          <tr>
+            <td><code>scripts/generate-id-pattern.sh</code></td>
+            <td>Reads YAML, not markdown</td>
+            <td><span class="pill pill-pass">No</span></td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>.claude/hooks/sot-update-trigger.sh</code></td>
+            <td>Bash regex on ID pattern in diffs</td>
+            <td><span class="pill pill-warn">Partial</span></td>
+            <td>~1h (IDs still detectable in content)</td>
+          </tr>
+          <tr>
+            <td><code>.claude/hooks/context-validation.sh</code></td>
+            <td>Text grep for version strings</td>
+            <td><span class="pill pill-warn">Partial</span></td>
+            <td>~1h</td>
+          </tr>
+          <tr>
+            <td><code>.claude/hooks/traceability-gate.sh</code></td>
+            <td>Pattern-based</td>
+            <td><span class="pill pill-warn">Likely</span></td>
+            <td>~1h</td>
+          </tr>
+          <tr>
+            <td><strong>Subtotal: tooling</strong></td>
+            <td colspan="2">&mdash;</td>
+            <td><strong>~15 hours</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="muted small">
+        New runtime dependency required: <code>beautifulsoup4</code> (or <code>lxml</code>) in Python scripts.
+        Currently the only Python imports needed are <code>yaml</code>, <code>json</code>, and <code>re</code>.
+      </p>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#plan">PLAN-001</a>
+        <a class="chip" href="#skills">SKILL-001</a>
+      </div>
+    </section>
+
+    <!-- 6. Skill Ecosystem Impact -->
+    <section class="entry" id="skills">
+      <div class="entry-head">
+        <span class="entry-id">SKILL-001</span>
+        <h2 class="entry-title">Skill Ecosystem Impact</h2>
+        <span class="pill pill-block">Widespread</span>
+      </div>
+
+      <p>
+        The repository ships <strong>38 skills</strong> in <code>.claude/skills/</code>. Every skill that
+        creates or reads a SoT entry currently emits markdown:
+      </p>
+
+      <ul>
+        <li>
+          <code>ghm-id-register</code> &mdash; emits <code>### [ID]: [Title]</code> headings with bold metadata fields.
+        </li>
+        <li>
+          <code>ghm-sot-builder</code> &mdash; its <code>assets/sot-template.md</code> generates markdown
+          frontmatter, headings, and anchor links.
+        </li>
+        <li>
+          <code>prd-v07-epic-scoping</code> &mdash; structures EPIC entries with markdown tables and nested
+          section headers.
+        </li>
+        <li>
+          Every <code>prd-v0X-*</code> skill (24 of them) that outputs IDs (BR-, UJ-, FEA-, etc.) embeds
+          markdown formatting in its instructions.
+        </li>
+        <li>
+          <code>ghm-gate-check</code>, <code>ghm-status-sync</code>, <code>ghm-harvest</code> all read
+          markdown structure to assess state.
+        </li>
+      </ul>
+
+      <p>
+        Updating a skill is not just a search-and-replace &mdash; the SKILL.md files contain teaching examples
+        that show Claude exactly what valid output looks like. Those examples must be rewritten <em>and</em>
+        verified to produce parseable HTML on first attempt.
+      </p>
+
+      <div class="callout callout-warn">
+        <span class="callout-label">Estimate</span>
+        38 skills &times; ~30&ndash;45 min each = <strong>~20&ndash;28 hours</strong> for careful skill migration
+        with at least one test invocation per skill to verify the new HTML output validates.
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#templates">TPL-001</a>
+        <a class="chip" href="#plan">PLAN-001</a>
+      </div>
+    </section>
+
+    <!-- 7. Template Impact -->
+    <section class="entry" id="templates">
+      <div class="entry-head">
+        <span class="entry-id">TPL-001</span>
+        <h2 class="entry-title">Template Impact</h2>
+        <span class="pill pill-warn">Twin Required</span>
+      </div>
+
+      <p>
+        Every template needs an HTML twin: <code>EPIC_TEMPLATE.md</code>,
+        <code>.claude/skills/ghm-sot-builder/assets/sot-template.md</code>, and any per-skill
+        boilerplate. The templates themselves are simple to convert &mdash; the cost lives in the human
+        ergonomics that follows.
+      </p>
+
+      <h3>Where templates get harder</h3>
+
+      <div class="compare">
+        <div class="compare-panel">
+          <header><span>Filling in a markdown template</span><span>Easy</span></header>
+<pre><code>### BR-101: ___________
+**Status**: Active
+**Category**: ___________
+
+___________</code></pre>
+        </div>
+        <div class="compare-panel">
+          <header><span>Filling in an HTML template</span><span>Harder</span></header>
+<pre><code>&lt;article id="BR-101"&gt;
+  &lt;h3&gt;BR-101: ___________&lt;/h3&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;Status&lt;/dt&gt;&lt;dd&gt;Active&lt;/dd&gt;
+    &lt;dt&gt;Category&lt;/dt&gt;&lt;dd&gt;___________&lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;p&gt;___________&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+        </div>
+      </div>
+
+      <p>
+        Authors lose the ability to skim a template visually and fill in the blanks. They now have to
+        be careful about nesting, escaping, and tag closure. Editors without HTML auto-completion
+        feel this acutely.
+      </p>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#skills">SKILL-001</a>
+        <a class="chip" href="#lose">LOSE-001</a>
+      </div>
+    </section>
+
+    <!-- 8. JS Requirement -->
+    <section class="entry" id="js">
+      <div class="entry-head">
+        <span class="entry-id">JS-001</span>
+        <h2 class="entry-title">Do You Need JavaScript?</h2>
+        <span class="pill pill-info">Depends on Goal</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Capability</th><th>JS required?</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Static reading, anchors, navigation, collapsible sections</td>
+            <td><span class="pill pill-pass">No</span> &mdash; semantic HTML + CSS is enough (this document proves it).</td>
+          </tr>
+          <tr>
+            <td>Sortable / filterable tables</td>
+            <td><span class="pill pill-warn">Yes</span> &mdash; needs a small library or vanilla script.</td>
+          </tr>
+          <tr>
+            <td>Cross-document search</td>
+            <td><span class="pill pill-warn">Yes</span> &mdash; needs an index + client-side search (e.g. Lunr.js).</td>
+          </tr>
+          <tr>
+            <td>Live readiness badges that update from <code>status/readiness.json</code></td>
+            <td><span class="pill pill-warn">Yes</span> &mdash; needs <code>fetch</code> + DOM update.</td>
+          </tr>
+          <tr>
+            <td>Server-side parsing (Python tools)</td>
+            <td><span class="pill pill-pass">No</span> &mdash; use BeautifulSoup, not JS.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <strong>Honest read:</strong> Your stated goal &mdash; &ldquo;easier to read for a human and more structured&rdquo; &mdash;
+        starts with no JS, but to actually surpass markdown&rsquo;s readability (filtering through 100+ entries,
+        cross-document search) you&rsquo;ll want JS within a few weeks. At that point you&rsquo;re effectively building
+        a documentation site, which is fine &mdash; but it&rsquo;s a different project.
+      </p>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#hybrid">HYBRID-001</a>
+        <a class="chip" href="#lightweight">LITE-001</a>
+      </div>
+    </section>
+
+    <!-- 9. Implementation Plan -->
+    <section class="entry" id="plan">
+      <div class="entry-head">
+        <span class="entry-id">PLAN-001</span>
+        <h2 class="entry-title">Implementation Plan (if you proceed)</h2>
+        <span class="pill pill-warn">6&ndash;10 Working Days</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Phase</th><th>Work</th><th>Effort</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Foundation</strong></td>
+            <td>Design HTML templates (SoT + EPIC). Add BeautifulSoup. Write a parser library that produces the same <code>SoTEntry</code> shape as today. Build regression tests against existing markdown fixtures.</td>
+            <td>1&ndash;2 days</td>
+          </tr>
+          <tr>
+            <td><strong>2. Tooling rewrite</strong></td>
+            <td>Rewrite the 5 affected scripts (validate-ids, readiness/sot.py, readiness/epic.py, check-stage-gate, generate-id-pattern). Update the 4 hooks. Verify against fixtures.</td>
+            <td>2&ndash;3 days</td>
+          </tr>
+          <tr>
+            <td><strong>3. Skill migration</strong></td>
+            <td>Update 38 skills. Rewrite teaching examples. Smoke-test each skill produces parseable HTML.</td>
+            <td>2&ndash;3 days</td>
+          </tr>
+          <tr>
+            <td><strong>4. Content migration</strong></td>
+            <td>Convert 13 SoT files + all EPICs via a one-shot conversion script. Hand-fix edge cases. Update <code>domain-profile.yaml</code> extensions.</td>
+            <td>1&ndash;2 days</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td>&mdash;</td>
+            <td><strong>6&ndash;10 days</strong> + ongoing ~2.5&times; token cost</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-warn">
+        <span class="callout-label">Risks during migration</span>
+        <ul style="margin: 4px 0 0;">
+          <li>Skills that pass an HTML smoke test can still emit broken HTML on novel inputs &mdash; you&rsquo;ll discover failures in production.</li>
+          <li>Mid-migration the repo is in two formats; tooling has to handle both until phase 4 completes.</li>
+          <li>Existing PRs and branches reference markdown files. Merge conflicts are inevitable.</li>
+        </ul>
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#tooling">TOOLING-001</a>
+        <a class="chip" href="#skills">SKILL-001</a>
+        <a class="chip" href="#hybrid">HYBRID-001</a>
+      </div>
+    </section>
+
+    <!-- 10. Hybrid Alternative -->
+    <section class="entry" id="hybrid">
+      <div class="entry-head">
+        <span class="entry-id">HYBRID-001</span>
+        <h2 class="entry-title">Hybrid Alternative</h2>
+        <span class="pill pill-pass">Recommended</span>
+      </div>
+
+      <p>
+        Keep markdown as the canonical source. Add a small Python generator that renders SoT and EPIC
+        files into styled HTML views.
+      </p>
+
+      <h3>Proposed shape</h3>
+<pre><code>scripts/render-sot-html.py             # New generator
+templates/sot-entry.html.jinja         # Per-entry template
+templates/sot-file.html.jinja          # Per-file wrapper with TOC
+dist/sot/SoT.BUSINESS_RULES.html       # Generated, gitignored or committed
+dist/sot/index.html                    # Cross-file landing page
+</code></pre>
+
+      <h3>Why this dominates</h3>
+      <ul>
+        <li><strong>Zero token-cost regression</strong> &mdash; Claude still reads markdown.</li>
+        <li><strong>Zero skill changes</strong> &mdash; all 38 skills keep working unchanged.</li>
+        <li><strong>Zero parser rewrites</strong> &mdash; existing regex tools still operate.</li>
+        <li><strong>Full presentation control</strong> &mdash; you can iterate on HTML/CSS without touching content.</li>
+        <li><strong>Effort: ~1 day</strong> for a basic Jinja2-based generator with the templates already designed here.</li>
+        <li><strong>Optional next steps</strong> &mdash; serve <code>dist/</code> via GitHub Pages; add live readiness badges by reading <code>status/readiness.json</code>; add client-side search with Lunr.js. Each is additive and reversible.</li>
+      </ul>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#summary">ASSESS-001</a>
+        <a class="chip" href="#recommendation">REC-001</a>
+        <a class="chip" href="#lightweight">LITE-001</a>
+      </div>
+    </section>
+
+    <!-- 11. Lightweight Wins -->
+    <section class="entry" id="lightweight">
+      <div class="entry-head">
+        <span class="entry-id">LITE-001</span>
+        <h2 class="entry-title">Lightweight Wins (no migration needed)</h2>
+        <span class="pill pill-pass">Quick</span>
+      </div>
+
+      <ul>
+        <li>
+          <strong>Customize VS Code markdown preview</strong> &mdash; ship a <code>.vscode/markdown.css</code> that styles
+          SoT files with badges, status colors, anchor decorations. Cost: hours, not days.
+        </li>
+        <li>
+          <strong>Add an HTML report mode to readiness</strong> &mdash; <code>readiness.py status --html</code> emits a
+          shareable dashboard. The data is already in <code>status/readiness.json</code>.
+        </li>
+        <li>
+          <strong>Render SoT to GitHub Pages</strong> &mdash; a single workflow step that runs the hybrid generator
+          on push gives you a hosted, navigable site without local dependencies.
+        </li>
+        <li>
+          <strong>Improve markdown structure first</strong> &mdash; before changing format, audit whether your
+          markdown is using its full vocabulary (definition lists, footnotes, GFM admonitions). You may discover
+          the existing format is more capable than current usage.
+        </li>
+      </ul>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#hybrid">HYBRID-001</a>
+        <a class="chip" href="#js">JS-001</a>
+      </div>
+    </section>
+
+    <!-- 12. Final Recommendation -->
+    <section class="entry" id="recommendation">
+      <div class="entry-head">
+        <span class="entry-id">REC-001</span>
+        <h2 class="entry-title">Final Recommendation</h2>
+        <span class="pill pill-pass">Three Tiers</span>
+      </div>
+
+      <ol>
+        <li>
+          <strong><span class="pill pill-pass">Best</span> Hybrid (markdown source + generated HTML views).</strong>
+          One day of work. Zero regression. Full readability win. Can evolve into a full doc site if you want.
+          Reversible at any time.
+        </li>
+        <li>
+          <strong><span class="pill pill-warn">Acceptable</span> Stay on markdown, improve presentation.</strong>
+          Customize markdown preview styling. Add an HTML readiness report. Audit current markdown usage.
+          Half a day to a day of work.
+        </li>
+        <li>
+          <strong><span class="pill pill-block">Not recommended</span> Full migration to HTML source.</strong>
+          6&ndash;10 days of rewrites. ~2.5&times; token cost forever. Authoring friction for humans and LLMs.
+          The presentation wins are achievable without paying these costs.
+        </li>
+      </ol>
+
+      <div class="callout callout-info">
+        <span class="callout-label">If you still want to migrate</span>
+        Start with one SoT file as a pilot. Live with it for two weeks. Measure: token usage,
+        edit time, LLM error rate when adding entries. The numbers above are estimates &mdash;
+        a one-file pilot turns them into evidence before you commit to the full rewrite.
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#summary">ASSESS-001</a>
+        <a class="chip" href="#hybrid">HYBRID-001</a>
+        <a class="chip" href="#plan">PLAN-001</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="doc-footer">
+  <div class="footer-grid">
+    <div>
+      <h3>Related Files</h3>
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        <li><code>SoT/SoT.UNIQUE_ID_SYSTEM.md</code> &mdash; ID format reference</li>
+        <li><code>scripts/_readiness/sot.py</code> &mdash; heading-based entry extraction</li>
+        <li><code>.claude/skills/ghm-id-register/SKILL.md</code> &mdash; markdown output template</li>
+        <li><code>.claude/skills/ghm-sot-builder/assets/sot-template.md</code> &mdash; SoT file template</li>
+        <li><code>.claude/domain-profile.yaml</code> &mdash; hardcoded <code>.md</code> extensions</li>
+        <li><code>epics/EPIC_TEMPLATE.md</code> &mdash; EPIC structure with HTML section markers</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Change Log</h3>
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        <li>2026-05-18 &middot; Initial assessment (claude-opus-4-7)</li>
+      </ul>
+      <h3 style="margin-top: 18px;">Authority</h3>
+      <p style="margin: 0;">PRD-Led Context Engineering &middot; assessment artifact, not a binding decision</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

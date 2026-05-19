@@ -431,13 +431,14 @@
     <ol>
       <li><a href="#ctx">Context &amp; Goal</a></li>
       <li><a href="#scope">Scope &amp; Out of Scope</a></li>
+      <li><a href="#branch">Branch &amp; PR Strategy</a></li>
       <li><a href="#dec">Decisions (Locked)</a></li>
       <li><a href="#del">Deliverables</a></li>
     </ol>
     <p class="toc-group">Execution Steps</p>
     <ol start="5">
       <li><a href="#step1">Step 1 &middot; Generator MVP</a></li>
-      <li><a href="#step2">Step 2 &middot; Per-Prefix Templates</a></li>
+      <li><a href="#step2">Step 2 &middot; Templates: v0 to v1</a></li>
       <li><a href="#step3">Step 3 &middot; GitHub Pages Workflow</a></li>
       <li><a href="#step4">Step 4 &middot; JSON Companion</a></li>
       <li><a href="#step5">Step 5 &middot; Document in SoT.README.md</a></li>
@@ -528,7 +529,98 @@
       </div>
     </section>
 
-    <!-- 3. Decisions (Locked) -->
+    <!-- 3. Branch & PR Strategy -->
+    <section class="entry" id="branch">
+      <div class="entry-head">
+        <span class="entry-id">BRANCH-001</span>
+        <h2 class="entry-title">Branch &amp; PR Strategy</h2>
+        <span class="pill pill-info">Workflow</span>
+      </div>
+
+      <h3>Branch name</h3>
+      <p>All work lives on a single feature branch: <code>feat/sot-html-rendering</code>. Create from current <code>main</code>:</p>
+<pre><code>git checkout main
+git pull
+git checkout -b feat/sot-html-rendering</code></pre>
+      <p>No commits to <code>main</code> until the PR lands. All step-level commits use prefix <code>feat(render):</code> or <code>template(NAME):</code> per the iteration log (see below).</p>
+
+      <h3>What goes on this branch</h3>
+      <ul>
+        <li>Generator script and helpers (STEP-001)</li>
+        <li>All Jinja templates through their v1 state (STEP-002 with iteration)</li>
+        <li>GitHub Actions workflow file (STEP-003) &mdash; will not activate until merged</li>
+        <li>JSON companion + manifest emitters (STEP-004)</li>
+        <li><code>SoT/SoT.README.md</code> &ldquo;Rendered Views&rdquo; section (STEP-005)</li>
+        <li>Small sample code-fence additions to existing SoT files to exercise routing (DES, ARC, SCR)</li>
+      </ul>
+
+      <h3>PR criteria (the merge gate)</h3>
+      <p>The PR opens to <code>main</code> when <strong>both</strong> conditions are met:</p>
+      <ol>
+        <li><strong>Scripts complete</strong> &mdash; STEP-001, STEP-003, STEP-004, STEP-005 acceptance criteria all pass</li>
+        <li><strong>All templates at v1 state</strong> &mdash; see definition below; the bulk of the calendar time is here</li>
+      </ol>
+
+      <h3>Definition of &ldquo;v1 state&rdquo; for a template</h3>
+      <p>The biggest workstream in this plan is the <strong>human design pass over every template</strong>. v0 just makes the renderer work; v1 makes the output something a human would <em>want</em> to read. A template reaches v1 when every criterion below is checked:</p>
+
+      <table>
+        <thead><tr><th>Criterion</th><th>How to check</th></tr></thead>
+        <tbody>
+          <tr><td>Renders a real SoT/EPIC file end-to-end without manual fixup</td><td>Browser preview clean, no console errors</td></tr>
+          <tr><td>Typography hierarchy reads at a glance &mdash; doc title, entry titles, body distinct</td><td>Squint test from 3 feet away</td></tr>
+          <tr><td>Spacing is generous but not wasteful; entries don&rsquo;t run together</td><td>Visual review against a long SoT file</td></tr>
+          <tr><td>Status pills and freshness indicators are unambiguous</td><td>Color + text together (colorblind-safe)</td></tr>
+          <tr><td>Works at 800px, 1200px, and 1600px viewport widths</td><td>Manual resize</td></tr>
+          <tr><td>Specialized elements (swatches, diagrams, wireframes) feel intentional, not bolted on</td><td>Compared side-by-side against the default template</td></tr>
+          <tr><td>Cross-reference chips are scannable and clickable</td><td>Visual + interaction</td></tr>
+          <tr><td>Looks consistent with sibling templates (same family)</td><td>Open two templates side-by-side; visual cohesion check</td></tr>
+          <tr><td>Owner sign-off on the visual</td><td>Recorded in the template&rsquo;s commit message: <code>template(NAME): mark v1 &mdash; signed off</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Iteration cadence (per template)</h3>
+      <p>Expect <strong>2&ndash;4 iteration rounds</strong> per template before v1 sign-off. Each round:</p>
+      <ol>
+        <li>Generator renders the template against a real SoT/EPIC file</li>
+        <li>Open in browser; optionally screenshot via <code>mcp__Claude_Preview__preview_screenshot</code> for review and feedback capture</li>
+        <li>Capture specific design feedback as a checklist (typography, spacing, color, hierarchy, density)</li>
+        <li>Apply edits to the template (CSS lives inside the template, not external)</li>
+        <li>Re-render; compare against previous round</li>
+        <li>Commit with message <code>template(NAME): iteration N &mdash; &lt;summary of changes&gt;</code></li>
+      </ol>
+
+      <div class="callout callout-warn">
+        <span class="callout-label">Time budget per template</span>
+        Set a soft budget of <strong>2&ndash;4 hours per template</strong> for design iteration. Templates can absorb infinite design time; the budget forces a v1-good-enough decision. Polish that doesn&rsquo;t fit moves to a follow-up PR after the pipeline is in production use. Five templates &times; 3 hours average &asymp; <strong>~2 days of iteration time</strong> alone &mdash; this is the dominant cost in the plan.
+      </div>
+
+      <h3>PR submission checklist</h3>
+      <ul>
+        <li>All STEP acceptance criteria green</li>
+        <li>Every template has passed v1 criteria and been signed off in commit history</li>
+        <li>Branch is rebased clean on <code>main</code></li>
+        <li>PR description links to a preview render (push a temporary <code>docs/</code> build, or attach screenshots of the index plus one entry from each template)</li>
+        <li>PR description lists which SoT/EPIC files were used to exercise each template</li>
+        <li>PR description includes a one-line note per template summarizing what changed across iterations</li>
+      </ul>
+
+      <h3>Post-merge expectations</h3>
+      <ul>
+        <li>Workflow activates on <code>main</code>; first run publishes to <code>gh-pages</code></li>
+        <li>Pages URL goes live</li>
+        <li>Feedback from real use becomes the input to a follow-up PR for template polish (out of scope for this PR)</li>
+      </ul>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#step2">STEP-002</a>
+        <a class="chip" href="#verify">VER-001</a>
+        <a class="chip" href="#pitfalls">PIT-001</a>
+      </div>
+    </section>
+
+    <!-- 4. Decisions (Locked) -->
     <section class="entry" id="dec">
       <div class="entry-head">
         <span class="entry-id">DEC-001</span>
@@ -598,6 +690,8 @@
         <h2 class="entry-title">Deliverables</h2>
         <span class="pill pill-info">Concrete Artifacts</span>
       </div>
+
+      <p>All work lives on branch <code>feat/sot-html-rendering</code>. Open the PR when both gates in <a href="#branch">BRANCH-001</a> are met.</p>
 
       <table>
         <thead>
@@ -849,25 +943,86 @@ def render_one(source: Path, out_dir: Path, strict: bool=False) -> dict:
     <section class="entry" id="step2">
       <div class="entry-head">
         <span class="entry-id">STEP-002</span>
-        <h2 class="entry-title">Step 2 &middot; Per-Prefix Templates</h2>
-        <span class="pill pill-info">~1 day</span>
+        <h2 class="entry-title">Step 2 &middot; Templates: v0 to v1 (Design Iteration)</h2>
+        <span class="pill pill-warn">~2&ndash;3 days &middot; biggest chunk</span>
       </div>
 
       <dl class="step-meta">
-        <dt>Goal:</dt><dd>Specialized templates for design-heavy SoT files; code-fence routing converts markdown blocks into rich HTML.</dd>
-        <dt>Inputs:</dt><dd>STEP-001 complete; <code>SoT.DESIGN_COMPONENTS.md</code>, <code>SoT.TECHNICAL_DECISIONS.md</code>, <code>SoT.USER_JOURNEYS.md</code>.</dd>
-        <dt>Outputs:</dt><dd>3 new templates + 3 custom-fence handlers, rendering DES/ARC/SCR entries with visual artifacts.</dd>
+        <dt>Goal:</dt><dd>Every template reaches v1 state per <a href="#branch">BRANCH-001</a> &mdash; structurally complete <em>and</em> visually polished through human design review.</dd>
+        <dt>Inputs:</dt><dd>STEP-001 complete; <code>SoT.DESIGN_COMPONENTS.md</code>, <code>SoT.TECHNICAL_DECISIONS.md</code>, <code>SoT.USER_JOURNEYS.md</code>, an active EPIC file.</dd>
+        <dt>Outputs:</dt><dd>5 templates at v1 (base, default, design, architecture, screen-flow, epic) + 3 custom-fence handlers, with iteration history in commit log.</dd>
       </dl>
 
-      <h3>Procedure</h3>
+      <div class="callout callout-info">
+        <span class="callout-label">This is where most of the calendar time goes</span>
+        Authoring v0 templates takes hours. Iterating to v1 takes <em>days</em>. The plan budgets ~2&ndash;3 hours per
+        template for design rounds. Treat this step as design work, not engineering work &mdash; the engineering
+        is done after sub-step 2.1.
+      </div>
+
+      <h3>2.1 &middot; Author v0 (structural drafts)</h3>
       <ol>
         <li>Author <code>templates/sot-design.html.jinja</code> extending base, with sections rendering <code>color-tokens</code> fences as swatch grids and <code>type-specimen</code> fences as typography samples.</li>
         <li>Author <code>templates/sot-architecture.html.jinja</code> with embedded Mermaid renderer (CDN script tag in the template &mdash; one external dependency permitted for diagram rendering).</li>
-        <li>Author <code>templates/sot-screen-flow.html.jinja</code> with <code>wireframe</code> fence rendering as bordered boxes (see DESIGN-001 demo in source markdown of this plan).</li>
+        <li>Author <code>templates/sot-screen-flow.html.jinja</code> with <code>wireframe</code> fence rendering as bordered boxes.</li>
         <li>Author <code>templates/epic.html.jinja</code> with phase progress bars, session state callout, observations table.</li>
         <li>Implement custom-fence handlers in <code>scripts/_render/parser.py</code> &mdash; each takes the fence body and returns HTML. See <a href="#spec-fence">SPEC-002</a>.</li>
         <li>Add three sample fences to existing SoT files (one each) to exercise the renderers without changing canonical content.</li>
+        <li>Commit each template as <code>template(NAME): v0 draft</code>. Mark all five as v0 before opening the design pass.</li>
       </ol>
+
+      <h3>2.2 &middot; Design iteration (the dominant cost)</h3>
+
+      <p>For each template, run 2&ndash;4 rounds of the loop until v1 sign-off:</p>
+
+      <table>
+        <thead><tr><th>Round</th><th>Activity</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>Render</td><td>Generator emits HTML from a real source file</td><td><code>docs/&lt;file&gt;.html</code></td></tr>
+          <tr><td>Capture</td><td>Open in browser; optionally <code>mcp__Claude_Preview__preview_screenshot</code></td><td>Screenshot / live preview</td></tr>
+          <tr><td>Review</td><td>Compare against v1 rubric: typography, spacing, color, hierarchy, density, responsiveness</td><td>Checklist of specific changes</td></tr>
+          <tr><td>Edit</td><td>Update template CSS or markup (CSS stays inline in the template)</td><td>Diff on <code>templates/&lt;name&gt;.html.jinja</code></td></tr>
+          <tr><td>Re-render</td><td>Compare against previous round; verify regressions did not occur</td><td>Updated HTML</td></tr>
+          <tr><td>Commit</td><td><code>template(NAME): iteration N &mdash; &lt;summary&gt;</code></td><td>One commit per round</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.3 &middot; v1 sign-off</h3>
+      <p>For each template, when every v1 criterion in <a href="#branch">BRANCH-001</a> is met, mark v1 with a sign-off commit:</p>
+<pre><code>git commit --allow-empty -m "template(sot-design): mark v1 — signed off
+
+Iterations: 3
+Exercised against: SoT/SoT.DESIGN_COMPONENTS.md
+Key changes across iterations:
+  - r1: tighten swatch grid spacing, increase contrast on labels
+  - r2: introduce type specimen partial
+  - r3: align card padding with sot-default for cross-template consistency"</code></pre>
+
+      <p>The sign-off commit is the artifact that the PR reviewer (and future readers) use to understand what the template went through. It also lets you defer polish to a follow-up PR if needed.</p>
+
+      <div class="accept">
+        <span class="accept-label">Acceptance Criteria</span>
+        <ul>
+          <li>Five templates exist: base, sot-default, sot-design, sot-architecture, sot-screen-flow, epic</li>
+          <li>Each has a <code>template(NAME): mark v1</code> sign-off commit in branch history</li>
+          <li>A DES- entry with a <code>color-tokens</code> fence renders as a visual swatch grid</li>
+          <li>An ARC- entry with a <code>mermaid</code> fence renders as an architecture diagram</li>
+          <li>A SCR- entry with a <code>wireframe</code> fence renders as bordered boxes</li>
+          <li>An EPIC file renders with phase progress, session state, and observations distinguished visually</li>
+          <li>Source markdown remains readable as-is on GitHub (fences degrade to code blocks if not rendered)</li>
+          <li><code>--strict</code> mode fails on any unrecognized fence language</li>
+          <li>All v1 rubric criteria from BRANCH-001 pass for each template</li>
+        </ul>
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#branch">BRANCH-001</a>
+        <a class="chip" href="#spec-fence">SPEC-002</a>
+        <a class="chip" href="#step3">STEP-003</a>
+      </div>
+    </section>
+
 
       <h3>Example: color-tokens fence in markdown</h3>
 <pre><code>### DES-005: Status Color Tokens
@@ -1287,8 +1442,19 @@ CI re-renders on every push; expired state indicates a CI failure.
         <li>A reader of <code>SoT.README.md</code> can navigate to the Pages URL via the top-level <code>README.md</code></li>
       </ol>
 
+      <h3>PR-ready checks (merge gate)</h3>
+      <ol>
+        <li>Branch name is <code>feat/sot-html-rendering</code>; rebased clean on <code>main</code></li>
+        <li>Each of the five templates has a <code>template(NAME): mark v1 &mdash; signed off</code> commit</li>
+        <li>Iteration commits (<code>template(NAME): iteration N</code>) are present for every template; minimum 2 rounds each</li>
+        <li>Every v1 criterion in <a href="#branch">BRANCH-001</a> is satisfied for every template (browser preview, viewport widths, hierarchy, color, etc.)</li>
+        <li>PR description includes: preview link or screenshots per template, list of source SoT/EPIC files exercised, one-line summary of changes per template</li>
+        <li>All STEP acceptance criteria green</li>
+      </ol>
+
       <div class="chips">
         <span class="chips-label">Related:</span>
+        <a class="chip" href="#branch">BRANCH-001</a>
         <a class="chip" href="#step1">STEP-001</a>
         <a class="chip" href="#step5">STEP-005</a>
       </div>
@@ -1311,8 +1477,11 @@ CI re-renders on every push; expired state indicates a CI failure.
       <h3>JSON schema is API once published</h3>
       <p>The first time the manifest goes live, the schema is locked. Adding fields is fine. Renaming or removing fields requires a version bump and a deprecation window. Sketch the schema in a draft PR before merging if uncertain.</p>
 
-      <h3>Templates can become their own project</h3>
-      <p>Per-prefix templates have unlimited surface area &mdash; dark mode, print stylesheets, interactive filtering, search. Resist. Ship the three specialized templates in scope and defer everything else. Re-evaluate after one month of use.</p>
+      <h3>Templates can absorb infinite design time &mdash; respect the budget</h3>
+      <p>Design iteration is the point of STEP-002 &mdash; that's where v1 is earned. But "v1" is not "v1.0 perfect"; it's "good enough that a human wants to read it." The budget is ~2&ndash;4 hours per template. When that runs out, sign off and move on. Polish moves to a follow-up PR. Dark mode, print stylesheets, interactive filtering, client-side search &mdash; all explicit non-goals; defer.</p>
+
+      <h3>Two reviewers minimum on visual sign-off</h3>
+      <p>A single set of eyes calibrates on its own choices and stops seeing them. For each template's v1 sign-off, get a second opinion &mdash; even informal &mdash; before marking. The cost is minutes; the catch rate is high.</p>
 
       <h3>Mermaid CDN is a network dependency</h3>
       <p>Architecture diagrams depend on a CDN-loaded Mermaid.js. If offline reading matters, vendor Mermaid into <code>templates/vendor/mermaid.min.js</code> and reference it locally. If not, the CDN is fine.</p>
@@ -1350,10 +1519,13 @@ CI re-renders on every push; expired state indicates a CI failure.
     <div>
       <h3>How to use this plan</h3>
       <p style="margin: 0 0 8px;">Load this HTML into a fresh context window. The plan is self-contained &mdash; no prior conversation needed.</p>
+      <h3 style="margin-top: 18px;">Branch</h3>
+      <p style="margin: 0;">All work on <code>feat/sot-html-rendering</code>. PR opens when scripts are done <em>and</em> every template is at v1 state (see <a href="#branch">BRANCH-001</a>).</p>
       <h3 style="margin-top: 18px;">Execute in order</h3>
-      <p style="margin: 0;">STEP-001 &rarr; STEP-002 &rarr; STEP-003 &rarr; STEP-004 &rarr; STEP-005. Each step has its own acceptance criteria; don&rsquo;t advance until they're met.</p>
+      <p style="margin: 0;">STEP-001 &rarr; STEP-002 (the long one) &rarr; STEP-003 &rarr; STEP-004 &rarr; STEP-005. Each step has its own acceptance criteria; don&rsquo;t advance until they're met.</p>
       <h3 style="margin-top: 18px;">Change Log</h3>
       <ul style="list-style: none; padding: 0; margin: 0;">
+        <li>2026-05-19 &middot; Added BRANCH-001 (branch &amp; PR strategy), expanded STEP-002 to cover v0&rarr;v1 design iteration as the dominant workstream</li>
         <li>2026-05-19 &middot; Converted from assessment to execution plan; removed background analysis sections</li>
       </ul>
     </div>

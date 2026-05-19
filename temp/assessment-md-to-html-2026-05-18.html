@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DOC-ASSESS-001 (v2): Templated HTML Rendering for SoT &amp; EPIC</title>
+<title>DOC-EXEC-001: Templated HTML Rendering Pipeline — Execution Plan</title>
 <style>
   :root {
     --bg: #ffffff;
@@ -35,7 +35,6 @@
     font-size: 15px;
   }
 
-  /* Document header */
   .doc-header {
     background: var(--bg-alt);
     border-bottom: 1px solid var(--border);
@@ -64,7 +63,6 @@
   .doc-meta dt { font-weight: 600; display: inline; margin-right: 4px; }
   .doc-meta dd { display: inline; margin: 0; }
 
-  /* Render frontmatter block — visible metadata showing freshness */
   .render-block {
     background: var(--bg);
     border: 1px solid var(--border);
@@ -78,7 +76,7 @@
     grid-template-columns: auto 1fr;
     column-gap: 14px;
     row-gap: 4px;
-    max-width: 700px;
+    max-width: 720px;
   }
   .render-block .k { color: var(--text-subtle); }
   .render-block .v { color: var(--text); }
@@ -96,13 +94,12 @@
     background: var(--pass);
     display: inline-block;
   }
-  .freshness.stale::before { background: var(--warn); }
-  .freshness.expired::before { background: var(--block); }
   .freshness.current { color: var(--pass); }
+  .freshness.stale::before { background: var(--warn); }
   .freshness.stale { color: var(--warn); }
+  .freshness.expired::before { background: var(--block); }
   .freshness.expired { color: var(--block); }
 
-  /* Status pills */
   .pill {
     display: inline-block;
     padding: 2px 10px;
@@ -119,7 +116,6 @@
   .pill-block { background: var(--block-bg); color: var(--block); }
   .pill-info { background: var(--accent-bg); color: var(--accent); }
 
-  /* Layout */
   .layout {
     display: grid;
     grid-template-columns: 240px minmax(0, 1fr);
@@ -174,6 +170,15 @@
     padding-top: 2px;
   }
   .toc a:hover { color: var(--accent); }
+  .toc-group {
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: var(--text-subtle);
+    font-weight: 700;
+  }
 
   .content { min-width: 0; }
 
@@ -260,29 +265,6 @@
     line-height: 1.5;
   }
 
-  .compare {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 12px 0;
-  }
-  @media (max-width: 700px) { .compare { grid-template-columns: 1fr; } }
-  .compare-panel { background: var(--bg-code); border: 1px solid var(--border); border-radius: 4px; }
-  .compare-panel header {
-    padding: 6px 12px;
-    background: var(--bg-alt);
-    border-bottom: 1px solid var(--border);
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .compare-panel pre { border: none; margin: 0; border-radius: 0; background: transparent; }
-
   table {
     width: 100%;
     border-collapse: collapse;
@@ -348,7 +330,43 @@
   details[open] summary { border-bottom: 1px solid var(--border); }
   details > *:not(summary) { padding: 12px 14px; }
 
-  /* Design-content demo elements */
+  /* Acceptance checklist */
+  .accept {
+    background: var(--pass-bg);
+    border-left: 3px solid var(--pass);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 14px 0;
+  }
+  .accept-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--pass);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .accept ul { padding-left: 18px; margin: 0; }
+  .accept li { margin: 3px 0; }
+
+  /* Step metadata grid */
+  .step-meta {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 14px;
+    row-gap: 4px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .step-meta dt { font-weight: 600; color: var(--text-subtle); }
+  .step-meta dd { margin: 0; color: var(--text); }
+
+  /* Design demo elements */
   .swatch-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -361,7 +379,7 @@
     overflow: hidden;
     font-size: 11px;
   }
-  .swatch-color { height: 60px; }
+  .swatch-color { height: 50px; }
   .swatch-meta {
     padding: 6px 8px;
     background: var(--bg);
@@ -369,25 +387,6 @@
   .swatch-meta .name { font-weight: 600; color: var(--text); display: block; }
   .swatch-meta .hex { font-family: var(--mono); color: var(--text-subtle); }
 
-  .wireframe-demo {
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 16px;
-    background: var(--bg-alt);
-    margin: 12px 0;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-  .wireframe-box {
-    border: 1px dashed var(--border-strong);
-    padding: 8px 12px;
-    background: var(--bg);
-    margin: 6px 0;
-    border-radius: 3px;
-  }
-
-  /* Footer */
   .doc-footer {
     border-top: 1px solid var(--border);
     background: var(--bg-alt);
@@ -399,13 +398,6 @@
   .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 1180px; margin: 0 auto; }
   @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; } }
 
-  .stat {
-    display: inline-block;
-    font-family: var(--mono);
-    font-weight: 600;
-    color: var(--accent);
-  }
-
   .muted { color: var(--text-muted); }
   .small { font-size: 12px; }
 </style>
@@ -413,24 +405,22 @@
 <body>
 
 <header class="doc-header">
-  <div class="doc-id">DOC-ASSESS-001 &middot; v2 (refined) &middot; Document Assessment</div>
-  <h1 class="doc-title">Templated HTML Rendering for SoT &amp; EPIC Documents</h1>
+  <div class="doc-id">DOC-EXEC-001 &middot; Execution Plan</div>
+  <h1 class="doc-title">Templated HTML Rendering Pipeline for SoT &amp; EPIC</h1>
   <dl class="doc-meta">
-    <div><dt>Status:</dt> <dd><span class="pill pill-pass">Recommended Direction</span></dd></div>
-    <div><dt>Confidence:</dt> <dd><span class="pill pill-pass">High</span></dd></div>
-    <div><dt>Updated:</dt> <dd>2026-05-19</dd></div>
+    <div><dt>Status:</dt> <dd><span class="pill pill-pass">Ready to Execute</span></dd></div>
+    <div><dt>Owner:</dt> <dd>Werk (build agent)</dd></div>
+    <div><dt>Created:</dt> <dd>2026-05-19</dd></div>
     <div><dt>Authority:</dt> <dd>PRD-Led Context Engineering</dd></div>
-    <div><dt>Supersedes:</dt> <dd>v1 (2026-05-18) &mdash; revised after design-content + HeartBeat context</dd></div>
+    <div><dt>Effort:</dt> <dd>~3&ndash;5 working days</dd></div>
+    <div><dt>Supersedes:</dt> <dd>DOC-ASSESS-001 v1 &amp; v2 (background analysis)</dd></div>
   </dl>
 
-  <!-- Visible render frontmatter — the pattern this doc itself recommends -->
   <div class="render-block" aria-label="Render metadata">
-    <span class="k">Last rendered:</span>          <span class="v">2026-05-19 14:00 UTC</span>
-    <span class="k">Source markdown:</span>        <span class="v">temp/assessment-md-to-html.source.md <em class="muted">(hypothetical, for demo)</em></span>
-    <span class="k">Source last modified:</span>   <span class="v">2026-05-19 13:58 UTC</span>
-    <span class="k">Generator:</span>              <span class="v">render-sot-html v0.1.0</span>
-    <span class="k">Template:</span>               <span class="v">templates/sot-assessment.html.jinja</span>
-    <span class="k">Freshness:</span>              <span class="v"><span class="freshness current">Current</span> &middot; render is newer than source</span>
+    <span class="k">Document type:</span>        <span class="v">Execution plan &mdash; intended for fresh context window</span>
+    <span class="k">Self-contained:</span>       <span class="v">Yes &mdash; no prior conversation needed</span>
+    <span class="k">Format demo:</span>          <span class="v">This document also previews the proposed SoT HTML rendering style</span>
+    <span class="k">Freshness:</span>            <span class="v"><span class="freshness current">Current</span></span>
   </div>
 </header>
 
@@ -439,747 +429,904 @@
   <nav class="toc" aria-label="Table of contents">
     <p class="toc-heading">Contents</p>
     <ol>
-      <li><a href="#summary">Executive Summary (revised)</a></li>
-      <li><a href="#design">Design-Content Unlocks</a></li>
-      <li><a href="#tokens">Token Cost: Clarified</a></li>
-      <li><a href="#render-date">Render-Date Frontmatter</a></li>
-      <li><a href="#pages">GitHub Pages Explained</a></li>
-      <li><a href="#heartbeat">HeartBeat Integration</a></li>
-      <li><a href="#tooling">Tooling &amp; Skills (Unchanged)</a></li>
-      <li><a href="#templates">HTML Templates as Methodology</a></li>
-      <li><a href="#plan">Refined Implementation Plan</a></li>
-      <li><a href="#caveats">Honest Caveats</a></li>
-      <li><a href="#recommendation">Final Recommendation</a></li>
+      <li><a href="#ctx">Context &amp; Goal</a></li>
+      <li><a href="#scope">Scope &amp; Out of Scope</a></li>
+      <li><a href="#dec">Decisions (Locked)</a></li>
+      <li><a href="#del">Deliverables</a></li>
+    </ol>
+    <p class="toc-group">Execution Steps</p>
+    <ol start="5">
+      <li><a href="#step1">Step 1 &middot; Generator MVP</a></li>
+      <li><a href="#step2">Step 2 &middot; Per-Prefix Templates</a></li>
+      <li><a href="#step3">Step 3 &middot; GitHub Pages Workflow</a></li>
+      <li><a href="#step4">Step 4 &middot; JSON Companion</a></li>
+      <li><a href="#step5">Step 5 &middot; Document in SoT.README.md</a></li>
+    </ol>
+    <p class="toc-group">Specifications</p>
+    <ol start="10">
+      <li><a href="#spec-render">Render-Date Frontmatter</a></li>
+      <li><a href="#spec-fence">Code-Fence Routing</a></li>
+      <li><a href="#spec-json">JSON Companion Schema</a></li>
+    </ol>
+    <p class="toc-group">Closing</p>
+    <ol start="13">
+      <li><a href="#verify">End-to-End Verification</a></li>
+      <li><a href="#pitfalls">Pitfalls &amp; Watch-outs</a></li>
     </ol>
   </nav>
 
   <main class="content">
 
-    <!-- 1. Executive Summary -->
-    <section class="entry" id="summary">
+    <!-- 1. Context & Goal -->
+    <section class="entry" id="ctx">
       <div class="entry-head">
-        <span class="entry-id">ASSESS-001</span>
-        <h2 class="entry-title">Executive Summary (revised)</h2>
-        <span class="pill pill-pass">Proceed</span>
+        <span class="entry-id">CTX-001</span>
+        <h2 class="entry-title">Context &amp; Goal</h2>
+        <span class="pill pill-info">Why</span>
       </div>
 
       <p>
-        <strong>v1 conflated two very different ideas.</strong> Migrating SoT/EPIC <em>source files</em> from
-        markdown to HTML is still a bad trade (token cost, LLM authoring fragility, toolchain rewrite). But the
-        approach you&rsquo;re actually proposing &mdash; <strong>markdown source rendered through methodology-owned
-        HTML templates, with visible render-date frontmatter</strong> &mdash; is materially different and
-        materially better.
+        SoT and EPIC files are authored in markdown for excellent reasons: low token cost when read by Claude,
+        clean diffs, easy hand-editing, native GitHub preview. That stays.
       </p>
 
       <p>
-        In the rendering approach: Claude still reads markdown (zero token regression), every script and skill
-        keeps working unchanged, and you gain a presentation surface where design-heavy SoT files
-        (DESIGN_COMPONENTS, architecture, screen flows) become genuinely interactive &mdash; not just prettier.
+        What markdown does <em>not</em> serve well is the design-heavy content carried by certain SoT files
+        &mdash; component swatches, architecture diagrams, screen-flow wireframes, ER diagrams, API endpoint
+        browsers. For those, the canonical content is visual, and markdown can only describe it.
       </p>
 
-      <div class="callout callout-pass">
-        <span class="callout-label">Refined Recommendation</span>
-        Ship HTML templates as first-class methodology artifacts alongside markdown templates. Build a small
-        generator. Publish output via GitHub Pages. Treat the rendered HTML as the consumption surface for
-        HeartBeat. Keep markdown as canonical source forever.
-      </div>
-
-      <div class="chips">
-        <span class="chips-label">Related:</span>
-        <a class="chip" href="#design">DESIGN-001</a>
-        <a class="chip" href="#render-date">RENDER-001</a>
-        <a class="chip" href="#heartbeat">HB-001</a>
-        <a class="chip" href="#recommendation">REC-001</a>
-      </div>
-    </section>
-
-    <!-- 2. Design-Content Unlocks -->
-    <section class="entry" id="design">
-      <div class="entry-head">
-        <span class="entry-id">DESIGN-001</span>
-        <h2 class="entry-title">Design-Content Unlocks (what v1 missed)</h2>
-        <span class="pill pill-pass">Major Gain</span>
-      </div>
+      <p><strong>Goal:</strong> build a small generator and a set of HTML templates that render the existing
+      markdown SoT/EPIC files into styled HTML, publish the output via GitHub Pages, and document the pipeline
+      in <code>SoT/SoT.README.md</code> so it becomes a first-class methodology asset.</p>
 
       <p>
-        v1 measured the format trade purely in text-content terms (entry tokens, regex parsing).
-        That undersells what HTML enables for <strong>design-heavy SoT files</strong>. The methodology has at least
-        four files where the canonical content is not prose &mdash; it&rsquo;s visual artifact. Markdown can only
-        describe these; rendered HTML can <em>be</em> them.
-      </p>
-
-      <h3>Where rendering transforms the experience</h3>
-
-      <table>
-        <thead>
-          <tr><th>SoT file</th><th>Today (markdown)</th><th>With HTML rendering</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>SoT.DESIGN_COMPONENTS.md</code> (DES-)</td>
-            <td>Hex codes in a table, font name as text</td>
-            <td>Live color swatches, type specimens, button states, component previews</td>
-          </tr>
-          <tr>
-            <td><code>SoT.TECHNICAL_DECISIONS.md</code> (ARC-)</td>
-            <td>ASCII diagrams or linked PNGs that go stale</td>
-            <td>Inline Mermaid / SVG architecture diagrams, clickable to drill into IDs</td>
-          </tr>
-          <tr>
-            <td><code>SoT.USER_JOURNEYS.md</code> (SCR-, UJ-)</td>
-            <td>Bullet list of screens</td>
-            <td>Wireframe boxes, journey flow diagrams, step-by-step screen previews</td>
-          </tr>
-          <tr>
-            <td><code>SoT.DATA_MODEL.md</code> (DBT-)</td>
-            <td>Markdown tables of columns</td>
-            <td>Rendered ER diagrams, relationship visualizations</td>
-          </tr>
-          <tr>
-            <td><code>SoT.API_CONTRACTS.md</code> (API-)</td>
-            <td>JSON code blocks</td>
-            <td>Swagger-style endpoint browsers, expandable schemas</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Working demonstration</h3>
-
-      <p class="muted small">Inline, no external assets. This is what a DES-001 entry could render as:</p>
-
-      <div class="swatch-grid">
-        <div class="swatch">
-          <div class="swatch-color" style="background:#2563eb"></div>
-          <div class="swatch-meta"><span class="name">accent</span><span class="hex">#2563eb</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#16a34a"></div>
-          <div class="swatch-meta"><span class="name">pass</span><span class="hex">#16a34a</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#d97706"></div>
-          <div class="swatch-meta"><span class="name">warn</span><span class="hex">#d97706</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#dc2626"></div>
-          <div class="swatch-meta"><span class="name">block</span><span class="hex">#dc2626</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#0f172a"></div>
-          <div class="swatch-meta"><span class="name">text</span><span class="hex">#0f172a</span></div>
-        </div>
-      </div>
-
-      <p class="muted small">And a SCR-001 wireframe entry:</p>
-
-      <div class="wireframe-demo">
-        SCR-001 &middot; Pricing Page Wireframe
-        <div class="wireframe-box">[ Header &middot; logo &middot; nav links &middot; "Sign in" ]</div>
-        <div class="wireframe-box" style="text-align:center; padding: 24px;">
-          [ Hero &middot; "Simple pricing" &middot; CTA ]
-        </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
-          <div class="wireframe-box">Free<br>$0</div>
-          <div class="wireframe-box" style="border-color: var(--accent)">Pro<br>$29</div>
-          <div class="wireframe-box">Team<br>$99</div>
-        </div>
-        <div class="wireframe-box">[ FAQ &middot; Footer ]</div>
-      </div>
-
-      <p>
-        In markdown, both of these are textual descriptions. In rendered HTML they are the artifact.
-        For a methodology that explicitly carries design IDs (DES-, SCR-, ARC-), this is the gap that has been
-        leaking value the longest.
+        Markdown remains the source of truth. HTML is generated output. Authors never edit HTML by hand.
+        Every rendered file shows a visible <em>last rendered</em> indicator so readers can tell whether they
+        are looking at a current view.
       </p>
 
       <div class="chips">
         <span class="chips-label">Related:</span>
-        <a class="chip" href="#templates">TPL-001</a>
-        <a class="chip" href="#heartbeat">HB-001</a>
+        <a class="chip" href="#dec">DEC-001</a>
+        <a class="chip" href="#del">DEL-001</a>
       </div>
     </section>
 
-    <!-- 3. Token Cost: Clarified -->
-    <section class="entry" id="tokens">
+    <!-- 2. Scope & Out of Scope -->
+    <section class="entry" id="scope">
       <div class="entry-head">
-        <span class="entry-id">TOKEN-001</span>
-        <h2 class="entry-title">Token Cost: Clarified</h2>
-        <span class="pill pill-pass">Zero in This Direction</span>
+        <span class="entry-id">SCOPE-001</span>
+        <h2 class="entry-title">Scope &amp; Out of Scope</h2>
+        <span class="pill pill-info">Boundaries</span>
       </div>
 
-      <p>The ~2.5&ndash;3&times; multiplier from v1 applies to <em>one specific scenario</em>:</p>
-
-      <table>
-        <thead>
-          <tr><th>Scenario</th><th>Claude reads</th><th>Token impact</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>HTML as source (v1&rsquo;s analysis)</td>
-            <td>HTML</td>
-            <td><span class="pill pill-block">~2.5&times;</span></td>
-          </tr>
-          <tr>
-            <td><strong>Markdown source + HTML rendering (your direction)</strong></td>
-            <td>Markdown (unchanged)</td>
-            <td><span class="pill pill-pass">0 regression</span></td>
-          </tr>
-          <tr>
-            <td>HTML output viewed in browser only</td>
-            <td>Nothing &mdash; humans read it</td>
-            <td><span class="pill pill-pass">No cost</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        The rendering approach completely sidesteps the token concern. Claude never touches the rendered HTML
-        unless explicitly asked to debug presentation &mdash; and even then it&rsquo;s the source markdown plus
-        the template, not the output.
-      </p>
-
-      <div class="callout callout-info">
-        <span class="callout-label">A small new cost</span>
-        Running the generator on push uses CI minutes (negligible on GitHub Pages). The HTML output adds to repo
-        size if committed to <code>main</code>; gitignore it and publish via a separate workflow if size matters.
-      </div>
-
-      <div class="chips">
-        <span class="chips-label">Related:</span>
-        <a class="chip" href="#pages">PAGES-001</a>
-        <a class="chip" href="#plan">PLAN-001</a>
-      </div>
-    </section>
-
-    <!-- 4. Render Date Frontmatter -->
-    <section class="entry" id="render-date">
-      <div class="entry-head">
-        <span class="entry-id">RENDER-001</span>
-        <h2 class="entry-title">Render-Date Frontmatter Pattern</h2>
-        <span class="pill pill-pass">Adopt as Standard</span>
-      </div>
-
-      <p>
-        Your concern about source-vs-output discrepancy is real and exactly the right one to surface in the UI.
-        The pattern at the top of this document &mdash; the visible <em>Last rendered / Source / Freshness</em> block &mdash;
-        should be part of every rendered SoT and EPIC.
-      </p>
-
-      <h3>Recommended fields</h3>
-
-      <table>
-        <thead>
-          <tr><th>Field</th><th>Purpose</th><th>Source</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>last_rendered</code></td>
-            <td>When the HTML was generated</td>
-            <td>Generator timestamp at render time</td>
-          </tr>
-          <tr>
-            <td><code>source_path</code></td>
-            <td>Which markdown produced this HTML</td>
-            <td>Generator input</td>
-          </tr>
-          <tr>
-            <td><code>source_last_modified</code></td>
-            <td>When the markdown last changed</td>
-            <td><code>git log -1 --format=%cI &lt;file&gt;</code></td>
-          </tr>
-          <tr>
-            <td><code>generator_version</code></td>
-            <td>Which version of the renderer produced this</td>
-            <td>Pinned in <code>render-sot-html.py</code></td>
-          </tr>
-          <tr>
-            <td><code>template</code></td>
-            <td>Which template was used</td>
-            <td>Generator config</td>
-          </tr>
-          <tr>
-            <td><code>freshness</code></td>
-            <td>Visual indicator: current / stale / expired</td>
-            <td>Computed: <code>source_last_modified vs last_rendered</code></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Freshness rules (proposed)</h3>
-
+      <h3>In Scope</h3>
       <ul>
-        <li>
-          <span class="freshness current">Current</span> &mdash; render is newer than source. Trustworthy.
-        </li>
-        <li>
-          <span class="freshness stale">Stale</span> &mdash; source modified after last render, &lt; 24h ago.
-          Reader knows a re-render is pending.
-        </li>
-        <li>
-          <span class="freshness expired">Expired</span> &mdash; source modified &gt; 24h before render check.
-          Reader should treat this view as potentially wrong; CI should have re-rendered.
-        </li>
+        <li>Python generator script (<code>scripts/render-sot-html.py</code>)</li>
+        <li>Jinja2 templates: one base, one default SoT, three specialized (design, architecture, screen-flow), one EPIC</li>
+        <li>GitHub Actions workflow that publishes to GitHub Pages on push to <code>main</code></li>
+        <li>JSON companion file per rendered HTML + manifest at <code>docs/index.json</code></li>
+        <li>Documentation section in <code>SoT/SoT.README.md</code></li>
+        <li>Render-date frontmatter pattern visible on every rendered page</li>
       </ul>
 
-      <div class="callout callout-info">
-        <span class="callout-label">Why visible, not hidden</span>
-        Hidden metadata only helps tooling. Visible frontmatter teaches the reader to ask &ldquo;is this view
-        current?&rdquo; before acting on it &mdash; the same discipline SoT IDs encode for structure.
-      </div>
+      <h3>Out of Scope</h3>
+      <ul>
+        <li>Changing markdown source files except to add code-fence blocks for design-heavy entries</li>
+        <li>Rewriting existing scripts, hooks, or skills (none of them change)</li>
+        <li>Replacing markdown templates (<code>EPIC_TEMPLATE.md</code>, etc.) &mdash; they stay</li>
+        <li>Client-side search, filtering, dark mode, print stylesheets &mdash; future iterations</li>
+        <li>Specialized templates for DBT- and API- prefixes &mdash; ship default template for now</li>
+        <li>Authentication or access control on the published Pages site</li>
+      </ul>
 
       <div class="chips">
         <span class="chips-label">Related:</span>
-        <a class="chip" href="#tokens">TOKEN-001</a>
-        <a class="chip" href="#heartbeat">HB-001</a>
-        <a class="chip" href="#caveats">CAV-001</a>
+        <a class="chip" href="#dec">DEC-001</a>
+        <a class="chip" href="#pitfalls">PIT-001</a>
       </div>
     </section>
 
-    <!-- 5. GitHub Pages Explained -->
-    <section class="entry" id="pages">
+    <!-- 3. Decisions (Locked) -->
+    <section class="entry" id="dec">
       <div class="entry-head">
-        <span class="entry-id">PAGES-001</span>
-        <h2 class="entry-title">GitHub Pages, Explained</h2>
-        <span class="pill pill-info">Reference</span>
+        <span class="entry-id">DEC-001</span>
+        <h2 class="entry-title">Decisions (Locked &mdash; Do Not Relitigate)</h2>
+        <span class="pill pill-block">Locked</span>
       </div>
 
-      <h3>What it is</h3>
+      <table>
+        <thead>
+          <tr><th>Decision</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Markdown stays the source of truth</td>
+            <td>Token cost, LLM authoring reliability, GitHub native preview, hand-editability</td>
+          </tr>
+          <tr>
+            <td>HTML is output only, never edited by hand</td>
+            <td>Generator owns the structure; authors never balance tags</td>
+          </tr>
+          <tr>
+            <td>Templates are methodology assets</td>
+            <td>Versioned, shipped, reusable across projects adopting this methodology</td>
+          </tr>
+          <tr>
+            <td>Render-date frontmatter is visible</td>
+            <td>Source-vs-output drift is real; surfacing freshness teaches readers to check</td>
+          </tr>
+          <tr>
+            <td>Publish via GitHub Pages</td>
+            <td>Free, public, real URLs, CDN-backed, zero infrastructure</td>
+          </tr>
+          <tr>
+            <td>Emit JSON companion per HTML + manifest</td>
+            <td>Machine-readable surface for downstream tooling and future automation</td>
+          </tr>
+          <tr>
+            <td>Template selection by ID prefix</td>
+            <td>DES- gets swatches, ARC- gets diagrams, etc. Default template handles the rest</td>
+          </tr>
+          <tr>
+            <td>Python + Jinja2 + python-markdown + PyYAML</td>
+            <td>Already-present Python stack; no new language; Jinja2 is the de-facto template engine</td>
+          </tr>
+          <tr>
+            <td>Output directory: <code>docs/</code></td>
+            <td>GitHub Pages default; can be served from the <code>main</code> branch or <code>gh-pages</code></td>
+          </tr>
+          <tr>
+            <td>Document the pipeline in <code>SoT/SoT.README.md</code></td>
+            <td>Avoids creating a new methodology file; the README already indexes SoT structure</td>
+          </tr>
+        </tbody>
+      </table>
 
-      <p>
-        GitHub Pages is free static-site hosting built into every GitHub repository. You point it at a branch
-        (typically <code>gh-pages</code>) or a folder (typically <code>/docs</code> on <code>main</code>), and
-        on every push GitHub serves the HTML/CSS/JS in that location as a real website at:
-      </p>
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#step1">STEP-001</a>
+        <a class="chip" href="#step5">STEP-005</a>
+      </div>
+    </section>
 
-      <pre><code>https://mattgierhart.github.io/PRD-driven-context-engineering/</code></pre>
+    <!-- 4. Deliverables -->
+    <section class="entry" id="del">
+      <div class="entry-head">
+        <span class="entry-id">DEL-001</span>
+        <h2 class="entry-title">Deliverables</h2>
+        <span class="pill pill-info">Concrete Artifacts</span>
+      </div>
 
-      <h3>What &ldquo;Render SoT to GitHub Pages&rdquo; means concretely</h3>
+      <table>
+        <thead>
+          <tr><th>Path</th><th>Description</th><th>Created by</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>scripts/render-sot-html.py</code></td>
+            <td>Main generator: parses MD, applies templates, emits HTML + JSON</td>
+            <td>STEP-001</td>
+          </tr>
+          <tr>
+            <td><code>scripts/_render/__init__.py</code></td>
+            <td>Package init for renderer helpers</td>
+            <td>STEP-001</td>
+          </tr>
+          <tr>
+            <td><code>scripts/_render/parser.py</code></td>
+            <td>Markdown + frontmatter + code-fence routing</td>
+            <td>STEP-001</td>
+          </tr>
+          <tr>
+            <td><code>scripts/_render/manifest.py</code></td>
+            <td>Index manifest builder</td>
+            <td>STEP-004</td>
+          </tr>
+          <tr>
+            <td><code>templates/base.html.jinja</code></td>
+            <td>Shared layout: header, sticky TOC, footer, render-frontmatter block, CSS</td>
+            <td>STEP-001</td>
+          </tr>
+          <tr>
+            <td><code>templates/sot-default.html.jinja</code></td>
+            <td>Generic SoT entry rendering (BR-, API-, DBT-, etc.)</td>
+            <td>STEP-001</td>
+          </tr>
+          <tr>
+            <td><code>templates/sot-design.html.jinja</code></td>
+            <td>DES- entries with swatch grids, type specimens</td>
+            <td>STEP-002</td>
+          </tr>
+          <tr>
+            <td><code>templates/sot-architecture.html.jinja</code></td>
+            <td>ARC- entries with Mermaid/SVG diagram support</td>
+            <td>STEP-002</td>
+          </tr>
+          <tr>
+            <td><code>templates/sot-screen-flow.html.jinja</code></td>
+            <td>SCR-/UJ- entries with wireframe blocks</td>
+            <td>STEP-002</td>
+          </tr>
+          <tr>
+            <td><code>templates/epic.html.jinja</code></td>
+            <td>EPIC files with progress, session state, observations</td>
+            <td>STEP-002</td>
+          </tr>
+          <tr>
+            <td><code>templates/partials/render-frontmatter.html.jinja</code></td>
+            <td>Visible "last rendered" block</td>
+            <td>STEP-001</td>
+          </tr>
+          <tr>
+            <td><code>templates/partials/status-pill.html.jinja</code></td>
+            <td>Reusable status pill component</td>
+            <td>STEP-001</td>
+          </tr>
+          <tr>
+            <td><code>templates/partials/id-chip.html.jinja</code></td>
+            <td>Reusable cross-reference chip component</td>
+            <td>STEP-001</td>
+          </tr>
+          <tr>
+            <td><code>.github/workflows/render-sot.yml</code></td>
+            <td>CI workflow: re-render on push, publish to gh-pages</td>
+            <td>STEP-003</td>
+          </tr>
+          <tr>
+            <td><code>docs/</code> (gitignored)</td>
+            <td>Generator output; populated by CI; served by Pages</td>
+            <td>STEP-003</td>
+          </tr>
+          <tr>
+            <td><code>docs/index.json</code></td>
+            <td>Manifest listing every rendered file with freshness metadata</td>
+            <td>STEP-004</td>
+          </tr>
+          <tr>
+            <td><code>SoT/SoT.README.md</code></td>
+            <td><strong>Edit</strong> to add "Rendered Views" section documenting the pipeline</td>
+            <td>STEP-005</td>
+          </tr>
+          <tr>
+            <td><code>.gitignore</code></td>
+            <td><strong>Edit</strong> to ignore <code>docs/</code> (gh-pages branch is the publish target)</td>
+            <td>STEP-003</td>
+          </tr>
+        </tbody>
+      </table>
 
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#step1">STEP-001</a>
+        <a class="chip" href="#step2">STEP-002</a>
+        <a class="chip" href="#step3">STEP-003</a>
+      </div>
+    </section>
+
+    <!-- 5. Step 1 -->
+    <section class="entry" id="step1">
+      <div class="entry-head">
+        <span class="entry-id">STEP-001</span>
+        <h2 class="entry-title">Step 1 &middot; Generator MVP</h2>
+        <span class="pill pill-info">~1 day</span>
+      </div>
+
+      <dl class="step-meta">
+        <dt>Goal:</dt><dd>Render a single SoT markdown file into styled HTML using the base template.</dd>
+        <dt>Inputs:</dt><dd>Any existing <code>SoT/*.md</code> file (start with <code>SoT.UNIQUE_ID_SYSTEM.md</code>)</dd>
+        <dt>Outputs:</dt><dd><code>docs/SoT/SoT.UNIQUE_ID_SYSTEM.html</code></dd>
+      </dl>
+
+      <h3>Procedure</h3>
       <ol>
-        <li>Generator runs locally or in CI: reads markdown SoT/EPIC files, applies templates, writes HTML.</li>
-        <li>Output lands in <code>docs/</code> (or commits to <code>gh-pages</code> branch).</li>
-        <li>A GitHub Actions workflow triggers on push to <code>main</code>; re-renders; publishes.</li>
-        <li>The rendered files are accessible at the Pages URL by anyone with the link.</li>
-        <li>HeartBeat (or any other consumer) can fetch these URLs without cloning the repo.</li>
+        <li>Add dependencies to <code>requirements.txt</code> (or <code>pyproject.toml</code>): <code>jinja2 &gt;= 3.1</code>, <code>markdown &gt;= 3.5</code>, <code>pymdown-extensions &gt;= 10.0</code>, <code>pyyaml &gt;= 6.0</code>, <code>python-frontmatter &gt;= 1.0</code>.</li>
+        <li>Create <code>scripts/render-sot-html.py</code> with a CLI: <code>render-sot-html.py &lt;file|all&gt; [--out docs/] [--strict]</code>.</li>
+        <li>Implement <code>scripts/_render/parser.py</code>: load file, split YAML frontmatter, render markdown body to HTML, extract entries by H2/H3 ID heading using the same <code>HEADING_DEF_RE</code> pattern as <code>scripts/_readiness/common.py</code> (consistency).</li>
+        <li>Create <code>templates/base.html.jinja</code> with the layout shown in this document (header, sticky TOC, footer). All CSS inline in the template.</li>
+        <li>Create <code>templates/sot-default.html.jinja</code> extending base. Renders the entries list with ID-anchored sections.</li>
+        <li>Create <code>templates/partials/render-frontmatter.html.jinja</code> &mdash; see <a href="#spec-render">SPEC-001</a>.</li>
+        <li>Generator computes render-date metadata: invocation time, <code>git log -1 --format=%cI &lt;file&gt;</code> for source mtime, version pinned in script.</li>
+        <li>Write output. Open in browser. Verify.</li>
       </ol>
 
-      <h3>What you get</h3>
+      <h3>Starter script skeleton</h3>
+<pre><code>#!/usr/bin/env python3
+"""Render SoT/EPIC markdown to styled HTML.
 
-      <ul>
-        <li>A real URL for every SoT and EPIC document, with full styling</li>
-        <li>Free hosting, scale handled by GitHub&rsquo;s CDN</li>
-        <li>HTTPS, custom domain support (optional)</li>
-        <li>Browseable index of all rendered files</li>
-        <li>The render-date frontmatter is publicly verifiable &mdash; readers see freshness without cloning</li>
-      </ul>
+Usage:
+  render-sot-html.py &lt;file|all&gt; [--out docs/] [--strict]
+"""
+from __future__ import annotations
+import argparse, json, subprocess, sys
+from datetime import datetime, timezone
+from pathlib import Path
 
-      <h3>Minimum viable setup</h3>
+import frontmatter, markdown
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+VERSION = "0.1.0"
+REPO_ROOT = Path(__file__).resolve().parent.parent
+TEMPLATES = REPO_ROOT / "templates"
+
+PREFIX_TEMPLATE = {
+    "DES": "sot-design.html.jinja",
+    "ARC": "sot-architecture.html.jinja",
+    "SCR": "sot-screen-flow.html.jinja",
+    "UJ":  "sot-screen-flow.html.jinja",
+    "EPIC": "epic.html.jinja",
+}
+DEFAULT_TEMPLATE = "sot-default.html.jinja"
+
+def git_mtime(path: Path) -> str:
+    out = subprocess.check_output(
+        ["git", "log", "-1", "--format=%cI", "--", str(path)],
+        cwd=REPO_ROOT, text=True,
+    ).strip()
+    return out or datetime.now(timezone.utc).isoformat()
+
+def freshness(source_iso: str, render_iso: str) -> str:
+    src = datetime.fromisoformat(source_iso)
+    rnd = datetime.fromisoformat(render_iso)
+    if rnd &gt;= src: return "current"
+    delta_hours = (rnd - src).total_seconds() / -3600.0
+    return "stale" if delta_hours &lt; 24 else "expired"
+
+def pick_template(source: Path) -> str:
+    # Infer dominant prefix from filename or content
+    name = source.stem.upper()
+    for prefix, tmpl in PREFIX_TEMPLATE.items():
+        if prefix in name:
+            return tmpl
+    return DEFAULT_TEMPLATE
+
+def render_one(source: Path, out_dir: Path, strict: bool=False) -> dict:
+    post = frontmatter.load(source)
+    md = markdown.Markdown(
+        extensions=["fenced_code", "tables", "attr_list", "toc",
+                    "pymdownx.superfences"],
+        extension_configs={
+            "pymdownx.superfences": {
+                "custom_fences": [
+                    {"name": "color-tokens", "class": "color-tokens",
+                     "format": custom_fence_color_tokens},
+                    {"name": "mermaid",      "class": "mermaid",
+                     "format": custom_fence_mermaid},
+                    {"name": "wireframe",    "class": "wireframe",
+                     "format": custom_fence_wireframe},
+                ]
+            }
+        }
+    )
+    body_html = md.convert(post.content)
+    render_time = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    source_time = git_mtime(source)
+
+    env = Environment(
+        loader=FileSystemLoader(TEMPLATES),
+        autoescape=select_autoescape(["html"]),
+    )
+    template = env.get_template(pick_template(source))
+    html = template.render(
+        title=post.metadata.get("title", source.stem),
+        frontmatter=post.metadata,
+        body=body_html,
+        render={"time": render_time, "source": str(source.relative_to(REPO_ROOT)),
+                "source_time": source_time, "generator_version": VERSION,
+                "freshness": freshness(source_time, render_time),
+                "template": pick_template(source)},
+    )
+    rel = source.relative_to(REPO_ROOT).with_suffix(".html")
+    out_path = out_dir / rel
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(html, encoding="utf-8")
+    return {"source": str(source.relative_to(REPO_ROOT)),
+            "html": str(rel), "rendered_at": render_time}
+
+# ... CLI wrapper, custom_fence_* helpers in _render/parser.py
+</code></pre>
+
+      <div class="accept">
+        <span class="accept-label">Acceptance Criteria</span>
+        <ul>
+          <li><code>python scripts/render-sot-html.py SoT/SoT.UNIQUE_ID_SYSTEM.md</code> exits 0</li>
+          <li><code>docs/SoT/SoT.UNIQUE_ID_SYSTEM.html</code> exists and opens in a browser with styling</li>
+          <li>Render-frontmatter block visible at the top, showing current freshness state</li>
+          <li>All H2 IDs from the markdown source are present as anchor IDs in the HTML</li>
+          <li>Re-running the generator with unchanged source produces byte-identical output (modulo render timestamp)</li>
+        </ul>
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#spec-render">SPEC-001</a>
+        <a class="chip" href="#step2">STEP-002</a>
+      </div>
+    </section>
+
+    <!-- 6. Step 2 -->
+    <section class="entry" id="step2">
+      <div class="entry-head">
+        <span class="entry-id">STEP-002</span>
+        <h2 class="entry-title">Step 2 &middot; Per-Prefix Templates</h2>
+        <span class="pill pill-info">~1 day</span>
+      </div>
+
+      <dl class="step-meta">
+        <dt>Goal:</dt><dd>Specialized templates for design-heavy SoT files; code-fence routing converts markdown blocks into rich HTML.</dd>
+        <dt>Inputs:</dt><dd>STEP-001 complete; <code>SoT.DESIGN_COMPONENTS.md</code>, <code>SoT.TECHNICAL_DECISIONS.md</code>, <code>SoT.USER_JOURNEYS.md</code>.</dd>
+        <dt>Outputs:</dt><dd>3 new templates + 3 custom-fence handlers, rendering DES/ARC/SCR entries with visual artifacts.</dd>
+      </dl>
+
+      <h3>Procedure</h3>
+      <ol>
+        <li>Author <code>templates/sot-design.html.jinja</code> extending base, with sections rendering <code>color-tokens</code> fences as swatch grids and <code>type-specimen</code> fences as typography samples.</li>
+        <li>Author <code>templates/sot-architecture.html.jinja</code> with embedded Mermaid renderer (CDN script tag in the template &mdash; one external dependency permitted for diagram rendering).</li>
+        <li>Author <code>templates/sot-screen-flow.html.jinja</code> with <code>wireframe</code> fence rendering as bordered boxes (see DESIGN-001 demo in source markdown of this plan).</li>
+        <li>Author <code>templates/epic.html.jinja</code> with phase progress bars, session state callout, observations table.</li>
+        <li>Implement custom-fence handlers in <code>scripts/_render/parser.py</code> &mdash; each takes the fence body and returns HTML. See <a href="#spec-fence">SPEC-002</a>.</li>
+        <li>Add three sample fences to existing SoT files (one each) to exercise the renderers without changing canonical content.</li>
+      </ol>
+
+      <h3>Example: color-tokens fence in markdown</h3>
+<pre><code>### DES-005: Status Color Tokens
+
+```color-tokens
+pass:   #16a34a
+warn:   #d97706
+block:  #dc2626
+accent: #2563eb
+```
+
+Used by readiness badges and status pills across all rendered views.</code></pre>
+
+      <p class="muted small">Output: a styled swatch grid like the one below, embedded inline in the rendered HTML.</p>
+
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-color" style="background:#16a34a"></div><div class="swatch-meta"><span class="name">pass</span><span class="hex">#16a34a</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#d97706"></div><div class="swatch-meta"><span class="name">warn</span><span class="hex">#d97706</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#dc2626"></div><div class="swatch-meta"><span class="name">block</span><span class="hex">#dc2626</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#2563eb"></div><div class="swatch-meta"><span class="name">accent</span><span class="hex">#2563eb</span></div></div>
+      </div>
+
+      <div class="accept">
+        <span class="accept-label">Acceptance Criteria</span>
+        <ul>
+          <li>A DES- entry with a <code>color-tokens</code> fence renders as a visual swatch grid</li>
+          <li>An ARC- entry with a <code>mermaid</code> fence renders as an architecture diagram in the browser</li>
+          <li>A SCR- entry with a <code>wireframe</code> fence renders as bordered boxes representing screen regions</li>
+          <li>An EPIC file renders with phase progress, session state, and observations sections distinguished visually</li>
+          <li>Source markdown remains readable as-is on GitHub (fences degrade to code blocks if not rendered)</li>
+          <li><code>--strict</code> mode fails on any unrecognized fence language</li>
+        </ul>
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#spec-fence">SPEC-002</a>
+        <a class="chip" href="#step3">STEP-003</a>
+      </div>
+    </section>
+
+    <!-- 7. Step 3 -->
+    <section class="entry" id="step3">
+      <div class="entry-head">
+        <span class="entry-id">STEP-003</span>
+        <h2 class="entry-title">Step 3 &middot; GitHub Pages Workflow</h2>
+        <span class="pill pill-info">~half day</span>
+      </div>
+
+      <dl class="step-meta">
+        <dt>Goal:</dt><dd>On every push to <code>main</code>, re-render all SoT/EPIC files and publish to GitHub Pages.</dd>
+        <dt>Inputs:</dt><dd>STEP-001 and STEP-002 complete; admin access to repo Settings &rarr; Pages.</dd>
+        <dt>Outputs:</dt><dd>Public URL serving rendered SoT/EPIC index.</dd>
+      </dl>
+
+      <h3>Procedure</h3>
+      <ol>
+        <li>Add <code>docs/</code> to <code>.gitignore</code> (the gh-pages branch holds the publish target, not main).</li>
+        <li>Create <code>.github/workflows/render-sot.yml</code> with the contents below.</li>
+        <li>Implement an "all" mode in the generator: <code>render-sot-html.py all --out docs/</code> walks <code>SoT/</code> and <code>epics/</code>, renders each.</li>
+        <li>Generator writes <code>docs/index.html</code> as a landing page listing all rendered files with their freshness pills.</li>
+        <li>Push to a branch; verify the workflow runs green; merge.</li>
+        <li>Settings &rarr; Pages &rarr; Source: <code>gh-pages</code> branch, <code>/ (root)</code>.</li>
+        <li>Visit <code>https://&lt;owner&gt;.github.io/&lt;repo&gt;/</code> and confirm the index renders.</li>
+      </ol>
+
+      <h3>Workflow file</h3>
 <pre><code># .github/workflows/render-sot.yml
 name: Render SoT to GitHub Pages
+
 on:
   push:
     branches: [main]
-    paths: ['SoT/**', 'epics/**', 'templates/**', 'scripts/render-sot-html.py']
+    paths:
+      - 'SoT/**'
+      - 'epics/**'
+      - 'templates/**'
+      - 'scripts/render-sot-html.py'
+      - 'scripts/_render/**'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   render:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }       # needed for git mtime per file
+
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - run: pip install jinja2 markdown beautifulsoup4 pyyaml
-      - run: python scripts/render-sot-html.py --out docs/
-      - uses: peaceiris/actions-gh-pages@v3
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements-render.txt
+
+      - name: Render all
+        run: python scripts/render-sot-html.py all --out docs/ --strict
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
+          publish_branch: gh-pages
+          force_orphan: true
 </code></pre>
 
-      <p class="muted small">
-        Settings &rarr; Pages &rarr; Source: <code>gh-pages</code> branch, <code>/ (root)</code>. Done.
-      </p>
-
-      <div class="chips">
-        <span class="chips-label">Related:</span>
-        <a class="chip" href="#heartbeat">HB-001</a>
-        <a class="chip" href="#plan">PLAN-001</a>
-      </div>
-    </section>
-
-    <!-- 6. HeartBeat Integration -->
-    <section class="entry" id="heartbeat">
-      <div class="entry-head">
-        <span class="entry-id">HB-001</span>
-        <h2 class="entry-title">HeartBeat Integration Surface</h2>
-        <span class="pill pill-warn">Assumes Context</span>
-      </div>
-
-      <p class="muted small">
-        <strong>Note:</strong> HeartBeat isn&rsquo;t in the methodology files yet &mdash; only the v0.7
-        &ldquo;core loop&rdquo; uses the term. The analysis below assumes HeartBeat is a companion product that
-        exposes project health/readiness/structure to a non-developer audience (stakeholders, designers, ops).
-        Correct this framing if it&rsquo;s off and I&rsquo;ll re-tune.
-      </p>
-
-      <p>
-        Under that assumption, the rendered HTML output is the natural integration surface. HeartBeat doesn&rsquo;t
-        need to parse markdown or run the readiness scorer locally &mdash; it consumes the published HTML +
-        the JSON it sits alongside.
-      </p>
-
-      <h3>What HeartBeat would consume</h3>
-
-      <table>
-        <thead>
-          <tr><th>Artifact</th><th>Form</th><th>Consumer pattern</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Rendered SoT files</td>
-            <td>HTML on GitHub Pages</td>
-            <td>Embed via iframe, fetch and re-style, or extract structured data attributes</td>
-          </tr>
-          <tr>
-            <td>Readiness scores</td>
-            <td><code>status/readiness.json</code></td>
-            <td>Already machine-readable; render badges, trend charts</td>
-          </tr>
-          <tr>
-            <td>Render-date frontmatter</td>
-            <td>HTML metadata block (visible) + JSON sibling (machine)</td>
-            <td>Show freshness state in HeartBeat dashboard</td>
-          </tr>
-          <tr>
-            <td>EPIC progress</td>
-            <td>Rendered EPIC HTML + frontmatter</td>
-            <td>Pull session state, phase completion, observation count</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>What it implies for the renderer</h3>
-
-      <ul>
-        <li>
-          Emit a JSON sibling for every rendered HTML file (<code>SoT.BUSINESS_RULES.html</code> +
-          <code>SoT.BUSINESS_RULES.json</code>) &mdash; gives HeartBeat structured access without HTML parsing.
-        </li>
-        <li>
-          Use stable HTML attributes (<code>data-id</code>, <code>data-status</code>, <code>data-readiness</code>)
-          so HeartBeat can extract entries from the DOM if it chooses to consume HTML directly.
-        </li>
-        <li>
-          Publish a manifest (<code>docs/index.json</code>) listing every rendered file with last-render times.
-          HeartBeat polls this; doesn&rsquo;t need to crawl.
-        </li>
-        <li>
-          Treat <code>data-id</code> as the canonical ID anchor &mdash; HeartBeat can deep-link to a specific
-          BR/UJ/ARC by URL fragment.
-        </li>
-      </ul>
-
-      <div class="callout callout-info">
-        <span class="callout-label">Strategic framing</span>
-        If HeartBeat is the companion product, this rendering pipeline isn&rsquo;t just a presentation tool &mdash;
-        it&rsquo;s the contract between methodology and product. That promotes the templates and the JSON sibling
-        format from &ldquo;nice-to-have&rdquo; to <em>API surface</em>. Worth treating as such.
+      <div class="accept">
+        <span class="accept-label">Acceptance Criteria</span>
+        <ul>
+          <li>Workflow file passes <code>actionlint</code> (or equivalent) check</li>
+          <li>First run on the workflow_dispatch trigger completes green</li>
+          <li>A <code>gh-pages</code> branch exists with <code>docs/</code> contents at its root</li>
+          <li>The Pages URL serves the rendered index and individual SoT files</li>
+          <li>Pushing a markdown change to an SoT file triggers re-render within 2 minutes</li>
+        </ul>
       </div>
 
       <div class="chips">
         <span class="chips-label">Related:</span>
-        <a class="chip" href="#pages">PAGES-001</a>
-        <a class="chip" href="#templates">TPL-001</a>
-        <a class="chip" href="#render-date">RENDER-001</a>
+        <a class="chip" href="#step4">STEP-004</a>
+        <a class="chip" href="#verify">VER-001</a>
       </div>
     </section>
 
-    <!-- 7. Tooling & Skills Unchanged -->
-    <section class="entry" id="tooling">
+    <!-- 8. Step 4 -->
+    <section class="entry" id="step4">
       <div class="entry-head">
-        <span class="entry-id">TOOLING-001</span>
-        <h2 class="entry-title">Tooling &amp; Skills (Unchanged)</h2>
-        <span class="pill pill-pass">No Rewrites</span>
+        <span class="entry-id">STEP-004</span>
+        <h2 class="entry-title">Step 4 &middot; JSON Companion &amp; Manifest</h2>
+        <span class="pill pill-info">~half day</span>
       </div>
 
-      <p>
-        Because markdown remains the source of truth in this approach, every concern v1 raised about toolchain
-        breakage <em>disappears</em>:
-      </p>
+      <dl class="step-meta">
+        <dt>Goal:</dt><dd>Machine-readable JSON sibling for every rendered HTML, plus a top-level manifest for downstream tooling.</dd>
+        <dt>Inputs:</dt><dd>STEP-001 through STEP-003 complete.</dd>
+        <dt>Outputs:</dt><dd><code>docs/&lt;path&gt;.json</code> per file; <code>docs/index.json</code> manifest.</dd>
+      </dl>
 
-      <table>
-        <thead>
-          <tr><th>Component</th><th>v1 (HTML source)</th><th>v2 (rendering)</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>validate-ids.sh</code></td>
-            <td><span class="pill pill-block">Rewrite</span></td>
-            <td><span class="pill pill-pass">Unchanged</span></td>
-          </tr>
-          <tr>
-            <td><code>_readiness/sot.py</code></td>
-            <td><span class="pill pill-block">Rewrite</span></td>
-            <td><span class="pill pill-pass">Unchanged</span></td>
-          </tr>
-          <tr>
-            <td><code>_readiness/epic.py</code></td>
-            <td><span class="pill pill-warn">Partial rewrite</span></td>
-            <td><span class="pill pill-pass">Unchanged</span></td>
-          </tr>
-          <tr>
-            <td>4 hooks in <code>.claude/hooks/</code></td>
-            <td><span class="pill pill-warn">Partial rewrite</span></td>
-            <td><span class="pill pill-pass">Unchanged</span></td>
-          </tr>
-          <tr>
-            <td>38 skills</td>
-            <td><span class="pill pill-block">Each updated</span></td>
-            <td><span class="pill pill-pass">Unchanged</span></td>
-          </tr>
-          <tr>
-            <td><code>domain-profile.yaml</code></td>
-            <td><span class="pill pill-warn">Update extensions</span></td>
-            <td><span class="pill pill-pass">Unchanged</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        The only <em>new</em> tool is the generator itself (one new Python script + Jinja2 templates). Adding it
-        is additive &mdash; nothing existing changes behavior.
-      </p>
-
-      <div class="chips">
-        <span class="chips-label">Related:</span>
-        <a class="chip" href="#plan">PLAN-001</a>
-      </div>
-    </section>
-
-    <!-- 8. HTML Templates as Methodology -->
-    <section class="entry" id="templates">
-      <div class="entry-head">
-        <span class="entry-id">TPL-001</span>
-        <h2 class="entry-title">HTML Templates as First-Class Methodology</h2>
-        <span class="pill pill-pass">Worth Doing</span>
-      </div>
-
-      <p>
-        v1 framed HTML templates as a downside (&ldquo;every template needs a twin&rdquo;). In your refined direction,
-        templates become a <strong>methodology asset</strong> &mdash; shipped, versioned, reusable across projects
-        that adopt this methodology.
-      </p>
-
-      <h3>Proposed template structure</h3>
-
-<pre><code>templates/
-&#9500;&#9472;&#9472; base.html.jinja                  # Shared layout: header, TOC, footer
-&#9500;&#9472;&#9472; sot-default.html.jinja           # Generic SoT entry rendering
-&#9500;&#9472;&#9472; sot-design.html.jinja            # DES- entries: swatch grids, type specimens
-&#9500;&#9472;&#9472; sot-architecture.html.jinja      # ARC- entries: mermaid/SVG diagrams
-&#9500;&#9472;&#9472; sot-screen-flow.html.jinja       # SCR-/UJ- entries: wireframes, journey flows
-&#9500;&#9472;&#9472; sot-data-model.html.jinja        # DBT- entries: ER diagrams
-&#9500;&#9472;&#9472; sot-api.html.jinja               # API- entries: endpoint browser
-&#9500;&#9472;&#9472; epic.html.jinja                  # EPIC progress + session state
-&#9492;&#9472;&#9472; partials/
-    &#9500;&#9472;&#9472; render-frontmatter.html.jinja
-    &#9500;&#9472;&#9472; status-pill.html.jinja
-    &#9500;&#9472;&#9472; id-chip.html.jinja
-    &#9492;&#9472;&#9472; readiness-badge.html.jinja
-</code></pre>
-
-      <h3>Per-prefix template selection</h3>
-
-      <p>
-        Generator picks a template by ID prefix &mdash; <code>DES-</code> entries route through
-        <code>sot-design.html.jinja</code> with swatch and component partials; <code>ARC-</code> entries route
-        through <code>sot-architecture.html.jinja</code> with a Mermaid renderer; etc. The default template
-        handles text-heavy entries (BR, UJ, API spec).
-      </p>
-
-      <h3>Author ergonomics stay markdown-native</h3>
-
-      <p>
-        Authors edit markdown files as they do today. To add rendering hints (color values, diagram source,
-        wireframe boxes), they use fenced code blocks with language tags the generator recognizes:
-      </p>
-
-<pre><code>### DES-005: Status Color Tokens
-
-```color-tokens
-accent: #2563eb
-pass:   #16a34a
-warn:   #d97706
-block:  #dc2626
-```
-
-Used by readiness badges and status pills across all rendered views.</code></pre>
-
-      <p>
-        The markdown is still readable as-is in GitHub. The renderer turns the <code>color-tokens</code> block
-        into the swatch grid you saw in DESIGN-001. No HTML in the source, ever.
-      </p>
-
-      <div class="chips">
-        <span class="chips-label">Related:</span>
-        <a class="chip" href="#design">DESIGN-001</a>
-        <a class="chip" href="#plan">PLAN-001</a>
-      </div>
-    </section>
-
-    <!-- 9. Refined Implementation Plan -->
-    <section class="entry" id="plan">
-      <div class="entry-head">
-        <span class="entry-id">PLAN-001</span>
-        <h2 class="entry-title">Refined Implementation Plan</h2>
-        <span class="pill pill-pass">~3&ndash;5 Days</span>
-      </div>
-
-      <table>
-        <thead>
-          <tr><th>Phase</th><th>Work</th><th>Effort</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>1. Generator MVP</strong></td>
-            <td>Python + Jinja2 + python-markdown. Parses YAML frontmatter, renders body markdown, applies base template. Writes <code>docs/</code>. Includes render-date frontmatter block.</td>
-            <td>~1 day</td>
-          </tr>
-          <tr>
-            <td><strong>2. Per-prefix templates</strong></td>
-            <td>Start with <code>sot-default</code> + <code>sot-design</code> + <code>sot-architecture</code>. Code-fence routing for <code>color-tokens</code>, <code>mermaid</code>, <code>wireframe</code>.</td>
-            <td>~1 day</td>
-          </tr>
-          <tr>
-            <td><strong>3. GitHub Pages publish</strong></td>
-            <td>Workflow file, gh-pages branch setup, Pages settings. First public render of all SoT files.</td>
-            <td>~half day</td>
-          </tr>
-          <tr>
-            <td><strong>4. JSON sibling + manifest</strong></td>
-            <td>Emit <code>.json</code> next to every <code>.html</code>. Generate <code>docs/index.json</code> manifest. Lays the ground for HeartBeat consumption.</td>
-            <td>~half day</td>
-          </tr>
-          <tr>
-            <td><strong>5. Methodology integration</strong></td>
-            <td>Document the templates in <code>SoT/SoT.METHODOLOGY.md</code> (new) or extend <code>SoT.README.md</code>. Add a <code>scripts/readiness.py status --html</code> mode that uses the same templates.</td>
-            <td>~half day</td>
-          </tr>
-          <tr>
-            <td><strong>Total</strong></td>
-            <td>&mdash;</td>
-            <td><strong>3&ndash;5 working days</strong></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="callout callout-pass">
-        <span class="callout-label">Compare to v1&rsquo;s &ldquo;not recommended&rdquo; path</span>
-        v1&rsquo;s full migration: 6&ndash;10 days + ~2.5&times; ongoing token cost + 38 skills updated.
-        <br>v2&rsquo;s templated rendering: 3&ndash;5 days + zero token cost + zero skill changes.
-      </div>
-
-      <div class="chips">
-        <span class="chips-label">Related:</span>
-        <a class="chip" href="#pages">PAGES-001</a>
-        <a class="chip" href="#heartbeat">HB-001</a>
-      </div>
-    </section>
-
-    <!-- 10. Honest Caveats -->
-    <section class="entry" id="caveats">
-      <div class="entry-head">
-        <span class="entry-id">CAV-001</span>
-        <h2 class="entry-title">Honest Caveats</h2>
-        <span class="pill pill-warn">Read Before Adopting</span>
-      </div>
-
-      <h3>1. Drift discipline lives in CI, not in vibes</h3>
-      <p>
-        The render-date frontmatter <em>shows</em> staleness; CI has to <em>fix</em> it. Without an
-        auto-render-on-push workflow, you&rsquo;ll start trusting outdated HTML and not notice. The freshness pill
-        is a warning system, not a solution &mdash; the solution is &ldquo;source change &rArr; render runs
-        before merge.&rdquo;
-      </p>
-
-      <h3>2. Design-heavy templates can become their own project</h3>
-      <p>
-        A solid <code>sot-architecture.html.jinja</code> with proper Mermaid rendering, dark mode, and printable
-        export takes more than the half-day budgeted. Start with one or two prefixes; expand opportunistically.
-      </p>
-
-      <h3>3. Rendering hides errors the markdown didn&rsquo;t have</h3>
-      <p>
-        If the generator silently skips an unrecognized code-fence language, authors won&rsquo;t notice until
-        someone views the page. Build a <code>--strict</code> mode that fails on unknown blocks; run it in CI.
-      </p>
-
-      <h3>4. The JSON sibling format is an API once published</h3>
-      <p>
-        If HeartBeat starts consuming <code>docs/*.json</code>, you can&rsquo;t change the schema casually.
-        Version it from day one (<code>{ "$schema_version": "1.0" }</code>) so future changes have a path.
-      </p>
-
-      <h3>5. Visible render-date adds a discipline tax</h3>
-      <p>
-        Users will see &ldquo;Last rendered: 12 days ago&rdquo; and ask why. That&rsquo;s a feature, but it costs
-        attention. Make sure the CI workflow is actually reliable before publishing the freshness indicator
-        publicly &mdash; otherwise it just looks broken.
-      </p>
-
-      <div class="chips">
-        <span class="chips-label">Related:</span>
-        <a class="chip" href="#render-date">RENDER-001</a>
-        <a class="chip" href="#heartbeat">HB-001</a>
-      </div>
-    </section>
-
-    <!-- 11. Final Recommendation -->
-    <section class="entry" id="recommendation">
-      <div class="entry-head">
-        <span class="entry-id">REC-001</span>
-        <h2 class="entry-title">Final Recommendation (v2)</h2>
-        <span class="pill pill-pass">Proceed</span>
-      </div>
-
+      <h3>Procedure</h3>
       <ol>
-        <li>
-          <strong>Build the generator + template system as a methodology asset</strong> &mdash; not a side script.
-          It deserves its own SoT section (<code>SoT.METHODOLOGY.md</code> or extension of
-          <code>SoT.README.md</code>) describing the contract, the templates, the freshness rules.
-        </li>
-        <li>
-          <strong>Adopt the visible render-date frontmatter from day one.</strong> The discrepancy concern you
-          raised is exactly the right one; make the answer part of the methodology, not an afterthought.
-        </li>
-        <li>
-          <strong>Publish via GitHub Pages.</strong> Free, public, real URLs, CDN. Adds the &ldquo;non-developer
-          can read this&rdquo; tier the methodology has been missing.
-        </li>
-        <li>
-          <strong>Emit a JSON sibling and a manifest for HeartBeat.</strong> Treat them as API surface;
-          version-tag them. This is the integration contract whether HeartBeat is built next week or next year.
-        </li>
-        <li>
-          <strong>Start with design-heavy prefixes</strong> (DES, ARC, SCR). They have the highest gain-to-effort
-          ratio; text-heavy ones (BR, API) can keep the default template until you have specific reasons
-          to specialize.
-        </li>
+        <li>Extend the generator: after writing each HTML file, also write a JSON sibling at the same path with <code>.json</code> extension.</li>
+        <li>JSON contains frontmatter, render metadata, and entries (ID + title + status + body-as-HTML or plain text). Schema in <a href="#spec-json">SPEC-003</a>.</li>
+        <li>After the "all" mode completes, write <code>docs/index.json</code> listing every output file with its render metadata and freshness state.</li>
+        <li>Include a <code>$schema_version</code> field in every JSON file. Start at <code>"1.0"</code>.</li>
+        <li>Add a JSON-schema document at <code>templates/sot-output.schema.json</code> (optional but recommended) so downstream consumers can validate.</li>
       </ol>
 
-      <p>
-        <strong>What changed from v1:</strong> v1&rsquo;s recommendation against migration still stands &mdash;
-        if you meant &ldquo;HTML source replacing markdown.&rdquo; What you actually meant (and what your
-        instincts about HeartBeat point to) is rendering, not migration. Those are different decisions and only
-        one of them is costly.
-      </p>
+      <div class="accept">
+        <span class="accept-label">Acceptance Criteria</span>
+        <ul>
+          <li>Every <code>docs/&lt;path&gt;.html</code> has a sibling <code>docs/&lt;path&gt;.json</code></li>
+          <li>JSON files parse with <code>json.load()</code>; all required fields per SPEC-003 present</li>
+          <li><code>docs/index.json</code> lists every rendered file with consistent fields</li>
+          <li>Schema version field is present and equals <code>"1.0"</code></li>
+        </ul>
+      </div>
 
       <div class="chips">
         <span class="chips-label">Related:</span>
-        <a class="chip" href="#summary">ASSESS-001</a>
-        <a class="chip" href="#plan">PLAN-001</a>
-        <a class="chip" href="#caveats">CAV-001</a>
+        <a class="chip" href="#spec-json">SPEC-003</a>
+      </div>
+    </section>
+
+    <!-- 9. Step 5 -->
+    <section class="entry" id="step5">
+      <div class="entry-head">
+        <span class="entry-id">STEP-005</span>
+        <h2 class="entry-title">Step 5 &middot; Document the Pipeline in SoT.README.md</h2>
+        <span class="pill pill-info">~half day</span>
+      </div>
+
+      <dl class="step-meta">
+        <dt>Goal:</dt><dd>Make the rendering pipeline discoverable as a methodology asset by documenting it inside the existing SoT index.</dd>
+        <dt>Inputs:</dt><dd>STEP-001 through STEP-004 complete; pipeline working end-to-end.</dd>
+        <dt>Outputs:</dt><dd>New section in <code>SoT/SoT.README.md</code>.</dd>
+      </dl>
+
+      <h3>Procedure</h3>
+      <ol>
+        <li>Open <code>SoT/SoT.README.md</code>.</li>
+        <li>Add a top-level section titled <strong>"Rendered Views"</strong> (placement: after the SoT file index, before any existing changelog).</li>
+        <li>Content of the new section: <em>purpose</em>, <em>generator</em> (script path, version), <em>templates</em> (list with one-line descriptions), <em>publish URL</em>, <em>freshness rules</em>, <em>how to add a new prefix template</em>.</li>
+        <li>Link to the actual code-fence routing spec from this plan as inline reference (one paragraph plus a link to the schema file).</li>
+        <li>Add a cross-reference in the master document index (<code>README.md</code> root) pointing to the Pages URL under "Project Navigation".</li>
+        <li>Update the SoT.README.md frontmatter <code>updated:</code> date.</li>
+      </ol>
+
+      <h3>Section template (paste into <code>SoT.README.md</code>)</h3>
+<pre><code>## Rendered Views
+
+SoT and EPIC files are authored in markdown (canonical) and rendered to styled
+HTML for human reading. Authors never edit HTML directly.
+
+- **Generator**: `scripts/render-sot-html.py` (v0.1.0)
+- **Templates**: `templates/` &mdash; one base + per-prefix specializations
+- **Publish URL**: https://&lt;owner&gt;.github.io/&lt;repo&gt;/
+- **Workflow**: `.github/workflows/render-sot.yml` (push to main triggers re-render)
+- **Companion JSON**: every rendered HTML has a sibling `.json` for tooling
+
+### Per-prefix templates
+
+| Prefix | Template | What it adds |
+|--------|----------|--------------|
+| DES    | `sot-design.html.jinja`        | Color swatches, type specimens |
+| ARC    | `sot-architecture.html.jinja`  | Mermaid diagrams |
+| SCR/UJ | `sot-screen-flow.html.jinja`   | Wireframe boxes |
+| EPIC   | `epic.html.jinja`              | Phase progress, session state |
+| (default) | `sot-default.html.jinja`    | Generic entry rendering |
+
+### Freshness states
+
+Each rendered page shows a visible "Last rendered" block.
+- &#x25CF; **Current** &mdash; render is newer than source
+- &#x25CF; **Stale** &mdash; source modified after render, &lt; 24h
+- &#x25CF; **Expired** &mdash; source modified &gt; 24h before last render
+
+CI re-renders on every push; expired state indicates a CI failure.
+</code></pre>
+
+      <div class="accept">
+        <span class="accept-label">Acceptance Criteria</span>
+        <ul>
+          <li><code>SoT/SoT.README.md</code> contains a "Rendered Views" section with all six required subsections</li>
+          <li>Top-level <code>README.md</code> links to the Pages URL</li>
+          <li>SoT.README.md frontmatter <code>updated:</code> reflects the change date</li>
+          <li>A new agent reading <code>SoT.README.md</code> cold can understand the pipeline without needing this execution plan</li>
+        </ul>
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#verify">VER-001</a>
+      </div>
+    </section>
+
+    <!-- 10. SPEC-001 Render-Date -->
+    <section class="entry" id="spec-render">
+      <div class="entry-head">
+        <span class="entry-id">SPEC-001</span>
+        <h2 class="entry-title">Spec: Render-Date Frontmatter</h2>
+        <span class="pill pill-info">Contract</span>
+      </div>
+
+      <p>Every rendered HTML page MUST include a visible metadata block near the top with the following fields:</p>
+
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Source</th><th>Required</th></tr></thead>
+        <tbody>
+          <tr><td><code>last_rendered</code></td><td>ISO 8601 UTC</td><td>Generator invocation time</td><td>Yes</td></tr>
+          <tr><td><code>source_path</code></td><td>String (repo-relative)</td><td>Generator input</td><td>Yes</td></tr>
+          <tr><td><code>source_last_modified</code></td><td>ISO 8601 UTC</td><td><code>git log -1 --format=%cI &lt;file&gt;</code></td><td>Yes</td></tr>
+          <tr><td><code>generator_version</code></td><td>SemVer string</td><td>Pinned in script</td><td>Yes</td></tr>
+          <tr><td><code>template</code></td><td>String (filename)</td><td>Generator template selection</td><td>Yes</td></tr>
+          <tr><td><code>freshness</code></td><td>Enum: current / stale / expired</td><td>Computed</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Freshness computation</h3>
+<pre><code>def freshness(source_iso: str, render_iso: str) -&gt; str:
+    src = datetime.fromisoformat(source_iso)
+    rnd = datetime.fromisoformat(render_iso)
+    if rnd &gt;= src:
+        return "current"
+    hours_late = (src - rnd).total_seconds() / 3600.0
+    return "stale" if hours_late &lt; 24 else "expired"
+</code></pre>
+
+      <h3>Visual encoding</h3>
+      <ul>
+        <li><span class="freshness current">Current</span> &mdash; green dot, label "Current"</li>
+        <li><span class="freshness stale">Stale</span> &mdash; amber dot, label "Stale", with source mtime shown</li>
+        <li><span class="freshness expired">Expired</span> &mdash; red dot, label "Expired", with source mtime shown and CI status link if available</li>
+      </ul>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#step1">STEP-001</a>
+      </div>
+    </section>
+
+    <!-- 11. SPEC-002 Code-Fence Routing -->
+    <section class="entry" id="spec-fence">
+      <div class="entry-head">
+        <span class="entry-id">SPEC-002</span>
+        <h2 class="entry-title">Spec: Code-Fence Routing Conventions</h2>
+        <span class="pill pill-info">Contract</span>
+      </div>
+
+      <p>Authors annotate markdown with fenced code blocks tagged with custom languages. The renderer recognizes these and produces rich HTML. Source markdown remains readable on GitHub (fences just appear as code blocks if not rendered).</p>
+
+      <table>
+        <thead><tr><th>Fence language</th><th>Body format</th><th>Rendered as</th><th>Used by prefix</th></tr></thead>
+        <tbody>
+          <tr><td><code>color-tokens</code></td><td><code>name: #hex</code> per line</td><td>Swatch grid</td><td>DES</td></tr>
+          <tr><td><code>type-specimen</code></td><td>YAML: family, weight, size, sample</td><td>Typography preview block</td><td>DES</td></tr>
+          <tr><td><code>mermaid</code></td><td>Mermaid syntax</td><td>Diagram (via Mermaid.js CDN)</td><td>ARC</td></tr>
+          <tr><td><code>wireframe</code></td><td>One region per line, prefix <code>[ ... ]</code> for boxes, <code>|</code> for splits</td><td>Bordered box layout</td><td>SCR, UJ</td></tr>
+          <tr><td><code>er-diagram</code></td><td>Simple <code>entity: field type, field type</code> lines</td><td>ER diagram</td><td>DBT (future)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Behavior</h3>
+      <ul>
+        <li>Unrecognized fence languages render as plain <code>&lt;pre&gt;&lt;code&gt;</code> with the language as a class &mdash; same as today.</li>
+        <li>With <code>--strict</code>, unrecognized fences in source files <em>under a specialized template</em> are an error. Strict mode runs in CI.</li>
+        <li>All fence handlers receive the raw fence body and return HTML. They must escape user input to prevent XSS even though source files are trusted.</li>
+      </ul>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#step2">STEP-002</a>
+      </div>
+    </section>
+
+    <!-- 12. SPEC-003 JSON Companion -->
+    <section class="entry" id="spec-json">
+      <div class="entry-head">
+        <span class="entry-id">SPEC-003</span>
+        <h2 class="entry-title">Spec: JSON Companion Schema</h2>
+        <span class="pill pill-info">Contract</span>
+      </div>
+
+      <h3>Per-file schema (<code>docs/&lt;path&gt;.json</code>)</h3>
+<pre><code>{
+  "$schema_version": "1.0",
+  "source_path": "SoT/SoT.BUSINESS_RULES.md",
+  "html_path":   "SoT/SoT.BUSINESS_RULES.html",
+  "render": {
+    "last_rendered":        "2026-05-19T14:00:00Z",
+    "source_last_modified": "2026-05-19T13:58:12Z",
+    "generator_version":    "0.1.0",
+    "template":             "sot-default.html.jinja",
+    "freshness":            "current"
+  },
+  "frontmatter": {
+    "title": "Business Rules",
+    "updated": "2026-05-12",
+    "authority": "PRD Led Context Engineering"
+  },
+  "entries": [
+    {
+      "id": "BR-001",
+      "title": "Free Plan Rate Limit",
+      "status": "Active",
+      "anchors": ["#BR-001"],
+      "related_ids": ["API-045", "UJ-012"],
+      "body_text": "Free tier limited to 100 requests/day.",
+      "body_html_snippet": "&lt;p&gt;Free tier limited to 100 requests/day.&lt;/p&gt;"
+    }
+  ]
+}
+</code></pre>
+
+      <h3>Manifest schema (<code>docs/index.json</code>)</h3>
+<pre><code>{
+  "$schema_version": "1.0",
+  "generated_at": "2026-05-19T14:00:00Z",
+  "generator_version": "0.1.0",
+  "files": [
+    {
+      "source_path": "SoT/SoT.BUSINESS_RULES.md",
+      "html_path":   "SoT/SoT.BUSINESS_RULES.html",
+      "json_path":   "SoT/SoT.BUSINESS_RULES.json",
+      "freshness":   "current",
+      "entry_count": 24
+    }
+  ]
+}
+</code></pre>
+
+      <div class="callout callout-warn">
+        <span class="callout-label">Once published, treat as API</span>
+        Any downstream tooling will pin to <code>$schema_version: "1.0"</code>. Future incompatible changes
+        require bumping to <code>"2.0"</code> and supporting both versions for a deprecation window.
+      </div>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#step4">STEP-004</a>
+        <a class="chip" href="#pitfalls">PIT-001</a>
+      </div>
+    </section>
+
+    <!-- 13. End-to-End Verification -->
+    <section class="entry" id="verify">
+      <div class="entry-head">
+        <span class="entry-id">VER-001</span>
+        <h2 class="entry-title">End-to-End Verification</h2>
+        <span class="pill pill-pass">Done When</span>
+      </div>
+
+      <h3>Local checks</h3>
+      <ol>
+        <li><code>python scripts/render-sot-html.py all --out docs/ --strict</code> exits 0</li>
+        <li><code>open docs/index.html</code> shows a landing page listing every SoT and EPIC file with freshness pills</li>
+        <li>Each linked page opens with full styling, sticky TOC, visible render-frontmatter block</li>
+        <li>A DES- file renders with swatches; an ARC- file with diagrams; a SCR-/UJ- file with wireframes</li>
+        <li><code>jq</code> can parse every <code>docs/&lt;path&gt;.json</code></li>
+        <li><code>cat docs/index.json | jq '.files | length'</code> equals the count of SoT + EPIC files</li>
+      </ol>
+
+      <h3>CI / Pages checks</h3>
+      <ol>
+        <li>Push a one-line markdown change to any SoT file on a feature branch &rarr; PR &rarr; merge</li>
+        <li>The <code>render-sot</code> workflow runs green within ~2 minutes</li>
+        <li>The <code>gh-pages</code> branch updates with new content</li>
+        <li>The Pages URL serves the updated content (allow ~1 min for CDN propagation)</li>
+        <li>The render-frontmatter block on the changed page shows the new <code>last_rendered</code> timestamp</li>
+      </ol>
+
+      <h3>Documentation checks</h3>
+      <ol>
+        <li><code>SoT/SoT.README.md</code> contains the "Rendered Views" section</li>
+        <li>A reader of <code>SoT.README.md</code> can navigate to the Pages URL via the top-level <code>README.md</code></li>
+      </ol>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#step1">STEP-001</a>
+        <a class="chip" href="#step5">STEP-005</a>
+      </div>
+    </section>
+
+    <!-- 14. Pitfalls -->
+    <section class="entry" id="pitfalls">
+      <div class="entry-head">
+        <span class="entry-id">PIT-001</span>
+        <h2 class="entry-title">Pitfalls &amp; Watch-outs</h2>
+        <span class="pill pill-warn">Read Before Starting</span>
+      </div>
+
+      <h3>Drift discipline lives in CI</h3>
+      <p>The visible freshness pill <em>shows</em> drift; it doesn't <em>prevent</em> it. The workflow must be reliable. If CI fails silently for a week, the pills go amber, then red, and readers stop trusting them. Treat workflow failures as alerts, not noise.</p>
+
+      <h3>Strict mode is mandatory in CI</h3>
+      <p>Without <code>--strict</code>, an unrecognized fence renders as a code block and authors never notice. Always run with <code>--strict</code> in the workflow. Local runs can omit it for fast iteration.</p>
+
+      <h3>JSON schema is API once published</h3>
+      <p>The first time the manifest goes live, the schema is locked. Adding fields is fine. Renaming or removing fields requires a version bump and a deprecation window. Sketch the schema in a draft PR before merging if uncertain.</p>
+
+      <h3>Templates can become their own project</h3>
+      <p>Per-prefix templates have unlimited surface area &mdash; dark mode, print stylesheets, interactive filtering, search. Resist. Ship the three specialized templates in scope and defer everything else. Re-evaluate after one month of use.</p>
+
+      <h3>Mermaid CDN is a network dependency</h3>
+      <p>Architecture diagrams depend on a CDN-loaded Mermaid.js. If offline reading matters, vendor Mermaid into <code>templates/vendor/mermaid.min.js</code> and reference it locally. If not, the CDN is fine.</p>
+
+      <h3>Mid-rollout the docs site shows partial content</h3>
+      <p>The first push to the gh-pages branch will list only the files rendered so far. Either render-all on the first publish, or accept a half-empty index for one workflow run.</p>
+
+      <h3>The generator must read git for source mtime</h3>
+      <p>File system mtime is unreliable in CI (checkout resets it). Always use <code>git log</code> for <code>source_last_modified</code>. The workflow includes <code>fetch-depth: 0</code> for this reason.</p>
+
+      <div class="chips">
+        <span class="chips-label">Related:</span>
+        <a class="chip" href="#spec-render">SPEC-001</a>
+        <a class="chip" href="#spec-json">SPEC-003</a>
       </div>
     </section>
 
@@ -1189,26 +1336,26 @@ Used by readiness badges and status pills across all rendered views.</code></pre
 <footer class="doc-footer">
   <div class="footer-grid">
     <div>
-      <h3>Related Files</h3>
+      <h3>Files this execution plan touches</h3>
       <ul style="list-style: none; padding: 0; margin: 0;">
-        <li><code>SoT/SoT.DESIGN_COMPONENTS.md</code> &mdash; DES- entries, highest rendering payoff</li>
-        <li><code>SoT/SoT.TECHNICAL_DECISIONS.md</code> &mdash; ARC- entries, architecture diagrams</li>
-        <li><code>SoT/SoT.USER_JOURNEYS.md</code> &mdash; SCR-/UJ- entries, wireframes</li>
-        <li><code>scripts/readiness.py</code> &mdash; emits <code>status/readiness.json</code> for badges</li>
-        <li><code>.github/workflows/render-sot.yml</code> &mdash; new file, see PAGES-001</li>
-        <li><code>templates/</code> &mdash; new directory, see TPL-001</li>
+        <li><code>scripts/render-sot-html.py</code> &mdash; new</li>
+        <li><code>scripts/_render/*</code> &mdash; new package</li>
+        <li><code>templates/*</code> &mdash; new directory</li>
+        <li><code>.github/workflows/render-sot.yml</code> &mdash; new</li>
+        <li><code>SoT/SoT.README.md</code> &mdash; edit (new "Rendered Views" section)</li>
+        <li><code>README.md</code> &mdash; edit (link to Pages URL)</li>
+        <li><code>.gitignore</code> &mdash; edit (add <code>docs/</code>)</li>
       </ul>
     </div>
     <div>
-      <h3>Change Log</h3>
+      <h3>How to use this plan</h3>
+      <p style="margin: 0 0 8px;">Load this HTML into a fresh context window. The plan is self-contained &mdash; no prior conversation needed.</p>
+      <h3 style="margin-top: 18px;">Execute in order</h3>
+      <p style="margin: 0;">STEP-001 &rarr; STEP-002 &rarr; STEP-003 &rarr; STEP-004 &rarr; STEP-005. Each step has its own acceptance criteria; don&rsquo;t advance until they're met.</p>
+      <h3 style="margin-top: 18px;">Change Log</h3>
       <ul style="list-style: none; padding: 0; margin: 0;">
-        <li>2026-05-19 &middot; v2 refinement: shift to templated rendering, add design unlocks, render-date pattern, GitHub Pages, HeartBeat surface</li>
-        <li>2026-05-18 &middot; v1 initial assessment (recommended against migration)</li>
+        <li>2026-05-19 &middot; Converted from assessment to execution plan; removed background analysis sections</li>
       </ul>
-      <h3 style="margin-top: 18px;">Authority</h3>
-      <p style="margin: 0;">PRD-Led Context Engineering &middot; assessment artifact, not a binding decision</p>
-      <h3 style="margin-top: 18px;">Open Questions</h3>
-      <p style="margin: 0;">HeartBeat&rsquo;s exact role and audience &mdash; framing in HB-001 is an inferred assumption.</p>
     </div>
   </div>
 </footer>

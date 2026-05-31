@@ -2,6 +2,9 @@
 # GHM Subagent Memory Save Hook (SubagentStop)
 # Shell variant — see HOOK_CONTRACT.md for interface spec.
 #
+# Upgraded: Uses hookSpecificOutput/additionalContext (not systemMessage)
+# to inject memory extraction as an agent instruction, not a passive reminder.
+#
 # Dependencies: POSIX shell, grep, sed, awk (standard utilities)
 # No external packages required
 set -euo pipefail
@@ -12,7 +15,7 @@ json_output() {
   local context="$1"
   local json_context
   json_context=$(printf '%s' "$context" | sed 's/\\/\\\\/g; s/"/\\"/g' | awk '{if(NR>1) printf "\\n"; printf "%s", $0}')
-  printf '{"systemMessage": "%s"}\n' "$json_context"
+  printf '{"hookSpecificOutput": {"hookEventName": "SubagentStop", "additionalContext": "%s"}}\n' "$json_context"
 }
 
 # --- Main ---
@@ -35,20 +38,29 @@ main() {
   local hook_dir
   hook_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-  local reminder=""
+  local directive=""
 
-  # --- Memory checkpoint ---
+  # --- Memory extraction directive ---
   if [ -f "$memory_file" ]; then
-    reminder="## Memory Update Checkpoint
+    local current_memory
+    current_memory=$(cat "$memory_file")
 
-Agent: ${agent_type}
-Memory file: ${memory_file}
+    directive="## MANDATORY: Memory Extraction Before Return
 
-Before concluding, ensure the following were captured:
-  - New patterns discovered -> Patterns Learned table
-  - Decisions made -> Key Decisions table
-  - Collaboration friction -> Relevant section
-  - Open questions -> Open Questions list"
+Before returning your result, you MUST review your work this session and append entries to \`${memory_file}\` for:
+
+1. **Feedback**: Any correction you received or approach that was validated. Format: Rule. **Why:** reason. **How to apply:** when/where.
+2. **Patterns**: Anything you saw 2+ times that future agents should know. Format: Pattern. **Context:** where observed. **Action:** what to do.
+3. **Decisions**: Choices you made with non-obvious rationale. Format: Decision. **Why:** rationale. **Alternatives rejected:** what and why.
+4. **Handoff Notes**: Anything the next agent in the lifecycle will hit. Format: From→To. **Issue:** what broke. **Fix:** what works.
+
+Current memory (append to the appropriate section, don't overwrite):
+
+\`\`\`
+${current_memory}
+\`\`\`
+
+If nothing worth remembering happened, explicitly state 'No new memories to extract' rather than silently skipping."
   fi
 
   # --- Post-delegation drift check ---
@@ -67,14 +79,24 @@ ${drift_output}
 
 The subagent's work may have changed metrics without cascading.
 Review and update README Truth Table before continuing."
-        reminder="${reminder}${drift_msg}"
+        directive="${directive}${drift_msg}"
       fi
     fi
   fi
 
   # Only output if there's something to say
-  if [ -n "$reminder" ]; then
-    json_output "$reminder"
+  if [ -n "$directive" ]; then
+    json_output "$directive"
+  fi
+
+  # --- Git-based memory sync: auto-stage memory changes ---
+  # Runs AFTER stdout JSON output so it doesn't contaminate the hook response.
+  # Best-effort — never blocks the hook.
+  # Commit convention: memory({agent_type}): {summary}
+  if [ -f "$memory_file" ] && command -v git >/dev/null 2>&1; then
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+      git add "$memory_file" 2>/dev/null || true
+    fi
   fi
 
   exit 0

@@ -5,6 +5,15 @@ description: >
   Triggers on starting new products/features, validating market opportunities, drafting PRD Why sections,
   or requests like "frame the problem", "define pain points", "write problem statement", "start v0.1",
   "what problem are we solving". Outputs structured problem tables with CFD evidence IDs.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # Problem Framing Skill

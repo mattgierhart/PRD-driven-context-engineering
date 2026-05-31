@@ -7,6 +7,14 @@ description: >
   Triggers on requests to sync with template, update template version, check for template
   drift, or when user asks "sync template", "update to v3", "template drift", "check template version".
 disable-model-invocation: true
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Template Sync
@@ -42,12 +50,12 @@ Compare your repo structure against what the current template version expects:
 - `.claude/hooks/sot-update-trigger.py`
 - `.claude/agents/HORIZON.md` (replaced by subdirectory)
 - `.claude/agents/STUDIO.md`
-- `.claude/agents/WERK.md`
+- `.claude/agents/DEVLAB.md`
 - `.claude/agents/METRO.md`
 
 **Check for structure issues:**
 - `settings.json`: Does it use 3-level nesting? Are timeouts in seconds?
-- Agent directories: Do `horizon/`, `studio/`, `werk/`, `metro/` subdirectories exist with `AGENT.md` + `MEMORY.md`?
+- Agent directories: Do `horizon/`, `studio/`, `devlab/`, `metro/` subdirectories exist with `AGENT.md` + `MEMORY.md`?
 - EPIC template: Does it use semantic headers (not numbered)?
 - Frontmatter: Do key files have `template_version`?
 

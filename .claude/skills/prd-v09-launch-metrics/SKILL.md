@@ -5,11 +5,34 @@ description: >
   Triggers on requests to define launch metrics, set up tracking, or when user asks "how do we measure launch success?",
   "launch KPIs", "tracking setup", "success criteria", "analytics", "launch goals".
   Outputs KPI- entries specialized for launch measurement.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+
+execution_modes:
+  default: standard
+  supports: [quick, standard, deep]
 ---
 
 # Launch Metrics
 
 Position in workflow: v0.9 GTM Strategy → **v0.9 Launch Metrics** → v0.9 Feedback Loop Setup
+
+## Execution Mode
+
+Default is **standard**. See [`.claude/rules/08-skill-execution-modes.md`](../../rules/08-skill-execution-modes.md) for selection logic.
+
+| Mode | What this skill produces |
+|------|--------------------------|
+| **quick** | 3 KPIs (one each for Reach/Acquisition/Activation); Day 7 targets; basic dashboard |
+| **standard** | Full funnel (Reach → Referral); Day 1/7/30 targets; dashboards + alerts |
+| **deep** | Full funnel + tier targets + Day 1/7/30/90 + product-type calibration + cohort analysis |
 
 ## Consumes
 

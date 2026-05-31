@@ -67,7 +67,7 @@ MIGRATION.md
 **2. Restructure agents** (preserve your MEMORY.md content):
 
 ```
-# For each agent (horizon, studio, werk, metro):
+# For each agent (horizon, studio, devlab, metro):
 mkdir -p .claude/agents/horizon/
 # Copy AGENT.md from template (identity + skills - these are template-owned)
 # Keep YOUR MEMORY.md content (project-specific memory)

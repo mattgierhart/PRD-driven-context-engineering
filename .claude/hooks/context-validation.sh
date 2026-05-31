@@ -3,8 +3,7 @@
 # Shell variant — see HOOK_CONTRACT.md for interface spec.
 #
 # Dependencies: POSIX shell, grep, sed (standard utilities)
-# No external packages required
-# No local module imports
+# Optional: python3 for session lock timestamp math (graceful fallback if unavailable)
 set -euo pipefail
 
 # --- Helpers ---
@@ -96,6 +95,36 @@ This establishes:
 - Current project status and navigation (README.md)
 - Product definition and current lifecycle stage (PRD.md)
 ${epic_line}"
+
+  # --- EPIC session lock check ---
+  if [ -n "$epic_path" ] && [ -f "$epic_path" ]; then
+    local active_session
+    active_session=$(grep "Active Session" "$epic_path" | head -1 | sed 's/.*: //' || true)
+    # Check if session is set (not "none" or empty)
+    if [ -n "$active_session" ] && [ "$active_session" != "none" ]; then
+      # Try to extract ISO timestamp and check staleness via Python (macOS-compatible)
+      local lock_ts
+      lock_ts=$(echo "$active_session" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}' || true)
+      if [ -n "$lock_ts" ] && command -v python3 >/dev/null 2>&1; then
+        local hours_ago
+        hours_ago=$(python3 -c "
+from datetime import datetime
+try:
+    ts = datetime.fromisoformat('${lock_ts}')
+    diff = (datetime.now() - ts).total_seconds() / 3600
+    print(int(diff))
+except:
+    print(-1)
+" 2>/dev/null || echo "-1")
+        if [ "$hours_ago" -ge 0 ] && [ "$hours_ago" -lt 2 ]; then
+          local lock_user
+          lock_user=$(echo "$active_session" | sed 's/ \/.*//')
+          warning="${warning:+${warning}
+}EPIC Lock: ${epic_path##*/} has an active session by ${lock_user} (${hours_ago}h ago). Coordinate before making changes."
+        fi
+      fi
+    fi
+  fi
 
   if [ -n "$warning" ]; then
     directive="${warning}

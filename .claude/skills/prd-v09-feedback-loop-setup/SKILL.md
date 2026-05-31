@@ -5,11 +5,34 @@ description: >
   Triggers on requests to set up feedback systems, capture user input, or when user asks "how do we collect feedback?",
   "feedback loop", "user research", "post-launch feedback", "customer feedback", "NPS", "voice of customer".
   Outputs CFD- entries specialized for post-launch feedback capture.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+
+execution_modes:
+  default: standard
+  supports: [quick, standard, deep]
 ---
 
 # Feedback Loop Setup
 
 Position in workflow: v0.9 Launch Metrics → **v0.9 Feedback Loop Setup** → v1.0 Market Adoption
+
+## Execution Mode
+
+Default is **standard**. See [`.claude/rules/08-skill-execution-modes.md`](../../rules/08-skill-execution-modes.md) for selection logic.
+
+| Mode | What this skill produces |
+|------|--------------------------|
+| **quick** | 1–2 channels (in-app + support); basic triage workflow |
+| **standard** | 3–4 channels; full processing workflow + sentiment tracking + SLAs |
+| **deep** | All channels + closed-loop tracking + voice-of-customer synthesis + escalation rules |
 
 ## Consumes
 

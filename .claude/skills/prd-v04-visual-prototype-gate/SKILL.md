@@ -7,6 +7,13 @@ description: >
   Consumes SCR- (Screen Flow Definition), PER- (Personas), UJ- (User Journeys), DES- (Design Components).
   Outputs Stitch prompt blocks per SCR- entry + Feedback Capture Template. No new SoT IDs created —
   this skill makes existing SCR- entries visual and routes feedback back to them.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # Visual Prototype Gate

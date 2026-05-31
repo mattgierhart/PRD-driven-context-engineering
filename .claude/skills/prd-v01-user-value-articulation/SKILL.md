@@ -6,6 +6,15 @@ description: >
   or requests like "what value do users get", "define outcomes", "articulate the benefit",
   "finish v0.1", "pain to value", "what do they gain". Outputs CFD- entries tagged as value
   hypotheses with evidence tiers. Follows Problem Framing skill in workflow.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
 ---
 
 # User Value Articulation Skill

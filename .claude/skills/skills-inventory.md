@@ -28,14 +28,29 @@
 | **v0.7 Build Execution** | [Epic Scoping](#skill-epic-scoping) | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
 | **v0.7 Build Execution** | [Test Planning](#skill-test-planning) | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
 | **v0.7 Build Execution** | [Implementation Loop](#skill-implementation-loop) | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
-| **v0.8 Release & Deployment** | [Release Planning](#skill-release-planning) | ✅ Ready | [`prd-v08-release-planning/`](prd-v08-release-planning/) |
-| **v0.8 Release & Deployment** | [Runbook Creation](#skill-runbook-creation) | ✅ Ready | [`prd-v08-runbook-creation/`](prd-v08-runbook-creation/) |
-| **v0.8 Release & Deployment** | [Monitoring Setup](#skill-monitoring-setup) | ✅ Ready | [`prd-v08-monitoring-setup/`](prd-v08-monitoring-setup/) |
-| **v0.9 Launch** | [GTM Strategy](#skill-gtm-strategy) | ✅ Ready | [`prd-v09-gtm-strategy/`](prd-v09-gtm-strategy/) |
-| **v0.9 Launch** | [Launch Metrics](#skill-launch-metrics) | ✅ Ready | [`prd-v09-launch-metrics/`](prd-v09-launch-metrics/) |
-| **v0.9 Launch** | [Feedback Loop Setup](#skill-feedback-loop-setup) | ✅ Ready | [`prd-v09-feedback-loop-setup/`](prd-v09-feedback-loop-setup/) |
-| **Methodology** | [SoT Builder](#skill-sot-builder) | ✅ Ready | [`ghm-sot-builder/`](ghm-sot-builder/) |
-| **Methodology** | [Template Sync](#skill-template-sync) | ✅ Ready | [`ghm-template-sync/`](ghm-template-sync/) |
+| **v0.8 Release & Deployment** | Release Planning | ✅ Ready | [`prd-v08-release-planning/`](prd-v08-release-planning/) |
+| **v0.8 Release & Deployment** | Runbook Creation | ✅ Ready | [`prd-v08-runbook-creation/`](prd-v08-runbook-creation/) |
+| **v0.8 Release & Deployment** | Monitoring Setup | ✅ Ready | [`prd-v08-monitoring-setup/`](prd-v08-monitoring-setup/) |
+| **v0.8 Release & Deployment** | Changelog-as-Marketing | ✅ Ready | [`prd-v08-changelog-as-marketing/`](prd-v08-changelog-as-marketing/) |
+| **v0.8 Release & Deployment** | Drift Baseline/Compare | ✅ Ready | [`prd-v08-drift-baseline-compare/`](prd-v08-drift-baseline-compare/) |
+| **v0.8 Release & Deployment** | Marketing-Ops Handoff | ✅ Ready | [`prd-v08-marketing-ops-handoff/`](prd-v08-marketing-ops-handoff/) |
+| **v0.9 Launch** | GTM Strategy (orchestrator) | ✅ Ready | [`prd-v09-gtm-strategy/`](prd-v09-gtm-strategy/) |
+| **v0.9 Launch** | Positioning (Dunford) | ✅ Ready | [`prd-v09-positioning-dunford/`](prd-v09-positioning-dunford/) |
+| **v0.9 Launch** | Offer Construction (Hormozi) | ✅ Ready | [`prd-v09-offer-construction-hormozi/`](prd-v09-offer-construction-hormozi/) |
+| **v0.9 Launch** | Launch Channels (ORB) | ✅ Ready | [`prd-v09-launch-channels-orb/`](prd-v09-launch-channels-orb/) |
+| **v0.9 Launch** | AEO Audit | ✅ Ready | [`prd-v09-aeo-audit/`](prd-v09-aeo-audit/) |
+| **v0.9 Launch** | Alternatives Pages | ✅ Ready | [`prd-v09-alternatives-pages/`](prd-v09-alternatives-pages/) |
+| **v0.9 Launch** | Cold Outreach (Tiered) | ✅ Ready | [`prd-v09-cold-outreach-tiered/`](prd-v09-cold-outreach-tiered/) |
+| **v0.9 Launch** | HN + Reddit Launch | ✅ Ready | [`prd-v09-hn-reddit-launch/`](prd-v09-hn-reddit-launch/) |
+| **v0.9 Launch** | Launch Metrics | ✅ Ready | [`prd-v09-launch-metrics/`](prd-v09-launch-metrics/) |
+| **v0.9 Launch** | Feedback Loop Setup | ✅ Ready | [`prd-v09-feedback-loop-setup/`](prd-v09-feedback-loop-setup/) |
+| **v1.0 Market Adoption** | Crossing the Chasm (Moore) — the spine | ✅ Ready | [`prd-v10-chasm-adoption-moore/`](prd-v10-chasm-adoption-moore/) |
+| **v1.0 Market Adoption** | Continuous Discovery (Torres) | ✅ Ready | [`prd-v10-continuous-discovery-torres/`](prd-v10-continuous-discovery-torres/) |
+| **v1.0 Market Adoption** | Mom Test Interview (Fitzpatrick) | ✅ Ready | [`prd-v10-mom-test-interview/`](prd-v10-mom-test-interview/) |
+| **v1.0 Market Adoption** | Case Study Builder | ✅ Ready | [`prd-v10-case-study-builder/`](prd-v10-case-study-builder/) |
+| **v1.0 Market Adoption** | Testimonial Collector | ✅ Ready | [`prd-v10-testimonial-collector/`](prd-v10-testimonial-collector/) |
+| **Methodology** | SoT Builder | ✅ Ready | [`ghm-sot-builder/`](ghm-sot-builder/) |
+| **Methodology** | Template Sync | ✅ Ready | [`ghm-template-sync/`](ghm-template-sync/) |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 

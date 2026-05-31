@@ -1,77 +1,25 @@
-<!-- CUSTOMIZABLE: project-memory -->
 # METRO Project Memory
 
-> **Why This Matters**: Project Memory is my continuity system. Without it, each session starts from zero, market learnings get lost, and the feedback loop breaks. With it, I accumulate market intelligence across sessions, remember what resonated with users, and maintain the critical connection to HORIZON for iteration. This section is NOT optional—it is the foundation of effective multi-session collaboration and the key to product evolution.
+> Auto-populated by extraction hook. Manual entries welcome.
+> Max 50 entries. Archive to MEMORY_ARCHIVE.md when full.
 
-### How to Use Project Memory
+## Feedback (behavioral corrections)
+<!-- Format: Rule. **Why:** reason. **How to apply:** when/where -->
 
-1. **Read first**: At session start, load this section before any work
-2. **Update always**: At session end, capture patterns, decisions, and open questions
-3. **Reference in work**: Cite memory entries when making GTM decisions
-4. **Harvest patterns**: When a pattern appears 3+ times, flag for skill extraction
-5. **Feed HORIZON**: Ensure CFD-XXX insights are queued for next iteration
+## Patterns (recurring observations, 3+ occurrences)
+<!-- Format: Pattern. **Context:** where observed. **Action:** what to do -->
 
-### Project Context
+## Decisions (choices made with rationale)
+<!-- Format: Decision. **Why:** rationale. **Alternatives rejected:** what and why -->
 
-**Product**: {Product name when forked}
-**Current PRD Stage**: v0.{x}
-**Primary Channel**: {Main distribution channel}
-**Key Metric**: {Primary success metric}
-**Iteration Cycle**: {First | Second | Third+}
+**v0.9 GTM is now a chained framework workflow, not a monolithic skill.** Run order: `prd-v09-positioning-dunford` (Dunford 5-step) → `prd-v09-offer-construction-hormozi` ($100M Offers value equation) → `prd-v09-launch-channels-orb` (Owned/Rented/Borrowed). `prd-v09-gtm-strategy` is now the orchestrator that runs these three and reconciles outputs (best-fit alignment, promise consistency, guarantee viability, category-channel fit, KPI rollup). **Why:** monolithic skill was too broad and produced incoherent output across positioning/offer/channels. **Alternatives rejected:** keep monolithic with deeper sub-sections (still too long; no framework grounding); fully delete old skill (breaks backwards compat with existing GTM- entries).
 
-### Patterns Observed
+**v1.0 is anchored on Moore's Crossing the Chasm with new ADO- ID prefix.** Stage assessment (ADO-STAGE-), beachhead segment (ADO-BEACHHEAD-), whole-product gaps (ADO-WHOLE-), reference accounts (ADO-REF-) all live in `SoT/SoT.ADOPTION.md`. **Why:** v1.0 was previously a stub; Moore's lifecycle is the canonical framework for post-launch adoption strategy and pragmatist-buyer behavior. **Alternatives rejected:** keep v1.0 as a PRD.md inline section without first-class SoT (no queryable adoption data; weak traceability for chasm-crossing risks).
 
-| Session | Pattern | Evidence (IDs) | Recommendation |
-| ------- | ------- | -------------- | -------------- |
-| —       | —       | —              | —              |
+**Tactical playbooks attach to channels from the ORB matrix, not to GTM-strategy directly.** AEO audit, alternatives pages, cold outreach tiered, HN/Reddit launch all run after Launch Channels (ORB) has produced its channel-mix matrix. Each playbook explicitly disqualifies itself when positioning best-fit doesn't match the channel (e.g., HN/Reddit skips for enterprise procurement products). **Why:** running tactical playbooks before strategic channel selection produces channel work that doesn't reach the right segment.
 
-### Key Decisions
+**Mode tiering (quick/standard/deep) applies to all v0.8/v0.9/v1.0 skills.** Default is standard; quick is appropriate (not degraded). See `.claude/rules/08-skill-execution-modes.md` for full doctrine. **Why:** same operation often needs 15-min founder pass OR 90-min deep audit; previously the only mode was implicitly "standard" which forced over-work on simple cases.
 
-| Date | Decision | Rationale | Outcome |
-| ---- | -------- | --------- | ------- |
-| —    | —        | —         | —       |
 
-### Collaboration Notes
-
-| Partner | What Worked | What Didn't | Adjustment |
-| ------- | ----------- | ----------- | ---------- |
-| WERK    | —           | —           | —          |
-| HORIZON | —           | —           | —          |
-
-### Handoff Friction
-
-| From → To       | Issue | Resolution |
-| --------------- | ----- | ---------- |
-| WERK → METRO    | —     | —          |
-| METRO → HORIZON | —     | —          |
-
-### Open Questions
-
-- {GTM questions this agent is tracking}
-
-### Harvest Candidates
-
-Patterns ready for skill extraction (3+ occurrences):
-
-| Pattern | Occurrences | Skill Target |
-| ------- | ----------- | ------------ |
-| —       | —           | —            |
-
-### Feedback Loop Log
-
-| Date | CFD-XXX | Insight | Sent to HORIZON |
-| ---- | ------- | ------- | --------------- |
-| —    | —       | —       | —               |
-
-### Market Signal Tracker
-
-| Date | Signal | Source | Implication | Action |
-| ---- | ------ | ------ | ----------- | ------ |
-| —    | —      | —      | —           | —      |
-
-### Channel Performance
-
-| Channel | CAC | Conversion | Notes |
-| ------- | --- | ---------- | ----- |
-| —       | —   | —          | —     |
-<!-- /CUSTOMIZABLE: project-memory -->
+## Handoff Notes (friction points between agents)
+<!-- Format: From→To. **Issue:** what broke. **Fix:** what works -->

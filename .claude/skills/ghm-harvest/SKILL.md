@@ -4,6 +4,13 @@ description: >
   Extracts durable insights from temp/ files to SoT during EPIC Phase E.
   Triggers at EPIC completion or explicit `/ghm-harvest` invocation.
   Outputs new SoT entries and archive manifest.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # Harvest

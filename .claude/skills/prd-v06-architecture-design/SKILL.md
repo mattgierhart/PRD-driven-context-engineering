@@ -1,6 +1,13 @@
 ---
 name: prd-v06-architecture-design
 description: Define how system components connect, establishing boundaries, patterns, and integration approaches during PRD v0.6 Architecture. Triggers on requests to design architecture, create system design, define component relationships, or when user asks "design architecture", "system design", "how do components connect?", "architecture decisions", "technical architecture", "system overview". Consumes TECH- (stack selections), RISK- (constraints), FEA- (features). Outputs ARC- entries documenting architecture decisions with rationale. Feeds v0.6 Technical Specification.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # Architecture Design

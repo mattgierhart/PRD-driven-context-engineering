@@ -1,26 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "permissions": {
-    "allow": [
-      "Read",
-      "Glob",
-      "Grep"
-    ],
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./SoT/**)",
-      "Read(./secrets/**)",
-      "Read(./credentials/**)",
-      "Bash(cat .env*)",
-      "Bash(cat */secrets/*)"
-    ],
-    "defaultMode": "default"
-  },
-  "plansDirectory": "./plans",
-  "enabledMcpjsonServers": [
-    "playwright"
-  ],
   "hooks": {
     "SessionStart": [
       {
@@ -29,12 +7,6 @@
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context-validation.sh",
             "timeout": 10
-          },
-          {
-            "type": "command",
-            "command": "./.claude/hooks/otel-governance-check.sh",
-            "timeout": 15,
-            "statusMessage": "Governance check..."
           }
         ]
       }
@@ -50,47 +22,6 @@
         ]
       }
     ],
-    "PreToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./.claude/hooks/protect-files.sh",
-            "timeout": 5
-          },
-          {
-            "type": "command",
-            "command": "./.claude/hooks/log-hook-event.sh",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "if": "Bash(git *)",
-            "command": "./.claude/hooks/log-hook-event.sh",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ~/.claude/hooks/agent-execution-logger.sh",
-            "timeout": 5,
-            "statusMessage": "Agent execution logging"
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "hooks": [
@@ -98,12 +29,6 @@
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sot-update-trigger.sh",
             "timeout": 15
-          },
-          {
-            "type": "command",
-            "command": "bash ./.claude/hooks/quality-gate-stop.sh",
-            "timeout": 15,
-            "statusMessage": "Quality gate check"
           }
         ]
       }
@@ -129,6 +54,33 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/traceability-gate.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sot-sync-reminder.sh",
+            "timeout": 5
+          }
+        ]
+      }
     ]
+  },
+  "permissions": {
+    "allow": []
   }
 }

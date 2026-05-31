@@ -111,7 +111,7 @@ To make memory infrastructure practical, we use an **intentional architecture** 
 
 ### 1. Executive Functions: Building AI's instincts
 
-This layer orients attention and sets priorities.
+This layer orients attention and sets priorities. Files load in stable→volatile order (README → PRD → EPIC) to maximize prompt cache hits across turns.
 
 - `README.md`: The Dashboard. The status, TOC, and "instincts" of the project (where am I? what is active?).
 - `PRD.md`: The Strategy. The "Why" and "What" of the product.
@@ -142,6 +142,43 @@ This layer orients attention and sets priorities.
 
 ---
 
+<!-- SECTION: readiness-scoring -->
+## Readiness Scoring
+
+The ecosystem is self-assessing. Before advancing a stage or starting an EPIC, the repo knows whether it's ready — and why.
+
+Readiness scoring is a **three-layer graph** over the artifacts you already author:
+
+1. **SoT files** — the primitive. Each file is scored on entry count, depth, cross-reference density, and orphan rate. A placeholder `SoT.TESTING.md` scores 0.
+2. **EPICs** — composed from SoT scores. An EPIC inherits the readiness of every file it references via its Section 3 "Context & IDs". Dangling refs, empty test files, or unresolved assumptions surface as unmet criteria. Each cap cites the SoT file that caused it.
+3. **PRD stage** — composed from both. Answers "can we advance v0.X → v0.Y?" by checking gate-criteria's mandatory artifacts plus the relevant SoT and EPIC scores.
+
+All three layers write to one file: `status/readiness.json`. The causal links stay in the JSON — an EPIC's unmet criterion points at its `caused_by` SoT file; a SoT file's block lists its `consumed_by_epics`; the top-level `summary.top_blockers` ranks files by downstream impact. This is the leverage view: the highest-impact fix might not be the lowest-scoring file — it's the lowest-scoring file blocking the most EPICs.
+
+### Invocation
+
+```bash
+python scripts/readiness.py run        # compute all layers + print report
+python scripts/readiness.py status     # print last-computed report
+python scripts/readiness.py run --json # machine-readable output for hooks/CI
+```
+
+Exit codes: `0` all pass, `1` something in WARN band, `2` something in BLOCK band. Thresholds default to warn=70, block=50 and can be overridden per-item in `readiness_inputs:` frontmatter.
+
+### Where scores show up
+
+- `status/readiness.json` — the single machine-readable source.
+- `readiness.py`'s text report — one-page "what to fix first" output.
+- `ghm-gate-check` skill — delegates to `readiness.py` for stage-advancement decisions (rule 05 still applies: if WARN or BLOCK, update the EPIC and STOP).
+
+### Deeper reading
+
+- [`.claude/rules/07-readiness-protocol.md`](.claude/rules/07-readiness-protocol.md) — the discipline rule.
+- [`docs/READINESS_PROTOCOL.md`](docs/READINESS_PROTOCOL.md) — full schema reference: `readiness_inputs` YAML shape, `readiness.json` structure, every dimension with its formula, penalty math, critical caps, and how to extend it.
+<!-- /SECTION: readiness-scoring -->
+
+---
+
 <!-- SECTION: lifecycle -->
 ## The Progressive PRD
 
@@ -168,9 +205,9 @@ We do not proceed to the next stage until the **Definition of Done (DoD)** is me
 | **v0.5** | **Red Team Review**      | Risks & Feasibility   | Multi-perspective review (6 personas), risks identified, mitigations linked. |
 | **v0.6** | **Architecture**         | Technical Strategy    | Stack selected, API contracts (`API-`) drafted, Cost guardrails.   |
 | **v0.7** | **Build Execution**      | Implementation Loop   | A/B test design, code tested (`TEST-`), SoT updated, Epic loop execution. |
-| **v0.8** | **Release & Deployment** | Operational Readiness | Release notes, Runbooks (`RUN-`), Monitoring (`MON-`), Rollback plan. |
-| **v0.9** | **Launch**               | Go-to-Market          | Launch metrics (`KPI-`), Feedback channels (`CFD-`) active.        |
-| **v1.0** | **Growth**               | Market Adoption       | Retention analysis, Churn patterns, Optimization loop.           |
+| **v0.8** | **Release & Deployment** | Operational Readiness | Release notes, Runbooks (`RUN-`), Monitoring (`MON-`, `MON-DRIFT-`), Rollback plan, Changelog system, MOPS handoff. |
+| **v0.9** | **Launch**               | Go-to-Market          | Positioning (Dunford), Offer (Hormozi), Channels (ORB), Launch metrics (`KPI-`), Feedback channels (`CFD-`), Tactical playbooks (AEO, alternatives, outreach, HN/Reddit). |
+| **v1.0** | **Growth**               | Market Adoption       | Adoption stage (`ADO-STAGE-`), Beachhead (`ADO-BEACHHEAD-`), Whole product (`ADO-WHOLE-`), References (`ADO-REF-`), Retention & churn analysis, Continuous discovery, Case studies, Testimonials. |
 
 ### The Iterative Ecosystem
 
@@ -250,7 +287,7 @@ No feature advances to review (v0.8 gate) without:
 - **Daily monitoring plan:** Named owner checks dashboard daily for 7 days post-launch
 - **MON- entry:** A documented monitoring specification in `SoT/SoT.DEPLOYMENT.md` required before gate passes
 
-For more details, see [`CLAUDE.md` Section 4](CLAUDE.md#4-pm-governance-rules).
+For more details, see [`.claude/rules/09-pm-governance.md`](.claude/rules/09-pm-governance.md).
 <!-- /SECTION: pm-governance -->
 
 ---
@@ -279,13 +316,38 @@ For more details, see [`CLAUDE.md` Section 4](CLAUDE.md#4-pm-governance-rules).
 ### `.claude` Methodology Layer (Current Behavior)
 
 - **Skills are split by intent**: `prd-v*` skills map to lifecycle stages; `ghm-*` skills handle operational work like gate checks, ID hygiene, SoT building, and status synchronization. New lifecycle skills enhance specific stages: `prd-v05-multi-perspective-review` (Red Team with 6 reviewer personas), `prd-v07-ab-test-design` (experiment design before build), `prd-v08-release-notes-writer` (user-facing release notes), `prd-v10-retention-analyzer` (post-launch growth analysis).
-- **Hooks are event-driven**: `SessionStart` injects read order, `UserPromptSubmit` checks context density for epic/gate prompts, and `Stop` reminds on SoT cascade updates.
-- **Subagent memory is automated**: `SubagentStart` loads agent memory, while `SubagentStop` prompts memory updates and runs a post-delegation drift check.
+- **Hooks are event-driven**: `SessionStart` injects read order, `UserPromptSubmit` checks context density for epic/gate prompts, `PreToolUse` verifies an active EPIC before code writes, and `Stop` reminds on SoT cascade updates.
+- **Agent memory persists across the PRD lifecycle**: Each agent (horizon, studio, devlab, metro) accumulates Feedback, Patterns, Decisions, and Handoff Notes in `MEMORY.md`. The `SubagentStop` hook actively extracts memories from the conversation — not a passive reminder, but an instruction the agent must follow. During EPIC Phase E, entries with cross-EPIC relevance are promoted to `SoT/SoT.LESSONS_LEARNED.md` as durable LL-XXX entries. The 50th session is smarter than the 1st because the knowledge graph grows with every EPIC.
+- **Multi-agent EPIC coordination**: EPICs support a `multi-agent` coordination mode where the human orchestrates parallel agent work. Phase A defines an Agent Routing table mapping agents to phases. A Synthesis Checkpoint between planning and implementation requires the coordinator to produce specific implementation specs and self-contained prompts before workers begin — workers cannot see the EPIC or conversation history, only their prompt. This prevents the "telephone game" where context degrades through delegation.
+- **Squad dashboard**: The `## Squad Status` section in README.md shows agent activity (last active, current EPIC, status) and EPIC status at a glance — replacing async standups with file-based coordination. Updated by the `ghm-status-sync` skill.
 - **Hook behavior is standardized**: `.claude/hooks/HOOK_CONTRACT.md` keeps the interface consistent even when scripts are swapped or extended.
-- **PM Governance enforced**: `CLAUDE.md` Section 4 defines PM Shipping Zone (what can commit directly), AI Prompt Compliance Gate (eval requirements before merge), and Observability DoD (monitoring gates before feature review). See [`CLAUDE.md` Section 4](CLAUDE.md#4-pm-governance-rules) for details.
+- **PM Governance enforced**: `.claude/rules/09-pm-governance.md` defines PM Shipping Zone (what can commit directly), AI Prompt Compliance Gate (eval requirements before merge), and Observability DoD (monitoring gates before feature review). See [`.claude/rules/09-pm-governance.md`](.claude/rules/09-pm-governance.md) for details.
 
 > **Fork Note**: This `README.md` explains the methodology. When you fork this repo for a product, copy `README_template.md` to `README.md` and customize it for that product.
 <!-- /SECTION: repo-structure -->
+
+---
+
+<!-- SECTION: squad-status -->
+## Squad Status
+
+<!-- Updated by ghm-status-sync skill -->
+
+### Agent Activity
+
+| Agent | Role | Last Active | Current EPIC | Status |
+|-------|------|-------------|--------------|--------|
+| horizon | Strategy (v0.1-v0.5) | — | — | idle |
+| studio | Design (v0.3-v0.6) | — | — | idle |
+| devlab | Build (v0.6-v0.8) | — | — | idle |
+| metro | Ops (v0.9-v1.0) | — | — | idle |
+
+### EPIC Status
+
+| EPIC | State | Lead | Last Updated |
+|------|-------|------|--------------|
+| _(no active EPICs)_ | — | — | — |
+<!-- /SECTION: squad-status -->
 
 ---
 

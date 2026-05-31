@@ -5,11 +5,33 @@ description: >
   Triggers on requests to set up monitoring, define alerts, or when user asks "what should we monitor?",
   "alerting strategy", "observability", "metrics", "SLOs", "dashboards", "monitoring setup".
   Outputs MON- entries with monitoring rules and alert configurations.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
+
+execution_modes:
+  default: standard
+  supports: [quick, standard, deep]
 ---
 
 # Monitoring Setup
 
 Position in workflow: v0.8 Runbook Creation → **v0.8 Monitoring Setup** → v0.9 GTM Strategy
+
+## Execution Mode
+
+Default is **standard**. See [`.claude/rules/08-skill-execution-modes.md`](../../rules/08-skill-execution-modes.md) for selection logic.
+
+| Mode | What this skill produces |
+|------|--------------------------|
+| **quick** | RED metrics on critical path only; 3–5 alerts linked to RUN-; single overview dashboard |
+| **standard** | RED + USE coverage; SLOs for tier-1 services; full alert routing to RUN-; dashboards by audience |
+| **deep** | Layered coverage (RED + USE + business + UX); multi-tier SLOs with error budgets; baseline calibration from staging; escalation routing |
 
 ## Consumes
 

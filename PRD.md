@@ -310,39 +310,89 @@ For each deployment target (web, mobile, API), document:
 
 ## v0.9 Go-to-Market — Launch & Feedback
 
-> **ID Note**: GTM-XXX (Go-to-Market) IDs are defined inline in this section, not in a separate SoT file.
+> **ID Note**: GTM-XXX (Go-to-Market) IDs are defined inline in this section, not in a separate SoT file. GTM- entries are typed: `Positioning`, `Offer`, `Guarantee`, `Channel`, `Sequence`, `Index`, `AEO`, `OUT` (outreach), `CHG` (changelog), `MOPS` (marketing-ops), `CASE`, `TST` (testimonial).
+> **Skills**: v0.9 runs as a chained workflow — `prd-v09-positioning-dunford` → `prd-v09-offer-construction-hormozi` → `prd-v09-launch-channels-orb`, orchestrated by `prd-v09-gtm-strategy`. Tactical playbooks (`aeo-audit`, `alternatives-pages`, `cold-outreach-tiered`, `hn-reddit-launch`) attach to specific channels.
 
-**Launch Plan Summary**
+**Positioning** (from `prd-v09-positioning-dunford`, Dunford 5-step)
 
-- Channels: {Email / Sales / Community}
-- Messaging Pillars: {1-3 bullets}
-- Launch Owner: {Name / Team}
+- Best-fit segment: PER-### (sharpened)
+- Category claim: {frame of reference}
+- Positioning statement: GTM-###
+- Positioning rules: BR-POS-###
+
+**Offer** (from `prd-v09-offer-construction-hormozi`)
+
+- Core promise: {one-sentence outcome}
+- Stack value vs price: {ratio ≥ 3:1}
+- Guarantee: GTM-### (Type=Guarantee)
+
+**Launch Channels** (from `prd-v09-launch-channels-orb`, Owned/Rented/Borrowed)
+
+- Owned: GTM-###
+- Rented: GTM-###
+- Borrowed: GTM-###
+- Channel-mix matrix: GTM-### (Type=Sequence)
+
+**Tactical Plays Active**
+
+- AEO/AI search: GTM-AEO-### (from `prd-v09-aeo-audit`)
+- Alternatives pages: SCR-ALT-### (from `prd-v09-alternatives-pages`)
+- Cold outreach tiers: GTM-OUT-### (from `prd-v09-cold-outreach-tiered`)
+- HN / Reddit launch: GTM-### Type=Channel-HN / Channel-Reddit (from `prd-v09-hn-reddit-launch`)
 
 **Analytics & Feedback Loop**
 
-- Key Metrics: {Metric + target}
-- Feedback Sources: {CFD-###, analytics dashboards}
+- Launch metrics: KPI-### (from `prd-v09-launch-metrics`)
+- Feedback sources: CFD-###, analytics dashboards
+- Reconciliation: GTM-### (Type=Index, by `prd-v09-gtm-strategy` orchestrator)
 
 **Outstanding Work → v1.0**
 
-- {Adoption / revenue milestone}
+- {Adoption stage assessment readiness}
+- {Beachhead candidate hypothesis}
 
 ---
 
-## v1.0 Market Adoption — Optimize & Expand
+## v1.0 Market Adoption — Crossing the Chasm
 
-**Adoption Status**
+> **Spine**: This stage runs on Geoffrey Moore's *Crossing the Chasm*. See [`SoT/SoT.ADOPTION.md`](SoT/SoT.ADOPTION.md) for the full ADO- entry registry.
+> **ID Note**: ADO-XXX (Adoption) IDs are defined in `SoT/SoT.ADOPTION.md` (not inline). Sub-types: `ADO-STAGE-`, `ADO-BEACHHEAD-`, `ADO-WHOLE-`, `ADO-REF-`.
 
-- Paying Customers: {# / MRR}
-- Usage Health: {Metric + target}
+**Adoption Stage Assessment** (from `prd-v10-chasm-adoption-moore`)
+
+- Current stage: ADO-STAGE-### → {Innovators / Early Adopters / At the Chasm / Bowling Alley / Tornado / Main Street}
+- Evidence: {Paying-customer composition + interview cohort}
+- Confidence: X/5
+
+**Beachhead Strategy** (when at or beyond the chasm)
+
+- Beachhead segment: ADO-BEACHHEAD-###
+- Whole-product gaps: ADO-WHOLE-### (blockers + serious)
+- Reference accounts in cultivation: ADO-REF-### (count + status)
+
+**Discovery + Validation** (continuous)
+
+- Discovery cadence: 3+ interviews/week via `prd-v10-continuous-discovery-torres` + `prd-v10-mom-test-interview`
+- Opportunity Solution Tree: `temp/<epic>_discovery-tree.md` (harvested to CFD-/UJ-/ADO- at EPIC close)
+
+**Social Proof Production**
+
+- Case studies: CFD-CASE-### + GTM-CASE-### (from `prd-v10-case-study-builder`)
+- Testimonials: CFD-TST-### + GTM-TST-### (from `prd-v10-testimonial-collector`)
+
+**Adoption Health**
+
+- Paying customers: {# / MRR}
+- Retention shape (cohort): {Day 7 / 30 / 90 retention by cohort}
+- Adoption-stage drift: monitored via `prd-v08-drift-baseline-compare` (MON-DRIFT-### baselines)
 
 **Optimization Backlog**
 
-- {Idea / hypothesis} → EPIC-{YY}
+- {Idea / hypothesis from discovery} → EPIC-{YY}
 
 **Future Bets & Loopbacks**
 
-- {Potential revisits to earlier lifecycle stages}
+- {Potential revisits to earlier lifecycle stages — usually triggered by ADO-STAGE re-assessment}
 
 ---
 

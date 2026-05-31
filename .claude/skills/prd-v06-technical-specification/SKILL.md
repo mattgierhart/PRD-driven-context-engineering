@@ -1,6 +1,13 @@
 ---
 name: prd-v06-technical-specification
 description: Define implementation contracts (APIs and data models) that developers will build against during PRD v0.6 Architecture. Triggers on requests to define APIs, design database schema, create data models, or when user asks "define APIs", "data model", "database schema", "API contracts", "technical spec", "endpoint design", "schema design". Consumes ARC- (architecture), TECH- (Build items), UJ- (flows), SCR- (screens). Outputs API- entries for endpoints and DBT- entries for data models. Feeds v0.7 Build Execution.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # Technical Specification

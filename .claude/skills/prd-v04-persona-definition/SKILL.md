@@ -1,6 +1,13 @@
 ---
 name: prd-v04-persona-definition
 description: Synthesize behavioral personas from prior stage evidence for journey mapping and marketing during PRD v0.4 User Journeys. Triggers on requests to define personas, create user profiles, identify target users, or when user asks "who are our users?", "define personas", "user profiles", "target users", "persona creation", "who uses this product?". Consumes CFD- (v0.1-v0.3), BR- (targeting from v0.3 Moat), FEA- (v0.3 Feature Value Planning). Outputs PER- entries with behavioral profiles and feature relationships. Feeds v0.4 User Journey Mapping.
+context: fork
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
 # Persona Definition

@@ -52,9 +52,24 @@ skills/
 ├── prd-v08-release-planning/              # v0.8 Release
 ├── prd-v08-runbook-creation/              # v0.8 Release
 ├── prd-v08-monitoring-setup/              # v0.8 Release
-├── prd-v09-gtm-strategy/                  # v0.9 Launch
+├── prd-v08-changelog-as-marketing/        # v0.8 Release (bridge to GTM)
+├── prd-v08-drift-baseline-compare/        # v0.8 Release (drift monitoring)
+├── prd-v08-marketing-ops-handoff/         # v0.8 Release (lead lifecycle)
+├── prd-v09-gtm-strategy/                  # v0.9 Launch (orchestrator)
+├── prd-v09-positioning-dunford/           # v0.9 Launch (Dunford 5-step)
+├── prd-v09-offer-construction-hormozi/    # v0.9 Launch (Hormozi $100M Offers)
+├── prd-v09-launch-channels-orb/           # v0.9 Launch (ORB framework)
+├── prd-v09-aeo-audit/                     # v0.9 Launch (AI search visibility)
+├── prd-v09-alternatives-pages/            # v0.9 Launch (X-vs-Y SEO pages)
+├── prd-v09-cold-outreach-tiered/          # v0.9 Launch (Tier 1/2/3 outreach)
+├── prd-v09-hn-reddit-launch/              # v0.9 Launch (HN + Reddit playbook)
 ├── prd-v09-launch-metrics/                # v0.9 Launch
 ├── prd-v09-feedback-loop-setup/           # v0.9 Launch
+├── prd-v10-chasm-adoption-moore/          # v1.0 Adoption (Moore — the spine)
+├── prd-v10-continuous-discovery-torres/   # v1.0 Adoption (Torres)
+├── prd-v10-mom-test-interview/            # v1.0 Adoption (Fitzpatrick)
+├── prd-v10-case-study-builder/            # v1.0 Adoption (social proof)
+├── prd-v10-testimonial-collector/         # v1.0 Adoption (social proof)
 ├── ghm-gate-check/                        # Methodology
 ├── ghm-id-register/                       # Methodology
 ├── ghm-status-sync/                       # Methodology
@@ -62,7 +77,7 @@ skills/
 └── ghm-sot-builder/                       # Methodology
 ```
 
-**29 skills total** covering the complete PRD lifecycle v0.1→v1.0.
+**44 skills total** covering the complete PRD lifecycle v0.1→v1.0, including framework-grounded v0.9 (Dunford / Hormozi / ORB) and v1.0 (Moore Chasm / Torres / Mom Test) skills.
 
 ---
 
@@ -77,8 +92,9 @@ skills/
 | **v0.5 Red Team**  | Risk Discovery Interview, Technical Stack Selection              | 2     |
 | **v0.6 Arch**      | Architecture Design, Technical Specification                     | 2     |
 | **v0.7 Build**     | Epic Scoping, Test Planning, Implementation Loop                 | 3     |
-| **v0.8 Release**   | Release Planning, Runbook Creation, Monitoring Setup             | 3     |
-| **v0.9 Launch**    | GTM Strategy, Launch Metrics, Feedback Loop Setup                | 3     |
+| **v0.8 Release**   | Release Planning, Runbook Creation, Monitoring Setup, Changelog-as-Marketing, Drift Baseline/Compare, Marketing-Ops Handoff | 6     |
+| **v0.9 Launch**    | GTM Strategy (orchestrator), Positioning (Dunford), Offer Construction (Hormozi), Launch Channels (ORB), AEO Audit, Alternatives Pages, Cold Outreach Tiered, HN/Reddit Launch, Launch Metrics, Feedback Loop Setup | 10    |
+| **v1.0 Adoption**  | Crossing the Chasm (Moore), Continuous Discovery (Torres), Mom Test Interview (Fitzpatrick), Case Study Builder, Testimonial Collector | 5     |
 | **Methodology**    | Gate Check, ID Register, Status Sync, Harvest, SoT Builder       | 5     |
 
 See [`skills-inventory.md`](skills-inventory.md) for full specifications.

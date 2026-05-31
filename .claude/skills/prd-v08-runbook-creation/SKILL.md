@@ -13,11 +13,25 @@ allowed-tools:
   - Glob
   - Grep
   - Bash
+
+execution_modes:
+  default: standard
+  supports: [quick, standard, deep]
 ---
 
 # Runbook Creation
 
 Position in workflow: v0.8 Release Planning → **v0.8 Runbook Creation** → v0.8 Monitoring Setup
+
+## Execution Mode
+
+Default is **standard**. See [`.claude/rules/08-skill-execution-modes.md`](../../rules/08-skill-execution-modes.md) for selection logic.
+
+| Mode | What this skill produces |
+|------|--------------------------|
+| **quick** | 2–3 runbooks covering the top RISK-/MON- pairs |
+| **standard** | Incident + deployment + maintenance runbooks linked to MON- and DEP-, with escalation paths |
+| **deep** | Full matrix + drill schedule + recovery scenarios + tabletop exercise outputs |
 
 ## Consumes
 

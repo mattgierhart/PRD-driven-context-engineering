@@ -37,11 +37,12 @@ id_prefixes:
   ARC:  { file: "SoT/SoT.TECHNICAL_DECISIONS.md",   description: "Architecture decisions" }
   INT:  { file: "SoT/SoT.INTEGRATIONS.md",          description: "Integrations" }
   LL:   { file: "SoT/SoT.LESSONS_LEARNED.md",       description: "Lessons learned (cross-session feedback)" }
+  ADO:  { file: "SoT/SoT.ADOPTION.md",               description: "Adoption-stage data (Moore Chasm — stage, beachhead, whole-product, references)" }
 
   # PRD/README-owned IDs
   FEA:  { file: "PRD.md",    description: "Features (PRD-owned, v0.3)" }
   RISK: { file: "PRD.md",    description: "Risks (PRD-owned, v0.5)" }
-  GTM:  { file: "PRD.md",    description: "Go-to-market (PRD-owned, v0.9)" }
+  GTM:  { file: "PRD.md",    description: "Go-to-market (PRD-owned, v0.9 — Type sub-codes: Positioning, Offer, Guarantee, Channel, Sequence, Index, AEO, OUT, CHG, MOPS, CASE, TST)" }
   KPI:  { file: "README.md", description: "KPI metrics (README-owned)" }
 
   # Execution IDs
@@ -81,9 +82,24 @@ skills:
     - prd-v08-monitoring-setup
     - prd-v08-release-planning
     - prd-v08-runbook-creation
+    - prd-v08-changelog-as-marketing
+    - prd-v08-drift-baseline-compare
+    - prd-v08-marketing-ops-handoff
     - prd-v09-feedback-loop-setup
     - prd-v09-gtm-strategy
     - prd-v09-launch-metrics
+    - prd-v09-positioning-dunford
+    - prd-v09-offer-construction-hormozi
+    - prd-v09-launch-channels-orb
+    - prd-v09-aeo-audit
+    - prd-v09-alternatives-pages
+    - prd-v09-cold-outreach-tiered
+    - prd-v09-hn-reddit-launch
+    - prd-v10-chasm-adoption-moore
+    - prd-v10-continuous-discovery-torres
+    - prd-v10-mom-test-interview
+    - prd-v10-case-study-builder
+    - prd-v10-testimonial-collector
 
 # --- Agent Registry ---
 # Product-lifecycle agents. Non-product repos may drop these entirely.

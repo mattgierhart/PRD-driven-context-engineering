@@ -13,11 +13,25 @@ allowed-tools:
   - Glob
   - Grep
   - Bash
+
+execution_modes:
+  default: standard
+  supports: [quick, standard, deep]
 ---
 
 # Release Planning
 
 Position in workflow: v0.7 Implementation Loop → **v0.8 Release Planning** → v0.8 Runbook Creation
+
+## Execution Mode
+
+Default is **standard**. See [`.claude/rules/08-skill-execution-modes.md`](../../rules/08-skill-execution-modes.md) for selection logic.
+
+| Mode | What this skill produces |
+|------|--------------------------|
+| **quick** | Staging→prod only; 3–5 release criteria; one rollback trigger |
+| **standard** | Dev/staging/preview/prod environments; full criteria checklist; multiple rollback triggers; post-deploy validation |
+| **deep** | Full environments + IaC review + canary/blue-green strategy + risk-weighted criteria + post-mortem hooks |
 
 ## Consumes
 

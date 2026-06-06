@@ -194,6 +194,10 @@ Each dimension scores 0–100. Dimensions that can't be evaluated (e.g. no Confi
 | `confidence_avg` | 0.15 | Mean confidence of referenced IDs (scaled to 0–100). Auto-disabled if no Confidence fields found. |
 | `status_maturity` | 0.05 | Percentage of resolved IDs with `Status ≠ Draft`. Auto-disabled if no Status fields found. |
 | `file_readiness` | 0.05 | Percentage of SoT files the EPIC depends on that contain real entries (not placeholders). Catches `SoT.USER_JOURNEYS.md: *Pending PRD development*` cases. |
+| `implementation_coverage` | 0.10 | **(Development Graph, v0.6→v0.7)** Of the EPIC's buildable specs (prefixes `BR/API/DBT/ENT/FEA/SCR/UJ` in Section 3), the fraction with implementing code — a spec node in `status/devgraph.json` whose `status` is `implemented`/`implemented_unverified`. The build-vs-blueprint signal. Auto-disabled when no dev graph exists. |
+| `architecture_conformance` | 0.05 | **(Development Graph, v0.6→v0.7)** Of the `ARC-` rules referenced by the EPIC, the fraction whose conformance `verdict` is `pass` in the dev graph. Catches code that has drifted from a recorded architecture decision. Auto-disabled when no dev graph exists or the EPIC touches no checked `ARC-` rule. |
+
+> **Development Graph dimensions** read `status/devgraph.json` — see [`DEVELOPMENT_GRAPH.md`](DEVELOPMENT_GRAPH.md) for the schema (the HeartBeat data contract). They are **additive** to the nine spec-phase dimensions: raw weights are relative and renormalized at runtime (§8), so adding two dormant dimensions changes **no** score for a repo that has not yet built anything. They activate only once a v0.7 build produces a dev graph.
 
 ### Stage dimensions
 
@@ -288,6 +292,7 @@ final_score    = min(cap, max(0, weighted_score − penalty))
 | `test_coverage_zero` | 55 | `test_coverage_declared == 0` and EPIC references any API-/BR-. |
 | `spec_resolution_low` | 60 | `spec_resolution < 80%` — too many dangling IDs. |
 | `stub_sot_file` | 60 | Any SoT file the EPIC depends on is a placeholder stub. |
+| `unbuilt_specs` | 60 | `implementation_coverage < 50%` — most scoped specs have no implementing code. Only fires once a dev graph exists (dormant pre-build). Cites the SoT file owning the most unbuilt specs. |
 
 **Critical caps** (Stage):
 

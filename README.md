@@ -155,6 +155,10 @@ Readiness scoring is a **three-layer graph** over the artifacts you already auth
 
 All three layers write to one file: `status/readiness.json`. The causal links stay in the JSON — an EPIC's unmet criterion points at its `caused_by` SoT file; a SoT file's block lists its `consumed_by_epics`; the top-level `summary.top_blockers` ranks files by downstream impact. This is the leverage view: the highest-impact fix might not be the lowest-scoring file — it's the lowest-scoring file blocking the most EPICs.
 
+### The code layer (v0.6 → v0.7)
+
+The three layers above score the *specs* you author. Once building starts, a fourth artifact appears — the code itself — and the **Development Graph** folds it into the same knowledge graph. A Graphify-style AST pass extracts code nodes (modules, functions, tables); the `@implements` / `@verifies` tags you already write ([rule 04](.claude/rules/04-coding-standards.md)) are harvested into **bridge edges** linking each code unit back to the spec ID it realizes. Readiness then gains two build-vs-blueprint dimensions — `implementation_coverage` (which scoped specs have implementing code) and `architecture_conformance` (do the `ARC-` rules still hold in the as-built code) — backed by `status/devgraph.json`. This is what makes v0.7 readiness measure *reality*, not just spec health. The same `devgraph.json` is the data contract the **HeartBeat** visualizer renders as a live pulse of built / unbuilt / drifted. See [`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md).
+
 ### Invocation
 
 ```bash
@@ -175,6 +179,7 @@ Exit codes: `0` all pass, `1` something in WARN band, `2` something in BLOCK ban
 
 - [`.claude/rules/07-readiness-protocol.md`](.claude/rules/07-readiness-protocol.md) — the discipline rule.
 - [`docs/READINESS_PROTOCOL.md`](docs/READINESS_PROTOCOL.md) — full schema reference: `readiness_inputs` YAML shape, `readiness.json` structure, every dimension with its formula, penalty math, critical caps, and how to extend it.
+- [`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md) — the v0.6→v0.7 code layer: `status/devgraph.json` schema, the spec/code/bridge model, and the HeartBeat data contract.
 <!-- /SECTION: readiness-scoring -->
 
 ---
@@ -203,8 +208,8 @@ We do not proceed to the next stage until the **Definition of Done (DoD)** is me
 | **v0.3** | **Commercial Model**     | Value & Pricing       | Competitors profiled, Pricing model, Monetization rules.           |
 | **v0.4** | **User Journeys**        | Personas & Flows      | Core journeys mapped (`UJ-`), Dependencies (`API-`) noted.         |
 | **v0.5** | **Red Team Review**      | Risks & Feasibility   | Risks (Market/Tech) identified, Mitigations linked to tests.       |
-| **v0.6** | **Architecture**         | Technical Strategy    | Stack selected, API contracts (`API-`) drafted, Cost guardrails.   |
-| **v0.7** | **Build Execution**      | Implementation Loop   | Code tested (`TEST-`), SoT updated, Epic loop execution.           |
+| **v0.6** | **Architecture**         | Technical Strategy    | Stack selected, API contracts (`API-`) drafted, `ARC-` conformance rules, Cost guardrails. |
+| **v0.7** | **Build Execution**      | Implementation Loop   | Code tested (`TEST-`), SoT updated, code traced to specs (Development Graph), Epic loop execution. |
 | **v0.8** | **Release & Deployment** | Operational Readiness | Runbooks (`RUN-`), Monitoring (`MON-`, `MON-DRIFT-`), Rollback plan, Changelog system, MOPS handoff. |
 | **v0.9** | **Launch**               | Go-to-Market          | Positioning (Dunford), Offer (Hormozi), Channels (ORB), Launch metrics (`KPI-`), Feedback channels (`CFD-`), Tactical playbooks (AEO, alternatives, outreach, HN/Reddit). |
 | **v1.0** | **Growth**               | Market Adoption       | Adoption stage (`ADO-STAGE-`), Beachhead (`ADO-BEACHHEAD-`), Whole product (`ADO-WHOLE-`), References (`ADO-REF-`), Continuous discovery, Case studies, Testimonials. |

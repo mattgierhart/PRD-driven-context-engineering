@@ -6,6 +6,7 @@ three modules can stay focused on their own scoring logic.
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -41,6 +42,16 @@ STUB_KEYWORDS = (
 
 SEVERITY_PENALTY = {"high": 10, "medium": 3, "low": 1}
 MAX_PENALTY = 25
+
+
+# ---------- Development Graph (v0.6→v0.7) constants ---------- #
+
+# Spec prefixes that the codebase is expected to IMPLEMENT — i.e. a code node
+# should carry an `@implements` bridge edge back to them. Used by the EPIC
+# `implementation_coverage` dimension to compute build-vs-blueprint. Spec types
+# that code does not implement (RISK, CFD, KPI, GTM, TECH decisions, LL) are
+# excluded so coverage is not diluted by non-buildable specs.
+IMPLEMENTABLE_PREFIXES = {"BR", "API", "DBT", "ENT", "FEA", "SCR", "UJ"}
 
 
 # ---------- SoT entry ---------- #
@@ -129,6 +140,53 @@ def load_readiness_config(repo: Path) -> dict:
         return {}
     with path.open() as f:
         return yaml.safe_load(f) or {}
+
+
+def load_devgraph(repo: Path) -> Optional[dict]:
+    """Load the Development Graph (`status/devgraph.json`) if it exists.
+
+    The dev graph is the "as-built" layer: code nodes extracted from the product
+    codebase, bridged to spec IDs via @implements/@verifies edges. It is produced
+    during v0.7 build execution (see docs/DEVELOPMENT_GRAPH.md). Returns ``None``
+    when absent or unparseable — every dev-graph readiness dimension treats
+    ``None`` as "not applicable" and auto-disables, so repos that have not yet
+    built anything (or the methodology repo itself) score exactly as before.
+    """
+    path = repo / "status" / "devgraph.json"
+    if not path.is_file():
+        return None
+    try:
+        data = json.loads(path.read_text(errors="replace"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def devgraph_spec_status(devgraph: Optional[dict]) -> dict[str, str]:
+    """Index spec-layer nodes by ID → coverage status from the dev graph.
+
+    Status values (set by the extractor, see docs/DEVELOPMENT_GRAPH.md):
+      ``implemented``            — ≥1 inbound `implements` edge
+      ``implemented_unverified`` — implemented but no `verifies` edge
+      ``unimplemented``          — spec node with no `implements` edge
+    """
+    out: dict[str, str] = {}
+    if not devgraph:
+        return out
+    for node in devgraph.get("nodes", []) or []:
+        if node.get("layer") == "spec" and node.get("id"):
+            out[node["id"]] = node.get("status", "unimplemented")
+    return out
+
+
+def devgraph_conformance(devgraph: Optional[dict]) -> list[dict]:
+    """Return the architecture-conformance verdicts carried by the dev graph.
+
+    Each entry: ``{arc_id, rule, verdict: pass|violate|unknown, violations[]}``.
+    """
+    if not devgraph:
+        return []
+    return devgraph.get("conformance", []) or []
 
 
 # ---------- Repo discovery ---------- #

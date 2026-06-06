@@ -48,6 +48,32 @@ id_prefixes:
   # Execution IDs
   EPIC: { file: "epics/",    description: "Execution work packages" }
 
+# --- Development Graph: Code Node Types (v0.6→v0.7) ---
+# The "as-built" layer of the knowledge graph. Unlike id_prefixes (hand-authored
+# spec nodes), these are entities EXTRACTED from the product codebase during v0.7
+# build execution — Graphify-style AST parsing, deterministic and free (no LLM).
+# They are NOT ID-prefixed; their identity is `{parent_dir}_{file}_{symbol}`.
+# See docs/DEVELOPMENT_GRAPH.md for the full schema (the HeartBeat data contract).
+code_node_types:
+  module:   { description: "A source file or package" }
+  class:    { description: "A class / type / interface definition" }
+  function: { description: "A function or method" }
+  table:    { description: "A database table (from SQL DDL or ORM model)" }
+  endpoint: { description: "An HTTP route / API handler" }
+
+# --- Development Graph: Bridge Relations (v0.6→v0.7) ---
+# Edges that connect the CODE layer to the SPEC (ID) layer. Harvested from the
+# @implements / @see / @verifies traceability tags mandated by rule 04, plus
+# TEST- references. These bridge edges are what let readiness measure
+# build-vs-blueprint (implementation_coverage) and architecture drift
+# (architecture_conformance). `confidence` follows the Graphify audit trail:
+# EXTRACTED (explicit tag, 1.0) | INFERRED (name/context match) | AMBIGUOUS (review).
+bridge_relations:
+  implements: { from: code, to: spec, source: "@implements tag",     description: "Code node realizes a spec ID" }
+  verifies:   { from: code, to: spec, source: "@verifies / TEST- ref", description: "Test node checks a spec ID" }
+  references: { from: code, to: spec, source: "@see tag",            description: "Code node relates to a spec ID without implementing it" }
+  violates:   { from: code, to: spec, source: "conformance diff",     description: "Code node breaks an ARC- rule (architecture drift)" }
+
 # --- Skill Taxonomy ---
 # Core skills work in any domain. Domain skills are product-specific.
 skills:

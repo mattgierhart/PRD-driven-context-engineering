@@ -34,6 +34,8 @@ Each file focuses on one artifact type with a consistent ID prefix (~100-150 lin
 
 > See [SoT.UNIQUE_ID_SYSTEM.md](SoT.UNIQUE_ID_SYSTEM.md) for full ID specifications.
 
+> **The as-built layer (v0.7)**: the IDs in these files are the *spec* layer of the knowledge graph. During build execution the product's code becomes a second layer — extracted into `status/devgraph.json` and bridged back to these IDs via the `@implements` tags in code. The IDs you define here are the anchors those bridges point to; an `ARC-` entry can carry a **Conformance Rule** the code is checked against. See [`../docs/DEVELOPMENT_GRAPH.md`](../docs/DEVELOPMENT_GRAPH.md).
+
 ## How to Initialize
 
 1. Fork this repository for your product

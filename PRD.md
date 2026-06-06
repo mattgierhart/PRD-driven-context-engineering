@@ -224,6 +224,13 @@ template_version: "3.0.0"
 
 - External dependencies, rate limits, compliance.
 
+**Development Graph — Expected Topology**
+
+The architecture recorded here is the *blueprint graph* — the intended shape the build must match in v0.7. Capture it so the as-built code can be diffed against it:
+
+- **Expected components & boundaries** — the System Overview above, read as a topology: which modules/services exist and which may depend on which.
+- **Conformance rules (on ARC- entries)** — structural claims the code can be checked against, e.g. _"the `engine/` layer must not import the UI framework."_ Each becomes a machine verdict (`pass`/`violate`) feeding the `architecture_conformance` readiness dimension. See `SoT/SoT.TECHNICAL_DECISIONS.md` and [`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md).
+
 **Outstanding Work → v0.7**
 
 - {Implementation open question}
@@ -242,11 +249,16 @@ template_version: "3.0.0"
 - TEST-### — {Scope}
 - TEST-### — {Scope}
 
+**Development Graph (As-Built)**
+
+During the implementation loop, the `@implements` / `@verifies` tags on each code unit are harvested into the Development Graph (`status/devgraph.json`), bridging the code back to the specs above. This is what lets readiness measure build-vs-blueprint (`implementation_coverage`) and architecture drift (`architecture_conformance`) — and is the data the **HeartBeat** visualizer renders. See [`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md).
+
 **Definition of Done**
 
 - [ ] All IDs created/modified logged in EPIC Section 2.
 - [ ] README metrics updated via workflow.
 - [ ] Coverage thresholds defined.
+- [ ] Code traced to specs — every major unit carries `@implements`; `status/devgraph.json` rebuilt; `implementation_coverage` ≥ threshold (no scoped spec left unbuilt).
 
 ### Deployment Configuration
 

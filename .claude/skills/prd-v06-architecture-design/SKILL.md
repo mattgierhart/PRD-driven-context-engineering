@@ -34,6 +34,7 @@ This skill creates/updates:
 - **ARC-\* entries** (architecture decisions, status-based) — Decisions for structure, integration, security, performance, data, DevOps with rationale, alternatives considered, and consequences. No confidence scores; decisions have Status: Proposed/Accepted/Superseded
 - **System boundary diagram** — Visual representation showing trust boundaries, components, and external integrations
 - **RISK-to-Architecture mapping** — Validation showing every high-priority RISK-* has corresponding ARC-* mitigation or explicit acceptance
+- **Conformance rules (on ARC- entries)** — for any decision that makes a structural claim ("X must not depend on Y", "all Z go through one adapter"), a machine-checkable rule. This turns the architecture into the *expected topology* (the blueprint graph) the v0.7 build is diffed against, and feeds the `architecture_conformance` readiness dimension. See `docs/DEVELOPMENT_GRAPH.md`.
 
 All ARC- entries should include:
 - **Category**: Structure/Integration/Security/Performance/Data/DevOps
@@ -213,6 +214,11 @@ Consequences:
   - Enables: [What this makes possible]
   - Constrains: [What this limits]
 
+Conformance Rule (optional — for structural claims):
+  - Rule: [e.g. "engine/ must not import the UI framework"]
+  - Check: [type · scope · target, e.g. forbidden_import · engine/** · vscode]
+  (verified against the as-built code in v0.7 → architecture_conformance; see docs/DEVELOPMENT_GRAPH.md)
+
 Related IDs: [TECH-XXX, RISK-XXX, FEA-XXX]
 Status: [Proposed | Accepted | Superseded]
 ```
@@ -339,6 +345,7 @@ ARC- entries feed into:
 |----------|--------------|---------|
 | **Technical Specification** | ARC- informs API design | ARC-001 (monolith) → unified API surface |
 | **v0.7 Build Execution** | ARC- defines EPIC scope | ARC-003 (auth module) → EPIC-02 |
+| **Development Graph (v0.7)** | ARC- conformance rules become code checks | ARC-004 (no UI import in engine/) → `architecture_conformance` verdict |
 | **Infrastructure Setup** | ARC- drives deployment | ARC-010 (edge caching) → CDN config |
 | **Security Review** | Security ARC- entries | ARC-005 → pen test scope |
 

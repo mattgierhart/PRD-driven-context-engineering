@@ -1,8 +1,8 @@
 ---
-version: 1.1
+version: 1.2
 purpose: Source of Truth for technology choices, architecture decisions, and environment specifications.
 id_prefix: TECH-XXX, ARC-XXX, ENV-XXX
-last_updated: 2026-01-18
+last_updated: 2026-06-06
 authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and code
 ---
 <!-- SECTION: template-structure -->
@@ -81,6 +81,14 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and co
 - **Chosen because**: {Primary reasons}
 - **Alternatives considered**: {What else was evaluated}
 - **Consequences**: {What this enables or constrains}
+
+### Conformance Rule (optional)
+
+A machine-checkable restatement of this decision, evaluated against the as-built code in the Development Graph (`status/devgraph.json`). When present it drives the `architecture_conformance` readiness dimension — the code is verified to still honor the decision, and drift surfaces as a `violate` verdict instead of slipping by unnoticed.
+
+- **Rule**: {plain statement, e.g. "the `engine/` layer must not import the UI framework"}
+- **Check**: {type · scope · target, e.g. `forbidden_import` · `packages/extension/engine/**` · `vscode`}
+- **Verdict**: `pass` | `violate` | `unknown` (computed — see [`docs/DEVELOPMENT_GRAPH.md`](../docs/DEVELOPMENT_GRAPH.md) §5)
 
 ### Related IDs
 
@@ -329,6 +337,7 @@ When adding a new TECH/ARC/ENV-XXX:
 - [ ] Update related API contracts if affected
 - [ ] Update EPIC Section 2 "Context & IDs" list
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry if maintained
+- [ ] For an ARC- that makes a structural claim, add a **Conformance Rule** so the Development Graph can verify the as-built code honors it (v0.7)
 
 ---
 

@@ -143,6 +143,109 @@ def test_dimension_override_disabled(healthy_repo: Path) -> None:
         f"weights sum to {active_weights}, expected ~1.0 after renormalization"
 
 
+# ---------- Development Graph dimensions (v0.6→v0.7) ---------- #
+
+# Implementable specs referenced by the healthy_repo EPIC-01 Section 3.
+HEALTHY_IMPLEMENTABLE = [
+    "BR-001", "BR-002", "BR-003",
+    "API-001", "API-002", "API-003",
+    "DBT-001", "DBT-002", "UJ-001",
+]
+
+
+def write_devgraph(repo: Path, spec_status: dict[str, str],
+                   conformance: list[dict] | None = None) -> None:
+    """Write a contract-shaped status/devgraph.json (see docs/DEVELOPMENT_GRAPH.md)."""
+    nodes = [
+        {"id": sid, "label": sid, "layer": "spec", "node_kind": sid.split("-")[0],
+         "file_type": "concept", "source_file": "SoT/x.md", "status": status}
+        for sid, status in spec_status.items()
+    ]
+    devgraph = {
+        "directed": True, "multigraph": False, "schema_version": "0.1",
+        "graph": {"scope": "EPIC-01", "scope_ids": list(spec_status),
+                  "generated_by": "test", "readiness_ref": "status/readiness.json"},
+        "nodes": nodes,
+        "links": [],
+        "conformance": conformance or [],
+    }
+    out = repo / "status" / "devgraph.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(devgraph))
+
+
+def test_devgraph_absent_dimensions_dormant(healthy_repo: Path) -> None:
+    """With no status/devgraph.json, both dev-graph dimensions auto-disable —
+    they must NOT distort the score (the whole point of the dormant design)."""
+    _, data = run_readiness(healthy_repo)
+    dims = next(iter(data["epics"].values()))["dimensions"]
+    assert dims["implementation_coverage"].get("status") == "not_applicable"
+    assert dims["architecture_conformance"].get("status") == "not_applicable"
+    # Dormant dimensions carry no weight.
+    assert "weight" not in dims["implementation_coverage"]
+    assert "weight" not in dims["architecture_conformance"]
+
+
+def test_implementation_coverage_activates_when_built(healthy_repo: Path) -> None:
+    """A dev graph marking every scoped spec implemented → coverage 100, active."""
+    write_devgraph(healthy_repo, {sid: "implemented" for sid in HEALTHY_IMPLEMENTABLE})
+    _, data = run_readiness(healthy_repo)
+    dim = next(iter(data["epics"].values()))["dimensions"]["implementation_coverage"]
+    assert dim.get("score") == 100.0, dim
+    assert dim.get("weight", 0) > 0, "active dimension should carry renormalized weight"
+
+
+def test_unbuilt_specs_triggers_cap(healthy_repo: Path) -> None:
+    """Most scoped specs unbuilt → implementation_coverage < 50 → unbuilt_specs cap,
+    with each unbuilt spec surfaced as an unmet criterion citing its owning file."""
+    status = {sid: "unimplemented" for sid in HEALTHY_IMPLEMENTABLE}
+    status["BR-001"] = "implemented"
+    status["API-001"] = "implemented"  # 2 / 9 built ≈ 22% < 50
+    write_devgraph(healthy_repo, status)
+
+    _, data = run_readiness(healthy_repo)
+    epic_block = next(iter(data["epics"].values()))
+
+    cap_rules = [c["rule"] for c in epic_block["caps"]]
+    assert "unbuilt_specs" in cap_rules, f"expected unbuilt_specs cap; got {cap_rules}"
+    cap = next(c for c in epic_block["caps"] if c["rule"] == "unbuilt_specs")
+    assert cap["cap"] == 60
+    assert cap["caused_by"], "cap should cite the SoT file owning the most unbuilt specs"
+    assert epic_block["score"] <= 60, "cap must bound the final score"
+
+    unmet = [c for c in epic_block["unmet_criteria"]
+             if c["dimension"] == "implementation_coverage"]
+    refs = {c.get("ref") for c in unmet}
+    assert "DBT-001" in refs and "BR-002" in refs, f"unbuilt specs not surfaced: {refs}"
+    # Each unmet cites the owning SoT file (graph traversability).
+    br_unmet = next(c for c in unmet if c.get("ref") == "BR-002")
+    assert br_unmet.get("caused_by") == "SoT/SoT.BUSINESS_RULES.md"
+
+
+def test_architecture_conformance_violation(healthy_repo: Path) -> None:
+    """An ARC-001 conformance violation → architecture_conformance scores 0 and
+    surfaces a drift unmet criterion citing the technical-decisions SoT file."""
+    conformance = [{
+        "arc_id": "ARC-001", "rule": "three-tier boundary must hold",
+        "verdict": "violate",
+        "violations": [{"source": "ui_widget_render", "target": "db_pool",
+                        "source_location": "ui/widget.ts:9"}],
+    }]
+    write_devgraph(healthy_repo,
+                   {sid: "implemented" for sid in HEALTHY_IMPLEMENTABLE},
+                   conformance=conformance)
+
+    _, data = run_readiness(healthy_repo)
+    epic_block = next(iter(data["epics"].values()))
+    dim = epic_block["dimensions"]["architecture_conformance"]
+    assert dim.get("score") == 0.0, dim
+
+    drift = [c for c in epic_block["unmet_criteria"]
+             if c["dimension"] == "architecture_conformance"]
+    assert any(c.get("ref") == "ARC-001" for c in drift), drift
+    assert drift[0].get("caused_by") == "SoT/SoT.TECHNICAL_DECISIONS.md"
+
+
 # ---------- Summary block ---------- #
 
 def test_summary_top_blockers_ranking(empty_repo: Path) -> None:

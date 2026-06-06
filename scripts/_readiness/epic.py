@@ -22,30 +22,43 @@ from . import SCHEMA_VERSION, VERSION
 from .common import (
     HEADING_DEF_RE,
     ID_RE,
+    IMPLEMENTABLE_PREFIXES,
     SEVERITY_PENALTY,
     MAX_PENALTY,
     SoTEntry,
     build_summary,
+    devgraph_conformance,
+    devgraph_spec_status,
     expand_ranges,
     extract_section,
     find_repo_root,
     index_all_entries,
+    load_devgraph,
     load_domain_profile,
     load_readiness_config,
     parse_frontmatter,
 )
 
 
+# Raw weights are RELATIVE — renormalize_weights() rescales the active set to
+# sum to 1.0 at runtime, so disabled / not_applicable dimensions never distort
+# the result. The first nine are the spec-phase dimensions (sum 1.00). The two
+# Development-Graph dimensions are ADDITIVE v0.7 build-phase signals: they stay
+# dormant (score None → not_applicable) until a status/devgraph.json exists, so
+# adding them changes NO score for repos that have not yet built anything.
 EPIC_WEIGHTS = {
-    "spec_resolution":        0.20,
-    "spec_depth":             0.15,
-    "test_coverage_declared": 0.15,
-    "upstream_gate":          0.10,
-    "dependency_readiness":   0.10,
-    "ambiguity_load":         0.05,
-    "confidence_avg":         0.15,
-    "status_maturity":        0.05,
-    "file_readiness":         0.05,
+    "spec_resolution":          0.20,
+    "spec_depth":               0.15,
+    "test_coverage_declared":   0.15,
+    "upstream_gate":            0.10,
+    "dependency_readiness":     0.10,
+    "ambiguity_load":           0.05,
+    "confidence_avg":           0.15,
+    "status_maturity":          0.05,
+    "file_readiness":           0.05,
+    # --- Development Graph (v0.6→v0.7), dormant until status/devgraph.json exists ---
+    "implementation_coverage":  0.10,
+    "architecture_conformance": 0.05,
 }
 
 # Critical caps: (rule_name, cap_value, reason). Evaluated top-to-bottom; lowest cap wins.
@@ -56,6 +69,8 @@ CRITICAL_CAPS = [
      "spec_resolution below 80% — too many referenced IDs don't resolve."),
     ("stub_sot_file", 60,
      "A SoT file referenced by this EPIC is a placeholder stub."),
+    ("unbuilt_specs", 60,
+     "implementation_coverage below 50% — most scoped specs have no implementing code."),
 ]
 
 
@@ -346,6 +361,92 @@ def compute_file_readiness(ctx: EpicContext, index: dict[str, SoTEntry],
     return score, unmet
 
 
+# ---------- Development Graph dimensions (v0.6→v0.7) ---------- #
+
+def compute_implementation_coverage(
+    ctx: EpicContext, devgraph: Optional[dict], domain: dict, sot_scores: dict,
+) -> tuple[Optional[float], list[dict]]:
+    """Of the EPIC's buildable specs, how many have implementing code?
+
+    Reads the Development Graph's spec-layer node status (see
+    docs/DEVELOPMENT_GRAPH.md). A spec is "covered" when it carries ≥1 inbound
+    `implements` edge — i.e. some code unit declared `@implements <ID>`. This is
+    the build-vs-blueprint signal: a fully specified EPIC whose specs have no
+    implementing code is not actually built. Auto-disables (returns ``None``)
+    when no dev graph exists or the EPIC references no buildable spec, so the
+    dimension is dormant before v0.7 build execution.
+    """
+    if devgraph is None:
+        return None, []
+    scoped = [i for i in ctx.referenced_ids if i.split("-")[0] in IMPLEMENTABLE_PREFIXES]
+    if not scoped:
+        return None, []
+    status = devgraph_spec_status(devgraph)
+    covered_states = {"implemented", "implemented_unverified"}
+    covered = sum(1 for i in scoped if status.get(i) in covered_states)
+    score = (covered / len(scoped)) * 100.0
+    unmet: list[dict] = []
+    for i in scoped:
+        if status.get(i) in covered_states:
+            continue
+        prefix = i.split("-")[0]
+        owning = (domain.get(prefix) or {}).get("file")
+        state = status.get(i, "absent from dev graph")
+        entry = {
+            "dimension": "implementation_coverage", "ref": i,
+            "reason": f"{i} is in EPIC scope but no code node @implements it (status: {state}).",
+            "severity": "high",
+            "fix": f"Implement {i} and tag the code unit `// @implements {i}`, then rebuild the dev graph.",
+        }
+        if owning:
+            entry["caused_by"] = owning
+            entry["caused_by_score"] = sot_scores.get(owning, {}).get("score")
+        unmet.append(entry)
+    return score, unmet
+
+
+def compute_architecture_conformance(
+    ctx: EpicContext, devgraph: Optional[dict],
+) -> tuple[Optional[float], list[dict]]:
+    """Do the ARC- rules this EPIC touches hold in the as-built code?
+
+    Reads conformance verdicts from the dev graph, scoped to ARC- IDs referenced
+    in Section 3. Each rule is ``pass`` / ``violate`` / ``unknown``; the score is
+    the fraction passing. A `violate` is high-severity drift (the code
+    contradicts a recorded architecture decision); `unknown` is medium (the rule
+    could not be checked). Auto-disables when no dev graph exists or the EPIC
+    touches no ARC- rule with a verdict.
+    """
+    if devgraph is None:
+        return None, []
+    scoped_arc = {i for i in ctx.referenced_ids if i.split("-")[0] == "ARC"}
+    if not scoped_arc:
+        return None, []
+    rules = [c for c in devgraph_conformance(devgraph) if c.get("arc_id") in scoped_arc]
+    if not rules:
+        return None, []
+    passing = sum(1 for c in rules if c.get("verdict") == "pass")
+    score = (passing / len(rules)) * 100.0
+    unmet: list[dict] = []
+    for c in rules:
+        verdict = c.get("verdict", "unknown")
+        if verdict == "pass":
+            continue
+        viols = c.get("violations") or []
+        where = ""
+        if viols:
+            v0 = viols[0]
+            where = f" e.g. {v0.get('source')} → {v0.get('target')} ({v0.get('source_location', '?')})"
+        unmet.append({
+            "dimension": "architecture_conformance", "ref": c.get("arc_id"),
+            "reason": f"{c.get('arc_id')} rule \"{c.get('rule', '')}\" is {verdict} in the as-built code.{where}",
+            "severity": "high" if verdict == "violate" else "medium",
+            "caused_by": "SoT/SoT.TECHNICAL_DECISIONS.md",
+            "fix": f"Resolve the drift so the code satisfies {c.get('arc_id')}, or revise the rule.",
+        })
+    return score, unmet
+
+
 # ---------- Aggregation ---------- #
 
 def apply_overrides(ctx: EpicContext, readiness_config: dict) -> dict:
@@ -375,6 +476,7 @@ def compute(epic_file: Path, repo: Path, inputs_override: Optional[dict]) -> dic
     domain = load_domain_profile(repo)
     config = load_readiness_config(repo)
     index = index_all_entries(repo)
+    devgraph = load_devgraph(repo)  # None until v0.7 build produces status/devgraph.json
     ctx = parse_epic(epic_file, inputs_override)
 
     existing: Optional[dict] = None
@@ -423,6 +525,14 @@ def compute(epic_file: Path, repo: Path, inputs_override: Optional[dict]) -> dic
 
     s, u = compute_file_readiness(ctx, index, repo, domain, sot_scores)
     dims["file_readiness"] = {"score": round(s, 1)}
+    unmet.extend(u)
+
+    cov_score, u = compute_implementation_coverage(ctx, devgraph, domain, sot_scores)
+    dims["implementation_coverage"] = {"score": round(cov_score, 1) if cov_score is not None else None}
+    unmet.extend(u)
+
+    conf_score, u = compute_architecture_conformance(ctx, devgraph)
+    dims["architecture_conformance"] = {"score": round(conf_score, 1) if conf_score is not None else None}
     unmet.extend(u)
 
     override_state = apply_overrides(ctx, config)
@@ -475,6 +585,20 @@ def compute(epic_file: Path, repo: Path, inputs_override: Optional[dict]) -> dic
                              "reason": CRITICAL_CAPS[2][2],
                              "caused_by": stub_files[0] if stub_files else None,
                              "caused_by_score": sot_scores.get(stub_files[0], {}).get("score") if stub_files else None})
+    # Dev-graph cap: only fires once a graph exists (score is not None) and most
+    # scoped specs are unbuilt. Dormant for pre-build repos.
+    impl_cov = score_map.get("implementation_coverage")
+    if impl_cov is not None and impl_cov < 50:
+        cap_score = min(cap_score, CRITICAL_CAPS[3][1])
+        uncovered_files: dict[str, int] = {}
+        for c in unmet:
+            if c.get("dimension") == "implementation_coverage" and c.get("caused_by"):
+                uncovered_files[c["caused_by"]] = uncovered_files.get(c["caused_by"], 0) + 1
+        worst = max(uncovered_files.items(), key=lambda x: x[1]) if uncovered_files else (None, 0)
+        caps_applied.append({"rule": "unbuilt_specs", "cap": CRITICAL_CAPS[3][1],
+                             "reason": CRITICAL_CAPS[3][2],
+                             "caused_by": worst[0],
+                             "caused_by_score": sot_scores.get(worst[0], {}).get("score") if worst[0] else None})
 
     penalized = max(0.0, weighted_score - penalty)
     final_score = min(cap_score, penalized)

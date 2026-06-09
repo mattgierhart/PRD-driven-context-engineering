@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deployment &amp; Ops · DEP / RUN / MON / SEC</title>
+<link rel="stylesheet" href="assets/sot.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="index.html">SoT Atlas</a>
+  <a href="SoT.TECHNICAL_DECISIONS.html">Decisions</a>
+  <a href="SoT.TESTING.html">Tests</a>
+  <span class="here">Ops</span>
+  <a href="SoT.INTEGRATIONS.html">Integrations</a>
+  <a class="src" href="../SoT.DEPLOYMENT.md">source: SoT.DEPLOYMENT.md</a>
+</nav>
+
+<main>
+  <header class="page-head">
+    <h1>Deployment &amp; Operations</h1>
+    <p class="lede">The ops console on paper: environments, the pipeline, every secret's metadata
+       (never its value), the runbooks for 3 a.m., and the thresholds that page someone.</p>
+    <div class="prefix-row">
+      <span class="prefix-chip">DEP-XXX · Procedures</span>
+      <span class="prefix-chip">RUN-XXX · Runbooks</span>
+      <span class="prefix-chip">MON-XXX · Monitoring</span>
+      <span class="prefix-chip">SEC-XXX · Secrets inventory</span>
+    </div>
+    <div class="persona-note">
+      <strong>Built for the SRE / on-call engineer.</strong> Environments and secrets as inventory
+      tables, the pipeline as a stage flow, runbooks as numbered step cards with an explicit
+      rollback path, monitors with warning/critical thresholds — the layout of an ops wiki an
+      on-call responder can scan under pressure.
+    </div>
+  </header>
+
+  <article class="entry" id="environments">
+    <div class="entry-head"><h3>Environments</h3></div>
+    <table class="tbl">
+      <thead><tr><th>ID</th><th>Environment</th><th>Platform</th><th>URL</th><th>Branch trigger</th></tr></thead>
+      <tbody>
+        <tr><td><a class="id" href="SoT.TECHNICAL_DECISIONS.html#ENV-001">ENV-001</a></td><td>Production</td><td><span class="ph">{Platform}</span></td><td><span class="ph">{URL}</span></td><td><code>main</code></td></tr>
+        <tr><td><span class="mono">ENV-002</span></td><td>Preview</td><td><span class="ph">{Platform}</span></td><td><span class="ph">{Pattern}</span></td><td>Pull requests</td></tr>
+        <tr><td><span class="mono">ENV-003</span></td><td>Development</td><td>Local</td><td><code>localhost:<span class="ph">{port}</span></code></td><td>N/A</td></tr>
+      </tbody>
+    </table>
+    <p class="footnote" style="margin-top:8px; border:none; padding:0">ENV-XXX IDs are owned by
+       <a href="SoT.TECHNICAL_DECISIONS.html#ENV-001">Technical Decisions</a>; this is the deployment-focused view.</p>
+  </article>
+
+  <article class="entry" id="pipeline">
+    <div class="entry-head"><h3>CI/CD pipeline</h3></div>
+    <div class="pipeline">
+      <span class="pipe-stage">⚡ Trigger</span><span class="pipe-arrow">➜</span>
+      <span class="pipe-stage">✅ Quality checks</span><span class="pipe-arrow">➜</span>
+      <span class="pipe-stage">📦 Build</span><span class="pipe-arrow">➜</span>
+      <span class="pipe-stage">🚀 Deploy</span><span class="pipe-arrow">➜</span>
+      <span class="pipe-stage">🔍 Verify</span>
+    </div>
+    <div class="section-label">Workflows</div>
+    <table class="tbl">
+      <thead><tr><th>Workflow</th><th>Trigger</th><th>Purpose</th><th>File</th></tr></thead>
+      <tbody>
+        <tr><td>CI</td><td>Push, PR</td><td>Lint, test, typecheck</td><td><code>.github/workflows/ci.yml</code></td></tr>
+        <tr><td>Deploy web</td><td>Merge to main</td><td>Production deployment</td><td><span class="ph">{platform-managed or workflow}</span></td></tr>
+        <tr><td>Deploy mobile</td><td>Version tag</td><td>App store submission</td><td><code>.github/workflows/mobile.yml</code></td></tr>
+      </tbody>
+    </table>
+    <div class="section-label">Branch protection</div>
+    <ul class="checklist">
+      <li class="done">Require PR before merge</li>
+      <li class="done">Require status checks: <span class="ph">{list}</span></li>
+      <li>Require up-to-date branch</li>
+      <li>Require approvals (count: <span class="ph">{n}</span>)</li>
+    </ul>
+  </article>
+
+  <article class="entry" id="SEC-001">
+    <div class="entry-head">
+      <a class="id" href="#SEC-001">SEC-001</a>
+      <h3>Secrets inventory</h3>
+      <span class="spacer"></span>
+      <span class="badge b-critical">Metadata only — never values</span>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>ID</th><th>Secret</th><th>Category</th><th>Environments</th><th>Storage</th><th>Owner</th><th>Last rotated</th></tr></thead>
+      <tbody>
+        <tr><td><a class="id" href="#SEC-001">SEC-001</a></td><td><code>DATABASE_URL</code></td><td>Database</td><td>Prod, Preview</td><td><span class="ph">{Platform secrets}</span></td><td><span class="ph">{Name}</span></td><td><span class="badge b-active"><span class="ph">YYYY-MM-DD</span></span></td></tr>
+        <tr><td><span class="mono">SEC-002</span></td><td><code>API_KEY</code></td><td>API</td><td>All</td><td><span class="ph">{Platform secrets}</span></td><td><span class="ph">{Name}</span></td><td><span class="badge b-planned"><span class="ph">YYYY-MM-DD</span></span></td></tr>
+      </tbody>
+    </table>
+    <div class="section-label">Rotation procedure (per secret)</div>
+    <ol class="runbook">
+      <li>Generate new secret value in source system</li>
+      <li>Update secret in <span class="ph">{storage location}</span></li>
+      <li>Trigger redeployment if needed</li>
+      <li>Verify application works with new secret</li>
+      <li>Revoke old secret value · update “Last rotated” above</li>
+    </ol>
+    <p>Used by <a class="id" href="#DEP-001">DEP-001</a> · rotation runbook
+       <a class="id" href="#RUN-001">RUN-001</a></p>
+  </article>
+
+  <article class="entry" id="DEP-001">
+    <div class="entry-head">
+      <a class="id" href="#DEP-001">DEP-001</a>
+      <h3><span class="ph">{Procedure Name}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-info">Application</span>
+      <span class="badge b-active">Active</span>
+    </div>
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd><span class="ph">Infrastructure | Application | Database</span></dd></div>
+      <div><dt>Created</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+    <p><strong>Purpose:</strong> <span class="ph">{What this deployment procedure accomplishes.}</span></p>
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Steps</div>
+        <ol class="runbook">
+          <li><strong>Prepare</strong> — <span class="ph">{Preparation step}</span></li>
+          <li><strong>Deploy</strong> — <span class="ph">{Deployment step}</span></li>
+          <li><strong>Verify</strong> — <span class="ph">{Verification step}</span></li>
+        </ol>
+      </div>
+      <div>
+        <div class="section-label">Rollback</div>
+        <div class="card" style="margin:8px 0; border-left:4px solid var(--red)">
+          <span class="ph">{How to rollback if deployment fails.}</span>
+        </div>
+        <div class="section-label">Related</div>
+        <p>
+          Validated by <a class="id" href="SoT.TESTING.html#TEST-001">TEST-001</a> ·
+          watch <a class="id" href="#MON-001">MON-001</a> ·
+          requires <a class="id" href="#SEC-001">SEC-001</a>
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <article class="entry" id="RUN-001">
+    <div class="entry-head">
+      <a class="id" href="#RUN-001">RUN-001</a>
+      <h3><span class="ph">{Runbook Name}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-high">Incident response</span>
+      <span class="badge b-active">Active</span>
+    </div>
+    <div class="section-label">When to use</div>
+    <div class="card" style="margin:8px 0; border-left:4px solid var(--amber); background:var(--amber-soft)">
+      🚨 <span class="ph">{Trigger conditions for this runbook — usually an alert from MON-XXX}</span>
+    </div>
+    <div class="section-label">Steps</div>
+    <ol class="runbook">
+      <li><strong>Assess</strong> — <span class="ph">{Assessment step}</span></li>
+      <li><strong>Mitigate</strong> — <span class="ph">{Mitigation step}</span></li>
+      <li><strong>Resolve</strong> — <span class="ph">{Resolution step}</span></li>
+    </ol>
+    <p>Triggered by <a class="id" href="#MON-001">MON-001</a></p>
+  </article>
+
+  <article class="entry" id="MON-001">
+    <div class="entry-head">
+      <a class="id" href="#MON-001">MON-001</a>
+      <h3><span class="ph">{Metric Name}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-low">Performance</span>
+      <span class="badge b-active">Active</span>
+    </div>
+    <p><strong>What:</strong> <span class="ph">{What is being measured}</span></p>
+    <div class="section-label">Thresholds</div>
+    <div class="gauge" style="max-width:520px">
+      <span class="badge b-active">OK</span>
+      <span class="track"><i class="fill" style="width:55%"></i></span>
+      <span class="badge b-planned">Warn: <span class="ph">{value}</span></span>
+      <span class="badge b-critical">Crit: <span class="ph">{value}</span></span>
+    </div>
+    <p style="margin-top:12px">Breach → run <a class="id" href="#RUN-001">RUN-001</a> ·
+       SLA defined by <a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a></p>
+  </article>
+
+  <article class="entry" id="setup-checklist">
+    <div class="entry-head"><h3>Setup checklist (new product fork)</h3></div>
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Initial</div>
+        <ul class="checklist">
+          <li>Create hosting account/project</li>
+          <li>Connect repository to platform</li>
+          <li>Configure environment variables</li>
+          <li>Set branch protection rules</li>
+          <li>Verify preview deployments</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">Verification</div>
+        <ul class="checklist">
+          <li>Feature branch → preview deploy works</li>
+          <li>Merge to main → production deploy works</li>
+          <li>All secrets documented (metadata only)</li>
+          <li>Team can deploy without tribal knowledge</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <article class="entry" id="deprecated">
+    <div class="entry-head"><h3>Deprecated entries</h3><span class="spacer"></span><span class="badge b-deprecated">Deprecated</span></div>
+    <p><span class="mono">DEP-XXX</span>: <span class="ph">{Name}</span> — deprecated
+       <span class="ph">YYYY-MM-DD</span>, replaced by <span class="ph">DEP-YYY | None</span>.
+       Reason: <span class="ph">{Why deprecated}</span></p>
+  </article>
+
+  <p class="footnote">
+    Companion to <a href="../SoT.DEPLOYMENT.md">SoT.DEPLOYMENT.md</a> (authoritative).
+    Deep-link as <span class="mono">SoT.DEPLOYMENT.html#RUN-001</span>. Always link a runbook to the
+    monitor that triggers it and a secret to the deployments that use it.
+  </p>
+</main>
+</body>
+</html>

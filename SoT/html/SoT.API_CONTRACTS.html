@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API Contracts · API-XXX</title>
+<link rel="stylesheet" href="assets/sot.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="index.html">SoT Atlas</a>
+  <a href="SoT.USER_JOURNEYS.html">Journeys</a>
+  <a href="SoT.BUSINESS_RULES.html">Rules</a>
+  <span class="here">APIs</span>
+  <a href="SoT.DATA_MODEL.html">Data</a>
+  <a href="SoT.INTEGRATIONS.html">Integrations</a>
+  <a href="SoT.TESTING.html">Tests</a>
+  <a class="src" href="../SoT.API_CONTRACTS.md">source: SoT.API_CONTRACTS.md</a>
+</nav>
+
+<main>
+  <header class="page-head">
+    <h1>API Contracts</h1>
+    <p class="lede">Every endpoint, webhook, and background job — its shape, auth, and the rules it
+       enforces. The contract a client can be built against.</p>
+    <div class="prefix-row">
+      <span class="prefix-chip">API-001…099 · Public</span>
+      <span class="prefix-chip">API-101…199 · Internal</span>
+      <span class="prefix-chip">API-201…299 · Webhooks</span>
+      <span class="prefix-chip">API-301…399 · Background jobs</span>
+    </div>
+    <div class="persona-note">
+      <strong>Built for the engineer integrating against the API.</strong> Reads like an OpenAPI /
+      Swagger reference: method badge, monospace path, request and response panels, status-code
+      table — plus the knowledge-graph links a generated reference can't give you.
+    </div>
+  </header>
+
+  <article class="entry" id="API-001">
+    <div class="entry-head">
+      <span class="method m-post">POST</span>
+      <code style="font-size:15px">/api/v1/<span class="ph">{resource}</span>/<span class="ph">{id}</span></code>
+      <span class="spacer"></span>
+      <a class="id" href="#API-001">API-001</a>
+      <span class="badge b-active">Active</span>
+    </div>
+    <p style="margin-top:4px"><strong><span class="ph">{Endpoint Name}</span></strong> —
+       <span class="ph">{Brief description of what this endpoint does.}</span></p>
+
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd><span class="ph">Public | Internal | Webhook | Background</span></dd></div>
+      <div><dt>Auth</dt><dd>🔒 <span class="ph">Bearer Token | API Key | None</span></dd></div>
+      <div><dt>Created</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+      <div><dt>Last updated</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Request</div>
+        <table class="tbl">
+          <thead><tr><th>Field</th><th>Type</th><th>Req</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><code><span class="ph">{param}</span></code></td><td><code>string</code></td><td>✓</td><td><span class="ph">{Key parameters with types}</span></td></tr>
+            <tr><td><code><span class="ph">{field}</span></code></td><td><code>object</code></td><td>—</td><td><span class="ph">{Key fields for POST/PUT}</span></td></tr>
+          </tbody>
+        </table>
+        <pre class="code">{
+  <span class="k">"name"</span>: <span class="s">"<span class="ph">{example}</span>"</span>,
+  <span class="k">"status"</span>: <span class="s">"active"</span>
+}</pre>
+      </div>
+      <div>
+        <div class="section-label">Response</div>
+        <pre class="code"><span class="c">// 200 OK</span>
+{
+  <span class="k">"success"</span>: <span class="s">true</span>,
+  <span class="k">"data"</span>: { <span class="c">…</span> }
+}</pre>
+        <table class="tbl">
+          <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge b-active">200</span></td><td>Success</td></tr>
+            <tr><td><span class="badge b-planned">400 / 422</span></td><td>Validation failure — see error contract on linked <a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a></td></tr>
+            <tr><td><span class="badge b-planned">401 / 403</span></td><td>Auth missing / forbidden</td></tr>
+            <tr><td><span class="badge b-planned">404</span></td><td>Resource not found</td></tr>
+            <tr><td><span class="badge b-deprecated">500</span></td><td>Server error</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-label">Knowledge-graph links</div>
+    <table class="tbl">
+      <thead><tr><th>Relationship</th><th>ID</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr><td>Used by journey</td><td><a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a></td><td><span class="ph">{Journey using this API}</span></td></tr>
+        <tr><td>Enforces rule</td><td><a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a></td><td><span class="ph">{Rule enforced}</span></td></tr>
+        <tr><td>Reads / writes</td><td><a class="id" href="SoT.DATA_MODEL.html#DBT-001">DBT-001</a></td><td><span class="ph">{Table accessed}</span></td></tr>
+        <tr><td>Calls external</td><td><a class="id" href="SoT.INTEGRATIONS.html#INT-001">INT-001</a></td><td><span class="ph">{External service called}</span></td></tr>
+        <tr><td>Validated by</td><td><a class="id" href="SoT.TESTING.html#TEST-001">TEST-001</a></td><td><span class="ph">{Test validating this}</span></td></tr>
+      </tbody>
+    </table>
+  </article>
+
+  <article class="entry" id="cross-reference">
+    <div class="entry-head"><h3>Cross-reference index</h3></div>
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Endpoints by journey</div>
+        <p><a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a> calls
+           <a class="id" href="#API-001">API-001</a></p>
+      </div>
+      <div>
+        <div class="section-label">Endpoints by business rule</div>
+        <p><a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a> enforced by
+           <a class="id" href="#API-001">API-001</a></p>
+      </div>
+    </div>
+  </article>
+
+  <article class="entry" id="deprecated">
+    <div class="entry-head"><h3>Deprecated endpoints</h3><span class="spacer"></span><span class="badge b-deprecated">Deprecated</span></div>
+    <table class="tbl">
+      <thead><tr><th>ID</th><th>Name</th><th>Deprecated</th><th>Sunset</th><th>Replacement</th><th>Reason</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="mono">API-XXX</span></td>
+          <td><span class="ph">{Name}</span></td>
+          <td><span class="ph">YYYY-MM-DD</span></td>
+          <td><span class="ph">YYYY-MM-DD</span></td>
+          <td><span class="ph">API-YYY | None</span></td>
+          <td><span class="ph">{Why deprecated}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <p class="footnote">
+    Companion to <a href="../SoT.API_CONTRACTS.md">SoT.API_CONTRACTS.md</a> (authoritative).
+    Method badge classes: <span class="mono">m-get · m-post · m-put · m-patch · m-delete</span>,
+    plus <span class="mono">m-hook</span> for webhooks and <span class="mono">m-job</span> for background jobs.
+    Deep-link an endpoint as <span class="mono">SoT.API_CONTRACTS.html#API-001</span>.
+  </p>
+</main>
+</body>
+</html>

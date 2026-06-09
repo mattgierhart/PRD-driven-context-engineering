@@ -74,6 +74,30 @@ bridge_relations:
   references: { from: code, to: spec, source: "@see tag",            description: "Code node relates to a spec ID without implementing it" }
   violates:   { from: code, to: spec, source: "conformance diff",     description: "Code node breaks an ARC- rule (architecture drift)" }
 
+# --- Required Cross-Reference Edges (schema contract, U2) ---
+# Opt-in SEMANTIC validation, the enforcement half of "if it's not in the graph
+# it isn't true". Where validate-ids.sh checks structure (dangling/orphan/dup),
+# scripts/validate-edges.py checks that each entry of a `from` prefix carries the
+# edges its type requires. Turns the ID registry from a convention into a checked
+# contract (P12). Schema: docs/DEVELOPMENT_GRAPH.md §14.
+#
+#   direction: outbound (default) — the `from` entry's body must reference a
+#              `requires` ID (e.g. a UJ lists its screens).
+#              inbound  — a `requires` entry must reference the `from` one
+#              (e.g. a TEST- points back at the API-/BR- it covers).
+#   severity:  warn (report, non-fatal) | block (fails the gate, exit 1).
+#
+# Left EMPTY by default so the methodology template validates clean — a template
+# has no real graph to constrain. A real product enables the rules matching its
+# conventions. Recommended starter set (uncomment and tune):
+#
+# required_edges:
+#   - { from: API, requires: TEST, direction: inbound,  severity: warn,  description: "Every endpoint needs a declared test (rule 04: Tests First)" }
+#   - { from: BR,  requires: TEST, direction: inbound,  severity: warn,  description: "Every business rule needs a verifying test" }
+#   - { from: UJ,  requires: SCR,  direction: outbound, severity: warn,  description: "A user journey must map to at least one screen" }
+#   - { from: SCR, requires: UJ,   direction: outbound, severity: warn,  description: "A screen must belong to a user journey" }
+required_edges: []
+
 # --- Skill Taxonomy ---
 # Core skills work in any domain. Domain skills are product-specific.
 skills:

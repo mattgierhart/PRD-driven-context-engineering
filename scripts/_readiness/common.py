@@ -142,6 +142,25 @@ def load_readiness_config(repo: Path) -> dict:
         return yaml.safe_load(f) or {}
 
 
+def load_required_edges(repo: Path) -> list[dict]:
+    """Required cross-reference edge rules from `.claude/domain-profile.yaml`.
+
+    Each rule declares that every entry of a `from` prefix must reference at
+    least one entry of each `requires` prefix — the schema constraint that turns
+    "if it's not in the graph it isn't true" from a slogan into a checked
+    invariant (see scripts/validate-edges.py). Returns ``[]`` when none are
+    declared, so the check is opt-in and a template repo with no rules validates
+    clean. See `docs/DEVELOPMENT_GRAPH.md` §14 for the rule schema.
+    """
+    path = repo / ".claude" / "domain-profile.yaml"
+    if not path.is_file():
+        return []
+    with path.open() as f:
+        data = yaml.safe_load(f) or {}
+    rules = data.get("required_edges") or []
+    return rules if isinstance(rules, list) else []
+
+
 def load_devgraph(repo: Path) -> Optional[dict]:
     """Load the Development Graph (`status/devgraph.json`) if it exists.
 

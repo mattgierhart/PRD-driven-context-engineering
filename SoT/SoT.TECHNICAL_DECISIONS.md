@@ -37,6 +37,11 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and co
 **Status**: Accepted | Deprecated | Superseded
 **Decision Date**: YYYY-MM-DD
 **Last Reviewed**: YYYY-MM-DD
+**Valid From**: vX.Y
+**Valid To**: —
+**Invalidated By**: —
+
+> Valid From/To/Invalidated By are valid-time fields — see [SoT.UNIQUE_ID_SYSTEM.md §1.6](SoT.UNIQUE_ID_SYSTEM.md#16-temporal-validity-valid-time). Queryable via `scripts/asof.py`.
 
 ### Context
 
@@ -67,6 +72,11 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and co
 **Status**: Accepted | Deprecated | Superseded
 **Decision Date**: YYYY-MM-DD
 **Last Reviewed**: YYYY-MM-DD
+**Valid From**: vX.Y
+**Valid To**: —
+**Invalidated By**: —
+
+> Valid From/To/Invalidated By are valid-time fields — see [SoT.UNIQUE_ID_SYSTEM.md §1.6](SoT.UNIQUE_ID_SYSTEM.md#16-temporal-validity-valid-time). Queryable via `scripts/asof.py`.
 
 ### Context
 
@@ -299,9 +309,13 @@ Document production hosting and services configuration.
 ### TECH-XXX: {Decision Name} [SUPERSEDED]
 
 **Status**: Superseded (YYYY-MM-DD)
-**Replacement**: [TECH-YYY](#tech-yyy-decision-name)
+**Valid From**: vX.Y
+**Valid To**: vX.Z
+**Invalidated By**: [TECH-YYY](#tech-yyy-decision-name)
 **Reason**: {Why decision was changed}
 **Migration**: {How to transition}
+
+> Keep the superseded entry in place (deprecate-don't-delete). `Valid To` + `Invalidated By` let `scripts/asof.py` reconstruct the decision set as of any past version — see [SoT.UNIQUE_ID_SYSTEM.md §1.6](SoT.UNIQUE_ID_SYSTEM.md#16-temporal-validity-valid-time).
 
 <!-- /CUSTOMIZABLE: entries -->
 

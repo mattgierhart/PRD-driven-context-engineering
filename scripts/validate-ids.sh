@@ -198,6 +198,26 @@ if [ "$ORPHANED" -eq 0 ]; then
   log "  No orphaned definitions found."
 fi
 
+# 4. Required cross-reference edges (semantic check — needs python3)
+# Delegates to validate-edges.py, which reads `required_edges` from
+# .claude/domain-profile.yaml. No rules declared → no-op, exit 0. python3
+# absent → skipped (the POSIX-only guarantee holds for checks 1-3). Only
+# `block`-severity violations (exit 1) count toward ISSUES; `warn`s are advisory.
+log_header "Checking required cross-reference edges..."
+if command -v python3 >/dev/null 2>&1; then
+  # Plain string (not array) so empty expansion is safe under `set -u` on
+  # bash 3.2 (macOS default). Single flag, no spaces — word-splitting is fine.
+  edge_flag=""
+  [ "$QUIET" = true ] && edge_flag="--quiet"
+  if python3 "${SCRIPT_DIR}/validate-edges.py" --repo "$PROJECT_ROOT" $edge_flag; then
+    : # clean, warn-only, or no rules declared
+  else
+    ISSUES=$((ISSUES + 1))
+  fi
+else
+  log "  (skipped — python3 not available)"
+fi
+
 # --- Summary ---
 
 log_header "Summary"

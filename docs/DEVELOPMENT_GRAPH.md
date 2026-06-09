@@ -319,3 +319,36 @@ Reading the pulse: `BR-001` 🟢 (built + verified), `API-002` 🔴 (specified, 
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | 2026-06-06 | Initial draft: three-layer node-link schema, status pulse, conformance block, readiness consumption, HeartBeat contract. |
+
+---
+
+## 14. Required cross-reference edges (U2 — schema contract)
+
+The bridge edges in §4 are *extracted* — discovered from code tags. **Required edges** are the inverse: *asserted* constraints on the spec graph that must hold regardless of code. They turn "if it's not in the graph it isn't true" from a slogan into a checked invariant — the enforcement half of treating the ID registry as a validated contract (P12).
+
+Where [`validate-ids.sh`](../scripts/validate-ids.sh) checks **structural** integrity (dangling / orphan / duplicate IDs), [`validate-edges.py`](../scripts/validate-edges.py) checks **semantic** integrity: that each entry of a given prefix carries the cross-reference edges its type requires. Rules are declared in [`.claude/domain-profile.yaml`](../.claude/domain-profile.yaml) under `required_edges:` and are **opt-in** — a repo (or the methodology template) that declares none validates clean.
+
+### Rule schema
+
+```yaml
+required_edges:
+  - from: UJ            # every UJ- entry...
+    requires: SCR       # ...must reference at least one SCR- (string or list)
+    direction: outbound # outbound (default) | inbound
+    severity: warn      # warn (report, exit 0) | block (report, exit 1)
+    description: "A user journey must map to at least one screen"
+```
+
+| Field | Required | Meaning |
+|---|---|---|
+| `from` | ✓ | The prefix every entry of which is checked. |
+| `requires` | ✓ | The prefix (or list of prefixes) each `from` entry must be edged to. Each listed prefix is independently required (AND). |
+| `direction` | – | `outbound` (default): the `from` entry's body must reference a `requires` ID — e.g. a UJ lists its screens. `inbound`: some `requires` entry must reference the `from` one — the convention for test coverage, where a `TEST-` points back at the `API-`/`BR-` it verifies. |
+| `severity` | – | `warn` (default; reported, non-fatal) or `block` (fails the gate — exit 1). |
+| `description` | – | Human-readable rationale, printed with each violation. |
+
+### How it composes with the gate
+
+`validate-ids.sh` invokes `validate-edges.py` as its check #4 when `python3` is available; only `block`-severity violations count toward its issue total, so `warn` rules surface drift without failing CI until a team opts to enforce them. The semantic check needs `python3` (it parses entry bodies and prefixes, reusing the readiness index in `scripts/_readiness/common.py`); the structural checks #1–#3 remain POSIX-shell-only.
+
+Recommended starter set (commented in `domain-profile.yaml`): `API→TEST` and `BR→TEST` (inbound, "Tests First"), `UJ→SCR` and `SCR→UJ` (outbound, journey/screen integrity).

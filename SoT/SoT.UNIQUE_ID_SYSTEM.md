@@ -113,6 +113,30 @@ Every SoT entry SHOULD include a `Verified: YYYY-MM-DD` field. Interpretation:
 
 Agents encountering entries older than 90 days without recent verification SHOULD flag them in the EPIC's Agent Observations table for Phase E triage.
 
+### 1.6 Temporal Validity (valid-time)
+
+Staleness (§1.5) tracks *transaction time* — when an entry was last touched. **Valid-time** tracks something different: the window during which a decision was actually authoritative. Git tells you when a file changed; it does not tell you *which architecture rule was in force while we were building v0.6*. Three optional fields on durable decision IDs (`ARC-`, `TECH-`; extensible to any prefix) make that queryable:
+
+- **Valid From**: the PRD lifecycle version (e.g. `v0.6`) at which the decision took effect.
+- **Valid To**: the version at which it stopped being authoritative. `—` while current.
+- **Invalidated By**: the ID of the decision that superseded it. `—` while current.
+
+**Supersede protocol** (extends "never re-use an ID — deprecate instead", §1.3): when a decision changes, do **not** overwrite it — close it and open a new one in place:
+
+1. On the **old** entry: set `Valid To` to the superseding version, `Invalidated By` to the new ID, and `Status: Superseded`. Leave the entry where it is.
+2. Create the **new** entry with its own ID, `Valid From` set to that version, and optionally `Supersedes: <old ID>`.
+
+This keeps a single current reality *and* an auditable history — you can reconstruct the decision set as of any past version instead of doing git archaeology. `scripts/asof.py <version>` reads these fields and does exactly that:
+
+```text
+$ python3 scripts/asof.py v0.6 --prefix ARC,TECH
+ARC, TECH decisions authoritative as of v0.6
+  ARC-001   Synchronous in-process request handling   valid v0.6 → v0.8
+  TECH-001  Runtime: Node.js 20 LTS                   valid v0.5 → current
+```
+
+The fields are **optional and lenient**: an entry with no valid-time stamp is treated as always-valid, so adoption is incremental — stamp the decisions whose history matters (contested or superseded ones) first.
+
 <!-- /SECTION: template-structure -->
 
 ---

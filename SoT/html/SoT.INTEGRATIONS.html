@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Integrations · INT-XXX</title>
+<link rel="stylesheet" href="assets/sot.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="index.html">SoT Atlas</a>
+  <a href="SoT.API_CONTRACTS.html">APIs</a>
+  <a href="SoT.TECHNICAL_DECISIONS.html">Decisions</a>
+  <span class="here">Integrations</span>
+  <a href="SoT.DEPLOYMENT.html">Ops</a>
+  <a class="src" href="../SoT.INTEGRATIONS.md">source: SoT.INTEGRATIONS.md</a>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="kicker">The Source-of-Truth Review · <span class="no">№ 08</span> — Foreign Desk</p>
+    <h1>Integrations</h1>
+    <p class="lede">The system-context map of every third-party dependency: who we depend on, what
+       it costs, how fast it lets us go, and what happens when it's down.</p>
+    <div class="prefix-row">
+      <span class="prefix-chip">INT-001…099 · Payments</span>
+      <span class="prefix-chip">INT-101…199 · Auth</span>
+      <span class="prefix-chip">INT-201…299 · Data</span>
+      <span class="prefix-chip">INT-301…399 · Communication</span>
+    </div>
+    <div class="persona-note">
+      <strong>Built for the platform engineer.</strong> A C4-style system-context view: our product
+      in the middle, vendor cards around it. Each card leads with the operational facts — rate
+      limits, cost model, SLA, required env vars — the things you check before you ship or when a
+      vendor incident hits.
+    </div>
+  </header>
+
+  <article class="entry" id="context-map">
+    <div class="entry-head"><h3>System context</h3></div>
+    <div class="arch-row">
+      <div class="arch-node ext"><span class="ph">{Payment provider}</span><small><a class="id" href="#INT-001">INT-001</a></small></div>
+      <div class="arch-node ext"><span class="ph">{Auth provider}</span><small><span class="mono">INT-101</span></small></div>
+    </div>
+    <div class="arch-link">▲ &nbsp;&nbsp;&nbsp; ▲</div>
+    <div class="arch-row">
+      <div class="arch-node">Our product<small>via <a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></small></div>
+    </div>
+    <div class="arch-link">▼ &nbsp;&nbsp;&nbsp; ▼</div>
+    <div class="arch-row">
+      <div class="arch-node ext"><span class="ph">{Data service}</span><small><span class="mono">INT-201</span></small></div>
+      <div class="arch-node ext"><span class="ph">{Email/SMS service}</span><small><span class="mono">INT-301</span></small></div>
+    </div>
+  </article>
+
+  <article class="entry" id="INT-001">
+    <div class="entry-head">
+      <a class="id" href="#INT-001">INT-001</a>
+      <h3><span class="ph">{Integration Name}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-purple"><span class="ph">Payment</span></span>
+      <span class="badge b-active">Active</span>
+    </div>
+
+    <dl class="meta-grid">
+      <div><dt>Provider</dt><dd><span class="ph">{Company name}</span></dd></div>
+      <div><dt>Category</dt><dd><span class="ph">Payment | Auth | Data | Communication | Analytics | Storage</span></dd></div>
+      <div><dt>Created / Updated</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+
+    <p><span class="ph">{2-3 sentences describing this integration's purpose.}</span></p>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Operational constraints</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td><strong>Rate limits</strong></td><td><span class="ph">{Requests/second or /minute}</span></td></tr>
+            <tr><td><strong>Cost model</strong></td><td><span class="ph">{Per-request, monthly, usage-based}</span></td></tr>
+            <tr><td><strong>SLA</strong></td><td><span class="ph">{Uptime guarantee}</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="section-label">Configuration</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td><code><span class="ph">{SERVICE}</span>_API_KEY</code></td><td>API key — tracked as <a class="id" href="SoT.DEPLOYMENT.html#SEC-001">SEC-XXX</a></td></tr>
+            <tr><td><code><span class="ph">{SERVICE}</span>_WEBHOOK_SECRET</code></td><td>Webhook signing secret</td></tr>
+            <tr><td><strong>Production</strong></td><td><code>https://api.<span class="ph">{service}</span>.com</code></td></tr>
+            <tr><td><strong>Sandbox</strong></td><td><code>https://sandbox.<span class="ph">{service}</span>.com</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-label">Knowledge-graph links</div>
+    <table class="tbl">
+      <thead><tr><th>Relationship</th><th>ID</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr><td>Called from</td><td><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></td><td><span class="ph">{API that calls this service}</span></td></tr>
+        <tr><td>Required by rule</td><td><a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a></td><td><span class="ph">{Business rule requiring this}</span></td></tr>
+        <tr><td>Deployed via</td><td><a class="id" href="SoT.DEPLOYMENT.html#DEP-001">DEP-001</a></td><td><span class="ph">{Deployment config}</span></td></tr>
+        <tr><td>Chosen in</td><td><a class="id" href="SoT.TECHNICAL_DECISIONS.html#TECH-001">TECH-001</a></td><td><span class="ph">{Why this was chosen}</span></td></tr>
+      </tbody>
+    </table>
+  </article>
+
+  <article class="entry" id="vendor-index">
+    <div class="entry-head"><h3>Vendor inventory</h3></div>
+    <table class="tbl">
+      <thead><tr><th>ID</th><th>Service</th><th>Category</th><th>Rate limit</th><th>Cost</th><th>SLA</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a class="id" href="#INT-001">INT-001</a></td>
+          <td><span class="ph">{Service}</span></td>
+          <td>Payment</td>
+          <td><span class="ph">{limit}</span></td>
+          <td><span class="ph">{model}</span></td>
+          <td><span class="ph">{uptime}</span></td>
+          <td><span class="badge b-active">Active</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">INT-101</span></td>
+          <td><span class="ph">{Service}</span></td>
+          <td>Auth</td>
+          <td><span class="ph">{limit}</span></td>
+          <td><span class="ph">{model}</span></td>
+          <td><span class="ph">{uptime}</span></td>
+          <td><span class="badge b-planned">Planned</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <article class="entry" id="deprecated">
+    <div class="entry-head"><h3>Deprecated integrations</h3><span class="spacer"></span><span class="badge b-deprecated">Deprecated</span></div>
+    <p><span class="mono">INT-XXX</span>: <span class="ph">{Integration Name}</span> — deprecated
+       <span class="ph">YYYY-MM-DD</span>, replaced by <span class="ph">INT-YYY | None</span>.
+       Reason: <span class="ph">{Why deprecated}</span>. Migration: <span class="ph">{How to transition}</span></p>
+  </article>
+
+  <p class="footnote">
+    Companion to <a href="../SoT.INTEGRATIONS.md">SoT.INTEGRATIONS.md</a> (authoritative).
+    Deep-link an integration as <span class="mono">SoT.INTEGRATIONS.html#INT-001</span>.
+  </p>
+</main>
+</body>
+</html>

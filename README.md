@@ -19,7 +19,7 @@ together — so the 50th session is smarter than the 1st.*
 
 <img src="SoT/html/assets/screenshots/atlas.png" alt="The Source-of-Truth Atlas — the knowledge graph rendered for humans" width="760">
 
-**⭐ If this changes how you build with AI, [star the repo](https://github.com/mattgierhart/PRD-driven-context-engineering/stargazers) — we're driving to 1,000 stars by December, and every star puts this method in front of another team drowning in context drift.**
+**⭐ If this changes how you build with AI, [star the repo](https://github.com/mattgierhart/PRD-driven-context-engineering/stargazers) — stars put this method in front of the next team drowning in context drift.**
 
 </div>
 
@@ -275,15 +275,25 @@ From there, the method drives itself: each stage's skills consume the previous s
 
 ---
 
-<!-- SECTION: star-goal -->
-## ⭐ The Road to 1,000 Stars
+<!-- SECTION: how-to-use -->
+## How to use this repo today
 
-This methodology gets better the more teams stress-test it. The goal: **1,000 GitHub stars by December.**
+The methodology is **fork-native**: everything runs from files in your repo, with no services to stand up.
 
-- **If it resonates** — [star the repo](https://github.com/mattgierhart/PRD-driven-context-engineering/stargazers). Stars are how solo methodologies become shared standards.
-- **If it worked for you** — open an issue with your story. Real-world runs become Lessons Learned (`LL-`) entries.
-- **If it fought you** — report the friction. A gate that slows you down without adding value is a bug in the method.
-<!-- /SECTION: star-goal -->
+1. **Fork it per product** — this repo is the template; each product gets its own copy with its own PRD, SoT graph, and EPICs ([Quick Start](#-quick-start) above).
+2. **Work through the gates** — let the stage skills drive: each one tells you what it consumes, what IDs it produces, and which gate it feeds. Run `python scripts/readiness.py run` before advancing.
+3. **Keep the graph honest** — decisions land in `SoT/` with IDs *before or during* the change, never after. Review them as humans through [`SoT/html/`](SoT/html/index.html).
+4. **Harvest every EPIC** — `temp/` notes and agent memories get promoted to durable `LL-` entries at EPIC close, so the next session starts smarter.
+
+### On the roadmap: MCP + Claude Code plugins
+
+The fork-and-go workflow is the foundation — distribution is next:
+
+- **MCP server** — the knowledge graph as a queryable service: look up any ID, traverse cross-references, and pull readiness scores from any MCP-capable agent, without loading files into context.
+- **Claude Code plugin** — the 47 skills, hooks, and agent squad as a one-command install into *existing* repositories, instead of starting from a fork.
+
+Watch the repo to catch these when they land. Until then, the fork works end-to-end today.
+<!-- /SECTION: how-to-use -->
 
 ---
 

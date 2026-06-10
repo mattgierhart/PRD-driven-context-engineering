@@ -16,10 +16,14 @@ Open [`index.html`](index.html) in any browser (works from `file://`, no build s
    link, mirroring how IDs are cited in markdown (`SoT.BUSINESS_RULES.md#br-001-rule-name`).
 3. **Every cross-reference is a hyperlink** styled as an ID chip (`a.id`), so a reviewer can walk the
    knowledge graph by clicking.
-4. **Purple dashed `{placeholders}`** (`span.ph`) mark template slots — they make unfilled fields
+4. **Italic dashed-underline `{placeholders}`** (`span.ph`) mark template slots — they make unfilled fields
    visually loud during review, the HTML equivalent of `{Rule name}` in the markdown templates.
 5. **Shared stylesheet** [`assets/sot.css`](assets/sot.css) carries the design tokens, badges,
-   and per-view components. No page defines its own colors.
+   and per-view components. No page defines its own colors. The visual language is editorial —
+   warm paper, ink hairlines and heavy rules, serif headlines (Plantin/Georgia stack) with
+   letterspaced grotesque labels, ochre as the single spot color — in the manner of a printed
+   briefing magazine. Each page opens with a numbered kicker line ("The Source-of-Truth
+   Review · № 0X — Section").
 6. Each page's top nav links back to the Atlas and to its **markdown source of truth**.
 
 ### Keeping HTML in sync with markdown

@@ -56,9 +56,9 @@
       <div><dt>Last updated</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
     </dl>
 
-    <div class="grid-2">
+    <div class="api-split">
       <div>
-        <div class="section-label">Request</div>
+        <div class="section-label">Request fields</div>
         <table class="tbl">
           <thead><tr><th>Field</th><th>Type</th><th>Req</th><th>Notes</th></tr></thead>
           <tbody>
@@ -66,18 +66,7 @@
             <tr><td><code><span class="ph">{field}</span></code></td><td><code>object</code></td><td>—</td><td><span class="ph">{Key fields for POST/PUT}</span></td></tr>
           </tbody>
         </table>
-        <pre class="code">{
-  <span class="k">"name"</span>: <span class="s">"<span class="ph">{example}</span>"</span>,
-  <span class="k">"status"</span>: <span class="s">"active"</span>
-}</pre>
-      </div>
-      <div>
-        <div class="section-label">Response</div>
-        <pre class="code"><span class="c">// 200 OK</span>
-{
-  <span class="k">"success"</span>: <span class="s">true</span>,
-  <span class="k">"data"</span>: { <span class="c">…</span> }
-}</pre>
+        <div class="section-label">Status codes</div>
         <table class="tbl">
           <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
           <tbody>
@@ -89,6 +78,18 @@
           </tbody>
         </table>
       </div>
+      <aside class="code-rail">
+        <div class="code-rail-head">Request · cURL</div>
+        <pre class="code"><span class="prompt">$ </span>curl -X POST \
+  https://api.<span class="ph">{product}</span>.com/api/v1/<span class="ph">{resource}</span> \
+  -H <span class="s">"Authorization: Bearer &lt;token&gt;"</span> \
+  -d <span class="s">'{ "name": "<span class="ph">{example}</span>", "status": "active" }'</span></pre>
+        <div class="code-rail-head">Response · 200 OK</div>
+        <pre class="code">{
+  <span class="k">"success"</span>: <span class="s">true</span>,
+  <span class="k">"data"</span>: { <span class="c">…</span> }
+}</pre>
+      </aside>
     </div>
 
     <div class="section-label">Knowledge-graph links</div>
@@ -136,6 +137,23 @@
       </tbody>
     </table>
   </article>
+
+  <section class="title-block" aria-label="Document title block">
+    <dl class="tb-meta">
+      <div><dt>Document</dt><dd>The Source-of-Truth Review · № 05</dd></div>
+      <div><dt>Section</dt><dd>Contracts</dd></div>
+      <div><dt>Source of truth</dt><dd class="mono">SoT.API_CONTRACTS.md</dd></div>
+      <div><dt>Status</dt><dd>Template</dd></div>
+      <div><dt>Sheet</dt><dd>05 / 13</dd></div>
+    </dl>
+    <table aria-label="Revision table">
+      <thead><tr><th>Rev</th><th>Date</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2026-06-10</td><td>Template established</td></tr>
+        <tr><td class="ph">{n}</td><td class="ph">{YYYY-MM-DD}</td><td class="ph">{What changed — mark affected rows with class="changed"}</td></tr>
+      </tbody>
+    </table>
+  </section>
 
   <p class="footnote">
     Companion to <a href="../SoT.API_CONTRACTS.md">SoT.API_CONTRACTS.md</a> (authoritative).

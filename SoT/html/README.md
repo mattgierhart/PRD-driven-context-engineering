@@ -33,6 +33,43 @@ or changed, duplicate the matching `<article class="entry" id="PREFIX-XXX">` blo
 companion page and fill the placeholders. The HTML is a *render*, never the place a decision is
 first recorded.
 
+### Pattern provenance
+
+The refinement layer on top of the Monocle base borrows named devices from organizations that
+visualize operational, decision-dense documents professionally. Each device below is implemented
+in [`assets/sot.css`](assets/sot.css); use it where indicated, nowhere else.
+
+| Device | Borrowed from | CSS hook | Use it on |
+|---|---|---|---|
+| **Action title** — heading states the takeaway as a full sentence, never a topic label | McKinsey/BCG "lead" convention | (placeholder guidance in entry `<h3>`s) | Every entry headline: BR, TECH/ARC, LL, CFD |
+| **Title block + revision table** — provenance fixed to every sheet | Architectural drawing standards (ANSI Y14.1) | `.title-block` | Once per page, above the footnote |
+| **Exhibit top-rule + spot tag** — ochre rule with a small tag marks the page's key artifact | The Economist chart doctrine | `figure.exhibit` | The one load-bearing chart/table per page |
+| **Source line** — every exhibit cites where its data comes from | McKinsey + Economist | `.source-line` | `<figcaption>` of every exhibit |
+| **Memory item** — boxed reverse type for the must-not-miss step | Aviation QRH checklist design | `.memory-item` | At most one per procedure (rollback, critical alert) |
+| **Change bar** — a margin bar marks what changed since the last revision | Military doctrine publications | `.changed` | Rows/paragraphs touched in the latest revision; pair with the revision table |
+| **Do/Don't pair** — side-by-side correct/incorrect usage, ochre check / ink cross | Design-system docs (Carbon, Polaris) | `.dodont` | Component usage, business-rule examples, lessons |
+| **Modular spacing unit** — one scale, scrupulously adhered to | Vignelli/Unimark standards manuals | `--u` custom property | All new component CSS |
+| **Split reference + pinned code rail** — fields left, sticky code samples right (non-selectable `$` prompt) | Stripe API documentation | `.api-split` / `.code-rail` / `.prompt` | API contract entries |
+| **Anatomy diagram** — numbered callouts with leader lines naming each subpart | Design-system docs (Carbon, Polaris) | `.anatomy` / `.callout` / `.anatomy-legend` | Component specs; reusable for entity cards |
+| **Service-blueprint swimlanes** — customer / frontstage / backstage split by a labeled line of visibility | IDEO & NN/g service design | `.blueprint` / `.bp-vis` | One per journey, under the journey map |
+| **Field-mark plate** — leader lines point at the diagnostic parts of a specimen | Peterson Field Guides | `.fieldmark` | ID anatomy on the atlas; any "parts of X" diagram |
+
+**The ochre budget**: ochre is the single spot color and it must stay scarce to keep meaning.
+Standing uses are the kicker №, the ID-chip underline, and confidence stars. Beyond those, at most
+**one** ochre device (exhibit tag, change bars, or Do-tag) should compete on a page — if three
+ochre elements fight for attention, pull one back to ink.
+
+**Anti-pattern guardrails** (devices from these traditions that break editorial restraint —
+do not import): gradient or filled "takeaway boxes"; red/amber/green status dots (fails grayscale,
+fights the spot color); beveled or glowing gauges; rainbow categorical palettes; skeuomorphic
+rubber stamps (keep the flat ruled token); decorative revision clouds (use change bars);
+grid-breaking for expression. If a device needs JavaScript, a shadow, a gradient, or a second
+accent color to read, it has left the system.
+
+North-star references, in study order: Stripe's *Increment* magazine (the one true precedent for
+editorial design on operational engineering content), The Economist's chart doctrine (restraint
+mechanics), and the Vignelli/NASA standards-manual tradition (the system-as-language governance).
+
 ### Refreshing the screenshots
 
 The root `README.md` embeds screenshots from [`assets/screenshots/`](assets/screenshots/). They are

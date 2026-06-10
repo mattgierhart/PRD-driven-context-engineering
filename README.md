@@ -142,6 +142,37 @@ This layer orients attention and sets priorities. Files load in stable→volatil
 
 ---
 
+<!-- SECTION: sot-html-companion -->
+## The Human Review Layer: SoT HTML Companion
+
+The SoT markdown files are optimized for agents and diffs. Humans reviewing a gate deserve a better
+reading surface. The [`SoT/html/`](SoT/html/README.md) library renders each SoT file as a styled,
+hyperlinked page in the format its natural reviewer already expects — start at
+[`SoT/html/index.html`](SoT/html/index.html) (opens from `file://`, no build step, no JS).
+
+**The contract**: markdown stays authoritative; the HTML is a *render* for human review. Entry
+anchors equal unique IDs (`SoT.BUSINESS_RULES.html#BR-001`), and every cross-reference is a
+hyperlink — so a reviewer walks the knowledge graph by clicking, the same way an agent walks it
+by ID.
+
+| | |
+|---|---|
+| ![The Atlas — index of all SoT views](SoT/html/assets/screenshots/atlas.png) | ![User journey rendered as a journey map](SoT/html/assets/screenshots/journey-map.png) |
+| **The Atlas** (`index.html`) — registry of every view, ID anatomy, graph patterns | **User Journeys** — trigger → steps → value moment, the way design reviews read flows |
+| ![API contract rendered as an API reference](SoT/html/assets/screenshots/api-contract.png) | ![Data model rendered as a schema browser](SoT/html/assets/screenshots/data-model.png) |
+| **API Contracts** — Swagger-style reference with method plates and status codes | **Data Model** — ER-style entity cards with keys and a relationship map |
+| ![Customer feedback rendered as an insight card](SoT/html/assets/screenshots/feedback-card.png) | ![Adoption stage rendered as the Moore curve](SoT/html/assets/screenshots/adoption-curve.png) |
+| **Customer Feedback** — quote-first insight cards with decision stamps | **Adoption** — Moore lifecycle curve with the chasm and a "you are here" marker |
+
+Each of the 13 pages serves a different reviewer: policy register for `BR-`, ADRs + topology
+diagram for `TECH-`/`ARC-`, Storybook-style specimens for `DES-`, Given/When/Then cards for
+`TEST-`, an ops console for `DEP-`/`RUN-`/`MON-`/`SEC-`, a retro playbook for `LL-`, a vendor
+context map for `INT-`. The full schema-per-ID-type and persona-per-view rationale lives in
+[`SoT/html/README.md`](SoT/html/README.md).
+<!-- /SECTION: sot-html-companion -->
+
+---
+
 <!-- SECTION: readiness-scoring -->
 ## Readiness Scoring
 

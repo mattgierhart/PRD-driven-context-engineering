@@ -276,7 +276,7 @@ article.entry > h2, article.entry > h3 { margin-top: 0; }
 .ph {
   color: var(--ink-soft);
   font-style: italic;
-  border-bottom: 1px dashed var(--accent);
+  border-bottom: 1px dashed #c8bd99;
   padding: 0 1px;
 }
 
@@ -512,7 +512,7 @@ ol.runbook > li::before {
   font-family: var(--grot);
   font-weight: 800;
   font-size: 15px;
-  color: var(--accent);
+  color: var(--ink);
   border-top: 2px solid var(--ink);
   padding-top: 2px;
 }
@@ -558,6 +558,118 @@ ol.runbook > li::before {
 }
 .checklist li.done::before { background: var(--ink); border-color: var(--ink); }
 .checklist li.done::after { content: "✓"; position: absolute; left: 2.5px; top: 4px; color: var(--surface); font-size: 11px; font-weight: 800; }
+
+/* ==========================================================================
+   Pattern library — devices adopted from the operational-document research.
+   Provenance per device in README.md "Pattern provenance".
+   Ochre budget: at most two ochre devices competing per page; the ID chips
+   and kicker № are the standing ones.
+   ========================================================================== */
+
+/* Modular spacing scale (Vignelli/Unimark: one unit, scrupulously adhered to) */
+:root { --u: 8px; }
+
+/* Exhibit: Economist top-rule + spot-colour tag.
+   Wrap a chart/table in <figure class="exhibit"> + <figcaption class="source-line">. */
+figure.exhibit, .exhibit {
+  margin: calc(var(--u) * 2) 0;
+  border-top: 3px solid var(--accent);
+  padding-top: calc(var(--u) * 1.5);
+  position: relative;
+}
+.exhibit::before {
+  content: "";
+  position: absolute;
+  top: -3px; left: 0;
+  width: 44px; height: 8px;
+  background: var(--accent);
+}
+
+/* Mandatory source line (McKinsey/Economist: every exhibit cites its source) */
+.source-line {
+  font-family: var(--grot);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  opacity: 0.72;
+  border-top: 1px solid var(--line);
+  margin-top: calc(var(--u) * 1.5);
+  padding-top: 6px;
+}
+
+/* Memory item (aviation QRH: boxed reverse type for must-not-miss steps).
+   Use sparingly — one per procedure. */
+.memory-item {
+  background: var(--ink);
+  color: var(--surface);
+  padding: calc(var(--u) * 1.5) calc(var(--u) * 2);
+  margin: var(--u) 0;
+}
+.memory-item .mi-label {
+  display: block;
+  font-family: var(--grot);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #d8c68d;
+  margin-bottom: 5px;
+}
+
+/* Change bar (military doctrine: a bar in the margin marks what changed
+   since the last revision — pair with the title-block revision table) */
+.changed { border-left: 3px solid var(--accent); padding-left: calc(var(--u) * 1.5); }
+table.tbl tr.changed td:first-child { border-left: 3px solid var(--accent); }
+
+/* Do / Don't pair (design-system convention; ochre check, ink cross — never red/green) */
+.dodont { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); margin: var(--u) 0; }
+.dodont > div { padding: calc(var(--u) * 1.5) calc(var(--u) * 1.75); }
+.dodont .do { border-right: 1px solid var(--ink); }
+.dodont .dd-tag {
+  display: block;
+  font-family: var(--grot);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.dodont .do .dd-tag { color: var(--accent); }
+.dodont .dont .dd-tag { color: var(--ink-soft); }
+
+/* Title block (ANSI Y14.1 drawing convention: provenance fixed to every sheet)
+   + revision table. One per page, above the footnote. */
+.title-block {
+  margin-top: calc(var(--u) * 5);
+  border-top: 10px solid var(--rule);
+  padding-top: calc(var(--u) * 1.5);
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 38%);
+  gap: calc(var(--u) * 3);
+}
+.title-block .tb-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--u) calc(var(--u) * 2); align-content: start; }
+.title-block dt {
+  font-family: var(--grot);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.title-block dd { margin: 1px 0 0; font-size: 13.5px; }
+.title-block table { width: 100%; border-collapse: collapse; font-size: 11.5px; font-family: var(--grot); }
+.title-block th {
+  text-align: left;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid var(--ink);
+  padding: 2px 8px 3px;
+}
+.title-block td { padding: 4px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+@media (max-width: 700px) { .title-block { grid-template-columns: 1fr; } }
 
 @media print {
   .topnav { position: static; }

@@ -33,6 +33,30 @@ or changed, duplicate the matching `<article class="entry" id="PREFIX-XXX">` blo
 companion page and fill the placeholders. The HTML is a *render*, never the place a decision is
 first recorded.
 
+### Refreshing the screenshots
+
+The root `README.md` embeds screenshots from [`assets/screenshots/`](assets/screenshots/). They are
+generated, not hand-made — whenever the pages change (new entries replacing placeholders, style
+changes, a new page), regenerate them:
+
+```bash
+# one-time setup
+pip install playwright && python3 -m playwright install chromium
+
+# refresh everything
+python3 SoT/html/screenshot.py
+
+# refresh one shot / see what's configured
+python3 SoT/html/screenshot.py adoption
+python3 SoT/html/screenshot.py --list
+```
+
+What gets captured is defined in the `SHOTS` list at the top of
+[`screenshot.py`](screenshot.py) — a page plus an optional CSS selector (capture one entry card)
+or `None` (capture the page top with masthead and headline). Adding a new page to the library?
+Add a line to `SHOTS` and embed the image in the root README's companion section. Commit the
+regenerated PNGs together with the HTML change that caused them.
+
 ---
 
 ## Angle 1 — Schema per unique ID type

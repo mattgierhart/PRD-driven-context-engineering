@@ -169,6 +169,11 @@ diagram for `TECH-`/`ARC-`, Storybook-style specimens for `DES-`, Given/When/The
 `TEST-`, an ops console for `DEP-`/`RUN-`/`MON-`/`SEC-`, a retro playbook for `LL-`, a vendor
 context map for `INT-`. The full schema-per-ID-type and persona-per-view rationale lives in
 [`SoT/html/README.md`](SoT/html/README.md).
+
+> **Screenshots are generated** — when the pages change, refresh them with
+> `python3 SoT/html/screenshot.py` (Playwright + Chromium; see
+> [`SoT/html/README.md`](SoT/html/README.md#refreshing-the-screenshots) for setup) and commit the
+> regenerated PNGs with the change.
 <!-- /SECTION: sot-html-companion -->
 
 ---

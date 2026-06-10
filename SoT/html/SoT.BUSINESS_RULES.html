@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Business Rules · BR-XXX</title>
+<link rel="stylesheet" href="assets/sot.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="index.html">SoT Atlas</a>
+  <a href="SoT.USER_JOURNEYS.html">Journeys</a>
+  <span class="here">Rules</span>
+  <a href="SoT.API_CONTRACTS.html">APIs</a>
+  <a href="SoT.DATA_MODEL.html">Data</a>
+  <a href="SoT.TESTING.html">Tests</a>
+  <a class="src" href="../SoT.BUSINESS_RULES.md">source: SoT.BUSINESS_RULES.md</a>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="kicker">The Source-of-Truth Review · <span class="no">№ 04</span> — Policy</p>
+    <h1>Business Rules</h1>
+    <p class="lede">The policy register: hard constraints the product must enforce. Each rule states
+       <em>what</em>, <em>why</em>, <em>where it's enforced</em>, and <em>what the user sees when it fires</em>.</p>
+    <div class="prefix-row">
+      <span class="prefix-chip">BR-001…099 · Pricing &amp; Entitlements</span>
+      <span class="prefix-chip">BR-101…199 · Data &amp; Security</span>
+      <span class="prefix-chip">BR-201…299 · User Permissions</span>
+      <span class="prefix-chip">BR-301…399 · Compliance &amp; Legal</span>
+      <span class="prefix-chip">BR-401…499 · Performance &amp; Limits</span>
+    </div>
+    <div class="persona-note">
+      <strong>Built for the PM, compliance reviewer, and backend engineer.</strong> Reads like a
+      policy register: severity-flagged rule cards with an imperative rule statement, an enforcement
+      matrix, and the exact error contract — the things a reviewer checks before sign-off.
+    </div>
+  </header>
+
+  <article class="entry" id="BR-001">
+    <div class="entry-head">
+      <a class="id" href="#BR-001">BR-001</a>
+      <h3><span class="ph">{Rule Name}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-critical">Critical</span>
+      <span class="badge b-active">Active</span>
+    </div>
+
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd><span class="ph">Pricing | Data | Permissions | Compliance | Performance</span></dd></div>
+      <div><dt>Created</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+      <div><dt>Last updated</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+
+    <div class="section-label">Rule statement (imperative, enforceable)</div>
+    <blockquote class="voc" style="font-style:normal">
+      <span class="ph">{Clear, enforceable statement. e.g. "Free tier users MUST be limited to 3
+      products. Attempts to exceed MUST show upgrade prompt."}</span>
+    </blockquote>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Rationale</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td><strong>Business driver</strong></td><td><span class="ph">{Why this rule exists}</span></td></tr>
+            <tr><td><strong>User impact</strong></td><td><span class="ph">{How it affects UX}</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="section-label">Enforcement</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td><strong>Location</strong></td><td><span class="ph">server / client / both</span></td></tr>
+            <tr><td><strong>Timing</strong></td><td><span class="ph">on action / background / real-time</span></td></tr>
+            <tr><td><strong>Enforced by</strong></td><td><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-label">Error contract (what fires when the rule is violated)</div>
+    <pre class="code"><span class="k">"error_code"</span>: <span class="s">"BR_001_VIOLATION"</span>
+<span class="k">"user_message"</span>: <span class="s">"<span class="ph">{User-friendly error}</span>"</span>
+<span class="k">"recovery"</span>: <span class="s">"<span class="ph">{What user can do}</span>"</span></pre>
+
+    <div class="section-label">Knowledge-graph links</div>
+    <table class="tbl">
+      <thead><tr><th>Relationship</th><th>ID</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr><td>Enforced by endpoint</td><td><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></td><td><span class="ph">{Endpoint enforcing this}</span></td></tr>
+        <tr><td>Applies in journey</td><td><a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a></td><td><span class="ph">{Journey where rule applies}</span></td></tr>
+        <tr><td>Backed by constraint</td><td><a class="id" href="SoT.DATA_MODEL.html#DBT-001">DBT-001</a></td><td><span class="ph">{Table with constraint}</span></td></tr>
+        <tr><td>Validated by</td><td><a class="id" href="SoT.TESTING.html#TEST-001">TEST-001</a></td><td><span class="ph">{Test validating compliance}</span></td></tr>
+      </tbody>
+    </table>
+  </article>
+
+  <article class="entry" id="severity-index">
+    <div class="entry-head"><h3>Register at a glance</h3></div>
+    <table class="tbl">
+      <thead><tr><th>ID</th><th>Rule</th><th>Category</th><th>Severity</th><th>Status</th><th>Enforced by</th></tr></thead>
+      <tbody>
+        <tr id="register-BR-001">
+          <td><a class="id" href="#BR-001">BR-001</a></td>
+          <td><span class="ph">{Rule name}</span></td>
+          <td><span class="ph">Pricing</span></td>
+          <td><span class="badge b-critical">Critical</span></td>
+          <td><span class="badge b-active">Active</span></td>
+          <td><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></td>
+        </tr>
+        <tr>
+          <td><span class="mono">BR-101</span></td>
+          <td><span class="ph">{Rule name}</span></td>
+          <td><span class="ph">Data &amp; Security</span></td>
+          <td><span class="badge b-high">High</span></td>
+          <td><span class="badge b-planned">Planned</span></td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <article class="entry" id="deprecated">
+    <div class="entry-head"><h3>Deprecated rules</h3><span class="spacer"></span><span class="badge b-deprecated">Deprecated</span></div>
+    <p><span class="mono">BR-XXX</span>: <span class="ph">{Rule Name}</span> — deprecated
+       <span class="ph">YYYY-MM-DD</span>, replaced by <span class="ph">BR-YYY | None</span>.
+       Reason: <span class="ph">{Why deprecated}</span></p>
+  </article>
+
+  <p class="footnote">
+    Companion to <a href="../SoT.BUSINESS_RULES.md">SoT.BUSINESS_RULES.md</a> (authoritative).
+    Deep-link a rule as <span class="mono">SoT.BUSINESS_RULES.html#BR-001</span>. Severity badge
+    classes: <span class="mono">b-critical · b-high · b-medium · b-low</span>.
+  </p>
+</main>
+</body>
+</html>

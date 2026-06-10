@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Feedback · CFD-XXX</title>
+<link rel="stylesheet" href="assets/sot.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="index.html">SoT Atlas</a>
+  <span class="here">Feedback</span>
+  <a href="SoT.USER_JOURNEYS.html">Journeys</a>
+  <a href="SoT.BUSINESS_RULES.html">Rules</a>
+  <a href="SoT.ADOPTION.html">Adoption</a>
+  <a class="src" href="../SoT.customer_feedback.md">source: SoT.customer_feedback.md</a>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="kicker">The Source-of-Truth Review · <span class="no">№ 02</span> — The Listening Desk</p>
+    <h1>Customer Feedback</h1>
+    <p class="lede">The voice-of-customer board: what users actually said, how much it hurts, how
+       many said it — and the product decision each insight received.</p>
+    <div class="prefix-row">
+      <span class="prefix-chip">CFD-001…099 · User research</span>
+      <span class="prefix-chip">CFD-101…199 · Feature requests</span>
+      <span class="prefix-chip">CFD-201…299 · Bug reports</span>
+      <span class="prefix-chip">CFD-301…399 · General feedback</span>
+    </div>
+    <div class="persona-note">
+      <strong>Built for the product manager / researcher.</strong> Each insight reads like a research
+      repository card: verbatim quote up top, evidence context (segment, tier, report count), a pain
+      meter, and a visible decision stamp — so a review meeting can scan the board, not parse prose.
+    </div>
+  </header>
+
+  <article class="entry" id="CFD-001">
+    <div class="entry-head">
+      <a class="id" href="#CFD-001">CFD-001</a>
+      <h3><span class="ph">{Insight Name}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-info">User research</span>
+      <span class="badge b-high">High priority</span>
+      <span class="badge b-planned">Analyzed</span>
+    </div>
+
+    <blockquote class="voc">
+      “<span class="ph">{Summary of the feedback in the user's own words.}</span>”
+      <footer>— <span class="ph">{User segment or count}</span>, first reported <span class="ph">YYYY-MM-DD</span></footer>
+    </blockquote>
+
+    <dl class="meta-grid">
+      <div><dt>User tier</dt><dd><span class="ph">Free / Paid / Enterprise</span></dd></div>
+      <div><dt>Segment</dt><dd><a class="id" href="SoT.USER_JOURNEYS.html#PER-001">PER-001</a></dd></div>
+      <div><dt>Total reports</dt><dd><span class="ph">{N users}</span></dd></div>
+      <div><dt>Created / Updated</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Problem statement</div>
+        <table class="tbl">
+          <tbody>
+            <tr><td><strong>Current behavior</strong></td><td><span class="ph">{What happens now}</span></td></tr>
+            <tr><td><strong>Expected behavior</strong></td><td><span class="ph">{What users expect}</span></td></tr>
+            <tr><td><strong>Impact</strong></td><td><span class="ph">{How this affects users}</span></td></tr>
+          </tbody>
+        </table>
+        <div class="section-label">Pain level</div>
+        <div class="gauge" style="max-width:320px">
+          <span class="track"><i class="fill crit" style="width:75%"></i></span>
+          <span class="badge b-critical">High</span>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Product decision</div>
+        <p><span class="decision-stamp">Implement</span>
+           <small style="display:block; margin-top:8px; color:var(--ink-soft)">
+             alternates: <span class="decision-stamp defer" style="font-size:11px">Defer</span>
+             <span class="decision-stamp decline" style="font-size:11px">Decline</span> · Needs research
+           </small></p>
+        <table class="tbl">
+          <tbody>
+            <tr><td><strong>Decided</strong></td><td><span class="ph">YYYY-MM-DD</span> by <span class="ph">{Role/Name}</span></td></tr>
+            <tr><td><strong>Rationale</strong></td><td><span class="ph">{Why this decision was made}</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-label">Knowledge-graph links</div>
+    <p>
+      Affects <a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a> ·
+      relates to <a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a> ·
+      addressed by <a class="id external" href="../../PRD.md">FEA-XXX (PRD)</a>
+    </p>
+  </article>
+
+  <article class="entry" id="board">
+    <div class="entry-head"><h3>Board at a glance</h3></div>
+    <table class="tbl">
+      <thead><tr><th>ID</th><th>Insight</th><th>Category</th><th>Reports</th><th>Pain</th><th>Status</th><th>Decision</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a class="id" href="#CFD-001">CFD-001</a></td>
+          <td><span class="ph">{Insight name}</span></td>
+          <td>Research</td>
+          <td><span class="ph">{N}</span></td>
+          <td><span class="badge b-critical">High</span></td>
+          <td><span class="badge b-planned">Analyzed</span></td>
+          <td><span class="badge b-active">Implement</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">CFD-101</span></td>
+          <td><span class="ph">{Request name}</span></td>
+          <td>Feature request</td>
+          <td><span class="ph">{N}</span></td>
+          <td><span class="badge b-planned">Medium</span></td>
+          <td><span class="badge b-neutral">New</span></td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <article class="entry" id="deprecated">
+    <div class="entry-head"><h3>Deprecated entries</h3><span class="spacer"></span><span class="badge b-deprecated">Deprecated</span></div>
+    <p><span class="mono">CFD-XXX</span>: <span class="ph">{Name}</span> — deprecated
+       <span class="ph">YYYY-MM-DD</span>. Reason: <span class="ph">{addressed, no longer relevant, …}</span></p>
+  </article>
+
+  <p class="footnote">
+    Companion to <a href="../SoT.customer_feedback.md">SoT.customer_feedback.md</a> (authoritative).
+    Deep-link an insight as <span class="mono">SoT.customer_feedback.html#CFD-001</span>.
+    Status flow: New → Analyzed → Actioned / Declined.
+  </p>
+</main>
+</body>
+</html>

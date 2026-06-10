@@ -34,6 +34,13 @@ Each file focuses on one artifact type with a consistent ID prefix (~100-150 lin
 
 > See [SoT.UNIQUE_ID_SYSTEM.md](SoT.UNIQUE_ID_SYSTEM.md) for full ID specifications.
 
+> **Human-review views**: each SoT file has an HTML companion in [`html/`](html/README.md) that
+> renders its entries the way the artifact's natural reviewer expects (journey maps, API reference,
+> ER cards, ADRs, runbooks, adoption curve…). Entry anchors equal IDs
+> (`html/SoT.BUSINESS_RULES.html#BR-001`), and every cross-reference is a hyperlink. The markdown
+> files remain authoritative; the HTML is a render for review, never the first place a decision is
+> recorded. Start at [`html/index.html`](html/index.html).
+
 > **The as-built layer (v0.7)**: the IDs in these files are the *spec* layer of the knowledge graph. During build execution the product's code becomes a second layer — extracted into `status/devgraph.json` and bridged back to these IDs via the `@implements` tags in code. The IDs you define here are the anchors those bridges point to; an `ARC-` entry can carry a **Conformance Rule** the code is checked against. See [`../docs/DEVELOPMENT_GRAPH.md`](../docs/DEVELOPMENT_GRAPH.md).
 
 ## How to Initialize

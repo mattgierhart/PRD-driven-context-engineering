@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Model · DBT-XXX</title>
+<link rel="stylesheet" href="assets/sot.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="index.html">SoT Atlas</a>
+  <a href="SoT.API_CONTRACTS.html">APIs</a>
+  <span class="here">Data</span>
+  <a href="SoT.BUSINESS_RULES.html">Rules</a>
+  <a href="SoT.TECHNICAL_DECISIONS.html">Decisions</a>
+  <a href="SoT.TESTING.html">Tests</a>
+  <a class="src" href="../SoT.DATA_MODEL.md">source: SoT.DATA_MODEL.md</a>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="kicker">The Source-of-Truth Review · <span class="no">№ 06</span> — The Ledger</p>
+    <h1>Data Model</h1>
+    <p class="lede">Tables, views, and relationships — rendered the way a schema browser shows them:
+       table cards with typed columns, key markers, and a foreign-key map.</p>
+    <div class="prefix-row">
+      <span class="prefix-chip">DBT-001…099 · Core tables</span>
+      <span class="prefix-chip">DBT-101…199 · Feature tables</span>
+      <span class="prefix-chip">DBT-201…299 · Junction tables</span>
+      <span class="prefix-chip">DBT-301…399 · Views</span>
+    </div>
+    <div class="persona-note">
+      <strong>Built for the data engineer / DBA.</strong> Entity cards mimic an ER tool:
+      🔑 primary key, 🔗 foreign key (hyperlinked to the referenced table), column types in
+      monospace, and indexes called out — what you'd expect from dbdocs or pgAdmin.
+    </div>
+  </header>
+
+  <article class="entry" id="DBT-001">
+    <div class="entry-head">
+      <a class="id" href="#DBT-001">DBT-001</a>
+      <h3><span class="ph">{Table Name}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-info">Core</span>
+      <span class="badge b-active">Active</span>
+    </div>
+
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd><span class="ph">Core | Feature | Junction | View</span></dd></div>
+      <div><dt>Created</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+      <div><dt>Last updated</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+
+    <p><strong>Purpose:</strong> <span class="ph">{What this table stores and why it exists.}</span></p>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Entity</div>
+        <div class="db-table">
+          <div class="db-head">🗄 <span class="ph">{table_name}</span></div>
+          <table>
+            <tr><td class="key">🔑 id</td><td class="typ">UUID</td><td>PK</td></tr>
+            <tr><td class="fk">🔗 <a class="id" href="#DBT-001">user_id</a></td><td class="typ">UUID</td><td>→ auth.users.id</td></tr>
+            <tr><td>name</td><td class="typ">TEXT</td><td>NOT NULL</td></tr>
+            <tr><td>status</td><td class="typ">TEXT</td><td>NOT NULL</td></tr>
+            <tr><td>created_at</td><td class="typ">TIMESTAMPTZ</td><td>NOT NULL</td></tr>
+            <tr><td>updated_at</td><td class="typ">TIMESTAMPTZ</td><td>NOT NULL</td></tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Columns</div>
+        <table class="tbl">
+          <thead><tr><th>Column</th><th>Type</th><th>Req</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>id</code></td><td><code>UUID</code></td><td>✓</td><td>Primary key</td></tr>
+            <tr><td><code>user_id</code></td><td><code>UUID</code></td><td>✓</td><td>Owner reference</td></tr>
+            <tr><td><code>name</code></td><td><code>TEXT</code></td><td>✓</td><td>Display name</td></tr>
+            <tr><td><code>status</code></td><td><code>TEXT</code></td><td>✓</td><td>Record status</td></tr>
+            <tr><td><code>created_at</code></td><td><code>TIMESTAMPTZ</code></td><td>✓</td><td>Creation timestamp</td></tr>
+            <tr><td><code>updated_at</code></td><td><code>TIMESTAMPTZ</code></td><td>✓</td><td>Last update</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Key indexes</div>
+        <ul>
+          <li>Primary key on <code>id</code></li>
+          <li>Index on <code>user_id</code> for ownership lookups</li>
+          <li>Partial index on <code>status</code> where not deleted</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">Foreign keys</div>
+        <ul>
+          <li><strong>References:</strong> <code>auth.users</code> (<code>user_id → id</code>)</li>
+          <li><strong>Referenced by:</strong> <a class="id" href="#DBT-001">DBT-XXX</a>
+              (<code><span class="ph">parent_id</span> → id</code>)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label">Knowledge-graph links</div>
+    <table class="tbl">
+      <thead><tr><th>Relationship</th><th>ID</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr><td>Accessed by</td><td><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></td><td><span class="ph">{Endpoint accessing this table}</span></td></tr>
+        <tr><td>Feeds journey</td><td><a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a></td><td><span class="ph">{Journey using this data}</span></td></tr>
+        <tr><td>Constraint enforces</td><td><a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a></td><td><span class="ph">{Rule enforced by constraint}</span></td></tr>
+        <tr><td>Schema tested by</td><td><a class="id" href="SoT.TESTING.html#TEST-001">TEST-001</a></td><td><span class="ph">{Schema validation test}</span></td></tr>
+      </tbody>
+    </table>
+  </article>
+
+  <article class="entry" id="relationship-map">
+    <div class="entry-head"><h3>Relationship map</h3></div>
+    <p class="lede" style="font-size:13.5px">High-level ER sketch. One node per table; arrows follow
+       foreign keys (child → parent). Update alongside any FK change.</p>
+    <div class="arch-row">
+      <div class="arch-node ext">auth.users<small>platform-owned</small></div>
+    </div>
+    <div class="arch-link">▲<br>user_id</div>
+    <div class="arch-row">
+      <div class="arch-node"><a class="id" href="#DBT-001">DBT-001</a><small><span class="ph">{table_name}</span></small></div>
+      <div class="arch-node" style="border-style:dashed"><span class="mono">DBT-101</span><small><span class="ph">{feature table}</span></small></div>
+    </div>
+    <div class="arch-link">▲<br><span class="ph">{junction FK pair}</span></div>
+    <div class="arch-row">
+      <div class="arch-node" style="border-style:dashed"><span class="mono">DBT-201</span><small><span class="ph">{junction table}</span></small></div>
+    </div>
+  </article>
+
+  <article class="entry" id="cross-reference">
+    <div class="entry-head"><h3>Cross-reference index</h3></div>
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Tables by API</div>
+        <p><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a> accesses
+           <a class="id" href="#DBT-001">DBT-001</a></p>
+      </div>
+      <div>
+        <div class="section-label">Tables by journey</div>
+        <p><a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a> uses
+           <a class="id" href="#DBT-001">DBT-001</a></p>
+      </div>
+    </div>
+  </article>
+
+  <article class="entry" id="deprecated">
+    <div class="entry-head"><h3>Deprecated tables</h3><span class="spacer"></span><span class="badge b-deprecated">Deprecated</span></div>
+    <p><span class="mono">DBT-XXX</span>: <span class="ph">{Name}</span> — deprecated
+       <span class="ph">YYYY-MM-DD</span>, replaced by <span class="ph">DBT-YYY | None</span>.
+       Reason: <span class="ph">{Why deprecated}</span></p>
+  </article>
+
+  <p class="footnote">
+    Companion to <a href="../SoT.DATA_MODEL.md">SoT.DATA_MODEL.md</a> (authoritative).
+    Deep-link a table as <span class="mono">SoT.DATA_MODEL.html#DBT-001</span>.
+  </p>
+</main>
+</body>
+</html>

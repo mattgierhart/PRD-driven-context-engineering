@@ -49,6 +49,10 @@ in [`assets/sot.css`](assets/sot.css); use it where indicated, nowhere else.
 | **Change bar** — a margin bar marks what changed since the last revision | Military doctrine publications | `.changed` | Rows/paragraphs touched in the latest revision; pair with the revision table |
 | **Do/Don't pair** — side-by-side correct/incorrect usage, ochre check / ink cross | Design-system docs (Carbon, Polaris) | `.dodont` | Component usage, business-rule examples, lessons |
 | **Modular spacing unit** — one scale, scrupulously adhered to | Vignelli/Unimark standards manuals | `--u` custom property | All new component CSS |
+| **Split reference + pinned code rail** — fields left, sticky code samples right (non-selectable `$` prompt) | Stripe API documentation | `.api-split` / `.code-rail` / `.prompt` | API contract entries |
+| **Anatomy diagram** — numbered callouts with leader lines naming each subpart | Design-system docs (Carbon, Polaris) | `.anatomy` / `.callout` / `.anatomy-legend` | Component specs; reusable for entity cards |
+| **Service-blueprint swimlanes** — customer / frontstage / backstage split by a labeled line of visibility | IDEO & NN/g service design | `.blueprint` / `.bp-vis` | One per journey, under the journey map |
+| **Field-mark plate** — leader lines point at the diagnostic parts of a specimen | Peterson Field Guides | `.fieldmark` | ID anatomy on the atlas; any "parts of X" diagram |
 
 **The ochre budget**: ochre is the single spot color and it must stay scarce to keep meaning.
 Standing uses are the kicker №, the ID-chip underline, and confidence stars. Beyond those, at most

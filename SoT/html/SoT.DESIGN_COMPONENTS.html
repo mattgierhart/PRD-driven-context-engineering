@@ -69,6 +69,23 @@
     <p class="footnote" style="border:none; padding:0; margin-top:6px">Replace the specimen markup
        with the real component rendering (screenshot, embed, or live HTML).</p>
 
+    <div class="section-label">Anatomy</div>
+    <div class="anatomy">
+      <div class="anatomy-stage">
+        <button style="background:var(--ink); color:var(--surface); border:none; padding:9px 20px; font-weight:600; font-family:var(--grot); letter-spacing:0.04em">
+          <span class="ph">{Label}</span>
+        </button>
+        <span class="callout" style="top:14px; left:14px">1<i class="lv"></i></span>
+        <span class="callout" style="top:50%; right:14px; transform:translateY(-50%)">2<i class="lh" style="right:100%; left:auto"></i></span>
+        <span class="callout" style="bottom:14px; left:50%; transform:translateX(-50%)">3<i class="lv" style="top:auto; bottom:100%"></i></span>
+      </div>
+      <ol class="anatomy-legend">
+        <li><span><strong>Container</strong> — <span class="ph">{Bounds, padding, background token}</span></span></li>
+        <li><span><strong>Label</strong> — <span class="ph">{Type style, truncation rule}</span></span></li>
+        <li><span><strong>Focus ring / state layer</strong> — <span class="ph">{How states render}</span></span></li>
+      </ol>
+    </div>
+
     <div class="grid-2">
       <div>
         <div class="section-label">Specifications</div>

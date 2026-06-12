@@ -1,5 +1,6 @@
 ---
 name: ghm-template-sync
+tier: secondary
 description: >
   Detect template version drift and guide migration to the latest template version.
   Compares current repo against the template, identifies what's outdated, and automates

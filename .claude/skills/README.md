@@ -44,6 +44,7 @@ skills/
 ├── prd-v04-screen-flow-definition/        # v0.4 Journeys
 ├── prd-v05-risk-discovery-interview/      # v0.5 Red Team
 ├── prd-v05-technical-stack-selection/     # v0.5 Red Team
+├── prd-v05-vibe-gate-interview/           # v0.5 Red Team (qualitative gate)
 ├── prd-v06-architecture-design/           # v0.6 Architecture
 ├── prd-v06-technical-specification/       # v0.6 Architecture
 ├── prd-v07-epic-scoping/                  # v0.7 Build
@@ -74,28 +75,40 @@ skills/
 ├── ghm-id-register/                       # Methodology
 ├── ghm-status-sync/                       # Methodology
 ├── ghm-harvest/                           # Methodology
-└── ghm-sot-builder/                       # Methodology
+├── ghm-sot-builder/                       # Methodology
+└── ghm-template-sync/                     # Methodology
 ```
 
-**44 skills total** covering the complete PRD lifecycle v0.1→v1.0, including framework-grounded v0.9 (Dunford / Hormozi / ORB) and v1.0 (Moore Chasm / Torres / Mom Test) skills.
+**48 skills total** (42 stage skills + 6 methodology operators) covering the complete PRD lifecycle v0.1→v1.0, including framework-grounded v0.9 (Dunford / Hormozi / ORB) and v1.0 (Moore Chasm / Torres / Mom Test) skills.
+
+---
+
+## Core vs. Secondary: the golden path and the playbooks
+
+Every skill declares a `tier:` in its frontmatter:
+
+- **`tier: core`** — produces a gate-mandatory SoT artifact (per [`ghm-gate-check/references/gate-criteria.md`](ghm-gate-check/references/gate-criteria.md)), orchestrates a stage chain, or is an essential methodology operator. The 33 core skills form the **golden path** v0.1→v1.0 — run these and every gate can pass.
+- **`tier: secondary`** — tactical/enrichment playbook: channel-specific, practice technique, or optional-subtype producer. Invoked on demand; **never required to pass a gate**. Secondary skills keep all of their SoT-creation guidance — the tier is about *when to reach for them*, not about their quality.
+
+If you're new to the library or short on time: run the core column below, top to bottom. Reach into the playbook column when the tactic matches your product (e.g. `hn-reddit-launch` for dev tools, `aeo-audit` once you have a public site).
 
 ---
 
 ## PRD Stage → Skill Mapping
 
-| Stage              | Skills                                                           | Count |
-| ------------------ | ---------------------------------------------------------------- | ----- |
-| **v0.1 Spark**     | Problem Framing, User Value Articulation                         | 2     |
-| **v0.2 Market**    | Competitive Landscape, Product Type Classification               | 2     |
-| **v0.3 Commercial**| Outcome Definition, Pricing Model, Moat Definition, Features     | 4     |
-| **v0.4 Journeys**  | Persona Definition, User Journey Mapping, Screen Flow Definition | 3     |
-| **v0.5 Red Team**  | Risk Discovery Interview, Technical Stack Selection              | 2     |
-| **v0.6 Arch**      | Architecture Design, Technical Specification                     | 2     |
-| **v0.7 Build**     | Epic Scoping, Test Planning, Implementation Loop                 | 3     |
-| **v0.8 Release**   | Release Planning, Runbook Creation, Monitoring Setup, Changelog-as-Marketing, Drift Baseline/Compare, Marketing-Ops Handoff | 6     |
-| **v0.9 Launch**    | GTM Strategy (orchestrator), Positioning (Dunford), Offer Construction (Hormozi), Launch Channels (ORB), AEO Audit, Alternatives Pages, Cold Outreach Tiered, HN/Reddit Launch, Launch Metrics, Feedback Loop Setup | 10    |
-| **v1.0 Adoption**  | Crossing the Chasm (Moore), Continuous Discovery (Torres), Mom Test Interview (Fitzpatrick), Case Study Builder, Testimonial Collector | 5     |
-| **Methodology**    | Gate Check, ID Register, Status Sync, Harvest, SoT Builder       | 5     |
+| Stage              | Core (golden path)                                               | Secondary (playbooks)                          | Count |
+| ------------------ | ---------------------------------------------------------------- | ---------------------------------------------- | ----- |
+| **v0.1 Spark**     | Problem Framing, User Value Articulation                         | —                                              | 2     |
+| **v0.2 Market**    | Competitive Landscape, Product Type Classification               | —                                              | 2     |
+| **v0.3 Commercial**| Outcome Definition, Pricing Model, Moat Definition, Features     | —                                              | 4     |
+| **v0.4 Journeys**  | Persona Definition, User Journey Mapping, Screen Flow Definition | Visual Prototype Gate                          | 4     |
+| **v0.5 Red Team**  | Risk Discovery Interview, Technical Stack Selection, Vibe Gate Interview | —                                      | 3     |
+| **v0.6 Arch**      | Architecture Design, Technical Specification                     | Environment Setup                              | 3     |
+| **v0.7 Build**     | Epic Scoping, Test Planning, Implementation Loop                 | —                                              | 3     |
+| **v0.8 Release**   | Release Planning, Runbook Creation, Monitoring Setup             | Changelog-as-Marketing, Drift Baseline/Compare, Marketing-Ops Handoff | 6     |
+| **v0.9 Launch**    | GTM Strategy (orchestrator), Positioning (Dunford), Offer Construction (Hormozi), Launch Channels (ORB), Launch Metrics, Feedback Loop Setup | AEO Audit, Alternatives Pages, Cold Outreach Tiered, HN/Reddit Launch | 10    |
+| **v1.0 Adoption**  | Crossing the Chasm (Moore)                                       | Continuous Discovery (Torres), Mom Test Interview (Fitzpatrick), Case Study Builder, Testimonial Collector | 5     |
+| **Methodology**    | Gate Check, ID Register, Harvest, SoT Builder                    | Status Sync, Template Sync                     | 6     |
 
 See [`skills-inventory.md`](skills-inventory.md) for full specifications.
 
@@ -125,6 +138,7 @@ prd-v{XX}-{name}/
    ```yaml
    ---
    name: prd-v{XX}-{name}
+   tier: core | secondary   # core = gate-mandatory output; secondary = on-demand playbook
    description: >
      What this skill does.
      Triggers on [specific phrases].

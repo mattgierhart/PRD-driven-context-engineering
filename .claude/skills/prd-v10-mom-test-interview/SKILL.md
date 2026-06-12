@@ -1,5 +1,6 @@
 ---
 name: prd-v10-mom-test-interview
+tier: secondary
 description: >
   Apply Rob Fitzpatrick's Mom Test discipline to customer interviews during PRD v1.0 Market
   Adoption. Triggers on requests to interview customers, run discovery calls, validate ideas

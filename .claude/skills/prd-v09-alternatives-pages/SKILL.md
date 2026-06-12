@@ -1,5 +1,6 @@
 ---
 name: prd-v09-alternatives-pages
+tier: secondary
 description: >
   Generate "X vs Y" and "Alternative to X" SEO/CRO pages targeting competitive search intent
   during PRD v0.9 Go-to-Market. Triggers on requests to build comparison pages, target

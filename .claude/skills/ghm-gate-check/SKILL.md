@@ -1,5 +1,6 @@
 ---
 name: ghm-gate-check
+tier: core
 description: >
   Validates gate criteria before PRD lifecycle advancement by delegating to
   the readiness scoring pipeline (scripts/readiness.py). Returns a graduated

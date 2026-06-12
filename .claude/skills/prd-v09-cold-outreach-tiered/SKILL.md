@@ -1,5 +1,6 @@
 ---
 name: prd-v09-cold-outreach-tiered
+tier: secondary
 description: >
   Build Tier 1/2/3 cold outreach sequences differentiated by personalization depth and research
   signal strength during PRD v0.9 Go-to-Market. Triggers on requests to plan cold outreach,

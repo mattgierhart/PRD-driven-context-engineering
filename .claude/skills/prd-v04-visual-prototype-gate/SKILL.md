@@ -1,5 +1,6 @@
 ---
 name: prd-v04-visual-prototype-gate
+tier: secondary
 description: >
   Generate visual prototype prompts from SCR- entries for Google Stitch (or equivalent UI generation tool).
   Triggers on: 'make a prototype', 'visualize screens', 'generate Stitch prompt', 'I need a visual demo',

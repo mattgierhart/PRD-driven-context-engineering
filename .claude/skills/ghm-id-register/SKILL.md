@@ -1,5 +1,6 @@
 ---
 name: ghm-id-register
+tier: core
 description: >
   Validates and registers new SoT IDs with cross-reference integrity.
   Triggers when creating BR-XXX, UJ-XXX, API-XXX, or CFD-XXX entries.

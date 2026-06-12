@@ -1,5 +1,6 @@
 ---
 name: prd-v10-continuous-discovery-torres
+tier: secondary
 description: >
   Establish weekly customer-discovery cadence and Opportunity Solution Tree practice using Teresa
   Torres's Continuous Discovery Habits framework during PRD v1.0 Market Adoption. Triggers on

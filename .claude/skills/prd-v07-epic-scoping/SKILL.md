@@ -1,5 +1,6 @@
 ---
 name: prd-v07-epic-scoping
+tier: core
 description: Transform v0.6 specifications into context-window-sized work packages (EPICs) during PRD v0.7 Build Execution. Triggers on requests to create epics, scope work, break down implementation, or when user asks "create epics", "scope work", "break down work", "context window sizing", "what to build first?", "implementation planning", "epic breakdown". Consumes API-, DBT-, FEA-, ARC-. Outputs EPIC- entries with objectives, ID references, dependencies, and context windows. Feeds v0.7 Test Planning.
 context: fork
 allowed-tools:

@@ -1,5 +1,6 @@
 ---
 name: ghm-sot-builder
+tier: core
 description: >
   Creates new Source of Truth (SoT) files when existing templates don't fit your needs.
   Triggers on requests to create a new SoT file, add a new artifact type, or when user says

@@ -1,5 +1,6 @@
 ---
 name: prd-v08-drift-baseline-compare
+tier: secondary
 description: >
   Establish baseline → snapshot → compare → history monitoring for any KPI, config, or
   metric that can drift during PRD v0.8 Deployment & Ops. Triggers on requests to monitor

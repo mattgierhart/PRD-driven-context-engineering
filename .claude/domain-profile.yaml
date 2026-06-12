@@ -100,56 +100,67 @@ required_edges: []
 
 # --- Skill Taxonomy ---
 # Core skills work in any domain. Domain skills are product-specific.
+# Tiers (mirrors `tier:` frontmatter in each SKILL.md):
+#   core      — golden path: produces gate-mandatory SoT artifacts (per
+#               ghm-gate-check/references/gate-criteria.md), orchestrates a stage
+#               chain, or is an essential operator. Gates only ever require these.
+#   secondary — tactical/enrichment playbook: invoked on demand, never gate-required.
+#               Keeps all of its SoT-creation guidance; the tier is about when to
+#               reach for it, not its quality.
 skills:
   core:
-    - ghm-gate-check
-    - ghm-harvest
-    - ghm-id-register
-    - ghm-sot-builder
-    - ghm-status-sync
+    - ghm-gate-check        # tier: core
+    - ghm-harvest           # tier: core
+    - ghm-id-register       # tier: core
+    - ghm-sot-builder       # tier: core
+    - ghm-status-sync       # tier: secondary (merge into ghm-gate-check proposed)
+    - ghm-template-sync     # tier: secondary (merge into ghm-sot-builder proposed)
     - SKILL_TEMPLATE
   domain:
-    - prd-v01-problem-framing
-    - prd-v01-user-value-articulation
-    - prd-v02-competitive-landscape-mapping
-    - prd-v02-product-type-classification
-    - prd-v03-features-value-planning
-    - prd-v03-moat-definition
-    - prd-v03-outcome-definition
-    - prd-v03-pricing-model
-    - prd-v04-persona-definition
-    - prd-v04-screen-flow-definition
-    - prd-v04-user-journey-mapping
-    - prd-v04-visual-prototype-gate
-    - prd-v05-risk-discovery-interview
-    - prd-v05-technical-stack-selection
-    - prd-v06-architecture-design
-    - prd-v06-environment-setup
-    - prd-v06-technical-specification
-    - prd-v07-epic-scoping
-    - prd-v07-implementation-loop
-    - prd-v07-test-planning
-    - prd-v08-monitoring-setup
-    - prd-v08-release-planning
-    - prd-v08-runbook-creation
-    - prd-v08-changelog-as-marketing
-    - prd-v08-drift-baseline-compare
-    - prd-v08-marketing-ops-handoff
-    - prd-v09-feedback-loop-setup
-    - prd-v09-gtm-strategy
-    - prd-v09-launch-metrics
-    - prd-v09-positioning-dunford
-    - prd-v09-offer-construction-hormozi
-    - prd-v09-launch-channels-orb
-    - prd-v09-aeo-audit
-    - prd-v09-alternatives-pages
-    - prd-v09-cold-outreach-tiered
-    - prd-v09-hn-reddit-launch
-    - prd-v10-chasm-adoption-moore
-    - prd-v10-continuous-discovery-torres
-    - prd-v10-mom-test-interview
-    - prd-v10-case-study-builder
-    - prd-v10-testimonial-collector
+    core:
+      - prd-v01-problem-framing
+      - prd-v01-user-value-articulation
+      - prd-v02-competitive-landscape-mapping
+      - prd-v02-product-type-classification
+      - prd-v03-features-value-planning
+      - prd-v03-moat-definition
+      - prd-v03-outcome-definition
+      - prd-v03-pricing-model
+      - prd-v04-persona-definition
+      - prd-v04-screen-flow-definition
+      - prd-v04-user-journey-mapping
+      - prd-v05-risk-discovery-interview
+      - prd-v05-technical-stack-selection
+      - prd-v05-vibe-gate-interview
+      - prd-v06-architecture-design
+      - prd-v06-technical-specification
+      - prd-v07-epic-scoping
+      - prd-v07-implementation-loop
+      - prd-v07-test-planning
+      - prd-v08-monitoring-setup
+      - prd-v08-release-planning
+      - prd-v08-runbook-creation
+      - prd-v09-feedback-loop-setup
+      - prd-v09-gtm-strategy
+      - prd-v09-launch-metrics
+      - prd-v09-positioning-dunford
+      - prd-v09-offer-construction-hormozi
+      - prd-v09-launch-channels-orb
+      - prd-v10-chasm-adoption-moore
+    secondary:
+      - prd-v04-visual-prototype-gate
+      - prd-v06-environment-setup
+      - prd-v08-changelog-as-marketing
+      - prd-v08-drift-baseline-compare
+      - prd-v08-marketing-ops-handoff
+      - prd-v09-aeo-audit
+      - prd-v09-alternatives-pages
+      - prd-v09-cold-outreach-tiered
+      - prd-v09-hn-reddit-launch
+      - prd-v10-continuous-discovery-torres
+      - prd-v10-mom-test-interview
+      - prd-v10-case-study-builder
+      - prd-v10-testimonial-collector
 
 # --- Agent Registry ---
 # Product-lifecycle agents. Non-product repos may drop these entirely.

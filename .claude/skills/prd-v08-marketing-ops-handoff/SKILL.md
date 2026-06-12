@@ -1,5 +1,6 @@
 ---
 name: prd-v08-marketing-ops-handoff
+tier: secondary
 description: >
   Define lifecycle stages and marketing → sales / CSM handoff rules for leads captured by GTM
   channels during PRD v0.8 Deployment & Ops. Triggers on requests to set up lead lifecycle,

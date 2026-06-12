@@ -1,5 +1,6 @@
 ---
 name: prd-v08-release-planning
+tier: core
 description: >
   Define release criteria, deployment environments, and rollback strategies during PRD v0.8 Deployment & Ops.
   Triggers on requests to plan releases, define deployment criteria, or when user asks "how do we deploy?",

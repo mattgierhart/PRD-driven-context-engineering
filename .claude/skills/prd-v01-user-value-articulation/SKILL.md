@@ -1,5 +1,6 @@
 ---
 name: prd-v01-user-value-articulation
+tier: core
 description: >
   Transform validated pain points into articulated user value statements for PRD v0.1 Spark.
   Triggers on completing problem framing, defining user outcomes, articulating value propositions,

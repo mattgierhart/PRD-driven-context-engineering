@@ -1,5 +1,6 @@
 ---
 name: ghm-status-sync
+tier: secondary
 description: >
   Synchronizes README.md Command Center with current project state.
   Triggers on gate changes, EPIC status changes, or explicit `/ghm-status-sync` invocation.

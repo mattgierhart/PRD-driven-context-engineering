@@ -1,5 +1,6 @@
 ---
 name: prd-v08-changelog-as-marketing
+tier: secondary
 description: >
   Design the changelog as a distribution surface bridging engineering releases (DEP-/FEA-) to
   marketing channels (GTM-) during PRD v0.8 Deployment & Ops. Triggers on requests to set up a

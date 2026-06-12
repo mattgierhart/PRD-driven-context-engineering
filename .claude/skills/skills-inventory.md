@@ -6,53 +6,59 @@
 
 ## Quick Navigation
 
-| Stage | Skill | Status | Folder |
-|-------|-------|--------|--------|
-| **v0.1 Spark** | [Problem Framing](#skill-problem-framing) | ✅ Ready | [`prd-v01-problem-framing/`](prd-v01-problem-framing/) |
-| **v0.1 Spark** | [User Value Articulation](#skill-user-value-articulation) | ✅ Ready | [`prd-v01-user-value-articulation/`](prd-v01-user-value-articulation/) |
-| **v0.2 Market Definition** | [Competitive Landscape Mapping](#skill-competitive-landscape-mapping) | ✅ Ready | [`prd-v02-competitive-landscape-mapping/`](prd-v02-competitive-landscape-mapping/) |
-| **v0.2 Market Definition** | [Product Type Classification](#skill-product-type-classification) | ✅ Ready | [`prd-v02-product-type-classification/`](prd-v02-product-type-classification/) |
-| **v0.3 Commercial Model** | [Outcome Definition](#skill-outcome-definition) | ✅ Ready | [`prd-v03-outcome-definition/`](prd-v03-outcome-definition/) |
-| **v0.3 Commercial Model** | [Pricing Model Selection](#skill-pricing-model-selection) | ✅ Ready | [`prd-v03-pricing-model/`](prd-v03-pricing-model/) |
-| **v0.3 Commercial Model** | [Moat Definition](#skill-moat-definition) | ✅ Ready | [`prd-v03-moat-definition/`](prd-v03-moat-definition/) |
-| **v0.3 Commercial Model** | [Feature Value Planning](#skill-feature-value-planning) | ✅ Ready | [`prd-v03-features-value-planning/`](prd-v03-features-value-planning/) |
-| **v0.4 User Journeys** | [Persona Definition](#skill-persona-definition) | ✅ Ready | [`prd-v04-persona-definition/`](prd-v04-persona-definition/) |
-| **v0.4 User Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | ✅ Ready | [`prd-v04-user-journey-mapping/`](prd-v04-user-journey-mapping/) |
-| **v0.4 User Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | ✅ Ready | [`prd-v04-screen-flow-definition/`](prd-v04-screen-flow-definition/) |
-| **v0.4 User Journeys** | [Visual Prototype Gate](#skill-visual-prototype-gate) | ✅ Ready | [`prd-v04-visual-prototype-gate/`](prd-v04-visual-prototype-gate/) |
-| **v0.5 Red Team Review** | [Risk Discovery Interview](#skill-risk-discovery-interview) | ✅ Ready | [`prd-v05-risk-discovery-interview/`](prd-v05-risk-discovery-interview/) |
-| **v0.5 Red Team Review** | [Technical Stack Selection](#skill-technical-stack-selection) | ✅ Ready | [`prd-v05-technical-stack-selection/`](prd-v05-technical-stack-selection/) |
-| **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | ✅ Ready | [`prd-v06-architecture-design/`](prd-v06-architecture-design/) |
-| **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | ✅ Ready | [`prd-v06-technical-specification/`](prd-v06-technical-specification/) |
-| **v0.6 Architecture** | [Environment Setup](#skill-environment-setup) | ✅ Ready | [`prd-v06-environment-setup/`](prd-v06-environment-setup/) |
-| **v0.7 Build Execution** | [Epic Scoping](#skill-epic-scoping) | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
-| **v0.7 Build Execution** | [Test Planning](#skill-test-planning) | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
-| **v0.7 Build Execution** | [Implementation Loop](#skill-implementation-loop) | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
-| **v0.8 Release & Deployment** | Release Planning | ✅ Ready | [`prd-v08-release-planning/`](prd-v08-release-planning/) |
-| **v0.8 Release & Deployment** | Runbook Creation | ✅ Ready | [`prd-v08-runbook-creation/`](prd-v08-runbook-creation/) |
-| **v0.8 Release & Deployment** | Monitoring Setup | ✅ Ready | [`prd-v08-monitoring-setup/`](prd-v08-monitoring-setup/) |
-| **v0.8 Release & Deployment** | Changelog-as-Marketing | ✅ Ready | [`prd-v08-changelog-as-marketing/`](prd-v08-changelog-as-marketing/) |
-| **v0.8 Release & Deployment** | Drift Baseline/Compare | ✅ Ready | [`prd-v08-drift-baseline-compare/`](prd-v08-drift-baseline-compare/) |
-| **v0.8 Release & Deployment** | Marketing-Ops Handoff | ✅ Ready | [`prd-v08-marketing-ops-handoff/`](prd-v08-marketing-ops-handoff/) |
-| **v0.9 Launch** | GTM Strategy (orchestrator) | ✅ Ready | [`prd-v09-gtm-strategy/`](prd-v09-gtm-strategy/) |
-| **v0.9 Launch** | Positioning (Dunford) | ✅ Ready | [`prd-v09-positioning-dunford/`](prd-v09-positioning-dunford/) |
-| **v0.9 Launch** | Offer Construction (Hormozi) | ✅ Ready | [`prd-v09-offer-construction-hormozi/`](prd-v09-offer-construction-hormozi/) |
-| **v0.9 Launch** | Launch Channels (ORB) | ✅ Ready | [`prd-v09-launch-channels-orb/`](prd-v09-launch-channels-orb/) |
-| **v0.9 Launch** | AEO Audit | ✅ Ready | [`prd-v09-aeo-audit/`](prd-v09-aeo-audit/) |
-| **v0.9 Launch** | Alternatives Pages | ✅ Ready | [`prd-v09-alternatives-pages/`](prd-v09-alternatives-pages/) |
-| **v0.9 Launch** | Cold Outreach (Tiered) | ✅ Ready | [`prd-v09-cold-outreach-tiered/`](prd-v09-cold-outreach-tiered/) |
-| **v0.9 Launch** | HN + Reddit Launch | ✅ Ready | [`prd-v09-hn-reddit-launch/`](prd-v09-hn-reddit-launch/) |
-| **v0.9 Launch** | Launch Metrics | ✅ Ready | [`prd-v09-launch-metrics/`](prd-v09-launch-metrics/) |
-| **v0.9 Launch** | Feedback Loop Setup | ✅ Ready | [`prd-v09-feedback-loop-setup/`](prd-v09-feedback-loop-setup/) |
-| **v1.0 Market Adoption** | Crossing the Chasm (Moore) — the spine | ✅ Ready | [`prd-v10-chasm-adoption-moore/`](prd-v10-chasm-adoption-moore/) |
-| **v1.0 Market Adoption** | Continuous Discovery (Torres) | ✅ Ready | [`prd-v10-continuous-discovery-torres/`](prd-v10-continuous-discovery-torres/) |
-| **v1.0 Market Adoption** | Mom Test Interview (Fitzpatrick) | ✅ Ready | [`prd-v10-mom-test-interview/`](prd-v10-mom-test-interview/) |
-| **v1.0 Market Adoption** | Case Study Builder | ✅ Ready | [`prd-v10-case-study-builder/`](prd-v10-case-study-builder/) |
-| **v1.0 Market Adoption** | Testimonial Collector | ✅ Ready | [`prd-v10-testimonial-collector/`](prd-v10-testimonial-collector/) |
-| **Methodology** | SoT Builder | ✅ Ready | [`ghm-sot-builder/`](ghm-sot-builder/) |
-| **Methodology** | Template Sync | ✅ Ready | [`ghm-template-sync/`](ghm-template-sync/) |
+| Stage | Skill | Tier | Status | Folder |
+|-------|-------|------|--------|--------|
+| **v0.1 Spark** | [Problem Framing](#skill-problem-framing) | core | ✅ Ready | [`prd-v01-problem-framing/`](prd-v01-problem-framing/) |
+| **v0.1 Spark** | [User Value Articulation](#skill-user-value-articulation) | core | ✅ Ready | [`prd-v01-user-value-articulation/`](prd-v01-user-value-articulation/) |
+| **v0.2 Market Definition** | [Competitive Landscape Mapping](#skill-competitive-landscape-mapping) | core | ✅ Ready | [`prd-v02-competitive-landscape-mapping/`](prd-v02-competitive-landscape-mapping/) |
+| **v0.2 Market Definition** | [Product Type Classification](#skill-product-type-classification) | core | ✅ Ready | [`prd-v02-product-type-classification/`](prd-v02-product-type-classification/) |
+| **v0.3 Commercial Model** | [Outcome Definition](#skill-outcome-definition) | core | ✅ Ready | [`prd-v03-outcome-definition/`](prd-v03-outcome-definition/) |
+| **v0.3 Commercial Model** | [Pricing Model Selection](#skill-pricing-model-selection) | core | ✅ Ready | [`prd-v03-pricing-model/`](prd-v03-pricing-model/) |
+| **v0.3 Commercial Model** | [Moat Definition](#skill-moat-definition) | core | ✅ Ready | [`prd-v03-moat-definition/`](prd-v03-moat-definition/) |
+| **v0.3 Commercial Model** | [Feature Value Planning](#skill-feature-value-planning) | core | ✅ Ready | [`prd-v03-features-value-planning/`](prd-v03-features-value-planning/) |
+| **v0.4 User Journeys** | [Persona Definition](#skill-persona-definition) | core | ✅ Ready | [`prd-v04-persona-definition/`](prd-v04-persona-definition/) |
+| **v0.4 User Journeys** | [User Journey Mapping](#skill-user-journey-mapping) | core | ✅ Ready | [`prd-v04-user-journey-mapping/`](prd-v04-user-journey-mapping/) |
+| **v0.4 User Journeys** | [Screen Flow Definition](#skill-screen-flow-definition) | core | ✅ Ready | [`prd-v04-screen-flow-definition/`](prd-v04-screen-flow-definition/) |
+| **v0.4 User Journeys** | [Visual Prototype Gate](#skill-visual-prototype-gate) | secondary | ✅ Ready | [`prd-v04-visual-prototype-gate/`](prd-v04-visual-prototype-gate/) |
+| **v0.5 Red Team Review** | [Risk Discovery Interview](#skill-risk-discovery-interview) | core | ✅ Ready | [`prd-v05-risk-discovery-interview/`](prd-v05-risk-discovery-interview/) |
+| **v0.5 Red Team Review** | [Technical Stack Selection](#skill-technical-stack-selection) | core | ✅ Ready | [`prd-v05-technical-stack-selection/`](prd-v05-technical-stack-selection/) |
+| **v0.5 Red Team Review** | [Vibe Gate Interview](#skill-vibe-gate-interview) | core | ✅ Ready | [`prd-v05-vibe-gate-interview/`](prd-v05-vibe-gate-interview/) |
+| **v0.6 Architecture** | [Architecture Design](#skill-architecture-design) | core | ✅ Ready | [`prd-v06-architecture-design/`](prd-v06-architecture-design/) |
+| **v0.6 Architecture** | [Technical Specification](#skill-technical-specification) | core | ✅ Ready | [`prd-v06-technical-specification/`](prd-v06-technical-specification/) |
+| **v0.6 Architecture** | [Environment Setup](#skill-environment-setup) | secondary | ✅ Ready | [`prd-v06-environment-setup/`](prd-v06-environment-setup/) |
+| **v0.7 Build Execution** | [Epic Scoping](#skill-epic-scoping) | core | ✅ Ready | [`prd-v07-epic-scoping/`](prd-v07-epic-scoping/) |
+| **v0.7 Build Execution** | [Test Planning](#skill-test-planning) | core | ✅ Ready | [`prd-v07-test-planning/`](prd-v07-test-planning/) |
+| **v0.7 Build Execution** | [Implementation Loop](#skill-implementation-loop) | core | ✅ Ready | [`prd-v07-implementation-loop/`](prd-v07-implementation-loop/) |
+| **v0.8 Release & Deployment** | Release Planning | core | ✅ Ready | [`prd-v08-release-planning/`](prd-v08-release-planning/) |
+| **v0.8 Release & Deployment** | Runbook Creation | core | ✅ Ready | [`prd-v08-runbook-creation/`](prd-v08-runbook-creation/) |
+| **v0.8 Release & Deployment** | Monitoring Setup | core | ✅ Ready | [`prd-v08-monitoring-setup/`](prd-v08-monitoring-setup/) |
+| **v0.8 Release & Deployment** | Changelog-as-Marketing | secondary | ✅ Ready | [`prd-v08-changelog-as-marketing/`](prd-v08-changelog-as-marketing/) |
+| **v0.8 Release & Deployment** | Drift Baseline/Compare | secondary | ✅ Ready | [`prd-v08-drift-baseline-compare/`](prd-v08-drift-baseline-compare/) |
+| **v0.8 Release & Deployment** | Marketing-Ops Handoff | secondary | ✅ Ready | [`prd-v08-marketing-ops-handoff/`](prd-v08-marketing-ops-handoff/) |
+| **v0.9 Launch** | GTM Strategy (orchestrator) | core | ✅ Ready | [`prd-v09-gtm-strategy/`](prd-v09-gtm-strategy/) |
+| **v0.9 Launch** | Positioning (Dunford) | core | ✅ Ready | [`prd-v09-positioning-dunford/`](prd-v09-positioning-dunford/) |
+| **v0.9 Launch** | Offer Construction (Hormozi) | core | ✅ Ready | [`prd-v09-offer-construction-hormozi/`](prd-v09-offer-construction-hormozi/) |
+| **v0.9 Launch** | Launch Channels (ORB) | core | ✅ Ready | [`prd-v09-launch-channels-orb/`](prd-v09-launch-channels-orb/) |
+| **v0.9 Launch** | AEO Audit | secondary | ✅ Ready | [`prd-v09-aeo-audit/`](prd-v09-aeo-audit/) |
+| **v0.9 Launch** | Alternatives Pages | secondary | ✅ Ready | [`prd-v09-alternatives-pages/`](prd-v09-alternatives-pages/) |
+| **v0.9 Launch** | Cold Outreach (Tiered) | secondary | ✅ Ready | [`prd-v09-cold-outreach-tiered/`](prd-v09-cold-outreach-tiered/) |
+| **v0.9 Launch** | HN + Reddit Launch | secondary | ✅ Ready | [`prd-v09-hn-reddit-launch/`](prd-v09-hn-reddit-launch/) |
+| **v0.9 Launch** | Launch Metrics | core | ✅ Ready | [`prd-v09-launch-metrics/`](prd-v09-launch-metrics/) |
+| **v0.9 Launch** | Feedback Loop Setup | core | ✅ Ready | [`prd-v09-feedback-loop-setup/`](prd-v09-feedback-loop-setup/) |
+| **v1.0 Market Adoption** | Crossing the Chasm (Moore) — the spine | core | ✅ Ready | [`prd-v10-chasm-adoption-moore/`](prd-v10-chasm-adoption-moore/) |
+| **v1.0 Market Adoption** | Continuous Discovery (Torres) | secondary | ✅ Ready | [`prd-v10-continuous-discovery-torres/`](prd-v10-continuous-discovery-torres/) |
+| **v1.0 Market Adoption** | Mom Test Interview (Fitzpatrick) | secondary | ✅ Ready | [`prd-v10-mom-test-interview/`](prd-v10-mom-test-interview/) |
+| **v1.0 Market Adoption** | Case Study Builder | secondary | ✅ Ready | [`prd-v10-case-study-builder/`](prd-v10-case-study-builder/) |
+| **v1.0 Market Adoption** | Testimonial Collector | secondary | ✅ Ready | [`prd-v10-testimonial-collector/`](prd-v10-testimonial-collector/) |
+| **Methodology** | Gate Check | core | ✅ Ready | [`ghm-gate-check/`](ghm-gate-check/) |
+| **Methodology** | ID Register | core | ✅ Ready | [`ghm-id-register/`](ghm-id-register/) |
+| **Methodology** | Harvest | core | ✅ Ready | [`ghm-harvest/`](ghm-harvest/) |
+| **Methodology** | SoT Builder | core | ✅ Ready | [`ghm-sot-builder/`](ghm-sot-builder/) |
+| **Methodology** | Status Sync | secondary | ✅ Ready | [`ghm-status-sync/`](ghm-status-sync/) |
+| **Methodology** | Template Sync | secondary | ✅ Ready | [`ghm-template-sync/`](ghm-template-sync/) |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
+**Tier:** `core` = golden path — produces gate-mandatory SoT artifacts (or essential operator); `secondary` = tactical playbook, invoked on demand, never required to pass a gate. See [`README.md`](README.md#core-vs-secondary-the-golden-path-and-the-playbooks).
 
 ---
 
@@ -102,15 +108,16 @@
 | Screen Flow Definition | UJ- (journeys), FEA- (features), BR- (constraints) | Screen inventory with navigation | SCR-, DES- |
 | Visual Prototype Gate | SCR- (screens), PER- (personas), UJ- (journeys), DES- (components) | Stitch prompts per SCR-, Feedback Capture Template | (none — routes feedback to existing IDs) |
 
-### v0.5 Red Team Review — Risks & Technical Stack
+### v0.5 Red Team Review — Risks, Technical Stack & Vibe Gate
 
-**Purpose:** Surface risks through guided interview and select technical stack for implementation.
-**Gate:** Risks documented with mitigations, technical stack decisions made (build/buy/integrate), research items identified.
+**Purpose:** Surface risks through guided interview, select technical stack for implementation, then gut-check the whole product definition before committing to architecture.
+**Gate:** Risks documented with mitigations, technical stack decisions made (build/buy/integrate), research items identified, Vibe Verdict recorded alongside the readiness score.
 
 | Skill | Input | Output | IDs Created |
 |-------|-------|--------|-------------|
 | Risk Discovery Interview | All prior IDs, product context | Risk register with owner decisions | RISK- |
 | Technical Stack Selection | FEA- (features), SCR- (screens), RISK- (constraints) | Stack decisions and tool selections | TECH- |
+| Vibe Gate Interview | CFD-, BR-, FEA-, KPI-, PER-, UJ-, SCR-, RISK-, TECH- | Vibe Verdict (GO / GO-WITH-CHECKS / PAUSE) via interactive HTML decision sheet | RISK- (riskiest assumption), CFD- (validation tasks), PER- update |
 
 ### v0.6 Architecture — Technical Blueprint
 
@@ -1141,6 +1148,48 @@ Evaluation Criteria: [How to decide if Research]
 | **v0.6 Architecture** | TECH- selections define the system | TECH-001 (Next.js) → frontend architecture |
 | **v0.7 Build Execution** | TECH- Research items become spikes | TECH-005 (Research) → EPIC task |
 | **Hiring/Resourcing** | TECH- Build items define skills needed | TECH-003 (Rust) → need Rust developer |
+
+---
+
+### SKILL: Vibe Gate Interview
+
+```yaml
+name: prd-v05-vibe-gate-interview
+stage: v0.5
+status: ready
+folder: prd-v05-vibe-gate-interview/
+triggers: "vibe check", "gut check before we build", "reality check", "are we ready for architecture", "should we actually build this"
+id_outputs: [RISK- (riskiest assumption), CFD- (validation tasks), PER- (watering-hole update)]
+```
+
+**Purpose:** Qualitative go/no-go gate interview at the END of v0.5 — pressure-tests framing, experience, the riskiest assumption, cost/complexity honesty, and distribution readiness, then captures the PM's decision via an interactive HTML decision sheet.
+
+**Position in workflow:** v0.5 Risk Discovery → v0.5 Technical Stack Selection → **v0.5 Vibe Gate Interview** → v0.6 Architecture. Complements `ghm-gate-check`: readiness.py answers "is the documentation ready?", the vibe gate answers "is the PM ready?". Run both; the verdict never contradicts an honest readiness BLOCK.
+
+**Mode:** Facilitated interview — one question at a time, agent always offers a suggested answer, PM owns every decision.
+
+**Execution:**
+1. Context load — restate the product from consumed IDs, get the PM's "yes, that's it"
+2. Framing check — solution-first? outcome mismatch? mostly 1–2/5 confidence? need that's secretly a feature?
+3. Experience gut-checks — Grandma Test, Stress Test, aha-moment timing (first 30 seconds)
+4. Riskiest-assumption test — exactly one sink-the-ship belief + cheapest pre-build check ("two weeks to set up = a project, not a test")
+5. Honesty pass — complexity 1–10 with anchors, usage-pattern cost traps, honest timeline, learning vs. real users
+6. Distribution final boss — first 10 users by name/place, watering hole, first move
+7. Verdict — generate `temp/v05-vibe-gate_<date>.html` decision sheet (radio verdict, check selections, copy-out block); record pasted decisions in PRD/SoT markdown
+
+**Verdict semantics:**
+| Verdict | Meaning |
+|---------|---------|
+| GO | Framing clean, riskiest assumption checked/scheduled, first-10 named |
+| GO-WITH-CHECKS | Build proceeds; named cheap checks (CFD- tasks with dates) run in parallel |
+| PAUSE | Framing failure or unchecked sink-the-ship assumption; concrete unblock condition required |
+
+**Downstream Connections:**
+| Consumer | What It Uses | Example |
+|----------|--------------|---------|
+| **v0.6 Architecture** | GO/GO-WITH-CHECKS verdict unblocks the stage | Verdict line in PRD v0.5 Outstanding Work |
+| **v0.9 Launch Channels (ORB)** | PER- watering-hole note seeds the Borrowed channel | "r/selfhosted regulars" → Borrowed channel entry |
+| **ghm-gate-check** | Vibe Verdict sits next to the readiness score at the gate decision | PASS + GO = advance |
 
 ---
 

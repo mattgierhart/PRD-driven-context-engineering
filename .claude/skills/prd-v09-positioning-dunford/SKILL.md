@@ -1,5 +1,6 @@
 ---
 name: prd-v09-positioning-dunford
+tier: core
 description: >
   Define product positioning using April Dunford's 5-step framework during PRD v0.9 Go-to-Market.
   Triggers on requests to position the product, define category, frame against competitors,

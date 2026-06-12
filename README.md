@@ -14,7 +14,7 @@ a fork-ready methodology that turns documentation into a knowledge graph humans 
 together — so the 50th session is smarter than the 1st.*
 
 [**Quick Start**](#-quick-start) · [**The Idea**](#the-idea-memory-as-infrastructure) ·
-[**The Lifecycle**](#-feature-the-progressive-prd) · [**The Skills**](#-feature-47-skills-one-for-every-decision) ·
+[**The Lifecycle**](#-feature-the-progressive-prd) · [**The Skills**](#-feature-48-skills-one-for-every-decision) ·
 [**Live Demo Views**](#-feature-the-human-review-layer)
 
 <img src="SoT/html/assets/screenshots/atlas.png" alt="The Source-of-Truth Atlas — the knowledge graph rendered for humans" width="760">
@@ -88,7 +88,7 @@ Everything below ships in this repo, works offline, and forks in one click:
 |---|---|
 | 🧠 [The Knowledge Graph](#-feature-a-knowledge-graph-in-plain-markdown) | 14 SoT files, 21 ID types, zero databases — durable memory in markdown |
 | 📈 [The Progressive PRD](#-feature-the-progressive-prd) | A gated v0.1 → v1.0 lifecycle that stops AI from one-shotting your architecture |
-| 🛠 [47 Skills](#-feature-47-skills-one-for-every-decision) | Stage playbooks from problem framing to crossing the chasm — Dunford, Hormozi, Moore, Torres built in |
+| 🛠 [48 Skills](#-feature-48-skills-one-for-every-decision) | A 33-skill core golden path plus tactical playbooks — Dunford, Hormozi, Moore, Torres built in |
 | 📊 [Readiness Scoring](#-feature-a-repo-that-scores-its-own-readiness) | The repo computes whether you're ready to advance — and what to fix first |
 | 🫀 [The Development Graph](#-feature-code-that-traces-back-to-specs) | `@implements` tags bridge code to specs; drift surfaces as a verdict, not a surprise |
 | 📰 [The Human Review Layer](#-feature-the-human-review-layer) | Every SoT file rendered as a styled, hyperlinked page its reviewer actually wants to read |
@@ -143,12 +143,13 @@ The architecture is **3 + 1 + SoT + Temp**, designed to manage Context Density f
 
 ---
 
-## 🛠 Feature: 47 skills, one for every decision
+## 🛠 Feature: 48 skills, one for every decision
 
 **The pitch**: the lifecycle isn't advice — it's executable. Every stage ships with skills that know what to consume, what IDs to produce, and which gate they feed.
 
-- **41 stage skills** (`prd-v01-*` → `prd-v10-*`): problem framing, competitive landscape, pricing, persona definition, journey mapping, risk discovery, architecture design, epic scoping, test planning, release planning, GTM strategy, case studies…
+- **42 stage skills** (`prd-v01-*` → `prd-v10-*`): problem framing, competitive landscape, pricing, persona definition, journey mapping, risk discovery, the v0.5 vibe gate, architecture design, epic scoping, test planning, release planning, GTM strategy, case studies…
 - **6 methodology operators** (`ghm-*`): gate checks, SoT building, ID registration, insight harvesting, status sync.
+- **Core vs. secondary tiers**: every skill declares `tier:` in its frontmatter. The **33 core skills form the golden path** — run them top to bottom and every gate can pass. The 15 secondary skills are tactical playbooks (channel plays, interview techniques, social-proof harvesting) you reach for when the tactic matches your product. See the [stage → skill mapping](.claude/skills/README.md#prd-stage--skill-mapping).
 - **Named frameworks, encoded**: April Dunford positioning, Alex Hormozi offer construction, Owned/Rented/Borrowed channel allocation, Geoffrey Moore chasm crossing, Teresa Torres continuous discovery, Rob Fitzpatrick Mom Test interviews.
 - **Three depth modes** — `quick` (founder gut-check, <15 min), `standard` (default), `deep` (investor-ready, with assumption logs) — so the method scales from solo founder to team.
 
@@ -239,7 +240,7 @@ Each of the 13 pages serves a different reviewer: policy register for `BR-`, ADR
 ├── SoT/                     # Shared Memory Store (SoT.* files + html/ review layer)
 ├── temp/                    # Scratch Pad for explorations and audits
 └── .claude/                 # Methodology runtime (skills, hooks, agents)
-    ├── skills/              # 41 stage skills (prd-v*) + 6 operators (ghm-*)
+    ├── skills/              # 42 stage skills (prd-v*) + 6 operators (ghm-*)
     ├── hooks/               # Session/user/stop hooks + subagent memory hooks
     ├── agents/              # Role agents with persistent MEMORY.md
     ├── domain-profile.yaml  # ID registry + skill taxonomy
@@ -290,7 +291,7 @@ The methodology is **fork-native**: everything runs from files in your repo, wit
 The fork-and-go workflow is the foundation — distribution is next:
 
 - **MCP server** — the knowledge graph as a queryable service: look up any ID, traverse cross-references, and pull readiness scores from any MCP-capable agent, without loading files into context.
-- **Claude Code plugin** — the 47 skills, hooks, and agent squad as a one-command install into *existing* repositories, instead of starting from a fork.
+- **Claude Code plugin** — the 48 skills, hooks, and agent squad as a one-command install into *existing* repositories, instead of starting from a fork.
 
 Watch the repo to catch these when they land. Until then, the fork works end-to-end today.
 <!-- /SECTION: how-to-use -->

@@ -1,5 +1,6 @@
 ---
 name: prd-v10-testimonial-collector
+tier: secondary
 description: >
   Systematically harvest short testimonials from customers via NPS, milestones, post-purchase,
   and email during PRD v1.0 Market Adoption. Triggers on requests to collect testimonials,

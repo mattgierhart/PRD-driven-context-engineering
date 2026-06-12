@@ -1,5 +1,6 @@
 ---
 name: prd-v09-offer-construction-hormozi
+tier: core
 description: >
   Construct a high-conversion offer using Alex Hormozi's value equation and Grand Slam Offer
   mechanics during PRD v0.9 Go-to-Market. Triggers on requests to design the offer, set up the

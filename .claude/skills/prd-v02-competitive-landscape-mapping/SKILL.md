@@ -1,5 +1,6 @@
 ---
 name: prd-v02-competitive-landscape-mapping
+tier: core
 description: >
   Map the competitive landscape before positioning your product for PRD v0.2 Market Definition.
   Triggers on completing v0.1 Spark, analyzing competitors, researching market, or requests like

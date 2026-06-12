@@ -1,5 +1,6 @@
 ---
 name: prd-v09-feedback-loop-setup
+tier: core
 description: >
   Establish channels and processes for capturing and processing post-launch feedback during PRD v0.9 Go-to-Market.
   Triggers on requests to set up feedback systems, capture user input, or when user asks "how do we collect feedback?",

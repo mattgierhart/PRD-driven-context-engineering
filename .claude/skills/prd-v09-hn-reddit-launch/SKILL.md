@@ -1,5 +1,6 @@
 ---
 name: prd-v09-hn-reddit-launch
+tier: secondary
 description: >
   Build a Hacker News + Reddit launch playbook for developer-tools and community-led products
   during PRD v0.9 Go-to-Market. Triggers on requests to plan HN/Reddit launch, "Show HN" post,

@@ -1,5 +1,6 @@
 ---
 name: prd-v09-gtm-strategy
+tier: core
 description: >
   Orchestrate go-to-market strategy by running positioning, offer construction, and channel
   allocation as a sequenced workflow during PRD v0.9 Go-to-Market. Triggers on requests to

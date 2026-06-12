@@ -1,5 +1,6 @@
 ---
 name: prd-v08-runbook-creation
+tier: core
 description: >
   Create operational playbooks for incident response, deployments, and maintenance during PRD v0.8 Deployment & Ops.
   Triggers on requests to create runbooks, document procedures, or when user asks "how do we handle incidents?",

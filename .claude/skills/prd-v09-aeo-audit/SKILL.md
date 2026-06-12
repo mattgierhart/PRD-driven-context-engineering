@@ -1,5 +1,6 @@
 ---
 name: prd-v09-aeo-audit
+tier: secondary
 description: >
   Audit how AI search engines (ChatGPT, Perplexity, Google AI Overviews, Claude) describe and
   recommend your product, then propose fixes. Triggers on requests to audit AI search visibility,

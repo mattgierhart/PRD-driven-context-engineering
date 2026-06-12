@@ -1,5 +1,6 @@
 ---
 name: prd-v09-launch-channels-orb
+tier: core
 description: >
   Allocate launch channels using the Owned / Rented / Borrowed (ORB) framework during PRD v0.9
   Go-to-Market. Triggers on requests to pick launch channels, distribute the offer, build a

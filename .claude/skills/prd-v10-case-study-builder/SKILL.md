@@ -1,5 +1,6 @@
 ---
 name: prd-v10-case-study-builder
+tier: secondary
 description: >
   Build customer case studies as marketing and chasm-crossing reference assets during PRD v1.0
   Market Adoption. Triggers on requests to build case studies, produce customer stories, create

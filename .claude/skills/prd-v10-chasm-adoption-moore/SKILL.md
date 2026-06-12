@@ -1,5 +1,6 @@
 ---
 name: prd-v10-chasm-adoption-moore
+tier: core
 description: >
   Assess adoption-lifecycle stage, plan the chasm crossing, and build a beachhead strategy using
   Geoffrey Moore's Crossing the Chasm framework during PRD v1.0 Market Adoption. Triggers on

@@ -1,5 +1,6 @@
 ---
 name: prd-v02-product-type-classification
+tier: core
 description: Classify product approach into one of six types (Clone, Unbundle, Undercut, Slice, Wrapper, Innovation) based on competitive landscape. Triggers on PRD v0.2 work after competitive analysis, or when user asks "what type of product should we build?", "should we clone or innovate?", "is this a fast-follow opportunity?", "how should we position against competitors?", "clone vs undercut", "unbundle vs slice", or requests help choosing product strategy. Outputs BR- entries for product type classification and inherited GTM constraints.
 context: fork
 allowed-tools:

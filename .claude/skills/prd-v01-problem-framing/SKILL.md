@@ -1,5 +1,6 @@
 ---
 name: prd-v01-problem-framing
+tier: core
 description: >
   Transform vague product ideas into evidence-anchored problem statements for PRD v0.1 Spark.
   Triggers on starting new products/features, validating market opportunities, drafting PRD Why sections,

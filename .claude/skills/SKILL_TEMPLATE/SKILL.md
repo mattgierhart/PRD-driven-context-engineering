@@ -1,5 +1,6 @@
 ---
 name: prd-vXX-skill-name
+tier: core | secondary  # core = produces a gate-mandatory SoT artifact (golden path); secondary = on-demand tactical playbook
 description: >
   [1-2 sentence description of what this skill does].
   Triggers on [specific phrases/contexts that should activate this skill].

@@ -175,6 +175,7 @@ template_version: "3.0.0"
 
 ## v0.5 Red Team Review — Risks & Mitigations
 
+> **Skills**: v0.5 runs `prd-v05-risk-discovery-interview` → `prd-v05-technical-stack-selection` → `prd-v05-vibe-gate-interview` (qualitative gate — records a Vibe Verdict below, next to the `ghm-gate-check` readiness score, before advancing to v0.6).
 > **ID Note**: RISK-XXX IDs are defined inline in this section, not in a separate SoT file.
 > **Scoring**: Each RISK- maps to a scoring category (Market/User/Technical). Score = Impact × Likelihood × Status Weight. See `assets/risk.md` for full scoring reference.
 > **Continuous**: This register is a living document. New RISK- entries can be added at any stage (v0.5–v1.0). Update the README Risk Scorecard when entries change.
@@ -202,6 +203,7 @@ template_version: "3.0.0"
 
 **Outstanding Work → v0.6**
 
+- Vibe Verdict: {GO | GO-WITH-CHECKS | PAUSE} — {rationale} (from `prd-v05-vibe-gate-interview`; pairs with readiness score {NN})
 - {Architecture question to resolve}
 
 ---

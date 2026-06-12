@@ -1,5 +1,6 @@
 ---
 name: ghm-harvest
+tier: core
 description: >
   Extracts durable insights from temp/ files to SoT during EPIC Phase E.
   Triggers at EPIC completion or explicit `/ghm-harvest` invocation.

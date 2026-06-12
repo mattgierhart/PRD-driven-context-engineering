@@ -1,5 +1,6 @@
 ---
 name: prd-v08-monitoring-setup
+tier: core
 description: >
   Define monitoring strategy, metrics collection, and alerting thresholds during PRD v0.8 Deployment & Ops.
   Triggers on requests to set up monitoring, define alerts, or when user asks "what should we monitor?",

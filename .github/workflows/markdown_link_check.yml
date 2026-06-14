@@ -12,5 +12,6 @@ jobs:
       - uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-verbose-mode: 'yes'
-          folder-path: 'gear-heart-methodology'
-          check-modified-files-only: 'no'
+          folder-path: '.'
+          check-modified-files-only: 'yes'
+          base-branch: 'main'

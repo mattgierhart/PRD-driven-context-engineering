@@ -6,7 +6,7 @@
 
 ---
 
-## The Six Core Principles
+## The Seven Core Principles
 
 ### P1: MVP is Sacred (Must-Have) ⭐
 
@@ -88,6 +88,8 @@
 
 **Anti-pattern**: Treating all SoT IDs as equally valid regardless of evidence. ❌
 
+**Anti-leakage (proposer discipline)**: A skill that produces SoT entries is a *proposer* — and a proposer must never fabricate or back-fill evidence to clear a downstream gate. Cite a real source or mark the gap honestly; an invented `confidence: 4/5` is worse than an honest `1/5` because it corrupts every decision that reads it. (This is the general form of the Tier-5 "REJECT speculation" rule in problem-framing.) See **P7** for why gaming the score is a frozen-replay defect.
+
 ---
 
 ### P5: Distributed Development Needs Connective Tissue (High Priority)
@@ -127,6 +129,32 @@
 - When greenfield is assumed, flag it: "This guidance assumes you're starting from scratch. If you're integrating with X, that changes the architecture."
 
 **Anti-pattern**: Recommending a full custom build when an existing platform or open-source tool already solves 80% of the problem. ❌
+
+---
+
+### P7: Readiness is a Floor, Not a Target (High Priority)
+
+**Statement**: Readiness and confidence scores exist to *gate advancement* — they are a do-no-harm **floor**, never a number to maximize. A score that rises without the underlying evidence rising is not progress; it is a **frozen-replay defect** (borrowed from the meta-harness method): the cheap proxy moved while the real quality it stands for stayed locked.
+
+**What this means**:
+- The readiness scorer (`scripts/readiness.py`) is a deterministic, $0, no-LLM proxy for the true objective: *a product real users will react to*. It is cheap precisely so it can be re-run constantly — but cheap proxies invite gaming.
+- "Optimize the score" is the wrong frame. The right frame is the meta-harness rule: **clear the floor on quality, then minimize cost** (here, context cost). Maximizing a soft proxy is how you Goodhart it.
+- The score is only trustworthy if it actually tracks reality. Periodically **proxy-check**: do the artifacts that pass our gates actually become shippable? If gates pass but products don't ship (or ship broken), the scorer — not the product — is the thing to fix.
+
+**The detection question** (run it whenever a score moves):
+
+> *"If I swapped in a wildly different artifact here, would this score change for a genuine quality reason — or only because I padded the inputs?"*
+
+If only padding moved it, the gain is fake. Raise evidence tier, not entry volume.
+
+**What skills should do**:
+- Treat passing a gate as *permission to advance*, not the goal of the work. The goal is evidence.
+- Never inflate `entry_count`, `cross_ref_density`, or self-rated `confidence` to clear a threshold. Grade something the artifact genuinely controls.
+- Keep the scorer LLM-free. Adding an LLM-judged dimension would make the proxy drift and un-cheap — the opposite of what makes it useful.
+
+**Anti-pattern**: Splitting one insight into five thin CFD- entries, or cross-linking IDs that aren't really related, to push a SoT file over the threshold. The number goes green; the knowledge graph is now noisier, not richer. ❌
+
+**Relationship to P4**: P4 says SoT is *living evidence*; P7 says the *score over* that evidence is a floor, not a finish line. Together they forbid the shortcut of moving the score without moving the evidence.
 
 ---
 
@@ -266,19 +294,20 @@ When improving any skill, check:
 - [ ] **Distributed context**: Is the skill clear enough that a fresh AI context (different from the one that created prior artifacts) can execute it?
 - [ ] **P1 alignment**: Does the skill respect "MVP is sacred" or does it push toward premature optimization/over-engineering?
 - [ ] **P4 alignment**: Does the skill help build confidence in SoT entries over time?
+- [ ] **P7 alignment**: Does the skill treat readiness as a floor (raise evidence) rather than a target (pad inputs)? No fabricated confidence/cross-refs to clear a gate?
 
 ---
 
 ## Quick Reference: Which Principles Matter Most for Which Skills
 
-| Skill Type | P1 | P3 | P4 | P5 | P6 |
-|-----------|----|----|----|----|-----|
-| **Discovery (v0.1-v0.4)** | ⭐ | ⭐ | High | — | High |
-| **Risk & Tech (v0.5)** | ⭐ | High | ⭐ | — | High |
-| **Architecture (v0.6)** | ⭐ | — | High | ⭐ | High |
-| **Build (v0.7)** | ⭐ | — | High | ⭐ | — |
-| **Release (v0.8)** | ⭐ | — | ⭐ | ⭐ | — |
-| **Launch (v0.9)** | — | — | High | — | — |
+| Skill Type | P1 | P3 | P4 | P5 | P6 | P7 |
+|-----------|----|----|----|----|-----|-----|
+| **Discovery (v0.1-v0.4)** | ⭐ | ⭐ | High | — | High | High |
+| **Risk & Tech (v0.5)** | ⭐ | High | ⭐ | — | High | High |
+| **Architecture (v0.6)** | ⭐ | — | High | ⭐ | High | High |
+| **Build (v0.7)** | ⭐ | — | High | ⭐ | — | ⭐ |
+| **Release (v0.8)** | ⭐ | — | ⭐ | ⭐ | — | High |
+| **Launch (v0.9)** | — | — | High | — | — | — |
 
 ---
 

@@ -13,3 +13,12 @@ alwaysApply: true
 - **Dimension overrides**: Use `dimension_overrides: { confidence_avg: disabled }` per item when the repo hasn't adopted a convention. Disabled dimensions drop; remaining weights renormalize.
 - **Traceability**: EPIC caps cite `caused_by` SoT file; SoT blocks list `consumed_by_epics`. Agents follow the causal chain to find root-cause leverage.
 - **Before advancing gates**: Run readiness. If `summary.current_stage.score < threshold_warn`, update the EPIC and STOP (reinforces rule 05).
+
+## Anti-Goodhart & Proxy Fidelity
+
+The score is a **floor for advancement, not a target to optimize toward** (see [`PRINCIPLES.md` P7](../skills/PRINCIPLES.md)). The discipline:
+
+- **Detection question** — whenever a score moves, ask: *"would this change for a genuine quality reason if I swapped in a wildly different artifact, or only because I padded the inputs?"* Padding (thin duplicate entries, decorative cross-refs, self-rated confidence with no source) is a **frozen-replay defect** — the proxy moves while real quality stays locked. Raise evidence tier, not entry volume.
+- **Keep the scorer deterministic and LLM-free.** `readiness.py` makes no model calls; that is what makes hundreds of re-checks cheap and trustworthy. Do **not** add LLM-judged dimensions — a drifting judge is an un-cheap, un-reproducible proxy.
+- **Quality floor, then cost.** Advancement weighs readiness *and* context cost: a gate cleared only by ballooning the context budget (EPIC `context_budget`) is not really cleared. Minimize context cost *subject to* readiness holding the floor — never trade real readiness for a greener number.
+- **Proxy-check periodically.** Readiness stands in for "a product users will react to." If gates pass but products don't ship (or ship broken), fix the *scorer's* fidelity, not just the artifact.

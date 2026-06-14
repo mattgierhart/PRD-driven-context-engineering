@@ -61,12 +61,15 @@ See `assets/output-template.md` for copy-paste template.
 - [ ] Can this output be validated?
 - [ ] Does it reference IDs from SoT/?
 
+> **How this is evaluated**: This skill's output is scored by `scripts/readiness.py` (a deterministic, $0, no-LLM proxy). Clearing a gate is permission to advance, not the goal — the goal is evidence. Padding inputs to move the score without moving the evidence is a *frozen-replay defect*. See [`PRINCIPLES.md` P7](../PRINCIPLES.md).
+
 ## Anti-Patterns
 
 | Pattern | Example | Fix |
 |---------|---------|-----|
 | Bad pattern 1 | "Example" | → "Better approach" |
 | Bad pattern 2 | "Example" | → "Better approach" |
+| Evidence fabrication | Back-filling confidence/evidence to clear a gate | → Cite a real source or mark the gap; never invent to pass (P4 anti-leakage, P7) |
 
 ## Bundled Resources
 

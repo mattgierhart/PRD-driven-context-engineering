@@ -157,21 +157,48 @@ function emit(entryEl) {
 
 ## 6. Deliverable catalog
 
-Four reference deliverables, specced field-by-field. Field tables match the schemas in the SoT files
-and skill asset templates (`skills/prd-v0X-*/assets/*.md`). Each lists species, the companion page it
-extends, the ID(s) it emits, the fields (control type + allowed values), and a sample emitted block.
+Four reference deliverables, specced field-by-field. Field tables match the **authoritative SoT
+files** (`SoT/*.md` and `PRD.md`) — where a skill asset template disagrees with the SoT, the SoT
+wins. Each lists species, the companion page it extends, the ID(s) it emits, the fields (control
+type + allowed values), and a sample emitted block.
 
 A note on what's *not* fully specced: the same pattern covers the remaining phases (v0.3 pricing/
 feature-priority board, v0.9 positioning/offer canvas, v1.0 adoption-stage assessment). They are
 named once here and left to the build EPIC — the four below establish the pattern.
 
+### 6.0 The value test — a deliverable must extract a decision or capture the right acknowledgement
+
+A deliverable that only re-types what the agent already produced is **waste** — it adds a click
+without adding judgment. Each one must pass one of two tests:
+
+- **Decision test** — does it capture a call only the human can make? (a severity, a price, a
+  go/no-go, a "this is our advantage")
+- **Acknowledgement test** — if the agent drafted it, does the surface make the human *actually
+  read and own* the thing being signed off, rather than rubber-stamp it?
+
+Graded against what each PRD stage and its SoT actually hold:
+
+| Deliverable | What it captures | Value | The human-only input that justifies it |
+|---|---|---|---|
+| **Risk ranking** (§6.1) | **Decision** | **High** | Impact, Likelihood, Status, accept/mitigate — the v0.5 register marks these *user-decided*; the page then computes Raw and **Effective Score** the human would otherwise do by hand. |
+| **Market analysis** (§6.4) | **Decision** | Med-High | The decision is the per-competitor **Product decision** (Implement/Defer/Decline), the **feature-matrix cells**, and the **positioning rule** — *not* the research (which the agent gathers). |
+| **Architecture map** (§6.3) | **Acknowledgement** | Med-High | Sign-off that gates v0.7, plus the human-authored **Conformance Rule** (a structural claim the build is later checked against). |
+| **Journey builder** (§6.2) | **Acknowledgement** | Medium | Weakest case — journeys are largely agent-draftable. It earns its place *only* if it forces the human-only fields: the real **pain points** and the true **moment of value**. Otherwise it is a rubber-stamp; see §6.2. |
+
+The lesson the grade teaches: lead a deliverable with the human-only fields, and let the agent
+pre-fill everything else. Where there is no human-only field, there should be no deliverable —
+which is exactly why v0.7 Build has none (§8).
+
 ### 6.1 Risk acknowledgement & ranking  — *Review species*
 
 - **Extends**: the RISK view (rendered in the `SoT.TECHNICAL_DECISIONS.html` family / a dedicated
   RISK companion). **Emits**: `RISK-`.
-- **Why this is the strongest first prototype**: the v0.5 risk skill states severity is explicitly
-  *user-decided*. This is the one place an agent genuinely cannot fill the answer — the deliverable
-  exists precisely to capture the human's Impact × Likelihood call and accept/mitigate decision.
+- **Why this is the strongest first prototype**: the v0.5 risk register (`PRD.md` §v0.5) marks
+  Impact, Likelihood, and Status as *user-decided*. This is the one place an agent genuinely cannot
+  fill the answer — the deliverable captures the human's call, then **does the arithmetic the human
+  would otherwise do by hand**: Raw = Impact × Likelihood and Effective Score = Raw × Status weight,
+  the value that rolls up into the README Risk Scorecard. Decision capture *and* a real computation:
+  the clearest pass of the §6.0 value test.
 
 | Field | Control | Allowed values | Required |
 |---|---|---|---|
@@ -184,6 +211,7 @@ named once here and left to the build EPIC — the four below establish the patt
 | **Likelihood** | select | High (3) / Medium (2) / Low (1) | **yes** |
 | Raw score | *derived* | 1–9 (= Impact × Likelihood) | auto |
 | Status | select | open / mitigating / mitigated / resolved / accepted | yes (default open) |
+| Effective score | *derived* | Raw × Status weight (open/accepted = 1.0 · mitigating = 0.5 · mitigated = 0.25 · resolved = 0.0) | auto |
 | Response | select | Mitigate / Accept / Avoid / Transfer | yes |
 | Mitigation | textarea | free (required if Response = Mitigate) | conditional |
 | Early signal | textarea | free | yes |
@@ -198,7 +226,7 @@ named once here and left to the build EPIC — the four below establish the patt
 - **Description**: Payment processing depends entirely on Stripe API availability.
 - **Trigger**: Stripe outage, rate limiting, or API deprecation.
 - **Impact**: High (3) · **Likelihood**: Low (1) · **Raw score**: 3
-- **Status**: open
+- **Status**: open · **Effective score**: 3.0
 - **Response**: Mitigate
 - **Mitigation**: Payment queue with 24h retry; subscribe to Stripe status webhooks; manual-invoice fallback.
 - **Early signal**: Payment failure rate > 0.5%; Stripe status-page alert.
@@ -212,6 +240,12 @@ named once here and left to the build EPIC — the four below establish the patt
 - **Extends**: `SoT.USER_JOURNEYS.html`. **Emits**: `UJ-` (and `PER-` when a new persona is authored).
 - The page already renders journeys as a trigger → steps → value-moment track; Input mode lets the
   human *build* that track instead of reading it.
+- **Rubber-stamp risk** (§6.0): journeys are largely agent-draftable from personas + features, so
+  this is the weakest value case. It earns its place only if the surface **foregrounds the
+  human-only fields** — the true **moment of value** and the real **pain points** (what actually
+  frustrates the user, which the agent can only guess) — and lets the agent pre-fill the
+  mechanical step list. If the human just confirms an agent draft, drop the deliverable and keep the
+  read-only render.
 
 | Field | Control | Allowed values | Required |
 |---|---|---|---|
@@ -254,25 +288,32 @@ named once here and left to the build EPIC — the four below establish the patt
 | Field | Control | Allowed values | Required |
 |---|---|---|---|
 | Title | text | free (action-title sentence) | yes |
-| Category | select | Structure / Integration / Security / Performance / Data / DevOps | yes |
+| Category | select | Data Flow / Security / Scaling / Integration / Patterns | yes |
 | Context | textarea | free | yes |
 | Decision | textarea | free | yes |
-| Rationale | textarea | free | yes |
-| Alternatives rejected | repeatable rows | Option + reason | ≥1 |
-| Consequences — enables | repeatable rows | free | yes |
-| Consequences — constrains | repeatable rows | free | yes |
-| Conformance rule | group | rule + check (optional) | no |
-| Status | select | Proposed / Accepted / Superseded | yes |
+| Rationale (chosen because / alternatives / consequences) | textarea | free | yes |
+| Conformance rule | group | Rule (plain claim) + Check (type · scope · target); **Verdict is computed** (`pass`/`violate`/`unknown`), not entered | no |
+| Status | select | Accepted / Deprecated / Superseded | yes |
 | Acknowledged by / date | text + date | reviewer + YYYY-MM-DD | yes (sign-off) |
+
+> Enums match the authoritative `SoT.TECHNICAL_DECISIONS.md` ARC- template (not the looser skill
+> asset). The human's load-bearing inputs are the **acknowledgement stamp** and the optional
+> **Conformance Rule** — a structural claim (e.g. *"the `engine/` layer must not import the UI
+> framework"*) the v0.7 build is later checked against, feeding the `architecture_conformance`
+> readiness dimension. The agent drafts Context/Decision/Rationale; the human owns the sign-off and
+> the rule.
 
 ```markdown
 ### ARC-001: Monolith with Module Boundaries
-- **Category**: Structure
+- **Category**: Patterns
 - **Context**: App structure for an MVP, team of 2, ~100 target users.
 - **Decision**: Single Next.js app with a `/modules` folder structure.
-- **Rationale**: One deployment minimises ops burden; domain boundaries unclear until real usage.
-- **Alternatives rejected**: Microservices — premature complexity. Serverless-first — cold starts hurt the dashboard.
-- **Consequences**: Enables fast iteration, simple deploy. Constrains: single scaling unit, shared deploy cycle.
+- **Rationale**: Chosen because one deployment minimises ops burden and domain boundaries are
+  unclear until real usage. Alternatives: microservices (premature complexity), serverless-first
+  (cold starts hurt the dashboard). Consequences: enables fast iteration and simple deploy;
+  constrains to a single scaling unit and shared deploy cycle.
+- **Conformance rule**: `modules/*` must not import across module boundaries — Check:
+  `forbidden_import` · `modules/**` · `../*/internal`. Verdict: *computed*.
 - **Status**: Accepted
 - **Acknowledged by**: Tech Lead · 2026-06-15
 ```
@@ -280,8 +321,13 @@ named once here and left to the build EPIC — the four below establish the patt
 ### 6.4 Market analysis  — *Intake species*
 
 - **Extends**: `SoT.customer_feedback.html` (competitive intelligence) + `SoT.BUSINESS_RULES.html`
-  (positioning). **Emits**: `CFD-` and `BR-POS-`.
+  (positioning). **Emits**: `CFD-` and `BR-` (a v0.2 *Enabling Business Rule* per `PRD.md` §v0.2;
+  the `BR-POS-` positioning-rule sub-ID is the **v0.9 Dunford refinement** of the same rule, not a
+  v0.2 output).
 - Two coupled sub-forms plus a **feature matrix** the human fills cell-by-cell.
+- **Where the value is** (§6.0): the agent gathers the competitive research; the human's calls are
+  the per-competitor **Product decision**, the **feature-matrix cells**, and the **positioning rule**.
+  Lead the surface with those three.
 
 `CFD-` (competitive intelligence) fields:
 
@@ -299,9 +345,10 @@ named once here and left to the build EPIC — the four below establish the patt
 | Evidence tier | select | Tier 1 (interviews) / Tier 2 (reviews) / Tier 3 (inference) | yes |
 | Product decision | select | Implement / Defer / Decline / Needs Research | no |
 
-`BR-POS-` (positioning rule) fields: Rule statement (textarea, imperative) · Category (select:
-Pricing/Data/Permissions/Compliance/Performance) · Source (`CFD-` ref) · Rationale · Applies to ·
-Enforcement location (Server/Client/Both) · Enforcement timing (On action/Background/Real-time).
+`BR-` (positioning / enabling rule) fields: Rule statement (textarea, imperative) · Category
+(select: Pricing/Data/Permissions/Compliance/Performance) · Severity (Critical/High/Medium/Low) ·
+Source (`CFD-` ref) · Rationale (driver + UX impact) · Enforcement location (Server/Client/Both) ·
+Enforcement timing (On action/Background/Real-time). Fields match `SoT.BUSINESS_RULES.md`.
 
 **Feature matrix** (one editable table; each cell a select): rows = features, columns = Us + each
 competitor, cell ∈ { ✅ Has / ❌ Missing / 🔄 Planned / ⚠️ Partial }, plus a Gap-notes column.
@@ -315,11 +362,10 @@ competitor, cell ∈ { ✅ Has / ❌ Missing / 🔄 Planned / ⚠️ Partial }, 
 - **Key weakness**: Prohibitively expensive for SMB (5–20 screens)
 - **Evidence tier**: Tier 1 · **Product decision**: Implement (flat-pricing wedge for the SMB gap)
 
-### BR-POS-001: SMB-First Flat Pricing
+### BR-001: SMB-First Flat Pricing
+- **Category**: Pricing · **Severity**: High · **Source**: CFD-042
 - **Rule**: All self-serve tiers MUST support unlimited screens at a flat monthly rate; no per-screen upsell.
-- **Category**: Pricing · **Source**: CFD-042
 - **Rationale**: Competitors charge per-screen; SMB users churn at 10+ screens. Flat pricing is the 1%-better wedge.
-- **Applies to**: SMB + mid-market self-serve (Enterprise negotiated separately)
 - **Enforcement**: Server (billing engine) · On subscription create/upgrade
 
 | Feature | Us (planned) | Yodeck | ScreenCloud | Gap notes |

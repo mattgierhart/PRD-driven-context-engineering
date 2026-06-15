@@ -38,7 +38,7 @@ sanctioned script), it says so explicitly and defers it.
 The symmetry is the point. The companion renders SoT *outward* for review; the deliverable takes
 human judgment *inward* and emits it in the exact shape SoT expects. A deliverable's output is not a
 new format — it is a `BR-`, `UJ-`, `ARC-`, `RISK-`, or `CFD-` entry, ready for
-[`ghm-id-register`](../skills/) to validate and commit.
+[`ghm-id-register`](../.claude/skills/ghm-id-register/) to validate and commit.
 
 **A deliverable doubles as the human gate.** Rule 05 (Lifecycle Gates) requires human sign-off
 before advancing a stage. Completing a deliverable — ranking the risks, acknowledging the

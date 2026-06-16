@@ -1,0 +1,58 @@
+# Install Manifest — PRD-Driven Context Engineering
+#
+# The single source of truth for what the self-install path places into a target
+# repo, and what it must NEVER touch. Both `install.sh` (deterministic CLI) and
+# the `ghm-self-install` skill (subscription-native wizard) read THIS file, so the
+# two paths can never drift. `ghm-template-sync` consumes the same lists for updates.
+#
+# Three classes:
+#   framework     — methodology engine. Installed on first run, UPDATED on re-run
+#                   (with --force when a file has local drift). Framework-owned.
+#   template_seed — seeded ONCE, then product-owned. Never overwritten if present.
+#                   Form: "<src>" (copy in place) or "<src> -> <dest>" (rename).
+#   never_touch   — pure product content. The installer asserts it never writes
+#                   these. Mirrors ghm-template-sync "Never touch" rules.
+#
+# Parsing contract (keep flat): each section is a top-level YAML key whose value is
+# a list of `- <path>` items. install.sh extracts items with awk; do not nest.
+
+version: "3.2.0"
+
+framework:
+  - CLAUDE.md
+  - install.sh                     # the installer self-replicates (Xantham pattern)
+  - BLUEPRINT.md
+  - README_template.md             # seed source for README.md — travels so installed repos can re-distribute
+  - .claude/install-manifest.yaml
+  - .claude/VERSION
+  - .claude/README.md
+  - .claude/domain-profile.yaml
+  - .claude/settings.json          # special-cased: merged, never blind-overwritten
+  - .claude/rules
+  - .claude/hooks
+  - .claude/skills
+  - .claude/agents/devlab/AGENT.md
+  - .claude/agents/horizon/AGENT.md
+  - .claude/agents/metro/AGENT.md
+  - .claude/agents/studio/AGENT.md
+  - scripts
+  - docs
+
+template_seed:
+  - README_template.md -> README.md
+  - PRD.md
+  - epics/EPIC_TEMPLATE.md
+  - epics/README.md
+  - SoT
+  - .claude/agents/devlab/MEMORY.md
+  - .claude/agents/horizon/MEMORY.md
+  - .claude/agents/metro/MEMORY.md
+  - .claude/agents/studio/MEMORY.md
+
+never_touch:
+  - README.md                      # product dashboard (seeded once from template)
+  - PRD.md                         # product requirements body
+  - SoT                            # SoT entries are product knowledge
+  - epics/EPIC-*.md                # closed/active work packages
+  - .claude/agents/*/MEMORY.md     # agent memory is product-specific
+  - .claude/projects

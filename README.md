@@ -281,18 +281,39 @@ From there, the method drives itself: each stage's skills consume the previous s
 The methodology is **fork-native**: everything runs from files in your repo, with no services to stand up.
 
 1. **Fork it per product** — this repo is the template; each product gets its own copy with its own PRD, SoT graph, and EPICs ([Quick Start](#-quick-start) above).
-2. **Work through the gates** — let the stage skills drive: each one tells you what it consumes, what IDs it produces, and which gate it feeds. Run `python scripts/readiness.py run` before advancing.
-3. **Keep the graph honest** — decisions land in `SoT/` with IDs *before or during* the change, never after. Review them as humans through [`SoT/html/`](SoT/html/index.html).
-4. **Harvest every EPIC** — `temp/` notes and agent memories get promoted to durable `LL-` entries at EPIC close, so the next session starts smarter.
+2. **Or self-install into an existing repo** — run the self-install path instead of forking the whole repo (see below).
+3. **Work through the gates** — let the stage skills drive: each one tells you what it consumes, what IDs it produces, and which gate it feeds. Run `python scripts/readiness.py run` before advancing.
+4. **Keep the graph honest** — decisions land in `SoT/` with IDs *before or during* the change, never after. Review them as humans through [`SoT/html/`](SoT/html/index.html).
+5. **Harvest every EPIC** — `temp/` notes and agent memories get promoted to durable `LL-` entries at EPIC close, so the next session starts smarter.
 
-### On the roadmap: MCP + Claude Code plugins
+### Adopt into an existing repo (self-install — prototype)
 
-The fork-and-go workflow is the foundation — distribution is next:
+You don't have to fork. The **self-install path** drops the framework into a fresh *or*
+existing repo without clobbering product content — the subscription-native pattern
+borrowed from [`ZQadus/Xantham-system-blueprint`](https://github.com/ZQadus/Xantham-system-blueprint):
+ship a blueprint a fresh Claude Code session executes, so all cost lands on your Pro/Max
+plan, **not** the metered API.
+
+```bash
+# Deterministic CLI (from a clone of this repo):
+bash install.sh --target /path/to/your/repo --profile product --dry-run   # preview
+bash install.sh --target /path/to/your/repo --profile product             # install
+```
+
+Or paste the one-line bootstrap from [`BLUEPRINT.md`](BLUEPRINT.md) into a fresh Claude
+Code session and let the [`ghm-self-install`](.claude/skills/ghm-self-install/SKILL.md)
+wizard drive it. Both paths read [`.claude/install-manifest.yaml`](.claude/install-manifest.yaml)
+(framework vs. product file classes), are **idempotent**, and **merge** into an existing
+`.claude/settings.json` rather than overwriting it.
+
+### Still on the roadmap
+
+The self-install path is the foundation — fuller distribution is next:
 
 - **MCP server** — the knowledge graph as a queryable service: look up any ID, traverse cross-references, and pull readiness scores from any MCP-capable agent, without loading files into context.
-- **Claude Code plugin** — the 47 skills, hooks, and agent squad as a one-command install into *existing* repositories, instead of starting from a fork.
+- **Packaged Claude Code plugin** — the skills, hooks, and agent squad as a marketplace one-click, plus Xantham-style hardening (Docker audit sandbox, signed `CHECKSUMS.sha256`).
 
-Watch the repo to catch these when they land. Until then, the fork works end-to-end today.
+Watch the repo to catch these when they land. The fork *and* self-install paths both work end-to-end today.
 <!-- /SECTION: how-to-use -->
 
 ---

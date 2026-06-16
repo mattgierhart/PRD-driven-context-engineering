@@ -71,6 +71,51 @@
     </dl>
   </article>
 
+  <article class="entry" id="LL-101">
+    <div class="entry-head">
+      <a class="id" href="#LL-101">LL-101</a>
+      <h3>Ship a blueprint, not a binary — make the agent runtime the installer</h3>
+      <span class="spacer"></span>
+      <span class="badge b-purple">Technical</span>
+      <span class="badge b-active">Verified 2026-06-16</span>
+    </div>
+
+    <div class="section-label">The rule</div>
+    <blockquote class="voc" style="font-style:normal; background:var(--green-soft); border-left-color:var(--green)">
+      ✅ Distribute a Claude Code methodology as plain files a fresh session installs (a
+      "blueprint"), not a packaged runtime or API-backed service — the agent <em>is</em> the
+      installer, so adoption costs subscription tokens, not metered API.
+    </blockquote>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Why (what taught us this)</div>
+        <p><code>ZQadus/Xantham-system-blueprint</code> (2026-06) self-installs a multi-agent
+        system entirely on a Pro/Max subscription — API only at optional edges (~$1/week).
+        The leverage is structural: every install step is file I/O the agent performs, so
+        there's no separate runtime to bill or host. Our prior adoption story was
+        fork-the-whole-repo only.</p>
+      </div>
+      <div>
+        <div class="section-label">How to apply (when it activates)</div>
+        <p>When adding a distribution/onboarding path: (a) a manifest classifying every path
+        as framework / seed-once / never-touch, (b) a deterministic CLI installer <em>and</em>
+        an interactive skill that both read that one manifest, (c) non-destructive brownfield
+        behavior — seed once, merge <code>settings.json</code>, never overwrite product.</p>
+      </div>
+    </div>
+
+    <dl class="meta-grid">
+      <div><dt>Source</dt><dd>manual — Xantham self-install analysis</dd></div>
+      <div><dt>Verified</dt><dd>2026-06-16</dd></div>
+      <div><dt>Related IDs</dt><dd>
+        <span class="mono">.claude/install-manifest.yaml</span> ·
+        <span class="mono">install.sh</span> ·
+        <span class="mono">ghm-self-install</span>
+      </dd></div>
+    </dl>
+  </article>
+
   <article class="entry" id="playbook-index">
     <div class="entry-head"><h3>Playbook at a glance</h3></div>
     <table class="tbl">
@@ -84,11 +129,11 @@
           <td><span class="badge b-active">Current</span></td>
         </tr>
         <tr>
-          <td><span class="mono">LL-101</span></td>
-          <td><span class="ph">{One-line rule}</span></td>
+          <td><a class="id" href="#LL-101">LL-101</a></td>
+          <td>Ship a blueprint, not a binary — make the agent runtime the installer</td>
           <td><span class="badge b-purple">Technical</span></td>
-          <td><span class="ph">agent memory</span></td>
-          <td><span class="badge b-planned">⚠️ STALE — re-verify</span></td>
+          <td>manual</td>
+          <td><span class="badge b-active">Current</span></td>
         </tr>
       </tbody>
     </table>

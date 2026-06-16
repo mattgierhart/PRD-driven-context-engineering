@@ -51,6 +51,7 @@
 | **v1.0 Market Adoption** | Testimonial Collector | ✅ Ready | [`prd-v10-testimonial-collector/`](prd-v10-testimonial-collector/) |
 | **Methodology** | SoT Builder | ✅ Ready | [`ghm-sot-builder/`](ghm-sot-builder/) |
 | **Methodology** | Template Sync | ✅ Ready | [`ghm-template-sync/`](ghm-template-sync/) |
+| **Methodology** | Self-Install (adopt into existing repo) | ✅ Ready | [`ghm-self-install/`](ghm-self-install/) |
 
 **Legend:** ✅ Ready = SKILL.md complete | 📋 Spec = specification below, needs implementation
 

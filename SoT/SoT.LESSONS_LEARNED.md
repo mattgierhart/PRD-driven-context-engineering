@@ -23,7 +23,7 @@ authority: This is a SoT file - entries promoted from agent MEMORY.md files duri
 
 **Technical** (LL-101 to LL-199):
 
-- _(Populated during Phase E Harvest of each EPIC)_
+- [LL-101](#ll-101-ship-a-blueprint-not-a-binary--make-the-agent-runtime-the-installer): Ship a blueprint, not a binary — make the agent runtime the installer.
 
 **Collaboration** (LL-201 to LL-299):
 
@@ -48,6 +48,32 @@ authority: This is a SoT file - entries promoted from agent MEMORY.md files duri
 
 ---
 
+## Entries
+
+### LL-101: Ship a blueprint, not a binary — make the agent runtime the installer
+
+- **Rule**: To distribute a Claude Code methodology, ship plain files that a fresh Claude
+  Code session installs (a "blueprint"), rather than a packaged runtime or an API-backed
+  service. The agent *is* the installer, so adoption costs the user's subscription tokens,
+  not metered API calls.
+- **Why**: Analysis of `ZQadus/Xantham-system-blueprint` (2026-06) showed a self-installing
+  multi-agent system that runs entirely on a Pro/Max subscription — API is touched only at
+  optional edges (~$1/week consolidation). The leverage is structural: because every install
+  step is file I/O the agent performs, there is no separate runtime to bill or host. Our
+  prior adoption story was fork-the-whole-repo only; the README roadmap named "one-command
+  install into existing repos" as the missing piece.
+- **How to apply**: When adding a distribution/onboarding path, prefer (a) a manifest that
+  classifies every path as framework / seed-once / never-touch, (b) a deterministic CLI
+  installer *and* an interactive skill that both read that one manifest (so they can't
+  drift), and (c) non-destructive brownfield behavior — seed templates once, merge into
+  existing `settings.json`, never overwrite product content. Defer heavier hardening
+  (Docker audit sandbox, signed checksums, MCP service) as explicit, labeled next steps.
+- **Source**: manual — Xantham self-install analysis (branch `claude/xantham-self-install-analysis`)
+- **Verified**: 2026-06-16
+- **Related IDs**: _(none — see `.claude/install-manifest.yaml`, `install.sh`, skill `ghm-self-install`)_
+
+---
+
 ## Deprecated Entries
 
 > Entries that are no longer applicable. Keep for historical context.
@@ -61,6 +87,7 @@ _(None yet)_
 | LL ID | Related IDs | Category |
 |-------|-------------|----------|
 | LL-001 | {BR-XXX, API-YYY} | {Process / Technical / Collaboration / Estimation} |
+| LL-101 | — (install-manifest.yaml, install.sh, ghm-self-install) | Technical |
 
 ---
 

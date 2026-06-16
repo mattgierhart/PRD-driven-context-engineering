@@ -1,0 +1,141 @@
+# PRD-CE → Claude Code Plugin: Conversion Plan (scratchpad)
+
+> Status: planning draft for review. No framework files changed. Harvest to SoT/PRD when approved.
+> Grounded in verified Claude Code plugin docs (code.claude.com/docs: plugins, plugins-reference,
+> plugin-marketplaces, plugin-dependencies, skills).
+
+## Decisions locked in discussion
+
+1. **Token cost is a non-issue** — progressive disclosure: ~50 skills ≈ 3–8 KB always-on. Splitting is
+   justified by release cadence/modularity only, not cost.
+2. **Discipline survives as a plugin** via hooks, not passive file-loading:
+   - Directives/spine → **SessionStart hook `additionalContext`** (already done in `context-validation.sh`).
+   - Enforcement → **hooks** (`traceability-gate`, `sot-sync-reminder`, `sot-update-trigger`).
+   - Depth rules (02, 06, 07) → **on-demand reference skills**.
+   - Only **config** (`domain-profile.yaml`) + optional human `CLAUDE.md` stub get **seeded**.
+3. **Granularity**: ship a **monolith `prd-ce`** now, structured so a later split into
+   `prd-core` + phase plugins (via `dependencies`) is mechanical. `prd-core` is the future MCP host.
+4. **Seeder**: `ghm-self-install` (PR #77) becomes a bundled skill `/prd-ce:init` that plants bucket-2/3.
+
+## The single-source question (the crux of "is the repo set up right?")
+
+A plugin must be the **source of truth** for skills/agents/hooks, or we recreate drift between a dev
+copy in `.claude/` and a built copy in the plugin. Two strategies:
+
+- **(A) Plugin-is-source + repo dogfoods it [TARGET].** Move skills/agents/hooks OUT of `.claude/`
+  into the plugin subtree; this repo consumes its own plugin (local marketplace / `--plugin-dir`).
+  One copy. The methodology repo becomes its own first consumer. Cleanest; bigger reshape.
+- **(B) Author in `.claude/`, build the plugin via a transform step [INTERIM].** A deterministic
+  `package` script (reusing `install-manifest.yaml`) copies + transforms (flatten agents, rewrite
+  hook paths) into the plugin subtree. `.claude/` = source, plugin = built artifact. Lower risk,
+  but two copies until we cut over to (A).
+
+**Recommendation:** build with (B) to de-risk, cut over to (A) once the plugin is proven. Both keep
+the *volatile* layer single-sourced at the end.
+
+## Target repo layout (monolith, multi-plugin-ready)
+
+```
+prd-driven-context-engineering/                 # this repo = source + marketplace
+├── .claude-plugin/
+│   └── marketplace.json                        # lists prd-ce (+ future core/phase plugins)
+├── plugins/
+│   └── prd-ce/
+│       ├── .claude-plugin/plugin.json          # name: prd-ce, OMIT version during dev
+│       ├── skills/                             # from .claude/skills/<name>/SKILL.md (shape matches)
+│       │   ├── prd-v01-problem-framing/ … (all 41 prd-* )
+│       │   ├── ghm-*/ …                         (gate-check, harvest, id-register, sot-builder, status-sync, template-sync)
+│       │   ├── init/                            # ← ghm-self-install reworked as the seeder
+│       │   └── operating-discipline/            # ← reference skill carrying rules 02/06/07 depth
+│       ├── agents/                             # FLATTENED: horizon.md, studio.md, devlab.md, metro.md
+│       │   └── (AGENT.md bodies; MEMORY.md does NOT ship — it's seeded)
+│       ├── hooks/hooks.json                    # rewired from .claude/settings.json
+│       ├── scripts/                            # readiness.py, validators, _merge_settings.py, asof.py …
+│       └── docs/                               # methodology docs (DEVELOPMENT_GRAPH, READINESS_PROTOCOL)
+├── .claude/                                     # repo dogfoods the plugin (consumer config only)
+├── CLAUDE.md / PRD.md / SoT/ / epics/           # the EXAMPLE product instance — stays, never ships
+└── README.md
+```
+
+## File-by-file move map
+
+| Source (today) | Plugin target | Transform |
+|---|---|---|
+| `.claude/skills/<name>/SKILL.md` (+assets/refs) | `plugins/prd-ce/skills/<name>/` | copy as-is; strip non-standard frontmatter only if it breaks (`context: fork`, `allowed-tools` — verify honored) |
+| `.claude/agents/<name>/AGENT.md` | `plugins/prd-ce/agents/<name>.md` | **flatten** dir → file |
+| `.claude/agents/<name>/MEMORY.md` | *(not shipped)* → seeded by `/prd-ce:init` | becomes a starter template |
+| `.claude/settings.json` (hooks block) | `plugins/prd-ce/hooks/hooks.json` | rewrite each `bash "$CLAUDE_PROJECT_DIR"/.claude/hooks/x.sh` → `bash "${CLAUDE_PLUGIN_ROOT}"/hooks/x.sh` |
+| `.claude/hooks/*.sh` | `plugins/prd-ce/hooks/*.sh` | scripts still read consumer files via cwd/`$CLAUDE_PROJECT_DIR` — only the *invocation path* changes |
+| `scripts/*.py`, `validate-*.sh` | `plugins/prd-ce/scripts/` | callers that say `python scripts/readiness.py` → `python "${CLAUDE_PLUGIN_ROOT}"/scripts/readiness.py` (reads consumer SoT/PRD) |
+| `.claude/rules/*.md` | split: spine → SessionStart preamble; depth → `skills/operating-discipline/` | rules dir does NOT auto-load in plugins |
+| `.claude/domain-profile.yaml` | seeded by `/prd-ce:init` | consumer-local config |
+| `.claude/install-manifest.yaml` | `plugins/prd-ce/skills/init/` reference | re-bucket: framework→plugin payload (no longer copied), template_seed→what init plants |
+| `CLAUDE.md`, `PRD.md`, `SoT/`, `epics/` | **stay in repo as example** | never ship in plugin |
+
+## Hook rewiring detail (the main mechanical risk)
+
+- 7 hooks currently locate their own scripts via `$CLAUDE_PROJECT_DIR/.claude/hooks/`. → `${CLAUDE_PLUGIN_ROOT}/hooks/`.
+- Scripts that **read the consumer's project** (context-validation reads `README.md`/`PRD.md`/`epics/`;
+  sot-update reads `SoT/`) already use **relative/cwd paths** → unchanged, they naturally read the
+  consumer's working dir. ✅ This is why the split works cleanly.
+- `context-validation.sh` SessionStart already emits `additionalContext` → extend it with the condensed
+  **operating preamble** (authority order, ID-graph core rule, gate-before-advance). This is the
+  always-on discipline, plugin-native, zero-drift.
+
+## plugin.json (draft)
+
+```json
+{
+  "name": "prd-ce",
+  "displayName": "PRD-Driven Context Engineering",
+  "description": "PRD lifecycle methodology: skills, agents, hooks, readiness scoring.",
+  "author": { "name": "Matt Gierhart" },
+  "license": "MIT"
+  // version OMITTED during active dev → every commit ships to consumers
+}
+```
+
+## marketplace.json (draft)
+
+```json
+{
+  "name": "prd-ce-methodology",
+  "owner": { "name": "Matt Gierhart" },
+  "plugins": [ { "name": "prd-ce", "source": "./plugins/prd-ce", "description": "PRD-CE methodology core" } ]
+}
+```
+Consumer: `/plugin marketplace add mattgierhart/prd-driven-context-engineering` → `/plugin install prd-ce@prd-ce-methodology`.
+
+## `/prd-ce:init` seeder (from ghm-self-install)
+
+Plants bucket-2/3 the plugin can't: `domain-profile.yaml`, `PRD.md`/`SoT/`/`EPIC` templates, agent
+`MEMORY.md` starters, optional human `CLAUDE.md` stub. Reuses `install-manifest.yaml` `template_seed`
+list + the `_merge_settings.py` discipline. Non-destructive (never_touch honored).
+
+## Sequencing (each step shippable, reversible)
+
+1. **Scaffold** `plugins/prd-ce/` + `.claude-plugin/` manifests (strategy B build script). No `.claude/` changes yet.
+2. **Rewire hooks** into `hooks/hooks.json` with `${CLAUDE_PLUGIN_ROOT}`; verify each emits valid JSON.
+3. **Flatten agents**; ship AGENT.md bodies, hold MEMORY.md as seed templates.
+4. **Preamble**: extend SessionStart hook with the operating spine; build `operating-discipline` reference skill.
+5. **Init skill**: port ghm-self-install → `/prd-ce:init`.
+6. **Validate**: `claude --plugin-dir ./plugins/prd-ce`, `claude plugin validate`, install into a scratch repo, run a lifecycle skill, run readiness.
+7. **Dogfood (cut to strategy A)**: repo consumes its own plugin; delete the dev duplicates in `.claude/`.
+8. **Publish**: marketplace public; README install instructions.
+
+## Open questions / risks
+
+- **Verify**: are skill frontmatter keys `context:`/`allowed-tools` honored (or harmlessly ignored) in plugins? (likely ignored)
+- **Verify**: does `claude --plugin-dir` resolve `${CLAUDE_PLUGIN_ROOT}` for local dev identically to installed?
+- **Decide**: how much human-readable `CLAUDE.md` narrative to seed vs leave to the live preamble.
+- **Relationship to PR #77**: self-install becomes `/prd-ce:init`; may re-scope or supersede #77.
+- **Strategy A cutover** removes the dev `.claude/` skills — sequence carefully so the repo never breaks mid-migration.
+
+## Verification (when built)
+
+- `claude plugin validate ./plugins/prd-ce` passes.
+- Install into a fresh repo via local marketplace; `/prd-ce:init` seeds scaffold; SessionStart preamble appears.
+- A `prd-v0X` skill runs and reads the consumer's `domain-profile.yaml` (not the plugin's).
+- `readiness.py` (from plugin) scores the consumer's SoT/PRD.
+- Update flow: bump a skill in the plugin, `/plugin marketplace update`, change reflected in consumer.
+```

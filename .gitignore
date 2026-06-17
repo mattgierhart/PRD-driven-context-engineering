@@ -68,3 +68,10 @@ __pycache__/
 # Readiness scoring — generated output, not source
 status/readiness.json
 .pytest_cache/
+
+# Generated plugin payload (strategy B: .claude/ is source of truth during dev).
+# Authored manifests under plugins/prd-ce/.claude-plugin/ remain tracked.
+/plugins/prd-ce/skills/
+/plugins/prd-ce/agents/
+/plugins/prd-ce/hooks/
+/plugins/prd-ce/scripts/

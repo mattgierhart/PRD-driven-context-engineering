@@ -1,0 +1,11 @@
+{
+  "name": "prd-ce-methodology",
+  "owner": { "name": "Matt Gierhart" },
+  "plugins": [
+    {
+      "name": "prd-ce",
+      "source": "./plugins/prd-ce",
+      "description": "PRD-CE methodology engine: scaffold (PRD/SoT/EPICs) + lifecycle skills + governance hooks + readiness scoring."
+    }
+  ]
+}

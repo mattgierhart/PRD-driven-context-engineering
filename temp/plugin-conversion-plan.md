@@ -25,9 +25,23 @@ makes "improve once, propagate everywhere" hold.
 `ghm-stage-entry` + `ghm-graph-extract`; entry-mode branching in `init` (v1 assumes fresh repo);
 MCP server; core/phase plugin split.
 
-**Concrete v1 gap:** the manifest currently seeds `PRD.md` (the *populated example*). v1 needs a real
-**`PRD_template.md`** (blank v0.1 skeleton) so new products don't inherit example content. Apply the
-same check to any SoT file that isn't already in cleared-template state.
+**Concrete v1 note (corrected):** `PRD.md` is already in blank-template state (all `{}` placeholders,
+no product content), and the repo's naming convention reserves the `_template` suffix for README/EPIC
+only — so we do NOT add `PRD_template.md`. The real fix is for `/prd-ce:init` to **reset frontmatter
+metadata** (`version`→0.1, `last_updated`→today, drop stale `template_version`) when seeding PRD.md.
+
+## v1 build progress (this branch)
+
+- ✅ Authored manifests: `.claude-plugin/marketplace.json` (repo = marketplace) + `plugins/prd-ce/.claude-plugin/plugin.json`.
+- ✅ `scripts/package-plugin.sh` — strategy-B transform: generates `plugins/prd-ce/{skills,agents,hooks,scripts}`
+  from `.claude/`. Skills copied; agents flattened (`<name>/AGENT.md`→`<name>.md`, MEMORY.md held back);
+  `hooks.json` generated from `settings.json` with `$CLAUDE_PROJECT_DIR/.claude/hooks/`→`${CLAUDE_PLUGIN_ROOT}/hooks/`.
+  Generated payload is gitignored (single-source stays `.claude/`).
+- ✅ Hook fix: `context-density-gate.sh` + `sot-update-trigger.sh` made **layout-aware** — resolve
+  `generate-id-pattern.sh` via `${CLAUDE_PLUGIN_ROOT}/scripts/` when running as a plugin, else repo-relative.
+  Same source works in-repo (dogfood) and packaged.
+- ▶ Next: validate under `claude --plugin-dir plugins/prd-ce`; build `/prd-ce:init` seeder (incl. PRD
+  frontmatter reset); extend SessionStart hook with the operating preamble.
 
 ## Decisions locked in discussion
 

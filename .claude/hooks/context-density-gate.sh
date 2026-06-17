@@ -13,8 +13,11 @@ MAX_EPIC_TOKENS=4000
 MAX_SOT_REFERENCES=10
 
 # Generate ID prefix pattern from domain-profile.yaml (Issue #59)
+# Layout-aware: prefer the plugin's scripts/ when running as a plugin
+# (${CLAUDE_PLUGIN_ROOT} set), else fall back to the repo-relative path.
 HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PREFIX_GROUP="$(bash "${HOOK_DIR}/../../scripts/generate-id-pattern.sh" 2>/dev/null || echo '(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)')"
+GENPAT_SH="${CLAUDE_PLUGIN_ROOT:+${CLAUDE_PLUGIN_ROOT}/scripts/generate-id-pattern.sh}"
+PREFIX_GROUP="$(bash "${GENPAT_SH:-${HOOK_DIR}/../../scripts/generate-id-pattern.sh}" 2>/dev/null || echo '(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)')"
 SOT_PATTERN="\\b${PREFIX_GROUP}-[0-9]{3}\\b"
 
 # --- Helpers ---

@@ -138,4 +138,40 @@ list + the `_merge_settings.py` discipline. Non-destructive (never_touch honored
 - A `prd-v0X` skill runs and reads the consumer's `domain-profile.yaml` (not the plugin's).
 - `readiness.py` (from plugin) scores the consumer's SoT/PRD.
 - Update flow: bump a skill in the plugin, `/plugin marketplace update`, change reflected in consumer.
-```
+
+---
+
+## Stress test (persona: Priya, solo founder, 3 products at 3 stages)
+
+Walked one persona through three entry modes to find where the plugin strains.
+
+| Scenario | Entry mode | Experience | Verdict |
+|---|---|---|---|
+| **InvoiceFlow** (new idea) | greenfield | `init` → frame problem → flow v0.1→v0.7, graph grows as byproduct; `epic-scoping` emits EPICs | **Shines.** Built for this. Only cost = skill volume (use quick-mode). |
+| **MeetingMuse** (2mo, code, no specs) | mid-build | `init` brownfield-safe; but methodology is forward-staged. Enters ~v0.6 to document as-built `API-`/`DBT-`/`FEA-`, then epic-scope next chunk | **Strains.** `epic-scoping` consumes thin upstream IDs; `readiness.py` BLOCKs on empty v0.1–v0.5. No clean mid-lifecycle on-ramp. |
+| **LedgerLink** (18mo live, no docs) | retroactive | Reverse-engineer SoTs from a large codebase; forward "decide" skills are a poor fit. `prd-v05` (brownfield discovery) + `prd-v06` (document as-built) + `ghm-id-register` help; `@implements` retro-tagging is huge | **Hardest.** No code→graph extractor → manual backfill. Honest value = "stop bleeding forward + gradual backfill," not instant coverage. |
+
+### Findings → design changes the conversion must account for
+
+1. **[High] Forward-bias / no mid-lifecycle on-ramp.** 2 of 3 real scenarios enter mid/late and hit readiness BLOCKs from empty upstream IDs. → new skill **`ghm-stage-entry`**.
+2. **[High] No brownfield extractor.** `code_node_types` + bridge relations are *defined* in `domain-profile.yaml` and `docs/DEVELOPMENT_GRAPH.md`, but no shipped AST pass *populates* `devgraph.json` from existing code. → new skill/script **`ghm-graph-extract`** (also the seed of the future MCP "queryable graph").
+3. **[Med] Readiness misleads on partial adoption** — BLOCK reads as "failing" when stages were intentionally skipped. → scorer should distinguish *not-yet-done* from *intentionally-skipped*.
+4. **[Med] `init` must branch by entry mode** (greenfield→v0.1 / mid-build→backfill spine / live→extract-first), not just seed files. Reuses the greenfield/brownfield detection from PR #77.
+5. **[✓] Always-on discipline via SessionStart hook works in all three entry modes** — confirms the packaging decision holds.
+
+## Proposed new skills (specs)
+
+### `ghm-stage-entry` (methodology operator)
+- **Purpose:** Adopt PRD-CE at a non-zero stage without the scorer punishing intentionally-skipped upstream work.
+- **Trigger:** "enter at v0.X", "I'm already mid-build", "set current stage", run by `/prd-ce:init` when brownfield detected.
+- **Behavior:** records declared current stage; writes `dimension_overrides`/disable for skipped upstream stages into `status/readiness.json` inputs; emits a "backfill checklist" of the minimum upstream IDs worth recovering (the spine: a `CFD-`/`BR-` anchor, `FEA-` catalog) so downstream skills aren't starved.
+- **Produces:** readiness config + a backfill checklist. No new ID prefix.
+
+### `ghm-graph-extract` (methodology operator, deterministic/LLM-free)
+- **Purpose:** Bootstrap the knowledge-graph foundation for a live product from existing code.
+- **Trigger:** "extract graph from code", "onboard existing codebase", run by `/prd-ce:init` when live-product detected.
+- **Behavior:** AST pass over the consumer repo → `status/devgraph.json` code nodes (per `code_node_types`); proposes **candidate** `API-`/`DBT-` SoT entries from endpoints/tables for human confirmation via `ghm-id-register`; reads existing `@implements` tags to seed bridge edges.
+- **Produces:** `devgraph.json` + candidate SoT entries. Must stay deterministic per rule 07 (no LLM in the scorer path). Natural backend for the future MCP `graph.query` tools.
+
+> Sequencing note: build these **before** the strategy-A cutover, since `/prd-ce:init`'s entry-mode branching depends on both.
+

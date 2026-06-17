@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technical Decisions · TECH / ARC / ENV</title>
+<link rel="stylesheet" href="assets/sot.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="index.html">SoT Atlas</a>
+  <a href="SoT.API_CONTRACTS.html">APIs</a>
+  <a href="SoT.DATA_MODEL.html">Data</a>
+  <span class="here">Decisions</span>
+  <a href="SoT.INTEGRATIONS.html">Integrations</a>
+  <a href="SoT.DEPLOYMENT.html">Ops</a>
+  <a class="src" href="../SoT.TECHNICAL_DECISIONS.md">source: SoT.TECHNICAL_DECISIONS.md</a>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="kicker">The Source-of-Truth Review · <span class="no">№ 07</span> — Architecture</p>
+    <h1>Technical Decisions</h1>
+    <p class="lede">The architecture record: what we chose, what we rejected, and the structural
+       rules the as-built code is continuously checked against.</p>
+    <div class="prefix-row">
+      <span class="prefix-chip">TECH-XXX · Stack decisions</span>
+      <span class="prefix-chip">ARC-XXX · Architecture decisions</span>
+      <span class="prefix-chip">ENV-XXX · Environments</span>
+    </div>
+    <div class="persona-note">
+      <strong>Built for the architect / tech lead.</strong> TECH and ARC entries read as
+      Architecture Decision Records (Context → Decision → Rationale → Consequences, per Nygard's
+      ADR format); the system overview reads as a boxes-and-arrows diagram; each ARC conformance
+      rule shows its live <span class="mono">pass / violate / unknown</span> verdict from the
+      Development Graph.
+    </div>
+  </header>
+
+  <!-- ================= SYSTEM DIAGRAM ================= -->
+  <article class="entry" id="system-overview">
+    <div class="entry-head"><h3>System overview — expected topology (blueprint graph)</h3></div>
+    <p class="lede" style="font-size:13.5px">The intended shape the v0.7 build must match. Solid
+       boxes are our components; dashed boxes are external. Arrows are allowed dependencies —
+       anything not drawn here is a conformance violation candidate.</p>
+    <div class="arch-row">
+      <div class="arch-node"><span class="ph">{Frontend}</span><small><a class="id" href="#TECH-001">TECH-001</a></small></div>
+    </div>
+    <div class="arch-link">▼ HTTPS / JSON (<a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a>)</div>
+    <div class="arch-row">
+      <div class="arch-node"><span class="ph">{API layer}</span><small><a class="id" href="#ARC-001">ARC-001</a></small></div>
+      <div class="arch-node"><span class="ph">{Domain / engine}</span><small>no UI imports</small></div>
+    </div>
+    <div class="arch-link">▼ SQL &nbsp;&nbsp;&nbsp;&nbsp; ▼ external API</div>
+    <div class="arch-row">
+      <div class="arch-node"><span class="ph">{Database}</span><small><a class="id" href="SoT.DATA_MODEL.html#DBT-001">DBT-001</a></small></div>
+      <div class="arch-node ext"><span class="ph">{Third-party service}</span><small><a class="id" href="SoT.INTEGRATIONS.html#INT-001">INT-001</a></small></div>
+    </div>
+  </article>
+
+  <!-- ================= TECH ADR ================= -->
+  <article class="entry" id="TECH-001">
+    <div class="entry-head">
+      <a class="id" href="#TECH-001">TECH-001</a>
+      <h3><span class="ph">{Action title — the decision as a takeaway, e.g. "Postgres over MySQL for JSONB queries"}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-purple">Stack</span>
+      <span class="badge b-active">Accepted</span>
+    </div>
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd><span class="ph">Frontend | Backend | Database | Infrastructure | DevOps</span></dd></div>
+      <div><dt>Decision date</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+      <div><dt>Last reviewed</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+    <div class="section-label">Context</div>
+    <p><span class="ph">{What problem or need drove this decision?}</span></p>
+    <div class="section-label">Decision</div>
+    <p><strong><span class="ph">{What technology/approach was chosen?}</span></strong></p>
+    <div class="section-label">Rationale</div>
+    <table class="tbl">
+      <tbody>
+        <tr><td><strong>Chosen because</strong></td><td><span class="ph">{Primary reasons}</span></td></tr>
+        <tr><td><strong>Alternatives considered</strong></td><td><span class="ph">{What else was evaluated}</span></td></tr>
+        <tr><td><strong>Trade-offs accepted</strong></td><td><span class="ph">{Known downsides}</span></td></tr>
+      </tbody>
+    </table>
+    <div class="section-label">Knowledge-graph links</div>
+    <p>
+      <a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a> uses this technology ·
+      <a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a> drove the choice ·
+      <a class="id" href="SoT.INTEGRATIONS.html#INT-001">INT-001</a> enabled by it
+    </p>
+  </article>
+
+  <!-- ================= ARC ADR + CONFORMANCE ================= -->
+  <article class="entry" id="ARC-001">
+    <div class="entry-head">
+      <a class="id" href="#ARC-001">ARC-001</a>
+      <h3><span class="ph">{Action title — the constraint as a sentence, e.g. "The engine layer never imports the UI"}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-info">Architecture</span>
+      <span class="badge b-active">Accepted</span>
+    </div>
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd><span class="ph">Data Flow | Security | Scaling | Integration | Patterns</span></dd></div>
+      <div><dt>Decision date</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+      <div><dt>Last reviewed</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+    <div class="section-label">Context</div>
+    <p><span class="ph">{What architectural challenge needed solving?}</span></p>
+    <div class="section-label">Decision</div>
+    <p><strong><span class="ph">{What architecture pattern/approach was chosen?}</span></strong></p>
+    <div class="section-label">Rationale</div>
+    <table class="tbl">
+      <tbody>
+        <tr><td><strong>Chosen because</strong></td><td><span class="ph">{Primary reasons}</span></td></tr>
+        <tr><td><strong>Alternatives considered</strong></td><td><span class="ph">{What else was evaluated}</span></td></tr>
+        <tr><td><strong>Consequences</strong></td><td><span class="ph">{What this enables or constrains}</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">Conformance rule — checked against the as-built code</div>
+    <div class="card" style="margin:8px 0; background:var(--gray-soft)">
+      <table class="tbl" style="background:transparent">
+        <tbody>
+          <tr><td><strong>Rule</strong></td>
+              <td><span class="ph">{e.g. "the `engine/` layer must not import the UI framework"}</span></td></tr>
+          <tr><td><strong>Check</strong></td>
+              <td><code><span class="ph">forbidden_import · packages/extension/engine/** · vscode</span></code></td></tr>
+          <tr><td><strong>Verdict</strong></td>
+              <td><span class="badge b-pass">pass</span> <span class="badge b-violate">violate</span>
+                  <span class="badge b-unknown">unknown</span>
+                  <small>(computed from <span class="mono">status/devgraph.json</span> — keep only the current one)</small></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-label">Knowledge-graph links</div>
+    <p>
+      <a class="id" href="#TECH-001">TECH-001</a> enables this ·
+      <a class="id" href="SoT.DATA_MODEL.html#DBT-001">DBT-001</a> affected ·
+      <a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a> supported
+    </p>
+  </article>
+
+  <!-- ================= ENV ================= -->
+  <article class="entry" id="ENV-001">
+    <div class="entry-head">
+      <a class="id" href="#ENV-001">ENV-001</a>
+      <h3>Development Environment</h3>
+      <span class="spacer"></span>
+      <span class="badge b-low">Environment</span>
+      <span class="badge b-neutral">Template</span>
+    </div>
+    <dl class="meta-grid">
+      <div><dt>Owner</dt><dd><span class="ph">{Team/Person}</span></dd></div>
+      <div><dt>Last reviewed</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+    <div class="grid-2">
+      <div>
+        <div class="section-label">System CLIs</div>
+        <pre class="code"><span class="c"># customize for your project</span>
+brew install <span class="ph">{tool1} {tool2}</span></pre>
+        <div class="section-label">Project packages</div>
+        <pre class="code">npm install --save-dev <span class="ph">{package1} {package2}</span></pre>
+      </div>
+      <div>
+        <div class="section-label">Verification</div>
+        <ul class="checklist">
+          <li><span class="ph">{tool1}</span> --version succeeds</li>
+          <li>npm run validate passes</li>
+          <li>npm test passes</li>
+        </ul>
+        <div class="section-label">Config files</div>
+        <table class="tbl">
+          <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+          <tbody><tr><td><code><span class="ph">{config-file}</span></code></td><td><span class="ph">{What it configures}</span></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="section-label">Related</div>
+    <p><a class="id" href="#TECH-001">TECH-001</a> supported tech ·
+       <a class="id" href="SoT.DEPLOYMENT.html#DEP-001">DEP-001</a> deployment ·
+       ENV-002 (CI/CD) and ENV-003 (production infra) follow the same card shape</p>
+  </article>
+
+  <article class="entry" id="cross-reference">
+    <div class="entry-head"><h3>Cross-reference index</h3></div>
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Decisions by domain</div>
+        <p>Frontend: <a class="id" href="#TECH-001">TECH-001</a>, <a class="id" href="#ARC-001">ARC-001</a><br>
+           Environment: <a class="id" href="#ENV-001">ENV-001</a></p>
+      </div>
+      <div>
+        <div class="section-label">Decisions by EPIC</div>
+        <p><span class="mono">EPIC-01</span> implemented:
+           <a class="id" href="#TECH-001">TECH-001</a>,
+           <a class="id" href="#ARC-001">ARC-001</a>,
+           <a class="id" href="#ENV-001">ENV-001</a></p>
+      </div>
+    </div>
+  </article>
+
+  <article class="entry" id="deprecated">
+    <div class="entry-head"><h3>Superseded decisions</h3><span class="spacer"></span><span class="badge b-deprecated">Superseded</span></div>
+    <p><span class="mono">TECH-XXX</span>: <span class="ph">{Decision Name}</span> — superseded
+       <span class="ph">YYYY-MM-DD</span> by <span class="ph">TECH-YYY</span>.
+       Reason: <span class="ph">{Why changed}</span>. Migration: <span class="ph">{How to transition}</span></p>
+  </article>
+
+  <section class="title-block" aria-label="Document title block">
+    <dl class="tb-meta">
+      <div><dt>Document</dt><dd>The Source-of-Truth Review · № 07</dd></div>
+      <div><dt>Section</dt><dd>Architecture</dd></div>
+      <div><dt>Source of truth</dt><dd class="mono">SoT.TECHNICAL_DECISIONS.md</dd></div>
+      <div><dt>Status</dt><dd>Template</dd></div>
+      <div><dt>Sheet</dt><dd>07 / 13</dd></div>
+    </dl>
+    <table aria-label="Revision table">
+      <thead><tr><th>Rev</th><th>Date</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2026-06-10</td><td>Template established</td></tr>
+        <tr><td class="ph">{n}</td><td class="ph">{YYYY-MM-DD}</td><td class="ph">{What changed — mark affected rows with class="changed"}</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <p class="footnote">
+    Companion to <a href="../SoT.TECHNICAL_DECISIONS.md">SoT.TECHNICAL_DECISIONS.md</a> (authoritative).
+    Conformance verdicts come from <span class="mono">status/devgraph.json</span> — see
+    <span class="mono">docs/DEVELOPMENT_GRAPH.md</span>. Deep-link as
+    <span class="mono">SoT.TECHNICAL_DECISIONS.html#ARC-001</span>.
+  </p>
+</main>
+</body>
+</html>

@@ -28,8 +28,8 @@ say() { printf '%s\n' "$*"; }
 say "▶ Packaging prd-ce plugin from .claude/ → plugins/prd-ce/"
 
 # Clean only the generated payload; preserve authored .claude-plugin/
-for d in skills agents hooks scripts; do rm -rf "${OUT:?}/$d"; done
-mkdir -p "$OUT/skills" "$OUT/agents" "$OUT/hooks" "$OUT/scripts"
+for d in skills agents hooks scripts templates; do rm -rf "${OUT:?}/$d"; done
+mkdir -p "$OUT/skills" "$OUT/agents" "$OUT/hooks" "$OUT/scripts" "$OUT/templates"
 
 # 1. Skills — copy as-is
 cp -R "$SRC/.claude/skills/." "$OUT/skills/"
@@ -72,6 +72,46 @@ cp "$SRC"/scripts/*.sh "$OUT/scripts/" 2>/dev/null || true
 # Dev/build-only tooling stays in the repo; it is not part of the shipped plugin.
 rm -f "$OUT/scripts/package-plugin.sh" "$OUT/scripts/check-plugin-sync.sh"
 say "  scripts   : $(find "$OUT/scripts" -type f | wc -l | tr -d ' ') files copied"
+
+# 4b. Seed templates bundle — the consumer-owned scaffold /prd-ce:init plants.
+# The framework ships LIVE in the plugin; these are the files init copies into a fresh
+# repo. Mirror each template_seed SOURCE path under templates/<src> so prd-ce-init.sh
+# resolves "$CLAUDE_PLUGIN_ROOT/templates/<src>" identically to the in-repo dogfood path.
+python3 - "$SRC" "$OUT/templates" <<'PY'
+import os, re, shutil, sys
+src_root, tpl_out = sys.argv[1], sys.argv[2]
+manifest = os.path.join(src_root, ".claude", "install-manifest.yaml")
+
+# Flat parse of the `template_seed:` list (mirrors install.sh's awk contract).
+seeds, grab = [], False
+for line in open(manifest):
+    if re.match(r'^template_seed:\s*$', line):
+        grab = True; continue
+    if re.match(r'^[A-Za-z_]+:', line):
+        grab = False
+    if grab:
+        m = re.match(r'^\s*-\s*(.+?)\s*$', line)
+        if m:
+            seeds.append(re.sub(r'\s*#.*$', '', m.group(1)).strip())
+
+# init also seeds consumer-owned config + needs the manifest to know what to seed.
+extra = [".claude/domain-profile.yaml", ".claude/install-manifest.yaml"]
+
+n = 0
+for entry in seeds + extra:
+    src_rel = entry.split("->")[0].strip()        # left of "->" is the SOURCE path
+    src = os.path.join(src_root, src_rel)
+    dst = os.path.join(tpl_out, src_rel)
+    if not os.path.exists(src):
+        print("  ⚠ templates: missing seed source %s (skipped)" % src_rel); continue
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    if os.path.isdir(src):
+        shutil.copytree(src, dst, dirs_exist_ok=True)
+    else:
+        shutil.copy2(src, dst)
+    n += 1
+print("  templates : %d seed sources bundled (template_seed + consumer config)" % n)
+PY
 
 # 5. Validate JSON outputs
 python3 -c "import json; json.load(open('$OUT/.claude-plugin/plugin.json')); json.load(open('$OUT/hooks/hooks.json')); json.load(open('$SRC/.claude-plugin/marketplace.json'))" \

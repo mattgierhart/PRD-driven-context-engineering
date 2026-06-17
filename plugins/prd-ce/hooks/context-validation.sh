@@ -94,7 +94,15 @@ This establishes:
 - Structural rules and documentation discipline (CLAUDE.md)
 - Current project status and navigation (README.md)
 - Product definition and current lifecycle stage (PRD.md)
-${epic_line}"
+${epic_line}
+
+## Operating Discipline (PRD-CE)
+
+- **Authority order**: README.md -> PRD.md -> CLAUDE.md -> Active EPIC. Load in that order.
+- **Core rule**: If it is not in the ID Graph (SoT specs), it does not exist. Reference BR-/UJ-/API-/FEA- IDs in code and commits.
+- **SoT before code**: Update SoT/ during the change, never later. Tag major code units with @implements <ID>; untagged code is an orphan (context leak).
+- **Gate before advance**: Run 'python scripts/readiness.py run' before advancing a lifecycle stage. If score < threshold_warn, update the EPIC and STOP.
+- **Progressive docs**: One document, many versions. Never fork PRD-v2.md; increment the version header."
 
   # --- EPIC session lock check ---
   if [ -n "$epic_path" ] && [ -f "$epic_path" ]; then

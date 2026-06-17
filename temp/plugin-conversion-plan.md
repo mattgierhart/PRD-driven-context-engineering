@@ -4,6 +4,31 @@
 > Grounded in verified Claude Code plugin docs (code.claude.com/docs: plugins, plugins-reference,
 > plugin-marketplaces, plugin-dependencies, skills).
 
+## SCOPE DECISION (v1 = Scenario 1 / greenfield only)
+
+The plugin's job decomposes into three layers — confirmed model:
+
+- **Scaffold** — `/prd-ce:init` creates PRD.md, SoT/*.md, EPIC_TEMPLATE (empty, to template). One-time.
+- **Process** — the `prd-v*` / `ghm-*` skills populate them with quality content in the right format.
+- **Governance** — the 7 hooks enforce; `readiness.py` gates.
+
+Two refinements: (1) `init` seeds *empty* structure; **EPIC instances** are generated later by
+`prd-v07-epic-scoping`, not at init. (2) The PRD/SoT/EPIC files are the **consumer's data** — the
+plugin versions/serves *templates + skills + hooks*; improving a skill improves *future* content, it
+does not rewrite already-authored content. Structure is shared; instances are owned. This is what
+makes "improve once, propagate everywhere" hold.
+
+**IN scope (v1):** `/prd-ce:init` greenfield seeder · forward skills v0.1→v1.0 + supporting `ghm-` ·
+7 hooks rewired + SessionStart discipline preamble · `readiness.py`+validators · plugin/marketplace manifests.
+
+**OUT / backlogged:** Scenario 2 (mid-build) & Scenario 3 (live/retroactive) and their prerequisites
+`ghm-stage-entry` + `ghm-graph-extract`; entry-mode branching in `init` (v1 assumes fresh repo);
+MCP server; core/phase plugin split.
+
+**Concrete v1 gap:** the manifest currently seeds `PRD.md` (the *populated example*). v1 needs a real
+**`PRD_template.md`** (blank v0.1 skeleton) so new products don't inherit example content. Apply the
+same check to any SoT file that isn't already in cleared-template state.
+
 ## Decisions locked in discussion
 
 1. **Token cost is a non-issue** — progressive disclosure: ~50 skills ≈ 3–8 KB always-on. Splitting is

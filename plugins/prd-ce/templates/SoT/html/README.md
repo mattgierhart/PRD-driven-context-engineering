@@ -72,9 +72,11 @@ mechanics), and the Vignelli/NASA standards-manual tradition (the system-as-lang
 
 ### Refreshing the screenshots
 
-The root `README.md` embeds screenshots from [`assets/screenshots/`](assets/screenshots/). They are
-generated, not hand-made — whenever the pages change (new entries replacing placeholders, style
-changes, a new page), regenerate them:
+The root `README.md` embeds screenshots from [`temp/sot-html-mockups/`](../../temp/sot-html-mockups/).
+They are generated example mockups, not hand-made — and they live under `temp/` on purpose, so the
+1.3 MB of PNGs never ship with `/prd-ce:init` (the HTML deliverable templates in this directory do
+seed; their example renders do not). Whenever the pages change (new entries replacing placeholders,
+style changes, a new page), regenerate them:
 
 ```bash
 # one-time setup
@@ -92,7 +94,7 @@ What gets captured is defined in the `SHOTS` list at the top of
 [`screenshot.py`](screenshot.py) — a page plus an optional CSS selector (capture one entry card)
 or `None` (capture the page top with masthead and headline). Adding a new page to the library?
 Add a line to `SHOTS` and embed the image in the root README's companion section. Commit the
-regenerated PNGs together with the HTML change that caused them.
+regenerated PNGs (under `temp/sot-html-mockups/`) together with the HTML change that caused them.
 
 ---
 

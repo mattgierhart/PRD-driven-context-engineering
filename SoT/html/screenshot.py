@@ -35,7 +35,9 @@ SCALE = 2  # device pixels per CSS pixel — keeps text crisp on GitHub
 
 def main() -> int:
     base = Path(__file__).resolve().parent
-    out_dir = base / "assets" / "screenshots"
+    # Example mockups live under temp/ so they never ship with /prd-ce:init — the HTML
+    # deliverable templates seed, their generated example renders do not.
+    out_dir = base.parent.parent / "temp" / "sot-html-mockups"
 
     args = [a for a in sys.argv[1:]]
     if "--list" in args:

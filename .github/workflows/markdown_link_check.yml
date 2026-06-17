@@ -9,9 +9,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
-          use-verbose-mode: 'yes'
-          folder-path: '.'
-          check-modified-files-only: 'yes'
-          base-branch: 'main'
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install markdown-link-check
+        run: npm install -g markdown-link-check@3
+
+      - name: Check links in modified markdown (excluding generated plugin payload)
+        # The committed plugin payload (plugins/prd-ce/**) is a generated artifact: its
+        # copied markdown carries relative links that resolve in the .claude/ source tree
+        # but not after relocation. The authored source IS still link-checked here, so we
+        # exclude the generated copy rather than lint a build artifact. See package-plugin.sh.
+        run: |
+          base="${{ github.base_ref }}"
+          [ -n "$base" ] || base="main"
+          git fetch origin "$base" --depth=1 || true
+          files=$(git diff --name-only "origin/$base...HEAD" -- '*.md' ':(exclude)plugins/prd-ce/**' || true)
+          if [ -z "$files" ]; then
+            echo "No modified markdown outside the generated payload — nothing to check."
+            exit 0
+          fi
+          echo "Checking:"; echo "$files"
+          rc=0
+          while IFS= read -r f; do
+            [ -f "$f" ] || continue
+            markdown-link-check --quiet --config .github/mlc_config.json "$f" || rc=1
+          done <<< "$files"
+          exit $rc

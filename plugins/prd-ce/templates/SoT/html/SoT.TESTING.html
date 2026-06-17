@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testing · TEST-XXX</title>
+<link rel="stylesheet" href="assets/sot.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="index.html">SoT Atlas</a>
+  <a href="SoT.BUSINESS_RULES.html">Rules</a>
+  <a href="SoT.API_CONTRACTS.html">APIs</a>
+  <a href="SoT.USER_JOURNEYS.html">Journeys</a>
+  <span class="here">Tests</span>
+  <a href="SoT.DEPLOYMENT.html">Ops</a>
+  <a class="src" href="../SoT.TESTING.md">source: SoT.TESTING.md</a>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="kicker">The Source-of-Truth Review · <span class="no">№ 10</span> — Inspection</p>
+    <h1>Testing</h1>
+    <p class="lede">The QA plan: every acceptance criterion as Given/When/Then, coverage targets as
+       gauges, and a traceability chain from each test back to the spec it verifies.</p>
+    <div class="prefix-row">
+      <span class="prefix-chip">TEST-001…099 · Unit</span>
+      <span class="prefix-chip">TEST-101…199 · Integration</span>
+      <span class="prefix-chip">TEST-201…299 · End-to-end</span>
+      <span class="prefix-chip">TEST-301…399 · Performance</span>
+    </div>
+    <div class="persona-note">
+      <strong>Built for the QA engineer / code reviewer.</strong> Test cards use the BDD
+      Given/When/Then layout, the coverage table reads like a CI report, and every card names the
+      implementing file and its <span class="mono">@verifies</span> tag — the chain a reviewer
+      audits before sign-off.
+    </div>
+  </header>
+
+  <article class="entry" id="coverage-targets">
+    <div class="entry-head"><h3>Coverage targets</h3></div>
+    <figure class="exhibit" style="margin:0">
+    <table class="tbl">
+      <thead><tr><th>Category</th><th>Statement</th><th>Branch</th><th>Function</th><th>Line</th><th>Current</th></tr></thead>
+      <tbody>
+        <tr><td>Core logic</td><td>≥80%</td><td>≥75%</td><td>≥85%</td><td>≥80%</td>
+            <td><div class="gauge"><span class="track"><i class="fill" style="width:80%"></i></span><span class="ph">{x}%</span></div></td></tr>
+        <tr><td>API layer</td><td>≥80%</td><td>≥75%</td><td>≥85%</td><td>≥80%</td>
+            <td><div class="gauge"><span class="track"><i class="fill warn" style="width:60%"></i></span><span class="ph">{x}%</span></div></td></tr>
+        <tr><td>UI layer</td><td>≥70%</td><td>≥65%</td><td>≥75%</td><td>≥70%</td>
+            <td><div class="gauge"><span class="track"><i class="fill crit" style="width:35%"></i></span><span class="ph">{x}%</span></div></td></tr>
+      </tbody>
+    </table>
+    <figcaption class="source-line">Source: CI coverage report · <span class="ph">{run date}</span> · thresholds from <span class="mono">SoT.TESTING.md</span></figcaption>
+    </figure>
+  </article>
+
+  <article class="entry" id="TEST-001">
+    <div class="entry-head">
+      <a class="id" href="#TEST-001">TEST-001</a>
+      <h3><span class="ph">{Test Name}</span></h3>
+      <span class="spacer"></span>
+      <span class="badge b-info">Unit</span>
+      <span class="badge b-critical">Critical</span>
+      <span class="badge b-active">Active</span>
+    </div>
+
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd><span class="ph">Unit | Integration | E2E | Performance</span></dd></div>
+      <div><dt>Priority</dt><dd><span class="ph">Critical | High | Medium | Low</span></dd></div>
+      <div><dt>Created</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+    </dl>
+
+    <p><strong>Validates:</strong> <span class="ph">{What this test validates and why it matters.}</span></p>
+
+    <div class="section-label">Test case</div>
+    <div class="gwt">
+      <div class="row"><span class="kw given">GIVEN</span><span><span class="ph">{Initial state or preconditions}</span></span></div>
+      <div class="row"><span class="kw when">WHEN</span><span><span class="ph">{Action or trigger}</span></span></div>
+      <div class="row"><span class="kw then">THEN</span><span><span class="ph">{Expected outcome}</span></span></div>
+    </div>
+
+    <div class="section-label">Traceability — what this test verifies</div>
+    <table class="tbl">
+      <thead><tr><th>Spec</th><th>ID</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr><td>Business rule</td><td><a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a></td><td><span class="ph">{Business rule tested}</span></td></tr>
+        <tr><td>Endpoint</td><td><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></td><td><span class="ph">{Endpoint tested}</span></td></tr>
+        <tr><td>Journey</td><td><a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a></td><td><span class="ph">{Journey validated}</span></td></tr>
+        <tr><td>Schema</td><td><a class="id" href="SoT.DATA_MODEL.html#DBT-001">DBT-001</a></td><td><span class="ph">{Schema tested}</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">Implementation</div>
+    <pre class="code"><span class="c">// tests/<span class="ph">{category}</span>/<span class="ph">{name}</span>.test.ts</span>
+<span class="c">// @verifies TEST-001</span></pre>
+  </article>
+
+  <article class="entry" id="cross-reference">
+    <div class="entry-head"><h3>Cross-reference index</h3></div>
+    <div class="grid-2">
+      <div>
+        <div class="section-label">Tests by business rule</div>
+        <p><a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a> validated by
+           <a class="id" href="#TEST-001">TEST-001</a></p>
+      </div>
+      <div>
+        <div class="section-label">Tests by API</div>
+        <p><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a> validated by
+           <a class="id" href="#TEST-001">TEST-001</a></p>
+      </div>
+    </div>
+  </article>
+
+  <article class="entry" id="deprecated">
+    <div class="entry-head"><h3>Deprecated tests</h3><span class="spacer"></span><span class="badge b-deprecated">Deprecated</span></div>
+    <p><span class="mono">TEST-XXX</span>: <span class="ph">{Name}</span> — deprecated
+       <span class="ph">YYYY-MM-DD</span>, replaced by <span class="ph">TEST-YYY | None</span>.
+       Reason: <span class="ph">{Why deprecated}</span></p>
+  </article>
+
+  <section class="title-block" aria-label="Document title block">
+    <dl class="tb-meta">
+      <div><dt>Document</dt><dd>The Source-of-Truth Review · № 10</dd></div>
+      <div><dt>Section</dt><dd>Inspection</dd></div>
+      <div><dt>Source of truth</dt><dd class="mono">SoT.TESTING.md</dd></div>
+      <div><dt>Status</dt><dd>Template</dd></div>
+      <div><dt>Sheet</dt><dd>10 / 13</dd></div>
+    </dl>
+    <table aria-label="Revision table">
+      <thead><tr><th>Rev</th><th>Date</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2026-06-10</td><td>Template established</td></tr>
+        <tr><td class="ph">{n}</td><td class="ph">{YYYY-MM-DD}</td><td class="ph">{What changed — mark affected rows with class="changed"}</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <p class="footnote">
+    Companion to <a href="../SoT.TESTING.md">SoT.TESTING.md</a> (authoritative).
+    Deep-link a test as <span class="mono">SoT.TESTING.html#TEST-001</span>. Gauge fill classes:
+    <span class="mono">fill</span> (on target) · <span class="mono">fill warn</span> ·
+    <span class="mono">fill crit</span>.
+  </p>
+</main>
+</body>
+</html>

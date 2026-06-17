@@ -68,3 +68,9 @@ __pycache__/
 # Readiness scoring — generated output, not source
 status/readiness.json
 .pytest_cache/
+
+# NOTE: The generated plugin payload (plugins/prd-ce/{skills,agents,hooks,scripts,
+# templates}/) is intentionally TRACKED, not ignored. A GitHub plugin marketplace
+# serves files from the cloned repo, so the payload must be committed for consumers
+# to install it. `.claude/` remains the authoring source (strategy B); CI guards the
+# two against drift via scripts/check-plugin-sync.sh. Do not re-add ignore rules here.

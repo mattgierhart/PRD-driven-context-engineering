@@ -1,0 +1,13 @@
+# Scripts Directory
+
+Place executable automation scripts here.
+
+Guidelines:
+- Scripts should be self-contained
+- Document dependencies clearly
+- Handle edge cases gracefully
+- Supported: Python, Bash, JavaScript
+
+Examples:
+- validate.py - Validate skill outputs
+- generate.sh - Generate boilerplate

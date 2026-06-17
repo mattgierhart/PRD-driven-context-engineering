@@ -1,0 +1,19 @@
+name: Plugin Sync
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify committed plugin payload matches .claude/ source
+        # Regenerates plugins/prd-ce/ from .claude/ and fails if the committed
+        # payload drifted. The marketplace serves the committed payload, so this
+        # keeps "what ships" == "what was authored".
+        run: bash scripts/check-plugin-sync.sh

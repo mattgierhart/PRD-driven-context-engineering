@@ -69,9 +69,8 @@ __pycache__/
 status/readiness.json
 .pytest_cache/
 
-# Generated plugin payload (strategy B: .claude/ is source of truth during dev).
-# Authored manifests under plugins/prd-ce/.claude-plugin/ remain tracked.
-/plugins/prd-ce/skills/
-/plugins/prd-ce/agents/
-/plugins/prd-ce/hooks/
-/plugins/prd-ce/scripts/
+# NOTE: The generated plugin payload (plugins/prd-ce/{skills,agents,hooks,scripts,
+# templates}/) is intentionally TRACKED, not ignored. A GitHub plugin marketplace
+# serves files from the cloned repo, so the payload must be committed for consumers
+# to install it. `.claude/` remains the authoring source (strategy B); CI guards the
+# two against drift via scripts/check-plugin-sync.sh. Do not re-add ignore rules here.

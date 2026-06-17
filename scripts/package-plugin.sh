@@ -3,8 +3,10 @@
 #
 # Strategy B (de-risked): .claude/ stays the single source of truth during development;
 # this deterministic transform generates plugins/prd-ce/{skills,agents,hooks,scripts} from it.
-# The generated payload is gitignored until the strategy-A cutover (when the plugin becomes
-# the source and the repo dogfoods it). See temp/plugin-conversion-plan.md.
+# The generated payload is COMMITTED (tracked), because a GitHub plugin marketplace serves
+# files from the cloned repo — consumers can only install what is committed. CI keeps the
+# payload and .claude/ source from drifting (scripts/check-plugin-sync.sh). The strategy-A
+# cutover later makes the plugin the source outright. See temp/plugin-conversion-plan.md.
 #
 # Transforms applied:
 #   - skills/   : copied as-is (.claude/skills/<name>/SKILL.md shape already matches plugins)
@@ -67,12 +69,12 @@ PY
 # 4. Methodology scripts the hooks/skills call
 cp "$SRC"/scripts/*.py "$OUT/scripts/" 2>/dev/null || true
 cp "$SRC"/scripts/*.sh "$OUT/scripts/" 2>/dev/null || true
-# don't ship the packager itself into the plugin
-rm -f "$OUT/scripts/package-plugin.sh"
+# Dev/build-only tooling stays in the repo; it is not part of the shipped plugin.
+rm -f "$OUT/scripts/package-plugin.sh" "$OUT/scripts/check-plugin-sync.sh"
 say "  scripts   : $(find "$OUT/scripts" -type f | wc -l | tr -d ' ') files copied"
 
 # 5. Validate JSON outputs
 python3 -c "import json; json.load(open('$OUT/.claude-plugin/plugin.json')); json.load(open('$OUT/hooks/hooks.json')); json.load(open('$SRC/.claude-plugin/marketplace.json'))" \
   && say "  validate  : plugin.json + hooks.json + marketplace.json are valid JSON ✓"
 
-say "✔ Built plugins/prd-ce (payload is gitignored during strategy-B dev)"
+say "✔ Built plugins/prd-ce — commit the payload (it is tracked so the marketplace can serve it)"

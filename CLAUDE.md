@@ -25,6 +25,7 @@ Rules are loaded automatically from `.claude/rules/*.md`.
 - **Agent Registry**: [`.claude/agents/`](.claude/agents/)
 - **Rules**: [`.claude/rules/`](.claude/rules/)
 - **SoT HTML Companion**: [`SoT/html/`](SoT/html/README.md) — human-review renders of each SoT file
+- **Deliverables (concept)**: [`docs/DELIVERABLES_CONCEPT.md`](docs/DELIVERABLES_CONCEPT.md) — proposed input-mode layer where humans emit SoT markdown
 
 ## SoT HTML Companion (when to use it)
 

@@ -213,6 +213,11 @@ Each of the 13 pages serves a different reviewer: policy register for `BR-`, ADR
 > `python3 SoT/html/screenshot.py` (Playwright + Chromium; see
 > [`SoT/html/README.md`](SoT/html/README.md#refreshing-the-screenshots) for setup) and commit the
 > regenerated PNGs with the change.
+
+> **Next direction (concept)**: these pages render SoT *outward* for review. A proposed third artifact
+> class — **deliverables** — would add an *input* mode where a human contributes judgment (rank, select,
+> acknowledge) and the page emits paste-ready SoT markdown. See
+> [`docs/DELIVERABLES_CONCEPT.md`](docs/DELIVERABLES_CONCEPT.md).
 <!-- /SECTION: sot-html-companion -->
 
 ---

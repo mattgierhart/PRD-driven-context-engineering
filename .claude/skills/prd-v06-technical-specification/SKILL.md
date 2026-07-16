@@ -107,6 +107,20 @@ Business Rules: BR-015 (max 100 per user — enforce in API-001)
 APIs: API-001 (create), API-002 (get), API-003 (list), API-005 (delete)
 ```
 
+## Contract Simplicity Guardrails
+
+Technical specifications should give developers stable contracts without turning every possible future into a schema, endpoint, or layer today. Model the product described by UJ-/SCR-/BR-/ARC- evidence; avoid speculative extension points.
+
+**Keep contracts lean:**
+- Create endpoints from concrete user journeys and screens, not generic CRUD coverage for every table.
+- Add fields only when a screen, journey, business rule, integration, or audit requirement consumes them.
+- Prefer one coherent endpoint over several chatty endpoints when a screen needs an atomic view of data.
+- Prefer explicit domain endpoints over over-generic `/actions`, `/resources`, or filter-everything APIs.
+- Do not split read/write models, event streams, or background workflows unless ARC- entries document the present need.
+- Preserve public contract stability once specified; if a contract must change, record the upstream reason and migration impact.
+
+**Specification test:** for each API-/DBT- item, cite the upstream UJ-/SCR-/BR-/ARC-/TECH- that requires it. If no upstream consumer or rule exists, remove it or mark it as a deferred future trigger rather than part of the build contract.
+
 ## Specification Types
 
 | Type | What It Defines | Example |

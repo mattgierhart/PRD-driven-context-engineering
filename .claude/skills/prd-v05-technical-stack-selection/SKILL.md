@@ -97,6 +97,19 @@ Product Family Notes: Share component library and auth context across products u
 ```
 
 
+## Best-Practice Decision Guardrails
+
+Technology selection should reduce product risk, not showcase a maximal stack. For each TECH- entry, document the capability it serves, the risk it mitigates, and the cost of operating it. Prefer boring, proven, already-known technology unless an upstream FEA-/RISK- explicitly requires something else.
+
+**Restraint rules:**
+- Do not introduce a new datastore, queue, framework, or cloud service without a named feature/risk that the existing stack cannot satisfy.
+- Do not choose microservice-oriented infrastructure for an MVP unless independent scaling, ownership, compliance, or deployment cadence is already required.
+- Do not build commodity capabilities (auth, billing, email, analytics) unless they are differentiators or vendors fail a concrete requirement.
+- Treat migration, ops burden, hiring difficulty, and lock-in as first-class costs alongside subscription price.
+- When two options both satisfy constraints, choose the option the team can ship and operate with the least new knowledge.
+
+**Decision test:** every Build/New/Replace choice must say why Reuse/Buy/Integrate is insufficient *now*. If that cannot be stated clearly, downgrade to Reuse/Buy/Integrate or mark as Research with a bounded proof-of-concept.
+
 ## Workflow Overview
 
 1. **Discover Existing Assets** → Read SOT or interview user for current tech stack

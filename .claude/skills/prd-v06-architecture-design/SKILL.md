@@ -98,6 +98,21 @@ Status: Accepted
 ```
 
 
+## Architectural Restraint Guardrails
+
+Architecture exists to make the product easier to understand, safer to change, and cheaper to operate. It is not a place to maximize patterns, layers, or future-proofing. Before introducing a boundary, abstraction, queue, service, framework, or pattern, name the **current pain** or **credible near-term change** it absorbs. If you cannot name that evidence, leave the design simpler and document the trigger that would justify the heavier option later.
+
+**Default posture for MVPs:** choose the simplest design that satisfies the upstream FEA-/RISK-/TECH- constraints and remains testable. A monolith with clear module boundaries is usually stronger than premature microservices; direct code is usually stronger than an adapter around a single stable dependency; a managed service is usually stronger than rebuilding commodity infrastructure.
+
+**Abstraction must earn its place:**
+- Add an adapter only when provider switching is likely, the vendor boundary is strategically important, or testability requires isolating external I/O.
+- Add a service boundary only when ownership, deployment cadence, scaling profile, data boundary, or reliability requirements genuinely differ.
+- Add queues/events only when async decoupling, retry semantics, or fan-out is required; do not hide a simple synchronous flow behind an event bus.
+- Add CQRS/event sourcing/sagas only when read/write divergence, audit replay, or cross-service consistency requirements are concrete.
+- Prefer a plain function or module over a class hierarchy when variation is not yet present.
+
+**Two-way decision test:** every ARC- must state not only why the chosen pattern helps, but also why the simpler alternative falls short *now*. If the simpler alternative is adequate, choose it and record the future trigger for revisiting.
+
 ## Architecture Decision Categories
 
 | Category | What It Covers | Example Decisions |
@@ -322,9 +337,11 @@ Every high-priority risk should have an architectural response:
 | **Architecture astronaut** | Over-engineering for 1000x scale | Design for 10x current needs |
 | **Missing boundaries** | Everything can call everything | Define clear interfaces |
 | **Ignoring RISK-** | Architecture doesn't address risks | Map each High RISK- to ARC- |
-| **Vendor lock-in** | No abstraction over critical services | Add adapter layer for switching |
+| **Vendor lock-in** | Critical external dependency with high switching/testability risk | Add adapter only around strategic or volatile boundaries |
 | **Diagram without decisions** | Pretty pictures, no ARC- records | Every box needs documented rationale |
-| **Premature microservices** | 5 services for MVP | Start monolith, extract later |
+| **Premature microservices** | 5 services for MVP | Start monolith, extract only after ownership/scale/deployment evidence |
+| **Pattern shopping** | ARC- names a pattern but not the concrete pain it fixes | Revert to direct design or document the evidence-backed trigger |
+| **Single-use abstraction** | Interface/adapter/factory with one stable implementation | Inline it or keep it concrete until a second variant/test double/boundary exists |
 
 ## Quality Gates
 

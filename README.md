@@ -4,7 +4,7 @@
 
 ### Memory as Infrastructure — an operating system for building products with AI agents
 
-[![GitHub stars](https://img.shields.io/github/stars/mattgierhart/PRD-driven-context-engineering?style=flat&logo=github&color=a8842c)](https://github.com/mattgierhart/PRD-driven-context-engineering/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/mattgierhart/PRD-driven-context-engineering?style=flat&logo=github&color=a8842c)](https://github.com/mattgierhart/PRD-driven-context-engineering)
 [![License: MIT](https://img.shields.io/badge/License-MIT-14120e.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-3d6b35.svg)](#contributing)
 [![Built for Claude Code](https://img.shields.io/badge/built%20for-Claude%20Code-a8842c.svg)](.claude/)
@@ -13,13 +13,19 @@
 a fork-ready methodology that turns documentation into a knowledge graph humans and AI navigate
 together — so the 50th session is smarter than the 1st.*
 
+> **V2 branch status:** `codex/prd-ce-v2-product-model` is a proposed Product Management planning
+> and validation track, not a V2 runtime or release. Continue to follow the normal
+> `README.md` → `PRD.md` → `CLAUDE.md` authority chain. The
+> [V2 build plan](docs/PRD_CE_V2_BUILD_PLAN.md) records a known pre-v0.1 authority/template conflict
+> and does not override the PRD; the current methodology on `main` remains the stable baseline.
+
 [**Quick Start**](#-quick-start) · [**The Idea**](#the-idea-memory-as-infrastructure) ·
 [**The Lifecycle**](#-feature-the-progressive-prd) · [**The Skills**](#-feature-47-skills-one-for-every-decision) ·
 [**Live Demo Views**](#-feature-the-human-review-layer)
 
 <img src="temp/sot-html-mockups/atlas.png" alt="The Source-of-Truth Atlas — the knowledge graph rendered for humans" width="760">
 
-**⭐ If this changes how you build with AI, [star the repo](https://github.com/mattgierhart/PRD-driven-context-engineering/stargazers) — stars put this method in front of the next team drowning in context drift.**
+**⭐ If this changes how you build with AI, [star the repo](https://github.com/mattgierhart/PRD-driven-context-engineering) — stars put this method in front of the next team drowning in context drift.**
 
 </div>
 
@@ -385,5 +391,5 @@ The goal is always **Context Density**: exactly the right information, at exactl
 
 ### Questions?
 
-Open a GitHub Issue — and if the method earned it, [leave a star](https://github.com/mattgierhart/PRD-driven-context-engineering/stargazers) on the way out. ⭐
+Open a GitHub Issue — and if the method earned it, [leave a star](https://github.com/mattgierhart/PRD-driven-context-engineering) on the way out. ⭐
 <!-- /SECTION: contributing -->

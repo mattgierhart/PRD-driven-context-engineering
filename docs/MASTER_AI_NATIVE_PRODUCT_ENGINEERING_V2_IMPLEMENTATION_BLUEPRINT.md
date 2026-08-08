@@ -3,9 +3,19 @@ title: "The Product Model: Master AI-Native Product Engineering Blueprint"
 subtitle: "A SoT-first, truth-tracked Product Knowledge Graph for humans and AI agents"
 date: "2026-08-07"
 version: "2.1"
-status: "Implementation-ready master blueprint"
+status: "Research input — proposed; not implementation-ready"
+original_source_sha256: "afe50856ff70f9dcf00eafe9ecc41df7eaea5310c395c936af16cb8e706e45a5"
 audience: "Product architects, maintainers, and coding agents"
 ---
+
+> **Repository status notice (2026-08-08):** This document preserves the original V2 research
+> proposal. Its use of terms such as “constitutional” and “implementation-ready” describes the
+> source proposal, not the repository's current authority or runtime status. PRD-CE V2 has no
+> implemented runtime on this branch. [`PRD_CE_V2_BUILD_PLAN.md`](PRD_CE_V2_BUILD_PLAN.md) governs
+> the proposed build sequence and holds migration and accepted-state mutation until their evidence
+> and safety gates pass. Registry, marketplace, cloud, enterprise, connector, multi-provider, and
+> cross-domain examples below are unaccepted research hypotheses and are outside the current V2
+> Product Management build scope.
 
 # The Product Model
 
@@ -42,9 +52,11 @@ The scoring models in this report are analytical judgments, not empirical user-s
 
 ---
 
-# 0. Constitutional Decisions for Implementation
+# 0. Proposed Constitutional Decisions for Implementation
 
-This section overrides any earlier design direction that conflicts with it. A coding agent should treat these as architectural constraints, not suggestions.
+The original source proposed that this section override conflicting directions. In this repository,
+these remain proposed constraints only: they become binding solely when accepted through `PRD.md`
+and durable SoT decisions. Nothing in this research input overrides the current authority chain.
 
 ## 0.1 The canonical model
 
@@ -2601,6 +2613,10 @@ The first implementation must preserve these decisions:
 
 ## 19.3 First release scope
 
+> **Preserved research proposal — not an active release scope.** The Product Management-focused
+> build plan and an accepted `PRD.md` must narrow and authorize any implementation drawn from this
+> section. Do not treat the list below as a committed release contract.
+
 ### Include
 
 - One skill and root command
@@ -3009,7 +3025,11 @@ The arrows into `product/changes/` represent proposals. Only adjudicated changes
 
 # Appendix C — Coding Agent Implementation Contract
 
-This appendix is the direct handoff specification for the coding agent. It is intentionally narrower and more prescriptive than the research sections.
+> **Preserved proposal — not an authorized coding handoff.** Use
+> [`PRD_CE_V2_BUILD_PLAN.md`](PRD_CE_V2_BUILD_PLAN.md) and an accepted root `PRD.md` to determine
+> whether any implementation work is authorized.
+
+This appendix preserves the proposed coding-agent handoff from the original research. It is intentionally narrower and more prescriptive than the research sections, but it is not active on this branch.
 
 ## C.1 Mission
 

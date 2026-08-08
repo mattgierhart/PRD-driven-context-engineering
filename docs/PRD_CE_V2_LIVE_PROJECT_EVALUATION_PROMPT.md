@@ -1,8 +1,8 @@
 ---
 title: "PRD-CE V2 Independent Review and Live-Project Stress-Test Prompt"
 date: "2026-08-08"
-status: "Ready for independent evaluation"
-intended_evaluator: "Claude Fable LLM"
+status: "Reusable evaluation protocol — operator supplies private targets"
+intended_evaluator: "Evaluator-neutral"
 authority: "Evaluation protocol; not a source of accepted V2 product truth"
 ---
 
@@ -10,9 +10,10 @@ authority: "Evaluation protocol; not a source of accepted V2 product truth"
 
 ## Operator note
 
-Give this entire document to Claude Fable after it has access to the
-`codex/prd-ce-v2-product-model` branch. The evaluation is deliberately read-only. It should
-produce evidence and proposed revisions, not implement V2 or migrate a product.
+Give this entire document to the selected evaluator after it has access to the
+`codex/prd-ce-v2-product-model` branch and an operator-supplied, ignored target manifest. The
+evaluation is deliberately read-only. It should produce evidence and proposed revisions, not
+implement V2 or migrate a product.
 
 The branch is a **proposed V2 review package**, not a V2 implementation. Blueprint statements
 must not receive runtime credit unless committed executable behavior demonstrates them.
@@ -33,75 +34,118 @@ Determine whether the model:
 4. Safely distinguishes accepted, proposed, inferred, stale, rejected, and superseded knowledge.
 5. Can be adopted without destructive migration or a competing source of truth.
 6. Has a sufficiently small and sustainable first implementation.
-7. Can later support other methods, such as RFP response, without contaminating the product
-   engineering kernel.
+7. Remains narrowly scoped to the Product Management lifecycle without speculative cross-domain
+   abstractions.
 
 Lead with evidence. A clear negative result is more valuable than an optimistic inference.
 
 ## Framework inputs
 
 ```yaml
-framework_repository: /Users/mattgierhart/Documents/MLG.Github/PRD-driven-context-engineering
+framework_repository: .
 branch_under_review: codex/prd-ce-v2-product-model
 base_ref: main
-required_committed_artifacts:
+required_core_artifacts:
+  - PRD.md
+  - docs/PRD_CE_V2_BUILD_PLAN.md
   - docs/MASTER_AI_NATIVE_PRODUCT_ENGINEERING_V2_IMPLEMENTATION_BLUEPRINT.md
-  - docs/GEARHEARTAI_PRD_CE_V2_SITE_BRIEF.md
   - docs/PRD_CE_V2_LIVE_PROJECT_EVALUATION_PROMPT.md
-known_local_exclusion:
-  - temp/v0.6-architecture/kuzu-sot-evaluation/
+optional_companion_artifacts:
+  - docs/GEARHEARTAI_PRD_CE_V2_SITE_BRIEF.md
+authorized_target_manifest: temp/v2-evaluation-targets.local.yaml
+evaluation_output_root: temp/v2-model-evaluation/<UTC-RUN-ID>/
 ```
 
-The known local exclusion is uncommitted work from a separate architecture experiment. Do not
-treat it as branch content or V2 evidence. Do not read or modify it unless the product owner
-separately authorizes that scope.
+Resolve `framework_repository: .` from the checked-out framework working tree. Do not commit an
+absolute framework path. Treat all unrelated uncommitted or untracked content as excluded from V2
+evidence unless the target manifest explicitly authorizes it.
 
-## Authorized live-project candidates
+## Operator-supplied target manifest
 
-Reverify every path and repository state at runtime. The descriptions below are selection
-hypotheses, not facts you may repeat without evidence.
+The target manifest is local operational input, not methodology content. Resolve the manifest and
+repository-root paths before reading any target. If the manifest is inside the repository, prove it
+is ignored with `git check-ignore`. If it is outside the repository, record the resolved
+non-containment check and do not copy it into the output. Do not proceed when an in-repository
+manifest would be committed by default or an external path cannot be resolved safely.
 
-### Core set
+Each target entry must use an opaque ID and declare:
 
-1. **PetPass**
-   - Path: `/Users/mattgierhart/Documents/MLG.Github/petpass-watch-app`
-   - Test purpose: brownfield compatibility, flat/root-level SoT files, custom ID prefixes,
-     legacy registry authority, real Swift/watchOS delivery artifacts, and possible ambiguity
-     between document version and lifecycle version.
+- local absolute path;
+- Product Management lifecycle stage;
+- cohort role;
+- read-only authorization;
+- allowed and excluded paths;
+- confidentiality level and redaction rule;
+- whether uncommitted content is authorized;
+- owner-validation route; and
+- target-specific resource limit, if stricter than the run limit.
 
-2. **SignBoard / Koisk-Browser**
-   - Path: `/Users/mattgierhart/Documents/MLG.Github/Koisk-Browser`
-   - Test purpose: compressed lifecycle, populated records mixed with template residue, and the
-     difference between implemented delivery and unverified device reality.
+Use this local schema:
 
-3. **Quest Billing Demo**
-   - Path: `/Users/mattgierhart/Documents/MLG.Github/Vantage-demo/quest-example/quest-billing-demo`
-   - Test purpose: a deployed application with multiple EPICs and potentially inconsistent
-     status across README, PRD, EPICs, branch state, and deployed previews.
-   - Confidentiality: treat all client- or RFP-derived information as confidential. Do not
-     reproduce business content in the report beyond the minimum paraphrase needed to explain a
-     finding.
+```yaml
+evaluation_mode: design-pilot
+passes: [cold, bounded-deep]
+task_subset: [TASK-IMPACT]
+run_limits:
+  max_targets: 3
+  max_agents: 8
+  max_total_tokens: 750000
+  max_wall_minutes: 180
+  max_retries_per_arm: 1
+targets:
+  - id: TARGET-01
+    path: <local-absolute-path>
+    lifecycle_stage: <discovery|definition|delivery|release|adoption|mixed>
+    cohort_role: <deep-adoption|active-build|partial-or-drifted|early-stage|negative-control>
+    read_only_authorized: true
+    allowed_paths: [<paths>]
+    excluded_paths: [<paths>]
+    confidentiality: <public|internal|restricted>
+    report_rule: <opaque-id-and-paraphrase|paths-allowed|other-owner-rule>
+    include_uncommitted_content: false
+    owner_validation_route: <role-or-process>
+```
 
-4. **PRD Context VS Code**
-   - Path: `/Users/mattgierhart/Documents/MLG.Github/PRD-CE-VSCODE`
-   - Test purpose: a large active ID graph, code-to-spec relationships, parser/readiness behavior,
-     and agent-provider integration.
-   - Independence caveat: because this product implements PRD-CE concepts, do not count it as
-     independent evidence that ordinary product teams receive value.
+Select three to five Product Management lifecycle repositories when authorized. Prefer a diverse
+cohort:
 
-### Optional extension-seam test
+- one deeply adopted repository;
+- one active build/delivery repository with code and tests;
+- one partial, drifted, or convention-divergent adoption;
+- one early-stage or smaller repository; and
+- optionally, one intent-only or archived negative control.
 
-- **RFP-Led Context Engineering**
-  - Path: `/Users/mattgierhart/Documents/MLG.Github/RFP-led-context-engineering`
-  - Test purpose: determine whether the five-plane model and Change Set boundary can support a
-    non-product method while preserving template-versus-opportunity separation.
-  - This repository has previously been described as inactive. Reverify that state and do not
-    present it as a live implementation or product-value proof.
+Do not select only clean or exemplary repositories. Do not include an implementation of PRD-CE
+itself as independent product-value evidence; it may be a system-integration fixture only.
 
-Do not crawl the filesystem for substitute projects. If a path is absent, inaccessible, or not a
-Git repository, record that limitation and continue with the remaining authorized projects. At
-least three independent live projects are required for a cross-project verdict; otherwise limit
-the result to a branch review and provisional case studies.
+Do not crawl the filesystem for targets. If a manifest path is absent, inaccessible, outside its
+allowed scope, or not a Git repository, record that limitation and continue with the remaining
+authorized targets. At least three independent, completed targets are required for a cross-project
+Product Management verdict; otherwise limit the result to a branch review and provisional cases.
+
+### Evaluation mode and bounded task set
+
+The target manifest must declare one mode and a bounded `task_subset`:
+
+- `design-pilot` — default while no executable V2 runtime exists. Review the branch, use exactly
+  three diverse targets when available, run the cold-value pass and one predeclared matched impact
+  task, and produce provisional case evidence. Do not publish an aggregate performance score or a
+  V1-versus-V2 winner.
+- `runtime-validation` — use only when committed executable V2 behavior exists. Run the full
+  paired-arm, parity, hypothesis, safety, and scoring matrix over the predeclared task subset.
+- `longitudinal` — measure repeated human use over a defined period; do not simulate retention with
+  evaluator agents.
+
+The operator may select fewer common tasks than this protocol lists. `TASK_MANIFEST.json` must state
+which are active and why they discriminate the current decision. Completeness is measured against
+that predeclared subset, not against every possible task. Do not create unused artifacts merely to
+fill the directory tree.
+
+Before spawning any arm, validate that all limit fields are concrete positive integers, contain no
+placeholder or null values, the number of targets does not exceed `max_targets`, and the planned
+mode/tasks fit the agent, token, wall-time, and retry caps. Fail preflight instead of inferring or
+silently increasing a missing limit. The values above are the default design-pilot ceiling; a full
+runtime validation requires an explicit operator revision.
 
 ## Non-destructive boundaries
 
@@ -132,7 +176,8 @@ The framework branch may be checked out safely. Every live project is strictly r
 - Prefer IDs, paths, line references, counts, hashes, and paraphrases. Quote confidential project
   text only when essential.
 
-Write generated evaluation material only under:
+Write generated evaluation material only under the manifest's authorized output root, which must
+be outside the repository or ignored. The default is:
 
 ```text
 <framework_repository>/temp/v2-model-evaluation/<UTC-RUN-ID>/
@@ -149,10 +194,11 @@ Do not commit or push the evaluation output.
    - base ref and merge-base commit;
    - committed `main...HEAD` diff summary;
    - working-tree status, with tracked and untracked content distinguished;
-   - whether every required artifact is present in `HEAD`, not merely in the working tree.
+   - whether every required core artifact is present in `HEAD`, not merely in the working tree.
 4. Fail the branch-content preflight if the blueprint exists only in Downloads, an untracked file,
    or another machine-local path.
-5. Verify the committed blueprint SHA-256 against the fingerprint in the GearHeartAI brief.
+5. If the GearHeartAI brief declares a current repository-file SHA-256 for the blueprint, verify it.
+   Keep the original-source fingerprint separate from the current repository-file fingerprint.
 6. Read the framework's local instructions and navigation chain before evaluating deeper files.
 7. Establish the branch's actual status before using its claims:
    - shipped V1 behavior;
@@ -160,7 +206,8 @@ Do not commit or push the evaluation output.
    - implemented V2 behavior;
    - proposed or roadmap behavior;
    - contradictory or missing behavior.
-8. For each live project:
+8. Verify that the target manifest and evaluation output root are ignored or outside the repository.
+9. For each authorized target:
    - read its local instructions and documented navigation chain first;
    - record path, branch, `HEAD`, upstream/ahead/behind status when available, and porcelain status;
    - compute a manifest or fingerprint of the tracked Markdown and other files actually used;
@@ -187,12 +234,12 @@ Every material finding must include:
 ```yaml
 finding_id: unique stable ID for this evaluation
 classification: OBSERVED | PROXY | INFERRED | NOT TESTED
-repository: repository name
+target_id: opaque target ID, or FRAMEWORK for branch findings
 commit_or_fingerprint: immutable inspected state
 source: file and line, ID, or deterministic artifact
 statement: concise fact or inference
 reproduction: bounded reproduction steps
-affected_hypotheses: one or more hypothesis IDs
+affected_hypotheses: one or more hypothesis IDs, or [BRANCH] for branch-only findings
 severity: critical | high | medium | low | informational
 confidence: high | medium | low
 disconfirmation: evidence that would disprove or materially revise the finding
@@ -203,10 +250,25 @@ A project issue is an `owner-validation candidate`, not a validated material pro
 owner confirms it. Keep model findings, project findings, and methodology-maintenance findings
 separate.
 
+Each evidence record must have a unique `finding_id`. Cluster corroborating or duplicate records
+before counting independent findings. Never describe the raw row count as the finding count.
+
 ## Experimental design
 
-For each project, compare two approaches against the same committed snapshot, question, evidence
-budget, and time budget.
+For each target, compare two approaches against the same committed snapshot, exact question,
+selected change, evidence set, evidence budget, and time budget.
+
+Before either arm runs, an independent curator must write and hash `TASK_MANIFEST.json` with:
+
+- target ID and committed snapshot;
+- exact task and selected change;
+- allowed evidence and exclusions;
+- predeclared bounded evidence set and scoring rules;
+- evidence, time, file, and token budgets; and
+- required output schema.
+
+If a task-specific evidence set cannot be frozen before the arms run, label the comparison
+exploratory and exclude it from head-to-head claims.
 
 ### Control: current project and PRD-CE
 
@@ -217,7 +279,8 @@ context-loading process. Do not supply the V2 blueprint to the control evaluator
 
 Use the same project evidence plus the committed V2 blueprint. If no V2 runtime exists, manually
 apply Product Model concepts and label the result `PROXY`. Do not pretend that proposed commands or
-generated indexes executed.
+generated indexes executed. A manually simulated V2 arm cannot score above 2/4 and cannot support
+runtime, automation, adoption, or performance claims.
 
 ### Isolation and bias control
 
@@ -230,38 +293,51 @@ If isolated subagents or context windows are available:
 If isolation is unavailable, run and save the control result before reading/applying the V2 model.
 Then run treatment and disclose that the comparison was unblinded and may contain carryover bias.
 
-Use two passes:
+Use two passes, both bound to the same task manifest:
 
-1. **Cold-value pass** — stop at the first potentially material finding. Record elapsed time,
-   files opened, bytes or approximate tokens loaded, concepts introduced, and whether provenance
-   is sufficient.
+1. **Cold-value pass** — stop at the first potentially material finding. Record evaluator
+   time-to-candidate, files opened, bytes or approximate tokens loaded, terms introduced using one
+   shared taxonomy, and whether provenance is sufficient. Do not call this usability or user value.
 2. **Bounded deep pass** — answer the common tasks below under equal budgets.
 
-Build the bounded evidence set after the two answers are sealed. Use exhaustive searches for typed
-IDs, relationships, statuses, supersession, code/test references, and relevant Git history. Do not
-let either evaluator's answer become its own ground truth.
+After both answers are sealed, validate them only against the predeclared bounded evidence set. Log
+post-run discoveries separately; they may improve a future task manifest but cannot change the
+current comparison's ground truth.
+
+Write `PARITY_AUDIT.json` for every comparison. It must fail if snapshot, task, selected change,
+evidence set, budgets, or scoring differ. A failed parity audit makes the comparative result
+`NOT TESTED / NOT COMPARABLE`, regardless of the apparent scores.
+
+Write `COMPLETION_MATRIX.json` across targets, tasks, and arms. Comparative dimensions require 100%
+paired-arm completion for every target included in their aggregate. Incomplete arms remain useful
+case evidence but cannot enter an aggregate comparison.
 
 If a tokenizer is already available, record exact input token counts. Otherwise report source
 bytes and a clearly labeled token estimate; do not install a tokenizer.
 
+Stop when any operator-supplied global limit for agents, tokens, wall time, targets, or retries is
+reached. Report the incomplete matrix; do not silently spend beyond the cap or weaken completion
+requirements to publish a verdict.
+
 ## Common project tasks
 
-Run the same tasks for control and treatment:
+Run the same predeclared task subset for control and treatment. A full runtime-validation run will
+normally use all tasks below; a design pilot should use only the smallest discriminating subset:
 
-1. Identify the product's current highest-priority outcome or decision. Explain why it is or is not
+1. **TASK-PRIORITY** — Identify the product's current highest-priority outcome or decision. Explain why it is or is not
    authoritative.
-2. Find one material decision, requirement, assumption, or status claim that is contradicted,
+2. **TASK-CONFLICT** — Find one material decision, requirement, assumption, or status claim that is contradicted,
    stale, insufficiently supported, or ambiguously current.
-3. Select one bounded active or proposed change and trace its likely impact across product intent,
+3. **TASK-IMPACT** — Select one bounded active or proposed change and trace its likely impact across product intent,
    evidence, UX, architecture, code, tests, operations, and release state.
-4. Determine what was believed before one current decision and what evidence or decision changed
+4. **TASK-TEMPORAL** — Determine what was believed before one current decision and what evidence or decision changed
    it. Report insufficient history rather than inventing a timeline.
-5. Assemble the smallest sufficient context package for a new agent to perform one bounded task
+5. **TASK-CONTEXT** — Assemble the smallest sufficient context package for a new agent to perform one bounded task
    safely. Every included fact must retain provenance.
-6. Represent the selected conflict or change as one draft Change Set without applying it.
-7. Map the project's existing artifacts into Evidence, Intent, Delivery, Reality, and Change.
+6. **TASK-CHANGESET** — Represent the selected conflict or change as one draft Change Set without applying it.
+7. **TASK-PLANES** — Map the project's existing artifacts into Evidence, Intent, Delivery, Reality, and Change.
    Missing planes must remain missing rather than being generated speculatively.
-8. Identify the exact preservation obligations and likely friction if the project adopted V2.
+8. **TASK-ADOPTION** — Identify the exact preservation obligations and likely friction if the project adopted V2.
 
 Correctly reporting absent or ambiguous evidence counts as useful. Inventing an answer is a failure.
 
@@ -309,7 +385,7 @@ Silent promotion or a competing database authority is a hard failure.
 
 ### H-02 — Legacy identity and authored meaning can be preserved
 
-For each project, inventory typed IDs, explicit relationships, aliases, statuses, temporal fields,
+For each target, inventory typed IDs, explicit relationships, aliases, statuses, temporal fields,
 custom fields, unknown prose, comments, and code/test references.
 
 Pass conditions:
@@ -325,22 +401,27 @@ If no parser or writer exists, score the contract only and mark round-trip behav
 
 ### H-03 — V2 creates cold value
 
-Measure time and inspection operations to the first material owner-validation candidate.
+Measure three separate signals; do not collapse them into “usability”:
+
+1. Evaluator proxy: time and inspection operations to the first candidate.
+2. Owner evidence: time to confirm or reject the candidate as material.
+3. Observed-user evidence: comprehension and task completion without evaluator assistance.
 
 Targets:
 
 - A potentially useful finding within five minutes.
 - No methodology migration required before the finding.
-- No more than five public concepts required before value appears.
-- Success across at least 80% of tested live projects.
+- No more than five public concepts, counted with one shared taxonomy, before value appears.
+- Success across at least 80% of completed independent targets.
 
-With fewer than five independent projects, report the exact fraction as provisional rather than
+With fewer than five independent targets, report the exact fraction as provisional rather than
 claiming the target is statistically established. Cosmetic template defects do not count unless
-they cause a real authority or execution failure.
+they cause a real authority or execution failure. Without observed-user evidence, usability cannot
+score above 2/4.
 
 ### H-04 — Relational context improves impact analysis
 
-For one bounded real change per project, compare control and treatment on:
+For one predeclared bounded real change per target, compare control and treatment on:
 
 - relevant decisions, requirements, and evidence found;
 - UX, architecture, code, test, operational, and release impacts found;
@@ -349,7 +430,8 @@ For one bounded real change per project, compare control and treatment on:
 - exact-source traceability.
 
 Target: at least 90% recall against the bounded evidence set, no critical false negatives, and an
-exact source for every included conclusion.
+exact source for every included conclusion. If `PARITY_AUDIT.json` fails, H-04 is `NOT TESTED / NOT
+COMPARABLE`; do not rank the arms.
 
 ### H-05 — Context compilation is materially more efficient
 
@@ -366,7 +448,9 @@ Targets:
 - No reduction in answer correctness or traceability.
 
 Less than 30% reduction, or any material loss in accuracy, means the thesis is unsupported by this
-evaluation.
+evaluation only when at least three matched, parity-passing runtime tasks completed. With fewer than
+three, H-05 is `NOT TESTED`; report individual warnings but do not trigger a model-level kill
+criterion.
 
 ### H-06 — Change Sets improve safety without excessive ceremony
 
@@ -382,8 +466,9 @@ Draft but do not apply at least three Change Sets based on real findings. Each m
 - rollback or non-application behavior.
 
 Targets: no inferred content silently accepted, all relationship changes visible, one coherent
-change per review package, and estimated human review under ten minutes. State that review time is
-a proxy until observed with humans.
+change per review package, and observed human review under ten minutes. Estimated review time is a
+proxy and cannot satisfy the burden target. If fewer than three drafts exist or no human reviews
+them, report the incomplete denominator.
 
 ### H-07 — Temporal questions remain honest and answerable
 
@@ -395,7 +480,8 @@ Targets:
 - Current, effective-as-of, and known-as-of meanings are not conflated.
 - Missing transaction history returns `unknown`, not an inferred fact.
 - Superseded and rejected alternatives remain inspectable.
-- The same snapshot yields the same answer.
+- Two independent runs over the same snapshot yield the same answer or a bounded, explained
+  nondeterminism finding.
 
 ### H-08 — The model works across heterogeneous projects
 
@@ -427,19 +513,19 @@ Targets:
 - A read-only kernel can ship before accepted-state mutation.
 - Package boundaries follow demonstrated coupling rather than speculative future scale.
 
-### H-10 — Future methods do not require a forked authority model
+### H-10 — Product Management scope remains clean
 
-At a conceptual level only, map an RFP-response workflow onto the Product Model.
+Inspect the proposed schema, package boundaries, commands, examples, fixtures, and website brief.
 
 Pass conditions:
 
-- Core concepts do not need to be renamed.
-- RFP-specific record types are not mandatory for product projects.
-- Template-persistent knowledge and opportunity-specific knowledge remain distinguishable.
-- No second canonical truth model is required.
-- The analysis does not imply that an RFP product currently ships.
+- Every first-release capability serves a Product Management lifecycle job.
+- No adjacent-domain record type, workflow, vocabulary, fixture, or public promise is mandatory.
+- Reusable primitives remain internal seams rather than extra public concepts.
+- Future products can be separately governed without being named or simulated here.
+- Downstream templates contain no PRD-CE development records or named product evidence.
 
-This is an extension-seam test, not first-release scope or live-product validation.
+Do not test another business method in this protocol. Scope discipline is the evidence target.
 
 ## Impact assessment required for every project
 
@@ -470,7 +556,7 @@ Score each dimension from 0–4:
 Attach one evidence grade:
 
 - `A` — deterministic executable evidence.
-- `B` — repeated live-project observation.
+- `B` — repeated target observation; not runtime evidence unless executable V2 behavior produced it.
 - `C` — committed design evidence.
 - `D` — inference only.
 - `N` — not tested.
@@ -484,16 +570,19 @@ Attach one evidence grade:
 | Usability and cognitive simplicity | 10 |
 | Provenance and temporal correctness | 10 |
 | Implementation feasibility and sustainability | 10 |
-| Extension and RFP seam | 5 |
+| Product Management scope discipline | 5 |
 
 Rules:
 
 - Evidence graded `C` or `D` cannot support a score above 2.
+- A manually simulated V2 treatment cannot support a score above 2 regardless of repetition.
 - `NOT TESTED` is not zero. Exclude it from the weighted calculation and report weighted evidence
   coverage.
 - Do not publish an overall score if less than 70% of weighted evidence is testable.
+- Do not publish an aggregate comparative score unless every included target has complete paired
+  arms and a passing parity audit.
 - A hard safety failure overrides the weighted score.
-- Report project scores separately before any cross-project synthesis.
+- Report target scores separately before any cross-target synthesis.
 
 Give separate verdicts for:
 
@@ -521,18 +610,21 @@ Report each as `TRIGGERED`, `NOT TRIGGERED`, or `NOT TESTABLE`.
 - Existing typed IDs or explicit relationship meaning must be lost or silently rewritten.
 - A generated database or hosted service becomes a competing authority.
 - Local canonical state cannot reconstruct the query model.
-- The evaluation modifies a live project.
+- The evaluation modifies an authorized target.
 - Findings cannot be reproduced from cited evidence.
 
 ### Product-level reconsideration criteria
 
-- Fewer than 80% of projects yield a material first-session finding.
-- Context compilation reduces context by less than 30% or worsens accuracy.
+- Fewer than 80% of completed independent targets yield an owner-confirmed material first-session
+  finding.
+- Three or more matched, parity-passing runtime tasks show context reduction below 30% or worse
+  accuracy.
 - Adjudication costs more than the decision value in most examples.
 - Users must learn the ontology before receiving value.
 - The graph grows without improving decisions or reducing rediscovery.
 - The model cannot represent uncertainty and historical disagreement honestly.
-- Another method requires a forked authority model.
+- The Product Management alpha requires speculative cross-domain abstractions before delivering
+  value.
 - The proposed first release requires cloud or platform layers.
 
 Week-four retention cannot be inferred from this evaluation. Define a longitudinal experiment
@@ -540,12 +632,21 @@ instead of guessing.
 
 ## Required artifacts
 
-Create:
+The tree below is the full `runtime-validation` contract. A `design-pilot` must create the manifest,
+task/completion/parity records, executive and branch reviews, target/arm evidence for its selected
+task, hypothesis results, evidence records, result validation, next experiment, and report. It may
+omit scorecards, draft Change Sets, and unused directories; record every omission as not applicable
+in `run-manifest.json`.
+
+Create the applicable subset:
 
 ```text
 temp/v2-model-evaluation/<UTC-RUN-ID>/
 ├── README.md
 ├── run-manifest.json
+├── TASK_MANIFEST.json
+├── COMPLETION_MATRIX.json
+├── PARITY_AUDIT.json
 ├── EXECUTIVE_REVIEW.md
 ├── BRANCH_REVIEW.md
 ├── PROJECT_IMPACT_MATRIX.md
@@ -553,17 +654,20 @@ temp/v2-model-evaluation/<UTC-RUN-ID>/
 ├── SCORECARD.csv
 ├── SCORECARD.json
 ├── EVIDENCE.jsonl
+├── RESULT_VALIDATION.json
 ├── OWNER_VALIDATION_QUEUE.md
 ├── RISKS_AND_REQUIRED_REVISIONS.md
 ├── NEXT_EXPERIMENTS.md
 ├── projects/
-│   └── <project-slug>.md
+│   └── <opaque-target-id>.md
 ├── control/
-│   └── <project-slug>.md
+│   └── <opaque-target-id>-<task-id>.md
 ├── treatment/
-│   └── <project-slug>.md
+│   └── <opaque-target-id>-<task-id>.md
+├── raw/
+│   └── <opaque-target-id>/<task-id>/<arm>-sealed.json
 ├── draft-change-sets/
-│   └── <project-slug>-<finding-id>.md
+│   └── <opaque-target-id>-<finding-id>.md
 └── report.html
 ```
 
@@ -572,7 +676,8 @@ temp/v2-model-evaluation/<UTC-RUN-ID>/
 - timestamp and UTC run ID;
 - evaluator product, exact model/version if exposed, and context-isolation method;
 - framework branch, commit, base, and merge-base;
-- project paths, branches, commits/fingerprints, and dirty-state observations;
+- opaque target IDs, branches, commits/fingerprints, and dirty-state observations; keep absolute
+  paths only in the restricted local target manifest;
 - commands executed and their purpose;
 - per-pass timing and evidence budgets;
 - files/directories excluded;
@@ -582,19 +687,22 @@ temp/v2-model-evaluation/<UTC-RUN-ID>/
 
 `HYPOTHESIS_RESULTS.json` must contain the status, evidence grade, evidence references, limitations,
 and next discriminating test for every hypothesis. `EVIDENCE.jsonl` must contain one structured
-finding per line using the finding schema above.
+evidence record per line using the finding schema above. `RESULT_VALIDATION.json` must fail closed
+on duplicate finding IDs, missing hypothesis/category links, invalid schemas, incomplete pairings,
+parity failures, weight or coverage errors, arithmetic disagreement, or hash mismatch.
 
 `report.html` must be self-contained, use no remote assets, and visibly distinguish `OBSERVED`,
-`PROXY`, `INFERRED`, and `NOT TESTED`. It must show project-specific results before the aggregate
-score so differences are not hidden by an average.
+`PROXY`, `INFERRED`, and `NOT TESTED`. It must use opaque target IDs, exclude raw restricted
+evidence, and show target-specific results before any aggregate score so differences are not hidden
+by an average.
 
 ## Postflight integrity check
 
 Before returning the verdict:
 
-1. Re-record `HEAD`, branch, and porcelain status for every live project.
-2. Compare them with preflight and prove that the evaluation changed no live-project file, index,
-   branch, or commit.
+1. Re-record `HEAD`, branch, and porcelain status for every authorized target.
+2. Compare them with preflight and prove that the evaluation changed no tracked target file, index,
+   branch, or commit. Report untracked and ignored state separately unless it was also fingerprinted.
 3. Re-record the framework status and verify that generated changes are confined to the authorized
    evaluation output directory.
 4. If any unexpected change occurred, report the exact path and command immediately. Do not reset,
@@ -608,11 +716,14 @@ Lead with the verdict, not the process. Return:
 1. The five phase-specific verdicts.
 2. The five most consequential findings.
 3. Triggered kill criteria.
-4. What the live projects caused you to change or challenge in the proposed model.
+4. What the authorized targets caused you to change or challenge in the proposed model.
 5. Required blueprint revisions before implementation.
 6. The smallest next experiment that could change the verdict.
 7. Exact paths to all evaluation artifacts.
 8. Items requiring product-owner confirmation.
 
-Then stop. Do not implement V2, migrate any project, edit the blueprint, update GearHeartAI,
+If no executable V2 behavior exists, the availability verdict must be `PROPOSED`. A favorable
+design review cannot promote it to “in development,” installable, or shipped.
+
+Then stop. Do not implement V2, migrate any target, edit the blueprint, update GearHeartAI,
 commit results, or push anything.

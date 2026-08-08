@@ -53,6 +53,10 @@ out/
 *.private.md
 /aspirational-expansion/
 
+# Local V2 evaluations may contain private repository paths and project evidence.
+/temp/v2-model-evaluation/
+/temp/v2-evaluation-targets.local.yaml
+
 # Backup files
 *.backup
 *.bak

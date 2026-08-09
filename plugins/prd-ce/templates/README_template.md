@@ -1,12 +1,14 @@
 ---
-template_version: "3.0.0"
+template_version: "3.3.0"
 ---
 
 # {Product Name} — Product README
 
-> **Status**: Active
+> **Status**: Discovery
 > **Current PRD Version**: v0.1 (See `PRD.md`)
 > **Active EPIC**: None (See `epics/`)
+
+> **Read order:** `CLAUDE.md` → `README.md` → `PRD.md` → accepted `SoT/` → active EPIC (v0.7+ only).
 
 ---
 
@@ -17,7 +19,7 @@ template_version: "3.0.0"
 | ---------------------------- | -------------------------------------------------------------------------- |
 | **[`PRD.md`](PRD.md)**       | **Product Definition**. The product definition (Progressive PRD).          |
 | **[`CLAUDE.md`](CLAUDE.md)** | **Agent Instructions**. The agent's operating instructions.                |
-| **[`epics/`](epics/)**       | **Execution**. Where work happens. Check here for the current sprint/task. |
+| **[`epics/`](epics/)**       | **Execution (v0.7+)**. Approved implementation context; none exists during v0.1–v0.6. |
 <!-- /SECTION: quick-navigation -->
 
 ---
@@ -26,13 +28,14 @@ template_version: "3.0.0"
 ## 2. Core Principles (The 3+1 System)
 
 1. **Navigation Files**: `README` + `PRD` + `CLAUDE` = The map.
-2. **Active Work**: Happens in **EPICs**.
+2. **Progressive Work**: v0.1–v0.6 product-definition work lives in `PRD.md` + `SoT/`;
+   implementation work moves into **EPICs** only at v0.7+.
 3. **Specs**: All specs (rules, flows, APIs) live in `SoT/` with unique IDs.
    - `BR-XXX`: Business Rules
    - `UJ-XXX`: User Journeys
    - `API-XXX`: Contracts
    - `CFD-XXX`: Customer Feedback
-4. **Gates**: We do not advance the PRD version without meeting the **Definition of Done** (see [`README.md`](README.md)).
+4. **Gates**: We do not advance the PRD version without meeting the **Definition of Done** in [`PRD.md`](PRD.md).
 <!-- /SECTION: core-principles -->
 
 ---
@@ -53,7 +56,7 @@ template_version: "3.0.0"
 | **v0.7 Build Execution**      | ⚪ Pending     | -        | -        |
 | **v0.8 Release & Deployment** | ⚪ Pending     | -        | -        |
 | **v0.9 Launch**               | ⚪ Pending     | -        | -        |
-| **v1.0 Growth**               | ⚪ Pending     | -        | -        |
+| **v1.0 Market Adoption**      | ⚪ Pending     | -        | -        |
 
 > _Update this table as you pass gates._
 
@@ -110,12 +113,13 @@ npm test # or equivalent
 
 ---
 
-## 5. Repository Guide
+## 6. Repository Guide
 
-- **`epics/`**: The living state of work (Issues/Tickets).
+- **`epics/`**: The living implementation state from v0.7 onward; before then work is tracked in the current PRD gate and accepted SoT.
 - **`SoT/`**: The Source of Truth (Requirements).
-- **`temp/`**: Scratchpad work tied to active epics.
-- **`.claude/`**: Agents, tools, skills, and hooks.
+- **`temp/`**: Scratchpad work tied to the current PRD gate before v0.7, then to the active EPIC.
+- **`.claude/`**: Consumer configuration and, for direct installs, the local agent runtime. In
+  plugin-native mode, skills, hooks, agents, and scripts are supplied live by the plugin.
 
 ---
 

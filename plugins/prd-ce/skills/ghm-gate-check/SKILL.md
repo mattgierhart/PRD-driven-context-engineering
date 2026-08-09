@@ -15,11 +15,13 @@ allowed-tools:
 
 # Gate Check
 
-Validate whether the PRD stage is ready to advance to the next version. Delegates to the three-layer readiness scorer — SoT files → EPICs → stage — then surfaces the leverage view (what to fix first, and which EPICs it unblocks).
+Validate whether the PRD stage meets the readiness floor for owner gate review. Delegates to the
+three-layer readiness scorer — SoT files → EPICs → stage — then surfaces the leverage view (what
+to fix first, and which EPICs it unblocks). It does not authorize or edit a PRD transition.
 
 ## Workflow Overview
 
-1. **Compute** → run `scripts/readiness.py run --quiet` to refresh `status/readiness.json`
+1. **Compute** → resolve the active readiness runtime and refresh `status/readiness.json`
 2. **Read** → parse `status/readiness.json`
 3. **Report** → PASS / WARN / BLOCK verdict with top blockers and causal links
 4. **Recommend** → actionable next steps (always highest-leverage first)
@@ -33,20 +35,31 @@ Validate whether the PRD stage is ready to advance to the next version. Delegate
 Run the orchestrator. It runs SoT → EPIC → stage in dependency order and writes `status/readiness.json`.
 
 ```bash
-python scripts/readiness.py run --quiet
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
+if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ]; then
+  READINESS_SCRIPT="$CLAUDE_PLUGIN_ROOT/scripts/readiness.py"
+else
+  READINESS_SCRIPT="$PROJECT_ROOT/scripts/readiness.py"
+fi
+python3 "$READINESS_SCRIPT" run --repo "$PROJECT_ROOT" --quiet
 # exit 0 = all pass, 1 = warn, 2 = block, 3 = error
 ```
 
 If the exit code is `3`, report a runtime error and stop. If `0/1/2`, proceed to Step 2.
 
-### Fallback: no scripts available
+### Runtime unavailable or failed
 
-If `scripts/readiness.py` is missing or Python is unavailable, fall back to reading `status/readiness.json` directly. If that's also absent, report: "Readiness not yet computed — install scripts/requirements.txt and run `python scripts/readiness.py run`."
+If the resolved `readiness.py`, Python, or a dependency is unavailable—or computation exits `3`—
+stop the gate check and report the runtime error. Do not issue a PASS / WARN / BLOCK verdict from a
+cached `status/readiness.json`. A prior file may be shown only as explicitly historical,
+non-authoritative evidence with its computation timestamp. When only a dependency is missing, use
+the matching runtime's `scripts/requirements.txt`; do not assume a local `scripts/` directory in
+plugin mode.
 
 ## Step 2: Read
 
 ```bash
-cat status/readiness.json
+cat "$PROJECT_ROOT/status/readiness.json"
 ```
 
 Extract:
@@ -87,7 +100,9 @@ Use this template. Fill every field from the JSON — do not improvise scores.
 
 ### Recommendation
 
-**If PASS**: Advance to {next_version}. Run `ghm-status-sync` to update the README dashboard.
+**If PASS**: The readiness floor is met. Present the evidence for owner gate review; only an
+owner-approved PRD transition authorizes {next_version}. After approval, run `ghm-status-sync` to
+mirror the new PRD state in README.
 
 **If WARN / BLOCK**: Do not advance. Address top blockers in order — fixing the highest-impact SoT file cascades up the graph.
 
@@ -98,9 +113,9 @@ Use this template. Fill every field from the JSON — do not improvise scores.
 
 | Stage score | Verdict | Meaning |
 |---|---|---|
-| ≥ 70 | PASS | Safe to advance |
-| 50–69 | WARN | Advance with documented risk; log in PRD change log |
-| < 50 | BLOCK | Cannot advance — per rule 05-lifecycle-gates, update the EPIC and STOP |
+| ≥ 70 | PASS | Readiness floor met; eligible for owner gate review |
+| 50–69 | WARN | Below the advancement floor; document risk and remediate before advancing |
+| < 50 | BLOCK | Cannot advance — update the current PRD gate record and STOP; at v0.7+ also update the approved active EPIC |
 
 ## Step 4: Recommend
 
@@ -118,9 +133,9 @@ Always prioritize by `impact = (100 − score) × #EPICs blocked`. The top block
 | Pattern | Example | Fix |
 |---|---|---|
 | Ignoring the score | "Feels ready; pass" | Cite `stage.score` verbatim |
-| Skipping blockers | "Minor stuff, advance anyway" | Block if score < 50; warn if < 70 |
+| Skipping blockers | "Minor stuff, advance anyway" | Stop below 70; use WARN/BLOCK to communicate severity |
 | Hand-rolling criteria | Re-checking IDs manually | Trust the scorer; if wrong, fix `GATE_REQUIREMENTS` in `_readiness/stage.py` |
-| Forcing PASS | Overriding the verdict | Never override; the score is the contract |
+| Treating PASS as authority | Advancing the PRD because the score is green | PASS supports owner review; only the approved PRD authorizes a transition |
 
 ## Boundaries
 
@@ -137,13 +152,13 @@ Always prioritize by `impact = (100 − score) × #EPICs blocked`. The top block
 ## Handoff
 
 After a report:
-- **PASS**: Trigger `ghm-status-sync`; the gate advancement updates the README dashboard
-- **WARN**: Same as PASS but note the risks in the PRD change log
+- **PASS**: Return the evidence for owner gate review. After the owner approves and updates the PRD transition, trigger `ghm-status-sync` to mirror it in README
+- **WARN**: Return control to the human, record the risk in the current PRD gate, and remediate the top blocker before advancement
 - **BLOCK**: Return control to the human. The `top_blockers[0]` fix is the single most important next action
 
 ## References
 
 - `references/gate-criteria.md` — canonical gate requirements (consumed by scorer)
 - `references/examples.md` — pass/warn/block report examples
-- `.claude/rules/07-readiness-protocol.md` — the discipline rule
+- the installed methodology's readiness-protocol rule — the discipline contract
 - `docs/READINESS_PROTOCOL.md` — full schema

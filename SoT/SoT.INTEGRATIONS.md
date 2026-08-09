@@ -2,8 +2,9 @@
 version: 1.0
 purpose: Source of Truth for third-party service integrations and external dependencies.
 id_prefix: INT-XXX
-last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs here are referenced by SoT.API_CONTRACTS.md, EPICs, and code
+last_updated: 2026-08-08
+authority: Starter structure only; no INT records are accepted unless named in the PRD SoT snapshot.
+template_state: uninitialized
 ---
 <!-- SECTION: template-structure -->
 
@@ -11,7 +12,7 @@ authority: This is a SoT file - IDs here are referenced by SoT.API_CONTRACTS.md,
 
 > **Purpose**: Catalog of third-party services, external APIs, and integration dependencies.
 > **ID Prefix**: INT-XXX
-> **Status**: Active SoT file
+> **Status**: Uninitialized starter; no INT records are accepted in the current PRD snapshot
 > **Cross-References**: Referenced by SoT.API_CONTRACTS.md, SoT.DEPLOYMENT.md, EPICs
 
 ## Navigation by Category
@@ -118,10 +119,10 @@ When adding a new INT-XXX:
 
 - [ ] Update SoT.API_CONTRACTS.md "External Services" section
 - [ ] Update SoT.DEPLOYMENT.md with required environment variables
-- [ ] Update EPIC Section 2 "Context & IDs" list
+- [ ] Before v0.7, update the PRD gate change log / SoT snapshot; at v0.7+, update the active EPIC "Context & IDs" list
 - [ ] Document in SoT.TECHNICAL_DECISIONS.md if significant choice
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry if maintained
 
 ---
 
-*End of SoT.INTEGRATIONS.md - Authoritative source for all INT-XXX IDs*
+*End of SoT.INTEGRATIONS.md — canonical INT record location once activated and accepted; currently template structure only.*

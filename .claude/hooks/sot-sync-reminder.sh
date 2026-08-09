@@ -5,8 +5,12 @@
 # Purpose: After source code writes, remind agent to update SoT files.
 # Methodology files are excluded (they ARE the SoT).
 #
-# Dependencies: POSIX shell, grep (standard utilities)
+# Dependencies: Bash, grep, awk, od (standard utilities)
 set -euo pipefail
+
+HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=_json.sh
+. "$HOOK_DIR/_json.sh"
 
 main() {
   local input
@@ -22,14 +26,14 @@ main() {
 
   # Skip methodology files — they don't need SoT reminders
   case "$file_path" in
-    */SoT/*|*/epics/*|*/temp/*|*/.claude/*|*.md|*.json|*.yaml|*.yml)
+    SoT/*|*/SoT/*|epics/*|*/epics/*|temp/*|*/temp/*|.claude/*|*/.claude/*|*.md)
       exit 0
       ;;
   esac
 
   local context="Reminder: You just modified source code (\`${file_path##*/}\`). Per documentation discipline rules, SoT/ files should be updated *during* code changes, not after. If this change affects any BR-, API-, DBT-, or TEST- entries, update them now before continuing."
   local json_context
-  json_context=$(printf '%s' "$context" | sed 's/\\/\\\\/g; s/"/\\"/g' | awk '{if(NR>1) printf "\\n"; printf "%s", $0}')
+  json_context=$(json_escape "$context")
   printf '{"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": "%s"}}\n' "$json_context"
 
   exit 0

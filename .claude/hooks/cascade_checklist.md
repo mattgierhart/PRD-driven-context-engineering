@@ -1,6 +1,6 @@
 ---
 name: cascade_checklist
-trigger: Library (called by sot-update-trigger)
+trigger: Standalone library (not wired to a hook event by default)
 description: >
   Generates context-specific cascade checklists based on which files changed.
   Replaces generic "update SoT" reminders with actionable, file-specific steps
@@ -9,7 +9,7 @@ description: >
 
 # Cascade Checklist Generator
 
-**Trigger**: Library — called by `sot-update-trigger.py`, not registered standalone.
+**Trigger**: Standalone library — available to custom hooks and manual workflows; not registered by default.
 **Purpose**: Replace generic "update SoT" reminders with specific, actionable cascade steps.
 
 ## What This Script Does
@@ -21,7 +21,9 @@ description: >
 
 ## Why This Exists
 
-From HomeFalcon learnings: the original SoT update trigger said "update SoT files" generically. Subagents followed the spirit but missed specifics because the instruction didn't say *which* files, *which* sections, or *which* values. This script makes the cascade concrete.
+From a cross-project failure analysis: the original SoT update trigger said "update SoT files"
+generically. Subagents followed the spirit but missed specifics because the instruction didn't say
+*which* files, *which* sections, or *which* values. This script makes the cascade concrete.
 
 ## Usage
 

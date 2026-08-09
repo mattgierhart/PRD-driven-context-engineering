@@ -2,6 +2,9 @@
 
 **Purpose**: Templates and patterns for crafting product messaging that resonates with target audiences and drives conversion.
 
+> **Synthetic examples:** Product names, quotes, companies, metrics, and proof statements below are
+> illustrative teaching data. Verify public facts and replace fictional proof before use.
+
 ---
 
 ## Core Messaging Formula
@@ -11,7 +14,7 @@
 ```
 
 **Example**:
-"Design teams who struggle with project chaos across multiple tools can now ship faster with DesignHub, unlike generic project managers, because it's purpose-built for design workflows with integrated asset management."
+"Design teams who struggle with project chaos across multiple tools can now ship faster with an example design workspace, unlike generic project managers, because it is purpose-built for design workflows with integrated asset management."
 
 ---
 

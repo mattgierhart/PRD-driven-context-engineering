@@ -27,7 +27,7 @@ Location: `scripts/check-stage-gate.sh`
 
 | Code | Meaning |
 |------|---------|
-| 0 | Gate passed — ready to advance |
+| 0 | Readiness floor passed — eligible for owner gate review |
 | 1 | Gate failed — missing artifacts |
 | 2 | Invalid usage |
 
@@ -68,15 +68,16 @@ When the gate blocks a stage transition:
 
 If stuck after 2 attempts, escalate to human review.
 
-## Force Gate Override
+## Owner Gate Override
 
-In exceptional cases, you can bypass the gate:
+There is no agent-controlled or self-service gate bypass. In an exceptional case, only the owner
+may authorize a transition below the readiness floor:
 
-1. Document the reason in the PRD.md Change Log
-2. Use the `--force-gate` flag (conceptual — actual mechanism TBD)
-3. Create a follow-up task to address the missing artifacts
+1. Record explicit owner approval, rationale, and accepted risk in the `PRD.md` change log.
+2. Record the authorized PRD transition; the readiness verdict remains WARN/BLOCK evidence.
+3. Create a dated follow-up record for the missing artifacts.
 
-**This should be rare.** If you're frequently forcing gates, the methodology needs adjustment.
+**This should be rare.** If overrides recur, the methodology or readiness proxy needs adjustment.
 
 ## Integration with Skills
 

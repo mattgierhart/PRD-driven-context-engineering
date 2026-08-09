@@ -68,7 +68,7 @@ def _classify(valid_from, valid_to, target: tuple[int, ...]) -> str:
     return "current"          # authoritative as of the target version
 
 
-def _heading_label(repo: Path, rel_file: str, line: int, cache: dict) -> str:
+def _heading_label(repo: Path, rel_file: str, line: int, entry_id: str, cache: dict) -> str:
     """Pull the human label off the entry's heading line (after the ID)."""
     if rel_file not in cache:
         try:
@@ -77,7 +77,9 @@ def _heading_label(repo: Path, rel_file: str, line: int, cache: dict) -> str:
             cache[rel_file] = []
     lines = cache[rel_file]
     raw = lines[line - 1] if 0 < line <= len(lines) else ""
-    return re.sub(r"^#{2,3}\s+[A-Z]{2,5}-\d{2,3}\s*[|:\-]?\s*", "", raw).strip()
+    return re.sub(
+        rf"^#{{1,3}}\s+{re.escape(entry_id)}\s*[|:\-]?\s*", "", raw
+    ).strip()
 
 
 def as_of(repo: Path, target_raw: str, prefixes: list[str]) -> dict:
@@ -101,7 +103,7 @@ def as_of(repo: Path, target_raw: str, prefixes: list[str]) -> dict:
         bucket = _classify(vf, vt, target)
         groups[bucket].append({
             "id": entry.id,
-            "label": _heading_label(repo, entry.file, entry.line, cache),
+            "label": _heading_label(repo, entry.file, entry.line, entry.id, cache),
             "valid_from": vf_raw,
             "valid_to": vt_raw,
             "invalidated_by": inv,

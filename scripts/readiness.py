@@ -76,31 +76,52 @@ def run_script(script: Path, args: list[str], cwd: Path, quiet: bool) -> int:
     return result.returncode
 
 
-def compute_all(repo: Path, gate_override: str | None, quiet: bool) -> None:
-    """Run the three scorers in dependency order: SoT → EPIC → Stage."""
+def compute_all(repo: Path, gate_override: str | None, quiet: bool) -> bool:
+    """Run the scorers from a fresh output; return False on any child runtime error."""
+    readiness_file = repo / "status" / "readiness.json"
+    readiness_file.unlink(missing_ok=True)
+
+    # Import the scoring runtime only after invalidating prior output. Dependencies such as
+    # PyYAML are intentionally installed separately, so a missing dependency must be a runtime
+    # error (exit 3), never a WARN-band result that leaves stale readiness evidence available.
+    try:
+        from _readiness.common import iter_epic_files
+    except Exception as exc:
+        print(
+            f"error: readiness startup dependency/import failed: {exc}",
+            file=sys.stderr,
+        )
+        print(
+            "install PyYAML and the readiness runtime dependencies with: "
+            f'{sys.executable} -m pip install -r "{SCRIPT_DIR / "requirements.txt"}"',
+            file=sys.stderr,
+        )
+        return False
+
+    def run_or_fail(script: Path, args: list[str]) -> bool:
+        if run_script(script, args, repo, quiet) == 0:
+            return True
+        readiness_file.unlink(missing_ok=True)
+        return False
+
     # 1. SoT (primitive — others read its output)
-    run_script(SOT_SCRIPT, ["all"], repo, quiet)
+    if not run_or_fail(SOT_SCRIPT, ["all"]):
+        return False
 
     # 2. EPICs (one per file, each merged into readiness.json)
     epics_dir = repo / "epics"
-    pilot_inputs = repo / "temp" / "epic-01-readiness-inputs.yaml"
-    if epics_dir.is_dir():
-        for epic in sorted(epics_dir.glob("EPIC-*.md")):
-            if epic.name == "EPIC_TEMPLATE.md":
-                continue
-            args = [str(epic), "--merge"]
-            # Temporary pilot hook: if the EPIC has no readiness_inputs and
-            # a sibling temp file exists, load it. Drops away once frontmatter
-            # adoption lands.
-            if epic.name.startswith("EPIC-01") and pilot_inputs.is_file():
-                args.extend(["--inputs", str(pilot_inputs)])
-            run_script(EPIC_SCRIPT, args, repo, quiet)
+    for epic in iter_epic_files(epics_dir):
+        args = [str(epic), "--merge"]
+        if not run_or_fail(EPIC_SCRIPT, args):
+            return False
 
     # 3. Stage (reads SoT + EPIC scores to compose)
     stage_args: list[str] = []
     if gate_override:
         stage_args.extend(["--gate", gate_override])
-    run_script(STAGE_SCRIPT, stage_args, repo, quiet)
+    if not run_or_fail(STAGE_SCRIPT, stage_args):
+        return False
+    return True
 
 
 # ---------- Report formatting ---------- #
@@ -248,10 +269,19 @@ def main() -> int:
     readiness_file = repo / "status" / "readiness.json"
 
     if args.action == "run":
+        # A `run` is a request for fresh evidence. Invalidate the prior report before any
+        # runtime/scorer preflight so every startup failure leaves no stale result for a later
+        # `status` invocation to consume. The `status` action deliberately remains read-only.
+        try:
+            readiness_file.unlink(missing_ok=True)
+        except OSError as exc:
+            print(f"error: could not invalidate stale readiness output: {exc}", file=sys.stderr)
+            return 3
         if not SOT_SCRIPT.is_file() or not EPIC_SCRIPT.is_file() or not STAGE_SCRIPT.is_file():
             print(f"error: one or more scorer scripts missing next to {__file__}", file=sys.stderr)
             return 3
-        compute_all(repo, args.gate, args.quiet)
+        if not compute_all(repo, args.gate, args.quiet):
+            return 3
 
     if not readiness_file.is_file():
         if not args.quiet:

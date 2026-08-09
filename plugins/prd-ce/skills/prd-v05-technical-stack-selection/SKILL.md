@@ -67,7 +67,7 @@ Cost:
   - MVP stage (0–10k users): ~$50–200/mo (free tier covers launch)
   - 10x scale (100k users): ~$500–2000/mo (still cheaper than building in-house team)
 
-Product Family Notes: If sibling products exist, Clerk can SSO across them using shared realm config (document in shared infrastructure EPIC)
+Product Family Notes: If sibling products exist, Clerk can SSO across them using shared realm config (record in the current PRD gate plan; move to a shared-infrastructure EPIC only at v0.7+)
 
 Alternatives Considered:
   - Firebase Auth: Similar, but tighter Google lock-in and slightly higher cost at scale
@@ -93,7 +93,7 @@ Rationale:
 
 Cost: $0 incremental (infrastructure already paid)
 
-Product Family Notes: Share component library and auth context across products using monorepo structure (document in shared infrastructure EPIC)
+Product Family Notes: Share component library and auth context across products using monorepo structure (record in the current PRD gate plan; move to a shared-infrastructure EPIC only at v0.7+)
 ```
 
 

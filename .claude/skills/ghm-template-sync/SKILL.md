@@ -40,14 +40,12 @@ Compare your repo structure against what the current template version expects:
 - `.claude/hooks/HOOK_CONTRACT.md`
 - `.claude/hooks/context-validation.sh`
 - `.claude/hooks/context-density-gate.sh`
-- `.claude/hooks/sot-update-trigger.sh`
 - `CHANGELOG.md`
 - `MIGRATION.md`
 
 **Check for stale files (should be removed):**
 - `.claude/hooks/context-validation.py`
 - `.claude/hooks/context-density-gate.py`
-- `.claude/hooks/sot-update-trigger.py`
 - `.claude/agents/HORIZON.md` (replaced by subdirectory)
 - `.claude/agents/STUDIO.md`
 - `.claude/agents/DEVLAB.md`
@@ -75,19 +73,18 @@ Output a table:
 
 **Auto-safe** (do without asking):
 - Create `.claude/VERSION` with current template version
-- Add `template_version` frontmatter to files that lack it
+- Add `template_version` frontmatter only to framework-owned files that lack it
 - Report what was done
 
 **Confirm first** (show diff, ask user):
 - Update `settings.json` hook configuration
 - Restructure agent files (must preserve MEMORY.md)
-- Delete stale Python hooks
-- Update EPIC template headers
+- Delete only the obsolete Python hook filenames listed in Phase 2
 
 **Never touch** (product-specific):
-- `PRD.md` content (only add frontmatter)
+- `PRD.md`, including its frontmatter (report version drift; owner edits it explicitly)
 - `SoT/*.md` content
-- `epics/EPIC-*.md` content (only update headers on closed EPICs)
+- `epics/EPIC-*.md` and `epics/EPIC_TEMPLATE.md` content
 - `.claude/agents/*/MEMORY.md` content
 - `README.md` content
 
@@ -95,7 +92,7 @@ Output a table:
 
 After all changes:
 1. Test all shell hooks produce valid JSON
-2. Verify no Python hooks remain
+2. Verify none of the obsolete Python hook filenames listed in Phase 2 remain
 3. Confirm `settings.json` uses correct nesting
 4. Check agent subdirectories have both AGENT.md and MEMORY.md
 5. Report summary of changes made
@@ -111,8 +108,8 @@ After all changes:
 ## Safety Rules
 
 1. **NEVER overwrite MEMORY.md** -- these contain product-specific agent memory
-2. **NEVER modify SoT content** -- only add section markers or frontmatter
-3. **NEVER modify PRD.md content** -- only add frontmatter version
+2. **NEVER modify SoT content or frontmatter** -- report drift and require an explicit owner edit
+3. **NEVER modify PRD.md**, including frontmatter -- report drift and require an explicit owner edit
 4. **ALWAYS show diff before destructive changes** (deletes, restructures)
 5. **ALWAYS verify hooks work** after updating settings.json
 6. **Commit changes incrementally** -- one commit per phase, not one giant commit

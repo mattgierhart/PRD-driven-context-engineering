@@ -1,14 +1,15 @@
 # Pain → Value Transformation Examples
 
-Worked examples from real PRD work with step-by-step transformation process.
+Synthetic teaching fixtures with a step-by-step transformation process. Every product, quote,
+metric, ID, and outcome below is fictional; replace it with attributable product evidence.
 
 ---
 
-## Example 1: HomeFalcon Customer Support
+## Example 1: Home-Warranty Support
 
 ### Source Pain
 **CFD-001** (Tier 2):
-> "Called Samsung 3 times about my fridge, spent 2 hours on hold, still don't know if it's under warranty"
+> "Called the manufacturer 3 times about my fridge, spent 2 hours on hold, still don't know if it's under warranty"
 
 ### Transformation Steps
 

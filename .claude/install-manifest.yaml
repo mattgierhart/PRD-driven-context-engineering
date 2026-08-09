@@ -1,32 +1,39 @@
 # Install Manifest — PRD-Driven Context Engineering
 #
-# The single source of truth for what the self-install path places into a target
-# repo, and what it must NEVER touch. Both `install.sh` (deterministic CLI) and
-# the `ghm-self-install` skill (subscription-native wizard) read THIS file, so the
-# two paths can never drift. `ghm-template-sync` consumes the same lists for updates.
+# The single source of truth for what the source-run installer places into a target
+# repo, what plugin init seeds, and what both paths must NEVER touch. Consumer repos do
+# not receive the installer, this manifest, or either install operator; installs and
+# upgrades are always run from a trusted methodology source checkout.
 #
-# Three classes:
+# Flat contract sections:
 #   framework     — methodology engine. Installed on first run, UPDATED on re-run
-#                   (with --force when a file has local drift). Framework-owned.
+#                   (with --force when a file has local drift). Framework-owned files are
+#                   refreshed in place; unrelated consumer additions in owned dirs survive.
 #   template_seed — seeded ONCE, then product-owned. Never overwritten if present.
 #                   Form: "<src>" (copy in place) or "<src> -> <dest>" (rename).
-#   never_touch   — pure product content. The installer asserts it never writes
-#                   these. Mirrors ghm-template-sync "Never touch" rules.
+#   never_touch   — pure product destinations. They may be created by an initial
+#                   template seed, but the installer never overwrites them afterward.
+#                   Framework entries must remain disjoint from this class.
+#   direct_exclude — authoring/plugin-only children omitted from direct runtime copies.
+#   plugin_review_alias — plugin-only, read-only views generated from mapped seed sources
+#                         so live documentation links resolve. They are never installer inputs.
+#   obsolete_framework_scan_roots — generic framework namespaces checked during upgrades.
+#   obsolete_framework_fingerprints — SHA-256 of exact retired repository-relative paths,
+#                        removed only by direct `--force`. Hashes keep excluded maintainer
+#                        filenames out of the reusable manifest.
 #
 # Parsing contract (keep flat): each section is a top-level YAML key whose value is
 # a list of `- <path>` items. install.sh extracts items with awk; do not nest.
 
-version: "3.2.0"
+version: "3.3.0"
 
 framework:
   - CLAUDE.md
-  - install.sh                     # the installer self-replicates (Xantham pattern)
-  - BLUEPRINT.md
-  - README_template.md             # seed source for README.md — travels so installed repos can re-distribute
-  - .claude/install-manifest.yaml
+  - README_template.md             # inert local template reference; not install authority
+  - PRD_template.md                # inert generic reference; root PRD.md is repository authority
+  - SoT_template                   # inert generic reference; root SoT/ is repository authority
   - .claude/VERSION
   - .claude/README.md
-  - .claude/domain-profile.yaml
   - .claude/settings.json          # special-cased: merged, never blind-overwritten
   - .claude/rules
   - .claude/hooks
@@ -35,24 +42,88 @@ framework:
   - .claude/agents/horizon/AGENT.md
   - .claude/agents/metro/AGENT.md
   - .claude/agents/studio/AGENT.md
+  - scripts/_readiness
+  - scripts/asof.py
+  - scripts/compute-prd-readiness.py
+  - scripts/compute-readiness.py
+  - scripts/compute-sot-readiness.py
+  - scripts/generate-id-pattern.sh
+  - scripts/prd-ce-init.sh         # plugin-only initializer; omitted from direct runtime
+  - scripts/readiness.py
+  - scripts/requirements.txt
+  - scripts/validate-edges.py
+  - scripts/validate-ids.sh
+
+direct_exclude:
+  - .claude/hooks/stage-gate-validation.md # maintainer concept note; not an integrated runtime hook
+  - .claude/skills/init            # plugin-native initializer; direct install already initialized
+  - .claude/skills/ghm-self-install # source-checkout operator; consumers are not distributors
+  - .claude/skills/ghm-template-sync # maintainer/source-layout updater; no upstream exists in consumers
+  - .claude/skills/SKILL_TEMPLATE  # contributor template, not a runnable consumer skill
+  - .claude/skills/README.md       # contributor index
+  - .claude/skills/skills-inventory.md
+  - scripts/prd-ce-init.sh         # plugin runtime only; direct installs are source-run
+
+# Read-only aliases generated only inside the plugin's templates bundle. Live plugin rules link to
+# the canonical doc names, while init still seeds from distinct `.seed` sources below.
+plugin_review_alias:
+  - docs/DEVELOPMENT_GRAPH.md
+  - docs/READINESS_PROTOCOL.md
+  - .claude/domain-profile.yaml
+
+obsolete_framework_scan_roots:
+  - .claude/hooks
+  - .claude/skills
   - scripts
   - docs
 
+obsolete_framework_fingerprints:
+  - 43ee9ad3bf208c07650d2a84597389f0b5c5e2c41d5f54f23b7e3c9ab0e8f26b
+  - 11211d2c8ba96efd54d56eda2d3758f59d7c9b3c8026db06dc55b2e000a0cb3d
+  - 6f3e9bf81b44c5b575ce506ce9c0f5ef28066cdd5f69279c9fe9ae03abf933c7
+  - dfc0f748bf09c1ca14e1c0b9a5bf2b2aef0db7630f0d47fbe4cf9097c2fcc4c8
+  - 2869fd557180645e20e92a5a72c76bb4ae8fa8130e64b0754d13b33a38f34d83
+  - 61ce213437a6c6af69246fef2ffa9d15d068b9285956f5520f52e623c00e8328
+  - 643afd3983416307fdf7832503943e356a14ede5a7259f7b565a8502bccc0287
+  - b99bc5f3f40e5a399accc14c86654a7781449be1a90ec6ee4df064bffcdcfb45
+  - a7cf06383f4ba12f9ebe946d8411283add69e1cc2de7b8cef513d21e9febabda
+  - c7e58a3c335ebb5e5491a55c3d4005e95573d8655e04fb5b345697afe42e0edb
+  - 846a529926ef436695bf7c7397d448e2c5100acb6b224c6730527f15fe295482
+  - 07671491ae0166e9136781d6757d24a4875f31c4ea58897d1d5c0ece15ad7b6f
+  - ced52ee66ad37a2d77c0668490aff6d247193e34dab77418201be8fd5e37c663
+  - c4cfcd72fb6a8ec85c60779110e6f1e25e2fd2032f213f3a6018ac405e21aea9
+  - 44dc3f850837339f1c705e7d2ec336f71244cfc58d2e98a83be558547f956eec
+  - 6051fd83e017d3fb0b56edeca73025e5cbc242971f28070f2f5f40b6477e7062
+  - 6117d59b14d58ae8f5fac56323bb66ea07983bc71f7da7a5e973c84e4c5f9382
+  - 006e91fe927db038393e359e9adbdb8594cd607f7746b323ded1a1de3a9bc0ab
+  - 7d0b23a897c2e9fbcea88e365eb4eef706f0709711ce7c3c247565623c98f4d1
+  - 4c93552f811871b47f628d3a05e7cfdccdaaaf8c9119655d0099136f484d8fe5
+  - c5d9b85cb591c64beaf9db4dc6681de7caf28393f225acfad21bf8c29674f931
+  - a30a3e79f37bc1fe8bc4b1000997cda17af4d6ef4f316410ec71cbb6beae9f62
+
 template_seed:
   - README_template.md -> README.md
-  - PRD.md
-  - epics/EPIC_TEMPLATE.md
-  - epics/README.md
-  - SoT
-  - .claude/agents/devlab/MEMORY.md
-  - .claude/agents/horizon/MEMORY.md
-  - .claude/agents/metro/MEMORY.md
-  - .claude/agents/studio/MEMORY.md
+  - PRD_template.md -> PRD.md
+  - epics/EPIC_TEMPLATE.seed.md -> epics/EPIC_TEMPLATE.md
+  - epics/README.seed.md -> epics/README.md
+  - SoT_template -> SoT
+  - docs/DEVELOPMENT_GRAPH.seed.md -> docs/DEVELOPMENT_GRAPH.md # product-owned after seed
+  - docs/READINESS_PROTOCOL.seed.md -> docs/READINESS_PROTOCOL.md # product-owned after seed
+  - .claude/domain-profile.seed.yaml -> .claude/domain-profile.yaml
+  - .claude/agents/devlab/MEMORY.seed.md -> .claude/agents/devlab/MEMORY.md
+  - .claude/agents/horizon/MEMORY.seed.md -> .claude/agents/horizon/MEMORY.md
+  - .claude/agents/metro/MEMORY.seed.md -> .claude/agents/metro/MEMORY.md
+  - .claude/agents/studio/MEMORY.seed.md -> .claude/agents/studio/MEMORY.md
 
 never_touch:
   - README.md                      # product dashboard (seeded once from template)
   - PRD.md                         # product requirements body
   - SoT                            # SoT entries are product knowledge
+  - docs/DEVELOPMENT_GRAPH.md      # consumer copy may be annotated locally after initial seed
+  - docs/READINESS_PROTOCOL.md     # consumer copy may be annotated locally after initial seed
+  - epics/EPIC_TEMPLATE.md         # consumer may adapt its future epic scaffold
+  - epics/README.md                # consumer-owned epic workflow guide
   - epics/EPIC-*.md                # closed/active work packages
+  - .claude/domain-profile.yaml    # seeded once; downstream taxonomy/config is product-owned
   - .claude/agents/*/MEMORY.md     # agent memory is product-specific
   - .claude/projects

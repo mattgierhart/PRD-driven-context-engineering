@@ -1,5 +1,8 @@
 # Pricing Model Examples
 
+> **Synthetic examples:** Product contexts, prices, metrics, and outcomes below are fictional
+> teaching fixtures. Public competitor figures are illustrative and must be re-verified.
+
 ## Good Examples
 
 ### 1. Digital Signage — Flat Rate Undercut
@@ -70,7 +73,7 @@ Evidence: CFD-XXX (UpKeep pricing page)
 
 ### 3. Freemium SaaS — Usage-Capped Free Tier
 
-**Context**: Consumer product (HomeFalcon — home product management)
+**Context**: Synthetic consumer home-organizer product
 
 **Model Chosen**:
 - Free: 5 products, 3 issues/month, basic features
@@ -84,7 +87,7 @@ Evidence: CFD-XXX (UpKeep pricing page)
 - Add-on revenue creates expansion without tier complexity
 
 **Transferable Pattern**:
-> Free tier caps should hit naturally as user gets value. "You've added 5 products and HomeFalcon saved you $200 — upgrade for unlimited" is better than "Feature X is Pro only."
+> Free tier caps should hit naturally as the user gets value. "You've added 5 products and the organizer saved you $200 — upgrade for unlimited" is better than "Feature X is Pro only."
 
 **BR- Entry Example**:
 ```

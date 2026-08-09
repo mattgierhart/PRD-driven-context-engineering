@@ -3,10 +3,21 @@
 # Shell variant — see HOOK_CONTRACT.md for interface spec.
 #
 # Purpose: Verify an active EPIC exists before allowing source code writes.
-# Methodology files (SoT/, epics/, .claude/, *.md, *.json, *.yaml) are always allowed.
+# Methodology paths (SoT/, epics/, temp/, .claude/) and Markdown documentation are allowed.
+# Product JSON/YAML remains governed like source code.
 #
-# Dependencies: POSIX shell, grep (standard utilities)
+# Dependencies: Bash, grep, awk, od (standard utilities)
 set -euo pipefail
+
+HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=_json.sh
+. "$HOOK_DIR/_json.sh"
+
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-}"
+if [ -z "$PROJECT_ROOT" ] || [ ! -d "$PROJECT_ROOT" ]; then
+  PROJECT_ROOT="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null || true)"
+fi
+[ -n "$PROJECT_ROOT" ] && [ -d "$PROJECT_ROOT" ] && cd "$PROJECT_ROOT"
 
 main() {
   local input
@@ -22,24 +33,29 @@ main() {
 
   # Allow methodology files freely — never gate these
   case "$file_path" in
-    */SoT/*|*/epics/*|*/temp/*|*/.claude/*|*.md|*.json|*.yaml|*.yml)
+    SoT/*|*/SoT/*|epics/*|*/epics/*|temp/*|*/temp/*|.claude/*|*/.claude/*|*.md)
       exit 0
       ;;
   esac
 
-  # Check if any EPIC is In Progress
+  # Require exactly one numeric EPIC whose State field is exactly `In Progress`.
+  local active_count=0 epic state
   if [ -d "epics" ]; then
-    local active
-    active=$(grep -rl "In Progress" epics/EPIC-*.md 2>/dev/null | head -1 || true)
-    if [ -z "$active" ]; then
-      local json_reason="No EPIC is currently 'In Progress'. Code changes should be traceable to an active EPIC. Create or activate an EPIC first, or confirm this is exploratory work."
-      json_reason=$(printf '%s' "$json_reason" | sed 's/"/\\"/g')
-      printf '{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "ask", "permissionDecisionReason": "%s"}}\n' "$json_reason"
-      exit 0
-    fi
+    for epic in \
+      epics/EPIC-[0-9][0-9].md epics/EPIC-[0-9][0-9]-*.md \
+      epics/EPIC-[0-9][0-9][0-9].md epics/EPIC-[0-9][0-9][0-9]-*.md; do
+      [ -f "$epic" ] || continue
+      state=$(sed -n 's/^>[[:space:]]*\*\*State\*\*:[[:space:]]*`\{0,1\}\([^`|]*\).*/\1/p' "$epic" \
+        | head -1 | sed 's/[[:space:]]*$//' || true)
+      [ "$state" = "In Progress" ] && active_count=$((active_count + 1))
+    done
+  fi
+  if [ "$active_count" -ne 1 ]; then
+    local json_reason="Expected exactly one EPIC with State 'In Progress'; found ${active_count}. Source-code changes require an owner-approved v0.7+ execution context."
+    json_reason=$(json_escape "$json_reason")
+    printf '{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "ask", "permissionDecisionReason": "%s"}}\n' "$json_reason"
   fi
 
-  # Active EPIC found or no epics/ directory (template repo) — allow
   exit 0
 }
 

@@ -1,417 +1,211 @@
 ---
-version: 2.0
-purpose: Progressive Product Requirements Document aligned to the PRD Led Context Engineering lifecycle.
-last_updated: 2025-12-22
-template_version: "3.0.0"
+version: 0.1
+methodology_generation: 2
+purpose: Product authority for PRD-Led Context Engineering V2.
+last_updated: 2026-08-08
+runtime_status: Proposed
 ---
 
-# [Product Name] · Product Requirements Document (PRD)
+# PRD-Led Context Engineering V2 · Product Requirements Document
 
-**Authority & Workflow**
+> **Working public name:** “The Product Model” is a working name only. It is not an approved public
+> product name, category, or release claim.
+>
+> **Current truth:** this repository is at PRD gate **v0.1 Spark** for V2. Wave 0B establishes
+> product authority and clean packaging; it does not implement or release a V2 runtime.
 
-- `README.md` — repository orientation (always read first).
-- `PRD.md` — this file. Owns the strategic narrative from v0.1 → v1.0.
-- `CLAUDE.md` — agent behavior. Confirms how to implement what this PRD asks for.
-- `epics/EPIC-{XX}-<slug>.md` — execution window. Updates IDs created/modified when advancing v0.7+.
-- See `README.md` for gate criteria and rituals.
+## Authority and status
 
-**Template Usage**
+**Read order:** `CLAUDE.md` → `README.md` → `PRD.md` → accepted `SoT/` → active EPIC (v0.7+ only).
+`CLAUDE.md` governs agent behavior; product-truth precedence starts with this PRD.
 
-1. Replace placeholders (`{}`) with product-specific data.
-2. Maintain strict version headers (v0.1 → v1.0). Never delete prior versions; append revisions.
-3. Use SoT IDs (BR-XXX, CFD-XXX, etc.) whenever referencing research, rules, or technical decisions.
-4. Log lifecycle transitions in the change log table below. Reference EPIC IDs for execution notes.
+1. [`CLAUDE.md`](CLAUDE.md) — operating instructions and documentation discipline; not product fact authority.
+2. [`README.md`](README.md) — repository orientation and current status.
+3. `PRD.md` — this file; product strategy and lifecycle authorization.
+4. Accepted records in [`SoT/`](SoT/SoT.README.md) — durable rules and decisions.
+5. EPICs — approved execution records created only at v0.7 or later.
+6. [`docs/PRD_CE_V2_BUILD_PLAN.md`](docs/PRD_CE_V2_BUILD_PLAN.md) — contingent sequencing,
+   subordinate to this PRD and accepted SoT records.
+7. Research and evaluation artifacts — inputs only until their evidence is durable, reviewable,
+   sanitized, and accepted.
 
----
+| Field | Current value |
+|---|---|
+| PRD lifecycle gate | v0.1 Spark |
+| Lifecycle status | Discovery |
+| V2 runtime status | Proposed; no V2 executable behavior exists |
+| V2 public availability | Proposed; not a release or installable V2 capability |
+| Branch status | Isolated pending explicit release-candidate and merge approval |
+| Next target gate | v0.2, only after the v0.1 gate is approved |
+| Related EPIC | None; EPIC creation is prohibited before v0.7 |
+| Accepted SoT snapshot | BR-001–BR-005; ARC-001–ARC-004 |
+| Accepted empirical evidence | None; private review findings remain provisional planning inputs |
 
-## PRD Metadata
+## Version vocabulary
 
-| Field                      | Value                              |
-| -------------------------- | ---------------------------------- |
-| **Current Lifecycle Gate** | v0.x                               |
-| **Last Updated**           | 2025-12-22                         |
-| **Last Editor**            | {Name / Agent}                     |
-| **Status**                 | Discovery / Build / Live           |
-| **Next Target Gate**       | v0.{x+1}                           |
-| **Related EPIC**           | EPIC-{XX}                          |
-| **SoT Snapshot**           | {List key IDs touched this update} |
+These dimensions answer different questions and must never be substituted for one another.
 
-## Lifecycle Change Log
+| Dimension | Meaning | Current V2 value |
+|---|---|---|
+| Methodology generation | Product-model evolution umbrella | V2 |
+| PRD lifecycle gate | Evidence and authorization maturity | v0.1 Spark |
+| Runtime release and status | Version and truth state of executable V2 behavior | No V2 release; Proposed |
+| Downstream template version | Version of the generic install/fork scaffold | 3.3.0 |
+| Provider package version | Provider-specific distribution release | Not assigned for V2; must be versioned independently |
 
-| Version                | Date       | Editor  | Summary                              | Linked IDs / EPIC   |
-| ---------------------- | ---------- | ------- | ------------------------------------ | ------------------- |
-| v0.1 Spark             | YYYY-MM-DD | {Owner} | Problem + outcomes framed            | CFD-###             |
-| v0.2 Market Definition | YYYY-MM-DD | {Owner} | ICP + segmentation                   | BR-###              |
-| v0.3 Commercial Model  | YYYY-MM-DD | {Owner} | Pricing & positioning hypotheses     | BR-###, CFD-###     |
-| v0.4 User Journeys     | YYYY-MM-DD | {Owner} | Journeys mapped to pains             | UJ-###              |
-| v0.5 Red Team Review   | YYYY-MM-DD | {Owner} | Risks + mitigations                  | BR-###, TEST-###    |
-| v0.6 Architecture      | YYYY-MM-DD | {Owner} | Stack, schema, contracts baseline    | API-###, DBT-###    |
-| v0.7 Build Execution   | YYYY-MM-DD | {Owner} | EPIC backlog & QA strategy           | EPIC-{XX}, TEST-### |
-| v0.8 Release & Deployment | YYYY-MM-DD | {Owner} | Release criteria + ops playbook   | DEP-###             |
-| v0.9 Go-to-Market      | YYYY-MM-DD | {Owner} | GTM, analytics, feedback loop        | GTM-### / CFD-###   |
-| v1.0 Market Adoption   | YYYY-MM-DD | {Owner} | Paying customers + optimization plan | BR-###, KPI-###     |
+## Lifecycle change log
 
-> **Revision Pattern**: When looping back, add a new row (e.g., `v0.3r1`) and reference the EPIC that triggered the revision.
+| PRD gate | Date | Summary | Linked records |
+|---|---|---|---|
+| v0.1 Spark | 2026-08-08 | Initialized V2 product authority, scope, non-goals, open questions, and repository/template separation | BR-001–BR-005; ARC-001–ARC-004 |
 
----
-
-## v0.1 Spark — Problem & Outcomes
-
-**Spark Summary**  
-{Short paragraph describing the spark, audience, and outcomes. Elevator pitch style.}
-
-**Problem Statement**
-
-- **Who is hurting?** {Segment / persona}
-- **What pain exists today?** {Short description}
-- **Why now?** {Trigger or catalyst}
-
-**Desired Outcomes**
-
-- {Outcome 1 — measurable}
-- {Outcome 2 — measurable}
-
-**Initial Success Signals**
-
-- Metric: {Signal / Source} (Target: {value})
-- Insight IDs: {CFD-###, note or link}
-
-**Constraints & Non-goals**
-
-- {Constraint 1}
-- {Non-goal 1}
-
-**Open Questions** (must be answered before v0.2)
-
-- {Question}
-- {Question}
+No later lifecycle gate has been initialized.
 
 ---
 
-## v0.2 Market Definition — ICP & Segments
+## v0.1 Spark — Problem and outcomes
 
-**Market Thesis**  
-{Short narrative referencing Spark outcomes.}
+### Spark summary
 
-**Primary Segments (max 3)**
-| Segment | Description | Size / TAM | Urgency | Source (ID) |
-|---------|-------------|------------|---------|-------------|
-| Segment A | {Persona / firmographics} | {Value} | {High/Med/Low} | CFD-### |
+PRD-Led Context Engineering V2 is a Product Management methodology and proposed local product
+system for preserving what teams learned, decided, delivered, and observed. Its purpose is to let
+each human or AI participant act from current, attributable context without flattening uncertainty,
+erasing history, or silently replacing accepted product truth.
 
-**Not For**
+The first executable value, after the required lifecycle gates authorize implementation, is a
+read-only inspection of an existing PRD-CE repository in place. It should reveal identity,
+relationship, provenance, lifecycle, temporal, and local repository-divergence problems with exact
+source citations and without changing authored files.
 
-- {Who we explicitly exclude and why}
+### Problem statement
 
-**Enabling Business Rules (BR-XXX)**
+- **Who is affected?** Product teams working across repeated human and AI sessions. The primary v0.2
+  audience remains an owner decision.
+- **What pain exists?** Product evidence, intent, delivery, reality, and learning drift across files,
+  sessions, branches, and actors. Current meaning becomes hard to locate, provenance is lost, and
+  inferred context can be mistaken for accepted truth.
+- **Why now?** PRD-CE already provides a Markdown lifecycle and typed knowledge graph, but V2 planning
+  must first place its own product definition inside the repository authority chain while keeping
+  reusable downstream scaffolds generic and non-destructive.
 
-- BR-### — {Rule description}
-- BR-### — {Rule description}
+### Product promise
 
-**Research & Evidence**
+Help product teams preserve what they learned, decided, delivered, and observed so each human or AI
+agent can act from current, attributable context without erasing history.
 
-- CFD-### — {Interview / survey insight}
-- CFD-### — {Desk research}
+### Desired outcomes
 
-**Outstanding Work → v0.3**
+1. Preserve canonical product memory in human-reviewable Markdown across sessions, tools, branches,
+   and future projections.
+2. Keep typed IDs, explicit relationships, provenance, temporal meaning, lifecycle state, and process
+   history intact rather than reducing them to a latest-state summary.
+3. Let a Product Management user inspect an existing repository and reach reproducible findings with
+   exact file/record evidence before any accepted-state mutation is possible.
+4. Keep repository-specific PRD-CE decisions separate from generic downstream templates and prove
+   clean installation plus non-destructive reinstallation.
+5. Advance through one Progressive PRD lifecycle, with no implementation work before the v0.7 gate.
 
-- {Hypothesis or question}
+### Initial success signals
 
----
+These are validation targets, not achieved runtime claims:
 
-## v0.3 Commercial Model — Pricing & Positioning
+- Clean direct and plugin-native scaffolds receive the same generic PRD and SoT seeds, the smallest
+  closed consumer-doc set, and no repository-maintainer or named downstream material.
+- Reinstallation preserves consumer-owned `README.md`, `PRD.md`, `SoT/`, EPICs, and agent memory.
+- A future read-only compatibility fixture demonstrates zero silently lost typed IDs or explicit
+  relationships and leaves authored files and Git state unchanged.
+- Future findings cite exact source locations and distinguish accepted, proposed, inferred,
+  ambiguous, stale, deprecated, superseded, and unknown states.
 
-> **ID Note**: FEA-XXX (Feature) IDs are defined inline in this section, not in a separate SoT file.
+### Product Management scope
 
-**Anchor Competitors**
-| Competitor | Positioning | Pricing Signals | Reference |
-|------------|-------------|-----------------|-----------|
-| {Name} | {Value prop} | ${price}/unit | CFD-### |
+V2 serves the **Product Management lifecycle only** ([BR-001](SoT/SoT.BUSINESS_RULES.md#br-001-product-management-is-the-sole-v2-lifecycle)). In scope at the product-definition level:
 
-**Monetization Strategy**
+- discovery evidence, uncertainty, assumptions, decisions, outcomes, and business rules;
+- personas, journeys, requirements, and experience intent;
+- delivery plans, architecture, code/test traceability, releases, and operational reality when they
+  inform product decisions;
+- customer and operational learning that challenges current intent;
+- current, proposed, rejected, stale, deprecated, and superseded meaning;
+- task-scoped context with exact provenance;
+- new-project initialization and non-destructive brownfield adoption;
+- human-reviewed change proposals only after the read-only foundation is proven and separately
+  authorized.
 
-- Model: {Usage / Seat / Tiered}
-- Primary KPI: {MRR / ACV / etc}
-- Pricing Guardrails: {Range or constraints}
+Possible future methodologies are separate products and method packs with their own governance.
+They do not broaden V2 scope or justify speculative abstractions now.
 
-**Moat Thesis**
+### Durable product-memory contract
 
-- {What makes us 1–10% better/cheaper}
-- Supporting IDs: BR-###, CFD-###
+- Markdown is the canonical accepted state and recovery model; databases, views, indexes, and context
+  packages are disposable projections ([ARC-001](SoT/SoT.TECHNICAL_DECISIONS.md#arc-001-markdown-is-the-canonical-accepted-and-recovery-model)).
+- Durable identity, relationships, provenance, time, and process history must survive V2
+  ([ARC-002](SoT/SoT.TECHNICAL_DECISIONS.md#arc-002-durable-product-memory-survives-v2)).
+- The first executable contract is read-only, in-place inspection
+  ([ARC-003](SoT/SoT.TECHNICAL_DECISIONS.md#arc-003-first-executable-value-is-read-only-in-place-inspection)).
+- Repository authority and downstream seeds are separate
+  ([ARC-004](SoT/SoT.TECHNICAL_DECISIONS.md#arc-004-repository-authority-and-downstream-seeds-are-separate)).
 
-**Experiments & Fast-Follow Plans**
+### Governance rules
 
-- {Experiment summary} → ID: BR-### / TEST-###
+- Reusable packages must remain generic and non-destructive
+  ([BR-002](SoT/SoT.BUSINESS_RULES.md#br-002-reusable-packages-stay-generic-and-non-destructive)).
+- V2 remains Proposed and branch-isolated until explicit approval
+  ([BR-003](SoT/SoT.BUSINESS_RULES.md#br-003-v2-remains-proposed-and-branch-isolated)).
+- Implementation EPICs begin only at v0.7
+  ([BR-004](SoT/SoT.BUSINESS_RULES.md#br-004-implementation-epics-begin-only-at-v07)).
+- Version dimensions remain distinct
+  ([BR-005](SoT/SoT.BUSINESS_RULES.md#br-005-version-dimensions-remain-distinct)).
 
-**Outstanding Work → v0.4**
+### Explicit non-goals at v0.1
 
-- {Hypothesis requiring user validation}
+- Implementing the Compatibility Inspector or any other V2 runtime.
+- Moving or normalizing root `SoT/`.
+- Building a migration engine, accepted-state writer, Change Set application/adjudication path, or
+  silent promotion of inferred knowledge.
+- Building an MCP server, hosted service, cloud graph, marketplace requirement, portfolio dashboard,
+  generic node canvas, or GearHeartAI site.
+- V2 runtime/command-provider parity, public performance claims, automatic strategic decisions, adjacent business
+  methodologies, or a universal enterprise ontology.
+- Publishing this branch before a separate history-sanitization decision and release-candidate gate.
 
----
+### Empirical evidence state
 
-## v0.4 User Journeys — From Pain to Value
+No empirical evidence record is accepted at v0.1. The private review findings that shaped the
+contingent build plan remain provisional, are not copied into SoT, and do not validate the problem,
+audience, or a V2 runtime. Before advancing to v0.2, the owner must accept durable, reviewable
+evidence records for the problem and initial Product Management audience or explicitly hold the gate.
+The owner-confirmed BR/ARC records above are normative decisions, not substitutes for user evidence.
 
-**Journey Overview**
-| ID | Persona | Trigger | Key Steps | Pain Points | Moments of Value |
-|----|---------|---------|-----------|-------------|------------------|
-| UJ-### | {Persona} | {Trigger} | {Steps summary} | {Pain} | {Value}
+### Open owner decisions and target boundaries
 
-**Journey Narratives**
+The following are deliberately unresolved:
 
-- **UJ-### – {Title}**
-  - Step Flow: {1 → 2 → 3}
-  - Dependencies: BR-###, API-###
-  - Opportunity Notes: {Design or build implications}
+1. Approve, reject, or replace “The Product Model” as the public name before its v0.3 category and
+   packaging gate or any public use.
+2. Choose the canonical user-facing term for Build versus Deliver before that term gates execution
+   or public lifecycle copy; the owner has not assigned an earlier gate.
+3. Select the primary v0.2 Product Management audience, segment, and “not for” boundary; this is a
+   v0.1 → v0.2 gate decision supported by accepted evidence.
+4. Decide when website proof may move from planning to public evidence before any website
+   implementation or publication; it is not a v0.2 gate by default.
+5. Choose a history-sanitization strategy for the ancestor commit that exposed named private
+   evaluation targets before any push or public review; it is not a product-discovery gate.
 
-**UX / Research Assets**
+No answer is inferred by this PRD.
 
-- Link: `SoT/SoT.USER_JOURNEYS.md#uj-###`
-- Additional references: {Figma / research IDs}
+### v0.1 gate condition
 
-**Outstanding Work → v0.5**
-
-- {Risk or open question to stress-test}
-
----
-
-## v0.5 Red Team Review — Risks & Mitigations
-
-> **ID Note**: RISK-XXX IDs are defined inline in this section, not in a separate SoT file.
-> **Scoring**: Each RISK- maps to a scoring category (Market/User/Technical). Score = Impact × Likelihood × Status Weight. See `assets/risk.md` for full scoring reference.
-> **Continuous**: This register is a living document. New RISK- entries can be added at any stage (v0.5–v1.0). Update the README Risk Scorecard when entries change.
-
-**Risk Register**
-
-| ID | Scoring | Risk | Impact | Likelihood | Raw | Status | Eff. Score | Mitigation | Linked IDs |
-|----|---------|------|--------|------------|-----|--------|------------|------------|------------|
-| RISK-### | {Market/User/Technical} | {Risk description} | {H/M/L} | {H/M/L} | {1-9} | {open} | {score} | {Mitigation action} | BR-### |
-
-<!-- Risk Scoring Quick Reference:
-  Impact: High=3, Medium=2, Low=1 | Likelihood: High=3, Medium=2, Low=1
-  Raw = Impact × Likelihood
-  Status Weights: open=1.0, accepted=1.0, mitigating=0.5, mitigated=0.25, resolved=0.0
-  Effective Score = Raw × Status Weight
--->
-
-**Development Challenges (Flag for EPIC Planning)**
-
-- {Challenge} → Impacted IDs: API-###, TEST-###
-
-**Security / Compliance Notes**
-
-- {Requirement} → BR-### / DEP-###
-
-**Outstanding Work → v0.6**
-
-- {Architecture question to resolve}
-
----
-
-## v0.6 Architecture — Technical Blueprint
-
-**System Overview**
-
-- Architecture summary referencing TECHNICAL_ARCHITECTURE.md (ID: ARC-### if used).
-
-**API Contracts (API-XXX)**
-
-- API-### — {Endpoint purpose} (Method, Auth, Success / Error states)
-
-**Data Model (DBT-XXX)**
-
-- DBT-### — {Table / model} (Primary keys, relationships)
-
-**Integration Notes**
-
-- External dependencies, rate limits, compliance.
-
-**Development Graph — Expected Topology**
-
-The architecture recorded here is the *blueprint graph* — the intended shape the build must match in v0.7. Capture it so the as-built code can be diffed against it:
-
-- **Expected components & boundaries** — the System Overview above, read as a topology: which modules/services exist and which may depend on which.
-- **Conformance rules (on ARC- entries)** — structural claims the code can be checked against, e.g. _"the `engine/` layer must not import the UI framework."_ Each becomes a machine verdict (`pass`/`violate`) feeding the `architecture_conformance` readiness dimension. See `SoT/SoT.TECHNICAL_DECISIONS.md` and [`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md).
-
-**Outstanding Work → v0.7**
-
-- {Implementation open question}
+Wave 0B may close repository authority and packaging mechanics, but advancing to v0.2 still requires
+owner review of this Spark, its outcomes, its accepted SoT records, accepted initial evidence, and
+the primary-audience boundary. Deferred naming, lifecycle-copy, website-proof, and history decisions
+remain open at the boundaries stated above; they do not silently become v0.2 blockers.
+No V2 runtime work is authorized by this document at v0.1.
 
 ---
 
-## v0.7 Build Execution — Plan for Delivery
+## Later gates — not initialized
 
-**EPIC Backlog Overview**
-| EPIC | Objective | Lifecycle Impact | Status | Notes |
-|------|-----------|------------------|--------|-------|
-| EPIC-{XX} | {Outcome} | Advances to v0.{x+1} | 🚧 | {Summary}
-
-**Testing Strategy Snapshot (TEST-XXX)**
-
-- TEST-### — {Scope}
-- TEST-### — {Scope}
-
-**Development Graph (As-Built)**
-
-During the implementation loop, the `@implements` / `@verifies` tags on each code unit are harvested into the Development Graph (`status/devgraph.json`), bridging the code back to the specs above. This is what lets readiness measure build-vs-blueprint (`implementation_coverage`) and architecture drift (`architecture_conformance`) — and is the data the **HeartBeat** visualizer renders. See [`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md).
-
-**Definition of Done**
-
-- [ ] All IDs created/modified logged in EPIC Section 2.
-- [ ] README metrics updated via workflow.
-- [ ] Coverage thresholds defined.
-- [ ] Code traced to specs — every major unit carries `@implements`; `status/devgraph.json` rebuilt; `implementation_coverage` ≥ threshold (no scoped spec left unbuilt).
-
-### Deployment Configuration
-
-Deployment configuration should be established early in v0.7 to avoid late-stage integration issues. Document the following in `SoT/SoT.DEPLOYMENT.md`:
-
-#### Environments
-| Environment | Purpose | Trigger | URL Pattern |
-|-------------|---------|---------|-------------|
-| Production | Live users | Merge to main | Primary domain |
-| Preview/Staging | Pre-merge testing | Pull request | Branch-based URLs |
-| Development | Local development | N/A | localhost |
-
-#### Branch Strategy
-Define branch naming conventions and their deployment behavior:
-- `main` — Production deployments only
-- `feature/*` — Preview deployments for testing
-- `fix/*` — Preview deployments for bug verification
-- `experiment/*` — Preview deployments for exploration (may be abandoned)
-
-#### Quality Gates
-Specify required checks before code reaches production:
-1. **Automated** — Lint, type checking, unit tests (CI pipeline)
-2. **Manual** — Preview deployment smoke test
-3. **Optional** — E2E tests against preview environment
-
-#### Platform Configuration
-For each deployment target (web, mobile, API), document:
-- Hosting platform and tier
-- Environment variable management approach
-- Build configuration location
-- Secrets that require setup (reference `SoT/SoT.DEPLOYMENT.md` Secrets Inventory)
-
-#### Mobile-Specific (if applicable)
-- Code signing approach (manual, automated, or managed)
-- Beta distribution channel (TestFlight, Play Store Internal, etc.)
-- Release tagging convention (e.g., `v1.0.0` for production, `v1.0.0-beta.1` for beta)
-
-**Outstanding Work → v0.8**
-
-- {Deployment or operational prep item}
-
----
-
-## v0.8 Release & Deployment — Operational Readiness
-
-**Release Checklist**
-
-- [ ] Deployment environments configured (DEP-###).
-- [ ] Monitoring & alerting baselined.
-- [ ] Runbooks documented.
-
-**Operational Policies**
-
-- {Policy} → DEP-###
-
-**Outstanding Work → v0.9**
-
-- {GTM requirement}
-
----
-
-## v0.9 Go-to-Market — Launch & Feedback
-
-> **ID Note**: GTM-XXX (Go-to-Market) IDs are defined inline in this section, not in a separate SoT file. GTM- entries are typed: `Positioning`, `Offer`, `Guarantee`, `Channel`, `Sequence`, `Index`, `AEO`, `OUT` (outreach), `CHG` (changelog), `MOPS` (marketing-ops), `CASE`, `TST` (testimonial).
-> **Skills**: v0.9 runs as a chained workflow — `prd-v09-positioning-dunford` → `prd-v09-offer-construction-hormozi` → `prd-v09-launch-channels-orb`, orchestrated by `prd-v09-gtm-strategy`. Tactical playbooks (`aeo-audit`, `alternatives-pages`, `cold-outreach-tiered`, `hn-reddit-launch`) attach to specific channels.
-
-**Positioning** (from `prd-v09-positioning-dunford`, Dunford 5-step)
-
-- Best-fit segment: PER-### (sharpened)
-- Category claim: {frame of reference}
-- Positioning statement: GTM-###
-- Positioning rules: BR-POS-###
-
-**Offer** (from `prd-v09-offer-construction-hormozi`)
-
-- Core promise: {one-sentence outcome}
-- Stack value vs price: {ratio ≥ 3:1}
-- Guarantee: GTM-### (Type=Guarantee)
-
-**Launch Channels** (from `prd-v09-launch-channels-orb`, Owned/Rented/Borrowed)
-
-- Owned: GTM-###
-- Rented: GTM-###
-- Borrowed: GTM-###
-- Channel-mix matrix: GTM-### (Type=Sequence)
-
-**Tactical Plays Active**
-
-- AEO/AI search: GTM-AEO-### (from `prd-v09-aeo-audit`)
-- Alternatives pages: SCR-ALT-### (from `prd-v09-alternatives-pages`)
-- Cold outreach tiers: GTM-OUT-### (from `prd-v09-cold-outreach-tiered`)
-- HN / Reddit launch: GTM-### Type=Channel-HN / Channel-Reddit (from `prd-v09-hn-reddit-launch`)
-
-**Analytics & Feedback Loop**
-
-- Launch metrics: KPI-### (from `prd-v09-launch-metrics`)
-- Feedback sources: CFD-###, analytics dashboards
-- Reconciliation: GTM-### (Type=Index, by `prd-v09-gtm-strategy` orchestrator)
-
-**Outstanding Work → v1.0**
-
-- {Adoption stage assessment readiness}
-- {Beachhead candidate hypothesis}
-
----
-
-## v1.0 Market Adoption — Crossing the Chasm
-
-> **Spine**: This stage runs on Geoffrey Moore's *Crossing the Chasm*. See [`SoT/SoT.ADOPTION.md`](SoT/SoT.ADOPTION.md) for the full ADO- entry registry.
-> **ID Note**: ADO-XXX (Adoption) IDs are defined in `SoT/SoT.ADOPTION.md` (not inline). Sub-types: `ADO-STAGE-`, `ADO-BEACHHEAD-`, `ADO-WHOLE-`, `ADO-REF-`.
-
-**Adoption Stage Assessment** (from `prd-v10-chasm-adoption-moore`)
-
-- Current stage: ADO-STAGE-### → {Innovators / Early Adopters / At the Chasm / Bowling Alley / Tornado / Main Street}
-- Evidence: {Paying-customer composition + interview cohort}
-- Confidence: X/5
-
-**Beachhead Strategy** (when at or beyond the chasm)
-
-- Beachhead segment: ADO-BEACHHEAD-###
-- Whole-product gaps: ADO-WHOLE-### (blockers + serious)
-- Reference accounts in cultivation: ADO-REF-### (count + status)
-
-**Discovery + Validation** (continuous)
-
-- Discovery cadence: 3+ interviews/week via `prd-v10-continuous-discovery-torres` + `prd-v10-mom-test-interview`
-- Opportunity Solution Tree: `temp/<epic>_discovery-tree.md` (harvested to CFD-/UJ-/ADO- at EPIC close)
-
-**Social Proof Production**
-
-- Case studies: CFD-CASE-### + GTM-CASE-### (from `prd-v10-case-study-builder`)
-- Testimonials: CFD-TST-### + GTM-TST-### (from `prd-v10-testimonial-collector`)
-
-**Adoption Health**
-
-- Paying customers: {# / MRR}
-- Retention shape (cohort): {Day 7 / 30 / 90 retention by cohort}
-- Adoption-stage drift: monitored via `prd-v08-drift-baseline-compare` (MON-DRIFT-### baselines)
-
-**Optimization Backlog**
-
-- {Idea / hypothesis from discovery} → EPIC-{YY}
-
-**Future Bets & Loopbacks**
-
-- {Potential revisits to earlier lifecycle stages — usually triggered by ADO-STAGE re-assessment}
-
----
-
-## Appendices & References
-
-- **Glossary**: {Terms and definitions}
-- **ID Index**: Link to `SoT/SoT.UNIQUE_ID_SYSTEM.md` (Part 2: ID Registry).
-- **Supporting Docs**: {Links to research, design, architecture}
-
-> Maintain appendices as lightweight navigation helpers. All authoritative data must live in SoT files referenced above.
+v0.2 through v1.0 remain governed by the Progressive PRD lifecycle and the contingent build plan.
+They contain no accepted product definition here yet. In particular, no EPIC exists and none may be
+created before v0.7.

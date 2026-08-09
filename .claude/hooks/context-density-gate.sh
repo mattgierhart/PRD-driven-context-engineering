@@ -2,10 +2,20 @@
 # GHM Context Density Gate Hook (UserPromptSubmit)
 # Shell variant — see HOOK_CONTRACT.md for interface spec.
 #
-# Dependencies: POSIX shell, grep, wc, sed (standard utilities)
+# Dependencies: Bash, grep, wc, sed, awk, od (standard utilities)
 # No external packages required
-# No local module imports
+# Sources the sibling _json.sh helper.
 set -euo pipefail
+
+HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=_json.sh
+. "$HOOK_DIR/_json.sh"
+
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-}"
+if [ -z "$PROJECT_ROOT" ] || [ ! -d "$PROJECT_ROOT" ]; then
+  PROJECT_ROOT="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null || true)"
+fi
+[ -n "$PROJECT_ROOT" ] && [ -d "$PROJECT_ROOT" ] && cd "$PROJECT_ROOT"
 
 # --- Thresholds ---
 MIN_EPIC_TOKENS=500
@@ -15,10 +25,21 @@ MAX_SOT_REFERENCES=10
 # Generate ID prefix pattern from domain-profile.yaml (Issue #59)
 # Layout-aware: prefer the plugin's scripts/ when running as a plugin
 # (${CLAUDE_PLUGIN_ROOT} set), else fall back to the repo-relative path.
-HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GENPAT_SH="${CLAUDE_PLUGIN_ROOT:+${CLAUDE_PLUGIN_ROOT}/scripts/generate-id-pattern.sh}"
-PREFIX_GROUP="$(bash "${GENPAT_SH:-${HOOK_DIR}/../../scripts/generate-id-pattern.sh}" 2>/dev/null || echo '(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)')"
-SOT_PATTERN="\\b${PREFIX_GROUP}-[0-9]{3}\\b"
+REGISTRY_ERROR=""
+if ! PREFIX_GROUP="$(bash "${GENPAT_SH:-${HOOK_DIR}/../../scripts/generate-id-pattern.sh}" 2>/dev/null)"; then
+  PREFIX_GROUP=""
+  REGISTRY_ERROR="The explicit .claude/domain-profile.yaml has no readable id_prefixes registry."
+fi
+PREFIXES="${PREFIX_GROUP#(}"
+PREFIXES="${PREFIXES%)}"
+NON_EPIC_PREFIXES=$(printf '%s' "$PREFIXES" \
+  | sed -E 's/(^|\|)EPIC(\||$)/\1/; s/^\|//; s/\|$//')
+if [ -n "$NON_EPIC_PREFIXES" ]; then
+  SOT_PATTERN="\\b(${NON_EPIC_PREFIXES})(-[A-Z][A-Z0-9]*)?-[0-9]{3}\\b"
+else
+  SOT_PATTERN='a^'
+fi
 
 # --- Helpers ---
 
@@ -31,7 +52,7 @@ estimate_tokens() {
 
 count_sot_references() {
   local file="$1"
-  grep -oE "$SOT_PATTERN" "$file" 2>/dev/null | sort -u | wc -l | tr -d ' '
+  { grep -oE "$SOT_PATTERN" "$file" 2>/dev/null || true; } | sort -u | wc -l | tr -d ' '
 }
 
 resolve_epic_path() {
@@ -43,8 +64,13 @@ resolve_epic_path() {
     return
   fi
 
+  if [ -f "epics/EPIC-${epic_num}.md" ]; then
+    echo "epics/EPIC-${epic_num}.md"
+    return
+  fi
+
   local match
-  match=$(ls epics/EPIC-"${epic_num}"-*.md 2>/dev/null | head -1)
+  match=$(ls epics/EPIC-"${epic_num}"-*.md 2>/dev/null | head -1 || true)
   if [ -n "$match" ]; then
     echo "$match"
     return
@@ -56,7 +82,7 @@ resolve_epic_path() {
 json_output() {
   local context="$1"
   local json_context
-  json_context=$(printf '%s' "$context" | sed 's/\\/\\\\/g; s/"/\\"/g' | awk '{if(NR>1) printf "\\n"; printf "%s", $0}')
+  json_context=$(json_escape "$context")
   printf '{"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": "%s"}}\n' "$json_context"
 }
 
@@ -76,7 +102,7 @@ main() {
   # Check for epic work initiation
   local epic_num=""
   local slug=""
-  epic_num=$(printf '%s' "$prompt" | grep -oiE '(start|begin|work on|continue)[[:space:]]+(work[[:space:]]+on[[:space:]]+)?epic[- ]?([0-9]{1,2})' | grep -oE '[0-9]+' | head -1 || true)
+  epic_num=$(printf '%s' "$prompt" | grep -oiE '(start|begin|work on|continue)[[:space:]]+(work[[:space:]]+on[[:space:]]+)?epic[- ]?([0-9]{1,3})' | grep -oE '[0-9]+' | head -1 || true)
 
   # Check for gate approval request
   local gate_version=""
@@ -86,9 +112,19 @@ main() {
     exit 0
   fi
 
+  if [ -n "$REGISTRY_ERROR" ]; then
+    json_output "## Context Check: Registry Configuration Error
+
+${REGISTRY_ERROR}
+-> Repair the registered ID prefixes before relying on context-density results."
+    exit 0
+  fi
+
   if [ -n "$epic_num" ]; then
-    # Pad to 2 digits
-    epic_num=$(printf '%02d' "$epic_num")
+    # Preserve explicit 3-digit IDs; normalize 1-2 digit compatibility IDs in base 10.
+    if [ "${#epic_num}" -lt 3 ]; then
+      epic_num=$(printf '%02d' "$((10#$epic_num))")
+    fi
     local epic_path
     epic_path=$(resolve_epic_path "$epic_num" "$slug")
 

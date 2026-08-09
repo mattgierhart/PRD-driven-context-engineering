@@ -1,10 +1,13 @@
 # Market Moat Analysis Examples
 
+> **Synthetic examples:** Product contexts, measurements, evidence, and conclusions are fictional
+> teaching fixtures. Public competitor names are illustrative; re-verify all current facts.
+
 ## Good Examples
 
 ### Example 1: Salesforce CRM Moat Analysis (SMB Targeting)
 
-**Context**: Evaluating Salesforce for SMB warranty management product (HomeFalcon).
+**Context**: Evaluating Salesforce for a synthetic SMB warranty-management product.
 
 **Analysis**:
 ```

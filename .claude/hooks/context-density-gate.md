@@ -17,7 +17,7 @@ When user initiates epic or gate work, this hook:
 
 1. Parses prompt for epic/gate reference patterns
 2. If epic: Assesses token count and ID references (e.g., BR-, UJ-, API-)
-3. If gate: Checks gate requirements for that version
+3. If gate: Emits a reminder to verify that version's PRD gate requirements
 4. Outputs assessment as advisory (non-blocking)
 
 ## Trigger Patterns
@@ -79,7 +79,7 @@ Issues detected:
 
 ## Dependencies
 
-- POSIX shell, `grep`, `sed`, `wc`
+- Bash, `grep`, `sed`, `wc`
 - No external packages required
 
 > See [HOOK_CONTRACT.md](HOOK_CONTRACT.md) for the universal hook interface specification.

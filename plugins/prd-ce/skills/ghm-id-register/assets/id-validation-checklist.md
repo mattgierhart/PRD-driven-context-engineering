@@ -84,7 +84,8 @@
 - Two API- entries for the same resource with different schemas
 - Two UJ- entries for the same persona with contradictory flows
 
-**Resolution**: If conflict detected, add `conflicts-with` typed relationship to both entries and document resolution in the EPIC.
+**Resolution**: If conflict detected, add `conflicts-with` typed relationship to both entries and
+document resolution in the current PRD gate log before v0.7, or in the active EPIC from v0.7 onward.
 
 ---
 
@@ -178,10 +179,10 @@ Before registering new ID:
 
 ## Versioning Validation
 
-- [ ] **Version History**: Table present with columns: Date, Field, Previous, New, Reason, EPIC
-- [ ] **Initial Entry**: Row logged with "Initial creation" and EPIC reference
+- [ ] **Version History**: Table present with columns: Date, Field, Previous, New, Reason, Lifecycle Record
+- [ ] **Initial Entry**: Row logged with "Initial creation" and a PRD-gate reference before v0.7 or EPIC reference from v0.7 onward
 - [ ] **Field-Level Tracking**: For updates, each changed field gets its own row with previous and new values
-- [ ] **EPIC Traceability**: Every change row references the EPIC that prompted the change
+- [ ] **Lifecycle Traceability**: Every change row references the PRD gate record or approved EPIC that prompted the change
 
 ---
 

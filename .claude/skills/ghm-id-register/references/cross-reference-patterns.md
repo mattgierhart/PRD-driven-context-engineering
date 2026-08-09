@@ -172,7 +172,7 @@ Every cross-reference in a SoT entry SHOULD include a relationship type annotati
 ### Format
 
 ```
-- [ID-XXX](SoT.FILE.md#anchor) — {relationship-type}: {Description}
+- `ID-XXX` in `SoT.FILE.md#anchor` — {relationship-type}: {Description; replace with a resolved link}
 ```
 
 The em-dash (—) separates the link from the annotation. The relationship type is lowercase-hyphenated, followed by a colon and description.
@@ -258,7 +258,7 @@ These don't conflict if scope is clear (different tiers). They DO conflict if:
 ### Resolution Protocol
 
 1. Add `conflicts-with` relationship to both entries
-2. Document the conflict in the active EPIC
+2. Document the conflict in the current PRD gate log before v0.7, or in the active EPIC from v0.7 onward
 3. Resolve by: scoping (add conditions), deprecating (one wins), or merging (combine into one rule)
 4. Update Version History with resolution reason
 

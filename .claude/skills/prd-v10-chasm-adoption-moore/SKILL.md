@@ -172,7 +172,8 @@ Each risk gets mitigation actions tied to ADO-WHOLE-*, ADO-REF-*, or BR-* update
 
 ## Output Templates
 
-See [`SoT/SoT.ADOPTION.md`](../../../SoT/SoT.ADOPTION.md) for the complete entry templates for ADO-STAGE-, ADO-BEACHHEAD-, ADO-WHOLE-, and ADO-REF-.
+See the consumer-owned `SoT/SoT.ADOPTION.md` for the complete entry templates for ADO-STAGE-,
+ADO-BEACHHEAD-, ADO-WHOLE-, and ADO-REF-.
 
 ## Anti-Patterns
 

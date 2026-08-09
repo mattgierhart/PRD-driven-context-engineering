@@ -266,7 +266,7 @@ v0.5 establishes the **baseline** risk register, but risk discovery does not end
 | v0.7 Build | Implementation blockers, test coverage gaps | Technical score rises |
 | v0.8 Deployment | Operational risks, security findings | Technical score rises |
 | v0.9 GTM | Market timing shifts, competitive moves | Market score rises |
-| v1.0 Growth | Real adoption data contradicting assumptions | User score rises |
+| v1.0 Market Adoption | Real adoption data contradicting assumptions | User score rises |
 
 **Protocol when adding risks after v0.5**:
 1. Use the same RISK- template (assign next available number)

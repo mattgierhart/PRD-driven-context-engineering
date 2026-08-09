@@ -1,6 +1,6 @@
 ---
 name: metrics_drift_check
-trigger: Library (called by context-validation, sot-update-trigger, subagent-memory-save)
+trigger: Library (called by subagent-memory-save; also runnable manually)
 description: >
   Reusable validation that compares status/metrics.json against README.md
   section markers to detect value disagreements. Exits cleanly when
@@ -21,7 +21,7 @@ description: >
 
 ## Design Principles
 
-From HomeFalcon learnings on documentation drift elimination:
+From cross-project documentation-drift lessons:
 
 - **README is the human-authored view.** `status/metrics.json` is the machine-writable source.
 - **Validation ensures agreement.** Never auto-generate README content from JSON.
@@ -84,15 +84,13 @@ The script handles common shapes:
 
 | Hook | When it calls this | Purpose |
 |------|-------------------|---------|
-| `context-validation.py` | SessionStart | Surface drift before work begins |
-| `sot-update-trigger.py` | Stop | Catch drift introduced during session |
 | `subagent-memory-save.sh` | SubagentStop | Catch drift from subagent changes |
 
 ## Key Design Decisions
 
 | Decision | Rationale |
 |----------|-----------|
-| Library, not standalone hook | Same logic needed at 3 trigger points |
+| Library, not standalone event hook | Reusable from SubagentStop and manual/pre-commit checks |
 | Exit cleanly when no metrics.json | Pre-v0.7 projects should not be affected |
 | Section markers over line numbers | Line numbers drift on every README edit |
 | Normalize before comparing | Handle 1,552 vs 1552, 88.180% vs 88.18% |

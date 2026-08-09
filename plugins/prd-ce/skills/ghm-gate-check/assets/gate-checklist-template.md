@@ -225,19 +225,20 @@
 - ✅ Cross-references validated
 - ✅ SoT updated (no temp/ contamination)
 
-**Action**: Advance to next PRD version
+**Action**: Present the evidence for owner gate review; advance only after the owner records the
+approved PRD transition
 
 ---
 
-### Conditional Pass Criteria
+### Warn Criteria
 
-**Yellow (Pass with Conditions)**:
+**Yellow (Warn)**:
 - ⚠️ All mandatory artifacts present
 - ⚠️ 80%+ quality checks met
 - ⚠️ No blocker conditions
 - ⚠️ Minor issues documented (to fix in next phase)
 
-**Action**: Advance, but address issues within 1 week
+**Action**: Do not advance. Record the conditions, remediate them, and recompute readiness.
 
 **Conditions**:
 - [ ] [Issue 1 to fix]

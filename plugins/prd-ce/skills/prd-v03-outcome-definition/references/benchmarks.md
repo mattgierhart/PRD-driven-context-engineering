@@ -1,5 +1,8 @@
 # KPI Benchmark Sources
 
+> **Teaching reference:** Verify every external benchmark at the time of use. The illustrative
+> internal-policy section below is synthetic and is not a framework standard or empirical result.
+
 ## SaaS Revenue Metrics
 
 ### Churn Rates
@@ -73,31 +76,31 @@
 
 ---
 
-## GearHeart-Specific Standards
+## Illustrative Internal Policies (Synthetic)
 
 ### Revenue Velocity
 | Milestone | Target | Gate |
 |-----------|--------|------|
-| Market signal → first dollar | 14 days | v0.5 Red Team |
-| First dollar → $1K MRR | 30 days | Scaling decision |
-| $1K → $5K MRR | 60 days | Investment decision |
+| Market signal → first dollar | {owner-defined} | v0.5 Red Team |
+| First dollar → initial recurring-revenue target | {owner-defined} | Scaling decision |
+| Initial → growth recurring-revenue target | {owner-defined} | Investment decision |
 
 ### Infrastructure Constraints
 | Metric | Constraint | Source |
 |--------|------------|--------|
-| Cost per user | <$0.10/month | BR-001 GearHeart methodology |
-| Test coverage | ≥85% | BR-002 Quality standards |
-| Bundle size (JS) | ≤120KB | BR-003 Performance budget |
+| Cost per user | {product-specific limit} | BR-001 synthetic policy example |
+| Test coverage | {product-specific threshold} | BR-002 synthetic quality example |
+| Bundle size (JS) | {product-specific budget} | BR-003 synthetic performance example |
 
 ### Development Timeline
 | Product Type | MVP Target | Evidence |
 |--------------|------------|----------|
-| Undercut | 7-14 days | Simplest scope |
-| Clone | 14-21 days | Feature parity needed |
-| Slice | 14-21 days | Platform integration |
-| Wrapper | 14-21 days | API work |
-| Unbundle | 21-30 days | More depth required |
-| Innovation | 30-60 days | Education + validation |
+| Undercut | {owner-defined} | Validate scope and economics |
+| Clone | {owner-defined} | Validate required parity |
+| Slice | {owner-defined} | Validate platform integration |
+| Wrapper | {owner-defined} | Validate API dependencies |
+| Unbundle | {owner-defined} | Validate vertical depth |
+| Innovation | {owner-defined} | Validate education and behavior change |
 
 ---
 

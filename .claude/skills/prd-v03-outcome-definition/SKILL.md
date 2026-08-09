@@ -41,16 +41,16 @@ All KPI entries should include:
 
 Example KPI entry with confidence:
 ```markdown
-KPI-001: Time to First Revenue
+KPI-001: Time to First Revenue (synthetic example)
 
 Type: Tier 1 (Revenue)
 Category: Lagging
 Definition: Days from market signal identification to first paying customer
-Target: ≤14 days
-Confidence: 2/5 (source: GearHeart-methodology + 0-customer-validation)
-Evidence: BR-001 (GearHeart standard); No pre-customer validation yet
-Next Target: "Would move to 4/5 if actual customer reaches paying status in ≤14 days"
-Downstream Gate: v0.5 Red Team — if not hit by Day 21, evaluate pivot
+Target: ≤{owner-defined days}
+Confidence: 1/5 (source: illustrative local policy; no customer validation)
+Evidence: BR-001 (synthetic policy example); replace with product evidence
+Next Target: "Would move to 4/5 after an observed paying-customer cohort meets the target"
+Downstream Gate: v0.5 Red Team — define the escalation date from accepted evidence
 
 ---
 
@@ -113,7 +113,7 @@ Targets must be evidence-based, never arbitrary:
 
 **Good targets** (use these approaches):
 - Competitor benchmark × safety margin: "SMB churn benchmark 3-5% → use 5%"
-- Revenue gates: "First dollar by Day 14" (Signal → $1: 14 days)
+- Revenue gates: "First dollar by {evidence-backed date}" (owner-defined, not a framework default)
 - Ratio thresholds: "LTV:CAC ≥ 3:1"
 - Time bounds: "TTFV < 5 minutes for self-serve"
 
@@ -139,13 +139,13 @@ Measurement: [How/when measured — e.g., "Weekly via Mixpanel"]
 
 **Example KPI- entry:**
 ```
-KPI-001: Time to First Revenue
+KPI-001: Time to First Revenue (synthetic example)
 Type: Tier 1
 Category: Lagging
 Definition: Days from market signal identification to first paying customer
-Target: ≤14 days (GearHeart standard: Signal → $1: 14 days)
-Evidence: BR-001 (GearHeart methodology)
-Downstream Gate: v0.5 Red Team — if not hit by Day 21, evaluate pivot
+Target: ≤{owner-defined days}
+Evidence: BR-001 (synthetic policy example; replace with product evidence)
+Downstream Gate: v0.5 Red Team — use the accepted product-specific escalation date
 Measurement: Manual tracking in PRD changelog
 ```
 

@@ -2,22 +2,23 @@
 version: 1.0
 purpose: Source of Truth for adoption-stage data using Geoffrey Moore's Technology Adoption Lifecycle.
 id_prefix: ADO-XXX
-last_updated: 2026-05-22
-authority: This is a SoT file - entries created and updated by v1.0 skills (chasm-adoption-moore, continuous-discovery-torres, mom-test-interview, case-study-builder, testimonial-collector)
+last_updated: 2026-08-08
+authority: Template structure only until product-specific ADO records are accepted and added to the PRD SoT snapshot.
+template_state: uninitialized
 ---
 
 # Adoption (SoT File)
 
 > **Purpose**: Track current adoption-stage position, beachhead segment, whole-product gaps, reference accounts, and chasm-crossing strategy.
 > **ID Prefix**: ADO-XXX
-> **Status**: Active SoT file (v1.0 stage)
+> **Status**: Uninitialized starter; no ADO records are accepted in the current PRD snapshot
 > **Source**: Created and updated by v1.0 PRD skills
 > **Audience**: All agents (post-launch and v1.0 work especially)
 > **Cross-References**: Referenced by GTM-* (positioning, channels), KPI- (adoption metrics), CFD- (customer evidence)
 
 ## ID Categories
 
-Each ADO- entry belongs to one of four sub-types. Confidence scoring (1-5) per [P4](../`.claude/skills/PRINCIPLES.md`).
+Each ADO- entry belongs to one of four sub-types. Confidence scoring (1-5) per [P4](../.claude/skills/PRINCIPLES.md).
 
 ### ADO-STAGE-XXX: Adoption-stage assessment
 
@@ -52,19 +53,23 @@ The chasm — the gap between Early Adopters and Early Majority — is where mos
 
 ---
 
-## Example Entries
+## Synthetic Format Examples — Non-authoritative
+
+> These records demonstrate field shape only. Every name, ID, count, claim, status, and confidence
+> value is fictional or a placeholder. Replace them with attributable evidence and owner-accepted
+> IDs before treating any ADO record as product truth.
 
 ### ADO-STAGE-001: Current Adoption Stage Assessment
 
 - **Stage**: Early Adopters (with first chasm signals)
 - **Evidence**:
-  - Paying customers: 12. Of those: 9 are early-adopter shape (technologist founders, willing to debug, talk to founder weekly). 3 are early-majority shape (asked about SOC2, references, integration with existing stack).
-  - Inbound shape changing: recent inquiries asking "do you have X integration?" — pragmatist behavior.
-- **Confidence**: 3/5 (qualitative interview evidence, n=12)
-- **Implications**: Chasm crossing is the next strategic question, not an aspiration. Beachhead selection needed (ADO-BEACHHEAD-).
-- **Linked IDs**: CFD-100 (interview cohort), GTM-001 (positioning best-fit), KPI-101 (paid conversion rate)
+  - {Attributable customer-composition evidence}
+  - {Attributable inbound, retention, or purchasing-behavior evidence}
+- **Confidence**: {N}/5 ({source and limitations})
+- **Implications**: {What the accepted evidence changes}
+- **Linked IDs**: {CFD-XXX, GTM-XXX, KPI-XXX}
 - **Last verified**: YYYY-MM-DD
-- **Status**: Active
+- **Status**: Template — non-authoritative
 
 ### ADO-BEACHHEAD-001: Beachhead Segment
 
@@ -76,21 +81,22 @@ The chasm — the gap between Early Adopters and Early Majority — is where mos
 - **Not in-segment** (explicitly excluded for chasm crossing):
   - [Adjacent segments — record them; come back via "bowling alley" later]
 - **Rationale**: Why this segment first? (Pragmatist density + lowest whole-product gap + reference accessibility.)
-- **Confidence**: 2/5 → 3/5 with first 5 closed-won deals in segment
-- **Target**: 10 closed-won in this segment within [timeframe]
-- **Linked IDs**: PER-001 (sharpened beachhead persona), CFD-XXX (segment interviews), ADO-STAGE-001
-- **Status**: Active
+- **Confidence**: {N}/5 ({source and limitations})
+- **Target**: {Accepted outcome and timeframe}
+- **Linked IDs**: {PER-XXX, CFD-XXX, ADO-STAGE-XXX}
+- **Status**: Template — non-authoritative
 
-### ADO-WHOLE-001: Whole-Product Gap — SSO Integration
+### ADO-WHOLE-001: Whole-Product Gap — {Name}
 
 - **Gap type**: Integration
-- **Description**: Beachhead pragmatists require SSO (Okta / Azure AD) before purchase. Currently not shipped.
-- **Reported by**: CFD-105, CFD-108, CFD-112 (three lost deals cited SSO)
-- **Severity**: Blocker (no SSO = no deal in segment)
-- **Owner**: Engineering Lead
+- **Description**: {Evidence-backed missing expectation}
+- **Reported by**: {CFD-XXX references}
+- **Severity**: {Blocker | Serious | Moderate}
+- **Owner**: {Role}
 - **Target close date**: YYYY-MM-DD
-- **Confidence**: 4/5 (multiple lost-deal CFD- entries confirm)
-- **Linked IDs**: FEA-X (SSO feature), EPIC-Y (delivery), ADO-BEACHHEAD-001
+- **Confidence**: {N}/5 ({source and limitations})
+- **Linked IDs**: {FEA-XXX, EPIC-XX at v0.7+, ADO-BEACHHEAD-XXX}
+- **Status**: Template — non-authoritative
 
 ### ADO-REF-001: Reference Account — [Customer Name]
 
@@ -99,8 +105,9 @@ The chasm — the gap between Early Adopters and Early Majority — is where mos
 - **Story strength**: [What outcome are they willing to talk about publicly?]
 - **Consent**: [Approved for: logo / quote / case study / on-stage / podcast]
 - **Target placement**: [Pricing page logo, blog case study, conference talk, AE talking points]
-- **Confidence**: 4/5 (signed consent, story drafted, awaiting review)
+- **Confidence**: {N}/5 ({consent and review state})
 - **Linked IDs**: CFD-XXX (customer interview), GTM-CASE-XXX (case study asset), ADO-BEACHHEAD-001
+- **Status**: Template — non-authoritative
 
 ---
 

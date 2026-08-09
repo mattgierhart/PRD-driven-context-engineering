@@ -134,7 +134,10 @@
 
 ### P7: Readiness is a Floor, Not a Target (High Priority)
 
-**Statement**: Readiness and confidence scores exist to *gate advancement* — they are a do-no-harm **floor**, never a number to maximize. A score that rises without the underlying evidence rising is not progress; it is a **frozen-replay defect** (borrowed from the meta-harness method): the cheap proxy moved while the real quality it stands for stayed locked.
+**Statement**: Readiness and confidence scores enforce a do-no-harm evidence **floor** for owner
+gate review; they never authorize advancement and are never numbers to maximize. A score that rises
+without the underlying evidence rising is not progress; it is a **frozen-replay defect** (borrowed
+from the meta-harness method): the cheap proxy moved while the real quality it stands for stayed locked.
 
 **What this means**:
 - The readiness scorer (`scripts/readiness.py`) is a deterministic, $0, no-LLM proxy for the true objective: *a product real users will react to*. It is cheap precisely so it can be re-run constantly — but cheap proxies invite gaming.
@@ -148,7 +151,8 @@
 If only padding moved it, the gain is fake. Raise evidence tier, not entry volume.
 
 **What skills should do**:
-- Treat passing a gate as *permission to advance*, not the goal of the work. The goal is evidence.
+- Treat passing a gate as *eligibility for owner gate review*, not authorization or the goal of the
+  work. The goal is evidence; only an owner-approved PRD transition authorizes advancement.
 - Never inflate `entry_count`, `cross_ref_density`, or self-rated `confidence` to clear a threshold. Grade something the artifact genuinely controls.
 - Keep the scorer LLM-free. Adding an LLM-judged dimension would make the proxy drift and un-cheap — the opposite of what makes it useful.
 

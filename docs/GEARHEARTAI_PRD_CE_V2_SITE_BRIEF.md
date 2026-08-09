@@ -7,7 +7,7 @@ product_generation: 2
 source_repository_branch: "codex/prd-ce-v2-product-model"
 source_review_commit: "REQUIRED_AT_SITE_EXECUTION — use a sanitized immutable commit"
 research_blueprint_original_sha256: "afe50856ff70f9dcf00eafe9ecc41df7eaea5310c395c936af16cb8e706e45a5"
-research_blueprint_file_sha256: "03ad5c64e18bacd8ece49266984090439e7857d667227c50280de4e8d8caa9c5"
+research_blueprint_file_sha256: "e32ecaba7db51ffbcabee8f29550a63b7cb828bd781567ba23bd690f146c4f83"
 research_blueprint_path: "docs/MASTER_AI_NATIVE_PRODUCT_ENGINEERING_V2_IMPLEMENTATION_BLUEPRINT.md"
 build_plan_path: "docs/PRD_CE_V2_BUILD_PLAN.md"
 ---
@@ -66,7 +66,9 @@ repository, template, plugin, and package versions.
 
 The coding agent must read the target site's local instructions and source before changing it. Treat the following as the content basis for this redesign:
 
-- The proposed [V2 build plan](PRD_CE_V2_BUILD_PLAN.md), which governs scope and sequencing.
+- The canonical root [`PRD.md`](../PRD.md), initialized at v0.1, plus its accepted BR/ARC records.
+- The proposed [V2 build plan](PRD_CE_V2_BUILD_PLAN.md), which supplies contingent sequencing
+  subordinate to the PRD and accepted SoT.
 - The preserved [V2 research blueprint](MASTER_AI_NATIVE_PRODUCT_ENGINEERING_V2_IMPLEMENTATION_BLUEPRINT.md), version 2.1, with original-source and current-file fingerprints in this document's frontmatter.
 - The canonical [PRD-CE repository](https://github.com/mattgierhart/PRD-driven-context-engineering).
   Before implementation, replace `source_review_commit` with the sanitized immutable commit the
@@ -82,8 +84,8 @@ detail or represent the proposal as implemented. Do not link a public site to a 
 Authority rules:
 
 1. PRD-CE remains the canonical methodology source. GearHeartAI.org is a presentation and distribution surface, not a competing Source of Truth.
-2. The build plan is proposed direction and the research blueprint is input; neither proves that a
-   feature ships.
+2. The root PRD and accepted SoT govern product truth. The build plan is proposed sequencing and the
+   research blueprint is input; none of them proves that a feature ships without executable evidence.
 3. Website copy must resolve from a small, explicit capability-status model. Each public capability record must include `status`, `sourceUrl`, `sourceCommitOrRelease`, and `verifiedAt`; validation must reject factual claims whose provenance is missing or stale under the site's policy. Do not duplicate changing counts or release claims across components.
 4. Never invent customers, testimonials, adoption metrics, benchmarks, installation commands, working integrations, or product screenshots.
 5. Every factual product claim must link to a current artifact, release, demo, or repository source. Clearly labeled illustrative fixture data is exempt because it is not a product claim, but it must never be mixed with real evidence.
@@ -116,13 +118,17 @@ verified release target.
 
 ## 5. Audience and jobs to be done
 
-### Primary audience
+### Proposed site-shaping audience (pending v0.2 evidence and owner decision)
 
 Product managers, product leaders, and product operations leaders responsible for a long-lived
 product that is increasingly shaped with multiple AI agents. They have evidence, decisions,
 requirements, delivery state, release learning, and rationale spread across PRDs, tickets, code,
 tests, chats, dashboards, and individual memory. They want each human and agent to work from current
 context without re-briefing or silent invention.
+
+This is a content-shaping hypothesis, not the accepted v0.2 primary segment. The product owner must
+select the primary audience and “not for” boundary from accepted, reviewable evidence before the
+PRD advances to v0.2; implementation agents must not infer that decision from this brief.
 
 ### Secondary audiences
 

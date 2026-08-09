@@ -69,7 +69,10 @@ This is an **operational** "doing" skill, not a strategy skill. The strategic qu
 
 ## Example
 
-Customer: Acme Logistics (beachhead segment: freight forwarders, 50-200 employees, US PNW). ADO-REF-002.
+> **Synthetic fixture:** The organization, interview, metrics, quotes, and outcomes below are
+> fictional. Never publish them as customer evidence.
+
+Customer: Acme Logistics (fictional beachhead example: freight forwarders, 50-200 employees, US PNW). ADO-REF-002.
 
 **Interview**: 50 minutes with Acme's VP Operations.
 

@@ -2,8 +2,9 @@
 version: 1.0
 purpose: Source of Truth for API endpoint specifications and contracts.
 id_prefix: API-XXX
-last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOURNEYS.md, SoT.TESTING.md, EPICs, and code
+last_updated: 2026-08-08
+authority: Starter structure only; no API records are accepted unless named in the PRD SoT snapshot.
+template_state: uninitialized
 ---
 <!-- SECTION: template-structure -->
 
@@ -11,7 +12,7 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOUR
 
 > **Purpose**: Specifications for all API endpoints and integrations.
 > **ID Prefix**: API-XXX
-> **Status**: Active SoT file
+> **Status**: Uninitialized starter; no API records are accepted in the current PRD snapshot
 > **Cross-References**: Referenced by PRD.md, SoT.USER_JOURNEYS.md, SoT.BUSINESS_RULES.md, SoT.TESTING.md, EPICs
 
 ## Navigation by Category
@@ -115,9 +116,9 @@ When adding a new API-XXX:
 - [ ] Update SoT.USER_JOURNEYS.md "APIs Used" section
 - [ ] Update SoT.BUSINESS_RULES.md if rule is enforced
 - [ ] Update SoT.TESTING.md with endpoint tests
-- [ ] Update EPIC Section 2 "Context & IDs" list
+- [ ] Before v0.7, update the PRD gate change log / SoT snapshot; at v0.7+, update the active EPIC "Context & IDs" list
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry if maintained
 
 ---
 
-*End of SoT.API_CONTRACTS.md - Authoritative source for all API-XXX IDs*
+*End of SoT.API_CONTRACTS.md — canonical API record location once activated and accepted; currently template structure only.*

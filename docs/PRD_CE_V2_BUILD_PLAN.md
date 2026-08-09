@@ -3,7 +3,7 @@ title: "PRD-CE V2 · Full Build Plan"
 date: "2026-08-08"
 status: "Proposed plan — no V2 runtime implemented"
 methodology_generation: 2
-current_prd_lifecycle_gate: "Uninitialized; proposed starting gate v0.1 Spark"
+current_prd_lifecycle_gate: "v0.1 Spark — initialized; owner review required before v0.2"
 branch: "codex/prd-ce-v2-product-model"
 observed_baseline_commit: "84e040f90d7993d6306dc2645f6a1c9dbc0b1e1f"
 authority: "Contingent build sequence; subordinate to the Progressive PRD and accepted SoT decisions"
@@ -13,8 +13,7 @@ authority: "Contingent build sequence; subordinate to the Progressive PRD and ac
 
 ## Related artifacts
 
-- [`../PRD.md`](../PRD.md) — required product authority; currently an uninitialized downstream seed
-  pending the Wave 0 split.
+- [`../PRD.md`](../PRD.md) — V2 product authority, initialized at v0.1 after the Wave 0B seed split.
 - [`MASTER_AI_NATIVE_PRODUCT_ENGINEERING_V2_IMPLEMENTATION_BLUEPRINT.md`](MASTER_AI_NATIVE_PRODUCT_ENGINEERING_V2_IMPLEMENTATION_BLUEPRINT.md)
   — preserved, non-authoritative research input.
 - [`PRD_CE_V2_LIVE_PROJECT_EVALUATION_PROMPT.md`](PRD_CE_V2_LIVE_PROJECT_EVALUATION_PROMPT.md)
@@ -41,9 +40,8 @@ The first executable value is deliberately smaller:
 > authored files.
 
 This plan covers the full intended buildout, but it is **not an EPIC or an implementation
-authorization**. V2 should begin at Progressive PRD gate v0.1, but the root PRD is not yet
-initialized for V2 because the repository-authority/template-seed conflict in Section 3 must be
-resolved first. Implementation EPICs begin only at v0.7.
+authorization**. V2 is initialized at Progressive PRD gate v0.1 after the Wave 0B
+repository-authority/template-seed split. Implementation EPICs begin only at v0.7.
 
 ## 2. Owner-confirmed boundaries
 
@@ -75,7 +73,7 @@ The following decisions govern this plan:
 |---|---|
 | Current methodology on `main` | Existing V1 baseline |
 | V2 research package | Committed design input |
-| V2 build plan | Proposed |
+| V2 build plan | Proposed sequencing; Wave 0B governance bootstrap owner-approved |
 | V2 parser, index, validator, or query runtime | Not implemented |
 | V2 migration or accepted-state writer | Not implemented and on hold |
 | V2 public availability | Proposed; not installable |
@@ -85,38 +83,43 @@ The following decisions govern this plan:
 
 1. `PRD.md` — methodology product strategy and lifecycle authorization.
 2. Accepted SoT records and IDs — durable evidence, decisions, rules, and technical contracts.
-3. This build plan — contingent sequencing and gates.
-4. The master blueprint — research input, not an override.
-5. Evaluation outputs — evidence candidates until sanitized, reproducible, and accepted.
-6. EPICs — bounded execution records created only at v0.7 or later.
+3. Approved EPICs — bounded execution records created only at v0.7 or later.
+4. This build plan — contingent sequencing and gates.
+5. The master blueprint — research input, not an override.
+6. Evaluation outputs — evidence candidates until sanitized, reproducible, and accepted.
 
-### Authority and packaging debt to close first
+### Wave 0B authority and packaging resolution
 
-The root `PRD.md` is currently both the repository's required product-definition surface and the
-generic PRD seed shipped to downstream repositories. Those responsibilities conflict: filling the
-root PRD with PRD-CE's own V2 strategy would contaminate the reusable product template, while
-leaving it blank keeps V2 outside the repository's documented authority chain.
+The previous baseline used root `PRD.md` and root `SoT/` both as repository authority surfaces and
+as generic downstream seeds. Those responsibilities conflicted: productizing either root authority
+surface would contaminate new downstream repositories.
 
-The install manifest also treats the entire root `docs/` directory as framework content. Without a
-distribution allowlist, repository-maintainer plans, research inputs, evaluation protocols, and the
-GearHeart website handoff can travel into downstream product repositories even though they are not
-part of the Product Management method.
+The previous install manifest also treated the entire root `docs/` and `scripts/` directories as
+framework content. Directory-wide forced replacement could distribute maintainer artifacts and
+erase unrelated consumer files.
 
-**Recommended resolution:** before runtime implementation, separate the generic seed from the
-repository's own product authority:
+**Owner-approved resolution implemented by Wave 0B:** before runtime implementation, separate
+generic seed sources from repository product authority:
 
-1. Move the generic downstream PRD source into an explicit template-source location.
-2. Update the install manifest, packaging transform, and sync checks to seed that generic file.
-3. Replace whole-directory `docs/` distribution with an explicit allowlist of consumer-facing
-   Product Management method documentation. Keep maintainer plans, research, evaluations, and site
-   handoffs repository-local.
-4. Update root `PRD.md` in place to define PRD-CE itself, beginning at v0.1.
-5. Register accepted V2 evidence and decisions with durable IDs without copying them into the
-   downstream seed.
-6. Add a clean-install fixture proving no methodology-development or GearHeart handoff content
-   leaks into a new product.
+1. `PRD_template.md` and `SoT_template/` are generic downstream sources; they seed `PRD.md` and
+   `SoT/` once.
+2. Root `PRD.md` and root `SoT/` remain repository authority and are never packaged as downstream
+   seed content.
+3. Consumer documentation is allowlisted to `docs/DEVELOPMENT_GRAPH.md` and
+   `docs/READINESS_PROTOCOL.md`; maintainer plans, research, evaluations, and site handoffs remain
+   repository-local.
+4. Framework scripts are file-allowlisted so forced reinstall cannot replace a consumer's entire
+   `scripts/` directory.
+5. Every mutable consumer destination has a distinct generic source. Direct installation and
+   upgrade run only from a trusted methodology checkout; an installed consumer repository is not
+   a distribution authority for another consumer.
+6. Direct and plugin-native installation use deterministic seed bytes and preserve existing
+   consumer-owned destinations.
+7. Isolated distribution tests prove clean install, reinstall protection, plugin parity, link
+   closure, package completeness, and sensitive-reference exclusions.
 
-Until that split is complete, this document remains proposed and no V2 runtime work is authorized.
+The split resolves the authority exception but does not authorize V2 runtime work. This build plan
+remains contingent and subordinate to the v0.1 PRD and accepted SoT decisions.
 
 ## 4. Product scope
 
@@ -155,8 +158,8 @@ experience. No future use case is allowed to make Product Management users learn
 
 ## 5. Sanitized review findings adopted as provisional planning inputs
 
-These findings shape this proposed plan but are not yet accepted SoT evidence. They must be
-registered with durable IDs after the authority/template split; the raw private evaluation remains
+These findings shape this proposed plan but remain provisional and are not accepted SoT evidence.
+Wave 0B registers only owner-confirmed normative decisions; the raw private evaluation remains
 ignored and is not a canonical source.
 
 ### Strong findings that change the plan
@@ -235,10 +238,10 @@ are delivery sequencing, not alternate PRD versions.
 
 ## 8. Provisional build waves
 
-Before v0.1 initialization, only Wave 0A documentation is authorized by the current request. Wave
-0B is a separately approved repository-governance bootstrap: it may change template and packaging
-mechanics before v0.1, but it does not implement the V2 runtime and does not create a premature
-EPIC. All product-runtime implementation waits for the required PRD gate and a v0.7+ EPIC.
+Wave 0A produced the planning package. Wave 0B is an owner-approved repository-governance bootstrap:
+it initializes v0.1 and changes template and packaging mechanics, but it does not implement the V2
+runtime or create an EPIC. All product-runtime implementation waits for the required PRD gates and
+a v0.7+ EPIC.
 
 ### Wave 0 — Authority, scope, and clean packaging
 
@@ -256,12 +259,12 @@ Deliver:
 
 #### Wave 0B — Owner-approved governance bootstrap
 
-After a separate owner approval, deliver:
+Under the 2026-08-08 owner approval, deliver:
 
 - Separate repository product authority from downstream template seeds.
 - Replace blanket `docs/` installation with an explicit consumer-document allowlist.
 - Populate root `PRD.md` with PRD-CE's V2 product definition after the split.
-- Register accepted V2 evidence and owner decisions with durable IDs.
+- Register owner-confirmed normative decisions with durable IDs; accept no empirical review evidence in Wave 0B.
 - Mark the research blueprint proposed and reconcile its competing first-release definitions.
 - Define one naming/version vocabulary for methodology generation, PRD gate, runtime release,
   template version, and provider package version.
@@ -578,32 +581,27 @@ The coding-agent handoff is [`GEARHEARTAI_PRD_CE_V2_SITE_BRIEF.md`](GEARHEARTAI_
 
 These decisions should be resolved at their PRD gate, not guessed by an implementation agent:
 
-1. Confirm the repository-authority/template-seed and consumer-document allowlist split described in
-   Section 3.
-2. Approve the public product name; **The Product Model** remains a working label only.
-3. Confirm whether the public lifecycle verb remains **Build** or becomes **Deliver**.
-4. Approve the exact v0.2 primary user and “not for” boundary after research.
-5. Confirm whether the first website proof remains illustrative until Wave 2 or waits for the
+1. Approve the public product name; **The Product Model** remains a working label only.
+2. Confirm whether the public lifecycle verb remains **Build** or becomes **Deliver**.
+3. Approve the exact v0.2 primary user and “not for” boundary after research.
+4. Confirm whether the first website proof remains illustrative until Wave 2 or waits for the
    runtime-backed Compatibility Inspector.
-6. Approve how the unpublished branch history will be sanitized before any push or public review.
-7. Approve the release and merge independently after v0.8 evidence exists.
+5. Approve how the unpublished branch history will be sanitized before any push or public review.
+6. Approve the release and merge independently after v0.8 evidence exists.
 
 ## 15. Immediate next actions
 
-1. Commit this plan, the generic evaluation protocol, blueprint status notice, and revised
-   GearHeartAI brief as one reviewable planning package.
-2. Keep the commit local; review and approve a sanitized-history publication strategy before any
-   push or remote handoff.
-3. Review and separately approve the Wave 0B governance bootstrap.
-4. Execute Wave 0B as a reviewed repository-maintenance change: split the PRD seed, allowlist
-   consumer docs, prove a clean install, then update root `PRD.md` to v0.1 and register accepted
-   evidence/decisions.
-5. Complete v0.2 user and adoption-profile research with Product Management practitioners.
-6. Build the synthetic compatibility inventory during v0.5/v0.6 planning; keep private validation
+1. Review and commit the Wave 0B governance bootstrap locally; do not push this branch history.
+2. Obtain owner approval for a sanitized-history publication strategy before any remote handoff.
+3. Complete v0.2 user and adoption-profile research with Product Management practitioners.
+4. Before authorizing v0.2, accept reviewable problem/audience evidence and obtain the owner's
+   primary-audience and “not for” decision. Track the other open decisions at their stated gates;
+   they are not implicit v0.2 blockers.
+5. Build the synthetic compatibility inventory during v0.5/v0.6 planning; keep private validation
    targets in an ignored local manifest.
-7. At v0.6, write the parser, projection, safety, and packaging contracts and run only disposable
+6. At v0.6, write the parser, projection, safety, and packaging contracts and run only disposable
    technical spikes.
-8. At v0.7, create the first implementation EPIC for the read-only Compatibility Inspector.
+7. At v0.7, create the first implementation EPIC for the read-only Compatibility Inspector.
 
 ## 16. Definition of full V2
 

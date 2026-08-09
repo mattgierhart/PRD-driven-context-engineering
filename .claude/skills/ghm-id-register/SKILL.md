@@ -2,7 +2,7 @@
 name: ghm-id-register
 description: >
   Validates and registers new SoT IDs with cross-reference integrity.
-  Triggers when creating BR-XXX, UJ-XXX, API-XXX, or CFD-XXX entries.
+  Triggers when creating any ID registered in .claude/domain-profile.yaml.
   Outputs formatted SoT entry with validated cross-references.
 context: fork
 allowed-tools:
@@ -18,10 +18,11 @@ Validate and register new Source of Truth IDs with cross-reference integrity che
 
 ## Workflow Overview
 
-1. **Validate Format** → Check ID follows `[PREFIX]-[3-digit]` pattern
-2. **Check Uniqueness** → Ensure ID doesn't already exist
-3. **Verify Cross-Refs** → All referenced IDs must exist
-4. **Register Entry** → Add to appropriate SoT file
+1. **Resolve Registry** → Read the prefix and owning file from `.claude/domain-profile.yaml`
+2. **Activate Template** → Replace examples before the first real record
+3. **Validate + Uniqueness** → Enforce three digits (EPIC permits its legacy 2-digit form) and allocate safely
+4. **Verify Cross-Refs** → All referenced IDs must exist
+5. **Register Entry** → Add to the registry-owned file
 
 ## Core Output Template
 
@@ -32,7 +33,10 @@ Validate and register new Source of Truth IDs with cross-reference integrity che
 | **Cross-References** | Links to related IDs | All referenced IDs exist |
 | **Status** | Current state | Draft / Active / Deprecated |
 
-## ID Format Reference
+## ID Format Examples
+
+The machine-readable registry in `.claude/domain-profile.yaml` is canonical. The rows below are
+examples, not an exhaustive prefix list.
 
 | Prefix | Domain | File |
 |--------|--------|------|
@@ -41,29 +45,40 @@ Validate and register new Source of Truth IDs with cross-reference integrity che
 | `API-` | API Contracts | `SoT/SoT.API_CONTRACTS.md` |
 | `CFD-` | Customer Feedback | `SoT/SoT.customer_feedback.md` |
 
-## Step 1: Validate Format
+## Step 1: Resolve the Registry and Validate Format
 
 Check ID follows the pattern:
 
 ```
-[PREFIX]-[XXX]
+{PREFIX}[-{SUBTYPE}]-{NUMBER}
 ```
 
 Where:
-- PREFIX = BR, UJ, API, or CFD
-- XXX = 3-digit number (zero-padded)
+- PREFIX = a key registered under `id_prefixes` in `.claude/domain-profile.yaml`
+- SUBTYPE = optional uppercase qualifier such as `STAGE` in `ADO-STAGE-001`
+- NUMBER = zero-padded 3-digit sequence; `EPIC` alone may retain its established 2-digit sequence
 
 ### Checklist
-- [ ] Prefix is valid (BR, UJ, API, CFD)
-- [ ] Number is 3 digits
-- [ ] Format matches `[A-Z]+-[0-9]{3}`
+- [ ] Prefix exists in the current domain profile
+- [ ] Optional subtype is uppercase and follows a registered base prefix
+- [ ] Number is 3 digits, except the explicit `EPIC-NN` compatibility form
+- [ ] Format matches `[A-Z]+(-[A-Z][A-Z0-9]*)?-[0-9]{3}` or `EPIC-[0-9]{2,3}`
 
 ## Step 2: Check Uniqueness
 
-1. Read target SoT file
+1. Resolve and read the target file from the current domain profile
 2. Extract all existing IDs of same prefix
 3. Verify new ID doesn't exist
 4. If auto-assigning: use highest existing + 1
+
+### Uninitialized-template rule
+
+If the target has `template_state: uninitialized`, its numbered blocks are format examples and do
+not reserve IDs. Before registering the first real record:
+
+1. Replace or remove every numbered example block in that file; do not append beside it.
+2. Set `template_state: active`.
+3. Allocate against real definitions only and add the new ID to the current PRD gate snapshot.
 
 ### Checklist
 - [ ] Target SoT file read
@@ -73,15 +88,13 @@ Where:
 ## Step 3: Verify Cross-References
 
 For each ID referenced in the new entry:
-1. Identify the prefix
-2. Check that ID exists in its SoT file
+1. Resolve the prefix through the domain profile
+2. Check that ID exists in its registered owning file
 3. Flag any missing references
 
 ### Checklist
-- [ ] All `BR-XXX` references exist in BUSINESS_RULES
-- [ ] All `UJ-XXX` references exist in USER_JOURNEYS
-- [ ] All `API-XXX` references exist in API_CONTRACTS
-- [ ] All `CFD-XXX` references exist in CUSTOMER_FEEDBACK
+- [ ] Every referenced prefix is registered
+- [ ] Every referenced ID exists in its registered owning file
 - [ ] Each cross-reference includes a relationship type (see `references/cross-reference-patterns.md`)
 - [ ] Relationship types match the directional hierarchy (vertical types for cross-layer, lateral types for same-layer)
 
@@ -104,7 +117,7 @@ Before registering, assign a confidence score (1-5) based on evidence strength:
 - `confidence: 3/5, source: 5-user-interviews-jan-2026`
 - `confidence: 4/5, source: beta-cohort-validation`
 
-See `.claude/skills/PRINCIPLES.md` for detailed confidence model by SoT type.
+See [`../PRINCIPLES.md`](../PRINCIPLES.md) for the confidence model by SoT type.
 
 ### Checklist
 - [ ] Confidence score assigned (1-5)
@@ -193,5 +206,6 @@ During interviews, 4 of 5 users mentioned desire for dark mode. Competitors (Not
 After ID registration:
 - New ID is in SoT file
 - Cross-references are valid
-- EPIC Execution Plan updated with new ID
-- Ready for implementation
+- Before v0.7, the current PRD gate change log and accepted SoT snapshot are updated
+- At v0.7+, the active EPIC Context & IDs section is updated
+- Registration alone does not authorize implementation

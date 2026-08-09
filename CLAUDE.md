@@ -1,14 +1,16 @@
 ---
 title: "CLAUDE Agent Operating Guide"
-updated: "2026-06-10"
+updated: "2026-08-08"
 authority: "PRD Led Context Engineering"
-template_version: "3.2.0"
+template_version: "3.3.0"
 ---
 
 # CLAUDE.md — Agent Operating Guide
 
 > **Mission**: Build software in lockstep with the PRD Version Lifecycle.
-> **Authority**: Load `README.md` → `PRD.md` → `CLAUDE.md` → Active EPIC.
+> **Read order**: `CLAUDE.md` → `README.md` → `PRD.md` → accepted `SoT/` → Active EPIC (v0.7+ only).
+> **Truth precedence**: `PRD.md` authorizes lifecycle and scope; accepted SoT records hold durable
+> detail; an approved EPIC narrows execution. This guide governs behavior, not product facts.
 > **Core Rule**: If it's not in the ID Graph (Specs), it doesn't exist.
 
 Rules are loaded automatically from `.claude/rules/*.md`.
@@ -19,13 +21,12 @@ Rules are loaded automatically from `.claude/rules/*.md`.
 - **ID System**: [`SoT/SoT.UNIQUE_ID_SYSTEM.md`](SoT/SoT.UNIQUE_ID_SYSTEM.md)
 - **SoT Index**: [`SoT/SoT.README.md`](SoT/SoT.README.md)
 - **EPIC Template**: [`epics/EPIC_TEMPLATE.md`](epics/EPIC_TEMPLATE.md)
-- **Active Work**: [`epics/`](epics/)
+- **EPIC workspace (v0.7+)**: [`epics/`](epics/)
 - **Domain Profile**: [`.claude/domain-profile.yaml`](.claude/domain-profile.yaml)
 - **Hook Contract**: [`.claude/hooks/HOOK_CONTRACT.md`](.claude/hooks/HOOK_CONTRACT.md)
 - **Agent Registry**: [`.claude/agents/`](.claude/agents/)
 - **Rules**: [`.claude/rules/`](.claude/rules/)
 - **SoT HTML Companion**: [`SoT/html/`](SoT/html/README.md) — human-review renders of each SoT file
-- **Deliverables (concept)**: [`docs/DELIVERABLES_CONCEPT.md`](docs/DELIVERABLES_CONCEPT.md) — proposed input-mode layer where humans emit SoT markdown
 
 ## SoT HTML Companion (when to use it)
 

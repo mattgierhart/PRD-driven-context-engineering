@@ -2,8 +2,9 @@
 version: 2.0
 purpose: Source of Truth for deployment configuration, environments, secrets inventory, procedures, runbooks, and monitoring.
 id_prefix: DEP-XXX, RUN-XXX, MON-XXX, SEC-XXX
-last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and operations docs
+last_updated: 2026-08-08
+authority: Starter structure only; no DEP, RUN, MON, or SEC records are accepted unless named in the PRD SoT snapshot.
+template_state: uninitialized
 ---
 <!-- SECTION: template-structure -->
 
@@ -11,7 +12,7 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and op
 
 > **Purpose**: Deployment configuration, secrets inventory, operational runbooks, and monitoring rules.
 > **ID Prefixes**: DEP-XXX (Deployment), RUN-XXX (Runbooks), MON-XXX (Monitoring), SEC-XXX (Secrets)
-> **Status**: Active SoT file
+> **Status**: Uninitialized starter; no deployment records are accepted in the current PRD snapshot
 > **Cross-References**: Referenced by PRD.md v0.7/v0.8, EPICs, SoT.TESTING.md
 > **Note**: GTM-XXX (Go-to-Market) IDs live in PRD.md v0.9 section
 
@@ -304,7 +305,7 @@ Use this checklist when initializing deployment for a new product.
 When adding a new SEC/DEP/RUN/MON-XXX:
 
 - [ ] Update SoT.TESTING.md if deployment has tests
-- [ ] Update EPIC Section 2 "Context & IDs" list
+- [ ] Before v0.7, update the current PRD gate log and accepted SoT snapshot; from v0.7 onward, update EPIC Section 2 "Context & IDs"
 - [ ] Link runbooks to monitoring alerts
 - [ ] Link secrets to deployments that use them
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry if maintained
@@ -320,4 +321,4 @@ When adding a new SEC/DEP/RUN/MON-XXX:
 
 ---
 
-*End of SoT.DEPLOYMENT.md - Authoritative source for DEP-XXX, RUN-XXX, MON-XXX, SEC-XXX IDs*
+*End of SoT.DEPLOYMENT.md — canonical DEP/RUN/MON/SEC record location once activated and accepted; currently template structure only.*

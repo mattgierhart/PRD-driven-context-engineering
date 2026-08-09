@@ -32,9 +32,13 @@
     <h1>Source-of-Truth Atlas</h1>
     <p class="lede">
       The human-readable face of the knowledge graph. Every durable decision in this product has a
-      unique ID; every ID lives in exactly one SoT file; every reference is a hyperlink. This page
+      unique ID; every ID has exactly one canonical owning surface; every reference is a hyperlink. This page
       is the map — pick the view that matches the question you're asking.
     </p>
+    <p class="footnote"><strong>Acceptance boundary.</strong> Only records named in the root
+      <code>PRD.md</code> Accepted SoT snapshot are product truth. Other companion pages remain
+      uninitialized, non-authoritative review examples until their Markdown source is activated and
+      explicitly accepted.</p>
     <div class="persona-note">
       <strong>Who reads this page:</strong> anyone entering the graph — founder, new teammate, or
       reviewing agent. It complements <a href="../SoT.UNIQUE_ID_SYSTEM.md">SoT.UNIQUE_ID_SYSTEM.md</a>
@@ -59,8 +63,8 @@
             <td>UX designer / PM</td><td>v0.4</td></tr>
         <tr><td><a href="SoT.BUSINESS_RULES.html">Business Rules</a></td>
             <td><span class="mono">BR</span></td>
-            <td>Policy register — enforceable rule cards with severity &amp; error contracts</td>
-            <td>PM / compliance / backend dev</td><td>v0.2–v0.6</td></tr>
+            <td>Policy register — enforceable rule cards with severity &amp; failure dispositions</td>
+            <td>PM / governance reviewer</td><td>v0.1 bootstrap; normally v0.2+</td></tr>
         <tr><td><a href="SoT.API_CONTRACTS.html">API Contracts</a></td>
             <td><span class="mono">API</span></td>
             <td>REST reference — method badges, request/response schemas, status codes</td>
@@ -71,8 +75,8 @@
             <td>Data engineer / DBA</td><td>v0.6</td></tr>
         <tr><td><a href="SoT.TECHNICAL_DECISIONS.html">Technical Decisions</a></td>
             <td><span class="mono">TECH · ARC · ENV</span></td>
-            <td>ADR log + architecture diagram with conformance verdicts</td>
-            <td>Architect / tech lead</td><td>v0.5–v0.6</td></tr>
+            <td>ADR log + architecture boundaries; runtime verdicts only when executable</td>
+            <td>Architect / tech lead</td><td>v0.1 bootstrap; normally v0.5–v0.6</td></tr>
         <tr><td><a href="SoT.INTEGRATIONS.html">Integrations</a></td>
             <td><span class="mono">INT</span></td>
             <td>System-context map — vendor cards with rate limits, cost, SLA</td>
@@ -110,44 +114,42 @@
   <div class="grid-2">
     <article class="entry" id="id-format">
       <div class="entry-head"><h2>ID anatomy</h2></div>
-      <pre class="code"><span class="k">[PREFIX]</span>-<span class="s">[NUMBER]</span>(-<span class="c">[slug]</span>)
+      <pre class="code"><span class="k">[PREFIX]</span>(-<span class="c">[SUBTYPE]</span>)-<span class="s">[NUMBER]</span>
 
 BR-104        <span class="c">← business rule #104</span>
 UJ-012        <span class="c">← user journey #012</span>
-api-001-user-login  <span class="c">← optional slug form</span></pre>
+ADO-STAGE-001 <span class="c">← optional documented subtype</span>
+EPIC-01       <span class="c">← established execution-ID compatibility form</span></pre>
       <figure class="fieldmark">
         <div class="fm-id"><span class="fm-part">BR</span><span class="fm-part">104</span></div>
         <div class="fm-notes">
           <div class="fm-note"><span class="fm-leader"></span><b>Field mark 1 · Prefix</b>
-            Artifact type, 2–4 letters — routes to the SoT file that owns it</div>
+            Registered base type — routes to the SoT file that owns it</div>
           <div class="fm-note"><span class="fm-leader"></span><b>Field mark 2 · Number</b>
-            Three digits, strictly incrementing — never reused, deprecate instead</div>
+            Three digits, strictly incrementing — EPIC alone permits 2 or 3 digits</div>
         </div>
       </figure>
       <ul>
         <li><strong>Stable</strong> — IDs never change; names can.</li>
         <li><strong>Never reused</strong> — deprecate, don't delete.</li>
         <li><strong>Anchored</strong> — in these HTML views every entry carries
-            <span class="mono">id="PREFIX-XXX"</span>, so
+            <span class="mono">id="FULL-ID"</span>, so
             <span class="mono">SoT.BUSINESS_RULES.html#BR-001</span> is a deep link.</li>
       </ul>
     </article>
 
     <article class="entry" id="graph-patterns">
       <div class="entry-head"><h2>How IDs link (the graph)</h2></div>
-      <div class="section-label">A · Rule → API → Test</div>
-      <p><a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a> →
-         <em>implements</em> → <a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a> →
-         <em>validated-by</em> → <a class="id" href="SoT.TESTING.html#TEST-001">TEST-001</a></p>
-      <div class="section-label">B · Journey dependencies</div>
-      <p><a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a> uses
-         <a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a>,
-         <a class="id" href="SoT.DESIGN_COMPONENTS.html#DES-001">DES-001</a>; enforces
-         <a class="id" href="SoT.BUSINESS_RULES.html#BR-001">BR-001</a></p>
-      <div class="section-label">C · Feedback drives features</div>
-      <p><a class="id" href="SoT.customer_feedback.html#CFD-001">CFD-001</a> →
-         <em>informed-by</em> → <span class="mono">FEA-XXX</span> (PRD) →
-         <a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a></p>
+      <div class="section-label">A · Distribution architecture follows policy</div>
+      <p><a class="id" href="SoT.TECHNICAL_DECISIONS.html#ARC-004">ARC-004</a> →
+         <em>driven-by</em> → <a class="id" href="SoT.BUSINESS_RULES.html#BR-002">BR-002</a></p>
+      <div class="section-label">B · Durable-memory prerequisites</div>
+      <p><a class="id" href="SoT.TECHNICAL_DECISIONS.html#ARC-002">ARC-002</a> →
+         <em>depends-on</em> → <a class="id" href="SoT.TECHNICAL_DECISIONS.html#ARC-001">ARC-001</a></p>
+      <div class="section-label">C · First executable boundary</div>
+      <p><a class="id" href="SoT.TECHNICAL_DECISIONS.html#ARC-003">ARC-003</a> →
+         <em>depends-on</em> → <a class="id" href="SoT.TECHNICAL_DECISIONS.html#ARC-001">ARC-001</a> +
+         <a class="id" href="SoT.TECHNICAL_DECISIONS.html#ARC-002">ARC-002</a></p>
       <p class="footnote" style="margin-top:10px; border:none; padding:0">
         Relationship vocabulary: informed-by · implements · enforces · validated-by · uses ·
         depends-on · driven-by · supersedes · conflicts-with · designed-for.
@@ -172,14 +174,14 @@ api-001-user-login  <span class="c">← optional slug form</span></pre>
       <div><dt>Document</dt><dd>The Source-of-Truth Review · № 01</dd></div>
       <div><dt>Section</dt><dd>Atlas & Index</dd></div>
       <div><dt>Source of truth</dt><dd class="mono">SoT.UNIQUE_ID_SYSTEM.md</dd></div>
-      <div><dt>Status</dt><dd>Template</dd></div>
+      <div><dt>Status</dt><dd>Active · PRD v0.1 governance bootstrap</dd></div>
       <div><dt>Sheet</dt><dd>01 / 13</dd></div>
     </dl>
     <table aria-label="Revision table">
       <thead><tr><th>Rev</th><th>Date</th><th>Description</th></tr></thead>
       <tbody>
         <tr><td>1</td><td>2026-06-10</td><td>Template established</td></tr>
-        <tr><td class="ph">{n}</td><td class="ph">{YYYY-MM-DD}</td><td class="ph">{What changed — mark affected rows with class="changed"}</td></tr>
+        <tr><td>2</td><td>2026-08-08</td><td>Registered Wave 0B BR/ARC governance relationships</td></tr>
       </tbody>
     </table>
   </section>
@@ -187,8 +189,8 @@ api-001-user-login  <span class="c">← optional slug form</span></pre>
   <p class="footnote">
     HTML companion to <a href="../SoT.UNIQUE_ID_SYSTEM.md">SoT.UNIQUE_ID_SYSTEM.md</a> and
     <a href="../SoT.README.md">SoT.README.md</a>. The markdown files remain the authoritative
-    source of truth; these views are for human review. Italic dashed-underline
-    <span class="ph">{placeholders}</span> mark template slots to fill when forking.
+    source of truth; these views are for human review. Generic downstream HTML remains in
+    <span class="mono">SoT_template/html/</span>.
   </p>
 </main>
 </body>

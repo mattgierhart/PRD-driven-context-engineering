@@ -97,8 +97,8 @@ Each entry follows a consistent structure:
 
 ### Related IDs
 
-- [{OTHER-PREFIX}-XXX](SoT.OTHER_FILE.md#{id-anchor}) — {relationship-type}: {Description}
-- [{OTHER-PREFIX}-YYY](SoT.OTHER_FILE.md#{id-anchor}) — {relationship-type}: {Description}
+- `{OTHER-PREFIX}-XXX` in `SoT.OTHER_FILE.md#{id-anchor}` — {relationship-type}: {Description; replace with a resolved link}
+- `{OTHER-PREFIX}-YYY` in `SoT.OTHER_FILE.md#{id-anchor}` — {relationship-type}: {Description; replace with a resolved link}
 
 ### Version History
 
@@ -177,7 +177,8 @@ Every SoT file ends with an update protocol:
 When adding a new {PREFIX}-XXX:
 - [ ] Update {OTHER_FILE}.md "Used By" section
 - [ ] Update {ANOTHER_FILE}.md "Related" section
-- [ ] Update EPIC **Context & IDs** section
+- [ ] Before v0.7, update the PRD gate log / accepted SoT snapshot; at v0.7+, update the active
+      EPIC **Context & IDs** section
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry tables
 ```
 

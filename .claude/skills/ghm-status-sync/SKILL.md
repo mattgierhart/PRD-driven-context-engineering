@@ -15,11 +15,12 @@ allowed-tools:
 
 # Status Sync
 
-Synchronize the README.md Command Center with the current project state after gate advancement or EPIC status changes.
+Synchronize the README.md Command Center with the current project state after a gate-state change
+or, from v0.7 onward, an EPIC status change.
 
 ## Workflow Overview
 
-1. **Load Context** → Read README.md, PRD.md metadata, Active EPIC Session State section
+1. **Load Context** → Read README.md and PRD.md; at v0.7+ also read the approved active EPIC
 2. **Extract State** → Pull lifecycle stage, blockers, metrics
 3. **Update Dashboard** → Sync README sections with current truth
 
@@ -29,20 +30,21 @@ Synchronize the README.md Command Center with the current project state after ga
 |---------|------------|----------|
 | **Lifecycle Stage** | Current PRD version from PRD.md | `Current Lifecycle Gate: v0.X` |
 | **Gate Status** | Visual progress indicators | 🟢 Complete / 🟡 In Progress / ⚪ Pending |
-| **Active EPIC** | Current work from EPIC header | `EPIC-XX: Title` |
-| **Blockers** | Open blockers from EPIC Session State section | List with severity |
+| **Active EPIC** | Current work from EPIC header, v0.7+ only | `EPIC-XX: Title` or none before v0.7 |
+| **Blockers** | PRD gate blockers before v0.7; EPIC Session State blockers from v0.7 onward | List with severity |
 
 ## Step 1: Load Context
 
 Read these files in order:
-1. `README.md` (current state)
-2. `PRD.md` (metadata block for lifecycle stage)
-3. Active EPIC Session State section (blockers, progress)
+1. `CLAUDE.md` (operating and read-order contract)
+2. `README.md` (current state)
+3. `PRD.md` (metadata block for lifecycle stage)
+4. At v0.7+, the approved Active EPIC Session State section (blockers, progress)
 
 ### Checklist
 - [ ] README.md loaded
 - [ ] PRD.md metadata extracted
-- [ ] Active EPIC identified and Session State section read
+- [ ] If PRD is v0.7+, Active EPIC identified and Session State section read
 
 ## Step 2: Extract Current State
 
@@ -52,9 +54,9 @@ Pull authoritative values:
 |-------|--------|
 | Lifecycle Stage | PRD.md `Current Lifecycle Gate` |
 | Gate Progress | PRD.md gate table |
-| Active EPIC | README.md `Active Work` section |
-| Blockers | EPIC Session State section |
-| Metrics | README.md Truth Table |
+| Active EPIC | Approved numeric EPIC with exact `State: In Progress`, v0.7+ only |
+| Blockers | PRD gate state before v0.7; EPIC Session State from v0.7 onward |
+| Metrics | Accepted KPI/feedback/adoption records and their cited evidence; omit when unavailable |
 
 ## Step 3: Update README Dashboard
 
@@ -65,19 +67,23 @@ Apply synchronization rules:
    - 🟢 = Passed gates (all criteria met)
    - 🟡 = Current gate (in progress)
    - ⚪ = Future gates (not started)
-3. **Active EPIC**: Update metadata in Active Work section
-4. **Blockers**: Sync from EPIC Session State section
+3. **Active EPIC**: Before v0.7 show none; from v0.7 onward update metadata in Active Work
+4. **Blockers**: Sync from the lifecycle-appropriate PRD gate or EPIC state
 5. **Squad Status** (Section: `squad-status`): Update agent and EPIC tables:
-   - For each agent in `.claude/agents/`: check MEMORY.md mtime for "Last Active", grep EPICs for agent name for "Current EPIC"
+   - For each agent in `.claude/agents/`: derive "Last Active" only from an explicit dated
+     memory/session/change-log entry attributable to that agent; a blank starter or filesystem
+     copy mtime is not activity. Use `—` when no explicit evidence exists.
+   - Resolve "Current EPIC" only from an approved In Progress EPIC that names the agent.
    - For each EPIC in `epics/`: read State field, Epic Lead, and Change Log last date
-   - Status values: `active` (session <2h old), `idle` (no recent activity), `blocked` (blocker in session state)
+   - Status values: `active` (explicit session evidence <2h old), `idle` (no recent explicit
+     activity), `blocked` (explicit blocker in lifecycle-appropriate state)
 
 ## Quality Gates
 
 ### Pass Checklist
 - [ ] README lifecycle stage matches PRD.md
 - [ ] Gate indicators are accurate (no 🟢 on incomplete gates)
-- [ ] Active EPIC reference is current
+- [ ] Active EPIC is absent before v0.7 or current from v0.7 onward
 - [ ] Blockers reflect actual state
 
 ### Testability Check
@@ -89,8 +95,10 @@ Apply synchronization rules:
 | Pattern | Example | Fix |
 |---------|---------|-----|
 | Stale gate status | 🟢 on gate with missing criteria | → Verify all criteria before marking complete |
-| Missing blockers | EPIC has blockers, README shows none | → Always sync from EPIC Session State section |
-| Wrong EPIC reference | README points to closed EPIC | → Check EPIC status before updating |
+| Missing blockers | Lifecycle record has blockers, README shows none | → Sync from the current PRD gate or approved EPIC |
+| Premature EPIC reference | README points to an EPIC before v0.7 | → Show no active EPIC until the build gate is owner-approved |
+| Wrong EPIC reference | README points to a closed EPIC at v0.7+ | → Check EPIC status before updating |
+| Copy time treated as activity | Fresh memory seed makes every agent active | → Require an explicit dated activity record; otherwise use `—` / `idle` |
 
 ## Boundaries
 

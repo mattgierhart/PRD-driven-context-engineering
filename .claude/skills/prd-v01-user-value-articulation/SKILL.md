@@ -160,7 +160,7 @@ See `references/transformation-examples.md` for worked examples.
 
 ## Bundled Resources
 
-- **`references/transformation-examples.md`** — 3 worked examples from real PRDs with step-by-step transformation process.
+- **`references/transformation-examples.md`** — 3 synthetic worked examples with a step-by-step transformation process.
 - **`references/research-prompts.md`** — Deep research templates when value evidence is Tier 4-5.
 - **`assets/value-statement.md`** — Copy-paste template for value tables and CFD entries.
 

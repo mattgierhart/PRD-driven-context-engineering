@@ -2,8 +2,9 @@
 version: 1.0
 purpose: Source of Truth for test specifications and coverage requirements.
 id_prefix: TEST-XXX
-last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTRACTS.md, SoT.BUSINESS_RULES.md, EPICs
+last_updated: 2026-08-08
+authority: Starter structure only; no TEST records are accepted unless named in the PRD SoT snapshot.
+template_state: uninitialized
 ---
 <!-- SECTION: template-structure -->
 
@@ -11,7 +12,7 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTR
 
 > **Purpose**: Test case specifications, coverage targets, and validation strategies.
 > **ID Prefix**: TEST-XXX
-> **Status**: Active SoT file
+> **Status**: Uninitialized starter; no TEST records are accepted in the current PRD snapshot
 > **Cross-References**: Referenced by PRD.md, SoT.API_CONTRACTS.md, SoT.BUSINESS_RULES.md, SoT.USER_JOURNEYS.md, EPICs
 
 ## Navigation by Category
@@ -119,9 +120,9 @@ When adding a new TEST-XXX:
 - [ ] Update SoT.BUSINESS_RULES.md "Validated By" section
 - [ ] Update SoT.API_CONTRACTS.md "Related IDs" section
 - [ ] Update SoT.USER_JOURNEYS.md if testing a journey
-- [ ] Update EPIC Section 2 "Context & IDs" list
+- [ ] Before v0.7, update the current PRD gate log and accepted SoT snapshot; from v0.7 onward, update EPIC Section 2 "Context & IDs"
 - [ ] Add `// @implements TEST-XXX` in test file
 
 ---
 
-*End of SoT.TESTING.md - Authoritative source for all TEST-XXX IDs*
+*End of SoT.TESTING.md — canonical TEST record location once activated and accepted; currently template structure only.*

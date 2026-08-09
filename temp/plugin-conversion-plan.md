@@ -1,6 +1,9 @@
-# PRD-CE → Claude Code Plugin: Conversion Plan (scratchpad)
+# PRD-CE → Claude Code Plugin: Conversion Plan (superseded scratchpad)
 
-> Status: planning draft for review. No framework files changed. Harvest to SoT/PRD when approved.
+> **Status: Superseded by the owner-approved Wave 0B authority and packaging contract on
+> 2026-08-08.** This file is retained as maintainer history, is not shipped, and is not current
+> implementation guidance. Use `PRD.md`, accepted SoT records, `.claude/install-manifest.yaml`, and
+> the packaging tests instead.
 > Grounded in verified Claude Code plugin docs (code.claude.com/docs: plugins, plugins-reference,
 > plugin-marketplaces, plugin-dependencies, skills).
 
@@ -10,7 +13,7 @@ The plugin's job decomposes into three layers — confirmed model:
 
 - **Scaffold** — `/prd-ce:init` creates PRD.md, SoT/*.md, EPIC_TEMPLATE (empty, to template). One-time.
 - **Process** — the `prd-v*` / `ghm-*` skills populate them with quality content in the right format.
-- **Governance** — the 7 hooks enforce; `readiness.py` gates.
+- **Governance** — the 6 current hooks enforce; `readiness.py` gates.
 
 Two refinements: (1) `init` seeds *empty* structure; **EPIC instances** are generated later by
 `prd-v07-epic-scoping`, not at init. (2) The PRD/SoT/EPIC files are the **consumer's data** — the
@@ -19,16 +22,15 @@ does not rewrite already-authored content. Structure is shared; instances are ow
 makes "improve once, propagate everywhere" hold.
 
 **IN scope (v1):** `/prd-ce:init` greenfield seeder · forward skills v0.1→v1.0 + supporting `ghm-` ·
-7 hooks rewired + SessionStart discipline preamble · `readiness.py`+validators · plugin/marketplace manifests.
+6 hooks rewired + SessionStart discipline preamble · `readiness.py`+validators · plugin/marketplace manifests.
 
 **OUT / backlogged:** Scenario 2 (mid-build) & Scenario 3 (live/retroactive) and their prerequisites
 `ghm-stage-entry` + `ghm-graph-extract`; entry-mode branching in `init` (v1 assumes fresh repo);
 MCP server; core/phase plugin split.
 
-**Concrete v1 note (corrected):** `PRD.md` is already in blank-template state (all `{}` placeholders,
-no product content), and the repo's naming convention reserves the `_template` suffix for README/EPIC
-only — so we do NOT add `PRD_template.md`. The real fix is for `/prd-ce:init` to **reset frontmatter
-metadata** (`version`→0.1, `last_updated`→today, drop stale `template_version`) when seeding PRD.md.
+**Superseded note:** Wave 0B established `PRD_template.md -> PRD.md` and
+`SoT_template/ -> SoT/`. Direct and plugin-native installation copy deterministic seed bytes; neither
+path performs a one-off PRD frontmatter mutation.
 
 ## v1 build progress (this branch)
 
@@ -36,12 +38,13 @@ metadata** (`version`→0.1, `last_updated`→today, drop stale `template_versio
 - ✅ `scripts/package-plugin.sh` — strategy-B transform: generates `plugins/prd-ce/{skills,agents,hooks,scripts}`
   from `.claude/`. Skills copied; agents flattened (`<name>/AGENT.md`→`<name>.md`, MEMORY.md held back);
   `hooks.json` generated from `settings.json` with `$CLAUDE_PROJECT_DIR/.claude/hooks/`→`${CLAUDE_PLUGIN_ROOT}/hooks/`.
-  Generated payload is gitignored (single-source stays `.claude/`).
-- ✅ Hook fix: `context-density-gate.sh` + `sot-update-trigger.sh` made **layout-aware** — resolve
-  `generate-id-pattern.sh` via `${CLAUDE_PLUGIN_ROOT}/scripts/` when running as a plugin, else repo-relative.
-  Same source works in-repo (dogfood) and packaged.
-- ▶ Next: validate under `claude --plugin-dir plugins/prd-ce`; build `/prd-ce:init` seeder (incl. PRD
-  frontmatter reset); extend SessionStart hook with the operating preamble.
+  Generated payload is committed and checked against the `.claude/` authoring source.
+- ✅ Hook fix: `context-density-gate.sh` is **layout-aware** and all state-reading hooks normalize
+  to the consumer project root. The redundant Stop reminder was retired; PostToolUse owns the
+  immediate SoT reminder.
+- ✅ Historical step completed and superseded: `/prd-ce:init` now copies deterministic generic
+  seeds without a plugin-only PRD frontmatter reset; current validation lives in the distribution
+  suite and package-sync guard.
 
 ## Decisions locked in discussion
 
@@ -49,7 +52,7 @@ metadata** (`version`→0.1, `last_updated`→today, drop stale `template_versio
    justified by release cadence/modularity only, not cost.
 2. **Discipline survives as a plugin** via hooks, not passive file-loading:
    - Directives/spine → **SessionStart hook `additionalContext`** (already done in `context-validation.sh`).
-   - Enforcement → **hooks** (`traceability-gate`, `sot-sync-reminder`, `sot-update-trigger`).
+   - Enforcement → **hooks** (`traceability-gate`, `sot-sync-reminder`, lifecycle and memory hooks).
    - Depth rules (02, 06, 07) → **on-demand reference skills**.
    - Only **config** (`domain-profile.yaml`) + optional human `CLAUDE.md` stub get **seeded**.
 3. **Granularity**: ship a **monolith `prd-ce`** now, structured so a later split into
@@ -83,16 +86,16 @@ prd-driven-context-engineering/                 # this repo = source + marketpla
 │       ├── .claude-plugin/plugin.json          # name: prd-ce, OMIT version during dev
 │       ├── skills/                             # from .claude/skills/<name>/SKILL.md (shape matches)
 │       │   ├── prd-v01-problem-framing/ … (all 41 prd-* )
-│       │   ├── ghm-*/ …                         (gate-check, harvest, id-register, sot-builder, status-sync, template-sync)
+│       │   ├── ghm-*/ …                         (gate-check, harvest, id-register, sot-builder, status-sync)
 │       │   ├── init/                            # ← ghm-self-install reworked as the seeder
 │       │   └── operating-discipline/            # ← reference skill carrying rules 02/06/07 depth
 │       ├── agents/                             # FLATTENED: horizon.md, studio.md, devlab.md, metro.md
 │       │   └── (AGENT.md bodies; MEMORY.md does NOT ship — it's seeded)
 │       ├── hooks/hooks.json                    # rewired from .claude/settings.json
 │       ├── scripts/                            # readiness.py, validators, _merge_settings.py, asof.py …
-│       └── docs/                               # methodology docs (DEVELOPMENT_GRAPH, READINESS_PROTOCOL)
+│       └── templates/docs/                     # allowlisted consumer docs used by plugin init
 ├── .claude/                                     # repo dogfoods the plugin (consumer config only)
-├── CLAUDE.md / PRD.md / SoT/ / epics/           # the EXAMPLE product instance — stays, never ships
+├── CLAUDE.md / PRD.md / SoT/ / epics/           # repository authority — stays, never ships
 └── README.md
 ```
 
@@ -109,14 +112,13 @@ prd-driven-context-engineering/                 # this repo = source + marketpla
 | `.claude/rules/*.md` | split: spine → SessionStart preamble; depth → `skills/operating-discipline/` | rules dir does NOT auto-load in plugins |
 | `.claude/domain-profile.yaml` | seeded by `/prd-ce:init` | consumer-local config |
 | `.claude/install-manifest.yaml` | `plugins/prd-ce/skills/init/` reference | re-bucket: framework→plugin payload (no longer copied), template_seed→what init plants |
-| `CLAUDE.md`, `PRD.md`, `SoT/`, `epics/` | **stay in repo as example** | never ship in plugin |
+| Root `PRD.md`, root `SoT/` | **repository authority; never seed** | generic `PRD_template.md` and `SoT_template/` ship instead |
 
 ## Hook rewiring detail (the main mechanical risk)
 
-- 7 hooks currently locate their own scripts via `$CLAUDE_PROJECT_DIR/.claude/hooks/`. → `${CLAUDE_PLUGIN_ROOT}/hooks/`.
-- Scripts that **read the consumer's project** (context-validation reads `README.md`/`PRD.md`/`epics/`;
-  sot-update reads `SoT/`) already use **relative/cwd paths** → unchanged, they naturally read the
-  consumer's working dir. ✅ This is why the split works cleanly.
+- 6 hooks locate their own scripts via `$CLAUDE_PROJECT_DIR/.claude/hooks/`. → `${CLAUDE_PLUGIN_ROOT}/hooks/`.
+- Scripts that **read the consumer's project** normalize to `CLAUDE_PROJECT_DIR` (with Git-root
+  fallback), so a mid-session `cwd` change cannot redirect governance checks.
 - `context-validation.sh` SessionStart already emits `additionalContext` → extend it with the condensed
   **operating preamble** (authority order, ID-graph core rule, gate-before-advance). This is the
   always-on discipline, plugin-native, zero-drift.
@@ -154,7 +156,8 @@ list + the `_merge_settings.py` discipline. Non-destructive (never_touch honored
 ## Sequencing (each step shippable, reversible)
 
 1. **Scaffold** `plugins/prd-ce/` + `.claude-plugin/` manifests (strategy B build script). No `.claude/` changes yet.
-2. **Rewire hooks** into `hooks/hooks.json` with `${CLAUDE_PLUGIN_ROOT}`; verify each emits valid JSON.
+2. **Rewire hooks** into `hooks/hooks.json` with `${CLAUDE_PLUGIN_ROOT}`; require successful exits
+   and validate JSON only when stdout is non-empty.
 3. **Flatten agents**; ship AGENT.md bodies, hold MEMORY.md as seed templates.
 4. **Preamble**: extend SessionStart hook with the operating spine; build `operating-discipline` reference skill.
 5. **Init skill**: port ghm-self-install → `/prd-ce:init`.
@@ -213,4 +216,3 @@ Walked one persona through three entry modes to find where the plugin strains.
 - **Produces:** `devgraph.json` + candidate SoT entries. Must stay deterministic per rule 07 (no LLM in the scorer path). Natural backend for the future MCP `graph.query` tools.
 
 > Sequencing note: build these **before** the strategy-A cutover, since `/prd-ce:init`'s entry-mode branching depends on both.
-

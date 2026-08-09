@@ -1,358 +1,257 @@
 ---
-version: 1.2
-purpose: Source of Truth for technology choices, architecture decisions, and environment specifications.
+version: 1.3
+purpose: Accepted technical and architecture decisions for this repository and PRD-CE V2.
 id_prefix: TECH-XXX, ARC-XXX, ENV-XXX
-last_updated: 2026-06-06
-authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and code
+last_updated: 2026-08-08
+authority: Accepted SoT records referenced by PRD.md and repository governance.
 ---
-<!-- SECTION: template-structure -->
 
-# Technical Decisions (SoT File)
+# Technical Decisions
 
-> **Purpose**: Record technology selections, architecture decisions, and environment specifications.
-> **ID Prefixes**: TECH-XXX (stack decisions), ARC-XXX (architecture decisions), ENV-XXX (environment setup)
-> **Status**: Active SoT file
-> **Cross-References**: Referenced by PRD.md v0.5-v0.6, SoT.API_CONTRACTS.md, EPICs
+> **Status:** Active Source of Truth
+> **Capability note:** “Accepted” below is the status of the owner-confirmed normative decision.
+> V2 runtime implementation and public capability status remain **Proposed**.
+> **Lifecycle note:** ARC-001–ARC-004 are Wave 0B governance-bootstrap records at PRD v0.1. They do
+> not initialize v0.6 architecture or authorize a v0.7 EPIC.
 
-## Navigation by Category
+## Register
 
-**Stack Decisions** (TECH-001 to TECH-099):
-
-- [TECH-001](#tech-001-decision-name) - {Technology decision}
-
-**Architecture Decisions** (ARC-001 to ARC-099):
-
-- [ARC-001](#arc-001-decision-name) - {Architecture decision}
-
-**Environment Specifications** (ENV-001 to ENV-099):
-
-- [ENV-001](#env-001-development-environment) - Development environment setup
+| ID | Decision | Decision status | Runtime validation |
+|---|---|---|---|
+| [ARC-001](#arc-001-markdown-is-the-canonical-accepted-and-recovery-model) | Markdown is the canonical accepted and recovery model | Accepted | Proposed / not implemented |
+| [ARC-002](#arc-002-durable-product-memory-survives-v2) | Durable product memory survives V2 | Accepted | Proposed / not implemented |
+| [ARC-003](#arc-003-first-executable-value-is-read-only-in-place-inspection) | First executable value is read-only in-place inspection | Accepted | Proposed / not implemented |
+| [ARC-004](#arc-004-repository-authority-and-downstream-seeds-are-separate) | Repository authority and downstream seeds are separate | Accepted | Wave 0B packaging implementation; V2 runtime not implemented |
 
 ---
 
-## TECH-001: {Decision Name}
+## ARC-001: Markdown Is the Canonical Accepted and Recovery Model
 
-**ID**: TECH-001
-**Category**: Frontend | Backend | Database | Infrastructure | DevOps
-**Status**: Accepted | Deprecated | Superseded
-**Decision Date**: YYYY-MM-DD
-**Last Reviewed**: YYYY-MM-DD
-**Valid From**: vX.Y
-**Valid To**: —
-**Invalidated By**: —
-
-> Valid From/To/Invalidated By are valid-time fields — see [SoT.UNIQUE_ID_SYSTEM.md §1.6](SoT.UNIQUE_ID_SYSTEM.md#16-temporal-validity-valid-time). Queryable via `scripts/asof.py`.
+- **ID:** ARC-001
+- **Category:** Patterns
+- **Status:** Accepted (normative decision; V2 implementation Proposed)
+- **Decision Date:** 2026-08-08
+- **Last Reviewed:** 2026-08-08
+- **Decision Authority:** Owner-confirmed
+- **Lifecycle Origin:** Wave 0B governance bootstrap
+- **Valid From:** PRD v0.1
+- **Valid To:** —
+- **Invalidated By:** —
 
 ### Context
 
-{What problem or need drove this decision?}
+V2 may need search, traversal, validation, and task-scoped context without making a generated system
+the competing source of product truth or the only recovery path.
 
 ### Decision
 
-{What technology/approach was chosen?}
+Human-reviewable authored Markdown MUST remain the canonical accepted state and recovery model.
+Generated databases, indexes, views, and context packages MUST be disposable projections that can be
+rebuilt from the accepted Markdown without loss of meaning.
 
 ### Rationale
 
-- **Chosen because**: {Primary reasons}
-- **Alternatives considered**: {What else was evaluated}
-- **Trade-offs accepted**: {Known downsides}
+- **Chosen because:** Markdown keeps accepted truth reviewable, diffable, portable, and recoverable.
+- **Alternatives considered:** A database or generated graph as primary authority.
+- **Trade-off accepted:** Parsers must preserve heterogeneous authored structures and quarantine
+  ambiguity rather than silently normalizing it.
 
-### Related IDs
+### Consequences
 
-- [API-XXX](SoT.API_CONTRACTS.md#api-xxx) - {API using this technology}
-- [BR-XXX](SoT.BUSINESS_RULES.md#br-xxx) - {Business rule driving this choice}
-- [INT-XXX](SoT.INTEGRATIONS.md#int-xxx) - {Integration enabled by this}
+Deleting a projection may lose performance or convenience but MUST NOT lose accepted product meaning.
+Any future writer requires a separately authorized round-trip and recovery contract.
+
+### Validation state
+
+V2 parser, projection, and recovery behavior are **Proposed and not implemented**. No conformance pass
+is claimed at PRD v0.1.
+
+### Evidence and confidence
+
+- **Source Evidence:** [Build plan §2, owner-confirmed boundaries](../docs/PRD_CE_V2_BUILD_PLAN.md#2-owner-confirmed-boundaries)
+- **Confidence:** 1/5 — normative owner decision; recovery and round-trip behavior are not yet evidenced.
+- **Next Evidence Target:** Wave 2 synthetic compatibility fixtures and deterministic rebuild proofs.
 
 ---
 
-## ARC-001: {Decision Name}
+## ARC-002: Durable Product Memory Survives V2
 
-**ID**: ARC-001
-**Category**: Data Flow | Security | Scaling | Integration | Patterns
-**Status**: Accepted | Deprecated | Superseded
-**Decision Date**: YYYY-MM-DD
-**Last Reviewed**: YYYY-MM-DD
-**Valid From**: vX.Y
-**Valid To**: —
-**Invalidated By**: —
-
-> Valid From/To/Invalidated By are valid-time fields — see [SoT.UNIQUE_ID_SYSTEM.md §1.6](SoT.UNIQUE_ID_SYSTEM.md#16-temporal-validity-valid-time). Queryable via `scripts/asof.py`.
+- **ID:** ARC-002
+- **Category:** Patterns
+- **Status:** Accepted (normative decision; V2 implementation Proposed)
+- **Decision Date:** 2026-08-08
+- **Last Reviewed:** 2026-08-08
+- **Decision Authority:** Owner-confirmed
+- **Lifecycle Origin:** Wave 0B governance bootstrap
+- **Valid From:** PRD v0.1
+- **Valid To:** —
+- **Invalidated By:** —
 
 ### Context
 
-{What architectural challenge needed solving?}
+A latest-state summary is insufficient product memory. IDs and statements derive meaning from their
+typed relationships, sources, authority, time, lifecycle, and the process records that explain how
+accepted state changed.
 
 ### Decision
 
-{What architecture pattern/approach was chosen?}
+V2 MUST preserve typed IDs, explicit relationships, provenance, temporal meaning, lifecycle state,
+and material process history. Unknown or ambiguous structures MUST be surfaced or quarantined, never
+silently discarded or promoted.
 
 ### Rationale
 
-- **Chosen because**: {Primary reasons}
-- **Alternatives considered**: {What else was evaluated}
-- **Consequences**: {What this enables or constrains}
+- **Chosen because:** Durable identity and context make product findings attributable and allow past
+  decisions to be reconstructed without confusing them with current truth.
+- **Alternatives considered:** Flattened current-state records or inferred-only relationships.
+- **Trade-off accepted:** Compatibility work precedes simplified public vocabulary and runtime speed.
 
-### Conformance Rule (optional)
+### Consequences
 
-A machine-checkable restatement of this decision, evaluated against the as-built code in the Development Graph (`status/devgraph.json`). When present it drives the `architecture_conformance` readiness dimension — the code is verified to still honor the decision, and drift surfaces as a `violate` verdict instead of slipping by unnoticed.
+Compatibility fixtures must cover IDs, edges, fields, tables, headings, filenames, lifecycle rows,
+work sessions, checkpoints, and changelogs before mutation or migration is considered.
 
-- **Rule**: {plain statement, e.g. "the `engine/` layer must not import the UI framework"}
-- **Check**: {type · scope · target, e.g. `forbidden_import` · `packages/extension/engine/**` · `vscode`}
-- **Verdict**: `pass` | `violate` | `unknown` (computed — see [`docs/DEVELOPMENT_GRAPH.md`](../docs/DEVELOPMENT_GRAPH.md) §5)
+### Validation state
 
-### Related IDs
+Preservation behavior is **Proposed and not implemented**. Private review findings remain provisional
+and are not evidence for an accepted conformance verdict.
 
-- [TECH-XXX](#tech-xxx-decision-name) - {Technology enabling this}
-- [DBT-XXX](SoT.DATA_MODEL.md#dbt-xxx) - {Data model affected}
-- [UJ-XXX](SoT.USER_JOURNEYS.md#uj-xxx) - {Journey this supports}
+### Relationships
 
-<!-- /SECTION: template-structure -->
+- **depends-on →** [ARC-001](#arc-001-markdown-is-the-canonical-accepted-and-recovery-model)
 
----
-<!-- CUSTOMIZABLE: entries -->
+### Evidence and confidence
 
-## ENV-001: Development Environment
-
-**ID**: ENV-001
-**Category**: Development Setup
-**Status**: Template | Date: YYYY-MM-DD
-**Last Reviewed**: YYYY-MM-DD
-**Owner**: {Team/Person responsible}
-
-### Purpose
-
-Document the development environment requirements for this project. This enables:
-
-- Consistent setups across team members
-- Faster onboarding for new developers
-- AI agent environment understanding
-- Reproducible development builds
-
-### CLIs (Global System Tools)
-
-{List system-level tools installed via package manager}
-
-```bash
-# Example installation commands (customize for your project)
-# brew install [tool1] [tool2]  # macOS
-# apt install [tool1] [tool2]   # Linux
-```
-
-**Common categories:**
-
-- Version managers (mise, asdf, nvm, pyenv)
-- Data processing (jq, yq)
-- API testing (httpie, curl)
-- Search tools (ripgrep)
-- Git workflows (gh CLI)
-
-### Language-Specific Packages (Per-Project)
-
-{List packages installed in project, not globally}
-
-```bash
-# Example for Node/NPM projects
-# npm install --save-dev [package1] [package2]
-
-# Example for Python projects
-# pip install --dev [package1] [package2]
-```
-
-**Common categories:**
-
-- Linting (eslint, ruff, golangci-lint)
-- Formatting (prettier, black)
-- Type checking (typescript, mypy)
-- Testing (jest, pytest)
-
-### Configuration Files
-
-{List configuration files with brief purpose}
-
-| File | Purpose |
-|------|---------|
-| `{config-file}` | {What it configures} |
-
-### Scripts
-
-{Define standard scripts in package manifest}
-
-```json
-{
-  "scripts": {
-    "validate": "{command to run all quality checks}",
-    "fix": "{command to auto-fix issues}",
-    "test": "{command to run tests}"
-  }
-}
-```
-
-### Environment Manager Tasks (Optional)
-
-{If using mise, asdf, direnv, etc.}
-
-```toml
-# Example for mise (.mise.toml)
-# [tasks.validate]
-# run = "{quality check command}"
-# description = "{what this validates}"
-```
-
-### MCPs (Only if CLIs Insufficient)
-
-**Rule**: Prefer CLIs over MCPs when both are available.
-
-| Operation | CLI Available | MCP Available | Use |
-|-----------|---------------|---------------|-----|
-| {operation} | {yes/no + name} | {yes/no + name} | {CLI/MCP} |
-
-**Rationale**: CLIs work in all environments (local, CI/CD, cloud). MCPs only work in specific contexts.
-
-### Verification
-
-```bash
-# Commands to verify environment is set up correctly
-
-# 1. Verify system tools
-# [tool1] --version
-# [tool2] --version
-
-# 2. Verify project packages
-# {package manager ls command}
-
-# 3. Verify quality checks work
-# npm run validate  # or equivalent
-
-# 4. Verify tests pass
-# npm test  # or equivalent
-```
-
-### Troubleshooting
-
-**Issue**: {Common problem}
-**Fix**: {Solution}
-
-### Related IDs
-
-- [TECH-XXX](#tech-xxx-decision-name) - {Technology this environment supports}
-- [ARC-XXX](#arc-xxx-decision-name) - {Architecture context}
+- **Source Evidence:** [Build plan §2 and product scope](../docs/PRD_CE_V2_BUILD_PLAN.md#4-product-scope)
+- **Confidence:** 1/5 — normative owner decision; preservation behavior awaits synthetic fixture evidence.
+- **Next Evidence Target:** Reviewed fixture coverage with zero silently lost typed IDs or explicit relationships.
 
 ---
 
-## ENV-002: CI/CD Pipeline (Optional)
+## ARC-003: First Executable Value Is Read-Only In-Place Inspection
 
-**ID**: ENV-002
-**Category**: Automation
-**Status**: Template | Date: YYYY-MM-DD
+- **ID:** ARC-003
+- **Category:** Patterns
+- **Status:** Accepted (normative decision; V2 implementation Proposed)
+- **Decision Date:** 2026-08-08
+- **Last Reviewed:** 2026-08-08
+- **Decision Authority:** Owner-confirmed
+- **Lifecycle Origin:** Wave 0B governance bootstrap
+- **Valid From:** PRD v0.1
+- **Valid To:** —
+- **Invalidated By:** —
 
-### Purpose
+### Context
 
-Document CI/CD pipeline configuration for automated testing and deployment.
+Migration and accepted-state mutation multiply risk before compatibility, identity, relationship,
+provenance, temporal, and repository-divergence behavior is understood.
 
-### Workflow Files
+### Decision
 
-{Reference workflow configuration files}
+The first V2 executable value MUST inspect an existing PRD-CE repository in place, report
+reproducible findings with exact source citations, and leave authored files and Git state unchanged.
+It MUST NOT include migration, a writer, Change Set application, adjudication, MCP, hosted services,
+V2 runtime/command-provider parity, or root `SoT/` relocation.
 
-### Required Secrets
+### Rationale
 
-| Secret | Purpose | Where to Set |
-|--------|---------|--------------|
-| `{SECRET_NAME}` | {Purpose} | {GitHub/GitLab settings} |
+- **Chosen because:** Read-only inspection creates user value and compatibility evidence with the
+  smallest authority and recovery surface.
+- **Alternatives considered:** Migration-first, writer-first, graph-viewer-first, and platform-sized
+  initial releases.
+- **Trade-off accepted:** Mutation and broader access surfaces wait for separate contracts and gates.
 
-### Pipeline Stages
+### Consequences
 
-1. **{Stage Name}**: {What happens}
-2. **{Stage Name}**: {What happens}
+One future alpha contract replaces competing first-release definitions: a compatibility parser,
+typed identity/relationship registry, deterministic validator, disposable local projection, and
+read-only `index`, `check`, `query`, and `trace` behavior after v0.7 authorization.
 
-### Related IDs
+### Validation state
 
-- [ENV-001](#env-001-development-environment) - Local environment this mirrors
-- [DEP-XXX](SoT.DEPLOYMENT.md#dep-xxx) - Deployment steps
+The Compatibility Inspector and all V2 commands are **Proposed and not implemented**. Wave 0B adds no
+runtime, command, migration behavior, or EPIC.
 
----
+### Relationships
 
-## ENV-003: Production Infrastructure (Optional)
+- **depends-on →** [ARC-001](#arc-001-markdown-is-the-canonical-accepted-and-recovery-model)
+- **depends-on →** [ARC-002](#arc-002-durable-product-memory-survives-v2)
 
-**ID**: ENV-003
-**Category**: Infrastructure
-**Status**: Template | Date: YYYY-MM-DD
+### Evidence and confidence
 
-### Purpose
-
-Document production hosting and services configuration.
-
-### Hosting Platform
-
-{Platform name and configuration}
-
-### Environment Variables
-
-| Variable | Purpose | Required |
-|----------|---------|----------|
-| `{VAR_NAME}` | {Purpose} | {Yes/No} |
-
-### Services
-
-| Service | Purpose | Connection |
-|---------|---------|------------|
-| {Service} | {Purpose} | {How connected} |
-
-### Related IDs
-
-- [DEP-XXX](SoT.DEPLOYMENT.md#dep-xxx) - Deployment procedures
-- [MON-XXX](SoT.DEPLOYMENT.md#mon-xxx) - Monitoring setup
+- **Source Evidence:** [Build plan executive direction and Wave 2 contract](../docs/PRD_CE_V2_BUILD_PLAN.md#wave-2--read-only-compatibility-inspector)
+- **Confidence:** 1/5 — normative owner decision; no V2 executable behavior exists.
+- **Next Evidence Target:** v0.7 authorization followed by non-mutating fixture and Git-state proofs.
 
 ---
 
-## Deprecated Decisions
+## ARC-004: Repository Authority and Downstream Seeds Are Separate
 
-### TECH-XXX: {Decision Name} [SUPERSEDED]
+- **ID:** ARC-004
+- **Category:** Patterns
+- **Status:** Accepted (normative decision; V2 runtime Proposed)
+- **Decision Date:** 2026-08-08
+- **Last Reviewed:** 2026-08-08
+- **Decision Authority:** Owner-confirmed
+- **Lifecycle Origin:** Wave 0B governance bootstrap
+- **Valid From:** PRD v0.1
+- **Valid To:** —
+- **Invalidated By:** —
 
-**Status**: Superseded (YYYY-MM-DD)
-**Valid From**: vX.Y
-**Valid To**: vX.Z
-**Invalidated By**: [TECH-YYY](#tech-yyy-decision-name)
-**Reason**: {Why decision was changed}
-**Migration**: {How to transition}
+### Context
 
-> Keep the superseded entry in place (deprecate-don't-delete). `Valid To` + `Invalidated By` let `scripts/asof.py` reconstruct the decision set as of any past version — see [SoT.UNIQUE_ID_SYSTEM.md §1.6](SoT.UNIQUE_ID_SYSTEM.md#16-temporal-validity-valid-time).
+Root `PRD.md` and `SoT/` are required repository authority, but the installer previously reused those
+same paths as downstream seeds. Productizing root authority would therefore copy PRD-CE development
+records into every new consumer repository.
 
-<!-- /CUSTOMIZABLE: entries -->
+### Decision
+
+Root `PRD.md` and root `SoT/` MUST remain this repository's product authority. Generic downstream
+content MUST live in explicit `PRD_template.md` and `SoT_template/` sources that seed canonical
+consumer destinations once. Packaging MUST include the generic sources and MUST exclude root product
+authority from the seed bundle.
+
+### Rationale
+
+- **Chosen because:** Separate source paths make authority and redistribution mechanically auditable.
+- **Alternatives considered:** Leaving root authority blank, filtering repository entries during
+  packaging, or moving root SoT.
+- **Trade-off accepted:** Generic templates are intentionally duplicated source artifacts and must be
+  protected by parity and leak tests.
+
+### Consequences
+
+The install manifest maps template sources to canonical consumer paths. Direct and plugin-native
+installers copy the same deterministic seed bytes, and existing canonical consumer files remain
+product-owned.
+
+### Validation state
+
+Wave 0B implements the packaging boundary. The decision remains subject to isolated clean-install,
+reinstall, plugin-parity, link-closure, package-sync, and sensitive-reference tests. It does not make
+any V2 runtime capability available.
+
+### Relationships
+
+- **driven-by →** [BR-002](SoT.BUSINESS_RULES.md#br-002-reusable-packages-stay-generic-and-non-destructive)
+
+### Evidence and confidence
+
+- **Source Evidence:** [Build plan §3, Wave 0B authority and packaging resolution](../docs/PRD_CE_V2_BUILD_PLAN.md#wave-0b-authority-and-packaging-resolution)
+- **Implementation Evidence:** [Wave 0B distribution tests](../tests/test_distribution.py) pass against
+  direct installation and the generated plugin payload.
+- **Confidence:** 4/5 — owner decision plus passing seed-separation, parity, non-overwrite, link,
+  package-sync, and leak proofs; release lifecycle evidence remains outstanding.
+- **Next Evidence Target:** CI reproduction plus v0.8 upgrade, rollback, uninstall, and release proofs.
 
 ---
 
-## Cross-Reference Index
+## Update protocol
 
-**Decisions by Domain**:
-
-- Frontend: TECH-001, ARC-001
-- Backend: TECH-002, ARC-002
-- Environment: ENV-001, ENV-002, ENV-003
-
-**Decisions by EPIC**:
-
-- EPIC-01 implemented: TECH-001, ARC-001, ENV-001
-
----
-
-## Update Protocol
-
-### When to Add New IDs
-
-1. **TECH-XXX**: Selecting a new technology, framework, or tool
-2. **ARC-XXX**: Making a structural decision about system design
-3. **ENV-XXX**: Documenting environment requirements (dev setup, CI/CD, infrastructure)
-
-### Bidirectional Reference Checklist
-
-When adding a new TECH/ARC/ENV-XXX:
-
-- [ ] Update PRD.md v0.5/v0.6 section if applicable
-- [ ] Update related API contracts if affected
-- [ ] Update EPIC Section 2 "Context & IDs" list
-- [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry if maintained
-- [ ] For an ARC- that makes a structural claim, add a **Conformance Rule** so the Development Graph can verify the as-built code honors it (v0.7)
-
----
-
-*End of SoT.TECHNICAL_DECISIONS.md - Authoritative source for TECH-XXX, ARC-XXX, and ENV-XXX IDs*
+- Never delete accepted decisions; deprecate or supersede them with valid-time fields and a
+  replacement link.
+- Keep decision status distinct from runtime implementation and public capability status.
+- Update evidence, confidence, relationships, and the matching HTML companion in the same change.
+- Before v0.7, record new decisions in the current PRD gate change log and accepted SoT snapshot;
+  Wave 0B is an owner-authorized bootstrap example. From v0.7 onward, follow the normal EPIC
+  Context & IDs protocol.

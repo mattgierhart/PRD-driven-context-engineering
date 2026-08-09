@@ -1,8 +1,11 @@
 # Product Type Classification Examples
 
-## Good Classifications (From GearHeart Portfolio)
+> **Synthetic examples:** Product names, IDs, prices, findings, and outcomes in this file are
+> fictional teaching fixtures. Replace them with attributable evidence from the current product.
 
-### ReviewMaster — UNDERCUT ✓
+## Good Classifications (Synthetic)
+
+### Example Review Tool — UNDERCUT ✓
 
 **Context**: BirdEye dominates SMB review management at $299/month
 
@@ -34,7 +37,7 @@ restaurants don't need.
 
 ---
 
-### Digital Sports Branding AI — CLONE + UNDERCUT ✓
+### Example Team-Branding Tool — CLONE + UNDERCUT ✓
 
 **Context**: Looka dominates AI logo generation at $65/premium
 

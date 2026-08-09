@@ -2,13 +2,16 @@
 
 **Purpose**: Good and bad patterns for gate validation with pass/fail scenarios.
 
+> **Synthetic examples:** Product names, dates, scores, IDs, and outcomes below are fictional
+> teaching fixtures. Replace them with current computed evidence.
+
 > **Note**: As of `ghm-gate-check@evolved-2026-04-17`, verdicts come from `scripts/readiness.py` — a graduated score (0–100) across three layers. The examples below show the JSON-driven report shape; the "Pass/Fail Pattern Summary" at the end covers the *content* patterns (what makes a CFD entry good, what makes a risk actionable).
 
 ---
 
 ## Graduated-Score Report Example (BLOCK)
 
-**Context**: OriginStamp, evaluating v0.7 → v0.8 transition. `readiness.py run` exits 2.
+**Context**: Example timestamping product evaluating v0.7 → v0.8. `readiness.py run` exits 2.
 
 ```markdown
 ## Gate Check Report: v0.7 → v0.8 (Build → Deployment)
@@ -74,7 +77,8 @@ None — all SoT files passing.
 
 ### Recommendation
 
-Advance to v0.7. Run `ghm-status-sync` to update the README dashboard.
+Present the evidence for owner review. If the owner approves and records the v0.7 PRD transition,
+run `ghm-status-sync` to mirror the new state in README.
 ```
 
 ---
@@ -113,7 +117,7 @@ Project management tool for design teams
 - ✅ Differentiation specific (not "better PM")
 - ✅ Clear switching target (Asana users needing design features)
 
-**Action**: Advance to v0.3 (Commercial Model)
+**Action**: Present the evidence for owner review of the v0.3 transition
 
 ---
 
@@ -187,7 +191,8 @@ CRM for real estate agents
 - [ ] Re-assess moat (data moat? network effects? brand?)
 - [ ] Prioritize features: Mark 5 as MVP, rest as "post-MVP"
 
-**Decision**: Can advance, but must fix conditions before v0.5
+**Invalid decision shown**: “Can advance, but must fix conditions before v0.5.” Under the current
+contract this is WARN: do not advance, remediate, recompute, then seek owner gate review.
 
 ---
 
@@ -222,7 +227,7 @@ Dark mode feature for SaaS product
 - ✅ All tests passing
 - ✅ Code traceable (can find which code implements which spec)
 
-**Action**: Advance to v0.8 (Deployment planning)
+**Action**: Present the evidence for owner review of the v0.8 transition
 
 ---
 
@@ -309,9 +314,12 @@ Marketplace for freelance designers
 
 ---
 
-## Conditional Pass Criteria
+## "Conditional Pass" Is Not a Verdict
 
-**When to Use**:
+Classify this situation as **WARN**, record the conditions, and do not advance until the evidence is
+recomputed as PASS and the owner approves the PRD transition.
+
+**Typical warning shape**:
 - 80%+ of criteria met
 - Issues are fixable in < 1 week
 - Blocker conditions not present

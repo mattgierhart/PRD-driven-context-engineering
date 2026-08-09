@@ -29,7 +29,7 @@ Rule: Maximum discount of [X]% on any tier
 Rationale: [Protect pricing integrity, prevent race to bottom]
 Enforcement: [Approval workflow, system limits]
 Evidence: [Margin analysis, competitor discount norms]
-Exception: [Strategic accounts, Matt approval required]
+Exception: [Strategic accounts, designated approver required]
 ```
 
 **Fill in**:
@@ -174,7 +174,7 @@ Rule: Starter tier minimum $15/mo annual ($180/yr) or $19/mo monthly
 Rationale: CAC estimated at $50, need 3-month payback at 90% margin
 Enforcement: Stripe product config, cannot create lower-priced products
 Evidence: CAC model v1.0, competitor analysis CFD-023
-Exception: 50% founding discount (max 100 customers, Matt approval)
+Exception: 50% founding discount (max 100 customers, designated approver approval)
 
 BR-PKG-001: Free Tier Product Limit  
 Rule: Free tier capped at 5 products; show upgrade banner at product 4

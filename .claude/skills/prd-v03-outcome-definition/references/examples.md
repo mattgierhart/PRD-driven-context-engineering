@@ -1,8 +1,11 @@
 # Outcome Definition Examples
 
+> **Synthetic examples:** Every product name, ID, metric, threshold, and outcome below is fictional
+> teaching data. Replace it with attributable product evidence.
+
 ## Good Examples
 
-### Example 1: HomeFalcon "Issues Resolved per Household"
+### Example 1: Home Organizer "Issues Resolved per Household"
 
 **Context**: Home product management app with savings tracker (B2C, Innovation-adjacent)
 
@@ -28,9 +31,9 @@ Measurement: Weekly via Supabase query
 
 ---
 
-### Example 2: GearHeart "Signal → $1: 14 days"
+### Example 2: Evidence-Backed Time to First Revenue
 
-**Context**: Micro-SaaS portfolio philosophy (applies to all products)
+**Context**: Synthetic local validation policy; it is not a framework-wide standard
 
 **KPI Entry**:
 ```
@@ -38,9 +41,9 @@ KPI-002: Time to First Revenue
 Type: Tier 1
 Category: Lagging
 Definition: Calendar days from market signal identification to first paying customer
-Target: ≤14 days
-Evidence: BR-001 (GearHeart methodology: revenue validates)
-Downstream Gate: v0.5 Red Team — if Day 21 with no revenue, mandatory pivot review
+Target: ≤{owner-defined days}
+Evidence: BR-001 (synthetic policy example; replace with product evidence)
+Downstream Gate: v0.5 Red Team — use an accepted product-specific escalation date
 Measurement: Manual tracking in PRD changelog
 ```
 
@@ -54,7 +57,7 @@ Measurement: Manual tracking in PRD changelog
 
 ---
 
-### Example 3: ServiceAutoPilot Follow-Up — Leading + Lagging Split
+### Example 3: Estimate Follow-Up Tool — Leading + Lagging Split
 
 **Context**: B2B SaaS for estimate follow-up automation (Slice/Wrapper hybrid)
 
@@ -93,7 +96,7 @@ Measurement: Monthly via Stripe
 
 ### Bad Example 1: "50K Users"
 
-**Context**: Acquisition evaluation (LeadGrowly listing)
+**Context**: Synthetic acquisition-listing evaluation
 
 **What was proposed**:
 ```
@@ -115,7 +118,7 @@ Target: 50,000
 
 ### Bad Example 2: Traffic Volume Without Quality
 
-**Context**: LeadGrowly with "88% referral traffic"
+**Context**: Synthetic listing with "88% referral traffic"
 
 **What was proposed**:
 ```

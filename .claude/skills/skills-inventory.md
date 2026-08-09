@@ -1621,7 +1621,7 @@ id_outputs: []  # Updates existing IDs, creates code
 
 **Mode:** Iterative execution within EPIC context.
 
-**Core Loop (The Heartbeat):**
+**Core Loop (The Iteration Rhythm):**
 ```
 1. Load Context     → Read EPIC, referenced IDs, Session State
 2. Select Focus     → Choose a Context Window from Phase C

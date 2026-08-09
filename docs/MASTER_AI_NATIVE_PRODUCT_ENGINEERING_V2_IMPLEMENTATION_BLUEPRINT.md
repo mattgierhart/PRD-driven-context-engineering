@@ -77,7 +77,13 @@ and durable SoT decisions. Nothing in this research input overrides the current 
 
 ## 0.3 The implementation priority
 
-The first implementation should prove the kernel before rebuilding the entire methodology:
+> **Wave 0B reconciliation:** The active first-executable contract is
+> [ARC-003](../SoT/SoT.TECHNICAL_DECISIONS.md#arc-003-first-executable-value-is-read-only-in-place-inspection):
+> read-only, in-place inspection with exact source citations. The sequence below is preserved
+> research direction, not one release. Its proposal, adjudication, and materialization steps are
+> deferred until the read-only foundation and separate mutation gates pass.
+
+The research sequence proposed proving the kernel before rebuilding the entire methodology:
 
 ```text
 structured SoT Markdown
@@ -2611,11 +2617,16 @@ The first implementation must preserve these decisions:
 9. Every query result can trace back to a Markdown file, record ID, and line.
 10. The local product works fully without cloud infrastructure.
 
-## 19.3 First release scope
+## 19.3 Superseded research first-release scope
 
-> **Preserved research proposal — not an active release scope.** The Product Management-focused
-> build plan and an accepted `PRD.md` must narrow and authorize any implementation drawn from this
-> section. Do not treat the list below as a committed release contract.
+> **Preserved research proposal — not an active release scope.** The active alpha boundary is the
+> read-only Compatibility Inspector defined by
+> [ARC-003](../SoT/SoT.TECHNICAL_DECISIONS.md#arc-003-first-executable-value-is-read-only-in-place-inspection)
+> and build-plan Wave 2: compatibility parsing, typed identity and relationships, deterministic
+> validation, a disposable local projection, and read-only `index`, `check`, `query`, and `trace`.
+> It excludes the writer, migration, Change Set application, accepted-state adjudication, graph
+> JSON/viewer, MCP, hosted service, and provider parity listed below. Those items require later gates
+> and cannot be inferred as part of the first release.
 
 ### Include
 

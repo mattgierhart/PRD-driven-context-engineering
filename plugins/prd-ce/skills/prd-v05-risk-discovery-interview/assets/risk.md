@@ -90,7 +90,7 @@ v0.5 establishes the baseline risk register, but risk discovery is **not a one-t
 | v0.7 Build | Implementation blockers, test coverage gaps |
 | v0.8 Deployment | Operational risks, security findings |
 | v0.9 GTM | Market timing shifts, competitive moves |
-| v1.0 Growth | Real adoption data contradicting assumptions |
+| v1.0 Market Adoption | Real adoption data contradicting assumptions |
 
 When adding a risk after v0.5, use the `Added:` field to record which stage surfaced it.
 

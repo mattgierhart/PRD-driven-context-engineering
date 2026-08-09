@@ -5,30 +5,38 @@
 # (skills / agents / hooks / scripts) is provided LIVE by the plugin runtime — it is not
 # copied into the consumer repo. This script plants only the files the plugin cannot carry
 # as behavior: the consumer's own PRD.md, SoT/, EPIC templates, domain-profile.yaml, the
-# four agent MEMORY.md starters, and an optional human CLAUDE.md stub.
+# four agent MEMORY.md starters, and the allowlisted consumer docs those seeds reference.
 #
 # Properties:
 #   - Idempotent + non-destructive — never overwrites an existing file (honors never_touch).
 #   - Manifest-driven — reads `template_seed` from install-manifest.yaml, so it can't drift
-#     from install.sh / ghm-template-sync (single source for "what gets seeded").
-#   - PRD frontmatter reset — a freshly seeded PRD.md is reset to a clean v0.1 state.
+#     from install.sh (single source for "what gets seeded").
+#   - Deterministic seeds — direct and plugin installs copy the same bytes from explicit templates.
 #   - Layout-aware — resolves its template bundle under ${CLAUDE_PLUGIN_ROOT}/templates when
 #     running as an installed plugin, else falls back to the repo source tree (dogfood/dev).
 #
-# Usage: bash prd-ce-init.sh [--target DIR] [--dry-run]
+# Usage: bash prd-ce-init.sh [--target DIR] [--profile PROFILE] [--dry-run]
 set -euo pipefail
 
 TARGET="$PWD"
 DRY=0
+PROFILE=""
+RUNTIME_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 while [ $# -gt 0 ]; do
   case "$1" in
     --target) TARGET="$2"; shift 2 ;;
+    --profile) PROFILE="$2"; shift 2 ;;
     --dry-run) DRY=1; shift ;;
     -h|--help) grep -E '^# ' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "✗ unknown arg: $1" >&2; exit 2 ;;
   esac
 done
-TARGET="$(cd "$TARGET" && pwd)"
+
+case "$PROFILE" in
+  ""|product|library|infrastructure|research) ;;
+  *) echo "✗ unknown profile: $PROFILE; no files were seeded" >&2; exit 2 ;;
+esac
+TARGET_INPUT="$TARGET"
 
 # --- Resolve the template bundle root (plugin install vs in-repo dogfood) ---------------
 # In both modes, template_seed source paths resolve as "$TPL/<src>": the packager mirrors
@@ -42,6 +50,132 @@ fi
 MANIFEST="$TPL/.claude/install-manifest.yaml"
 [ -f "$MANIFEST" ] || MANIFEST="$TPL/install-manifest.yaml"
 [ -f "$MANIFEST" ] || { echo "✗ install-manifest.yaml not found under $TPL" >&2; exit 1; }
+
+for bin in python3 awk; do
+  if ! command -v "$bin" >/dev/null 2>&1; then
+    echo "✗ $bin is required; no files were seeded" >&2
+    exit 1
+  fi
+done
+if ! python3 -c 'import yaml' >/dev/null 2>&1; then
+  echo "  ⚠ readiness dependency missing: PyYAML" >&2
+  echo "    install with: python3 -m pip install -r \"$RUNTIME_ROOT/scripts/requirements.txt\"" >&2
+fi
+
+# Resolve and validate the complete seed write-set before the first mkdir/cp. A destination may be
+# absent, but every existing ancestor below the target root must be a real directory and no
+# destination component may be a symlink.
+if ! TARGET="$(python3 - "$MANIFEST" "$TPL" "$TARGET_INPUT" <<'PY'
+import os
+import posixpath
+import re
+import stat
+import sys
+
+manifest, templates, target_input = sys.argv[1:]
+target_input = os.path.abspath(target_input)
+try:
+    target_mode = os.lstat(target_input).st_mode
+except OSError as exc:
+    print(f"✗ target directory is unavailable: {exc}; no files were seeded", file=sys.stderr)
+    raise SystemExit(1)
+if stat.S_ISLNK(target_mode):
+    print(f"✗ refusing symlink target directory: '{target_input}'; no files were seeded", file=sys.stderr)
+    raise SystemExit(1)
+if not stat.S_ISDIR(target_mode):
+    print(f"✗ target is not a directory: '{target_input}'; no files were seeded", file=sys.stderr)
+    raise SystemExit(1)
+
+target = os.path.realpath(target_input)
+seeds = []
+current = None
+for raw in open(manifest):
+    top = re.match(r"^([A-Za-z_]+):\s*$", raw)
+    if top:
+        current = top.group(1)
+        continue
+    item = re.match(r"^\s*-\s*(.+?)\s*$", raw)
+    if current == "template_seed" and item:
+        value = re.sub(r"\s+#.*$", "", item.group(1)).strip()
+        if value:
+            seeds.append(value)
+
+destinations = []
+def safe_relative(relative):
+    if not relative or os.path.isabs(relative) or "\\" in relative:
+        return False
+    normalized = posixpath.normpath(relative)
+    return normalized == relative and normalized not in {"", "."} and ".." not in relative.split("/")
+
+for entry in seeds:
+    if " -> " in entry:
+        source, destination = entry.split(" -> ", 1)
+    else:
+        source = destination = entry
+    for label, relative in (("source", source), ("destination", destination)):
+        if not safe_relative(relative):
+            print(f"✗ unsafe template seed {label}: '{relative}'; no files were seeded", file=sys.stderr)
+            raise SystemExit(1)
+    destinations.append(("template_seed", destination))
+
+# This plugin-only consumer guide is intentionally outside template_seed, so include it explicitly
+# in the same all-or-nothing destination preflight.
+destinations.append(("plugin guide", "CLAUDE.md"))
+
+requirements = {}
+for label, destination in destinations:
+    current_path = target
+    components = [(current_path, ".")]
+    for part in destination.split("/"):
+        current_path = os.path.join(current_path, part)
+        components.append(
+            (current_path, os.path.relpath(current_path, target).replace(os.sep, "/"))
+        )
+    for index, (candidate, relative) in enumerate(components):
+        requires_directory = index < len(components) - 1
+        requirement = requirements.setdefault(candidate, {
+            "relative": relative,
+            "label": label,
+            "destination": destination,
+            "requires_directory": False,
+        })
+        if requires_directory and not requirement["requires_directory"]:
+            requirement.update({
+                "label": label,
+                "destination": destination,
+                "requires_directory": True,
+            })
+
+for candidate, requirement in sorted(requirements.items()):
+    try:
+        mode = os.lstat(candidate).st_mode
+    except FileNotFoundError:
+        continue
+    except OSError as exc:
+        print(f"✗ cannot inspect target path '{candidate}': {exc}; no files were seeded", file=sys.stderr)
+        raise SystemExit(1)
+    if stat.S_ISLNK(mode):
+        print(
+            f"✗ refusing symlink at target path '{requirement['relative']}' "
+            f"for {requirement['label']} destination '{requirement['destination']}'; "
+            "no files were seeded",
+            file=sys.stderr,
+        )
+        raise SystemExit(1)
+    if requirement["requires_directory"] and not stat.S_ISDIR(mode):
+        print(
+            f"✗ refusing non-directory target ancestor '{requirement['relative']}' "
+            f"for {requirement['label']} destination '{requirement['destination']}'; "
+            "no files were seeded",
+            file=sys.stderr,
+        )
+        raise SystemExit(1)
+
+print(target)
+PY
+)"; then
+  exit 1
+fi
 
 say()  { printf '%s\n' "$*"; }
 act()  { [ "$DRY" -eq 1 ] && printf '  would seed : %s\n' "$1" || printf '  seeded     : %s\n' "$1"; }
@@ -80,34 +214,14 @@ seed_one() {
   return 0
 }
 
-# Reset a freshly seeded PRD.md frontmatter to a clean v0.1 state.
-reset_prd_frontmatter() {
-  local f="$1"
-  [ -f "$f" ] || return 0
-  [ "$DRY" -eq 0 ] || { say "  would reset : PRD.md frontmatter -> v0.1, today, drop template_version"; return 0; }
-  python3 - "$f" <<'PY'
-import sys, re, datetime
-f = sys.argv[1]
-s = open(f).read()
-if s.startswith('---'):
-    end = s.find('\n---', 3)
-    if end != -1:
-        fm, rest = s[:end], s[end:]
-        fm = re.sub(r'(?m)^version:.*$',          'version: 0.1', fm)
-        fm = re.sub(r'(?m)^last_updated:.*$',      'last_updated: %s' % datetime.date.today().isoformat(), fm)
-        fm = re.sub(r'(?m)^template_version:.*\n', '', fm)   # stale template marker → drop
-        open(f, 'w').write(fm + rest)
-PY
-  say "  reset      : PRD.md frontmatter -> v0.1"
-}
-
 # --- Run --------------------------------------------------------------------------------
 say "▶ prd-ce:init — seeding greenfield scaffold"
 say "  target    : $TARGET"
 say "  templates : $TPL"
 [ "$DRY" -eq 1 ] && say "  (dry-run — no files written)"
 
-prd_was_seeded=0
+profile_seeded=0
+
 while IFS= read -r entry; do
   [ -n "$entry" ] || continue
   src="${entry%%->*}"; src="${src%"${src##*[![:space:]]}"}"; src="${src#"${src%%[![:space:]]*}"}"
@@ -117,14 +231,33 @@ while IFS= read -r entry; do
     dest="$src"
   fi
   if seed_one "$TPL/$src" "$TARGET/$dest"; then
-    [ "$dest" = "PRD.md" ] && prd_was_seeded=1
+    [ "$dest" = ".claude/domain-profile.yaml" ] && profile_seeded=1
   fi
 done < <(parse_section template_seed)
 
-# domain-profile.yaml is framework-class in fork mode, but consumer-owned config in plugin
-# mode (skills read the CONSUMER's copy) — so init seeds it too when absent.
-seed_one "$TPL/.claude/domain-profile.yaml" "$TARGET/.claude/domain-profile.yaml" || true
+if [ -n "$PROFILE" ]; then
+  if [ "$profile_seeded" -eq 1 ]; then
+    if [ "$DRY" -eq 1 ]; then
+      say "  would set  : .claude/domain-profile.yaml profile=$PROFILE"
+    else
+      python3 - "$TARGET/.claude/domain-profile.yaml" "$PROFILE" <<'PY'
+import re
+import sys
 
-[ "$prd_was_seeded" -eq 1 ] && reset_prd_frontmatter "$TARGET/PRD.md"
+path, profile = sys.argv[1:]
+text = open(path).read()
+text = re.sub(r"(?m)^profile:.*$", f"profile: {profile}", text, count=1)
+open(path, "w").write(text)
+PY
+      say "  profile set: $PROFILE (new seed only)"
+    fi
+  else
+    say "  ⚠ profile '$PROFILE' not applied; existing domain-profile.yaml is consumer-owned"
+  fi
+fi
+
+# README_template links a local CLAUDE.md. In plugin mode behavior stays live, while this small
+# consumer guide makes the authority chain and local links explicit without copying the framework.
+seed_one "$TPL/CLAUDE_plugin_stub.md" "$TARGET/CLAUDE.md" || true
 
 say "✔ init complete — next: customize README.md + PRD.md, then \"frame the problem\" (v0.1)"

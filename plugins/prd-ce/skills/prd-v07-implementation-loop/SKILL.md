@@ -35,7 +35,7 @@ This skill updates/creates:
 - **Working code** (implementation of API-, DBT-, BR-, tested against TEST-) — Runnable code with @implements tags tracing back to specifications; passes all TEST- for EPIC
 - **Updated SoT entries** (if implementation reveals changes) — When building reveals new constraints or edge cases, update API-/DBT-/BR- entries immediately (not deferred)
 - **Session State updates** (EPIC.md Section 1) — "Brain dump" tracking exact stopping point, Next Steps for resume, blockers, decisions, Context
-- **Development Graph** (`status/devgraph.json`) — the `@implements`/`@verifies` tags you write are harvested into bridge edges, producing the as-built layer that readiness scores (`implementation_coverage`, `architecture_conformance`) and the **HeartBeat** visualizer renders. Schema: `docs/DEVELOPMENT_GRAPH.md`.
+- **Development Graph** (`status/devgraph.json`) — the `@implements`/`@verifies` tags you write are harvested into bridge edges, producing the as-built layer that readiness scores (`implementation_coverage`, `architecture_conformance`) and an optional visualizer can render. Schema: `docs/DEVELOPMENT_GRAPH.md`.
 
 All implementation outputs are **code and live SoT**, not confidence-based. They are:
 - **Traceable** (every function tagged with @implements pointing to specification ID)
@@ -99,9 +99,9 @@ Example Session State update (EPIC-01 mid-session):
 
 ## This skill executes the build. It's the iterative cycle of: **Load Context → Test → Code → Tag → Update → Validate → Repeat**.
 
-## The Core Loop (The Heartbeat)
+## The Core Loop (The Iteration Rhythm)
 
-Each pass leaves a trace: step 5 tags code with `@implements`, and those tags are exactly what the **Development Graph** harvests — so this loop literally produces the pulse the **HeartBeat** visualizer shows (built → 🟢, unbuilt → 🔴, drifted → 🔴). Rerun `readiness.py run` after a Context Window to watch `implementation_coverage` move.
+Each pass leaves a trace: step 5 tags code with `@implements`, and those tags are exactly what the **Development Graph** harvests — so this loop produces the state an optional visualizer can show (built → 🟢, unbuilt → 🔴, drifted → 🔴). Rerun `readiness.py run` after a Context Window to watch `implementation_coverage` move.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -446,7 +446,7 @@ Implementation Loop outputs feed into:
 | **v0.8 Release** | Completed EPICs ready for deployment | All TEST- pass, SoT current |
 | **Code Review** | @implements tags for context | Reviewer knows which BR- to check |
 | **Readiness (v0.7)** | Development Graph build-vs-blueprint | `implementation_coverage` + `architecture_conformance` from `status/devgraph.json` |
-| **HeartBeat** | The Development Graph as a live pulse | Renders built / unbuilt / drifted across the codebase |
+| **Graph visualizer** | Optional view over the Development Graph | Renders built / unbuilt / drifted across the codebase |
 | **Future Sessions** | Session State for continuity | Resume exactly where left off |
 | **Maintenance** | Traceability for debugging | "Which BR- does this code implement?" |
 

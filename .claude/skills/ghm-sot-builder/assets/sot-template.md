@@ -50,8 +50,8 @@ authority: This is a SoT file - IDs created here are referenced by {list files: 
 
 ### Related IDs
 
-- [{OTHER-PREFIX}-XXX](SoT.OTHER_FILE.md#{anchor}) — {relationship-type}: {Description}
-- [{OTHER-PREFIX}-YYY](SoT.OTHER_FILE.md#{anchor}) — {relationship-type}: {Description}
+- `{OTHER-PREFIX}-XXX` in `SoT.OTHER_FILE.md#{anchor}` — {relationship-type}: {Description; replace with a resolved link}
+- `{OTHER-PREFIX}-YYY` in `SoT.OTHER_FILE.md#{anchor}` — {relationship-type}: {Description; replace with a resolved link}
 
 > **Convention**: Use types from the [Relationship Type Vocabulary](../../ghm-id-register/references/cross-reference-patterns.md#relationship-type-vocabulary). Common types: `informed-by`, `implements`, `enforces`, `validated-by`, `uses`, `depends-on`.
 
@@ -108,7 +108,8 @@ authority: This is a SoT file - IDs created here are referenced by {list files: 
 When adding a new {PREFIX}-XXX:
 - [ ] Update {relevant SoT file} "{section}" for each {relationship}
 - [ ] Update {another SoT file} "{section}" for each {relationship}
-- [ ] Update EPIC **Context & IDs** section if part of active work
+- [ ] Before v0.7, update the PRD gate log / accepted SoT snapshot; at v0.7+, update the active
+      EPIC **Context & IDs** section
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry tables
 
 ### Required Fields Validation

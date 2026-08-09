@@ -132,8 +132,8 @@ npm run build  # or equivalent
 
 ### Related IDs
 
-- [TECH-XXX](../SoT.TECHNICAL_DECISIONS.md#tech-xxx) - {Technology this environment supports}
-- [ARC-XXX](../SoT.TECHNICAL_DECISIONS.md#arc-xxx) - {Architecture context}
+- `TECH-XXX` - {Technology this environment supports; replace with a resolved ID link}
+- `ARC-XXX` - {Architecture context; replace with a resolved ID link}
 
 ---
 
@@ -179,7 +179,7 @@ Document CI/CD pipeline configuration for automated testing and deployment.
 ### Related IDs
 
 - [ENV-001](#env-001-development-environment) - Local environment this mirrors
-- [DEP-XXX](../SoT.DEPLOYMENT.md#dep-xxx) - Deployment procedures
+- `DEP-XXX` - Deployment procedures; replace with a resolved ID link
 
 ---
 
@@ -222,6 +222,6 @@ Document production hosting and services configuration.
 
 ### Related IDs
 
-- [DEP-XXX](../SoT.DEPLOYMENT.md#dep-xxx) - Deployment procedures
-- [MON-XXX](../SoT.DEPLOYMENT.md#mon-xxx) - Monitoring setup
-- [RUN-XXX](../SoT.DEPLOYMENT.md#run-xxx) - Operational runbooks
+- `DEP-XXX` - Deployment procedures; replace with a resolved ID link
+- `MON-XXX` - Monitoring setup; replace with a resolved ID link
+- `RUN-XXX` - Operational runbooks; replace with a resolved ID link

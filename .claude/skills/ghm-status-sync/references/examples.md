@@ -2,6 +2,9 @@
 
 **Purpose**: Good and bad patterns for README Command Center updates.
 
+> **Synthetic examples:** Names, dates, people, IDs, metrics, and outcomes below are fictional
+> teaching fixtures. Replace them with the current repository's evidence.
+
 ---
 
 ## Good Example: Weekly Status Update
@@ -9,7 +12,7 @@
 ### README Update (2026-01-11)
 
 ```markdown
-# Product: DesignHub Command Center
+# Product: Example Design Workspace Command Center
 
 **Last Updated**: 2026-01-11
 **PRD Version**: v0.7 (Build Execution)
@@ -192,7 +195,7 @@ We're building features and making progress. No major issues.
 ### README Update (Post-Launch Week 1)
 
 ```markdown
-# DesignHub Command Center
+# Example Design Workspace Command Center
 
 **Last Updated**: 2026-01-11
 **PRD Version**: v1.0 (Launched!)

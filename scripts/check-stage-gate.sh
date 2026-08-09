@@ -22,9 +22,15 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Get script directory to find repo root
+# Resolve the consumer repository even when this script is executed from a plugin package.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+REPO_ROOT="${PRD_CE_PROJECT_ROOT:-${CLAUDE_PROJECT_DIR:-}}"
+if [[ -z "$REPO_ROOT" || ! -d "$REPO_ROOT" ]]; then
+    REPO_ROOT="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null || true)"
+fi
+if [[ -z "$REPO_ROOT" || ! -d "$REPO_ROOT" ]]; then
+    REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+fi
 
 # Parse target stage
 TARGET_STAGE="${1:-}"
@@ -218,7 +224,8 @@ if [[ ${#ERRORS[@]} -gt 0 ]]; then
     echo "Run /ghm-gate-check for detailed guidance on what's missing."
     exit 1
 else
-    echo -e "${GREEN}GATE PASSED${NC}"
-    echo "Ready to advance to v${TARGET_STAGE}"
+    echo -e "${GREEN}READINESS FLOOR PASSED${NC}"
+    echo "Eligible for owner review of v${TARGET_STAGE}."
+    echo "Only an owner-approved PRD transition authorizes advancement."
     exit 0
 fi

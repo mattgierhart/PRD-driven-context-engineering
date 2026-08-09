@@ -2,15 +2,16 @@
 version: 1.0
 purpose: Source of Truth for cross-session behavioral corrections and validated patterns.
 id_prefix: LL-XXX
-last_updated: 2026-04-01
-authority: This is a SoT file - entries promoted from agent MEMORY.md files during EPIC Phase E harvest
+last_updated: 2026-08-08
+authority: Unaccepted starter and legacy content; no LL records are accepted unless named in the PRD SoT snapshot.
+template_state: uninitialized
 ---
 
 # Lessons Learned (SoT File)
 
 > **Purpose**: Cross-session behavioral corrections and validated patterns that should persist across EPICs and template forks.
 > **ID Prefix**: LL-XXX
-> **Status**: Active SoT file
+> **Status**: Uninitialized acceptance state; retained legacy/example entries are non-authoritative
 > **Harvest Source**: Agent MEMORY.md files (Phase E triage), EPIC observations
 > **Audience**: All agents, all sessions
 > **Cross-References**: Referenced by EPICs, agent MEMORY.md files

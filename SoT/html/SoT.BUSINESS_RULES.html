@@ -3,155 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Business Rules · BR-XXX</title>
+<title>Business Rules · PRD-CE V2 Governance</title>
 <link rel="stylesheet" href="assets/sot.css">
 </head>
 <body>
-
 <nav class="topnav">
   <a class="brand" href="index.html">SoT Atlas</a>
   <a href="SoT.USER_JOURNEYS.html">Journeys</a>
   <span class="here">Rules</span>
-  <a href="SoT.API_CONTRACTS.html">APIs</a>
-  <a href="SoT.DATA_MODEL.html">Data</a>
-  <a href="SoT.TESTING.html">Tests</a>
+  <a href="SoT.TECHNICAL_DECISIONS.html">Decisions</a>
   <a class="src" href="../SoT.BUSINESS_RULES.md">source: SoT.BUSINESS_RULES.md</a>
 </nav>
 
 <main>
   <header class="page-head">
     <p class="kicker">The Source-of-Truth Review · <span class="no">№ 04</span> — Policy</p>
-    <h1>Business Rules</h1>
-    <p class="lede">The policy register: hard constraints the product must enforce. Each rule states
-       <em>what</em>, <em>why</em>, <em>where it's enforced</em>, and <em>what the user sees when it fires</em>.</p>
-    <div class="prefix-row">
-      <span class="prefix-chip">BR-001…099 · Pricing &amp; Entitlements</span>
-      <span class="prefix-chip">BR-101…199 · Data &amp; Security</span>
-      <span class="prefix-chip">BR-201…299 · User Permissions</span>
-      <span class="prefix-chip">BR-301…399 · Compliance &amp; Legal</span>
-      <span class="prefix-chip">BR-401…499 · Performance &amp; Limits</span>
-    </div>
-    <div class="persona-note">
-      <strong>Built for the PM, compliance reviewer, and backend engineer.</strong> Reads like a
-      policy register: severity-flagged rule cards with an imperative rule statement, an enforcement
-      matrix, and the exact error contract — the things a reviewer checks before sign-off.
-    </div>
+    <h1>V2 Governance Rules</h1>
+    <p class="lede">Owner-confirmed constraints established by the Wave 0B governance bootstrap at
+      PRD v0.1. These records do not advance v0.2, create an EPIC, or claim a V2 runtime.</p>
+    <div class="prefix-row"><span class="prefix-chip">BR-001…005 · Methodology governance</span></div>
   </header>
 
   <article class="entry" id="BR-001">
-    <div class="entry-head">
-      <a class="id" href="#BR-001">BR-001</a>
-      <h3><span class="ph">{Action title — the rule as its takeaway, e.g. "Free tier is capped at 3 products"}</span></h3>
-      <span class="spacer"></span>
-      <span class="badge b-critical">Critical</span>
-      <span class="badge b-active">Active</span>
-    </div>
-
+    <div class="entry-head"><a class="id" href="#BR-001">BR-001</a><h3>Product Management Is the Sole V2 Lifecycle</h3><span class="spacer"></span><span class="badge b-critical">Critical</span><span class="badge b-active">Active</span></div>
     <dl class="meta-grid">
-      <div><dt>Category</dt><dd><span class="ph">Pricing | Data | Permissions | Compliance | Performance</span></dd></div>
-      <div><dt>Created</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
-      <div><dt>Last updated</dt><dd><span class="ph">YYYY-MM-DD</span></dd></div>
+      <div><dt>Category</dt><dd>Methodology Governance</dd></div><div><dt>Created / reviewed</dt><dd>2026-08-08</dd></div><div><dt>Authority</dt><dd>Owner-confirmed · Wave 0B</dd></div><div><dt>Valid</dt><dd>PRD v0.1 → —</dd></div>
     </dl>
+    <div class="section-label">Rule</div>
+    <blockquote class="voc" style="font-style:normal">PRD-CE V2 MUST serve the Product Management lifecycle only. Adjacent methodologies MUST remain separately governed and MUST NOT broaden V2 scope.</blockquote>
+    <div class="grid-2"><div><div class="section-label">Rationale</div><p>One lifecycle keeps the promise, vocabulary, validation, and first user experience coherent.</p></div><div><div class="section-label">Enforcement</div><p>Review root PRD scope, lifecycle gates, reusable artifacts, and public claims at every gate and release decision.</p></div></div>
+    <div class="section-label">Failure disposition</div><p><code>V2_SCOPE_EXPANSION</code> — block advancement or release until the expansion is removed or separately governed.</p>
+    <div class="section-label">Relationships</div><p>No typed-ID dependency asserted; this rule directly constrains the root PRD.</p>
+    <div class="section-label">Evidence &amp; confidence</div><p>Build plan §2 · Confidence: 1/5 — normative owner decision; next target is v0.2 audience evidence.</p>
+  </article>
 
-    <div class="section-label">Rule statement (imperative, enforceable)</div>
-    <blockquote class="voc" style="font-style:normal">
-      <span class="ph">{Clear, enforceable statement. e.g. "Free tier users MUST be limited to 3
-      products. Attempts to exceed MUST show upgrade prompt."}</span>
-    </blockquote>
+  <article class="entry" id="BR-002">
+    <div class="entry-head"><a class="id" href="#BR-002">BR-002</a><h3>Reusable Packages Stay Generic and Non-Destructive</h3><span class="spacer"></span><span class="badge b-critical">Critical</span><span class="badge b-active">Active</span></div>
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd>Patterns</dd></div><div><dt>Created / reviewed</dt><dd>2026-08-08</dd></div><div><dt>Authority</dt><dd>Owner-confirmed · Wave 0B</dd></div><div><dt>Valid</dt><dd>PRD v0.1 → —</dd></div>
+    </dl>
+    <div class="section-label">Rule</div>
+    <blockquote class="voc" style="font-style:normal">Reusable artifacts MUST stay generic, exclude downstream/private/maintainer material, and MUST NOT overwrite consumer-owned product content.</blockquote>
+    <div class="grid-2"><div><div class="section-label">Rationale</div><p>Repository-specific seed truth contaminates downstream products; directory replacement can destroy consumer work.</p></div><div><div class="section-label">Enforcement</div><p>Manifest, installers, packager, and isolated tests preserve product files, domain profile, memory, and unrelated framework-directory additions.</p></div></div>
+    <div class="section-label">Failure disposition</div><p><code>DISTRIBUTION_LEAK_OR_OVERWRITE</code> — block packaging and release until isolated proofs pass.</p>
+    <div class="section-label">Evidence &amp; confidence</div><p>Build plan §2–§3 + passing Wave 0B clean-install, forced-reinstall, plugin-parity, link, package, and sensitive-reference tests · Confidence: 4/5. CI and release-lifecycle evidence remain outstanding.</p>
+  </article>
 
-    <div class="grid-2">
-      <div>
-        <div class="section-label">Rationale</div>
-        <table class="tbl">
-          <tbody>
-            <tr><td><strong>Business driver</strong></td><td><span class="ph">{Why this rule exists}</span></td></tr>
-            <tr><td><strong>User impact</strong></td><td><span class="ph">{How it affects UX}</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <div class="section-label">Enforcement</div>
-        <table class="tbl">
-          <tbody>
-            <tr><td><strong>Location</strong></td><td><span class="ph">server / client / both</span></td></tr>
-            <tr><td><strong>Timing</strong></td><td><span class="ph">on action / background / real-time</span></td></tr>
-            <tr><td><strong>Enforced by</strong></td><td><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <article class="entry" id="BR-003">
+    <div class="entry-head"><a class="id" href="#BR-003">BR-003</a><h3>V2 Remains Proposed and Branch-Isolated</h3><span class="spacer"></span><span class="badge b-critical">Critical</span><span class="badge b-active">Active</span></div>
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd>Methodology Governance</dd></div><div><dt>Created / reviewed</dt><dd>2026-08-08</dd></div><div><dt>Authority</dt><dd>Owner-confirmed · Wave 0B</dd></div><div><dt>Valid</dt><dd>PRD v0.1 → —</dd></div>
+    </dl>
+    <div class="section-label">Rule</div>
+    <blockquote class="voc" style="font-style:normal">V2 runtime and public capability status MUST remain Proposed and branch-isolated until executable release-candidate evidence and explicit owner approval exist.</blockquote>
+    <div class="grid-2"><div><div class="section-label">Rationale</div><p>Committed plans are not executable behavior, and historical publication risk remains unresolved.</p></div><div><div class="section-label">Enforcement</div><p>README, PRD, plans, public claims, branch workflow, and provider metadata.</p></div></div>
+    <div class="section-label">Failure disposition</div><p><code>UNPROVEN_V2_RELEASE_CLAIM</code> — restore Proposed status and block merge/publication.</p>
+    <div class="section-label">Relationships</div><p>depends-on → <a class="id" href="#BR-005">BR-005</a></p>
+    <div class="section-label">Evidence &amp; confidence</div><p>Build plan §2 · Confidence: 1/5 — no V2 runtime or release-candidate evidence exists.</p>
+  </article>
 
-    <div class="section-label">Error contract (what fires when the rule is violated)</div>
-    <pre class="code"><span class="k">"error_code"</span>: <span class="s">"BR_001_VIOLATION"</span>
-<span class="k">"user_message"</span>: <span class="s">"<span class="ph">{User-friendly error}</span>"</span>
-<span class="k">"recovery"</span>: <span class="s">"<span class="ph">{What user can do}</span>"</span></pre>
+  <article class="entry" id="BR-004">
+    <div class="entry-head"><a class="id" href="#BR-004">BR-004</a><h3>Implementation EPICs Begin Only at v0.7</h3><span class="spacer"></span><span class="badge b-critical">Critical</span><span class="badge b-active">Active</span></div>
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd>Methodology Governance</dd></div><div><dt>Created / reviewed</dt><dd>2026-08-08</dd></div><div><dt>Authority</dt><dd>Owner-confirmed · Wave 0B</dd></div><div><dt>Valid</dt><dd>PRD v0.1 → —</dd></div>
+    </dl>
+    <div class="section-label">Rule</div>
+    <blockquote class="voc" style="font-style:normal">No V2 implementation EPIC MAY be created before an owner-approved Progressive PRD v0.7 gate.</blockquote>
+    <div class="grid-2"><div><div class="section-label">Rationale</div><p>The PRD lifecycle is the sole authorization system; delivery sequencing cannot bypass unresolved gates.</p></div><div><div class="section-label">Enforcement</div><p>Check <code>epics/</code>, lifecycle review, and build-wave authorization before implementation.</p></div></div>
+    <div class="section-label">Failure disposition</div><p><code>PREMATURE_V2_EPIC</code> — stop implementation and remove the unapproved work package through review.</p>
+    <div class="section-label">Relationships</div><p>depends-on → <a class="id" href="#BR-003">BR-003</a></p>
+    <div class="section-label">Evidence &amp; confidence</div><p>Build plan §2 and §7 · Confidence: 1/5 — next target is an approved v0.7 gate.</p>
+  </article>
 
-    <div class="section-label">Knowledge-graph links</div>
-    <table class="tbl">
-      <thead><tr><th>Relationship</th><th>ID</th><th>Context</th></tr></thead>
-      <tbody>
-        <tr><td>Enforced by endpoint</td><td><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></td><td><span class="ph">{Endpoint enforcing this}</span></td></tr>
-        <tr><td>Applies in journey</td><td><a class="id" href="SoT.USER_JOURNEYS.html#UJ-001">UJ-001</a></td><td><span class="ph">{Journey where rule applies}</span></td></tr>
-        <tr><td>Backed by constraint</td><td><a class="id" href="SoT.DATA_MODEL.html#DBT-001">DBT-001</a></td><td><span class="ph">{Table with constraint}</span></td></tr>
-        <tr><td>Validated by</td><td><a class="id" href="SoT.TESTING.html#TEST-001">TEST-001</a></td><td><span class="ph">{Test validating compliance}</span></td></tr>
-      </tbody>
-    </table>
+  <article class="entry" id="BR-005">
+    <div class="entry-head"><a class="id" href="#BR-005">BR-005</a><h3>Version Dimensions Remain Distinct</h3><span class="spacer"></span><span class="badge b-high">High</span><span class="badge b-active">Active</span></div>
+    <dl class="meta-grid">
+      <div><dt>Category</dt><dd>Methodology Governance</dd></div><div><dt>Created / reviewed</dt><dd>2026-08-08</dd></div><div><dt>Authority</dt><dd>Owner-confirmed · Wave 0B</dd></div><div><dt>Valid</dt><dd>PRD v0.1 → —</dd></div>
+    </dl>
+    <div class="section-label">Rule</div>
+    <blockquote class="voc" style="font-style:normal">Methodology generation, PRD gate, runtime release/status, downstream template version, and provider package version MUST be reported independently.</blockquote>
+    <div class="grid-2"><div><div class="section-label">Rationale</div><p>“V2” must not turn a planning label into an unsupported runtime or availability claim.</p></div><div><div class="section-label">Enforcement</div><p>PRD/README metadata, template frontmatter, provider manifests, release notes, and public claims.</p></div></div>
+    <div class="section-label">Failure disposition</div><p><code>VERSION_DIMENSION_CONFLATION</code> — block the update until all dimensions are explicit.</p>
+    <div class="section-label">Evidence &amp; confidence</div><p>Build plan Wave 0B · Confidence: 1/5 — future release documentation must prove consistent use.</p>
   </article>
 
   <article class="entry" id="severity-index">
     <div class="entry-head"><h3>Register at a glance</h3></div>
-    <table class="tbl">
-      <thead><tr><th>ID</th><th>Rule</th><th>Category</th><th>Severity</th><th>Status</th><th>Enforced by</th></tr></thead>
-      <tbody>
-        <tr id="register-BR-001">
-          <td><a class="id" href="#BR-001">BR-001</a></td>
-          <td><span class="ph">{Rule name}</span></td>
-          <td><span class="ph">Pricing</span></td>
-          <td><span class="badge b-critical">Critical</span></td>
-          <td><span class="badge b-active">Active</span></td>
-          <td><a class="id" href="SoT.API_CONTRACTS.html#API-001">API-001</a></td>
-        </tr>
-        <tr>
-          <td><span class="mono">BR-101</span></td>
-          <td><span class="ph">{Rule name}</span></td>
-          <td><span class="ph">Data &amp; Security</span></td>
-          <td><span class="badge b-high">High</span></td>
-          <td><span class="badge b-planned">Planned</span></td>
-          <td>—</td>
-        </tr>
-      </tbody>
-    </table>
-  </article>
-
-  <article class="entry" id="deprecated">
-    <div class="entry-head"><h3>Deprecated rules</h3><span class="spacer"></span><span class="badge b-deprecated">Deprecated</span></div>
-    <p><span class="mono">BR-XXX</span>: <span class="ph">{Rule Name}</span> — deprecated
-       <span class="ph">YYYY-MM-DD</span>, replaced by <span class="ph">BR-YYY | None</span>.
-       Reason: <span class="ph">{Why deprecated}</span></p>
+    <table class="tbl"><thead><tr><th>ID</th><th>Rule</th><th>Severity</th><th>Status</th></tr></thead><tbody>
+      <tr><td><a class="id" href="#BR-001">BR-001</a></td><td>Product Management is the sole V2 lifecycle</td><td>Critical</td><td>Active</td></tr>
+      <tr><td><a class="id" href="#BR-002">BR-002</a></td><td>Reusable packages stay generic and non-destructive</td><td>Critical</td><td>Active</td></tr>
+      <tr><td><a class="id" href="#BR-003">BR-003</a></td><td>V2 remains Proposed and branch-isolated</td><td>Critical</td><td>Active</td></tr>
+      <tr><td><a class="id" href="#BR-004">BR-004</a></td><td>Implementation EPICs begin only at v0.7</td><td>Critical</td><td>Active</td></tr>
+      <tr><td><a class="id" href="#BR-005">BR-005</a></td><td>Version dimensions remain distinct</td><td>High</td><td>Active</td></tr>
+    </tbody></table>
   </article>
 
   <section class="title-block" aria-label="Document title block">
-    <dl class="tb-meta">
-      <div><dt>Document</dt><dd>The Source-of-Truth Review · № 04</dd></div>
-      <div><dt>Section</dt><dd>Policy</dd></div>
-      <div><dt>Source of truth</dt><dd class="mono">SoT.BUSINESS_RULES.md</dd></div>
-      <div><dt>Status</dt><dd>Template</dd></div>
-      <div><dt>Sheet</dt><dd>04 / 13</dd></div>
-    </dl>
-    <table aria-label="Revision table">
-      <thead><tr><th>Rev</th><th>Date</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>2026-06-10</td><td>Template established</td></tr>
-        <tr><td class="ph">{n}</td><td class="ph">{YYYY-MM-DD}</td><td class="ph">{What changed — mark affected rows with class="changed"}</td></tr>
-      </tbody>
-    </table>
+    <dl class="tb-meta"><div><dt>Document</dt><dd>The Source-of-Truth Review · № 04</dd></div><div><dt>Section</dt><dd>Policy</dd></div><div><dt>Source of truth</dt><dd class="mono">SoT.BUSINESS_RULES.md</dd></div><div><dt>Status</dt><dd>Active · PRD v0.1</dd></div><div><dt>Sheet</dt><dd>04 / 13</dd></div></dl>
+    <table aria-label="Revision table"><thead><tr><th>Rev</th><th>Date</th><th>Description</th></tr></thead><tbody><tr><td>1</td><td>2026-06-10</td><td>Template established</td></tr><tr><td>2</td><td>2026-08-08</td><td>Wave 0B owner-confirmed governance records</td></tr></tbody></table>
   </section>
 
-  <p class="footnote">
-    Companion to <a href="../SoT.BUSINESS_RULES.md">SoT.BUSINESS_RULES.md</a> (authoritative).
-    Deep-link a rule as <span class="mono">SoT.BUSINESS_RULES.html#BR-001</span>. Severity badge
-    classes: <span class="mono">b-critical · b-high · b-medium · b-low</span>.
-  </p>
+  <p class="footnote">Companion to <a href="../SoT.BUSINESS_RULES.md">SoT.BUSINESS_RULES.md</a> (authoritative). Deep-link a rule as <span class="mono">SoT.BUSINESS_RULES.html#BR-001</span>.</p>
 </main>
 </body>
 </html>

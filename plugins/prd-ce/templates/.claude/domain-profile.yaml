@@ -31,10 +31,12 @@ id_prefixes:
   DEP:  { file: "SoT/SoT.DEPLOYMENT.md",            description: "Deployment steps" }
   RUN:  { file: "SoT/SoT.DEPLOYMENT.md",            description: "Runbooks" }
   MON:  { file: "SoT/SoT.DEPLOYMENT.md",            description: "Monitoring rules" }
+  SEC:  { file: "SoT/SoT.DEPLOYMENT.md",            description: "Secret and credential inventory" }
   CFD:  { file: "SoT/SoT.customer_feedback.md",     description: "Customer feedback" }
   DES:  { file: "SoT/SoT.DESIGN_COMPONENTS.md",     description: "Design components" }
   TECH: { file: "SoT/SoT.TECHNICAL_DECISIONS.md",   description: "Tech stack decisions" }
   ARC:  { file: "SoT/SoT.TECHNICAL_DECISIONS.md",   description: "Architecture decisions" }
+  ENV:  { file: "SoT/SoT.TECHNICAL_DECISIONS.md",   description: "Environment profiles" }
   INT:  { file: "SoT/SoT.INTEGRATIONS.md",          description: "Integrations" }
   LL:   { file: "SoT/SoT.LESSONS_LEARNED.md",       description: "Lessons learned (cross-session feedback)" }
   ADO:  { file: "SoT/SoT.ADOPTION.md",               description: "Adoption-stage data (Moore Chasm — stage, beachhead, whole-product, references)" }
@@ -53,7 +55,7 @@ id_prefixes:
 # spec nodes), these are entities EXTRACTED from the product codebase during v0.7
 # build execution — Graphify-style AST parsing, deterministic and free (no LLM).
 # They are NOT ID-prefixed; their identity is `{parent_dir}_{file}_{symbol}`.
-# See docs/DEVELOPMENT_GRAPH.md for the full schema (the HeartBeat data contract).
+# See docs/DEVELOPMENT_GRAPH.md for the full schema and visualization-consumer contract.
 code_node_types:
   module:   { description: "A source file or package" }
   class:    { description: "A class / type / interface definition" }
@@ -107,7 +109,6 @@ skills:
     - ghm-id-register
     - ghm-sot-builder
     - ghm-status-sync
-    - SKILL_TEMPLATE
   domain:
     - prd-v01-problem-framing
     - prd-v01-user-value-articulation

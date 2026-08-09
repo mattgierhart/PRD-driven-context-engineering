@@ -1,9 +1,9 @@
 # SoT HTML Companion Library
 
-Human-review views of the `SoT/*.md` knowledge graph. The markdown files remain the
-**authoritative Source of Truth**; these HTML pages re-express the same entries in the format the
-natural reviewer of each artifact type already expects — journey maps for journeys, an API
-reference for endpoints, an adoption curve for adoption data.
+Human-review views of the `SoT/*.md` knowledge graph. Activated markdown records become
+**authoritative Source of Truth only when accepted by `PRD.md`**; uninitialized starter records are
+format examples. These HTML pages re-express the same entries in the format the natural reviewer
+expects — journey maps for journeys, an API reference for endpoints, an adoption curve for adoption data.
 
 Open [`index.html`](index.html) in any browser (works from `file://`, no build step, no JS).
 

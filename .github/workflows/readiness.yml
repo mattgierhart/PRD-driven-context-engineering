@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # distribution upgrade test resolves the pinned v3.2 framework tree
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'

@@ -10,7 +10,6 @@ This directory contains Claude Code configuration following Anthropic's official
 ├── domain-profile.yaml         # ID prefix registry, skill taxonomy, agent registry
 ├── VERSION                     # Template version (semver)
 ├── skills/                     # PRD lifecycle + methodology skills
-│   ├── SKILL_TEMPLATE/         # Template for creating new skills
 │   ├── prd-v01-*/              # v0.1 Spark: Problem & Value (2 skills)
 │   ├── prd-v02-*/              # v0.2 Market: Segments & Classification (2 skills)
 │   ├── prd-v03-*/              # v0.3 Commercial: Features, Moat, Pricing (4 skills)
@@ -18,8 +17,9 @@ This directory contains Claude Code configuration following Anthropic's official
 │   ├── prd-v05-*/              # v0.5 Red Team: Risks & Tech Stack (2 skills)
 │   ├── prd-v06-*/              # v0.6 Architecture: Design, Specs & Environment (3 skills)
 │   ├── prd-v07-*/              # v0.7 Build: Implementation (3 skills)
-│   ├── prd-v08-*/              # v0.8 Release: Deployment & Ops (3 skills)
-│   ├── prd-v09-*/              # v0.9 Launch: GTM & Metrics (3 skills)
+│   ├── prd-v08-*/              # v0.8 Release: Deployment & Ops (6 skills)
+│   ├── prd-v09-*/              # v0.9 Launch: GTM & Metrics (10 skills)
+│   ├── prd-v10-*/              # v1.0 Adoption: Growth & learning (5 skills)
 │   ├── ghm-status-sync/        # Methodology: Sync README dashboard
 │   ├── ghm-id-register/        # Methodology: Validate & register SoT IDs
 │   ├── ghm-gate-check/         # Methodology: Validate gate criteria
@@ -31,12 +31,13 @@ This directory contains Claude Code configuration following Anthropic's official
 │   ├── 03-documentation-discipline.md
 │   ├── 04-coding-standards.md
 │   ├── 05-lifecycle-gates.md
-│   └── 06-cross-agent-communication.md
+│   ├── 06-cross-agent-communication.md
+│   ├── 07-readiness-protocol.md
+│   └── 08-skill-execution-modes.md
 ├── hooks/                      # Event-triggered automation
 │   ├── HOOK_CONTRACT.md        # Universal hook interface specification
 │   ├── context-validation.sh   # SessionStart: Load 3+1 files + session lock check
 │   ├── context-density-gate.sh # UserPromptSubmit: Epic/gate assessment
-│   ├── sot-update-trigger.sh   # Stop: SoT update reminder
 │   ├── subagent-memory-load.sh # SubagentStart: Inject agent MEMORY.md
 │   ├── subagent-memory-save.sh # SubagentStop: Active memory extraction + git staging
 │   ├── traceability-gate.sh    # PreToolUse (Write|Edit): Verify active EPIC
@@ -47,18 +48,19 @@ This directory contains Claude Code configuration following Anthropic's official
 │   │   └── MEMORY.md           # Project memory (RESET ON FORK)
 │   ├── studio/                 # Design Agent (v0.3-v0.6)
 │   │   ├── AGENT.md
-│   │   ├── MEMORY.md
-│   │   └── MEMORY_ARCHIVE.md
+│   │   └── MEMORY.md
 │   ├── devlab/                 # Build Agent (v0.6-v0.8)
 │   │   ├── AGENT.md
-│   │   ├── MEMORY.md
-│   │   └── MEMORY_ARCHIVE.md
+│   │   └── MEMORY.md
 │   └── metro/                  # Ops Agent (v0.9-v1.0)
 │       ├── AGENT.md
 │       └── MEMORY.md
-├── settings.json               # Hook configuration
-└── settings.local.json         # Local permissions (gitignored)
+└── settings.json               # Hook configuration
 ```
+
+This tree describes the direct-installed runtime. Contributor indexes, the skill-authoring
+template, the plugin initializer, the template-sync operator, and the source-checkout-only
+`ghm-self-install` operator are intentionally excluded from consumer installs.
 <!-- /SECTION: directory-tree -->
 
 ## Skills
@@ -95,11 +97,11 @@ Hooks are event-triggered automation. Configured in `settings.json`, documented 
 | Context Density Gate | UserPromptSubmit | `context-density-gate.sh` | Assess epic/gate context readiness |
 | Traceability Gate | PreToolUse (Write\|Edit) | `traceability-gate.sh` | Verify active EPIC before source code writes |
 | SoT Sync Reminder | PostToolUse (Write\|Edit) | `sot-sync-reminder.sh` | Remind to update SoT after source code writes |
-| SoT Update Trigger | Stop | `sot-update-trigger.sh` | Remind about spec updates |
 | Subagent Memory Load | SubagentStart | `subagent-memory-load.sh` | Inject agent MEMORY.md into subagent context |
 | Subagent Memory Save | SubagentStop | `subagent-memory-save.sh` | Active memory extraction + git auto-staging |
 
-All hooks are POSIX shell scripts. Python is used optionally for date math in `context-validation.sh` (graceful fallback if unavailable).
+All hooks are Bash scripts using standard macOS/Linux utilities. Python is used optionally for
+date math in `context-validation.sh` (graceful fallback if unavailable).
 <!-- /SECTION: hooks-table -->
 
 <!-- SECTION: agents-table -->

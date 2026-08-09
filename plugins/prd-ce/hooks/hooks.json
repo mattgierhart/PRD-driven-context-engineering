@@ -22,17 +22,6 @@
         ]
       }
     ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}\"/hooks/sot-update-trigger.sh",
-            "timeout": 15
-          }
-        ]
-      }
-    ],
     "SubagentStart": [
       {
         "hooks": [

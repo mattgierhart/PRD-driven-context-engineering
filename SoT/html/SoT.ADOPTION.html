@@ -23,6 +23,9 @@
     <p class="lede">Where the product sits on Moore's Technology Adoption Lifecycle, the beachhead
        we're aiming at, the whole-product gaps in the way, and the reference accounts that will
        carry us across.</p>
+    <p class="footnote"><strong>Uninitialized, non-authoritative starter.</strong> All IDs,
+       positions, statuses, counts, and evidence below demonstrate format only; no ADO record is
+       accepted in the current PRD snapshot.</p>
     <div class="prefix-row">
       <span class="prefix-chip">ADO-STAGE · Stage assessment</span>
       <span class="prefix-chip">ADO-BEACHHEAD · Target segment</span>
@@ -41,7 +44,7 @@
     <div class="entry-head"><h3>The lifecycle — you are here</h3></div>
     <figure class="exhibit curve-wrap" style="margin-left:0;margin-right:0">
       <svg viewBox="0 0 920 300" width="100%" style="min-width:720px" role="img"
-           aria-label="Moore adoption curve with current stage marker">
+           aria-label="Moore adoption curve with placeholder stage marker">
         <!-- bell curve segments -->
         <path d="M 30 260 Q 105 240 150 215 L 150 260 Z" fill="#e9e0c5"/>
         <path d="M 150 215 Q 240 160 310 110 L 310 260 L 150 260 Z" fill="#d8c68d"/>
@@ -71,10 +74,10 @@
           <line x1="0" y1="95" x2="0" y2="260" stroke="#14120e" stroke-width="3"/>
           <circle cx="0" cy="88" r="7" fill="#14120e"/>
           <rect x="-58" y="55" width="116" height="24" rx="6" fill="#14120e"/>
-          <text x="0" y="71" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">YOU ARE HERE</text>
+          <text x="0" y="71" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">PLACEHOLDER</text>
         </g>
       </svg>
-    <figcaption class="source-line">Source: Geoffrey Moore, <em>Crossing the Chasm</em> · stage evidence in <a class="id" href="#ADO-STAGE-001">ADO-STAGE-001</a></figcaption>
+    <figcaption class="source-line">Source: Geoffrey Moore, <em>Crossing the Chasm</em> · synthetic format example <a class="id" href="#ADO-STAGE-001">ADO-STAGE-001</a></figcaption>
     </figure>
     <p class="footnote" style="border:none; padding:0">
       Move the <span class="mono">#you-are-here</span> group's
@@ -89,7 +92,7 @@
       <a class="id" href="#ADO-STAGE-001">ADO-STAGE-001</a>
       <h3>Current adoption-stage assessment</h3>
       <span class="spacer"></span>
-      <span class="badge b-active">Active</span>
+      <span class="badge b-neutral">Template</span>
     </div>
     <dl class="meta-grid">
       <div><dt>Stage</dt><dd><span class="ph">{Innovators | Early Adopters | At the Chasm | Bowling Alley | Tornado | Main Street}</span></dd></div>
@@ -118,7 +121,7 @@
       <h3>Beachhead segment</h3>
       <span class="spacer"></span>
       <span class="confidence">★★<span class="off">★★★</span></span>
-      <span class="badge b-active">Active</span>
+      <span class="badge b-neutral">Template</span>
     </div>
     <p><strong>Segment:</strong> <span class="ph">{Specific firmographic + behavioral + use-case slice}</span></p>
     <div class="grid-2">
@@ -150,7 +153,7 @@
       <a class="id" href="#ADO-WHOLE-001">ADO-WHOLE-001</a>
       <h3>Whole-product gaps</h3>
       <span class="spacer"></span>
-      <span class="badge b-blocker">Has blockers</span>
+      <span class="badge b-neutral">Template</span>
     </div>
     <p class="lede" style="font-size:13.5px">What pragmatist buyers expect but we haven't shipped.
        Severity <em>Blocker</em> means no deal in segment until closed.</p>
@@ -161,7 +164,7 @@
           <td><span class="ph">{e.g. SSO (Okta / Azure AD)}</span></td>
           <td><span class="ph">Integration</span></td>
           <td><span class="badge b-blocker">Blocker</span></td>
-          <td><a class="id" href="SoT.customer_feedback.html#CFD-001">CFD-XXX</a> ×3 lost deals</td>
+          <td><a class="id" href="SoT.customer_feedback.html#CFD-001">CFD-XXX</a> <span class="ph">{evidence count}</span></td>
           <td><span class="ph">{Owner}</span></td>
           <td><span class="ph">YYYY-MM-DD</span></td>
           <td><span class="confidence">★★★★<span class="off">★</span></span></td>
@@ -186,7 +189,7 @@
       <a class="id" href="#ADO-REF-001">ADO-REF-001</a>
       <h3>Reference account pipeline</h3>
       <span class="spacer"></span>
-      <span class="badge b-info">Cultivating</span>
+      <span class="badge b-neutral">Template</span>
     </div>
     <table class="tbl">
       <thead><tr><th>Customer</th><th>Beachhead fit</th><th>Story strength</th><th>Consent</th><th>Placement</th><th>Conf.</th></tr></thead>
@@ -241,7 +244,8 @@
   </section>
 
   <p class="footnote">
-    Companion to <a href="../SoT.ADOPTION.md">SoT.ADOPTION.md</a> (authoritative).
+    Companion to <a href="../SoT.ADOPTION.md">SoT.ADOPTION.md</a>. These format examples remain
+    non-authoritative until product-specific records are accepted and added to the PRD SoT snapshot.
     Re-assess cadence: STAGE monthly during the v1.0 push · BEACHHEAD on 10+ closed-won ·
     WHOLE every sprint until closed · REF as consent/placement changes.
     Entries unverified for 90+ days get <span class="badge b-planned">⚠️ STALE</span>.

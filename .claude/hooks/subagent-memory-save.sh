@@ -5,16 +5,26 @@
 # Upgraded: Uses hookSpecificOutput/additionalContext (not systemMessage)
 # to inject memory extraction as an agent instruction, not a passive reminder.
 #
-# Dependencies: POSIX shell, grep, sed, awk (standard utilities)
+# Dependencies: Bash, grep, sed, awk, od (standard utilities)
 # No external packages required
 set -euo pipefail
+
+HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=_json.sh
+. "$HOOK_DIR/_json.sh"
+
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-}"
+if [ -z "$PROJECT_ROOT" ] || [ ! -d "$PROJECT_ROOT" ]; then
+  PROJECT_ROOT="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null || true)"
+fi
+[ -n "$PROJECT_ROOT" ] && [ -d "$PROJECT_ROOT" ] && cd "$PROJECT_ROOT"
 
 # --- Helpers ---
 
 json_output() {
   local context="$1"
   local json_context
-  json_context=$(printf '%s' "$context" | sed 's/\\/\\\\/g; s/"/\\"/g' | awk '{if(NR>1) printf "\\n"; printf "%s", $0}')
+  json_context=$(json_escape "$context")
   printf '{"hookSpecificOutput": {"hookEventName": "SubagentStop", "additionalContext": "%s"}}\n' "$json_context"
 }
 
@@ -25,7 +35,8 @@ main() {
   local input
   input=$(cat)
 
-  # Extract agent_type from stdin JSON
+  # Extract agent_type from stdin JSON. Plugin-hosted agents are scoped as
+  # "plugin-name:agent-name"; consumer memory remains under the unscoped name.
   local agent_type
   agent_type=$(printf '%s' "$input" | sed -n 's/.*"agent_type"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
 
@@ -33,10 +44,37 @@ main() {
     exit 0
   fi
 
-  local agent_dir=".claude/agents/${agent_type}"
+  local agent_name=""
+  case "$agent_type" in
+    prd-ce:*) agent_name="${agent_type#prd-ce:}" ;;
+    *:*) exit 0 ;; # Never direct another plugin's agent to consumer memory.
+    *) agent_name="$agent_type" ;;
+  esac
+  case "$agent_name" in
+    ""|*[!A-Za-z0-9_-]*) exit 0 ;;
+  esac
+
+  local agent_dir=".claude/agents/${agent_name}"
   local memory_file="${agent_dir}/MEMORY.md"
   local hook_dir
   hook_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+  # SubagentStop feedback causes a second stop attempt. On that follow-up pass,
+  # do not emit the extraction directive again; stage the memory the subagent
+  # just updated and allow it to return.
+  local stop_hook_active="false"
+  if printf '%s' "$input" \
+    | grep -Eq '"stop_hook_active"[[:space:]]*:[[:space:]]*true([[:space:],}]|$)'; then
+    stop_hook_active="true"
+  fi
+  if [ "$stop_hook_active" = "true" ]; then
+    if [ -f "$memory_file" ] && command -v git >/dev/null 2>&1; then
+      if git rev-parse --git-dir >/dev/null 2>&1; then
+        git add "$memory_file" 2>/dev/null || true
+      fi
+    fi
+    exit 0
+  fi
 
   local directive=""
 
@@ -87,16 +125,6 @@ Review and update README Truth Table before continuing."
   # Only output if there's something to say
   if [ -n "$directive" ]; then
     json_output "$directive"
-  fi
-
-  # --- Git-based memory sync: auto-stage memory changes ---
-  # Runs AFTER stdout JSON output so it doesn't contaminate the hook response.
-  # Best-effort — never blocks the hook.
-  # Commit convention: memory({agent_type}): {summary}
-  if [ -f "$memory_file" ] && command -v git >/dev/null 2>&1; then
-    if git rev-parse --git-dir >/dev/null 2>&1; then
-      git add "$memory_file" 2>/dev/null || true
-    fi
   fi
 
   exit 0

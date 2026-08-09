@@ -346,7 +346,9 @@ interface Task {
 ### When Creating Design Components (SoT.DESIGN_COMPONENTS.md)
 
 1. **Don't** embed these prompts in the design components file
-2. **Do** reference this file: "See `.claude/skills/prd-v04-screen-flow-definition/references/design-tool-examples.md` for tool usage patterns"
+2. **Do** reference this skill-bundled file: "See
+   `${CLAUDE_PLUGIN_ROOT:-.claude}/skills/prd-v04-screen-flow-definition/references/design-tool-examples.md`
+   for tool usage patterns"
 3. **Do** customize prompts based on product-specific design system and constraints
 4. **Do** link to UJ-XXX, FEA-XXX, API-XXX IDs for context
 

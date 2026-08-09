@@ -2,8 +2,9 @@
 version: 1.0
 purpose: Source of Truth for database schema and data model specifications.
 id_prefix: DBT-XXX
-last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTRACTS.md, SoT.USER_JOURNEYS.md, EPICs
+last_updated: 2026-08-08
+authority: Starter structure only; no DBT records are accepted unless named in the PRD SoT snapshot.
+template_state: uninitialized
 ---
 <!-- SECTION: template-structure -->
 
@@ -11,7 +12,7 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.API_CONTR
 
 > **Purpose**: Database tables, views, and relationships for the product.
 > **ID Prefix**: DBT-XXX
-> **Status**: Active SoT file
+> **Status**: Uninitialized starter; no DBT records are accepted in the current PRD snapshot
 > **Cross-References**: Referenced by PRD.md, SoT.API_CONTRACTS.md, SoT.USER_JOURNEYS.md, SoT.BUSINESS_RULES.md, SoT.TESTING.md
 
 ## Navigation by Category
@@ -120,9 +121,9 @@ When adding a new DBT-XXX:
 - [ ] Update SoT.USER_JOURNEYS.md if journey uses this data
 - [ ] Update SoT.BUSINESS_RULES.md if constraint enforces rule
 - [ ] Update SoT.TESTING.md with schema tests
-- [ ] Update EPIC Section 2 "Context & IDs" list
+- [ ] Before v0.7, update the PRD gate change log / SoT snapshot; at v0.7+, update the active EPIC "Context & IDs" list
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry if maintained
 
 ---
 
-*End of SoT.DATA_MODEL.md - Authoritative source for all DBT-XXX IDs*
+*End of SoT.DATA_MODEL.md — canonical DBT record location once activated and accepted; currently template structure only.*

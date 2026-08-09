@@ -2,8 +2,9 @@
 version: 1.0
 purpose: Source of Truth for UI components, design tokens, and pattern library.
 id_prefix: DES-XXX
-last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs here are referenced by SoT.USER_JOURNEYS.md, EPICs, and code
+last_updated: 2026-08-08
+authority: Starter structure only; no DES records are accepted unless named in the PRD SoT snapshot.
+template_state: uninitialized
 ---
 <!-- SECTION: template-structure -->
 
@@ -11,7 +12,7 @@ authority: This is a SoT file - IDs here are referenced by SoT.USER_JOURNEYS.md,
 
 > **Purpose**: Catalog of UI components, design tokens, and reusable patterns.
 > **ID Prefix**: DES-XXX
-> **Status**: Active SoT file
+> **Status**: Uninitialized starter; no DES records are accepted in the current PRD snapshot
 > **Cross-References**: Referenced by SoT.USER_JOURNEYS.md, PRD.md, EPICs
 
 ## Navigation by Category
@@ -108,10 +109,10 @@ authority: This is a SoT file - IDs here are referenced by SoT.USER_JOURNEYS.md,
 When adding a new DES-XXX:
 
 - [ ] Update SoT.USER_JOURNEYS.md "Design Components" section
-- [ ] Update EPIC Section 2 "Context & IDs" list
+- [ ] Before v0.7, update the PRD gate change log / SoT snapshot; at v0.7+, update the active EPIC "Context & IDs" list
 - [ ] Create corresponding component file in codebase
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry if maintained
 
 ---
 
-*End of SoT.DESIGN_COMPONENTS.md - Authoritative source for all DES-XXX IDs*
+*End of SoT.DESIGN_COMPONENTS.md — canonical DES record location once activated and accepted; currently template structure only.*

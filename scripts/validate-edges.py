@@ -27,7 +27,8 @@ validates clean. Rule schema (see docs/DEVELOPMENT_GRAPH.md §14):
 (the convention for test coverage, where a TEST- points back at the API-/BR-).
 
 Exit codes: 0 = clean OR warn-only OR no rules; 1 = >=1 ``block``-severity
-violation. Mirrors validate-ids.sh so the two compose in a gate.
+violation; 2 = invalid rule/registry configuration. Mirrors validate-ids.sh so
+the two compose in a gate without silently weakening misspelled rules.
 
 Usage:
     python3 scripts/validate-edges.py [--repo PATH] [--quiet] [--json]
@@ -39,12 +40,15 @@ import json
 import sys
 from pathlib import Path
 
+import yaml
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from _readiness.common import (  # noqa: E402
     SoTEntry,
     find_repo_root,
     index_all_entries,
+    load_domain_profile,
     load_required_edges,
 )
 
@@ -62,6 +66,57 @@ def build_inbound_prefixes(entries: dict[str, SoTEntry]) -> dict[str, set[str]]:
         for ref in entry.outbound_refs():
             inbound.setdefault(ref, set()).add(entry.prefix)
     return inbound
+
+
+def validate_rule_schema(rules: list[dict], registered: set[str]) -> list[dict]:
+    """Return normalized rules or raise ValueError on an unsafe configuration."""
+    normalized: list[dict] = []
+    for index, raw_rule in enumerate(rules, 1):
+        label = f"required_edges rule {index}"
+        if not isinstance(raw_rule, dict):
+            raise ValueError(f"{label} must be an object")
+        allowed_keys = {"from", "requires", "direction", "severity", "description"}
+        unknown_keys = sorted(set(raw_rule) - allowed_keys)
+        if unknown_keys:
+            raise ValueError(f"{label} has unknown key(s): {', '.join(unknown_keys)}")
+
+        from_pfx = raw_rule.get("from")
+        if not isinstance(from_pfx, str) or not from_pfx:
+            raise ValueError(f"{label}.from must be a registered prefix string")
+        if from_pfx not in registered:
+            raise ValueError(f"{label}.from uses unregistered prefix {from_pfx!r}")
+
+        raw_requires = raw_rule.get("requires")
+        if isinstance(raw_requires, str):
+            requires = [raw_requires]
+        elif isinstance(raw_requires, list) and raw_requires:
+            requires = raw_requires
+        else:
+            raise ValueError(f"{label}.requires must be a prefix string or non-empty list")
+        if not all(isinstance(prefix, str) and prefix for prefix in requires):
+            raise ValueError(f"{label}.requires must contain only prefix strings")
+        unknown = sorted(set(requires) - registered)
+        if unknown:
+            raise ValueError(f"{label}.requires uses unregistered prefix(es): {', '.join(unknown)}")
+
+        direction = raw_rule.get("direction", "outbound")
+        if direction not in {"outbound", "inbound"}:
+            raise ValueError(f"{label}.direction must be outbound or inbound")
+        severity = raw_rule.get("severity", "warn")
+        if severity not in {"warn", "block"}:
+            raise ValueError(f"{label}.severity must be warn or block")
+        description = raw_rule.get("description", "")
+        if not isinstance(description, str):
+            raise ValueError(f"{label}.description must be a string when present")
+
+        normalized.append({
+            "from": from_pfx,
+            "requires": requires,
+            "direction": direction,
+            "severity": severity,
+            "description": description,
+        })
+    return normalized
 
 
 def evaluate_rules(entries: dict[str, SoTEntry], rules: list[dict]) -> list[dict]:
@@ -125,7 +180,10 @@ def _print_human(violations: list[dict], rule_count: int, quiet: bool) -> None:
 
 
 def run(repo: Path, quiet: bool, as_json: bool) -> int:
-    rules = load_required_edges(repo)
+    rules = validate_rule_schema(
+        load_required_edges(repo),
+        set(load_domain_profile(repo)),
+    )
     entries = index_all_entries(repo) if rules else {}
     violations = evaluate_rules(entries, rules)
     blocks = [v for v in violations if v["severity"] == "block"]
@@ -152,7 +210,14 @@ def main() -> int:
                     help="Emit machine-readable JSON (implies quiet for human text).")
     args = ap.parse_args()
     repo = find_repo_root(args.repo or Path.cwd())
-    return run(repo, quiet=args.quiet, as_json=args.json)
+    try:
+        return run(repo, quiet=args.quiet, as_json=args.json)
+    except (OSError, ValueError, yaml.YAMLError) as exc:
+        if args.json:
+            print(json.dumps({"configuration_error": str(exc)}, indent=2))
+        elif not args.quiet:
+            print(f"error: invalid required_edges configuration: {exc}", file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":

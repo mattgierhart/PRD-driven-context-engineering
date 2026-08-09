@@ -19,14 +19,22 @@ jobs:
 
       - name: Check links in modified markdown (excluding generated plugin payload)
         # The committed plugin payload (plugins/prd-ce/**) is a generated artifact: its
-        # copied markdown carries relative links that resolve in the .claude/ source tree
-        # but not after relocation. The authored source IS still link-checked here, so we
-        # exclude the generated copy rather than lint a build artifact. See package-plugin.sh.
+        # copied skill references may be relocation-sensitive. Authored source is checked here;
+        # tests/test_distribution.py separately checks the full direct install, plugin live
+        # skills/rules, and plugin-native consumer scaffold. See package-plugin.sh.
         run: |
-          base="${{ github.base_ref }}"
-          [ -n "$base" ] || base="main"
-          git fetch origin "$base" --depth=1 || true
-          files=$(git diff --name-only "origin/$base...HEAD" -- '*.md' ':(exclude)plugins/prd-ce/**' || true)
+          if [ "${{ github.event_name }}" = "push" ]; then
+            before="${{ github.event.before }}"
+            if printf '%s' "$before" | grep -qE '^0+$'; then
+              files=$(git ls-files '*.md' ':(exclude)plugins/prd-ce/**')
+            else
+              files=$(git diff --name-only "$before" "${{ github.sha }}" -- '*.md' ':(exclude)plugins/prd-ce/**')
+            fi
+          else
+            base="${{ github.base_ref }}"
+            git fetch origin "$base" --depth=1
+            files=$(git diff --name-only "origin/$base...HEAD" -- '*.md' ':(exclude)plugins/prd-ce/**')
+          fi
           if [ -z "$files" ]; then
             echo "No modified markdown outside the generated payload — nothing to check."
             exit 0

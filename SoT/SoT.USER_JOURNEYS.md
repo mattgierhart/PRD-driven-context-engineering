@@ -2,8 +2,9 @@
 version: 1.0
 purpose: Source of Truth for user journeys, personas, and screen flows.
 id_prefix: UJ-XXX, PER-XXX, SCR-XXX
-last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and other SoT files
+last_updated: 2026-08-08
+authority: Starter structure only; no UJ, PER, or SCR records are accepted unless named in the PRD SoT snapshot.
+template_state: uninitialized
 ---
 <!-- SECTION: template-structure -->
 
@@ -11,7 +12,7 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, EPICs, and ot
 
 > **Purpose**: User flows, personas, and screen definitions for the product.
 > **ID Prefixes**: UJ-XXX (journeys), PER-XXX (personas), SCR-XXX (screens)
-> **Status**: Active SoT file
+> **Status**: Uninitialized starter; no journey records are accepted in the current PRD snapshot
 > **Cross-References**: Referenced by PRD.md, SoT.API_CONTRACTS.md, SoT.TESTING.md, EPICs
 
 ## Navigation by Category
@@ -149,9 +150,9 @@ When adding a new UJ/PER/SCR-XXX:
 - [ ] Update SoT.BUSINESS_RULES.md for rules enforced
 - [ ] Update SoT.DESIGN_COMPONENTS.md for UI components
 - [ ] Update SoT.TESTING.md with validation tests
-- [ ] Update EPIC Section 2 "Context & IDs" list
+- [ ] Before v0.7, update the PRD gate change log / SoT snapshot; at v0.7+, update the active EPIC "Context & IDs" list
 - [ ] Update SoT.UNIQUE_ID_SYSTEM.md registry if maintained
 
 ---
 
-*End of SoT.USER_JOURNEYS.md - Authoritative source for UJ-XXX, PER-XXX, SCR-XXX IDs*
+*End of SoT.USER_JOURNEYS.md — canonical UJ/PER/SCR record location once activated and accepted; currently template structure only.*

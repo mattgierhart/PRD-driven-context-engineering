@@ -2,8 +2,9 @@
 version: 1.0
 purpose: Source of Truth for customer feedback, user research insights, and validated learnings.
 id_prefix: CFD-XXX
-last_updated: YYYY-MM-DD
-authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOURNEYS.md, EPICs
+last_updated: 2026-08-08
+authority: Starter structure only; no CFD records are accepted unless named in the PRD SoT snapshot.
+template_state: uninitialized
 ---
 <!-- SECTION: template-structure -->
 
@@ -11,7 +12,7 @@ authority: This is a SoT file - IDs here are referenced by PRD.md, SoT.USER_JOUR
 
 > **Purpose**: Capture durable insights from customer feedback, user research, and validated learnings.
 > **ID Prefix**: CFD-XXX
-> **Status**: Active SoT file
+> **Status**: Uninitialized starter; no CFD records are accepted in the current PRD snapshot
 > **Cross-References**: Referenced by PRD.md, SoT.USER_JOURNEYS.md, SoT.BUSINESS_RULES.md
 
 ## Navigation by Category
@@ -121,8 +122,8 @@ When adding a new CFD-XXX:
 - [ ] Link to affected UJ-XXX in SoT.USER_JOURNEYS.md
 - [ ] Update PRD.md if creating new feature to address
 - [ ] Update SoT.BUSINESS_RULES.md if rule change needed
-- [ ] Update EPIC if feedback relates to active work
+- [ ] At v0.7+, update the active EPIC if feedback relates to implementation work
 
 ---
 
-*End of SoT.customer_feedback.md - Authoritative source for all CFD-XXX IDs*
+*End of SoT.customer_feedback.md — canonical CFD record location once activated and accepted; currently template structure only.*

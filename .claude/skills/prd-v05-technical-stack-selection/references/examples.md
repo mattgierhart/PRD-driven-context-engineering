@@ -134,7 +134,7 @@ Evaluation Criteria:
   - Cost per 1M vectors stored < $50/month operational cost
   - Ops overhead < 20 hrs/month (team capacity constraint)
 
-Decision Deadline: End of EPIC-02 (before Build Execution starts)
+Decision Deadline: Before the owner approves the v0.7 Build Execution gate
 ```
 
 **Why this is a good Research entry:**

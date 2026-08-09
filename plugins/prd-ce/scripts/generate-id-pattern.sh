@@ -4,21 +4,29 @@
 #
 # Usage:
 #   bash scripts/generate-id-pattern.sh
-#   # Output: (BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)
+#   # Output: registered base prefixes such as (BR|UJ|API|ARC|ADO|EPIC)
 #
 # Hooks source this to stay in sync with domain-profile.yaml automatically.
 # See: Issue #59, PR #51
 #
-# Dependencies: POSIX shell, grep, sed, tr (standard utilities)
+# Dependencies: Bash, grep, sed, tr (standard utilities)
 set -euo pipefail
 
-# Resolve project root (works from any subdirectory)
+# Resolve the consumer project root. Plugin scripts live outside the consumer repository, so prefer
+# explicit/runtime roots and the current Git checkout before falling back to the source layout.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_ROOT="${PRD_CE_PROJECT_ROOT:-${CLAUDE_PROJECT_DIR:-}}"
+if [ -z "$PROJECT_ROOT" ] || [ ! -d "$PROJECT_ROOT" ]; then
+  PROJECT_ROOT="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null || true)"
+fi
+if [ -z "$PROJECT_ROOT" ] || [ ! -d "$PROJECT_ROOT" ]; then
+  PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+fi
 PROFILE="${PROJECT_ROOT}/.claude/domain-profile.yaml"
 
-# Hardcoded fallback if domain-profile.yaml is missing or unparseable
-FALLBACK="(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|CFD|DES|TECH|ARC|INT|FEA|RISK|GTM|KPI|EPIC)"
+# The fallback is only for repositories that do not have an explicit profile. Once a profile
+# exists, it is the closed registry: an empty or malformed registry must not silently broaden.
+FALLBACK="(BR|UJ|PER|SCR|API|DBT|TEST|DEP|RUN|MON|SEC|CFD|DES|TECH|ARC|ENV|INT|LL|ADO|FEA|RISK|GTM|KPI|EPIC)"
 
 if [ ! -f "$PROFILE" ]; then
   echo "$FALLBACK"
@@ -37,8 +45,8 @@ PREFIXES=$(sed -n '/^id_prefixes:/,/^[a-z]/p' "$PROFILE" \
   | sed 's/|$//' || true)
 
 if [ -z "$PREFIXES" ]; then
-  echo "$FALLBACK"
-  exit 0
+  echo "ERROR: ${PROFILE} exists but declares no readable id_prefixes" >&2
+  exit 2
 fi
 
 echo "(${PREFIXES})"

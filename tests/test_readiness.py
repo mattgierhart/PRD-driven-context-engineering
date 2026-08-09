@@ -16,11 +16,149 @@ from pathlib import Path
 
 import pytest
 
+from _readiness.common import (
+    HEADING_DEF_RE,
+    ID_RE,
+    collect_all_references,
+    epic_id_from_filename,
+    expand_ranges,
+    index_all_entries,
+    iter_epic_files,
+    load_domain_profile,
+)
+from _readiness.epic import EpicContext, compute_dependency_readiness
+from _readiness.stage import compute_cross_ref_integrity, index_all_ids
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 READINESS_CLI = REPO_ROOT / "scripts" / "readiness.py"
 
 PASS_THRESHOLD = 70
 BLOCK_THRESHOLD = 50
+
+
+def test_id_regexes_support_compounds_and_epic_compatibility() -> None:
+    accepted = {"BR-001", "ADO-STAGE-001", "BR-FEA-001", "EPIC-01", "EPIC-001"}
+    rejected = {
+        "BR-01", "ADO-STAGE-01", "ADO-STAGE-EXTRA-001", "API-EPIC-01",
+        "EPIC-SUB-001", "xBR-001", "BR-001st", "BR-001-extra",
+    }
+    for value in accepted:
+        match = ID_RE.search(value)
+        assert match and match.group(0) == value
+        heading = HEADING_DEF_RE.search(f"# {value} Example")
+        assert heading and heading.group(1) == value
+    for value in rejected:
+        assert ID_RE.fullmatch(value) is None
+        assert HEADING_DEF_RE.search(f"## {value} Example") is None
+
+
+def test_id_range_expansion_requires_matching_prefixes_and_valid_shape() -> None:
+    assert expand_ranges("ADO-STAGE-001 → ADO-STAGE-003") == {
+        "ADO-STAGE-001", "ADO-STAGE-002", "ADO-STAGE-003",
+    }
+    assert expand_ranges("EPIC-01 -> EPIC-03") == {"EPIC-01", "EPIC-02", "EPIC-03"}
+    assert expand_ranges("ADO-STAGE-001 → API-003") == set()
+    assert expand_ranges("ADO-STAGE-EXTRA-001 → 003") == set()
+    assert expand_ranges("EPIC-SUB-001 → 003") == set()
+
+
+def test_epic_file_discovery_accepts_only_exact_execution_filenames(tmp_path: Path) -> None:
+    epics = tmp_path / "epics"
+    epics.mkdir()
+    accepted = {"EPIC-01.md", "EPIC-001-foundation.md", "EPIC-100-release_1.md"}
+    rejected = {
+        "EPIC-0junk.md", "EPIC-01x.md", "EPIC-001-.md", "EPIC-SUB-001.md",
+        "EPIC_TEMPLATE.md",
+    }
+    for name in accepted | rejected:
+        (epics / name).write_text(f"# {name}\n")
+
+    discovered = iter_epic_files(epics)
+    assert {path.name for path in discovered} == accepted
+    assert {epic_id_from_filename(path) for path in discovered} == {
+        "EPIC-01", "EPIC-001", "EPIC-100",
+    }
+    for name in rejected:
+        assert epic_id_from_filename(epics / name) is None
+
+
+def test_explicit_domain_profile_is_a_closed_registry(tmp_path: Path) -> None:
+    profile = tmp_path / ".claude" / "domain-profile.yaml"
+    profile.parent.mkdir()
+    profile.write_text(
+        "id_prefixes:\n"
+        "  ZZZ:\n"
+        "    file: SoT/SoT.CUSTOM.md\n"
+    )
+    sot = tmp_path / "SoT"
+    sot.mkdir()
+    (sot / "SoT.CUSTOM.md").write_text(
+        "## ZZZ-001: Registered\n\n"
+        "## BR-001: Must remain invisible\n"
+    )
+
+    assert set(load_domain_profile(tmp_path)) == {"ZZZ"}
+    assert index_all_ids(tmp_path) == {"ZZZ": {"ZZZ-001"}}
+
+
+def test_guides_and_malformed_epics_do_not_enter_the_readiness_graph(tmp_path: Path) -> None:
+    profile = tmp_path / ".claude" / "domain-profile.yaml"
+    profile.parent.mkdir()
+    profile.write_text(
+        "id_prefixes:\n"
+        "  BR: { file: SoT/SoT.BUSINESS_RULES.md }\n"
+        "  EPIC: { file: epics/ }\n"
+    )
+    sot = tmp_path / "SoT"
+    sot.mkdir()
+    (sot / "SoT.BUSINESS_RULES.md").write_text(
+        "## BR-001: Accepted\n\nA durable rule with rationale and enforcement.\n"
+    )
+    (sot / "SoT.README.md").write_text("Guide examples: BR-001 BR-999\n")
+    (sot / "SoT.UNIQUE_ID_SYSTEM.md").write_text(
+        "## BR-999: Instructional example\n\nReferences BR-001.\n"
+    )
+    epics = tmp_path / "epics"
+    epics.mkdir()
+    (epics / "EPIC-01x-malformed.md").write_text(
+        "# EPIC-01x\n\n## BR-999: Lookalike definition\n\nReferences BR-001.\n"
+    )
+
+    entries = index_all_entries(tmp_path)
+    references = collect_all_references(tmp_path)
+    id_index = index_all_ids(tmp_path)
+    score, unmet = compute_cross_ref_integrity(tmp_path, id_index, {"BR", "EPIC"})
+
+    assert set(entries) == {"BR-001"}
+    assert "BR-999" not in references
+    assert references["BR-001"] == {"SoT/SoT.BUSINESS_RULES.md"}
+    assert id_index == {"BR": {"BR-001"}}
+    assert score == 100
+    assert unmet == []
+
+
+def test_dependency_lookup_does_not_accept_prefix_collisions(tmp_path: Path) -> None:
+    epics = tmp_path / "epics"
+    epics.mkdir()
+    (epics / "EPIC-010-lookalike.md").write_text(
+        "# EPIC-010\n\n> **State**: Complete\n"
+    )
+    ctx = EpicContext(
+        id="EPIC-002",
+        file=epics / "EPIC-002-consumer.md",
+        inputs={"depends_on_epics": ["EPIC-01"]},
+    )
+
+    score, unmet = compute_dependency_readiness(ctx, tmp_path)
+    assert score == 0
+    assert unmet and unmet[0]["ref"] == "EPIC-01"
+
+    (epics / "EPIC-01-dependency.md").write_text(
+        "# EPIC-01\n\n> **State**: Complete\n"
+    )
+    score, unmet = compute_dependency_readiness(ctx, tmp_path)
+    assert score == 100
+    assert unmet == []
 
 
 def run_readiness(repo: Path, extra_args: list[str] | None = None) -> tuple[int, dict]:
@@ -62,6 +200,17 @@ def test_healthy_repo_scores_above_warn(healthy_repo: Path) -> None:
     # Every EPIC should pass the warn threshold
     for eid, block in data["epics"].items():
         assert block["score"] >= PASS_THRESHOLD, f"{eid} scored {block['score']}"
+
+
+def test_run_rebuilds_output_without_stale_epics(healthy_repo: Path) -> None:
+    """Each run starts fresh, so removed EPICs cannot survive from an older JSON report."""
+    _, first = run_readiness(healthy_repo)
+    assert first["epics"]
+    for epic in (healthy_repo / "epics").glob("EPIC-*.md"):
+        if epic.name != "EPIC_TEMPLATE.md":
+            epic.unlink()
+    _, second = run_readiness(healthy_repo)
+    assert second["epics"] == {}
 
 
 # ---------- Specific defect detection ---------- #

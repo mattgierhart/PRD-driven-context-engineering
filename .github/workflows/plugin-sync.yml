@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Verify committed plugin payload matches .claude/ source
-        # Regenerates plugins/prd-ce/ from .claude/ and fails if the committed
-        # payload drifted. The marketplace serves the committed payload, so this
-        # keeps "what ships" == "what was authored".
+        # Generates an isolated payload and fails if the committed payload drifted.
+        # The marketplace serves the committed payload, so this keeps
+        # "what ships" == "what was authored" without mutating the checkout.
         run: bash scripts/check-plugin-sync.sh

@@ -2,6 +2,9 @@
 
 Copy this template for each competitor moat analysis. Store completed entries in `customer_feedback.md`.
 
+> **Synthetic example notice:** The completed example is fictional teaching data. Verify every
+> competitor, claim, source, threshold, and decision before using this template in product work.
+
 ---
 
 ## CFD-MOT-[XXX]: [Competitor Name] Moat Analysis
@@ -100,13 +103,13 @@ Before marking complete:
 
 ---
 
-## Example Entry (HomeFalcon Context)
+## Example Entry (Synthetic Home-Warranty Context)
 
 ```
-CFD-MOT-001: Home Warranty Company (American Home Shield) Moat Analysis
+CFD-MOT-001: Example Home Warranty Provider Moat Analysis
 
-Competitor: American Home Shield
-URL: ahs.com
+Competitor: Example Home Warranty Provider
+URL: https://example.invalid
 Analysis Date: 2025-01-07
 Upstream CFD: CFD-012 (AHS competitor profile)
 
@@ -118,9 +121,9 @@ Moat Classification:
 Evidence Summary:
 | Evidence Type | Finding | Source | Tier |
 |---------------|---------|--------|------|
-| Brand awareness | #1 recognized name in home warranty | Google Trends | 2 |
-| Switching friction | Monthly cancelable, no data lock-in | Pricing page | 1 |
-| Customer complaints | "Claims denial" primary complaint | BBB reviews | 2 |
+| Brand awareness | High awareness in the synthetic segment | Fictional awareness study | 2 |
+| Switching friction | Monthly cancelable, no data lock-in | Fictional pricing page | 1 |
+| Customer complaints | Claims denial is the synthetic primary complaint | Fictional review corpus | 2 |
 
 Switching Cost Inventory:
 | Cost Type | Rating | Evidence | Hours/$ Impact |
@@ -135,14 +138,14 @@ Total Switching Cost: ~$0 + <1 hour
 
 Vulnerability:
 - Segment: DIY homeowners who want control
-- Why: AHS moat is "trust to handle claims" — doesn't apply to users 
+- Why: Provider moat is "trust to handle claims" — doesn't apply to users
   who want to self-manage and just need tracking
-- Evidence: Reddit threads "AHS denied my claim, need alternative"
+- Evidence: Fictional interviews describing denied claims and demand for an alternative
 
 Targeting Implication:
 Decision: DIRECT COMPETITION on self-serve segment
 Rationale: No switching friction + active pain (claims denial) = 
 opportunity for tool that puts homeowner in control
 
-Confidence: High — validated via complaint analysis + pricing page
+Confidence: Example only — replace with attributable complaint and pricing evidence before rating
 ```

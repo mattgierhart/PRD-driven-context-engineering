@@ -13,11 +13,12 @@
 a fork-ready methodology that turns documentation into a knowledge graph humans and AI navigate
 together — so the 50th session is smarter than the 1st.*
 
-> **V2 branch status:** `codex/prd-ce-v2-product-model` is a proposed Product Management planning
-> and validation track, not a V2 runtime or release. Continue to follow the normal
-> `README.md` → `PRD.md` → `CLAUDE.md` authority chain. The
-> [V2 build plan](docs/PRD_CE_V2_BUILD_PLAN.md) records a known pre-v0.1 authority/template conflict
-> and does not override the PRD; the current methodology on `main` remains the stable baseline.
+> **V2 branch status:** `codex/prd-ce-v2-product-model` is at PRD **v0.1 Spark** for the Product
+> Management lifecycle. Wave 0B separates repository authority from generic downstream seeds; it is
+> not a V2 runtime or release. Read `CLAUDE.md` → `README.md` → `PRD.md` → accepted SoT → an active
+> EPIC only at v0.7+. The
+> [V2 build plan](docs/PRD_CE_V2_BUILD_PLAN.md) remains contingent and the methodology on `main`
+> remains the stable baseline.
 
 [**Quick Start**](#-quick-start) · [**The Idea**](#the-idea-memory-as-infrastructure) ·
 [**The Lifecycle**](#-feature-the-progressive-prd) · [**The Skills**](#-feature-47-skills-one-for-every-decision) ·
@@ -60,7 +61,11 @@ The convergence: **documentation is not an afterthought. Documentation is the in
 
 > **The Golden Rule**: If it isn't part of the memory infrastructure, it isn't true.
 
-So every durable decision gets a **Unique ID** (`UJ-101`, `BR-004`, `API-045`) in a **Source-of-Truth file**. That ID is a memory node with weight: when the AI references `BR-004`, it isn't guessing — it's retrieving a specific, validated decision you encoded. The linked network of IDs across files *is* the **Knowledge Graph**, and it lives in plain markdown, in your repo, under version control.
+So every durable decision gets a **Unique ID** (`UJ-XXX`, `BR-XXX`, `API-XXX`) in a
+**Source-of-Truth file**. That ID is a memory node with weight: when the AI references a specific
+`BR-XXX`, it isn't guessing — it's retrieving the validated decision you encoded. The linked
+network of IDs across files *is* the **Knowledge Graph**, and it lives in plain markdown, in your
+repo, under version control.
 
 ### The 4 Pillars
 
@@ -92,10 +97,10 @@ Everything below ships in this repo, works offline, and forks in one click:
 
 | Feature | What it gives you |
 |---|---|
-| 🧠 [The Knowledge Graph](#-feature-a-knowledge-graph-in-plain-markdown) | 14 SoT files, 21 ID types, zero databases — durable memory in markdown |
+| 🧠 [The Knowledge Graph](#-feature-a-knowledge-graph-in-plain-markdown) | 14 SoT files, 24 ID types, zero databases — durable memory in markdown |
 | 📈 [The Progressive PRD](#-feature-the-progressive-prd) | A gated v0.1 → v1.0 lifecycle that stops AI from one-shotting your architecture |
 | 🛠 [47 Skills](#-feature-47-skills-one-for-every-decision) | Stage playbooks from problem framing to crossing the chasm — Dunford, Hormozi, Moore, Torres built in |
-| 📊 [Readiness Scoring](#-feature-a-repo-that-scores-its-own-readiness) | The repo computes whether you're ready to advance — and what to fix first |
+| 📊 [Readiness Scoring](#-feature-a-repo-that-scores-its-own-readiness) | The repo computes whether evidence is ready for owner gate review — and what to fix first |
 | 🫀 [The Development Graph](#-feature-code-that-traces-back-to-specs) | `@implements` tags bridge code to specs; drift surfaces as a verdict, not a surprise |
 | 📰 [The Human Review Layer](#-feature-the-human-review-layer) | Every SoT file rendered as a styled, hyperlinked page its reviewer actually wants to read |
 | 🤖 [The Agent Squad](#-feature-an-agent-squad-with-persistent-memory) | Four role agents with persistent memory, coordinated through files instead of meetings |
@@ -109,15 +114,19 @@ Everything below ships in this repo, works offline, and forks in one click:
 
 The architecture is **3 + 1 + SoT + Temp**, designed to manage Context Density for both human cognitive load and AI context windows:
 
-1. **Executive Functions** — orient attention. Files load stable→volatile to maximize prompt-cache hits:
-   - `README.md` — the Dashboard (where am I? what is active?)
-   - `PRD.md` — the Strategy (why and what)
+1. **Executive Functions** — orient attention in the documented read order:
    - `CLAUDE.md` — the Physics (how the AI must behave)
-2. **Focus Memory** — `epics/`: the only variable state. An EPIC frames one problem as one context window.
-3. **Long-Term Memory** — `SoT/SoT.*.md`: the immutable facts. Business Rules (`BR-`), User Journeys (`UJ-`), API Contracts (`API-`), and 18 more ID types. Nothing duplicated; everything referenced by ID.
-4. **Short-Term Memory** — `temp/`: the scratch pad. Files attach to the active EPIC and get harvested to SoT before the EPIC closes.
+   - `README.md` — the Dashboard (where am I? what is active?)
+   - `PRD.md` — the Strategy and product authority (why and what)
+2. **Focus Memory** — before v0.7, the current PRD gate record frames product-definition work;
+   from v0.7 onward, `epics/` becomes the variable execution state and one EPIC frames one problem
+   as one context window.
+3. **Long-Term Memory** — `SoT/SoT.*.md`: the immutable facts. Business Rules (`BR-`), User Journeys (`UJ-`), API Contracts (`API-`), and 21 more ID types. Nothing duplicated; everything referenced by ID.
+4. **Short-Term Memory** — `temp/`: the scratch pad. Before v0.7, files support the current PRD
+   gate; from v0.7 onward they attach to the active EPIC and get harvested to SoT before it closes.
 
-> **Just-in-Time Context**: instead of dumping documentation into the context window, reference specific IDs (`UJ-101`, `API-002`). Fewer input tokens, deeper understanding.
+> **Just-in-Time Context**: instead of dumping documentation into the context window, reference
+> specific IDs (`UJ-XXX`, `API-XXX`). Fewer input tokens, deeper understanding.
 <!-- /SECTION: doc-ecosystem -->
 
 ---
@@ -140,7 +149,7 @@ The architecture is **3 + 1 + SoT + Temp**, designed to manage Context Density f
 | **v0.7** | **Build Execution**      | Implementation Loop   | Code tested (`TEST-`), SoT updated, code traced to specs (Development Graph), Epic loop execution. |
 | **v0.8** | **Release & Deployment** | Operational Readiness | Runbooks (`RUN-`), Monitoring (`MON-`, `MON-DRIFT-`), Rollback plan, Changelog system, MOPS handoff. |
 | **v0.9** | **Launch**               | Go-to-Market          | Positioning (Dunford), Offer (Hormozi), Channels (ORB), Launch metrics (`KPI-`), Feedback channels (`CFD-`), Tactical playbooks (AEO, alternatives, outreach, HN/Reddit). |
-| **v1.0** | **Growth**               | Market Adoption       | Adoption stage (`ADO-STAGE-`), Beachhead (`ADO-BEACHHEAD-`), Whole product (`ADO-WHOLE-`), References (`ADO-REF-`), Continuous discovery, Case studies, Testimonials. |
+| **v1.0** | **Market Adoption**      | Growth & Learning     | Adoption stage (`ADO-STAGE-`), Beachhead (`ADO-BEACHHEAD-`), Whole product (`ADO-WHOLE-`), References (`ADO-REF-`), Continuous discovery, Case studies, Testimonials. |
 
 **Why gates work**: constrained focus prevents the AI from guessing the architecture before it understands the users; deep focus produces meaningful IDs; the result is not just a working product but a *desirable* one.
 
@@ -176,12 +185,15 @@ Readiness is a **three-layer graph** over the artifacts you already author:
 All three write to one file — `status/readiness.json` — with causal links intact: an EPIC's unmet criterion points at its `caused_by` SoT file; the top blockers are ranked by downstream impact. **The highest-leverage fix is rarely the lowest-scoring file — it's the lowest-scoring file blocking the most EPICs.** The system tells you which.
 
 ```bash
-python scripts/readiness.py run        # compute all layers + print report
-python scripts/readiness.py status     # print last-computed report
-python scripts/readiness.py run --json # machine-readable output for hooks/CI
+python3 -m pip install -r scripts/requirements.txt
+python3 scripts/readiness.py run        # compute all layers + print report
+python3 scripts/readiness.py status     # print last-computed report
+python3 scripts/readiness.py run --json # machine-readable output for hooks/CI
 ```
 
-Exit codes `0/1/2` map to PASS / WARN / BLOCK (thresholds: warn=70, block=50, overridable per item). The `ghm-gate-check` skill delegates here for stage-advancement decisions.
+Exit codes `0/1/2` map to PASS / WARN / BLOCK (thresholds: warn=70, block=50,
+overridable per item). The `ghm-gate-check` skill delegates here to prepare evidence for owner gate
+review; only an owner-approved PRD transition authorizes advancement.
 
 ### 🫀 Feature: Code that traces back to specs
 
@@ -190,7 +202,9 @@ Once building starts (v0.7), the code itself joins the knowledge graph. An AST p
 - `implementation_coverage` — which scoped specs actually have implementing code
 - `architecture_conformance` — do the `ARC-` rules still hold in the as-built system (drift = a `violate` verdict, not a surprise in review)
 
-Untagged code shows up as an **orphan node** — a context leak you can see. The same `devgraph.json` powers the **HeartBeat** visualizer: a live pulse of built / unbuilt / drifted. See [`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md).
+Untagged code shows up as an **orphan node** — a context leak you can see. The same `devgraph.json`
+can power an optional visualizer of built / unbuilt / drifted state. See
+[`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md).
 
 **Deeper reading**: [`.claude/rules/07-readiness-protocol.md`](.claude/rules/07-readiness-protocol.md) · [`docs/READINESS_PROTOCOL.md`](docs/READINESS_PROTOCOL.md)
 <!-- /SECTION: readiness-scoring -->
@@ -235,7 +249,10 @@ Each of the 13 pages serves a different reviewer: policy register for `BR-`, ADR
 
 - **horizon** (Strategy, v0.1–v0.5) · **studio** (Design, v0.3–v0.6) · **devlab** (Build, v0.6–v0.8) · **metro** (Ops, v0.9–v1.0)
 - **Memory that persists**: each agent accumulates Feedback, Patterns, Decisions, and Handoff Notes in its `MEMORY.md`. A `SubagentStop` hook actively extracts memories from the conversation. During EPIC harvest, cross-EPIC insights are promoted to `SoT/SoT.LESSONS_LEARNED.md` as durable `LL-` entries.
-- **Event-driven hooks instead of meetings**: `SessionStart` injects read order, `UserPromptSubmit` checks context density, `PreToolUse` verifies an active EPIC before code writes, `Stop` reminds on SoT cascade updates. Behavior is standardized by [`HOOK_CONTRACT.md`](.claude/hooks/HOOK_CONTRACT.md).
+- **Event-driven hooks instead of meetings**: `SessionStart` injects read order,
+  `UserPromptSubmit` checks context density, `PreToolUse` verifies an active EPIC before code
+  writes, and `PostToolUse` reminds on SoT cascade updates while the edit is still in context.
+  Behavior is standardized by [`HOOK_CONTRACT.md`](.claude/hooks/HOOK_CONTRACT.md).
 - **Multi-agent EPICs without the telephone game**: a Synthesis Checkpoint forces the coordinator to produce self-contained worker prompts before implementation begins — workers never see degraded second-hand context.
 - **File-based standups**: the [Squad Status](#squad-status) section below shows agent activity and EPIC state at a glance, updated by `ghm-status-sync`.
 
@@ -244,10 +261,12 @@ Each of the 13 pages serves a different reviewer: policy register for `BR-`, ADR
 ```text
 /
 ├── README.md               # Dashboard, structure, and status
-├── PRD.md                  # Product definition (Progressive PRD)
+├── PRD.md                  # This repository's product authority (Progressive PRD)
+├── PRD_template.md         # Generic downstream PRD seed
 ├── CLAUDE.md               # The agent's operating instructions
 ├── epics/                  # Active Context Windows (Tasks)
-├── SoT/                     # Shared Memory Store (SoT.* files + html/ review layer)
+├── SoT/                     # This repository's accepted product memory
+├── SoT_template/            # Generic downstream SoT seed + HTML review layer
 ├── temp/                    # Scratch Pad for explorations and audits
 └── .claude/                 # Methodology runtime (skills, hooks, agents)
     ├── skills/              # 41 stage skills (prd-v*) + 6 operators (ghm-*)
@@ -259,7 +278,9 @@ Each of the 13 pages serves a different reviewer: policy register for `BR-`, ADR
 
 > **Agent Note**: `.claude/` can be replaced with `.gemini/`, `.codex/`, or any other agent structure, but the skills, hooks, and agent model here were built with Anthropic's documentation model in mind.
 
-> **Fork Note**: this `README.md` explains the methodology. When you fork for a product, copy `README_template.md` to `README.md` and customize it.
+> **Fork Note**: this root README, PRD, and SoT describe the methodology repository. A downstream
+> product starts from `README_template.md`, `PRD_template.md`, and `SoT_template/`; the canonical
+> destinations become product-owned after the first copy.
 <!-- /SECTION: repo-structure -->
 
 ---
@@ -270,6 +291,8 @@ Each of the 13 pages serves a different reviewer: policy register for `BR-`, ADR
 ```bash
 # 1. Fork this repo for your product, then:
 cp README_template.md README.md     # your product dashboard replaces this page
+cp PRD_template.md PRD.md           # your product definition starts at v0.1
+cp -R SoT_template/. SoT/           # replace the clean fork's repository SoT with generic content
 
 # 2. Open the repo in Claude Code — hooks load the read order automatically.
 
@@ -278,7 +301,8 @@ cp README_template.md README.md     # your product dashboard replaces this page
 #    The skill produces CFD- evidence IDs and fills PRD.md v0.1.
 
 # 4. Advance only through gates:
-python scripts/readiness.py run      # are we ready for v0.2?
+python3 -m pip install -r scripts/requirements.txt
+python3 scripts/readiness.py run      # are we ready for v0.2?
 ```
 
 From there, the method drives itself: each stage's skills consume the previous stage's IDs, the readiness score tells you when to advance, and the knowledge graph grows with every decision. **No subscriptions, no servers, no lock-in — fork and go.**
@@ -291,40 +315,47 @@ From there, the method drives itself: each stage's skills consume the previous s
 
 The methodology is **fork-native**: everything runs from files in your repo, with no services to stand up.
 
-1. **Fork it per product** — this repo is the template; each product gets its own copy with its own PRD, SoT graph, and EPICs ([Quick Start](#-quick-start) above).
-2. **Or self-install into an existing repo** — run the self-install path instead of forking the whole repo (see below).
-3. **Work through the gates** — let the stage skills drive: each one tells you what it consumes, what IDs it produces, and which gate it feeds. Run `python scripts/readiness.py run` before advancing.
+1. **Fork it per product** — copy the explicit generic sources into canonical product-owned paths;
+   do not inherit this repository's PRD-CE decisions ([Quick Start](#-quick-start) above).
+2. **Or source-run install into an existing repo** — run from a fresh trusted methodology checkout instead of forking the whole repo (see below).
+3. **Work through the gates** — let the stage skills drive: each one tells you what it consumes, what IDs it produces, and which gate it feeds. Run `python3 scripts/readiness.py run` before advancing.
 4. **Keep the graph honest** — decisions land in `SoT/` with IDs *before or during* the change, never after. Review them as humans through [`SoT/html/`](SoT/html/index.html).
 5. **Harvest every EPIC** — `temp/` notes and agent memories get promoted to durable `LL-` entries at EPIC close, so the next session starts smarter.
 
-### Adopt into an existing repo (self-install — prototype)
+### Adopt into an existing repo (source-run install — prototype)
 
-You don't have to fork. The **self-install path** drops the framework into a fresh *or*
-existing repo without clobbering product content — the subscription-native pattern
+You don't have to fork. The **source-run install path** drops the framework into a fresh *or*
+existing repo without clobbering product content. Start from a fresh trusted methodology checkout;
+the consumer runtime does not receive the installer, manifest, or install operators. This is the
+subscription-native pattern
 borrowed from [`ZQadus/Xantham-system-blueprint`](https://github.com/ZQadus/Xantham-system-blueprint):
 ship a blueprint a fresh Claude Code session executes, so all cost lands on your Pro/Max
 plan, **not** the metered API.
 
 ```bash
-# Deterministic CLI (from a clone of this repo):
-bash install.sh --target /path/to/your/repo --profile product --dry-run   # preview
-bash install.sh --target /path/to/your/repo --profile product             # install
+# Deterministic CLI (from a fresh trusted clone of this repo):
+bash /path/to/fresh/prd-method/install.sh --target /path/to/your/repo --profile product --dry-run
+bash /path/to/fresh/prd-method/install.sh --target /path/to/your/repo --profile product
 ```
 
 Or paste the one-line bootstrap from [`BLUEPRINT.md`](BLUEPRINT.md) into a fresh Claude
 Code session and let the [`ghm-self-install`](.claude/skills/ghm-self-install/SKILL.md)
-wizard drive it. Both paths read [`.claude/install-manifest.yaml`](.claude/install-manifest.yaml)
+source-checkout-only wizard drive it. Both paths read the trusted checkout's
+[`.claude/install-manifest.yaml`](.claude/install-manifest.yaml)
 (framework vs. product file classes), are **idempotent**, and **merge** into an existing
-`.claude/settings.json` rather than overwriting it.
+`.claude/settings.json` rather than overwriting it. Use a fresh trusted checkout for each other
+repository; never treat an installed consumer as a distributor.
 
 ### Still on the roadmap
 
-The self-install path is the foundation — fuller distribution is next:
+The source-run install path is the foundation. Provider packaging remains a verified-source concern rather
+than a V2 product release claim:
 
 - **MCP server** — the knowledge graph as a queryable service: look up any ID, traverse cross-references, and pull readiness scores from any MCP-capable agent, without loading files into context.
-- **Packaged Claude Code plugin** — the skills, hooks, and agent squad as a marketplace one-click, plus Xantham-style hardening (Docker audit sandbox, signed `CHECKSUMS.sha256`).
+- **Packaged Claude Code plugin** — a generated plugin payload exists for local validation; public
+  marketplace availability remains unverified until an end-to-end release is approved.
 
-Watch the repo to catch these when they land. The fork *and* self-install paths both work end-to-end today.
+Watch the repo to catch these when they land. The fork and source-run paths both work end-to-end today.
 <!-- /SECTION: how-to-use -->
 
 ---
@@ -361,15 +392,19 @@ Thank you for helping refine **PRD-Led Context Engineering**. This repository is
 
 Before contributing, read:
 
-1. **[`README.md`](README.md)** — this page: the methodology and dashboard.
-2. **[`CLAUDE.md`](CLAUDE.md)** — the Agent Operating Instructions.
+1. **[`CLAUDE.md`](CLAUDE.md)** — agent operating instructions and documentation discipline.
+2. **[`README.md`](README.md)** — this page: methodology, navigation, and current status.
+3. **[`PRD.md`](PRD.md)** — current product authority and lifecycle authorization.
+4. **Accepted [`SoT/`](SoT/SoT.README.md) records** — durable product detail referenced by the PRD.
 
 The goal is always **Context Density**: exactly the right information, at exactly the right time, for humans and AI alike.
 
 ### Ways to Contribute
 
 **Refine the methodology**
-- **Templates**: improve `SoT/` templates, the [HTML review layer](SoT/html/README.md), or `epics/EPIC_TEMPLATE.md`.
+- **Templates**: improve `SoT_template/`, its [HTML review layer](SoT_template/html/README.md),
+  `PRD_template.md`, or the manifest's distinct `*.seed.*` sources without copying repository
+  authority into them.
 - **Skills & workflows**: sharpen a stage skill, suggest automation hooks, or improve Source-of-Truth management.
 - **Documentation**: clarify the rules of the road in this README.
 

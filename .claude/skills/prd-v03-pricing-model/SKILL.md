@@ -207,7 +207,7 @@ Rule: Entry tier never below $15/mo (annual) or $19/mo (monthly)
 Rationale: Below $15/mo, CAC payback exceeds 6 months
 Enforcement: Stripe product configuration, pricing page
 Evidence: CAC estimate $45, need 3-month payback
-Exception: Founding customer 50% discount (Matt approval)
+Exception: Founding customer 50% discount ({designated approver} approval)
 
 BR-PKG-002: Free Tier Upgrade Trigger
 Rule: Free tier limited to 50 [units]; show upgrade at 40 (80%)

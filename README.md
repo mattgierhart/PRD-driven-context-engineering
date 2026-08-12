@@ -18,7 +18,8 @@ together — so the 50th session is smarter than the 1st.*
 > not a V2 runtime or release. Read `CLAUDE.md` → `README.md` → `PRD.md` → accepted SoT → an active
 > EPIC only at v0.7+. The
 > [V2 build plan](docs/PRD_CE_V2_BUILD_PLAN.md) remains contingent and the methodology on `main`
-> remains the stable baseline.
+> remains the stable baseline. A research-input exploration of the document ecosystem's formal
+> model lives at [docs/ECOSYSTEM_ONTOLOGY.md](docs/ECOSYSTEM_ONTOLOGY.md).
 
 [**Quick Start**](#-quick-start) · [**The Idea**](#the-idea-memory-as-infrastructure) ·
 [**The Lifecycle**](#-feature-the-progressive-prd) · [**The Skills**](#-feature-47-skills-one-for-every-decision) ·

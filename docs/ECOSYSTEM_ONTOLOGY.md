@@ -1,6 +1,6 @@
 ---
 title: "The Ontology of the Markdown Document Ecosystem"
-version: 2
+version: 2.1
 status: "Research input — not accepted product truth (PRD.md authority order, item 7)"
 purpose: "Formalize the document ecosystem plane-first (owner direction, 2026-08-12): five planes of product memory as the organizing axis, the numbered lifecycle as one pack's guided walk, and the stage skills as playbooks behind a verb surface. Staged, gate-legal recommendations."
 date: 2026-08-12
@@ -19,9 +19,12 @@ scope_guard: "Product Management ecosystem only. No universal enterprise ontolog
 > Intent, Delivery, Reality, Change**. The numbered lifecycle (v0.1→v1.0) is not the ontology;
 > it is one pack's guided walk across the planes, and the walk is provably re-expressible as
 > per-plane state conditions without loss. A true v2 — the direction the owner set 2026-08-12,
-> contingent on the R0 acceptance record (§9) — would make the planes primary, collapse the 41
-> stage skills into playbooks behind a seven-verb surface, and keep the numbered walk as a
-> compatibility projection for every repository that already speaks it.
+> contingent on the R0 acceptance record (§9) — would make the planes the primary *internal*
+> structure, collapse the 41 stage skills into playbooks behind a seven-verb surface, and keep
+> the numbered walk as a compatibility projection for every repository that already speaks it.
+> The *audience-facing* stage vocabulary is the PM loop the same review defined — **Explore →
+> Shape → Decide → Build → Learn**, with Check cross-cutting: "the graph compounds beneath those
+> verbs" (BLUEPRINT:188).
 
 ---
 
@@ -227,7 +230,7 @@ Applying the blueprint's own merge-time test — core primitive, derived view, o
 |---|---|---|
 | Gate *enforcement machinery* (readiness engine, hooks, validators) | **Kernel** — the policy engine ("Hooks \| Keep \| Runtime policy enforcement", BLUEPRINT:609) | core primitive |
 | Each gate's *criteria bundle* (GATE_REQUIREMENTS row + gate-criteria.md detail) | **Policy pack** — named, installable, invoked as `check --policy=<profile>` (BLUEPRINT:2002, 2308-2309) | configuration |
-| The v0.1→v1.0 *ordering* | **Guided journey** — documentation narrative (`docs/journey/`, BLUEPRINT:2030-2035), optional | playbook/docs |
+| The v0.1→v1.0 *ordering* | **Guided journey** — documentation narrative (`docs/journey/`, BLUEPRINT:2030-2035), optional; its public names are the PM loop stages (Explore → Shape → Decide → Build → Learn) | playbook/docs |
 | The readiness *score* | **Goal-scoped fitness + graph-integrity views** (BLUEPRINT:610) — computed per active change, "no universal readiness grade" (BLUEPRINT:2538) | derived view |
 | Owner gate *approval* | Unchanged — **adjudication on the Change plane**; P7 stands (a view is eligibility, only the owner authorizes) | authority model (kernel) |
 
@@ -257,6 +260,17 @@ Plane-first must be additive, per ARC-002/003 and BR-005:
 ---
 
 ## 4. The verb surface and the action layer
+
+**The loop is the public face; the planes sit beneath it.** The five loop stages are what the
+target audience meets — the site brief leads its homepage with "the Product Management loop:
+Explore → Shape → Decide → Build → Learn, with Check as a cross-cutting action"
+(GEARHEARTAI_PRD_CE_V2_SITE_BRIEF.md:158-159, 273-276) and instructs that the homepage serve
+those jobs "before teaching ontology or lifecycle stages" (SITE:151). The planes never need to
+appear in the first-run experience at all. **Owner preference recorded 2026-08-12:** the loop
+stages are the audience-facing stage vocabulary — the successor to Spark → … → Market Adoption —
+and the plane names remain internal record classification. The two axes are not rivals: each loop
+stage reads and writes specific planes (the "Primary plane" column below), which is what makes
+`check`'s cross-plane comparisons and the context compiler work.
 
 ### 4.1 Seven verbs, one router
 
@@ -401,8 +415,10 @@ Stated compactly; the reasoning lives in v1's git history (`1afe828`) and remain
 **R0 — Record the direction (the gate for everything else).** An owner-confirmed BR/ARC record
 (Wave-0B style, with Enforcement + Failure disposition + gate code) stating: planes are the
 primary ontology; the numbered lifecycle becomes a compatibility projection + guided journey;
-stage skills collapse to playbooks behind the verb surface; readiness re-keys per plane into
-goal-scoped views (revising rule 07's universal grade). Touch list at acceptance: build plan
+stage skills collapse to playbooks behind the verb surface; the PM loop (Explore → Shape →
+Decide → Build → Learn, Check cross-cutting) is the audience-facing stage vocabulary while the
+planes remain internal structure; readiness re-keys per plane into goal-scoped views (revising
+rule 07's universal grade). Touch list at acceptance: build plan
 (PLAN:223's "single gate system" sentence), rules 01/05/07/08 (stage-number references), README
 lifecycle table. Until R0 lands, everything below is contingent.
 
@@ -443,6 +459,9 @@ verbs' preconditions, adjudication receipts, postcondition verification.
    (BLUEPRINT:619-625 vs 2525), or are they structure beneath the nouns? The blueprint's kill
    criterion — "users cannot get value before learning the ontology" — suggests planes should be
    *invisible* in the first-run experience (`init`/`check` work without teaching them).
+   **Owner preference recorded 2026-08-12 (pending R0):** resolved in the invisible direction —
+   the PM loop stages are the public vocabulary; plane names stay internal and off the noun
+   budget.
 3. **"More domains."** The reviewed baseline is five planes, and **BR-001 governs any
    expansion**: a candidate division serving a non-PM methodology is a separately governed method
    pack, never a new plane (gate code `V2_SCOPE_EXPANSION`). For PM-internal candidates, the
@@ -488,3 +507,4 @@ tensions cite the documents' own lines and are reportable defects per the evalua
 |---|---|---|
 | 1 | 2026-08-12 | Initial: layer-first audit; plane restructure treated as open tension |
 | 2 | 2026-08-12 | Domain-first rework per owner direction: planes primary, lifecycle as projection, skills as playbooks; R0 added |
+| 2.1 | 2026-08-12 | Two-axis clarification per owner preference: the PM loop (Explore → Shape → Decide → Build → Learn, Check cross-cutting) is the audience-facing stage vocabulary; planes are internal structure, invisible at first run |

@@ -216,7 +216,9 @@ The deliverable canon — the owner-articulated key moments where clarity of exp
 most (problem framing, persona, commercial model, journeys, tech & risk, sequencing, GTM, and a
 proposed launch verdict) — lives in [`docs/V2_KEY_MOMENTS.md`](V2_KEY_MOMENTS.md): each moment =
 one deliverable (human face) + a policy-pack profile (machine face, possibly composing several
-packs) + its preparation playbooks.
+packs) + its preparation playbooks. Moment surfaces follow the **Graphify pattern** (canon §2):
+a bespoke designed template hydrated by a deterministic, LLM-free pull script from the planes —
+living projections rebuilt loop-by-loop, never hand-edited.
 
 ---
 

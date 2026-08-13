@@ -1,6 +1,6 @@
 ---
 title: "The Key Moments — v2's Deliverable Canon"
-version: 1
+version: 1.1
 status: "Research input — not accepted product truth (PRD.md authority order, item 7)"
 purpose: "Make structural room for the key moments of product development — the deliverables where clarity of expression matters most — inside the v2 ontology (planes, verbs, surfaces). The exact questions and expression per moment are deliberately deferred to a dedicated research session."
 date: 2026-08-13
@@ -226,7 +226,65 @@ Each moment entry declares:
 
 ---
 
-## 2. Coverage check — the moments against the machinery
+## 2. The expression architecture — living templates (the Graphify pattern)
+
+**Owner direction (2026-08-13)**: each moment's HTML expression takes the
+[Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) approach. Graphify's contract:
+one command runs a deterministic, LLM-free extraction and emits three artifacts — `graph.json`
+(the full data model, "query it anytime without re-reading your files"), `graph.html` (a bespoke,
+clickable visual), and a markdown report — with every edge provenance-tagged
+`EXTRACTED`/`INFERRED`. This repo has borrowed the pattern once already: the devgraph is
+"Graphify-style AST parsing, deterministic and free" (domain-profile.yaml) and its bridge edges
+carry the same confidence tags. v2 generalizes it to every key moment:
+
+| Artifact | Job | Graphify analog |
+|---|---|---|
+| **The data pull** (`<moment>.json`) | A deterministic script resolves the moment's *Renders* list through the registry — the records, their edges, their state dimensions (lifecycle, authority, freshness, confidence), each fact carrying its record ID and provenance tag | `graph.json` |
+| **The bespoke visual** (`<moment>.html`) | A *designed-per-moment* template hydrated from the JSON — the visual layer is real design work, unique to the moment (a journey map does not look like a risk register); template design is in the research session's scope (§4) | `graph.html` |
+| **The emit path** | Input mode captures judgment and emits plane records — the DELIVERABLES_CONCEPT §4–5 round-trip; this half is ours, Graphify has no write side | — |
+
+Four rules govern the pattern:
+
+1. **Template and data never mix.** The template is designed once and versioned; the data is
+   regenerated constantly. Today's hand-authored companion pages are the templates' ancestors —
+   v2 splits their content out as data. CLAUDE.md's conflict rule ("markdown wins; fix the HTML")
+   becomes automatic: you don't fix a stale page, you rebuild it.
+2. **The pull script is deterministic and LLM-free** — rule 07's scorer discipline extended to
+   surfaces. Registry-driven record selection, edge traversal, state stamps. Some pulls are
+   *computed*, not just selected — coverage matrices, the dependency DAG, drift deltas — exactly
+   the devgraph/readiness precedent, still deterministic.
+3. **Rebuilds are loop-driven, not manual.** Three loops carry the architecture:
+   - **The rebuild loop** — any verb pass that writes records a moment renders marks that
+     surface stale and re-runs its pull (affected-based, like Graphify's incremental rebuilds).
+     Enforcement climbs the ladder: a T1 reminder at first, a CI drift gate later — the same
+     source-vs-generated discipline as the plugin-sync check.
+   - **The render loop** — templates iterate over record sets: five risks or fifty, same
+     template. The page scales by data, never by editing HTML.
+   - **The adjudication loop** — render → judge on the page → emit → planes update → rebuild
+     shows the new accepted state. Each revolution of the PM loop refreshes the canon's
+     surfaces, so session 50 opens current pages, not stale ones.
+4. **Staleness is detectable.** The page embeds its data-model fingerprint; `check` compares it
+   against a fresh pull. A stale surface is a finding, not a surprise.
+
+**Per-moment pulls and rebuild triggers** (derived from each moment's Renders list; the research
+session refines the exact record selections):
+
+| Moment | Data pull (records + computed fields) | Rebuilt when |
+|---|---|---|
+| M1 | Tiered evidence + problem-statement draft + upgrade conditions | `explore`/`learn` write evidence |
+| M2 | Interview records, persona candidates + evidence links | `explore`/`shape` |
+| M3 | Competitive records, switching-cost inventory, WTP signals, type candidates + guardrail previews | `explore`/`shape`/`decide` |
+| M4 | Features, journey/screen drafts + **computed** coverage matrices | `shape` |
+| M5 | Risk register + **computed** status-weighted scores, brownfield assets, architecture/contract drafts | `explore`/`shape` |
+| M6 | **Computed** dependency DAG, unit sizing, test-coverage map, beta criteria | `shape`/`build` |
+| M7 | Positioning/offer/channel candidates + fit scores, launch goals, feedback contract | `shape`/`decide`/`build` |
+| M8 | KPI targets vs Reality actuals (**computed** drift), scorecard grade | `learn` |
+
+**Alpha-legality note**: the pull scripts are read-only by construction — exactly ARC-003's
+`index`/`query` behavior — so the JSON + HTML halves of every moment are legal in the read-only
+alpha. The emit half rides Wave 5's Change-plane contract, as the surface layer already declares.
+
+## 3. Coverage check — the moments against the machinery
 
 **Against the numbered gates** (per the ontology §3.1 translation table, keyed to each gate's
 required prefixes): v0.1 → M1, v0.2 → M3 (competitive evidence + the first type decision),
@@ -250,14 +308,16 @@ purists may want it as its own moment), beachhead/chasm commitment (a post-M8 mo
 growth cycle — the canon above covers idea → launch, and the loop's second revolution likely
 deserves its own shorter canon).
 
-## 3. What the next session must produce (deferred by design)
+## 4. What the next session must produce (deferred by design)
 
 Per moment: the key questions (drawing on the question banks already in the ledgers), the
-expression format (the clarity anchor rendered — form controls, pre-fill contract, emitted record
-shape extending DELIVERABLES_CONCEPT §5's mechanism to plane records), and the moment's
-pass/fail line in its policy pack. That session should also decide M8's promotion and the three
-candidate moments. Evolution is expected; this canon fixes the *structure* (moment = deliverable
-+ pack + playbooks, terminating in adjudication), not the content.
+**bespoke template design** (the clarity anchor rendered as a designed visual layer, §2), the
+**pull-script contract** (record selection, computed fields, rebuild triggers, §2's table
+refined), the emitted-record shape (extending DELIVERABLES_CONCEPT §5's mechanism to plane
+records), and the moment's pass/fail line in its policy pack. That session should also decide
+M8's promotion and the three candidate moments. Evolution is expected; this canon fixes the
+*structure* (moment = deliverable + pack + playbooks + living template, terminating in
+adjudication), not the content.
 
 ---
 

@@ -212,6 +212,12 @@ in a surface (explore → evidence cards; decide → a Review deliverable; learn
 check → fitness views and the freshness queue), which is what keeps the planes invisible (§10 Q2)
 without leaving the human blind.
 
+The deliverable canon — the owner-articulated key moments where clarity of expression matters
+most (problem framing, persona, commercial model, journeys, tech & risk, sequencing, GTM, and a
+proposed launch verdict) — lives in [`docs/V2_KEY_MOMENTS.md`](V2_KEY_MOMENTS.md): each moment =
+one deliverable (human face) + a policy-pack profile (machine face, possibly composing several
+packs) + its preparation playbooks.
+
 ---
 
 ## 3. The numbered lifecycle, re-read as a plane walk

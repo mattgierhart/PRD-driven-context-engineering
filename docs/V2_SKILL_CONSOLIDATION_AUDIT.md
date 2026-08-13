@@ -148,11 +148,13 @@ spark-exit (evidence tiers + gap gate) · product-type-guardrails (the GTM const
 "not suggestions, guardrails") · mvp-scope-integrity · moat-evidence-floor · wtp-before-price-lock
 · kpi-gate-linkage (kill thresholds authored at v0.3) · experience-coverage (persona/journey/
 screen bidirectional matrices — fully deterministic) · risk-register · tech-decisions ·
-contract-closure (the unified three-names-one-idea principle) · test-coverage · build-completion
-(devgraph green) · release-ready + monitoring-ready · ops-readiness + lead-lifecycle-readiness ·
-launch-readiness (positioning-integrity + offer floors + ORB fit + comparison-page credibility) ·
-launch-validation (the go/no-go + pivot/kill adjudicator — "maps almost 1:1 onto check + Change
-plane") · chasm-crossing + social-proof + interview-hygiene (small, v1.0 cluster).
+contract-closure (the unified three-names-one-idea principle) · build-readiness (epic-scoping
+quality gates: all specs assigned, DAG sound, measurable deliverables) · test-coverage ·
+build-completion (devgraph green) · release-ready + monitoring-ready · ops-readiness +
+lead-lifecycle-readiness · gtm-coherence (the reconciliation table, per the kernel-absorption
+row above) · launch-readiness (positioning-integrity + offer floors + ORB fit + comparison-page
+credibility) · launch-validation (the go/no-go + pivot/kill adjudicator — "maps almost 1:1 onto
+check + Change plane") · chasm-crossing + social-proof + interview-hygiene (small, v1.0 cluster).
 
 ### Reference libraries (~9)
 

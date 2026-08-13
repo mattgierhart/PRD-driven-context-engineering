@@ -34,6 +34,7 @@ multi-day. Grouped by when each item becomes legal — the groups are the sequen
 | 14 | **install-manifest.yaml** — the hinge | M–L | Personas out (framework ×4, seeds ×4, never_touch glob); new classes for verb registry/playbooks/policy packs; **~50 `obsolete_framework_fingerprints` + an upgrade fixture** proving old consumers shed the retired surface cleanly (BR-002) |
 | 15 | Rules + hooks re-key | M | Per audit §4 dispositions; the repeated "before/after v0.7" fork (6 files) becomes one shared "active Change Set exists?" predicate; promote cascade_checklist; BLUEPRINT.md table rides with #14 |
 | 15b | **Surface-layer spec** (ontology §2.4) | M | Contract for the three surface kinds (front door / views / deliverables): which verb renders which surface, the deliverable emit format (extends DELIVERABLES_CONCEPT to plane records), as-of + supersede as backtracking; all derived, never canonical |
+| 15c | **Key-moments question research** (docs/V2_KEY_MOMENTS.md §3) | L | Dedicated session: per moment — the key questions, the expression format (clarity anchor rendered), the pass/fail line in its pack; decide M8 promotion + the three candidate moments |
 
 ## v0.7+ (execution, EPIC-gated)
 

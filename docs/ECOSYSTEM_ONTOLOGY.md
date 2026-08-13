@@ -1,6 +1,6 @@
 ---
 title: "The Ontology of the Markdown Document Ecosystem"
-version: 2.1
+version: 2.2
 status: "Research input — not accepted product truth (PRD.md authority order, item 7)"
 purpose: "Formalize the document ecosystem plane-first (owner direction, 2026-08-12): five planes of product memory as the organizing axis, the numbered lifecycle as one pack's guided walk, and the stage skills as playbooks behind a verb surface. Staged, gate-legal recommendations."
 date: 2026-08-12
@@ -185,6 +185,32 @@ schema, change semantics, temporal model, authority model, policy engine, compat
 The PM pack contributes: the 24 prefixes and their plane assignments, the playbooks (§4.2), the
 guided journey, the gate criteria bundles as policy packs (§3.2), and the confidence-tier
 definitions per record type.
+
+### 2.4 The surface layer: where humans meet the planes (owner-raised, 2026-08-13)
+
+The planes structure memory; humans need a layer **on top** — to see progress, review, decide,
+and backtrack. The repo has built toward it in three generations (PRD.md as the interface → the
+SoT HTML review pages → the decision-point pages of
+[`docs/DELIVERABLES_CONCEPT.md`](DELIVERABLES_CONCEPT.md)), and v2 makes it a first-class
+element: **surfaces**, all derived from the planes, none canonical (ARC-001 — delete any surface
+and it regenerates). Three kinds, keyed to the three human jobs:
+
+| Surface | Human job | Direction | Today's ancestor |
+|---|---|---|---|
+| **Front door** | see progress, what needs me | render ↑ | README command center; blueprint's generated `PRODUCT.md` |
+| **Views** | understand — per-plane renders in the reviewer's native shape, incl. the as-of time machine | render ↑ | `SoT/html/` companion pages; blueprint's derived-views list (BLUEPRINT:1244-1258) |
+| **Deliverables** | act — rank, select, acknowledge, author | **emit ↓** | DELIVERABLES_CONCEPT's two species (Intake / Review) |
+
+The structural claim that makes this ontology-clean rather than bolt-on: **a Review deliverable
+is the human half of `decide`** — the adjudication surface. Its output is not a new format but
+the exact record the graph expects ("input that *becomes* SoT", DELIVERABLES_CONCEPT §2), and
+"completing a deliverable **is** that sign-off, captured as a timestamped decision" (§2) — i.e.,
+deliverables are how judgment enters the Change plane, and the sign-off record is adjudication
+provenance (L6). Backtracking splits the same way: the as-of view is its read face (`asof.py`,
+already built); a supersede deliverable is its write face — never deletion. Every verb terminates
+in a surface (explore → evidence cards; decide → a Review deliverable; learn → the drift view;
+check → fitness views and the freshness queue), which is what keeps the planes invisible (§10 Q2)
+without leaving the human blind.
 
 ---
 
@@ -512,3 +538,4 @@ tensions cite the documents' own lines and are reportable defects per the evalua
 | 1 | 2026-08-12 | Initial: layer-first audit; plane restructure treated as open tension |
 | 2 | 2026-08-12 | Domain-first rework per owner direction: planes primary, lifecycle as projection, skills as playbooks; R0 added |
 | 2.1 | 2026-08-12 | Two-axis clarification per owner preference: the PM loop (Explore → Shape → Decide → Build → Learn, Check cross-cutting) is the audience-facing stage vocabulary; planes are internal structure, invisible at first run |
+| 2.2 | 2026-08-13 | Surface layer added (§2.4, owner-raised): front door / views / deliverables as derived, non-canonical human interface; Review deliverables = the human half of `decide`; as-of + supersede as backtracking's two faces |

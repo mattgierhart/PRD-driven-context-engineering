@@ -33,6 +33,7 @@ multi-day. Grouped by when each item becomes legal — the groups are the sequen
 | 13 | SoT html review layer (×2 trees) | M | One column in index.html + ~11 one-line touches per tree; do together with #12; preserve the design doctrine in html/README (pattern provenance, ochre budget) |
 | 14 | **install-manifest.yaml** — the hinge | M–L | Personas out (framework ×4, seeds ×4, never_touch glob); new classes for verb registry/playbooks/policy packs; **~50 `obsolete_framework_fingerprints` + an upgrade fixture** proving old consumers shed the retired surface cleanly (BR-002) |
 | 15 | Rules + hooks re-key | M | Per audit §4 dispositions; the repeated "before/after v0.7" fork (6 files) becomes one shared "active Change Set exists?" predicate; promote cascade_checklist; BLUEPRINT.md table rides with #14 |
+| 15b | **Surface-layer spec** (ontology §2.4) | M | Contract for the three surface kinds (front door / views / deliverables): which verb renders which surface, the deliverable emit format (extends DELIVERABLES_CONCEPT to plane records), as-of + supersede as backtracking; all derived, never canonical |
 
 ## v0.7+ (execution, EPIC-gated)
 

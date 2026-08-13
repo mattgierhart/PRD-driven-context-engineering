@@ -329,6 +329,10 @@ What this preserves from the current system, deliberately:
   id-register → the Change-plane write path; harvest → `learn`; status-sync → a derived view;
   sot-builder → schema extension (kernel, rare).
 
+The full skill-by-skill disposition map — all 50 directories, hooks, rules, and agent personas,
+with per-asset richness ledgers — lives in
+[`docs/V2_SKILL_CONSOLIDATION_AUDIT.md`](V2_SKILL_CONSOLIDATION_AUDIT.md).
+
 Distinct from the verbs: the blueprint's six constitutional operations — Observe, Propose,
 Adjudicate, Materialize, Validate, Compile (BLUEPRINT:580-591) — are the *write-channel* model
 the verbs sit on. `decide` fronts Adjudicate; `shape` fronts Propose; hooks and validators front

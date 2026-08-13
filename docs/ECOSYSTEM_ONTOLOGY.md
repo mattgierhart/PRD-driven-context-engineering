@@ -1,471 +1,490 @@
 ---
 title: "The Ontology of the Markdown Document Ecosystem"
+version: 2
 status: "Research input — not accepted product truth (PRD.md authority order, item 7)"
-purpose: "Formalize what the PRD-CE document ecosystem already is as an executable domain model; extract the v2-relevant insights from the 2026-08 ontology/agentic-systems research; propose staged, gate-legal recommendations."
+purpose: "Formalize the document ecosystem plane-first (owner direction, 2026-08-12): five planes of product memory as the organizing axis, the numbered lifecycle as one pack's guided walk, and the stage skills as playbooks behind a verb surface. Staged, gate-legal recommendations."
 date: 2026-08-12
+direction: "Owner-directed 2026-08-12: rework domain-first. In the blueprint's vocabulary the domains of product memory are its five *planes*; this document standardizes on 'plane' (see §0 naming note) and treats formal acceptance of the direction as its first recommendation (R0)."
 inputs:
-  - "External deep-research report: 'Ontologies + Agentic Information Systems' (2026-08, synthesized from Frank Coyle's AIEWF 2026 talk and the W3C/industry standards landscape; held in owner's files, not vendored — see Provenance)"
-  - "Repository state at commit 11297db (branch claude/markdown-ecosystem-ontology-862afe)"
-  - "docs/MASTER_AI_NATIVE_PRODUCT_ENGINEERING_V2_IMPLEMENTATION_BLUEPRINT.md (research input per PLAN:88)"
+  - "External deep-research report: 'Ontologies + Agentic Information Systems' (2026-08; held in owner's files, not vendored — see Provenance)"
+  - "docs/MASTER_AI_NATIVE_PRODUCT_ENGINEERING_V2_IMPLEMENTATION_BLUEPRINT.md — the owner+Codex v2 review (research input per PLAN:88)"
   - "docs/PRD_CE_V2_BUILD_PLAN.md (contingent plan, subordinate to PRD.md)"
-scope_guard: "Product Management ecosystem only. This document proposes no universal enterprise ontology (PLAN non-goal), mints no SoT IDs, and authorizes nothing. Every recommendation requires PRD acceptance at the stated gate."
+  - "Repository state at commit 45ae3a3 (branch prd-ce-v2)"
+scope_guard: "Product Management ecosystem only. No universal enterprise ontology (PLAN non-goal), no SoT IDs minted, nothing authorized. Every recommendation requires PRD acceptance at the stated gate."
 ---
 
 # The Ontology of the Markdown Document Ecosystem
 
-> **Thesis**: The PRD-CE markdown ecosystem is not merely *close to* the research's
-> "executable domain model" architecture — it already **is** one, specialized to a single domain:
-> the practice of product management. The v2 work is therefore not to build an ontology but to
-> **declare the layers we already have, wire the two that are dormant, and refuse the three we
-> don't need.**
+> **Thesis**: The ecosystem's real structure is five planes of product memory — **Evidence,
+> Intent, Delivery, Reality, Change**. The numbered lifecycle (v0.1→v1.0) is not the ontology;
+> it is one pack's guided walk across the planes, and the walk is provably re-expressible as
+> per-plane state conditions without loss. A true v2 — the direction the owner set 2026-08-12,
+> contingent on the R0 acceptance record (§9) — would make the planes primary, collapse the 41
+> stage skills into playbooks behind a seven-verb surface, and keep the numbered walk as a
+> compatibility projection for every repository that already speaks it.
 
 ---
 
-## 0. Standing and scope
+## 0. Standing, scope, and what changed in this revision
 
-This is a research-input concept paper in the tradition of
-[`docs/DELIVERABLES_CONCEPT.md`](DELIVERABLES_CONCEPT.md). It sits at item 7 of the PRD's authority
-order ("inputs only until their evidence is durable, reviewable, sanitized, and accepted" —
-[PRD.md](../PRD.md)). It does not change scope, advance a gate, or create IDs. Its intended
-consumers are:
+This is a research-input concept paper (PRD authority order item 7 — inputs only until accepted).
+It does not change scope, advance a gate, or create IDs.
 
-1. The **owner**, deciding what enters v0.2+ gate evidence.
-2. The **v0.6 Architecture gate**, where "parser, ID, relationship, temporal, projection…
-   contracts" formally land (PLAN:230-233).
-3. The **Compatibility Inspector** design (ARC-003), whose finding categories are exactly the
-   states this document formalizes.
+**Revision note (progressive doc, one file).** Version 1 of this document (same day, commit
+`1afe828`) followed the repository's committed truth precedence: the build plan demotes the
+blueprint to research input (PLAN:88) and keeps the numbered lifecycle authoritative (PLAN:223),
+so v1 treated the plane-first restructure as an open *tension*. The owner then directed
+(2026-08-12) that the ontology be reworked domain-first — the direction the owner+Codex blueprint
+review had already argued. This revision inverts the document's spine accordingly. The committed
+record still says the opposite, which is why **R0 — record the direction decision — precedes every
+other recommendation**: until a BR/ARC record and a build-plan revision land, plane-first is an
+owner-stated direction, not accepted product truth.
 
----
+**Naming note ("domain" is triple-booked).** The owner's phrase is *domain-first*. The blueprint
+consistently calls the five buckets **planes** (BLUEPRINT:209, 666) and reserves *domain* for
+three other meanings: the product's subject domain (BLUEPRINT:762), vertical **domain packs**
+(`registry/domain-packs/`, BLUEPRINT:1857, 2302-2306), and the live registry's discipline sense
+(`domain-profile.yaml`, "Derivatives customize this file for their domain"). Using "domain" for
+the planes would collide with all three. This document therefore says **plane** throughout and
+lists the final public naming as a vocabulary-registry decision (§10, Q1).
 
-## 1. The inversion that makes the research applicable
-
-The research report's destination is a market category — "Agent Domain Packs" that compile an
-industry's semantics into the schemas, constraints, policies, action contracts, and tests an
-enterprise agent needs to operate safely. Its architecture is a seven-layer
-**executable domain model** standing between the LLM and the systems it acts on.
-
-PRD-CE is not in that market (and v2 explicitly refuses "a universal enterprise knowledge platform
-or ontology," PLAN:144). The research applies through an inversion:
-
-| Research concept | PRD-CE realization |
-|---|---|
-| The enterprise system being governed | The repository itself (PRD, SoT, EPICs, code) |
-| The agent proposing actions | Each Claude/Codex session |
-| The domain being modeled | Product-management practice (evidence → intent → delivery → reality → learning) |
-| The domain pack | The methodology: ID taxonomy + lifecycle + 47 skills + hooks + validators |
-| The action surface | Skills, gate advancement, ID registration, harvest, (future) Change Sets |
-
-Read this way, PRD-CE is a **domain pack for the product-management domain**, already deployed on
-its own substrate. The research's architecture questions stop being aspirational and become
-*audit* questions: which of the seven layers exist here, in what state, and with what enforcement?
-
-The rest of this document answers that audit, then extracts what the research adds that our own
-planning documents (the V2 blueprint and build plan) had not already arrived at independently.
+Intended consumers: the owner (R0 and the §10 decisions); the v0.6 Architecture gate (where the
+contracts land, PLAN:230-233); the Compatibility Inspector design (ARC-003).
 
 ---
 
-## 2. The ecosystem's current formal model, named precisely
+## 1. The two inversions
 
-What follows is the ontology that already exists — scattered across files, here assembled in one
-place. Citations are to the live corpus.
+**First inversion — the research applies to us.** The external research's "executable domain
+model" architecture (seven layers between an LLM and the systems it acts on) applies to PRD-CE
+through a role swap: the repository is the enterprise system; each session is the agent; the
+methodology is a domain pack for the practice of product management. That inversion made the
+research's architecture questions *audit* questions, and the audit (§5) stands unchanged from v1.
 
-### 2.1 Entity layer (classes)
+**Second inversion — planes over stages.** Version 1 organized the ontology the way the
+methodology currently presents itself: a numbered lifecycle that skills and gates walk in order.
+The owner+Codex blueprint review inverted that: the durable structure is *what kinds of product
+memory exist and how they relate* — the five planes — and any ordering of work across them is
+policy, not ontology. The blueprint states the demotion plainly: *"10 lifecycle stages | Demote |
+Optional guided journey and policy profiles"* (BLUEPRINT:606); *"Do not encode a rigid ten-stage
+lifecycle into the kernel"* (BLUEPRINT:3259); *"This is a journey, not a hard gate system. Users
+may enter anywhere"* (BLUEPRINT:558-560). §3 shows the inversion is lossless against the live
+gate machinery.
 
-- **Typed records** — 24 registered ID prefixes mapped to owning files in the machine-readable
-  registry ([domain-profile.yaml:22-51](../.claude/domain-profile.yaml)); grammar
-  `[PREFIX]-[SUBTYPE?]-[NUMBER]` ([SoT.UNIQUE_ID_SYSTEM.md §1.1](../SoT/SoT.UNIQUE_ID_SYSTEM.md)).
-- **Code nodes** — a second, *extracted* entity plane (`module`, `class`, `function`, `table`,
-  `endpoint`), identity `{parent_dir}_{file}_{symbol}`, deliberately not ID-prefixed
-  (domain-profile.yaml:59-64).
-- **Files as aggregates** — each SoT file owns one or more prefixes and follows a seven-part
-  Template Contract ([SoT.README.md:74-86](../SoT/SoT.README.md)).
-- **Planes (implicit)** — the file taxonomy already encodes the blueprint's five planes
-  (Evidence: CFD · Intent: BR/FEA/UJ/PER/SCR · Delivery: API/DBT/TEST/DEP · Reality: MON/RUN/LL ·
-  Change: EPIC, gate log). The blueprint names them explicitly (BLUEPRINT:209-225); the live
-  corpus realizes them without naming them.
+---
 
-### 2.2 Edge layer (relationships)
+## 2. The five planes: the primary ontology
 
-Two vocabularies exist, one live and one proposed:
+### 2.0 The plane model
 
-- **Live (10 predicates)** — `informed-by`, `driven-by`, `implements`, `enforces`,
-  `validated-by`, `uses`, `depends-on`, `supersedes`, `conflicts-with`, `designed-for`, organized
-  by direction class (upstream/downstream/lateral/temporal)
-  ([cross-reference-patterns.md:180-201](../.claude/skills/ghm-id-register/references/cross-reference-patterns.md)).
-  Declared semantics: *"the type is a hint, not a straitjacket"* (:200) — i.e., this layer carries
-  **meaning**, not validity. That is the correct division of labor (see §4), but it means the
-  validity half must live elsewhere.
-- **Proposed (17 predicates, 6 categories)** — adds `supports`, `contradicts`, `derived-from`,
-  `requires`, `constrains`, `part-of`, `verifies`, `monitors`, `violates`, `deprecates`,
-  `introduced-by`, with canonical-direction normalization and namespaced extensions
-  (BLUEPRINT:962-1030).
-- **Bridge edges (code→spec, machine-harvested)** — `implements` / `verifies` / `references` /
-  `violates`, each carrying an extraction-confidence tier
-  (`EXTRACTED` / `INFERRED` / `AMBIGUOUS`) (domain-profile.yaml:73-77).
-- **Required edges (constraint rules)** — `required_edges:` schema with
-  direction (outbound/inbound) × severity (warn/block), enforced by
-  `scripts/validate-edges.py` — **currently an empty ruleset** (domain-profile.yaml:79-101).
+The blueprint defines the planes and their flow topology (BLUEPRINT:209-215, 666-756):
 
-### 2.3 State dimensions
+| Plane | Question it answers | Stores | Flow into Change |
+|---|---|---|---|
+| **Evidence** | What did we observe, and from where? | Interviews, feedback, competitive analysis, research sources, experiment results | one-way (`E → C`) |
+| **Intent** | What do we currently intend, require, or forbid? | Outcomes, decisions, constraints, requirements, policies, non-goals | bidirectional (`I ↔ C`) |
+| **Delivery** | How is intent designed, built, verified, shipped? | Journeys, screens, architecture, API/data contracts, code units, tests, releases | bidirectional (`D ↔ C`) |
+| **Reality** | What actually happens in production and market? | Telemetry, adoption signals, incidents, support patterns, measured outcomes | one-way (`R → C`) |
+| **Change** | What is proposed to change, and how was it adjudicated? | Proposals, semantic deltas, reviews, adjudication events (`CHG-`) | writes SoT (`C → SoT`) |
 
-The live corpus and the input docs together already distinguish:
+Three structural rules carry the whole model:
 
-| Dimension | Live realization | Notes |
+1. **SoT is the accepted projection of *all* planes, not one plane's home.** An accepted SoT
+   record "may represent a decision, business rule, journey, requirement, architecture
+   constraint, contract, test specification, lesson, signal, or evidence summary"
+   (BLUEPRINT:905). The plane is a property of the record, not of the directory.
+2. **Only the Change plane writes accepted state** (`C → SoT`, BLUEPRINT:674) — every semantic
+   mutation is proposed, adjudicated, then materialized. This is the read/write asymmetry the
+   external research demands (write tools validate *proposals*), and it is why Wave 5's Change
+   Set contract is not an add-on but the Change plane's own definition.
+3. **The highest-value queries are cross-plane comparisons** (BLUEPRINT:750-756): intent vs
+   implementation, implementation vs verification, intent vs observed reality, evidence vs
+   accepted decisions. The diagnostic edges are typed: `D -.implementation coverage.-> I`,
+   `R -.drift.-> I`, `E -.supports/contradicts.-> I` (BLUEPRINT:677-679). Note all three point at
+   **Intent** — it is the hub plane the others are measured against.
+
+### 2.1 The prefix→plane registry
+
+Every live ID prefix maps onto a plane. Where the blueprint assigns one explicitly the row cites
+it; the rest are inferred from the prefix's semantics; eight are genuinely ambiguous (§2.2).
+
+| Prefix (live registry) | Plane | Basis |
 |---|---|---|
-| Lifecycle status | `Status:` field values — Active, Accepted, Proposed, Deprecated, Superseded ([SoT.BUSINESS_RULES.md:31](../SoT/SoT.BUSINESS_RULES.md), register tables) | Blueprint adds Draft/Rejected/Withdrawn + a state machine (BLUEPRINT:1185-1200) |
-| Authority | `Authority: Owner-confirmed` field; acceptance boundary — only records named in PRD's **Accepted SoT snapshot** are product truth ([SoT.README.md:12-14](../SoT/SoT.README.md)) | The decisive dimension; currently prose + snapshot membership |
-| Decision vs runtime | Register columns separate "Decision status" from "Runtime validation" ([SoT.TECHNICAL_DECISIONS.md:19-24](../SoT/SoT.TECHNICAL_DECISIONS.md)) | A PRD-CE-original two-plane distinction worth keeping |
-| Freshness (transaction time) | Staleness protocol: <30d current / 30-90d review / >90d historical (SoT.UNIQUE_ID_SYSTEM.md §1.5) | Orthogonal to lifecycle — "accepted and stale at the same time" (BLUEPRINT:151) |
-| Valid time | `Valid From` / `Valid To` / `Invalidated By` + supersede protocol + `scripts/asof.py` reconstruction (SoT.UNIQUE_ID_SYSTEM.md §1.6) | Built in the prior KG thread (U1) |
-| Evidence strength | Confidence 1/5–5/5 with named evidence classes per tier ([PRINCIPLES.md:165-199](../.claude/skills/PRINCIPLES.md)) | Calibrated by definition — each number *is* an evidence class |
+| CFD | **Evidence** | Explicit — "Customer feedback" (BLUEPRINT:689); *but see A8: post-launch CFD straddles Reality* |
+| BR | **Intent** | Effectively explicit — requirement/policy/constraint (BLUEPRINT:703-706); BR-104 is the running example |
+| FEA | **Intent** | Inferred — a feature is a scoped requirement (BLUEPRINT:705) |
+| KPI | **Intent** (target half) | The blueprint splits the concept — see A5 |
+| PER | **Intent** | Inferred — the accepted persona is a normative model of who we serve (`designed-for` targets, BLUEPRINT:972) |
+| RISK | **Intent** | Inferred — the durable content is the owner's disposition (constraint); see A3 |
+| GTM | **Intent** | Inferred — strategy decisions; executable GTM assets lean Delivery; see A4 |
+| UJ | **Delivery** | Explicit — "User journey" (BLUEPRINT:715) |
+| SCR | **Delivery** | Explicit — "Screen or interaction contract" (BLUEPRINT:716) |
+| DES | **Delivery** | Effectively explicit — UX flow artifacts (BLUEPRINT:788) |
+| API | **Delivery** | Explicit — "API/data contract" (BLUEPRINT:718) |
+| DBT | **Delivery** | Explicit — data contract (BLUEPRINT:718) |
+| TECH | **Delivery** | Inferred — governs how the product is built; see the decision-vs-artifact note below |
+| ARC | **Delivery** | Explicit — "Architecture" (BLUEPRINT:717) |
+| ENV | **Delivery** | Inferred — build/release infrastructure profile |
+| INT | **Delivery** | Inferred — a species of API/data contract |
+| TEST | **Delivery** | Explicit — "Test" / verification record (BLUEPRINT:720, 922) |
+| DEP | **Delivery** | Explicit — "Release" (BLUEPRINT:721) |
+| RUN | **Delivery** | Inferred — designed operational artifact |
+| SEC | **Delivery** | Inferred — an inventory of the delivered system; see A7 |
+| MON | **Reality** | Explicit — "monitoring or production signal" (BLUEPRINT:923) |
+| ADO | **Reality** | Explicit — "Adoption signal" (BLUEPRINT:730); strategy sub-entries leak Intent, see A2 |
+| LL | **Evidence** | Inferred — a distilled episode that informs future claims; see A1 |
+| EPIC | **Change** | Effectively explicit — "EPICs → active Change Sets" (BLUEPRINT:602, 2791); see A6 |
+| Code nodes (module/class/function/table/endpoint) | **Delivery** | Explicit — "Code unit" (BLUEPRINT:719); bridge edges `implements`/`verifies` are Delivery-category predicates |
 
-The V2 PRD compresses these into eight **finding states** the Inspector must distinguish:
-*accepted, proposed, inferred, ambiguous, stale, deprecated, superseded, unknown*
-([PRD.md:118-119](../PRD.md)). §5.5 below argues these are *derived* classifications computed
-from the orthogonal dimensions — not a ninth status field.
+**Decision-vs-artifact note (ARC, TECH):** an accepted decision record lives on the plane of the
+artifact it governs — Delivery — matching the blueprint's own placement of "Architecture"
+(BLUEPRINT:717). The deciding *act* is Change-plane history, recordable via `introduced-by`. RISK
+stays Intent (A3) because its durable content is a constraint on intent, not a governed artifact.
 
-### 2.4 Evidence and provenance model
+The smallest machine-readable step toward plane-first is a `plane:` key on each entry of
+`id_prefixes:` in [domain-profile.yaml](../.claude/domain-profile.yaml) (R2). The readiness
+scorer, the validators, and the future Inspector all already read that file; one key turns the
+mapping above from prose into a queryable fact.
 
-- **Evidence tiers** — P4's 1–5 scale with type-specific progressions and the anti-leakage rule:
-  a proposer "must never fabricate or back-fill evidence to clear a downstream gate"
-  (PRINCIPLES.md:91).
-- **Source links** — `Source Evidence:` / `Implementation Evidence:` fields with resolved links
-  (SoT.BUSINESS_RULES.md:69-73, 116-123).
-- **Forward evidence targets** — `Next Evidence Target:` names what would raise the tier — a
-  PRD-CE-original mechanism the research has no equivalent for.
-- **Absent**: assertion-level provenance (*who/what asserted this, derived from which activity*).
-  Git tells you the commit; nothing distinguishes an agent-inferred entry from an owner-authored
-  one except the `Authority` field where present.
+### 2.2 The eight ambiguities (real modeling decisions, not defects)
 
-### 2.5 Authority model (policy layer)
+| # | Prefix | Competing planes | Recommended resolution |
+|---|---|---|---|
+| A1 | LL | Evidence vs Change | **Evidence** — a lesson's downstream function is to inform claims, not mutate them; it is *produced by* Change-plane history, which the `introduced-by` edge can record |
+| A2 | ADO | Reality vs Intent | **Reality** primary; the beachhead/whole-product *strategy* sub-entries are Intent decisions and should carry the plane on the entry, not the prefix |
+| A3 | RISK | Intent vs Evidence vs Change | **Intent** — the accepted record is the owner's disposition + mitigation (a constraint); the triggering observation is Evidence it links `informed-by` |
+| A4 | GTM | Intent vs Delivery | **Intent** primary; shipped GTM artifacts (alternatives pages, outreach sequences, changelog) behave as Delivery and can be entry-level exceptions |
+| A5 | KPI | Intent vs Reality | **Split the concept**, as the blueprint does: the target/threshold is Intent (its "desired outcome", BLUEPRINT:917); the measured reading is a Reality signal that `monitors` the target |
+| A6 | EPIC | Change vs Delivery vs "just a view" | **Change** — an EPIC is a sized unit of proposed work; the blueprint also allows "an EPIC may remain an optional view/playbook" (BLUEPRINT:602), which is the compatibility answer (§3.3) |
+| A7 | SEC | Delivery vs Intent | **Delivery** — the live file is an inventory of what exists; a secret-handling *rule* would be an Intent policy |
+| A8 | CFD | Evidence vs Reality | **Evidence** pre-launch; post-launch feedback (the v0.9 feedback loop writes CFD-) is Reality-plane material — either a plane-on-entry override or a future signal prefix; owner call |
 
-- **Truth precedence chain** — PRD → accepted SoT → approved EPIC; CLAUDE.md governs behavior,
-  not facts (CLAUDE.md; PRD.md:19-30).
-- **Acceptance boundary** — snapshot membership in PRD.md is what makes a record *accepted*
-  (SoT.README.md:12-14).
-- **Owner gates** — readiness PASS is *eligibility for owner review*, never authorization
-  (PRINCIPLES.md P7; ghm-gate-check anti-pattern table).
-- **Machine-referenceable policy fragments** — Wave 0B BR entries each carry
-  `Enforcement:` (location, timing) and `Failure disposition:` with a **gate code**
-  (`V2_SCOPE_EXPANSION`, `DISTRIBUTION_LEAK_OR_OVERWRITE`, `PREMATURE_V2_EPIC`,
-  `VERSION_DIMENSION_CONFLATION`) (SoT.BUSINESS_RULES.md:53-64 et al.). This is a native
-  proto-policy schema — the research's actor/action/condition/prohibition pattern, grown locally.
+One wrinkle to carry into the edge-vocabulary merge (R8): the blueprint's predicate table has an
+**"Experience" category** (`designed-for`, BLUEPRINT:972) corresponding to no plane — persona and
+outcome targeting sits between Intent and Delivery without a declared home.
 
-### 2.6 Action surface (execution layer)
+### 2.3 The kernel beneath the planes
 
-- **47 skills** = the action types. Each declares prose `Consumes` / `Produces` sections
-  (P5 connective tissue) and a depth mode (rule 08). The registry lists them
-  (domain-profile.yaml:103-153) but holds **no contracts** — preconditions and effects live in
-  prose only.
-- **6 wired hooks** = the runtime guards ([HOOK_CONTRACT.md:120-127](../.claude/hooks/HOOK_CONTRACT.md)).
-- **Deterministic scripts** = the measurement/validation tools (`readiness.py` three-layer scorer
-  with causal `caused_by` ↔ `consumed_by_epics` links; `validate-ids.sh`; `validate-edges.py`;
-  `asof.py`; `check-stage-gate.sh`).
-- **Read/write asymmetry, already decided** — ARC-003 makes the first executable value read-only
-  (`index`, `check`, `query`, `trace`); Wave 5 (on hold) holds the entire write side: Change Set
-  schema, stale-base rejection, atomic apply, receipts, authorization
-  (SoT.TECHNICAL_DECISIONS.md:131-184; PLAN:376-395).
+The planes organize *content*. Beneath them sits the domain-free kernel — the primitives any
+method pack would reuse, and exactly what the blueprint guards as core (BLUEPRINT:1565-1575:
+schema, change semantics, temporal model, authority model, policy engine, compatibility rules):
 
----
+- the **ID grammar** and prefix registry mechanism (not the PM prefixes themselves);
+- the **edge vocabulary** with direction classes and canonical-direction normalization;
+- the **orthogonal state dimensions** — lifecycle, authority, confidence basis, confidence band,
+  freshness, valid time, transaction time, scope (BLUEPRINT:1166-1179) — with valid-time and
+  supersession already live (`asof.py`, SoT.UNIQUE_ID_SYSTEM.md §1.6);
+- the **evidence/provenance fields** and calibrated confidence tiers (PRINCIPLES.md:165-199);
+- the **acceptance boundary** mechanism (only snapshot-named records are truth, SoT.README.md:12-14);
+- the **enforcement ladder** (§6) and the policy engine that binds checks to events;
+- the **action-contract shape** (§4).
 
-## 3. The seven-layer audit
-
-The research's central artifact is a stack of seven logically distinct layers. The audit verdict
-per layer, against the live corpus (not the aspirational docs):
-
-| # | Layer | Question it answers | Live mechanism | Proposed (input docs) | Verdict |
-|---|---|---|---|---|---|
-| 1 | **Semantic ontology** | What is this thing? How does it relate? | ID registry (24 prefixes → files); 10-predicate edge vocabulary; code-node plane | 5 named planes; 17-predicate vocabulary; kind-vs-prefix metadata | **Built.** Registry is machine-readable; edge semantics deliberately advisory |
-| 2 | **Structural contract** | Does it have the right shape? | File-level frontmatter; Template Contract; de facto Wave-0B entry fields | `SoTRecord` field set + parser grammar (H2 + `- **Field:**` + `### Relationships`) | **Convention.** No declared per-entry schema; live corpus ≠ proposed grammar |
-| 3 | **Semantic validation** | Is it valid for this domain? | `validate-ids.sh` (dup/dangling/orphan); `validate-edges.py` + `required_edges`; readiness `cross_ref_integrity` | Blueprint's 11-check deterministic validation list | **Built but dormant.** Wired to no hook, no CI; ruleset empty |
-| 4 | **Policy & authority** | Who may do what, when? | Precedence chain; acceptance boundary; owner gates; BR gate codes; one soft "ask" gate | Authority dimension; four write channels; adjudication outcomes | **Prose-strong, machine-weak** |
-| 5 | **Process & state** | What transitions are legal? | PRD gate lifecycle (readiness floor + owner approval); staleness; supersede + valid-time (`asof.py`) | Orthogonal state dimensions; entry lifecycle state machine; quarantine | **Partial.** Repo-level state machine real; entry-level states named but not computable |
-| 6 | **Provenance & evidence** | Why do we believe it? | Confidence tiers + source links + `Authority` + `Verified` + git | `confidence_basis`; content hashes; `Introduced-By`; provenance-to-line | **Partial.** Evidence culture strong; assertion-level provenance absent |
-| 7 | **Execution contract** | What actions exist, with what pre/postconditions? | Skills (prose contracts); hooks; gate-check; install manifest | Change Sets; adjudication receipts; `index`/`check`/`query`/`trace` | **Read side designed; write side deliberately deferred** |
-
-Two observations before the insights:
-
-1. **"We are not far off" is correct and now precise.** Layers 1, 5-temporal, and the measurement
-   half of 3 are built — largely by the prior KG-research thread (U1/U2). Layers 2, 4, 6 are
-   partially built with strong local idioms (gate codes, decision-vs-runtime columns,
-   `Next Evidence Target`). Nothing needs to be imported wholesale; every gap has a native seed.
-2. **The blueprint independently converged on most of the stack.** Orthogonal state dimensions,
-   edge categories, Change-Set-as-proposal, provenance-to-line — the research validates these
-   rather than adding them. What the research adds is sharper: §4 and §5.
+The PM pack contributes: the 24 prefixes and their plane assignments, the playbooks (§4.2), the
+guided journey, the gate criteria bundles as policy packs (§3.2), and the confidence-tier
+definitions per record type.
 
 ---
 
-## 4. The load-bearing finding: representation is strong, enforcement is undeclared
+## 3. The numbered lifecycle, re-read as a plane walk
 
-The research's most technical point is a correction: **OWL is a language for meaning and
-inference; SHACL and executable rules are the right tools for guardrails.** Representation,
-validation, and enforcement are *different jobs*, and conflating them produces systems that look
-governed but aren't.
+### 3.1 The translation is lossless
 
-Generalized to PRD-CE: our "OWL" is the prose layer (CLAUDE.md, rules, PRINCIPLES, skill
-instructions — semantics interpreted by an LLM), and our "SHACL" is the deterministic layer
-(validators, hooks, CI). Both exist. The audit finding is that **the boundary between them is
-undeclared, and the deterministic layer is mostly unwired**:
+The live gate machinery already *is* per-plane conditions wearing version numbers. Each stage's
+`GATE_REQUIREMENTS` entry (scripts/_readiness/stage.py:47-106) demands "N records of prefix P" —
+and every required prefix resolves to a plane via §2.1:
 
-| Enforcement tier | Mechanism | What actually sits here today (verified) |
+| Gate | stage.py requires | Plane reading |
 |---|---|---|
-| T4 **Hard gate** (machine refuses) | CI failure, `deny`, exit 2 | Plugin payload drift; pytest; markdown links. **No lifecycle rule is here.** |
-| T3 **Soft gate** (escalates to human) | `permissionDecision: "ask"` | One hook — `traceability-gate.sh` — which exempts `SoT/`, `epics/`, `temp/`, `.claude/`, and **all `*.md`** (traceability-gate.sh:36), so in a docs-first repo it almost never fires |
-| T2 **Advisory check** (deterministic report, unconsumed) | Exit codes nothing reads | `readiness.py` (CI smoke is `continue-on-error: true` **and** `\|\| true`, readiness.yml:37-38); density gate |
-| T1 **Injected reminder** | SessionStart/PostToolUse context | Read-order injection; SoT-sync reminder; memory-extraction directive |
-| T0 **Prose principle** | LLM-interpreted text | Truth precedence; "SoT before code"; `@implements` "MANDATORY" (rule 04) with no checker; stage-gate script and `validate-ids.sh` **invoked by nothing**; `required_edges: []` |
+| v0.1→v0.2 | CFD×3 | **Evidence** baseline exists |
+| v0.2→v0.3 | CFD×3, BR×1 | **Evidence** (competitive) + first **Intent** decision |
+| v0.3→v0.4 | BR×3, KPI×1, CFD×5, FEA×1 | **Intent** commitments (pricing, outcome, scope) over a deeper **Evidence** pile |
+| v0.4→v0.5 | PER×1, UJ×3 | **Intent** (who) + first **Delivery** contracts (journeys) |
+| v0.5→v0.6 | RISK×5, TECH×3 | **Intent** constraints (RISK) + **Delivery** build/buy decisions (TECH) |
+| v0.6→v0.7 | ARC×1, API×1, DBT×1 | **Delivery** contracts drafted |
+| v0.7→v0.8 | EPIC×1, TEST×1 | **Change** unit open + **Delivery** verification |
+| v0.8→v0.9 | DEP×1, RUN×1, MON×1 | **Delivery** ops + first **Reality** instrumentation |
+| v0.9→v1.0 | GTM×1, KPI×3 | **Intent** distribution + targets whose evaluation is a **Reality** comparison |
 
-The failure mode is not missing rules — it is **rules whose tier is implied by tone rather than
-declared by design**. "MANDATORY" appears at T0/T1 where it carries no mechanism; two fully built
-validators sit at T0 because no event binds them; three hand-synced copies of the gate criteria
-exist (`references/gate-criteria.md`, `GATE_REQUIREMENTS` in `_readiness/stage.py:47-106`,
-`check-stage-gate.sh`) with nothing testing their agreement; and `ghm-sot-builder` registers new
-SoT files without updating `domain-profile.yaml` — a silent registry-drift channel, since the
-scorer and hooks read only the profile.
+Read down the right column: the gate sequence encodes a fixed **plane-population order** —
+Evidence → Intent → Delivery → Change + Reality. The remaining stage score weight,
+`cross_ref_integrity` at 0.20 (stage.py:36-41), is cross-plane edge checking — the blueprint's
+highest-value queries in miniature. Nothing about the numbered walk exceeds "per-plane state
+conditions plus cross-plane integrity, evaluated in a fixed order." That is what makes the
+inversion safe: **v2 would keep the conditions and drop the mandated order** ("Users may enter
+anywhere," BLUEPRINT:560).
 
-**Proposal — the enforcement ladder as ontology metadata.** Every governance rule declares two
-properties: its **tier** (T0–T4) and its **binding point** (session event · tool event · CI ·
-gate review · inspector finding). Wave 0B's BR entries already model this natively
-(`Enforcement:` location/timing + `Failure disposition:` gate code); the move is to generalize
-that schema to all rules and hook docs, then treat *tier promotion* as an explicit, evidenced
-decision (a rule earns T3/T4 when violations are observed, mirroring the blueprint's
-edge-promotion discipline, BLUEPRINT:1022-1030).
+Two honesty notes from the same comparison: `gate-criteria.md` demands materially more than
+stage.py checks (SCR entries at v0.4, code coverage at v0.7, a feedback loop at v0.9 — none
+ID-counted), confirming v1's three-hand-synced-copies finding; and the richer criteria are
+*also* plane-typed, so the policy-pack translation below covers them too.
 
-Two important non-goals of this proposal:
+### 3.2 What each part of the gate system becomes
 
-- **Do not push everything to T4.** The neural/symbolic split is the architecture working as
-  designed — the repo's own teeth are epistemic (measurement, causality, anti-Goodhart), not
-  coercive. Advisory-first is a *feature* for a methodology template; the defect is only the
-  undeclared tier.
-- **Keep the deterministic layer LLM-free** (rule 07). The research agrees: validation must be
-  cheap, reproducible, and boring.
+Applying the blueprint's own merge-time test — core primitive, derived view, or playbook
+(BLUEPRINT:3268-3271):
 
----
-
-## 5. What the research actually adds: six insights for v2
-
-### 5.1 Declare the enforcement ladder (Layer 4)
-
-Covered in §4. Cheapest structural insight with the highest leverage; pure definition work, legal
-pre-v0.2. Also the correct frame for the v0.5 Red Team gate ("authority" is already in its threat
-model, PLAN:229).
-
-### 5.2 Build around actions, not nouns (Layer 7)
-
-The research inverts traditional ontology practice: start from *consequential actions*, work
-backward to the entities, states, evidence, and policy each action needs. PRD-CE's nouns are
-mature; its actions are half-formal:
-
-- **Skills are action types** with prose contracts. Machine-readable frontmatter
-  (`consumes`, `produces`, `gate_preconditions`) would let the system answer *"which actions are
-  legal in the current state?"* — turning the skill list into an **action registry** parallel to
-  the ID registry, and giving the density gate and gate-check real inputs instead of regex
-  heuristics.
-- **Gate advancement is an action** whose precondition (readiness floor) and authority (owner)
-  are clear but whose *receipt* is only a PRD change-log row. Naming it as an action with a
-  recorded outcome closes the loop the research calls propose → validate → authorize → execute →
-  verify.
-- **Wave 5's Change Set is the write-action contract**, independently matching the research's
-  loop (stale-base rejection = precondition check; receipts = provenance; add explicit
-  **postcondition verification** after apply). The research's read/write asymmetry — read tools
-  validate results, write tools validate *proposals* — is exactly ARC-003 vs Wave 5. v2 should
-  state that asymmetry as a principle rather than an accident of sequencing.
-
-### 5.3 Let the agent's blast radius set the formalization budget
-
-The research's maturity curve — Answer → Interpret → Recommend → Decide → Act → Operate — maps
-one-to-one onto the wave plan:
-
-| Maturity | v2 surface | Layers that must be formal *at this level* |
+| Today | Plane-first disposition | Basis |
 |---|---|---|
-| Answer | SoT HTML views | 1 (addresses render as anchors) |
-| Interpret | **Inspector** (`index`/`check`/`query`/`trace`) | 1, 2, 3, 5, 6 — read-side complete |
-| Recommend | Task workflows, Deliverables concept, change *proposals* | + 7 (proposal shape) |
-| Decide | Owner gates, adjudication | + 4 (authority machine-checkable) |
-| Act | Accepted-state writer (Wave 5, held) | + 7 write contracts, postconditions |
-| Operate | *(out of scope)* | — |
+| Gate *enforcement machinery* (readiness engine, hooks, validators) | **Kernel** — the policy engine ("Hooks \| Keep \| Runtime policy enforcement", BLUEPRINT:609) | core primitive |
+| Each gate's *criteria bundle* (GATE_REQUIREMENTS row + gate-criteria.md detail) | **Policy pack** — named, installable, invoked as `check --policy=<profile>` (BLUEPRINT:2002, 2308-2309) | configuration |
+| The v0.1→v1.0 *ordering* | **Guided journey** — documentation narrative (`docs/journey/`, BLUEPRINT:2030-2035), optional | playbook/docs |
+| The readiness *score* | **Goal-scoped fitness + graph-integrity views** (BLUEPRINT:610) — computed per active change, "no universal readiness grade" (BLUEPRINT:2538) | derived view |
+| Owner gate *approval* | Unchanged — **adjudication on the Change plane**; P7 stands (a view is eligibility, only the owner authorizes) | authority model (kernel) |
 
-This yields the bright-line rule that answers the blueprint's own "ontology bloat: HIGH" risk:
-**no layer gets formalized without a deterministic consumer at the current maturity level.** It
-also explains *why* the corpus feels "not far off": everything the Interpret level needs exists
-at least as convention; what's missing is exactly what Recommend/Decide/Act need — which are
-gated anyway.
+The readiness reconciliation deserves emphasis because v1 left it as a tension: the deterministic
+three-layer scorer is not discarded — its dimensions would be **re-keyed by plane and scoped to a
+goal** (an active change, a target policy profile) instead of averaged into one global grade.
+That satisfies the blueprint's anti-Goodhart objection ("Teams optimize numbers instead of
+outcomes") *and* P7's floor discipline with the same deterministic, LLM-free engine. Because this
+revises rule 07's committed universal grade (PASS/WARN/BLOCK over `status/readiness.json`), it
+belongs inside R0's record content, not in a footnote (§8, §9).
 
-### 5.4 Split the kernel from the method pack (Layer 1, and the tension-resolver)
+### 3.3 The compatibility projection (both directions)
 
-The research's product architecture — a small universal kernel plus composable domain packs —
-is the structure BR-001 already implies ("adjacent methodologies MUST remain separately governed
-products or method packs") and PLAN:153-157 already constrains ("No future use case is allowed to
-make Product Management users learn extra concepts"). Making the boundary explicit:
+Plane-first must be additive, per ARC-002/003 and BR-005:
 
-- **Kernel (methodology-generation-stable, domain-free):** ID grammar; edge vocabulary +
-  direction classes; orthogonal state dimensions; provenance/evidence fields; valid-time +
-  supersession; enforcement-ladder metadata; the action-contract *shape*; acceptance-boundary
-  mechanism.
-- **Product-Management pack:** the 24 prefixes and their files; the v0.1→v1.0 gate definitions
-  and skill set; confidence *tier definitions* per record type; the agent squad; gate criteria
-  tables.
-
-This split cleanly resolves the sharpest blueprint↔plan contradictions: *gates* are pack content
-(the PM pack ships ten; the kernel knows only "policy checkpoint"), reconciling PLAN:223 with
-BLUEPRINT:3259. *EPIC vs Change Set* becomes kernel primitive ("reviewable unit of work") vs pack
-projection. And ARC-004's authority/seed separation already gives the packaging mechanics the
-split needs.
-
-### 5.5 Make the eight truth-states computable (Layers 5+6 — the Inspector's spec)
-
-The Inspector must classify findings as *accepted, proposed, inferred, ambiguous, stale,
-deprecated, superseded, unknown* (PRD.md:118-119) — reproducibly, from the corpus alone. Those
-eight are not a new status field; they are **derived classifications** over the orthogonal
-dimensions in §2.3:
-
-| State | Operational test (candidate) |
-|---|---|
-| accepted | Named in PRD's Accepted SoT snapshot ∧ lifecycle status Active/Accepted |
-| proposed | Well-formed record not in the snapshot (incl. Change-Set content, post-Wave-5) |
-| inferred | Asserted by an agent/extraction without owner authority (requires §5.5 provenance fields; bridge edges already carry `INFERRED`) |
-| ambiguous | Parse succeeded but identity/relationship/status could not be resolved to one reading → quarantine, never silently normalize (PLAN:294-297) |
-| stale | Freshness policy breach: `Verified` > 90d (§1.5) while lifecycle still current |
-| deprecated / superseded | Lifecycle status + valid-time closure (`Valid To`, `Invalidated By`) — already computable via `asof.py` |
-| unknown | Structure outside every compatibility profile → explicit unknown, never dropped |
-
-Defining this matrix — states × operational tests × which authority may move a record between
-them — is cheap definition work now and becomes the Inspector's classification spec at v0.6. It
-also **re-ranks U6** from the prior KG thread: claim-level provenance was graded lowest-value
-then; with the Inspector as first product, the `inferred`-vs-`accepted` distinction is
-load-bearing, and it needs only two or three structured fields (`Asserted-By`,
-`Accepted-By`/existing `Authority`, optionally `Derived-From`) at **record** granularity — not
-sentence-level claims (the blueprint's own granularity caution, BLUEPRINT:905).
-
-A tension this resolves: the blueprint discourages numeric confidence as false precision
-(BLUEPRINT:1179). P4's numbers are not uncalibrated — each value *names an evidence class*
-(PRINCIPLES.md:171-177), which is precisely the "calibrated" exception the blueprint allows. Keep
-the 1–5 notation as the PM pack's calibrated band vocabulary; map it to kernel bands
-(low/medium/high/verified) rather than dropping it.
-
-### 5.6 One vocabulary, one registry (the SKOS move)
-
-The research stack carries a dedicated vocabulary layer (SKOS) distinct from the ontology. v2
-needs exactly that, cheaply: the input docs currently run **five product labels** (The Product
-Model / Product Knowledge Graph / Product Model Runtime / PRD-CE V2 / GearHeart AI), **two public
-concept budgets** (four vs five nouns), and **three vocabularies that reuse the tokens
-"observed/inferred"** with different meanings (research labels; evaluation evidence classes
-OBSERVED/PROXY/INFERRED/NOT-TESTED; record-level confidence basis). The evaluation protocol
-already hunts this as a defect class (EVAL:362-363). A single concepts registry — every canonical
-noun, its definition line, its plane, and its kernel/pack membership — is pure definition work,
-directly consumable by the v0.3 naming gate and by the Inspector's reporting vocabulary.
+- **Installed repos speak stage numbers.** The Inspector parses them unchanged — the fixture
+  matrix already requires preserving lifecycle rows, sessions, and changelogs as process truth
+  (PLAN:460; matrix at PLAN:450-464). `stage: v0.4` remains a valid coordinate; the projection
+  *computes* it from plane states exactly as §3.1 reads it today.
+- **EPICs remain a valid view** of Change-plane units (BLUEPRINT:602) — no renaming of existing
+  EPIC files, ever ("Moving a record between SoT files must not change its ID," and by extension
+  a re-planed record keeps its address).
+- **BR-005 discipline**: plane-first is methodology-generation-2 *semantics*. It changes no
+  runtime status, no template version, no release claim. A numbered-lifecycle consumer repo and a
+  plane-first repo differ in projection, not in canonical Markdown.
 
 ---
 
-## 6. What v2 should *not* adopt (anti-scope, reaffirmed)
+## 4. The verb surface and the action layer
 
-The research also marks what to refuse, and the corpus already encodes most of these refusals:
+### 4.1 Seven verbs, one router
 
-| Refusal | Anchor |
-|---|---|
-| No OWL/RDF serialization, no triple store, no graph DB | Markdown canonical; SQLite/graph JSON are disposable projections (ARC-001). The research's own "semantic layer over existing systems, not migration" argument supports inspecting repos in place |
-| No universal enterprise ontology; no adjacent-industry packs | PLAN:144; BR-001. The kernel/pack split (§5.4) is how future methodologies happen *without* broadening V2 |
-| No LLM-judged validation dimensions | Rule 07; P7 anti-Goodhart. The research: constraints must be deterministic to be trustworthy |
-| No reasoner-style inference as authority | "Generated or inferred knowledge never silently becomes authoritative" (BLUEPRINT:71; PRD desired outcome 3). Inference may *propose*; only adjudication accepts |
-| No new public nouns beyond the budget | Blueprint kill criterion: "users cannot get value before learning the ontology." The ladder, states, and contracts in §5 are **internal** formalizations — none adds a concept a PM user must learn |
-| Don't replace the numeric confidence tiers | They are calibrated evidence classes (§5.5); translate, don't delete |
+The blueprint's command surface (BLUEPRINT:190-205, 1888-1975) — one root, seven verbs:
 
----
-
-## 7. Candidate resolutions to the documented tensions
-
-The v2 input docs contain ten verified internal tensions. The kernel/pack lens (§5.4) resolves
-most; the rest are open owner decisions (PLAN:582-590) this document deliberately does not answer:
-
-| Tension | Candidate resolution | Owner decision? |
+| Verb | Function | Primary plane |
 |---|---|---|
-| Five competing product names | Vocabulary registry (§5.6); one name chosen at v0.3 | **Yes** (PLAN:582) |
-| Root `SoT/` vs `product/SoT/` | Kernel defines the *acceptance boundary mechanism*, pack defines the path; alpha inspects in place (PLAN:148 stands) | Deferred by plan |
-| EPIC vs Change Set | Kernel: "reviewable unit of work"; PM pack keeps EPIC as its projection; revisit at Wave 5 | At v0.7 |
-| Gates in kernel vs removed | Gates are pack content; kernel has policy checkpoints only | No — resolvable now |
-| 4 vs 5 public nouns | Count once, in the vocabulary registry | With naming gate |
-| Numeric confidence vs basis+band | Keep tiers as calibrated bands; map to kernel vocabulary | No |
-| Three "observed/inferred" vocabularies | Registry disambiguates (finding-classes ≠ confidence-basis ≠ research labels) | No |
-| Record form: frontmatter vs `- **Field:**` | Entry-schema decision at v0.6, informed by the Wave 1 fixture matrix + loss inventory | At v0.6 |
-| Readiness vs "fitness views" | Readiness stays (it is the deterministic floor, P7); goal-scoped views are *additional projections*, not replacements — no accepted decision authorizes removal | If ever raised |
-| Build vs Deliver verb | Vocabulary registry marks it "undecided, owner-gated" | **Yes** (PLAN:585) |
+| `init` | scan an existing repo, establish baseline, mark extracted vs inferred | all (read) |
+| `explore` | capture evidence and hypotheses; no silent accepted decisions | Evidence |
+| `shape` | draft an outcome and a semantic Change Set | Intent → Change |
+| `decide` | accept / reject / withdraw / deprecate / supersede, with diff + evidence + authority | Change |
+| `build` | compile context pack, implement against accepted intent, trace, verify | Delivery |
+| `learn` | ingest telemetry, feedback, incidents; compare reality with intent | Reality |
+| `check` | conflicts, freshness, coverage, drift, goal-scoped fitness | cross-plane |
+
+The bare root answers, recommends "two or three next actions," and routes plain language
+(BLUEPRINT:1911-1919); *"Specialist commands are verbs, not separate products"* (BLUEPRINT:409).
+`decide` is "the product's defining verb" (BLUEPRINT:2013-2017) — the only path by which
+generated information becomes governed memory. Operational mechanics stay off the slash menu as
+CLI reference verbs: `query, trace, graph, diff, as-of, migrate, sync, schema, export, doctor`
+(BLUEPRINT:1977-1992).
+
+Two alignments worth naming:
+
+- **ARC-003 is already verb-shaped.** The accepted read-only contract — `index / check / query /
+  trace`, "after v0.7 authorization" — never uses verb-surface vocabulary; but under R6
+  (proposed, v0.6) it would map onto the read half of the surface: `init` (scan-and-baseline),
+  `check`, and two CLI reference verbs. The alpha would thus ship the read half first — exactly
+  the blast-radius discipline (§7): read verbs before write verbs (`shape`/`decide`/`build`),
+  which wait on Wave 5's Change-plane contract.
+- **The verbs are plane traversals.** Each verb is an action contract whose preconditions and
+  effects are plane states — `learn` reads Reality and proposes into Change; `decide` is the only
+  writer of accepted state. The action registry v1 proposed becomes: **kernel = seven verb
+  contracts; pack = playbooks parameterizing them.**
+
+### 4.2 The stage skills become playbooks
+
+The blueprint's disposition is explicit: *"47 skills | Collapse | Seven verbs plus optional
+registry playbooks"* (BLUEPRINT:605 — the "47" is the blueprint's own stale count; the live
+registry lists 41 stage skills plus the `ghm-*` operators); *"Remove stage numbers and named
+methodologies from the core command surface"* (BLUEPRINT:489); methods survive as parameters — `explore
+--playbook=mom-test`, `shape --playbook=dunford-positioning` (BLUEPRINT:1999-2002) — living in a
+registry (`registry/playbooks/`, BLUEPRINT:1855-1859).
+
+What this preserves from the current system, deliberately:
+
+- **The methods themselves.** Nothing about Dunford, Hormozi, Moore, Torres, or the stage
+  know-how is deleted — each `prd-vXX-*` skill's content would re-home as a playbook keyed by
+  **verb × plane** instead of stage number (mom-test → `explore`/Evidence; positioning → `shape`/Intent;
+  release planning → `build`/Delivery; feedback loops → `learn`/Reality).
+- **Consumes/Produces (P5)** become the playbook's machine-readable contract — which plane states
+  it needs, which records it proposes. This is v1's action-registry insight, now with a home.
+- **Execution modes (rule 08)** survive as the depth escape hatch: `--depth=quick|standard|deep`
+  (BLUEPRINT:2005-2011), with the same "must not multiply the skill taxonomy" discipline.
+- **The `ghm-*` operators** map to kernel verbs, not playbooks: gate-check → `check`;
+  id-register → the Change-plane write path; harvest → `learn`; status-sync → a derived view;
+  sot-builder → schema extension (kernel, rare).
+
+Distinct from the verbs: the blueprint's six constitutional operations — Observe, Propose,
+Adjudicate, Materialize, Validate, Compile (BLUEPRINT:580-591) — are the *write-channel* model
+the verbs sit on. `decide` fronts Adjudicate; `shape` fronts Propose; hooks and validators front
+Validate. Keeping the two lists distinct avoids re-inflating the public noun budget.
 
 ---
 
-## 8. Staged recommendations (gate-legal sequencing)
+## 5. The seven-layer audit, plane-first
 
-Ordered by lifecycle legality. Pre-v0.7, everything is definition work — files describing
-contracts, no runtime (BR-004).
+The empirical verdicts from v1 stand — they described the live corpus, which has not changed.
+What changes is each layer's v2 implication:
+
+| # | Layer | Verdict (unchanged) | Plane-first implication |
+|---|---|---|---|
+| 1 | Semantic ontology | **Built** | Add `plane:` to the prefix registry (R2); merge the two edge vocabularies with plane-typed categories (R8) |
+| 2 | Structural contract | **Convention** | Per-prefix entry schema declares its plane + plane-specific required fields (R7) |
+| 3 | Semantic validation | **Built but dormant** | `required_edges` rules become cross-plane integrity rules (a UJ must serve Intent; a TEST must verify Delivery-or-Intent); wire at v0.7+ (§9) |
+| 4 | Policy & authority | **Prose-strong, machine-weak** | Gate bundles become named policy packs; the enforcement ladder (§6) is how packs bind |
+| 5 | Process & state | **Partial** | The plane flow topology (§2.0) plus the orthogonal dimensions replace stage number as the state model; truth-state matrix unchanged (R3) |
+| 6 | Provenance & evidence | **Partial** | Unchanged (R9); note Evidence-plane records are provenance *carriers* — the `Asserted-By` gap concentrates on Intent-plane records |
+| 7 | Execution contract | **Read designed, write deferred** | The seven verbs are the action layer; write verbs wait on the Change-plane contract (Wave 5) |
+
+---
+
+## 6. Enforcement: the ladder binds the policy packs
+
+Unchanged in substance from v1 — the empirical finding stands: the ecosystem is advisory-first
+with a strong deterministic measurement layer, one soft gate (`traceability-gate.sh`, which
+exempts all `*.md`), fully built validators wired to nothing, and a doubly neutralized CI smoke
+job (readiness.yml:37-38). The tier model:
+
+**T0** prose principle → **T1** injected reminder → **T2** advisory check → **T3** soft gate
+(ask) → **T4** hard gate (deny / CI-fail)
+
+What plane-first adds is the *binding* story: a **policy pack** is a set of checks, each declared
+at a tier with a binding point (session event · tool event · CI · `check` invocation ·
+adjudication). The Wave-0B BR entries' native `Enforcement:` + `Failure disposition:` + gate-code
+schema remains the template to generalize (R0's record should itself carry one). The two standing
+non-goals also stand: don't push everything to T4 (advisory-first is a feature), and keep every
+checker deterministic and LLM-free (rule 07; BLUEPRINT:1446).
+
+---
+
+## 7. What carries over from v1 unchanged
+
+Stated compactly; the reasoning lives in v1's git history (`1afe828`) and remains valid:
+
+- **Blast-radius budget.** No layer gets formalized without a deterministic consumer at the
+  current maturity level. Read verbs (Interpret) need planes, schemas, states, provenance;
+  write verbs (Act) wait for the Change-plane contract. The wave plan already sequences this.
+- **Truth-state matrix.** The Inspector's eight finding states (accepted, proposed, inferred,
+  ambiguous, stale, deprecated, superseded, unknown — PRD.md:118-119) are derived classifications
+  over the orthogonal dimensions; each needs an operational test (R3). Plane-first doesn't change
+  the states; it scopes findings ("Intent-plane conflict", "Reality-drift against Intent").
+- **Provenance fields.** Record-granular `Asserted-By` (+ existing `Authority`, optional
+  `Derived-From`) so `inferred` is computable (R9). The prior KG thread's U6 stays upgraded.
+- **Vocabulary registry.** Now carrying more weight: it must resolve the "domain" triple-booking,
+  name the planes publicly, and hold the public-noun budget line (the blueprint's own concept
+  budget is 4–5 nouns; five plane names + verbs + packs must be counted honestly, §10 Q2).
+- **Anti-scope.** No OWL/RDF, no graph DB (SQLite stays a disposable projection, ARC-001), no
+  universal ontology, no LLM-judged validation, no deletion of the calibrated 1–5 confidence
+  tiers, no new agent personas as navigation (BLUEPRINT:3260).
+
+---
+
+## 8. The v1 tensions, as the direction would resolve them (contingent on R0)
+
+| Tension (v1 §7) | Plane-first resolution | Owner decision still needed? |
+|---|---|---|
+| Gates in kernel vs removed | Machinery = kernel policy engine; bundles = policy packs; ordering = journey docs (§3.2) | R0 records it |
+| EPIC vs Change Set | EPIC = PM pack's view of a Change-plane unit; existing EPICs keep IDs (§3.3, A6) | At v0.7, choose the authoring surface |
+| Readiness vs fitness | Same engine, re-keyed per plane and goal-scoped; no universal grade (§3.2) | **Yes** — a material revision of rule 07's universal grade; fold into R0's record content |
+| Stage skills vs verb surface | Collapse to playbooks behind seven verbs; methods and modes survive (§4.2) | R0 records it |
+| Record form (frontmatter vs `- **Field:**`) | Unchanged — v0.6 entry-schema decision, informed by Wave 1 fixtures (R7) | At v0.6 |
+| Numeric confidence vs basis+band | Unchanged — tiers are calibrated bands; translate, don't delete | No |
+| Five product names / noun budget / "observed-inferred" overloads | Vocabulary registry (R1), now also owning the plane/domain naming | **Yes** (naming gate) |
+| Root `SoT/` vs `product/SoT/` | Unchanged — alpha inspects in place (PLAN:148); plane is record-level, so no relocation is ever *required* by plane-first | Deferred by plan |
+| Build vs Deliver verb | Now concrete: the verb set ships `build` (BLUEPRINT:1904); renaming to `deliver` is a one-word registry decision | **Yes** (PLAN:585) |
+
+---
+
+## 9. Staged recommendations (re-sequenced for plane-first)
+
+**R0 — Record the direction (the gate for everything else).** An owner-confirmed BR/ARC record
+(Wave-0B style, with Enforcement + Failure disposition + gate code) stating: planes are the
+primary ontology; the numbered lifecycle becomes a compatibility projection + guided journey;
+stage skills collapse to playbooks behind the verb surface; readiness re-keys per plane into
+goal-scoped views (revising rule 07's universal grade). Touch list at acceptance: build plan
+(PLAN:223's "single gate system" sentence), rules 01/05/07/08 (stage-number references), README
+lifecycle table. Until R0 lands, everything below is contingent.
 
 **Legal now (pre-v0.2, definition only):**
 
-| # | What | Layer | Deterministic consumer | Effort |
-|---|---|---|---|---|
-| R1 | Vocabulary/concepts registry (§5.6) | 1 | Naming gate; EVAL defect hunt; all docs | S |
-| R2 | Enforcement-ladder declaration over existing rules + hooks (§4) — tier + binding point per rule, generalizing the BR `Enforcement`/`Failure disposition` schema | 4 | v0.5 Red Team; humans | S |
-| R3 | Truth-state matrix: 8 states × operational tests × transition authority (§5.5) | 5+6 | Inspector classification spec (v0.6) | M |
-| R4 | Kernel/pack boundary memo (§5.4) | 1 | BR-001 governance; packaging (ARC-004); tension resolutions | M |
-
-**At v0.6 Architecture (contracts land here, PLAN:230-233):**
-
-| # | What | Layer | Consumer |
-|---|---|---|---|
-| R5 | Per-prefix entry schema (required fields), reconciled against the Wave 1 fixture matrix + loss inventory | 2 | Inspector parser/validator |
-| R6 | Edge-vocabulary merge: live 10 + proposed 17 → one registry with categories, canonical directions, inverses, namespacing, promotion rule | 1/3 | Inspector; `validate-edges` v2 |
-| R7 | Skill action contracts as machine-readable frontmatter (§5.2) | 7 | Context loading; gate-check; future action-graph validation |
-| R8 | Provenance fields (`Asserted-By`; keep `Authority`; optional `Derived-From`) — adoption-incremental like valid-time | 6 | Inspector `inferred`-state test |
-
-**At v0.7+ (runtime, EPIC-gated):**
-
-| # | What | Notes |
+| # | What | Consumer |
 |---|---|---|
-| R9 | Wire the dormant validators: `validate-ids.sh` into CI at T2 (advisory), promote to T4 on evidence; enable a repo-local `required_edges` starter set | Repo profile only — seeds stay empty so templates validate clean (ARC-004 pattern) |
-| R10 | Inspector implements state classification + provenance-to-line | Already ARC-003 scope; R3/R5/R8 are its spec inputs |
-| R11 | Expose readiness dimensions as named competency queries under `check`/`query` (prior thread's U3) | Cheap; makes the "eval suite" a visible pack component |
+| R1 | Vocabulary registry — candidate inventory and collision analysis (the "domain" triple-booking, noun-budget accounting). Canonical *selection* of public names is a v0.3 naming-gate decision the registry records, not a pre-v0.2 act | naming gate; EVAL defect hunt |
+| R2 | `plane:` key on every `id_prefixes:` entry in domain-profile.yaml, with the eight ambiguity resolutions (A1–A8) recorded as comments or entry-level overrides | readiness, validators, Inspector — all already read this file |
+| R3 | Truth-state matrix (8 states × operational tests × transition authority) | Inspector classification spec |
+| R4 | Kernel/pack boundary memo — now concretely: kernel primitives (§2.3) vs PM pack (prefixes, playbooks, journey, policy packs) | BR-001 governance; packaging (ARC-004) |
 
-**Wave 5 (held, unchanged):** the Change-Set loop is the write-action contract; add explicit
-postcondition verification and align its receipts with the action registry (§5.2).
+**At v0.6 Architecture (contracts land, PLAN:230-233):**
 
----
-
-## 9. The prior KG thread, re-ranked under this lens
-
-The 2026-06 KG-research re-grade proposed upgrades U1–U7. Status under the executable-model
-frame:
-
-| Upgrade | Then | Now |
+| # | What | Consumer |
 |---|---|---|
-| U1 valid-time | Built (`asof.py`, supersede protocol) | Layer-5 substrate for `superseded`/as-of tests — done |
-| U2 required edges | Built, ruleset empty | The Layer-3 constraint engine — **wire it** (R9) |
-| U3 competency queries | Partial (readiness dims unnamed) | R11 — cheap, Inspector-shaped |
-| U4 six-layer eval | Genuine gap, lead workstream | Becomes the pack's **agent eval suite** component; intersects R3 (states) + R11 (queries) |
-| U5 retrieval routes | Low priority | Unchanged — Wave 3/6 concern (task-scoped context, MCP) |
-| U6 claim modeling | Graded lowest value | **Upgraded**: record-level provenance is load-bearing for the Inspector's `inferred` state (R8) — but stays record-granular, not sentence-claims |
-| U7 confidence gate | Designed, unenforced | Subsumed by the enforcement ladder: a T2 check with a declared promotion path |
+| R5 | Gate→policy-pack spec: each GATE_REQUIREMENTS row + gate-criteria.md detail rewritten as a named per-plane policy profile; reconciles the three hand-synced copies into one source | `check --policy=`; readiness re-keying |
+| R6 | Verb-surface spec: map ARC-003's `index/check/query/trace` into the verb set; declare the read/write split; playbook contract format (Consumes/Produces as plane states) | Inspector; future skill migration |
+| R7 | Per-prefix entry schema (plane + required fields), reconciled against Wave 1 fixture matrix | Inspector parser/validator |
+| R8 | Edge-vocabulary merge (live 10 + proposed 18, BLUEPRINT:962-981) with plane-typed categories; give `designed-for` (the plane-less "Experience" category) a declared home | Inspector; `validate-edges` v2 |
+| R9 | Provenance fields (`Asserted-By`, keep `Authority`, optional `Derived-From`) | Inspector `inferred` test |
+
+**At v0.7+ (runtime, EPIC-gated):** wire the dormant validators as cross-plane integrity checks
+(repo profile only; seeds stay empty per ARC-004); Inspector implements plane-scoped state
+classification with provenance-to-line; expose readiness dimensions as named competency queries
+under `check` (the prior thread's U3). **Wave 5 (held):** the Change-plane contract — the write
+verbs' preconditions, adjudication receipts, postcondition verification.
 
 ---
 
 ## 10. Open questions for the owner
 
-1. **Home for the registries** — vocabulary registry (R1) and truth-state matrix (R3): governance
-   sections in `SoT.UNIQUE_ID_SYSTEM.md`, a new `docs/` contract, or the blueprint's
-   `product/schema/` shape? (Affects packaging under ARC-004.)
-2. **Acceptance of this document** — remain input, or sanitize the external research report into
-   `temp/v0.1-intake/` as reviewable evidence toward the v0.2 gate?
-3. **Enforcement default** — do new rules declare a tier at creation (schema field), and is T2
-   the default for anything with a deterministic checker?
-4. **Repo-local `required_edges`** — enable a minimal set for *this* repository now (BR/ARC
-   entries exist to constrain), or wait for the Inspector to be the first consumer?
-5. **Kernel noun budget** — does the kernel/pack memo (R4) get its own concept budget so the
-   split doesn't itself become ontology bloat?
+1. **Plane naming.** Keep the blueprint's "plane" internally and publicly? Or brand the five as
+   "domains" and rename the colliding uses (domain packs → vertical packs; domain-profile →
+   method-profile)? R1 inventories the candidates and collisions; the v0.3 naming gate picks
+   exactly one.
+2. **Noun budget accounting.** Do the five plane names count against the 4–5 public-noun budget
+   (BLUEPRINT:619-625 vs 2525), or are they structure beneath the nouns? The blueprint's kill
+   criterion — "users cannot get value before learning the ontology" — suggests planes should be
+   *invisible* in the first-run experience (`init`/`check` work without teaching them).
+3. **"More domains."** The reviewed baseline is five planes, and **BR-001 governs any
+   expansion**: a candidate division serving a non-PM methodology is a separately governed method
+   pack, never a new plane (gate code `V2_SCOPE_EXPANSION`). For PM-internal candidates, the
+   blueprint's admission heuristic ("serves at least three materially different domains,"
+   BLUEPRINT:1645 — research input, not authority) argues most new material enters as namespaced
+   extensions rather than planes. Which PM-internal candidates, if any, does the owner see?
+4. **The A5/A8 splits.** KPI target vs reading, and pre- vs post-launch CFD: split the prefixes,
+   or carry plane-on-entry overrides? (Affects R2's shape.)
+5. **EPIC disposition timing.** Change-plane citizen now (R0 language) or at v0.7 when the
+   authoring surface is chosen?
+6. **This document's standing.** Accept (with R0) as v0.2 gate evidence, or hold as input? And
+   should the external research report be sanitized into `temp/v0.1-intake/` as reviewable
+   evidence?
+
+---
+
+## 11. The prior KG thread under plane-first
+
+| Upgrade | Status | Plane-first note |
+|---|---|---|
+| U1 valid-time | Built | Kernel state dimension; unchanged |
+| U2 required edges | Built, dormant | Becomes the cross-plane integrity engine — wire at v0.7+ |
+| U3 competency queries | Partial | Named queries under `check`; cheap |
+| U4 six-layer eval | Greenfield | The pack's eval suite; now plane-scoped (per-plane health + cross-plane drift) |
+| U5 retrieval routes | Low priority | The context compiler is kernel (BLUEPRINT:1570); still Wave 3/6 |
+| U6 claim modeling | **Upgraded** | Record-level provenance, concentrated on Intent-plane records (R9) |
+| U7 confidence gate | Designed | A policy-pack check on the ladder (T2 → promotion path) |
 
 ---
 
 ## Provenance of this document
 
-Synthesized 2026-08-12 from: the external deep-research report (not vendored — it carries
-third-party consulting context; available from the owner on request), the two v2 input docs, and
-direct file-level inspection of the live corpus (registry, entries, hooks, validators, CI) at
-commit `11297db`. All enforcement-spectrum claims in §4 were verified against script source and
-workflow files, not inferred from documentation. Findings about input-doc tensions cite the
-documents' own lines and are reportable defects per the evaluation protocol, not new claims.
+**v2 (this revision), 2026-08-12:** reworked plane-first on owner direction, from a three-agent
+extraction pass over the blueprint (verb surface BLUEPRINT:190-205/1888-1975; plane model
+BLUEPRINT:209-215/666-756; gate translation vs scripts/_readiness/stage.py:47-106 and
+gate-criteria.md) plus the v1 corpus audit. **v1, 2026-08-12 (commit `1afe828`):** synthesized
+from the external deep-research report (not vendored — third-party consulting context), the two
+v2 input docs, and direct file-level inspection of registry, entries, hooks, validators, and CI
+at commit `11297db`; all enforcement-spectrum claims verified against script source. Input-doc
+tensions cite the documents' own lines and are reportable defects per the evaluation protocol.
+
+| Version | Date | Change |
+|---|---|---|
+| 1 | 2026-08-12 | Initial: layer-first audit; plane restructure treated as open tension |
+| 2 | 2026-08-12 | Domain-first rework per owner direction: planes primary, lifecycle as projection, skills as playbooks; R0 added |

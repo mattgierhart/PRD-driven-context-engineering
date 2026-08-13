@@ -2,7 +2,7 @@
 version: 0.1
 methodology_generation: 2
 purpose: Product authority for PRD-Led Context Engineering V2.
-last_updated: 2026-08-08
+last_updated: 2026-08-12
 runtime_status: Proposed
 ---
 
@@ -58,6 +58,7 @@ These dimensions answer different questions and must never be substituted for on
 | PRD gate | Date | Summary | Linked records |
 |---|---|---|---|
 | v0.1 Spark | 2026-08-08 | Initialized V2 product authority, scope, non-goals, open questions, and repository/template separation | BR-001–BR-005; ARC-001–ARC-004 |
+| v0.1 Spark | 2026-08-12 | Owner resolved open decision 5 (publish history as-is); established `prd-ce-v2` as the V2 maturation branch and pushed it to origin | Open decision 5 |
 
 No later lifecycle gate has been initialized.
 
@@ -189,10 +190,15 @@ The following are deliberately unresolved:
    v0.1 → v0.2 gate decision supported by accepted evidence.
 4. Decide when website proof may move from planning to public evidence before any website
    implementation or publication; it is not a v0.2 gate by default.
-5. Choose a history-sanitization strategy for the ancestor commit that exposed named private
-   evaluation targets before any push or public review; it is not a product-discovery gate.
+5. ~~Choose a history-sanitization strategy for the ancestor commit that exposed named private
+   evaluation targets before any push or public review; it is not a product-discovery gate.~~
+   **Resolved 2026-08-12 (owner decision):** publish the branch with unmodified history. The
+   exposure — private evaluation-target names (PetPass, Koisk-Browser) and local filesystem paths
+   in the ancestor commit's evaluation prompt (`84e040f`) — is accepted; no sanitization will
+   occur. The v2 maturation branch is `prd-ce-v2`, pushed to the public origin; it remains
+   branch-isolated per BR-003 until a separate merge decision.
 
-No answer is inferred by this PRD.
+No other answer is inferred by this PRD.
 
 ### v0.1 gate condition
 

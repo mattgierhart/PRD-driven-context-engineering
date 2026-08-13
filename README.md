@@ -13,10 +13,11 @@
 a fork-ready methodology that turns documentation into a knowledge graph humans and AI navigate
 together — so the 50th session is smarter than the 1st.*
 
-> **V2 branch status:** `codex/prd-ce-v2-product-model` is at PRD **v0.1 Spark** for the Product
-> Management lifecycle. Wave 0B separates repository authority from generic downstream seeds; it is
-> not a V2 runtime or release. Read `CLAUDE.md` → `README.md` → `PRD.md` → accepted SoT → an active
-> EPIC only at v0.7+. The
+> **V2 branch status:** `prd-ce-v2` is the V2 maturation branch (superseding
+> `codex/prd-ce-v2-product-model`), at PRD **v0.1 Spark** for the Product Management lifecycle.
+> V2 matures here before any owner-approved merge to `main`. Wave 0B separates repository
+> authority from generic downstream seeds; it is not a V2 runtime or release. Read `CLAUDE.md` →
+> `README.md` → `PRD.md` → accepted SoT → an active EPIC only at v0.7+. The
 > [V2 build plan](docs/PRD_CE_V2_BUILD_PLAN.md) remains contingent and the methodology on `main`
 > remains the stable baseline. A research-input exploration of the document ecosystem's formal
 > model lives at [docs/ECOSYSTEM_ONTOLOGY.md](docs/ECOSYSTEM_ONTOLOGY.md).

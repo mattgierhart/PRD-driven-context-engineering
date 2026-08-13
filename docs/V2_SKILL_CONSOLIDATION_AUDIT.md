@@ -201,7 +201,10 @@ edits.
 
 ---
 
-## 5. Agents (proposed disposition): retire the personas, salvage the contracts
+## 5. Agents: retire the personas, salvage the contracts
+
+> **Owner decision 2026-08-12**: persona retirement agreed ("they aren't adding value").
+> Formal recording rides with R0; the salvage plan below stands.
 
 Per the agents ledger: all four AGENT.md files are ~80% one template instantiated four times
 (skills/outputs tables duplicating the registry, already drifted from it). The durable 20%
@@ -274,6 +277,14 @@ The owner's hypotheses, checked against the corpus:
   `DISTRIBUTION_LEAK_OR_OVERWRITE`).
 
 ## 8. Open questions for the owner
+
+> **Decision support (2026-08-12)**: a structural analysis of `pbakaus/impeccable` (the owner's
+> packaging Northstar) at upstream `bd25359`/v4.0.4 is filed at
+> [`temp/v2-audit/impeccable-northstar.md`](../temp/v2-audit/impeccable-northstar.md), with four
+> detailed reports alongside. Its §3 proposes concrete answers to Q1 (keep ~30 playbooks; the
+> count that matters is router rows — one table row per playbook, single-word names, O(1)
+> per-task context), Q2 (outcome-named playbooks, framework attribution inside the file), Q3
+> (pin-with-evidence + build-enforced counts), and Q4 (start at 4 workers, not 7).
 
 1. **Merge appetite**: the audit proposes conservative merges (spark pair, experience-design
    family, social-proof pair, commercial-model umbrella). Deeper merges are possible; where is

@@ -1,6 +1,6 @@
 ---
 title: "PRD-CE V2 · Go-Live Polish Plan (gap analysis)"
-version: 1.2
+version: 1.3
 date: 2026-08-19
 status: "Maintainer planning record + living tracker — gap analysis; authorizes nothing (PRD.md authority order, item 7). §7 is the status table: update it as items close."
 purpose: "Define what a polished go-live means for this repository and its companion site, inventory the gaps against that bar, and sequence the missing steps — across three lenses: Key Moments visual polish, repository organization, and repo polish for promotion."
@@ -471,7 +471,7 @@ Sizes: S < 1 h · M ≈ half day · L = multi-day · XL = multi-session. Owner: 
 | 1.1k | `.gitattributes` — HTML review layer = documentation; `plugins/prd-ce/**` = generated | T1 | Claude | S | 1.0 | ☑ 2026-08-19 | |
 | 1.1l | `version: 3.3.0` in both plugin manifests; plugin displayName → PRD-Led; keywords + `claude-code` | T1 (v2 branch) | Claude | S | — | ☑ 2026-08-19 | manifests are authored, not generated |
 | 1.1m | CHANGELOG 3.3.0 entry + MIGRATION 3.2.0 → 3.3.0 section | T1 (v2 branch) | Claude | S | — | ☑ 2026-08-19 | v2-todo #1 — the entry covers the whole April→August span |
-| 1.1n | Repo-wide leak grep in CI (absolute home paths anywhere tracked, not only distributable surfaces) | T1 | Claude | S | — | ☐ | small workflow step or a test |
+| 1.1n | Repo-wide leak guard (absolute home paths anywhere tracked) | T1 | Claude | S | — | ☑ 2026-08-19 | `tests/test_repo_hygiene.py`, runs in the existing CI test job |
 | 1.2 | `docs/index.md`; `docs/v2/` split with README; `docs/maintainer/archive/`; `docs/INSTALL.md`; `docs/ARCHITECTURE.md`; every inbound link fixed | T1 | Claude | M | 1.1e | ☑ 2026-08-19 | 110 tests pass; `EXCLUDED_DOCS` extension still a nice-to-have |
 | 1.3 | README 1.5 (tagline kept + working subtitle; Quick Start first with one-command create + Use-this-template; CI badges; sections moved to docs/; counts fixed; Squad Status removed; 432 → 271 lines) | T1 | Claude · Matt confirms subtitle wording | M | 1.2, D7 | ◐ 2026-08-19 | `ghm-status-sync` amended to skip a missing squad-status marker; final subtitle wording = D7 |
 | 1.4 | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, two issue forms + config, PR template | T1 | Claude | S | — | ☑ 2026-08-19 | GitHub reads community files from the default branch — the profile % moves when these reach `main` |
@@ -479,13 +479,13 @@ Sizes: S < 1 h · M ≈ half day · L = multi-day · XL = multi-session. Owner: 
 | 1.6a | `gh repo edit`: description, topics, homepage | T1 | Matt-approve → Claude | S | D8 | ☑ 2026-08-19 | applied; 16 topics; homepage gearheartai.org |
 | 1.6b | Discussions on · Wiki off | T1 | Matt-approve → Claude | S | D9 | ☑ 2026-08-19 | |
 | 1.6c | Upload the social preview (Settings → Social preview; UI only) | T1 | **Matt** | S | D14 | ☐ | draft card §10.4 |
-| 1.7a | Backfill tags `v1.0.0`–`v3.2.0` at the CHANGELOG commits | T1 | Matt-approve → Claude | S | D10 | ☐ | push = public |
-| 1.7b | `v3.2.1` polish release (`gh release create`) | T1 | Matt-approve → Claude | S | D10, 1.1–1.6 merged | ☐ | |
-| 1.7c | LinkedIn launch post drafted against the release | T1 | Claude drafts · Matt posts | S | 1.7b | ☐ | |
-| 1.8a | PR #68 disposition (reply drafted) | T1 | Matt-approve | S | D11 | ☐ | |
-| 1.8b | Close/link issues #53, #56, #57 as items land | T1 | Claude | S | 1.2–1.3 | ☐ | |
-| 1.8c | Prune stale remote branches | T1 | Matt-approve → Claude | S | D12 | ☐ | list in D12 |
-| 1.8d | Pin a "Start here / roadmap" Discussion | T1 | Claude | S | 1.6b | ☐ | |
+| 1.7a | Backfill tags `v1.0.0`–`v3.2.0` at the CHANGELOG commits | T1 | Matt-approve → Claude | S | D10 | ☑ 2026-08-19 | annotated tags pushed; `v3.3.0` tagged at the Wave 0B commit |
+| 1.7b | GitHub Releases with the CHANGELOG notes (`v1.0.0`–`v3.2.0`; `v3.3.0` as a **pre-release** from `prd-ce-v2`) | T1 | Matt-approve → Claude | S | D10 | ☑ 2026-08-19 | `v3.2.0` shows as Latest (matches `main`) |
+| 1.7c | LinkedIn launch post drafted against the release | T1 | Claude drafts · Matt posts | S | 1.7b | ☐ | draft on request (releases exist now) |
+| 1.8a | PR #68 disposition | T1 | Matt-approve → Claude | S | D11 | ☑ 2026-08-19 | reply posted: offer a smaller rebased PR of the four skills + credit in the v2 registry |
+| 1.8b | Issues #53 / #56 / #57 | T1 | Claude | S | 1.2–1.3 | ☑ 2026-08-19 | #56 closed (Quick Start + INSTALL.md); #53 commented, closes on merge; #57 kept open with the fixture note |
+| 1.8c | Prune stale remote branches | T1 | Matt-approve → Claude | S | D12 | ☐ | list in D12 — **not approved yet** (left unselected 2026-08-19) |
+| 1.8d | "Start here" Discussion | T1 | Claude posts · **Matt pins** | S | 1.6b | ◐ 2026-08-19 | posted as Discussion #79 (Announcements); pinning has no API — one click in the UI |
 | 1.8e | Submit to `awesome-claude-code` | T1 | Matt-approve → Claude | S | D13, 1.7b | ☐ | external PR |
 | 1.9 | Reconcile `main → prd-ce-v2`; decide Wave 0B → `main` | T1→T2 | Matt-approve | M | D2 | ☐ | build plan §11 |
 
@@ -517,6 +517,7 @@ Sizes: S < 1 h · M ≈ half day · L = multi-day · XL = multi-session. Owner: 
 | 0.0 | This plan (v1.0) and the site brief v2.0 written and committed | 2026-08-19 |
 | 0.1 | Plan v1.1: tracker, decision packet, creative starting points; tagline decision recorded | 2026-08-19 |
 | 0.2 | Phase 0 hygiene (H1–H3) · cleanup batch 1.1c–1.1m · docs split + front door (1.2) · README 1.5 draft (1.3) · community files (1.4) · GitHub metadata (1.6a/b) — all on `prd-ce-v2` | 2026-08-19 |
+| 0.3 | Branch pushed; tags + Releases (1.7a/b); PR #68 reply (1.8a); issues (1.8b); Discussion #79 (1.8d, pin pending); hygiene guard test (1.1n); GIF tape + fixture script; social-card script | 2026-08-19 |
 
 ---
 
@@ -641,6 +642,7 @@ v0.4): keep open; comment that the Key Moments fixture ("Signal") in `docs/v2/` 
 | 2026-08-19 | D1 branch strategy | All T1 polish lands on `prd-ce-v2` only; `main` unchanged until the v2 merge | Matt |
 | 2026-08-19 | D5 client material | Copy to the owner's private archive first, then remove from the repo — done | Matt |
 | 2026-08-19 | D8 + D9 GitHub | Apply description/topics/homepage, Discussions on, Wiki off — done | Matt |
+| 2026-08-19 | Push + D10 + D11 + posts | Push `prd-ce-v2` (done, 90eb3b9 → 9b24ec6); tags v1.0.0–v3.3.0 + Releases (done; 3.3.0 pre-release); PR #68 reply posted; Discussion #79 posted; issues #53/#56/#57 dispositioned. Branch pruning (D12) **not** approved | Matt |
 | 2026-08-19 | D7 subtitle direction | "An ontology layer built for product teams to build products that solve real problems" — working string in README/description: *An ontology layer for product teams building products that solve real problems — with AI agents that remember.* Final wording pending Matt | Matt |
 
 ### Risks
@@ -822,5 +824,6 @@ that date; star counts are approximate.
 | Version | Date | Change |
 |---|---|---|
 | 1.0 | 2026-08-19 | First gap analysis: three tiers, polish definition, Key Moments bar, cleanup tree, roadmap, owner decisions |
+| 1.3 | 2026-08-19 | Public actions executed and logged (push, tags/releases, PR #68, Discussion #79, issues); 1.1n closed |
 | 1.2 | 2026-08-19 | Tracker updated after execution (Phase 0 + most of Phase 1 done on `prd-ce-v2`); D1/D5/D7/D8/D9 logged; subtitle variants i–k; doc now lives at `docs/v2/` |
 | 1.1 | 2026-08-19 | Owner review applied: tagline kept (subtitle added as the gap); §7 becomes the tracker; §9 becomes the decision packet with a log; new §10 creative starting points (subtitle candidates, hero-visual prompts, readiness-GIF storyboard + tape, social card spec) |

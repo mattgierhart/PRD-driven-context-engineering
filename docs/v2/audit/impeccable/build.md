@@ -1,0 +1,92 @@
+All reading done inside the scratch clone at `<scratchpad>/impeccable` (paths below abbreviated to repo-relative with file:line).
+
+# Impeccable: Build, Distribution, and Quality Machinery
+
+## 1. ONE-SOURCE PIPELINE
+
+**Source of truth is a single skill directory, deliberately hidden from installers.** `skill/` holds `SKILL.src.md` (85 lines), `reference/` (36 playbook files), `scripts/` (~40 executable .mjs helpers), and `agents/` (4 subagent definitions). The `.src` suffix is load-bearing: `scripts/lib/utils.js:245-248` — "The source manifest is `SKILL.src.md`, NOT `SKILL.md`, on purpose: the `vercel-labs/skills` CLI discovers a skill by finding a literal `SKILL.md` and copies that directory verbatim. If `skill/SKILL.md` existed, `npx skills` would install the UNCOMPILED source (unresolved `{{placeholders}}`, no vendored detector)."
+
+**Compilation (`scripts/build.js` + `scripts/lib/transformers/`)**: `readSourceFiles()` (utils.js:249) parses frontmatter/body, reads references, scripts, agents, and *vendors the whole detector engine* into the skill (`readDetectorBundleScripts`, utils.js:55-93, copying `cli/engine/**` into `scripts/detector/`). Then a **transformer factory** (`factory.js:233`) runs once per provider config in `providers.js` — 17 providers (Cursor, Claude Code, Gemini, Codex, .agents, GitHub Copilot, Kiro, OpenCode, Pi, Qoder, Trae/Trae-CN, Rovo Dev, Vibe, Grok, Antigravity, Hermes), each emitting `dist/<provider>/<configDir>/skills/impeccable/`.
+
+**What varies per provider** (confirmed by diffing `.claude/skills` vs `.gemini` vs `.agents` SKILL.md):
+1. **Frontmatter field whitelist** — `frontmatterFields` per provider (providers.js:32 claude-code gets `user-invocable, argument-hint, license, ... allowed-tools`; providers.js:43 gemini gets `[]` — Hermes has a comment explaining *why* each omission: "harness-specific extensions ... are NOT recognized by the Hermes skill loader and would be silently ignored", providers.js:172-176).
+2. **Placeholder substitution** — `PROVIDER_PLACEHOLDERS` (utils.js:458): `{{model}}`, `{{config_file}}`, `{{ask_instruction}}`, `{{command_prefix}}` (Codex uses `$`, so `/impeccable polish` becomes `$impeccable polish` in the diff), `{{available_commands}}`, and `{{scripts_path}}` → `<configDir>/skills/impeccable/scripts` (factory.js:311).
+3. **Conditional provider blocks** — `<codex>...</codex>` style tags in source markdown; matching tags keep their body, non-matching are removed, unknown tags preserved (`compileProviderBlocks`, utils.js:587-599).
+4. **Agent file format** — one source agent md becomes Claude md, Codex TOML (`buildCodexAgent`, factory.js:107), Copilot `.agent.md`, or Cursor md with derived `readonly` (factory.js:162-177); harnesses with *no* subagent capability instead get generated `reference/degraded/<role>.md` fallbacks with a preamble telling the model to run the role inline (factory.js:19-20, 344-354). Same text, four delivery mechanisms.
+5. **Hook manifests** — per-provider path and shape (`hooksManifestRel`: `.claude/settings.json` vs `.cursor/hooks.json` vs `.github/hooks/impeccable.json`, providers.js).
+6. **Scripts are NOT templated** except one exact-match marker line: `replaceScriptProviderMarker` (utils.js:691-699) replaces `export const IMPECCABLE_COMMAND_PREFIX = '/'; // @impeccable-provider-command-prefix` — comment: "Do not run replacePlaceholders() across JavaScript source: slash-command heuristics can collide with regex literals."
+7. **Rule markers stripped** — source lines carry `<!-- rule:skill-brief-wins -->` IDs for external eval tooling; `stripRuleMarkers` (utils.js:614) removes them from shipped output.
+
+**Drift prevention — three interlocking mechanisms:**
+- **Generated output is committed to the repo root** (`.claude/`, `.gemini/`, `.agents/`, `plugin/`, etc.) so direct GitHub installs work; the build syncs dist → root (build.js:562-624), carefully preserving per-project artifacts and mirroring rather than rm-ing watched dirs (`mirrorDirContentsSync`, build.js:400).
+- **CI gate on every PR**: `.github/workflows/ci.yml:113-114` — "Verify generated tracked outputs: `git diff --exit-code -- .agents .claude .cursor .gemini .github/skills plugin ...`" — a PR that edits source without rebuilding fails.
+- **Auto-sync bot on main**: `.github/workflows/sync-generated-output.yml` triggers on pushes touching `skill/**`, `scripts/**`, `cli/engine/**`, etc. (lines 6-12), runs `bun run build:release`, checks `git status --porcelain` on the 16 generated paths (lines 69-79), and commits "Sync generated provider output" with a 5-attempt rebase-rebuild-retry loop against races (lines 96-127). The clone's HEAD commit is literally `bd25359 Sync generated provider output` by `github-actions[bot]`.
+
+**skills-lock.json** is nearly vestigial: `{"version": 1, "skills": {}}` — it is the vercel-labs `skills` CLI lock format, and inside the repo it serves only as a project-root marker for `skill/scripts/pin.mjs:52` (`existsSync(join(dir, 'skills-lock.json'))` in `findProjectRoot`). The real version authority is elsewhere (see 3).
+
+## 2. VALIDATION
+
+**The build IS the validator — build.js fails the build (exit 1, build.js:741-743) on five classes of error:**
+- `validateSkillFrontmatter` (build.js:165): description ≤ 1024 chars (harness hard limit).
+- `generateCounts` (build.js:35-111): see section 4.
+- `validatePluginVersions` (build.js:118) and `validatePluginManifestShape` (build.js:149): pure collectors in `scripts/lib/` so they're unit-testable; build.js owns logging/exit.
+- `validateProse` (build.js:193-284): scans README.md/README.npm.md for **em dashes and a 21-rule AI-tell denylist**, each with a printed rationale, e.g. build.js:214: `{ re: /\bdelves?\b.../, rationale: 'Top AI tell. Use "explore", "look at", or just delete.' }`.
+- `validateSkillProse` (build.js:299-372): a *narrower* denylist for `skill/` because "the full validateProse rules don't fit LLM-facing reference instructions: the hardening repetition and triadic checklists those files use exist on purpose" (build.js:290-293). Two prose registers, two validators.
+
+**Manifest-shape guard encodes empirically verified loader behavior** — `scripts/lib/validate-plugin-manifest.js:46-54` pins `KNOWN_LOADER_KEYS` "verified against a live Claude Code install (2026-08, Claude Code 2.1.220)"; any unknown key fails the build "until someone verifies it end to end and adds it here with a note." Born from a real shipped bug: "shipping an `agents` key as an array of file paths made Claude Code load ZERO agents ... and nothing flagged it" (validate-plugin-manifest.js:8-12). It also cross-checks that every claude-targeted `skill/agents/*.md` has its emitted copy in `plugin/agents/` (lines 150-159), and enforces the trailing-slash `"./skills/"` form (issue #86, lines 139-146).
+
+**Authoring-contract tests on the source prose itself**: `tests/skill-reference.test.mjs` regex-asserts that `skill/reference/animate.md` keeps `prefers-reduced-motion` in the Accessibility section and reduced-motion in Verify — i.e., unit tests that a *markdown instruction* was not refactored away.
+
+**Behavioral test harness (`tests/skill-behavior/`) — the standout design:**
+- **Real models, no mocks, tiny surface.** `harness.mjs` inlines `SKILL.src.md` (frontmatter stripped, placeholders neutralized, harness.mjs:66-85) as the system prompt and runs Vercel AI SDK `generateText` against one cheap current model per provider (Anthropic/OpenAI/Google/DeepSeek; providers without a key skip, not fail).
+- **Sandboxed workspace fixtures**: `prepareWorkspace()` mints a temp dir, symlinks the canonical skill into `.claude/skills/impeccable`, seeds `PRODUCT.md`/`DESIGN.md` fixtures (harness.mjs:104-120).
+- **Five workspace-scoped tools** (`bash`, `read`, `write`, `list`, and `ask_user_question` backed by a deterministic simulated user, harness.mjs:190-207) each **record into a trace**; README.md:39: "The trace is the source of truth, not the model's free-form reply." Assertions are protocol-level, e.g. "runs `context.mjs`; loads `reference/init.md` before implementation" (scenario 1), "turn 2 does **not** re-run `context.mjs`" (scenario 4), "does **not** auto-run `npx impeccable update` (it must ask first)" (scenario 9) — 15 scenarios in README table (README.md:43-59).
+- **Baseline-as-regression-floor**: README.md:80-81 — "a regression is 'more failures than baseline', not 'any failures at all'", with a per-model pass/fail table and diagnosis of stable failures as "model-floor behavior rather than a skill ambiguity" (README.md:94-100).
+- **Cost containment**: LLM-billing suites are opt-in in CI (`scripts/ci-test-plan.mjs:8-12` guards the nightly schedule from flipping on "the ones that bill LLM APIs ... every single night"); skill-behavior runs only on main pushes/dispatch when `skill/**` changed (ci.yml:434).
+
+## 3. VERSIONING & RELEASE
+
+**Three independently versioned components** (`scripts/release.mjs:18-55`): `skill` (manifest `.claude-plugin/plugin.json`, tag `skill-v*`, currently 4.0.4), `cli` (`package.json`, tag `cli-v*`, 3.5.0 — the version mismatch with plugin.json is intentional), `extension` (`extension/manifest.json`, `ext-v*`).
+
+**Root `.claude-plugin/plugin.json` is the single version authority for the skill**; `validate-plugin-versions.js:92-109` checks four derived files against it (marketplace.json `plugins[0].version`, generated `plugin/.claude-plugin/plugin.json`, generated `plugin/skills/impeccable/SKILL.md` frontmatter, and `dist/openai/.../plugin.json`), because "the post-merge sync workflow can't repair a mismatch here because it never bumps versions" (lines 10-12).
+
+**The `./plugin` subtree is a slim install package** — marketplace.json points `source: "./plugin"` so "the plugin cache only copies this slim directory (~0.3 MB) instead of the entire monorepo" (build.js:628-632); Grok installs the same subtree via `#plugin` suffix.
+
+**Five install paths** (README.md:96-190): (1) `npx impeccable install` interactive CLI with `--providers`/`--scope` flags plus per-provider hook manifests; (2) git submodule + `npx impeccable link --source=.impeccable` symlinking from `dist/universal/`; (3) plugin marketplace (`/plugin marketplace add pbakaus/impeccable`, `grok plugin install ...#plugin`); (4) ZIP download from impeccable.style; (5) raw `cp -r dist/<provider>/...`. Plus `npx skills add pbakaus/impeccable` reading committed harness dirs directly.
+
+**Release refuses to ship drift** (release.mjs): dirty tree fails (line 110); for the skill component it *reruns* `bun run build:release` and fails if "Build produced uncommitted changes" (lines 113-125); missing changelog entry fails (line 163-165 — release notes are *extracted from* the site changelog HTML, so notes can't be skipped); tag collision fails; it even generates a length-capped tweet from the changelog bullets (renderTweet, line 269). Post-release it fetches `https://impeccable.style/api/version` and warns loudly if the served bundle lags, because "the 4.0.0 release did exactly that" — stranded `npx impeccable update` users on old content (release.mjs:219-233).
+
+**README.npm story**: npm gets a different, CLI-focused README via pack hooks — package.json: `"prepack": "cp README.md README.repo.md && cp README.npm.md README.md"`, `"postpack"` restores. One repo, two audience-specific front doors, zero manual swapping.
+
+## 4. WHAT KEEPS IT HONEST
+
+- **Counts are derived, then policed.** `generateCounts` (build.js:35-109) counts commands *by parsing the SKILL.md router table* (`/^\| `[^`]+` \|/gm`, build.js:44) and detection rules from the detector registry (`new Set(ANTIPATTERNS.map(rule => rule.id)).size`, build.js:57), then regex-scans README.md, README.npm.md, AGENTS.md, plugin.json, marketplace.json and the site index for any "N commands/skills" or "N rules/checks/detections" claims that disagree — build fails on stale numbers. Changelog content is stripped first "to avoid flagging historical counts" (build.js:77), and the pattern was hardened after "five stale counts shipped while the validator reported clean" (build.js:90-93). So "1 skill with 23 commands" in plugin.json and "59 deterministic rules" in README.npm.md are enforced claims, not aspirations.
+- **Marketing prose is linted** with rationales (section 2) — docs can't quietly accumulate AI-tell copy.
+- **Generated dirs can't drift** (PR gate + bot commit, section 1); **versions can't drift** (section 3); **manifest keys can't exceed what was empirically verified** (section 2).
+- **Instruction IDs**: every normative sentence in SKILL.src.md carries `<!-- rule:... -->` markers so external evals pin behavior to stable IDs "in lock-step with the file" (utils.js:604-612).
+
+---
+
+## Transfer table for PRD-CE v2
+
+| Pattern | Copy / adapt / reject for PRD-CE v2 | Why |
+|---|---|---|
+| Single `SKILL.src.md` + `reference/` source compiled to provider dists | **Adapt** | PRD-CE v2's one-root-command + playbook registry maps directly (root = SKILL, playbooks = reference/). But PRD-CE targets far fewer harnesses today; start with source→one compiled output and keep the transformer factory shape so adding providers later is a config entry, not a rewrite. |
+| Command router table in SKILL.md as the machine-parseable index of verbs/playbooks | **Copy** | The seven verbs + `--playbook=` registry need exactly this: one table that is simultaneously the user's menu, the router's contract, and the input to the count validator. |
+| `.src.md` naming to hide uncompiled source from skill-discovery CLIs | **Copy** | Zero-cost insurance that `npx skills add` (or plugin installers) never ship unresolved placeholders. |
+| Provider placeholders (`{{command_prefix}}`, `{{ask_instruction}}`, `{{scripts_path}}`) + `<provider>` blocks | **Adapt** | Worth adopting only the placeholder set PRD-CE actually needs now (likely `{{command_prefix}}` and `{{scripts_path}}`); conditional blocks can wait until a second harness genuinely diverges. |
+| One agent definition → native subagent formats + generated `reference/degraded/` inline fallbacks | **Adapt** | PRD-CE's five memory planes are internal; if any plane runs as a subagent, single-sourcing the role text with a degraded inline fallback is the right resilience model. Skip the TOML/Copilot emitters until needed. |
+| Generated output committed + PR `git diff --exit-code` gate + "Sync generated provider output" bot | **Copy** | This is the whole answer to "how do 50-skills-worth of content stay consistent after consolidation": build is deterministic, dist is tracked, CI proves source and dist agree, bot heals main. Cheap to stand up, huge honesty payoff. |
+| `generateCounts`: counts derived from source and enforced against every doc/manifest | **Copy** | PRD-CE will make claims like "7 verbs, ~30 playbooks, ~15 policy packs." Derive those from the registry files and fail the build on stale numbers — this is the mechanism that keeps the marketing story true. Also aligns with the repo's own anti-Goodhart rule (deterministic, LLM-free checkers). |
+| Prose validator with per-rule rationales; separate strict (user-facing) and narrow (LLM-facing) registers | **Adapt** | The two-register insight transfers (playbook instructions may legitimately repeat; README may not). Adopt the mechanism; author PRD-CE's own denylist rather than copying impeccable's editorial voice. |
+| `<!-- rule:id -->` markers on normative lines, stripped at build | **Copy** | PRD-CE's `check` verb and policy packs need stable IDs for instruction lines anyway; this makes eval/traceability line-anchored without polluting shipped output. Rhymes with the existing BR-/UJ- ID discipline. |
+| Behavioral test harness: real cheap models, sandboxed temp workspace, tool-call trace as source of truth, baseline-as-floor | **Copy** (highest-value import) | PRD-CE's core risk is routing: does `explore` load the right playbook, does `check` load the right policy pack, does the verb *not* re-run init. Impeccable proves you can test that for cents per sweep with 4 tools + fixtures + trace assertions, and the "regression = worse than baseline" framing handles model nondeterminism honestly. |
+| LLM-billed suites opt-in in CI via change-triggered test plan | **Copy** | Directly reusable; prevents the behavioral suite from billing on every PR or nightly. |
+| Manifest-shape guard pinning empirically verified loader keys (`KNOWN_LOADER_KEYS`) | **Copy** | Plugin-loader behavior is undocumented and silently failing (the zero-agents bug). PRD-CE's plugin distribution (per the resolved plugin-first strategy) should pin its verified manifest contract the same way. |
+| Three independently versioned components with per-component tags/changelog gates | **Adapt** | PRD-CE v2 likely has command-pack vs (future) MCP companion vs CLI; the pattern fits, but start with one component and keep release.mjs's refusal ladder (dirty tree, rebuild-drift, missing changelog, tag collision). |
+| Release notes extracted from the changelog page; tweet auto-drafted | **Adapt** | The "changelog is the single narrative source" idea matches PRD-CE's own changelog-as-marketing skill; the HTML-scraping implementation is site-specific — extract from a markdown changelog instead. |
+| Served-version post-release check (`/api/version` warn) | **Adapt** | Only once PRD-CE has an update channel; the lesson (a release that strands `update` users must fail loudly) is worth encoding from day one of any self-update path. |
+| `README.npm.md` prepack swap | **Copy** | Trivial and effective the moment PRD-CE publishes any npm-installable piece with a different audience than the GitHub repo. |
+| Vendoring the detector engine into every shipped skill copy | **Reject** | Impeccable ships a deterministic lint engine; PRD-CE's equivalent (readiness.py, validators) already lives in the repo/plugin root and is shared by design — duplicating it per-provider-dir would fight the five-plane single-source memory model. |
+| 17-provider matrix + universal ZIP + browser extension + live-mode E2E fleet | **Reject (for now)** | Scale mismatch. PRD-CE v2's gated build plan is deliberately narrow; the transferable part is the *factory shape*, not the breadth. The live-mode/extension machinery is design-domain content, explicitly out of Northstar scope. |
+| Empty `skills-lock.json` as root marker | **Reject** | Vestigial in impeccable itself (only pin.mjs root-finding reads it); PRD-CE has stronger root markers (PRD.md, .claude/). |

@@ -24,7 +24,7 @@ runtime_status: Proposed
 3. `PRD.md` — this file; product strategy and lifecycle authorization.
 4. Accepted records in [`SoT/`](SoT/SoT.README.md) — durable rules and decisions.
 5. EPICs — approved execution records created only at v0.7 or later.
-6. [`docs/PRD_CE_V2_BUILD_PLAN.md`](docs/PRD_CE_V2_BUILD_PLAN.md) — contingent sequencing,
+6. [`docs/v2/PRD_CE_V2_BUILD_PLAN.md`](docs/v2/PRD_CE_V2_BUILD_PLAN.md) — contingent sequencing,
    subordinate to this PRD and accepted SoT records.
 7. Research and evaluation artifacts — inputs only until their evidence is durable, reviewable,
    sanitized, and accepted.

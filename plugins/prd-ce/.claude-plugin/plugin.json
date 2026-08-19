@@ -1,9 +1,20 @@
 {
   "name": "prd-ce",
-  "displayName": "PRD-Driven Context Engineering",
+  "displayName": "PRD-Led Context Engineering",
+  "version": "3.3.0",
   "description": "PRD lifecycle methodology engine: scaffolds PRD/SoT/EPICs to template, drives them to completion with stage skills, governs with hooks + deterministic readiness scoring.",
-  "author": { "name": "Matt Gierhart" },
+  "author": {
+    "name": "Matt Gierhart"
+  },
   "license": "MIT",
-  "keywords": ["prd", "methodology", "context-engineering", "knowledge-graph", "sot"],
+  "keywords": [
+    "prd",
+    "methodology",
+    "context-engineering",
+    "knowledge-graph",
+    "sot",
+    "claude-code",
+    "spec-driven-development"
+  ],
   "hooks": "./hooks/hooks.json"
 }

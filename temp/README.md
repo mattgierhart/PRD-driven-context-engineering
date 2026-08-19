@@ -1,12 +1,12 @@
 ---
 title: "Temp Workspace Guide"
 scope: "temp/"
-updated: "2025-01-10"
+updated: "2026-08-19"
 ---
 
 # Temp Workspace
 
-Short-lived notes, audits, and scratchpads organized by PRD lifecycle stage. This directory is intentionally transient but **linked to execution**.
+Short-lived notes, audits, and scratchpads organized by PRD lifecycle stage. This directory is intentionally transient but **linked to execution**. (This repository's own v2 planning and research material is not scratch — it lives under [`docs/v2/`](../docs/v2/README.md).)
 
 ## Structure
 

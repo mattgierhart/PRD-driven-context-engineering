@@ -68,7 +68,7 @@ No typed-ID dependency is asserted; this rule directly constrains the root PRD.
 
 ### Evidence and confidence
 
-- **Source Evidence:** [Build plan §2, owner-confirmed boundaries](../docs/PRD_CE_V2_BUILD_PLAN.md#2-owner-confirmed-boundaries)
+- **Source Evidence:** [Build plan §2, owner-confirmed boundaries](../docs/v2/PRD_CE_V2_BUILD_PLAN.md#2-owner-confirmed-boundaries)
 - **Confidence:** 1/5 — normative owner decision; market and runtime evidence are not yet established.
 - **Next Evidence Target:** v0.2 audience research and owner approval of the Product Management segment.
 
@@ -115,7 +115,7 @@ consumer work.
 
 ### Evidence and confidence
 
-- **Source Evidence:** [Build plan §2 and §3](../docs/PRD_CE_V2_BUILD_PLAN.md#3-status-and-authority)
+- **Source Evidence:** [Build plan §2 and §3](../docs/v2/PRD_CE_V2_BUILD_PLAN.md#3-status-and-authority)
 - **Implementation Evidence:** [Wave 0B distribution tests](../tests/test_distribution.py) cover clean
   install, forced reinstall, plugin parity, link closure, package completeness, and sensitive references.
 - **Confidence:** 4/5 — owner decision plus passing isolated distribution proofs; public release and
@@ -166,7 +166,7 @@ mistaken for a stable release and leaves historical publication risk subject to 
 
 ### Evidence and confidence
 
-- **Source Evidence:** [Build plan §2, owner-confirmed boundaries](../docs/PRD_CE_V2_BUILD_PLAN.md#2-owner-confirmed-boundaries)
+- **Source Evidence:** [Build plan §2, owner-confirmed boundaries](../docs/v2/PRD_CE_V2_BUILD_PLAN.md#2-owner-confirmed-boundaries)
 - **Confidence:** 1/5 — normative owner decision; no V2 runtime or release-candidate evidence exists.
 - **Next Evidence Target:** A separately authorized release-candidate evidence package and merge decision.
 
@@ -214,7 +214,7 @@ would let a delivery sequence bypass unresolved product, market, risk, and archi
 
 ### Evidence and confidence
 
-- **Source Evidence:** [Build plan §2 and authorization matrix](../docs/PRD_CE_V2_BUILD_PLAN.md#7-progressive-prd-authorization-matrix)
+- **Source Evidence:** [Build plan §2 and authorization matrix](../docs/v2/PRD_CE_V2_BUILD_PLAN.md#7-progressive-prd-authorization-matrix)
 - **Confidence:** 1/5 — normative owner decision; lifecycle outcomes remain to be evidenced.
 - **Next Evidence Target:** Owner-approved v0.7 gate with bounded implementation scope.
 
@@ -258,7 +258,7 @@ would turn a truthful planning label into an unsupported runtime or availability
 
 ### Evidence and confidence
 
-- **Source Evidence:** [Build plan Wave 0B](../docs/PRD_CE_V2_BUILD_PLAN.md#wave-0b--owner-approved-governance-bootstrap)
+- **Source Evidence:** [Build plan Wave 0B](../docs/v2/PRD_CE_V2_BUILD_PLAN.md#wave-0b--owner-approved-governance-bootstrap)
 - **Confidence:** 1/5 — normative owner decision; consistent use across future releases is not yet evidenced.
 - **Next Evidence Target:** Release and provider-package documentation that applies the vocabulary without conflation.
 

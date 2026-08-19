@@ -1,0 +1,26 @@
+name: Context leak
+description: The AI could not find context it should have had — a gap in the memory infrastructure.
+labels: ["context-leak"]
+body:
+  - type: textarea
+    id: leak
+    attributes:
+      label: What the AI was missing
+      description: What it needed, what it did instead (guessed, re-asked, hallucinated), and what you expected it to find.
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where it should have lived
+      description: The file, ID, or stage you think should have carried it (e.g. `SoT/SoT.BUSINESS_RULES.md#BR-012`, `PRD.md v0.4`, a skill's Consumes section).
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Lifecycle stage
+      options: ["v0.1", "v0.2", "v0.3", "v0.4", "v0.5", "v0.6", "v0.7", "v0.8", "v0.9", "v1.0", "not stage-specific"]
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed fix (optional)
+      description: A new ID, a skill change, a hook, a rule — whatever would have closed the leak.

@@ -2,93 +2,108 @@
 
 # PRD-Led Context Engineering
 
-### Memory as Infrastructure — an operating system for building products with AI agents
+### Memory as Infrastructure
 
-[![GitHub stars](https://img.shields.io/github/stars/mattgierhart/PRD-driven-context-engineering?style=flat&logo=github&color=a8842c)](https://github.com/mattgierhart/PRD-driven-context-engineering)
+**An ontology layer for product teams building products that solve real problems — with AI agents that remember.**
+
+[![GitHub stars](https://img.shields.io/github/stars/mattgierhart/PRD-driven-context-engineering?style=flat&logo=github&color=a8842c)](https://github.com/mattgierhart/PRD-driven-context-engineering/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-14120e.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-3d6b35.svg)](#contributing)
+[![Readiness CI](https://github.com/mattgierhart/PRD-driven-context-engineering/actions/workflows/readiness.yml/badge.svg?branch=main)](https://github.com/mattgierhart/PRD-driven-context-engineering/actions/workflows/readiness.yml)
+[![Plugin Sync](https://github.com/mattgierhart/PRD-driven-context-engineering/actions/workflows/plugin-sync.yml/badge.svg?branch=main)](https://github.com/mattgierhart/PRD-driven-context-engineering/actions/workflows/plugin-sync.yml)
 [![Built for Claude Code](https://img.shields.io/badge/built%20for-Claude%20Code-a8842c.svg)](.claude/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-3d6b35.svg)](CONTRIBUTING.md)
 
 *Your AI partner is brilliant in one session and amnesiac by the next. This repository is the fix:
 a fork-ready methodology that turns documentation into a knowledge graph humans and AI navigate
 together — so the 50th session is smarter than the 1st.*
 
-> **V2 branch status:** `prd-ce-v2` is the V2 maturation branch (superseding
-> `codex/prd-ce-v2-product-model`), at PRD **v0.1 Spark** for the Product Management lifecycle.
-> V2 matures here before any owner-approved merge to `main`. Wave 0B separates repository
-> authority from generic downstream seeds; it is not a V2 runtime or release. Read `CLAUDE.md` →
-> `README.md` → `PRD.md` → accepted SoT → an active EPIC only at v0.7+. The
-> [V2 build plan](docs/PRD_CE_V2_BUILD_PLAN.md) remains contingent and the methodology on `main`
-> remains the stable baseline. A research-input exploration of the document ecosystem's formal
-> model lives at [docs/ECOSYSTEM_ONTOLOGY.md](docs/ECOSYSTEM_ONTOLOGY.md).
+[**Use this template**](https://github.com/mattgierhart/PRD-driven-context-engineering/generate) ·
+[**Quick Start**](#-quick-start) · [**Docs**](docs/index.md) · [**The Idea**](#the-idea-memory-as-infrastructure) ·
+[**Live demo views**](#-feature-the-human-review-layer)
 
-[**Quick Start**](#-quick-start) · [**The Idea**](#the-idea-memory-as-infrastructure) ·
-[**The Lifecycle**](#-feature-the-progressive-prd) · [**The Skills**](#-feature-47-skills-one-for-every-decision) ·
-[**Live Demo Views**](#-feature-the-human-review-layer)
-
-<img src="temp/sot-html-mockups/atlas.png" alt="The Source-of-Truth Atlas — the knowledge graph rendered for humans" width="760">
-
-**⭐ If this changes how you build with AI, [star the repo](https://github.com/mattgierhart/PRD-driven-context-engineering) — stars put this method in front of the next team drowning in context drift.**
+<img src="docs/assets/sot-html/atlas.png" alt="The Source-of-Truth Atlas — the knowledge graph rendered for humans" width="760">
 
 </div>
+
+> **V2 branch status.** `prd-ce-v2` is the V2 maturation branch (PRD at **v0.1 Spark** for the
+> Product Management lifecycle; no V2 runtime exists). V2 matures here before any owner-approved merge
+> to `main`; the methodology on `main` is the stable baseline. Where v2 is going — the build plan, the
+> ontology, the eight Key Moments, the go-live tracker — lives in [`docs/v2/`](docs/v2/README.md).
+
+---
+
+<!-- SECTION: quick-start -->
+## 🚀 Quick Start
+
+```bash
+# 1. Create your product repo from the template (or click "Use this template" on GitHub):
+gh repo create my-product --template mattgierhart/PRD-driven-context-engineering --clone && cd my-product
+
+# 2. Make it yours — the generic seeds replace this repo's own dashboard, PRD, and memory:
+cp README_template.md README.md && cp PRD_template.md PRD.md && rm -rf SoT && cp -R SoT_template SoT
+
+# 3. Open the repo in Claude Code and say "Let's frame the problem"
+#    → prd-v01-problem-framing produces CFD- evidence IDs and fills PRD.md v0.1.
+
+# 4. Advance only through gates — the repo scores itself:
+python3 -m pip install -r scripts/requirements.txt && python3 scripts/readiness.py run
+```
+
+**What you get in five minutes**: a product repo whose PRD advances through ten gates, a Source-of-Truth
+graph of typed IDs your agents cite instead of guess, and a readiness score that tells you what to fix
+first. Prerequisites: Claude Code, Python 3.10+, git. **Already have a repo?** The source-run install
+and the plugin path are in [`docs/INSTALL.md`](docs/INSTALL.md). No subscriptions, no servers, no
+lock-in — fork and go.
+<!-- /SECTION: quick-start -->
 
 ---
 
 <!-- SECTION: evolution -->
 ## The Problem: AI forgets. Teams drift.
 
-Every era of software solved memory its own way — and broke it its own way:
+Every era of software solved memory its own way — and broke it its own way. **Waterfall** had static
+memory: everything written up front, certainty at the cost of change. **Agile** moved fast and created
+fragmented memory: knowledge scattered across tickets, wikis, and chats. **AI-assisted building** adds a
+third failure, amnesiac memory: the model that architected your system yesterday has never heard of it
+today. The common mistake is treating these as tooling problems. They are *memory* problems.
 
-- **Waterfall** had **Static Memory**. Write everything down upfront: certainty, at the cost of change.
-- **Agile** moved fast and created **Fragmented Memory**. Knowledge scattered across tickets, wikis, and chats; shared understanding evaporated.
-- **AI-assisted building** adds a third failure: **Amnesiac Memory**. The model that architected your system yesterday has never heard of it today.
-
-The common mistake is treating these as tooling problems. They are *memory* problems.
-
-**PRD-Led Context Engineering** builds **Shared Memory**: it treats AI as a team member, not a tool, and keeps documentation synchronized with code so humans and AI navigate the same truth.
+**PRD-Led Context Engineering** builds **shared memory**: it treats AI as a team member, not a tool, and
+keeps documentation synchronized with code so humans and AI navigate the same truth.
 <!-- /SECTION: evolution -->
-
----
 
 <!-- SECTION: manifesto -->
 ## The Idea: Memory as Infrastructure
 
-This methodology comes from two converging experiences.
-
-**Leading human teams** — alignment always followed the same pattern: rally around a single Source-of-Truth artifact and the team moves as one. Without it, even great talent drifts.
-
-**Partnering with AI** — sometimes the model performs at a senior level, sometimes it hallucinates. The variable was never the model's intelligence. It was the **Context Density** provided: rich, structured context in; senior-level output out.
-
-The convergence: **documentation is not an afterthought. Documentation is the infrastructure of shared memory.**
+This methodology comes from two converging experiences. **Leading human teams** — alignment always
+followed the same pattern: rally around a single Source-of-Truth artifact and the team moves as one;
+without it, even great talent drifts. **Partnering with AI** — sometimes the model performs at a senior
+level, sometimes it hallucinates; the variable was never the model's intelligence, it was the **context
+density** provided. The convergence: **documentation is not an afterthought. Documentation is the
+infrastructure of shared memory.**
 
 > **The Golden Rule**: If it isn't part of the memory infrastructure, it isn't true.
 
-So every durable decision gets a **Unique ID** (`UJ-XXX`, `BR-XXX`, `API-XXX`) in a
-**Source-of-Truth file**. That ID is a memory node with weight: when the AI references a specific
-`BR-XXX`, it isn't guessing — it's retrieving the validated decision you encoded. The linked
-network of IDs across files *is* the **Knowledge Graph**, and it lives in plain markdown, in your
-repo, under version control.
+So every durable decision gets a **unique ID** (`UJ-XXX`, `BR-XXX`, `API-XXX`) in a Source-of-Truth
+file. That ID is a memory node with weight: when the AI references `BR-XXX`, it isn't guessing — it's
+retrieving the validated decision you encoded. The linked network of IDs across files *is* the
+**knowledge graph**, and it lives in plain markdown, in your repo, under version control.
 
-### The 4 Pillars
-
-1. **Just-in-Time Context** — IDs let you load *only* what a task needs. No repo-dumps, no noise, fewer hallucinations.
-2. **The Documentation Ecosystem** — PRD ↔ EPICs ↔ SoT connected by links, skills, and hooks. When logic changes, both human and AI know.
-3. **Context Validation** — context is measured like code. Too sparse, the AI drifts; too dense, it chokes. The repo scores itself (see [Readiness Scoring](#-feature-a-repo-that-scores-its-own-readiness)).
-4. **Progressive Documentation** — update in place, never copy. No `PRD_v2.md`, ever. One document, many versions, single current reality.
+**The four pillars** — *Just-in-time context* (IDs let you load only what a task needs) · *The
+documentation ecosystem* (PRD ↔ EPICs ↔ SoT connected by links, skills, and hooks) · *Context validation*
+(context is measured like code; the repo scores itself) · *Progressive documentation* (update in place,
+never copy — no `PRD_v2.md`, ever).
 <!-- /SECTION: manifesto -->
 
 <!-- SECTION: cognitive-shift -->
 ### The Cognitive Shift
 
-This changes how work is *measured*, not just how it's tooled:
-
-| Traditional Agile      | PRD-Led Context Engineering        | The Shift                                                                                              |
-| :--------------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| **Sprints**            | **Context Windows**                | We don't time-box based on dates; we _scope-box_ based on cognitive capacity.                          |
-| **User Stories**       | **Prompts**                        | We don't write descriptions; we engineer _prompts_ that deterministically load context.                |
-| **Tribal Knowledge**   | **Source of Truth**                | If it isn't in the Knowledge Graph (`SoT/`), it doesn't exist.                                         |
-| **Standups**           | **Documentation Hooks**            | No status meetings. Event-driven hooks handle context loading, gate checks, and memory handoffs.       |
-| **Project Management** | **Context Governance**             | We don't task-manage people. The system gates execution until context is verified valid.               |
+| Traditional Agile      | PRD-Led Context Engineering | The Shift                                                                                        |
+| :--------------------- | :-------------------------- | :----------------------------------------------------------------------------------------------- |
+| **Sprints**            | **Context Windows**         | We don't time-box based on dates; we _scope-box_ based on cognitive capacity.                    |
+| **User Stories**       | **Prompts**                 | We don't write descriptions; we engineer _prompts_ that deterministically load context.          |
+| **Tribal Knowledge**   | **Source of Truth**         | If it isn't in the Knowledge Graph (`SoT/`), it doesn't exist.                                   |
+| **Standups**           | **Documentation Hooks**     | No status meetings. Event-driven hooks handle context loading, gate checks, and memory handoffs. |
+| **Project Management** | **Context Governance**      | We don't task-manage people. The system gates execution until context is verified valid.         |
 <!-- /SECTION: cognitive-shift -->
 
 ---
@@ -101,7 +116,7 @@ Everything below ships in this repo, works offline, and forks in one click:
 |---|---|
 | 🧠 [The Knowledge Graph](#-feature-a-knowledge-graph-in-plain-markdown) | 14 SoT files, 24 ID types, zero databases — durable memory in markdown |
 | 📈 [The Progressive PRD](#-feature-the-progressive-prd) | A gated v0.1 → v1.0 lifecycle that stops AI from one-shotting your architecture |
-| 🛠 [47 Skills](#-feature-47-skills-one-for-every-decision) | Stage playbooks from problem framing to crossing the chasm — Dunford, Hormozi, Moore, Torres built in |
+| 🛠 [The Skills](#-feature-a-skill-for-every-decision) | 41 stage playbooks from problem framing to crossing the chasm — Dunford, Hormozi, Moore, Torres built in — plus the methodology operators |
 | 📊 [Readiness Scoring](#-feature-a-repo-that-scores-its-own-readiness) | The repo computes whether evidence is ready for owner gate review — and what to fix first |
 | 🫀 [The Development Graph](#-feature-code-that-traces-back-to-specs) | `@implements` tags bridge code to specs; drift surfaces as a verdict, not a surprise |
 | 📰 [The Human Review Layer](#-feature-the-human-review-layer) | Every SoT file rendered as a styled, hyperlinked page its reviewer actually wants to read |
@@ -114,31 +129,21 @@ Everything below ships in this repo, works offline, and forks in one click:
 
 **The pitch**: long-term product memory with no database, no SaaS, no lock-in — just files with discipline.
 
-The architecture is **3 + 1 + SoT + Temp**, designed to manage Context Density for both human cognitive load and AI context windows:
-
-1. **Executive Functions** — orient attention in the documented read order:
-   - `CLAUDE.md` — the Physics (how the AI must behave)
-   - `README.md` — the Dashboard (where am I? what is active?)
-   - `PRD.md` — the Strategy and product authority (why and what)
-2. **Focus Memory** — before v0.7, the current PRD gate record frames product-definition work;
-   from v0.7 onward, `epics/` becomes the variable execution state and one EPIC frames one problem
-   as one context window.
-3. **Long-Term Memory** — `SoT/SoT.*.md`: the immutable facts. Business Rules (`BR-`), User Journeys (`UJ-`), API Contracts (`API-`), and 21 more ID types. Nothing duplicated; everything referenced by ID.
-4. **Short-Term Memory** — `temp/`: the scratch pad. Before v0.7, files support the current PRD
-   gate; from v0.7 onward they attach to the active EPIC and get harvested to SoT before it closes.
-
-> **Just-in-Time Context**: instead of dumping documentation into the context window, reference
-> specific IDs (`UJ-XXX`, `API-XXX`). Fewer input tokens, deeper understanding.
+The architecture is **3 + 1 + SoT + Temp**: **executive functions** orient attention in the documented
+read order (`CLAUDE.md` the physics, `README.md` the dashboard, `PRD.md` the strategy); **focus memory**
+is the current PRD gate before v0.7 and one EPIC = one context window from v0.7 on; **long-term memory**
+is `SoT/SoT.*.md` — Business Rules (`BR-`), User Journeys (`UJ-`), API Contracts (`API-`) and 21 more ID
+types, nothing duplicated, everything referenced by ID; **short-term memory** is `temp/`, harvested into
+SoT before an EPIC closes. Instead of dumping documentation into the context window, reference specific
+IDs — fewer input tokens, deeper understanding.
 <!-- /SECTION: doc-ecosystem -->
-
----
 
 <!-- SECTION: lifecycle -->
 ## 📈 Feature: The Progressive PRD
 
-**The pitch**: the "One-Shot" — asking AI to build the whole app at once — produces generic code and rapid drift. The Progressive PRD makes that impossible by design.
-
-`PRD.md` is a **gated workflow**, not a document. The AI focuses on one stage at a time, and no stage advances until its **Definition of Done** is met:
+**The pitch**: the "one-shot" — asking AI to build the whole app at once — produces generic code and rapid
+drift. The Progressive PRD makes that impossible by design. `PRD.md` is a **gated workflow**, not a
+document: the AI focuses on one stage at a time, and no stage advances until its Definition of Done is met.
 
 | Version  | Name                     | Focus                 | Definition of Done (DoD)                                           |
 | :------- | :----------------------- | :-------------------- | :----------------------------------------------------------------- |
@@ -153,38 +158,35 @@ The architecture is **3 + 1 + SoT + Temp**, designed to manage Context Density f
 | **v0.9** | **Launch**               | Go-to-Market          | Positioning (Dunford), Offer (Hormozi), Channels (ORB), Launch metrics (`KPI-`), Feedback channels (`CFD-`), Tactical playbooks (AEO, alternatives, outreach, HN/Reddit). |
 | **v1.0** | **Market Adoption**      | Growth & Learning     | Adoption stage (`ADO-STAGE-`), Beachhead (`ADO-BEACHHEAD-`), Whole product (`ADO-WHOLE-`), References (`ADO-REF-`), Continuous discovery, Case studies, Testimonials. |
 
-**Why gates work**: constrained focus prevents the AI from guessing the architecture before it understands the users; deep focus produces meaningful IDs; the result is not just a working product but a *desirable* one.
-
-**The paradox that makes it practical**: gates provide focus; the ecosystem provides agility. Because documentation is modular and interlocked, you can revisit any stage just-in-time — customer feedback during Build doesn't restart the plan, it updates the `BR-` rules and lets hooks propagate the change.
+**Why gates work**: constrained focus prevents the AI from guessing the architecture before it
+understands the users. **The paradox that makes it practical**: gates provide focus; the ecosystem
+provides agility — customer feedback during Build doesn't restart the plan, it updates the `BR-` rules
+and lets hooks propagate the change.
 <!-- /SECTION: lifecycle -->
 
----
+## 🛠 Feature: A skill for every decision
 
-## 🛠 Feature: 47 skills, one for every decision
-
-**The pitch**: the lifecycle isn't advice — it's executable. Every stage ships with skills that know what to consume, what IDs to produce, and which gate they feed.
-
-- **41 stage skills** (`prd-v01-*` → `prd-v10-*`): problem framing, competitive landscape, pricing, persona definition, journey mapping, risk discovery, architecture design, epic scoping, test planning, release planning, GTM strategy, case studies…
-- **6 methodology operators** (`ghm-*`): gate checks, SoT building, ID registration, insight harvesting, status sync.
-- **Named frameworks, encoded**: April Dunford positioning, Alex Hormozi offer construction, Owned/Rented/Borrowed channel allocation, Geoffrey Moore chasm crossing, Teresa Torres continuous discovery, Rob Fitzpatrick Mom Test interviews.
-- **Three depth modes** — `quick` (founder gut-check, <15 min), `standard` (default), `deep` (investor-ready, with assumption logs) — so the method scales from solo founder to team.
-
-Every skill emits `Consumes` / `Produces` sections in SoT IDs, which is what keeps the knowledge graph connected as you move through stages.
-
----
+**The pitch**: the lifecycle isn't advice — it's executable. Every stage ships with skills that know what
+to consume, what IDs to produce, and which gate they feed: **41 stage skills** (`prd-v01-*` → `prd-v10-*`)
+from problem framing, competitive landscape, pricing, personas, and journey mapping through risk
+discovery, architecture, epic scoping, test planning, release planning, and GTM — with **named
+frameworks encoded** (April Dunford positioning, Alex Hormozi offer construction, Owned/Rented/Borrowed
+channels, Geoffrey Moore chasm crossing, Teresa Torres continuous discovery, Rob Fitzpatrick Mom Test) —
+plus the **methodology operators** (`ghm-*`: gate checks, SoT building, ID registration, insight
+harvesting, status sync). **Three depth modes** — `quick` (founder gut-check, <15 min), `standard`,
+`deep` (investor-ready) — so the method scales from solo founder to team. Every skill emits `Consumes` /
+`Produces` sections in SoT IDs, which is what keeps the knowledge graph connected across stages.
 
 <!-- SECTION: readiness-scoring -->
 ## 📊 Feature: A repo that scores its own readiness
 
-**The pitch**: before advancing a stage or starting an EPIC, the repo already knows whether you're ready — and *why not*.
-
-Readiness is a **three-layer graph** over the artifacts you already author:
-
-1. **SoT files** — scored on entry count, depth, cross-reference density, and orphan rate. A placeholder file scores 0.
-2. **EPICs** — inherit the readiness of every SoT file they reference. Dangling refs and unresolved assumptions surface as unmet criteria, each citing the file that caused it.
-3. **PRD stage** — answers "can we advance v0.X → v0.Y?" from gate criteria plus the layers below.
-
-All three write to one file — `status/readiness.json` — with causal links intact: an EPIC's unmet criterion points at its `caused_by` SoT file; the top blockers are ranked by downstream impact. **The highest-leverage fix is rarely the lowest-scoring file — it's the lowest-scoring file blocking the most EPICs.** The system tells you which.
+**The pitch**: before advancing a stage or starting an EPIC, the repo already knows whether you're ready —
+and *why not*. Readiness is a **three-layer graph** over the artifacts you already author: **SoT files**
+(entry count, depth, cross-reference density, orphan rate), **EPICs** (they inherit the readiness of every
+SoT file they reference; dangling refs surface as unmet criteria citing the file that caused them), and
+the **PRD stage** (can we advance v0.X → v0.Y?). All three write to `status/readiness.json` with causal
+links intact — **the highest-leverage fix is rarely the lowest-scoring file; it's the lowest-scoring file
+blocking the most EPICs**, and the system tells you which.
 
 ```bash
 python3 -m pip install -r scripts/requirements.txt
@@ -193,240 +195,77 @@ python3 scripts/readiness.py status     # print last-computed report
 python3 scripts/readiness.py run --json # machine-readable output for hooks/CI
 ```
 
-Exit codes `0/1/2` map to PASS / WARN / BLOCK (thresholds: warn=70, block=50,
-overridable per item). The `ghm-gate-check` skill delegates here to prepare evidence for owner gate
-review; only an owner-approved PRD transition authorizes advancement.
+Exit codes `0/1/2` map to PASS / WARN / BLOCK (thresholds: warn=70, block=50, overridable per item).
+The `ghm-gate-check` skill delegates here to prepare evidence for owner gate review; only an
+owner-approved PRD transition authorizes advancement.
 
 ### 🫀 Feature: Code that traces back to specs
 
-Once building starts (v0.7), the code itself joins the knowledge graph. An AST pass extracts code nodes into `status/devgraph.json`; the `@implements` / `@verifies` tags you write under [rule 04](.claude/rules/04-coding-standards.md) become **bridge edges** linking each code unit to the spec it realizes. Readiness then measures *reality*, not just spec health:
-
-- `implementation_coverage` — which scoped specs actually have implementing code
-- `architecture_conformance` — do the `ARC-` rules still hold in the as-built system (drift = a `violate` verdict, not a surprise in review)
-
-Untagged code shows up as an **orphan node** — a context leak you can see. The same `devgraph.json`
-can power an optional visualizer of built / unbuilt / drifted state. See
-[`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md).
-
-**Deeper reading**: [`.claude/rules/07-readiness-protocol.md`](.claude/rules/07-readiness-protocol.md) · [`docs/READINESS_PROTOCOL.md`](docs/READINESS_PROTOCOL.md)
+Once building starts (v0.7), the code itself joins the knowledge graph. An AST pass extracts code nodes
+into `status/devgraph.json`; the `@implements` / `@verifies` tags you write under
+[rule 04](.claude/rules/04-coding-standards.md) become **bridge edges** linking each code unit to the spec
+it realizes. Readiness then measures *reality*, not just spec health: `implementation_coverage` (which
+scoped specs actually have implementing code) and `architecture_conformance` (do the `ARC-` rules still
+hold — drift is a `violate` verdict, not a surprise in review). Untagged code shows up as an **orphan
+node** — a context leak you can see. See [`docs/DEVELOPMENT_GRAPH.md`](docs/DEVELOPMENT_GRAPH.md) and
+[`docs/READINESS_PROTOCOL.md`](docs/READINESS_PROTOCOL.md).
 <!-- /SECTION: readiness-scoring -->
-
----
 
 <!-- SECTION: sot-html-companion -->
 ## 📰 Feature: The Human Review Layer
 
-**The pitch**: markdown SoT files are optimized for agents and diffs. Humans reviewing a gate deserve a better reading surface — so every SoT file ships with a styled, hyperlinked HTML view in the format its natural reviewer already expects. Start at [`SoT/html/index.html`](SoT/html/index.html) (opens from `file://`, no build step, no JS).
-
-**The contract**: markdown stays authoritative; the HTML is a *render*. Entry anchors equal unique IDs (`SoT.BUSINESS_RULES.html#BR-001`), and every cross-reference is a hyperlink — a reviewer walks the knowledge graph by clicking, the same way an agent walks it by ID.
+**The pitch**: markdown SoT files are optimized for agents and diffs. Humans reviewing a gate deserve a
+better reading surface — so every SoT file ships with a styled, hyperlinked HTML view in the format its
+natural reviewer already expects. Start at [`SoT/html/index.html`](SoT/html/index.html) (opens from
+`file://`, no build step, no JS). Markdown stays authoritative; the HTML is a *render*: entry anchors
+equal unique IDs (`SoT.BUSINESS_RULES.html#BR-001`) and every cross-reference is a hyperlink — a reviewer
+walks the knowledge graph by clicking, the same way an agent walks it by ID.
 
 | | |
 |---|---|
-| ![The Atlas — index of all SoT views](temp/sot-html-mockups/atlas.png) | ![User journey rendered as a journey map](temp/sot-html-mockups/journey-map.png) |
+| ![The Atlas — index of all SoT views](docs/assets/sot-html/atlas.png) | ![User journey rendered as a journey map](docs/assets/sot-html/journey-map.png) |
 | **The Atlas** (`index.html`) — registry of every view, ID anatomy, graph patterns | **User Journeys** — trigger → steps → value moment, the way design reviews read flows |
-| ![API contract rendered as an API reference](temp/sot-html-mockups/api-contract.png) | ![Data model rendered as a schema browser](temp/sot-html-mockups/data-model.png) |
+| ![API contract rendered as an API reference](docs/assets/sot-html/api-contract.png) | ![Data model rendered as a schema browser](docs/assets/sot-html/data-model.png) |
 | **API Contracts** — Swagger-style reference with method plates and status codes | **Data Model** — ER-style entity cards with keys and a relationship map |
-| ![Customer feedback rendered as an insight card](temp/sot-html-mockups/feedback-card.png) | ![Adoption stage rendered as the Moore curve](temp/sot-html-mockups/adoption-curve.png) |
+| ![Customer feedback rendered as an insight card](docs/assets/sot-html/feedback-card.png) | ![Adoption stage rendered as the Moore curve](docs/assets/sot-html/adoption-curve.png) |
 | **Customer Feedback** — quote-first insight cards with decision stamps | **Adoption** — Moore lifecycle curve with the chasm and a "you are here" marker |
 
-Each of the 13 pages serves a different reviewer: policy register for `BR-`, ADRs + topology diagram for `TECH-`/`ARC-`, Storybook-style specimens for `DES-`, Given/When/Then cards for `TEST-`, an ops console for `DEP-`/`RUN-`/`MON-`/`SEC-`, a retro playbook for `LL-`, a vendor context map for `INT-`. The full schema-per-ID-type and persona-per-view rationale lives in [`SoT/html/README.md`](SoT/html/README.md).
-
-> **Screenshots are generated** — when the pages change, refresh them with
-> `python3 SoT/html/screenshot.py` (Playwright + Chromium; see
-> [`SoT/html/README.md`](SoT/html/README.md#refreshing-the-screenshots) for setup) and commit the
-> regenerated PNGs with the change.
-
-> **Next direction (concept)**: these pages render SoT *outward* for review. A proposed third artifact
-> class — **deliverables** — would add an *input* mode where a human contributes judgment (rank, select,
-> acknowledge) and the page emits paste-ready SoT markdown. See
-> [`docs/DELIVERABLES_CONCEPT.md`](docs/DELIVERABLES_CONCEPT.md).
+Each of the 13 pages serves a different reviewer — policy register for `BR-`, ADRs + topology diagram for
+`TECH-`/`ARC-`, Storybook-style specimens for `DES-`, Given/When/Then cards for `TEST-`, an ops console
+for `DEP-`/`RUN-`/`MON-`, a retro playbook for `LL-`. The schema-per-ID-type and persona-per-view
+rationale lives in [`SoT/html/README.md`](SoT/html/README.md); screenshots are regenerated with
+`python3 SoT/html/screenshot.py`. A proposed third artifact class — **deliverables**, an *input* mode
+where a human contributes judgment and the page emits SoT markdown — is the
+[`docs/v2/DELIVERABLES_CONCEPT.md`](docs/v2/DELIVERABLES_CONCEPT.md) concept.
 <!-- /SECTION: sot-html-companion -->
-
----
 
 <!-- SECTION: repo-structure -->
 ## 🤖 Feature: An agent squad with persistent memory
 
-**The pitch**: four role agents that remember, coordinate through files, and get smarter every EPIC — no standups required.
+**The pitch**: four role agents that remember, coordinate through files, and get smarter every EPIC — no
+standups required. **horizon** (Strategy, v0.1–v0.5) · **studio** (Design, v0.3–v0.6) · **devlab** (Build,
+v0.6–v0.8) · **metro** (Ops, v0.9–v1.0). Each accumulates Feedback, Patterns, Decisions, and Handoff Notes
+in its `MEMORY.md`; a `SubagentStop` hook extracts memories from the conversation, and EPIC harvest
+promotes cross-EPIC insights to `SoT/SoT.LESSONS_LEARNED.md` as durable `LL-` entries. **Event-driven
+hooks instead of meetings**: `SessionStart` injects the read order, `UserPromptSubmit` checks context
+density, `PreToolUse` verifies an active EPIC before code writes, `PostToolUse` reminds on SoT cascade
+updates — standardized by [`HOOK_CONTRACT.md`](.claude/hooks/HOOK_CONTRACT.md). Multi-agent EPICs avoid
+the telephone game: a Synthesis Checkpoint forces the coordinator to produce self-contained worker
+prompts before implementation begins.
 
-- **horizon** (Strategy, v0.1–v0.5) · **studio** (Design, v0.3–v0.6) · **devlab** (Build, v0.6–v0.8) · **metro** (Ops, v0.9–v1.0)
-- **Memory that persists**: each agent accumulates Feedback, Patterns, Decisions, and Handoff Notes in its `MEMORY.md`. A `SubagentStop` hook actively extracts memories from the conversation. During EPIC harvest, cross-EPIC insights are promoted to `SoT/SoT.LESSONS_LEARNED.md` as durable `LL-` entries.
-- **Event-driven hooks instead of meetings**: `SessionStart` injects read order,
-  `UserPromptSubmit` checks context density, `PreToolUse` verifies an active EPIC before code
-  writes, and `PostToolUse` reminds on SoT cascade updates while the edit is still in context.
-  Behavior is standardized by [`HOOK_CONTRACT.md`](.claude/hooks/HOOK_CONTRACT.md).
-- **Multi-agent EPICs without the telephone game**: a Synthesis Checkpoint forces the coordinator to produce self-contained worker prompts before implementation begins — workers never see degraded second-hand context.
-- **File-based standups**: the [Squad Status](#squad-status) section below shows agent activity and EPIC state at a glance, updated by `ghm-status-sync`.
-
-### Repository structure
-
-```text
-/
-├── README.md               # Dashboard, structure, and status
-├── PRD.md                  # This repository's product authority (Progressive PRD)
-├── PRD_template.md         # Generic downstream PRD seed
-├── CLAUDE.md               # The agent's operating instructions
-├── epics/                  # Active Context Windows (Tasks)
-├── SoT/                     # This repository's accepted product memory
-├── SoT_template/            # Generic downstream SoT seed + HTML review layer
-├── temp/                    # Scratch Pad for explorations and audits
-└── .claude/                 # Methodology runtime (skills, hooks, agents)
-    ├── skills/              # 41 stage skills (prd-v*) + 6 operators (ghm-*)
-    ├── hooks/               # Session/user/stop hooks + subagent memory hooks
-    ├── agents/              # Role agents with persistent MEMORY.md
-    ├── domain-profile.yaml  # ID registry + skill taxonomy
-    └── settings.json        # Hook wiring and execution config
-```
-
-> **Agent Note**: `.claude/` can be replaced with `.gemini/`, `.codex/`, or any other agent structure, but the skills, hooks, and agent model here were built with Anthropic's documentation model in mind.
-
-> **Fork Note**: this root README, PRD, and SoT describe the methodology repository. A downstream
-> product starts from `README_template.md`, `PRD_template.md`, and `SoT_template/`; the canonical
-> destinations become product-owned after the first copy.
+The repository layout — which files are this repo's own truth, which are downstream seeds, which are the
+runtime, which are generated — is in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). This root `README`,
+`PRD`, and `SoT` describe the methodology repository; a product starts from `README_template.md`,
+`PRD_template.md`, and `SoT_template/`.
 <!-- /SECTION: repo-structure -->
 
 ---
 
-<!-- SECTION: quick-start -->
-## 🚀 Quick Start
+## Docs, releases, contributing
 
-```bash
-# 1. Fork this repo for your product, then:
-cp README_template.md README.md     # your product dashboard replaces this page
-cp PRD_template.md PRD.md           # your product definition starts at v0.1
-cp -R SoT_template/. SoT/           # replace the clean fork's repository SoT with generic content
+- **Docs front door**: [`docs/index.md`](docs/index.md) — install paths, architecture, readiness protocol, development graph, the v2 direction.
+- **Releases**: [`CHANGELOG.md`](CHANGELOG.md) (template version in `.claude/VERSION`) · [`MIGRATION.md`](MIGRATION.md) for upgrading a product repo.
+- **Contributing**: [`CONTRIBUTING.md`](CONTRIBUTING.md) — refine templates and skills, report friction or a *context leak*, follow the lifecycle even for meta-changes. Questions → [Discussions](https://github.com/mattgierhart/PRD-driven-context-engineering/discussions).
+- **The thinking**: [gearheartai.org](https://www.gearheartai.org) — the essays behind Memory as Infrastructure.
 
-# 2. Open the repo in Claude Code — hooks load the read order automatically.
-
-# 3. Start the lifecycle at the beginning:
-#    "Let's frame the problem"  →  triggers prd-v01-problem-framing
-#    The skill produces CFD- evidence IDs and fills PRD.md v0.1.
-
-# 4. Advance only through gates:
-python3 -m pip install -r scripts/requirements.txt
-python3 scripts/readiness.py run      # are we ready for v0.2?
-```
-
-From there, the method drives itself: each stage's skills consume the previous stage's IDs, the readiness score tells you when to advance, and the knowledge graph grows with every decision. **No subscriptions, no servers, no lock-in — fork and go.**
-<!-- /SECTION: quick-start -->
-
----
-
-<!-- SECTION: how-to-use -->
-## How to use this repo today
-
-The methodology is **fork-native**: everything runs from files in your repo, with no services to stand up.
-
-1. **Fork it per product** — copy the explicit generic sources into canonical product-owned paths;
-   do not inherit this repository's PRD-CE decisions ([Quick Start](#-quick-start) above).
-2. **Or source-run install into an existing repo** — run from a fresh trusted methodology checkout instead of forking the whole repo (see below).
-3. **Work through the gates** — let the stage skills drive: each one tells you what it consumes, what IDs it produces, and which gate it feeds. Run `python3 scripts/readiness.py run` before advancing.
-4. **Keep the graph honest** — decisions land in `SoT/` with IDs *before or during* the change, never after. Review them as humans through [`SoT/html/`](SoT/html/index.html).
-5. **Harvest every EPIC** — `temp/` notes and agent memories get promoted to durable `LL-` entries at EPIC close, so the next session starts smarter.
-
-### Adopt into an existing repo (source-run install — prototype)
-
-You don't have to fork. The **source-run install path** drops the framework into a fresh *or*
-existing repo without clobbering product content. Start from a fresh trusted methodology checkout;
-the consumer runtime does not receive the installer, manifest, or install operators. This is the
-subscription-native pattern
-borrowed from [`ZQadus/Xantham-system-blueprint`](https://github.com/ZQadus/Xantham-system-blueprint):
-ship a blueprint a fresh Claude Code session executes, so all cost lands on your Pro/Max
-plan, **not** the metered API.
-
-```bash
-# Deterministic CLI (from a fresh trusted clone of this repo):
-bash /path/to/fresh/prd-method/install.sh --target /path/to/your/repo --profile product --dry-run
-bash /path/to/fresh/prd-method/install.sh --target /path/to/your/repo --profile product
-```
-
-Or paste the one-line bootstrap from [`BLUEPRINT.md`](BLUEPRINT.md) into a fresh Claude
-Code session and let the [`ghm-self-install`](.claude/skills/ghm-self-install/SKILL.md)
-source-checkout-only wizard drive it. Both paths read the trusted checkout's
-[`.claude/install-manifest.yaml`](.claude/install-manifest.yaml)
-(framework vs. product file classes), are **idempotent**, and **merge** into an existing
-`.claude/settings.json` rather than overwriting it. Use a fresh trusted checkout for each other
-repository; never treat an installed consumer as a distributor.
-
-### Still on the roadmap
-
-The source-run install path is the foundation. Provider packaging remains a verified-source concern rather
-than a V2 product release claim:
-
-- **MCP server** — the knowledge graph as a queryable service: look up any ID, traverse cross-references, and pull readiness scores from any MCP-capable agent, without loading files into context.
-- **Packaged Claude Code plugin** — a generated plugin payload exists for local validation; public
-  marketplace availability remains unverified until an end-to-end release is approved.
-
-Watch the repo to catch these when they land. The fork and source-run paths both work end-to-end today.
-<!-- /SECTION: how-to-use -->
-
----
-
-<!-- SECTION: squad-status -->
-## Squad Status
-
-<!-- Updated by ghm-status-sync skill -->
-
-### Agent Activity
-
-| Agent | Role | Last Active | Current EPIC | Status |
-|-------|------|-------------|--------------|--------|
-| horizon | Strategy (v0.1-v0.5) | — | — | idle |
-| studio | Design (v0.3-v0.6) | — | — | idle |
-| devlab | Build (v0.6-v0.8) | — | — | idle |
-| metro | Ops (v0.9-v1.0) | — | — | idle |
-
-### EPIC Status
-
-| EPIC | State | Lead | Last Updated |
-|------|-------|------|--------------|
-| _(no active EPICs)_ | — | — | — |
-<!-- /SECTION: squad-status -->
-
----
-
-<!-- SECTION: contributing -->
-## Contributing
-
-Thank you for helping refine **PRD-Led Context Engineering**. This repository is not just a codebase; it is a living system of **Memory as Infrastructure**.
-
-### Core Philosophy
-
-Before contributing, read:
-
-1. **[`CLAUDE.md`](CLAUDE.md)** — agent operating instructions and documentation discipline.
-2. **[`README.md`](README.md)** — this page: methodology, navigation, and current status.
-3. **[`PRD.md`](PRD.md)** — current product authority and lifecycle authorization.
-4. **Accepted [`SoT/`](SoT/SoT.README.md) records** — durable product detail referenced by the PRD.
-
-The goal is always **Context Density**: exactly the right information, at exactly the right time, for humans and AI alike.
-
-### Ways to Contribute
-
-**Refine the methodology**
-- **Templates**: improve `SoT_template/`, its [HTML review layer](SoT_template/html/README.md),
-  `PRD_template.md`, or the manifest's distinct `*.seed.*` sources without copying repository
-  authority into them.
-- **Skills & workflows**: sharpen a stage skill, suggest automation hooks, or improve Source-of-Truth management.
-- **Documentation**: clarify the rules of the road in this README.
-
-**Report friction**
-- A [lifecycle gate](#-feature-the-progressive-prd) that slows you down without adding value? Tell us.
-- The AI struggling to find context? Report it as a **Context Leak**.
-
-### Getting Started
-
-1. **Fork & branch** for your feature or fix.
-2. **Follow the lifecycle** — even meta-changes respect the spirit of the gated workflow.
-3. **Traceability** — durable new concepts get an ID (`BR-XXX`, `UJ-XXX`).
-
-### Contribution Standards
-
-- **Terminology**: "PRD-Led Context Engineering", "Source of Truth", and "EPICs", consistent with this README.
-- **Links**: relative links to files (e.g., `[Link](README.md)`), never absolute paths.
-- **Tone**: professional, prescriptive, rigorous.
-
-### Questions?
-
-Open a GitHub Issue — and if the method earned it, [leave a star](https://github.com/mattgierhart/PRD-driven-context-engineering) on the way out. ⭐
-<!-- /SECTION: contributing -->
+**⭐ If this changes how you build with AI, [star the repo](https://github.com/mattgierhart/PRD-driven-context-engineering/stargazers) — stars put this method in front of the next team drowning in context drift.**

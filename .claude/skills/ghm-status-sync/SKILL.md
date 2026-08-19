@@ -69,7 +69,7 @@ Apply synchronization rules:
    - ⚪ = Future gates (not started)
 3. **Active EPIC**: Before v0.7 show none; from v0.7 onward update metadata in Active Work
 4. **Blockers**: Sync from the lifecycle-appropriate PRD gate or EPIC state
-5. **Squad Status** (Section: `squad-status`): Update agent and EPIC tables:
+5. **Squad Status** (Section: `squad-status`, if the README has one — skip this step when the marker is absent): Update agent and EPIC tables:
    - For each agent in `.claude/agents/`: derive "Last Active" only from an explicit dated
      memory/session/change-log entry attributable to that agent; a blank starter or filesystem
      copy mtime is not activity. Use `—` when no explicit evidence exists.

@@ -68,7 +68,7 @@ is claimed at PRD v0.1.
 
 ### Evidence and confidence
 
-- **Source Evidence:** [Build plan §2, owner-confirmed boundaries](../docs/PRD_CE_V2_BUILD_PLAN.md#2-owner-confirmed-boundaries)
+- **Source Evidence:** [Build plan §2, owner-confirmed boundaries](../docs/v2/PRD_CE_V2_BUILD_PLAN.md#2-owner-confirmed-boundaries)
 - **Confidence:** 1/5 — normative owner decision; recovery and round-trip behavior are not yet evidenced.
 - **Next Evidence Target:** Wave 2 synthetic compatibility fixtures and deterministic rebuild proofs.
 
@@ -122,7 +122,7 @@ and are not evidence for an accepted conformance verdict.
 
 ### Evidence and confidence
 
-- **Source Evidence:** [Build plan §2 and product scope](../docs/PRD_CE_V2_BUILD_PLAN.md#4-product-scope)
+- **Source Evidence:** [Build plan §2 and product scope](../docs/v2/PRD_CE_V2_BUILD_PLAN.md#4-product-scope)
 - **Confidence:** 1/5 — normative owner decision; preservation behavior awaits synthetic fixture evidence.
 - **Next Evidence Target:** Reviewed fixture coverage with zero silently lost typed IDs or explicit relationships.
 
@@ -179,7 +179,7 @@ runtime, command, migration behavior, or EPIC.
 
 ### Evidence and confidence
 
-- **Source Evidence:** [Build plan executive direction and Wave 2 contract](../docs/PRD_CE_V2_BUILD_PLAN.md#wave-2--read-only-compatibility-inspector)
+- **Source Evidence:** [Build plan executive direction and Wave 2 contract](../docs/v2/PRD_CE_V2_BUILD_PLAN.md#wave-2--read-only-compatibility-inspector)
 - **Confidence:** 1/5 — normative owner decision; no V2 executable behavior exists.
 - **Next Evidence Target:** v0.7 authorization followed by non-mutating fixture and Git-state proofs.
 
@@ -237,7 +237,7 @@ any V2 runtime capability available.
 
 ### Evidence and confidence
 
-- **Source Evidence:** [Build plan §3, Wave 0B authority and packaging resolution](../docs/PRD_CE_V2_BUILD_PLAN.md#wave-0b-authority-and-packaging-resolution)
+- **Source Evidence:** [Build plan §3, Wave 0B authority and packaging resolution](../docs/v2/PRD_CE_V2_BUILD_PLAN.md#wave-0b-authority-and-packaging-resolution)
 - **Implementation Evidence:** [Wave 0B distribution tests](../tests/test_distribution.py) pass against
   direct installation and the generated plugin payload.
 - **Confidence:** 4/5 — owner decision plus passing seed-separation, parity, non-overwrite, link,

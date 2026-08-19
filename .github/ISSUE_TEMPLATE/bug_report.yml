@@ -1,0 +1,38 @@
+name: Bug report
+description: Something in the methodology, a skill, a hook, the installer, or the readiness scorer is broken.
+labels: ["bug"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Template version
+      description: Contents of `.claude/VERSION` in the affected repo (or the commit/branch of this repo).
+      placeholder: "3.3.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Surface
+      options:
+        - Skill (prd-v* / ghm-*)
+        - Hook
+        - Installer (install.sh / prd-ce-init.sh / plugin)
+        - Readiness scoring (scripts/readiness.py)
+        - Templates / SoT / HTML review layer
+        - Docs
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, what you got. Paste the command and output where relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: ids
+    attributes:
+      label: IDs involved (optional)
+      description: Any `BR-`, `UJ-`, `API-`, `EPIC-` … IDs this touches, so the fix lands in the right place.

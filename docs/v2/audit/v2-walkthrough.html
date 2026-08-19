@@ -1,0 +1,450 @@
+<title>How v2 Works — A Walkthrough</title>
+<style>
+  :root {
+    --bg: #faf9f7; --surface: #ffffff; --ink: #1f2a2e; --ink-soft: #55666d;
+    --line: #e3e0da; --accent: #0e6e6b; --accent-soft: #e3f0ef;
+    --evidence: #3d6fa8; --intent: #7053a8; --delivery: #3d7d4f;
+    --reality: #b07422; --change: #b0524a;
+    --code-bg: #f0efeb; --you-bg: #eef4f4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16191b; --surface: #1e2225; --ink: #e6e4df; --ink-soft: #9aa7ad;
+      --line: #33393d; --accent: #4fb3ae; --accent-soft: #1d3231;
+      --evidence: #6f9fd8; --intent: #a08ad4; --delivery: #6fae82;
+      --reality: #d0a05a; --change: #d08078;
+      --code-bg: #24292c; --you-bg: #1d2b2b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16191b; --surface: #1e2225; --ink: #e6e4df; --ink-soft: #9aa7ad;
+    --line: #33393d; --accent: #4fb3ae; --accent-soft: #1d3231;
+    --evidence: #6f9fd8; --intent: #a08ad4; --delivery: #6fae82;
+    --reality: #d0a05a; --change: #d08078;
+    --code-bg: #24292c; --you-bg: #1d2b2b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink); margin: 0;
+    font: 16px/1.65 "Charter", "Iowan Old Style", Georgia, serif;
+  }
+  main { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  h1, h2, h3 { font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif; line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: 2rem; margin: 0 0 .25rem; }
+  h2 { font-size: 1.35rem; margin: 3rem 0 .75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  h3 { font-size: 1.02rem; margin: 1.5rem 0 .5rem; }
+  p { margin: .7rem 0; }
+  .sub { color: var(--ink-soft); font-size: .95rem; margin-bottom: 2rem; }
+  .kicker { font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif; font-size: .72rem;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .scene { margin: 2.25rem 0; }
+  .you, .sys {
+    border-radius: 8px; padding: .8rem 1rem; margin: .8rem 0; font-size: .93rem;
+  }
+  .you { background: var(--you-bg); border-left: 3px solid var(--accent); }
+  .you::before { content: "You say"; display: block; font-family: "Avenir Next", system-ui, sans-serif;
+    font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .25rem; font-weight: 600;}
+  .sys { background: var(--surface); border: 1px solid var(--line); }
+  .sys::before { content: "What happens"; display: block; font-family: "Avenir Next", system-ui, sans-serif;
+    font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: .25rem; font-weight: 600;}
+  code, .id {
+    font: .85em/1.5 "SF Mono", ui-monospace, "Cascadia Code", Menlo, monospace;
+    background: var(--code-bg); border-radius: 4px; padding: .08em .35em;
+  }
+  .id { font-weight: 600; }
+  .id.e { color: var(--evidence); } .id.i { color: var(--intent); }
+  .id.d { color: var(--delivery); } .id.r { color: var(--reality); } .id.c { color: var(--change); }
+  figure { margin: 1.2rem 0; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 8px; padding: .9rem .9rem .4rem; overflow-x: auto; }
+  figcaption { font-family: "Avenir Next", system-ui, sans-serif; font-size: .78rem; color: var(--ink-soft); padding: .3rem .2rem .5rem; }
+  svg text { font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif; }
+  table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: "Avenir Next", system-ui, sans-serif; font-size: .72rem; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ink-soft); }
+  .note { background: var(--accent-soft); border-radius: 8px; padding: .8rem 1rem; font-size: .92rem; margin: 1.2rem 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: .9rem; font-family: "Avenir Next", system-ui, sans-serif;
+    font-size: .78rem; color: var(--ink-soft); margin: .5rem 0 0; }
+  .legend span::before { content: "●"; margin-right: .35rem; }
+  .lg-e::before { color: var(--evidence); } .lg-i::before { color: var(--intent); }
+  .lg-d::before { color: var(--delivery); } .lg-r::before { color: var(--reality); }
+  .lg-c::before { color: var(--change); }
+  footer { margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--line);
+    font-size: .8rem; color: var(--ink-soft); }
+</style>
+
+<main>
+<p class="kicker">Private working note · direction pending R0 · 2026-08-13</p>
+<h1>How v2 works</h1>
+<p class="sub">One product, start to finish — what you actually do, and how the knowledge
+graph grows underneath while you never once "manage a graph."</p>
+
+<h2>The mental model in thirty seconds</h2>
+<p>You work a loop of five moves — <strong>Explore → Shape → Decide → Build → Learn</strong> —
+with <strong>Check</strong> available at any moment. That's the whole public surface: one command,
+seven verbs. You can enter anywhere and revisit any move.</p>
+<p>Underneath, everything you and the agent learn or decide lands as a typed record on one of five
+<em>planes</em> of product memory. You never name the planes; the verbs read and write them
+for you:</p>
+
+<figure>
+<svg viewBox="0 0 640 240" width="640" role="img" aria-label="Five planes with the loop verbs above them">
+  <!-- verbs -->
+  <text x="70" y="24" font-size="13" font-weight="600" fill="var(--ink)">explore</text>
+  <text x="185" y="24" font-size="13" font-weight="600" fill="var(--ink)">shape</text>
+  <text x="290" y="24" font-size="13" font-weight="600" fill="var(--ink)">decide</text>
+  <text x="395" y="24" font-size="13" font-weight="600" fill="var(--ink)">build</text>
+  <text x="500" y="24" font-size="13" font-weight="600" fill="var(--ink)">learn</text>
+  <text x="592" y="24" font-size="13" font-weight="600" fill="var(--accent)">check</text>
+  <!-- arrows verbs to planes -->
+  <line x1="92" y1="32" x2="92" y2="60" stroke="var(--evidence)" stroke-width="1.5"/>
+  <line x1="203" y1="32" x2="203" y2="94" stroke="var(--intent)" stroke-width="1.5"/>
+  <line x1="310" y1="32" x2="310" y2="196" stroke="var(--change)" stroke-width="1.5"/>
+  <line x1="410" y1="32" x2="410" y2="128" stroke="var(--delivery)" stroke-width="1.5"/>
+  <line x1="515" y1="32" x2="515" y2="162" stroke="var(--reality)" stroke-width="1.5"/>
+  <line x1="600" y1="32" x2="600" y2="60" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <!-- planes as lanes -->
+  <g font-size="12">
+    <rect x="20" y="62"  width="600" height="28" rx="5" fill="none" stroke="var(--evidence)"/>
+    <text x="30" y="80" fill="var(--evidence)" font-weight="600">Evidence</text>
+    <text x="120" y="80" fill="var(--ink-soft)">what we observed — interviews, research, feedback</text>
+    <rect x="20" y="96"  width="600" height="28" rx="5" fill="none" stroke="var(--intent)"/>
+    <text x="30" y="114" fill="var(--intent)" font-weight="600">Intent</text>
+    <text x="120" y="114" fill="var(--ink-soft)">what we require — decisions, rules, outcomes, scope</text>
+    <rect x="20" y="130" width="600" height="28" rx="5" fill="none" stroke="var(--delivery)"/>
+    <text x="30" y="148" fill="var(--delivery)" font-weight="600">Delivery</text>
+    <text x="120" y="148" fill="var(--ink-soft)">how it's designed and built — journeys, contracts, code, tests</text>
+    <rect x="20" y="164" width="600" height="28" rx="5" fill="none" stroke="var(--reality)"/>
+    <text x="30" y="182" fill="var(--reality)" font-weight="600">Reality</text>
+    <text x="120" y="182" fill="var(--ink-soft)">what actually happens — telemetry, adoption, incidents</text>
+    <rect x="20" y="198" width="600" height="28" rx="5" fill="none" stroke="var(--change)"/>
+    <text x="30" y="216" fill="var(--change)" font-weight="600">Change</text>
+    <text x="120" y="216" fill="var(--ink-soft)">proposals + adjudication — the only writer of accepted truth</text>
+  </g>
+</svg>
+<figcaption>The two axes. Verbs are what you do; planes are where memory lives. Check reads
+across all five. Only the Change plane mutates accepted state — everything else proposes.</figcaption>
+</figure>
+
+<p>Three rules carry everything: every durable fact gets a typed ID and lives in markdown;
+records link to records (the links <em>are</em> the graph); and nothing generated or inferred
+becomes accepted truth without an adjudicated change. The old v0.1→v1.0 stages still exist —
+as an optional guided journey over these planes, not as the system itself.</p>
+
+<h2>The layer you touch</h2>
+<p>The planes are the engine room. You live one floor up, on <strong>surfaces</strong> — pages
+the system renders <em>for</em> you and, at decision points, hands you the pen. This is the layer
+the repo has been building toward for a year: first PRD.md as the interface, then the styled
+review pages, then the decision-point pages. In v2 it's first-class, with one rule underneath:
+every surface is <em>derived</em> from the planes and none of them is the truth — markdown stays
+canonical, and any surface can be deleted and regenerated.</p>
+
+<figure>
+<svg viewBox="0 0 640 210" width="640" role="img" aria-label="Three surface types above the plane stack">
+  <g font-size="12">
+    <rect x="30"  y="14" width="180" height="52" rx="7" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+    <text x="120" y="35" text-anchor="middle" fill="var(--accent)" font-weight="600">Front door</text>
+    <text x="120" y="52" text-anchor="middle" fill="var(--ink-soft)" font-size="10.5">see progress · what needs you</text>
+    <rect x="230" y="14" width="180" height="52" rx="7" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+    <text x="320" y="35" text-anchor="middle" fill="var(--accent)" font-weight="600">Views</text>
+    <text x="320" y="52" text-anchor="middle" fill="var(--ink-soft)" font-size="10.5">understand · journey maps, registers, as-of</text>
+    <rect x="430" y="14" width="180" height="52" rx="7" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+    <text x="520" y="35" text-anchor="middle" fill="var(--accent)" font-weight="600">Deliverables</text>
+    <text x="520" y="52" text-anchor="middle" fill="var(--ink-soft)" font-size="10.5">act · rank, select, sign off</text>
+    <!-- arrows -->
+    <line x1="120" y1="102" x2="120" y2="70" stroke="var(--ink-soft)" stroke-width="1.3"/>
+    <text x="128" y="92" fill="var(--ink-soft)" font-size="10">render ↑</text>
+    <line x1="320" y1="102" x2="320" y2="70" stroke="var(--ink-soft)" stroke-width="1.3"/>
+    <text x="328" y="92" fill="var(--ink-soft)" font-size="10">render ↑</text>
+    <line x1="505" y1="70" x2="505" y2="102" stroke="var(--change)" stroke-width="1.3"/>
+    <text x="513" y="92" fill="var(--change)" font-size="10">emit ↓</text>
+    <line x1="535" y1="102" x2="535" y2="70" stroke="var(--ink-soft)" stroke-width="1.3" stroke-dasharray="3 3"/>
+    <!-- plane stack condensed -->
+    <rect x="30" y="106" width="580" height="88" rx="7" fill="none" stroke="var(--line)"/>
+    <g font-size="11" font-weight="600">
+      <text x="55" y="130" fill="var(--evidence)">Evidence</text>
+      <text x="160" y="130" fill="var(--intent)">Intent</text>
+      <text x="250" y="130" fill="var(--delivery)">Delivery</text>
+      <text x="360" y="130" fill="var(--reality)">Reality</text>
+      <text x="460" y="130" fill="var(--change)">Change</text>
+    </g>
+    <text x="55" y="156" fill="var(--ink-soft)" font-size="10.5">the five planes — canonical markdown, typed IDs, the graph</text>
+    <text x="55" y="178" fill="var(--ink-soft)" font-size="10.5">surfaces render up from here; deliverables emit records back down through Change</text>
+  </g>
+</svg>
+<figcaption>The surface layer. Front door and views render the planes outward; deliverables carry
+human judgment inward — and a completed deliverable <em>is</em> the sign-off, captured as a
+timestamped record, not a side conversation.</figcaption>
+</figure>
+
+<p>Deliverables come in two species, one mechanism: <strong>Review</strong> pages arrive
+pre-filled with the agent's draft and ask for the few judgments only you can make (rank these
+risks, accept this architecture, choose the type); <strong>Intake</strong> pages arrive blank
+and walk you through authoring (a journey, a persona). Either way the page emits the exact
+record the graph expects, and adjudication closes the loop. Backtracking uses the same two
+faces: the <em>as-of view</em> shows the decision set as of any past moment (read), and a
+<em>supersede</em> deliverable retires a decision with a successor (write) — nothing is ever
+deleted.</p>
+
+<h2>The walkthrough: "Signal"</h2>
+<p>Say you have an idea: small SaaS teams get blindsided by churn. You want to build
+<strong>Signal</strong>, a churn-warning tool. Here's the whole arc.</p>
+
+<div class="scene">
+<h3>Scene 1 — Day zero: <code>init</code></h3>
+<div class="you">"Set up Signal as a new product."</div>
+<div class="sys">A deterministic script scaffolds the memory containers, writes the front-door
+summary, and reports state with typed directives (<code>NO&#8209;EVIDENCE</code>, so the menu
+leads with explore). Nothing to read, nothing to learn — the graph is empty and the system says
+so.</div>
+</div>
+
+<div class="scene">
+<h3>Scene 2 — <code>explore</code>: the idea meets evidence</h3>
+<div class="you">"I think small SaaS teams lose accounts because churn signals are invisible
+until the cancellation email."</div>
+<div class="sys">The problem-framing playbook loads — alone, ~90 lines. It asks who exactly, digs
+for evidence, and runs the research recipes (1–3-star review mining on the incumbents, job-post
+salary math for "customer success ops"). Every observation lands on the Evidence plane <em>with a
+tier and an upgrade condition</em>: <span class="id e">CFD-002</span> "lost a $14k account with
+zero warning — support thread" (tier 3: complaint with cost, confidence 3/5), <span class="id e">
+CFD-003</span> "team exports usage CSVs every Friday as a manual ritual" (tier 2: workaround,
+2/5, <em>"→ 3/5 if five interviews confirm"</em>). Speculation gets rejected at the door — tier 5
+isn't storable. Later you run <code>explore</code> with the mom-test playbook; five interviews
+upgrade the tiers exactly as the records predicted they would.</div>
+
+<figure>
+<svg viewBox="0 0 640 150" width="640" role="img" aria-label="Graph after explore: evidence records only">
+  <g font-size="11">
+    <rect x="20" y="10"  width="600" height="26" rx="5" fill="none" stroke="var(--evidence)"/>
+    <text x="28" y="27" fill="var(--evidence)" font-weight="600">E</text>
+    <circle cx="70"  cy="23" r="6" fill="var(--evidence)"/><circle cx="90" cy="23" r="6" fill="var(--evidence)"/>
+    <circle cx="110" cy="23" r="6" fill="var(--evidence)"/><circle cx="130" cy="23" r="6" fill="var(--evidence)"/>
+    <circle cx="150" cy="23" r="6" fill="var(--evidence)"/><circle cx="170" cy="23" r="6" fill="var(--evidence)"/>
+    <circle cx="190" cy="23" r="6" fill="var(--evidence)"/><circle cx="210" cy="23" r="6" fill="var(--evidence)"/>
+    <text x="230" y="27" fill="var(--ink-soft)">CFD-001…008 · tiers 2–3 · each carries "would move to X/5 if…"</text>
+    <rect x="20" y="42"  width="600" height="26" rx="5" fill="none" stroke="var(--intent)" opacity=".35"/>
+    <text x="28" y="59" fill="var(--intent)" opacity=".5" font-weight="600">I</text>
+    <rect x="20" y="74"  width="600" height="26" rx="5" fill="none" stroke="var(--delivery)" opacity=".35"/>
+    <text x="28" y="91" fill="var(--delivery)" opacity=".5" font-weight="600">D</text>
+    <rect x="20" y="106" width="600" height="26" rx="5" fill="none" stroke="var(--reality)" opacity=".35"/>
+    <text x="28" y="123" fill="var(--reality)" opacity=".5" font-weight="600">R</text>
+  </g>
+</svg>
+<figcaption>After explore: eight evidence records, three planes still empty. The graph starts as
+observations, not plans.</figcaption>
+</figure>
+</div>
+
+<div class="scene">
+<h3>Scene 3 — <code>shape</code>: evidence becomes intent</h3>
+<div class="you">"Shape the commercial model — who is this for, what outcome, what would they pay?"</div>
+<div class="sys">Shape playbooks convert validated pain into commitments, each linked back to the
+evidence that justifies it: <span class="id i">BR-001</span> ICP "B2B SaaS, $10–50k MRR —
+<em>not for</em> enterprise" (<em>informed-by</em> <span class="id e">CFD-004</span>);
+<span class="id i">KPI-001</span> "activation = first saved account within 14 days";
+<span class="id i">FEA-001…003</span> health score, alert, save-playbook — the P0 cut. Pricing
+won't lock yet: the WTP gate holds it open until tier 1–2 payment evidence exists. The value
+statement has to pass the landing-page-headline test before it's storable.</div>
+</div>
+
+<div class="scene">
+<h3>Scene 4 — <code>decide</code>: the first adjudication</h3>
+<div class="you">"Decide the product type."</div>
+<div class="sys">This is the system's defining move — and it happens on a <strong>Review
+deliverable</strong>, not in a chat scroll. The page assembles the candidate types side by side,
+each with its supporting evidence linked, the guardrails it would inherit, and the
+counter-arguments. You rank, pick "Slice — narrow wedge of the retention-suite category," add a
+line of rationale, and the page emits the record. <span class="id c">CHG-001</span> lands on the
+Change plane recording what was decided, on what evidence, by whom, when — completing the page
+<em>is</em> the sign-off. The Slice guardrails become live policy: from now on <code>check</code>
+flags any pricing or channel decision that contradicts the type. Rejected alternatives stay
+queryable, so no future session re-litigates them.</div>
+
+<figure>
+<svg viewBox="0 0 640 180" width="640" role="img" aria-label="Graph after shape and decide">
+  <g font-size="11">
+    <rect x="20" y="10"  width="600" height="26" rx="5" fill="none" stroke="var(--evidence)"/>
+    <text x="28" y="27" fill="var(--evidence)" font-weight="600">E</text>
+    <circle cx="70" cy="23" r="6" fill="var(--evidence)"/><circle cx="90" cy="23" r="6" fill="var(--evidence)"/>
+    <circle cx="110" cy="23" r="6" fill="var(--evidence)"/><circle cx="130" cy="23" r="6" fill="var(--evidence)"/>
+    <circle cx="150" cy="23" r="6" fill="var(--evidence)"/><circle cx="170" cy="23" r="6" fill="var(--evidence)"/>
+    <circle cx="190" cy="23" r="6" fill="var(--evidence)"/><circle cx="210" cy="23" r="6" fill="var(--evidence)"/>
+    <rect x="20" y="52"  width="600" height="26" rx="5" fill="none" stroke="var(--intent)"/>
+    <text x="28" y="69" fill="var(--intent)" font-weight="600">I</text>
+    <circle cx="90"  cy="65" r="6" fill="var(--intent)"/><circle cx="130" cy="65" r="6" fill="var(--intent)"/>
+    <circle cx="170" cy="65" r="6" fill="var(--intent)"/><circle cx="210" cy="65" r="6" fill="var(--intent)"/>
+    <circle cx="250" cy="65" r="6" fill="var(--intent)"/><circle cx="290" cy="65" r="6" fill="var(--intent)"/>
+    <text x="312" y="69" fill="var(--ink-soft)">BR · KPI · FEA — each informed-by evidence</text>
+    <!-- informed-by edges -->
+    <line x1="90"  y1="29" x2="90"  y2="59" stroke="var(--intent)" stroke-width="1" opacity=".55"/>
+    <line x1="130" y1="29" x2="130" y2="59" stroke="var(--intent)" stroke-width="1" opacity=".55"/>
+    <line x1="170" y1="29" x2="170" y2="59" stroke="var(--intent)" stroke-width="1" opacity=".55"/>
+    <line x1="210" y1="29" x2="210" y2="59" stroke="var(--intent)" stroke-width="1" opacity=".55"/>
+    <rect x="20" y="94" width="600" height="26" rx="5" fill="none" stroke="var(--change)"/>
+    <text x="28" y="111" fill="var(--change)" font-weight="600">C</text>
+    <circle cx="90" cy="107" r="6" fill="var(--change)"/>
+    <text x="105" y="111" fill="var(--ink-soft)">CHG-001 — product type accepted; guardrails now live</text>
+    <line x1="92" y1="71" x2="90" y2="101" stroke="var(--change)" stroke-width="1" opacity=".55"/>
+    <rect x="20" y="136" width="600" height="26" rx="5" fill="none" stroke="var(--delivery)" opacity=".35"/>
+    <text x="28" y="153" fill="var(--delivery)" opacity=".5" font-weight="600">D</text>
+  </g>
+</svg>
+<figcaption>After shape + decide: intent exists, every commitment traceable to evidence, and the
+first Change record makes it <em>accepted</em> rather than merely written.</figcaption>
+</figure>
+</div>
+
+<div class="scene">
+<h3>Scene 5 — <code>shape</code> again: the experience and the contracts</h3>
+<div class="you">"Design the journey from alert to saved account."</div>
+<div class="sys">The experience-design pipeline runs as one continuous playbook family: persona →
+journey → screens → prototype. <span class="id d">UJ-001</span> "alert → diagnose → outreach →
+saved" (<em>designed-for</em> <span class="id i">PER-001</span>), <span class="id d">SCR-001…003
+</span>, then the technical contracts: <span class="id d">API-001</span> health-score endpoint
+(<em>enforces</em> <span class="id i">BR-002</span>), <span class="id d">DBT-001</span> accounts
+table. You review none of this as raw records: the journey renders as a <strong>journey-map
+view</strong> (trigger → steps → value moment), the screens as a flow, and the sign-off is an
+architecture-map deliverable you acknowledge. Coverage is mechanical: every P0 feature must
+appear in a journey, every journey on a screen — orphans force an add-or-cut decision now, not
+during build.</div>
+</div>
+
+<div class="scene">
+<h3>Scene 6 — <code>build</code>: code joins the graph</h3>
+<div class="you">"Build the health-score service."</div>
+<div class="sys">Build compiles a context pack (just the records this work touches — a few
+thousand tokens, not the repo), packages the work as a Change-plane unit, and writes tests first
+against the declared contracts. Code carries its address: <code>// @implements BR-002</code>.
+A deterministic pass extracts the code graph and bridges it to the spec records — so
+<code>check</code> can now answer <em>build-vs-blueprint</em> questions: contract-closure ✓,
+test-coverage ⚠ (one endpoint without a failing-path test — fixed before the unit closes).
+Anything ambiguous discovered mid-build lands as a proposal for you to adjudicate, never as a
+silent decision.</div>
+
+<figure>
+<svg viewBox="0 0 640 190" width="640" role="img" aria-label="Graph after build: delivery plane populated, code bridged">
+  <g font-size="11">
+    <rect x="20" y="10"  width="600" height="26" rx="5" fill="none" stroke="var(--evidence)"/>
+    <text x="28" y="27" fill="var(--evidence)" font-weight="600">E</text>
+    <g fill="var(--evidence)"><circle cx="70" cy="23" r="5"/><circle cx="87" cy="23" r="5"/><circle cx="104" cy="23" r="5"/><circle cx="121" cy="23" r="5"/><circle cx="138" cy="23" r="5"/><circle cx="155" cy="23" r="5"/><circle cx="172" cy="23" r="5"/><circle cx="189" cy="23" r="5"/></g>
+    <rect x="20" y="46"  width="600" height="26" rx="5" fill="none" stroke="var(--intent)"/>
+    <text x="28" y="63" fill="var(--intent)" font-weight="600">I</text>
+    <g fill="var(--intent)"><circle cx="70" cy="59" r="5"/><circle cx="87" cy="59" r="5"/><circle cx="104" cy="59" r="5"/><circle cx="121" cy="59" r="5"/><circle cx="138" cy="59" r="5"/><circle cx="155" cy="59" r="5"/><circle cx="172" cy="59" r="5"/></g>
+    <rect x="20" y="82"  width="600" height="26" rx="5" fill="none" stroke="var(--delivery)"/>
+    <text x="28" y="99" fill="var(--delivery)" font-weight="600">D</text>
+    <g fill="var(--delivery)"><circle cx="70" cy="95" r="5"/><circle cx="87" cy="95" r="5"/><circle cx="104" cy="95" r="5"/><circle cx="121" cy="95" r="5"/><circle cx="138" cy="95" r="5"/><circle cx="155" cy="95" r="5"/><circle cx="172" cy="95" r="5"/><circle cx="189" cy="95" r="5"/><circle cx="206" cy="95" r="5"/><circle cx="223" cy="95" r="5"/></g>
+    <text x="243" y="99" fill="var(--ink-soft)">UJ · SCR · API · DBT · TEST — plus code nodes bridged by @implements</text>
+    <line x1="104" y1="65" x2="104" y2="89" stroke="var(--delivery)" stroke-width="1" opacity=".55"/>
+    <line x1="138" y1="65" x2="138" y2="89" stroke="var(--delivery)" stroke-width="1" opacity=".55"/>
+    <line x1="172" y1="65" x2="172" y2="89" stroke="var(--delivery)" stroke-width="1" opacity=".55"/>
+    <rect x="20" y="118" width="600" height="26" rx="5" fill="none" stroke="var(--change)"/>
+    <text x="28" y="135" fill="var(--change)" font-weight="600">C</text>
+    <g fill="var(--change)"><circle cx="70" cy="131" r="5"/><circle cx="87" cy="131" r="5"/></g>
+    <text x="105" y="135" fill="var(--ink-soft)">CHG-001 accepted · CHG-002 build unit in progress</text>
+    <rect x="20" y="154" width="600" height="26" rx="5" fill="none" stroke="var(--reality)" opacity=".35"/>
+    <text x="28" y="171" fill="var(--reality)" opacity=".5" font-weight="600">R</text>
+  </g>
+</svg>
+<figcaption>After build: three planes dense, vertical edges everywhere. Ask "what implements
+BR-002?" or "what breaks if we change the health-score contract?" and the answer is a graph
+traversal, not archaeology.</figcaption>
+</figure>
+</div>
+
+<div class="scene">
+<h3>Scene 7 — ship, then <code>learn</code>: reality talks back</h3>
+<div class="you">"We launched Tuesday. What's actually happening?"</div>
+<div class="sys">Launch instrumented the Reality plane: <span class="id r">MON-001</span> baseline
+(alert→save conversion), telemetry <em>monitoring</em> <span class="id i">KPI-001</span>. Learn
+compares reality against intent — activation is running at 19 days against the 14-day target.
+The <strong>drift view</strong> puts reality and intent on one chart — target line, actual
+curve, the gap named. That drift doesn't silently edit anything: it becomes evidence
+(<span class="id e">CFD-012</span>, tier 4 — real behavior) and a proposal
+(<span class="id c">CHG-003</span> "expand the save-playbook library; hypothesis: playbook depth
+is the activation bottleneck") waiting on a Review deliverable. You <code>decide</code>, and the
+loop is closed — post-launch feedback flows through the same Evidence → Intent → Change
+circulation the original idea did.</div>
+
+<figure>
+<svg viewBox="0 0 640 200" width="640" role="img" aria-label="Full graph with reality plane and the closed loop">
+  <g font-size="11">
+    <rect x="20" y="10"  width="600" height="24" rx="5" fill="none" stroke="var(--evidence)"/>
+    <text x="28" y="26" fill="var(--evidence)" font-weight="600">E</text>
+    <g fill="var(--evidence)"><circle cx="70" cy="22" r="5"/><circle cx="87" cy="22" r="5"/><circle cx="104" cy="22" r="5"/><circle cx="121" cy="22" r="5"/><circle cx="138" cy="22" r="5"/><circle cx="155" cy="22" r="5"/><circle cx="172" cy="22" r="5"/><circle cx="189" cy="22" r="5"/><circle cx="206" cy="22" r="5"/></g>
+    <text x="226" y="26" fill="var(--ink-soft)">+ CFD-012 (post-launch, tier 4)</text>
+    <rect x="20" y="42"  width="600" height="24" rx="5" fill="none" stroke="var(--intent)"/>
+    <text x="28" y="58" fill="var(--intent)" font-weight="600">I</text>
+    <g fill="var(--intent)"><circle cx="70" cy="54" r="5"/><circle cx="87" cy="54" r="5"/><circle cx="104" cy="54" r="5"/><circle cx="121" cy="54" r="5"/><circle cx="138" cy="54" r="5"/><circle cx="155" cy="54" r="5"/><circle cx="172" cy="54" r="5"/></g>
+    <rect x="20" y="74"  width="600" height="24" rx="5" fill="none" stroke="var(--delivery)"/>
+    <text x="28" y="90" fill="var(--delivery)" font-weight="600">D</text>
+    <g fill="var(--delivery)"><circle cx="70" cy="86" r="5"/><circle cx="87" cy="86" r="5"/><circle cx="104" cy="86" r="5"/><circle cx="121" cy="86" r="5"/><circle cx="138" cy="86" r="5"/><circle cx="155" cy="86" r="5"/><circle cx="172" cy="86" r="5"/><circle cx="189" cy="86" r="5"/><circle cx="206" cy="86" r="5"/><circle cx="223" cy="86" r="5"/></g>
+    <rect x="20" y="106" width="600" height="24" rx="5" fill="none" stroke="var(--reality)"/>
+    <text x="28" y="122" fill="var(--reality)" font-weight="600">R</text>
+    <g fill="var(--reality)"><circle cx="70" cy="118" r="5"/><circle cx="87" cy="118" r="5"/><circle cx="104" cy="118" r="5"/><circle cx="121" cy="118" r="5"/></g>
+    <text x="140" y="122" fill="var(--ink-soft)">MON baseline · telemetry · drift: 19d vs 14d target</text>
+    <rect x="20" y="138" width="600" height="24" rx="5" fill="none" stroke="var(--change)"/>
+    <text x="28" y="154" fill="var(--change)" font-weight="600">C</text>
+    <g fill="var(--change)"><circle cx="70" cy="150" r="5"/><circle cx="87" cy="150" r="5"/><circle cx="104" cy="150" r="5"/></g>
+    <text x="122" y="154" fill="var(--ink-soft)">CHG-003 proposed from drift — the loop closes</text>
+    <!-- drift edge R->I and loop C->E -->
+    <line x1="104" y1="112" x2="104" y2="66" stroke="var(--reality)" stroke-width="1.2" stroke-dasharray="3 3"/>
+    <text x="110" y="105" fill="var(--reality)" font-size="10">drift</text>
+    <path d="M 104 146 C 300 178, 560 120, 214 30" fill="none" stroke="var(--change)" stroke-width="1.2" stroke-dasharray="3 3" opacity=".7"/>
+  </g>
+</svg>
+<figcaption>The closed loop: reality measures intent, drift becomes evidence, evidence becomes a
+proposal, adjudication updates accepted truth. Session 50 starts smarter than session 1 because
+all of this survives.</figcaption>
+</figure>
+</div>
+
+<div class="scene">
+<h3>Scene 8 — <code>check</code>, anytime</h3>
+<div class="you">"Are we ready to raise prices?" · "What's stale?" · "Anything contradict the Slice guardrails?"</div>
+<div class="sys">Check is the always-available consistency engine, and its answers arrive as
+views: the goal-scoped <strong>fitness view</strong> for whatever you're about to do (never one
+global grade), the conflict list, the <strong>freshness queue</strong> ("<span class="id i">
+BR-003</span> unverified for 96 days"), coverage, drift. The <strong>front door</strong> keeps a
+standing summary of all of it — where things are, what's active, what needs you. The old
+numbered gates live here as an optional policy pack — if you want the guided v0.1→v1.0 walk,
+check can hold you to it; if you don't, the same conditions are still checked goal-by-goal.
+Deterministic scripts do the scoring; the model never grades its own homework.</div>
+</div>
+
+<h2>What you never see</h2>
+<p>You never say "plane," never draw an edge, never assign an ID by hand. You talk about the
+product on the surfaces; the verbs file everything underneath. Two disciplines make that safe:
+<strong>proposals before acceptance</strong> (an agent can research, draft, and build, but only
+an adjudicated change touches accepted truth — and the adjudication surface is a deliverable
+page, not a buried chat reply), and <strong>evidence direction</strong> (memory is written from
+what happened — interviews, shipped code, telemetry — never from intentions).</p>
+
+<div class="note"><strong>Why the graph matters over time.</strong> At month one it's provenance —
+every commitment cites its evidence. At month six it's leverage — "why did we choose this?"
+answers itself, rejected options don't get re-argued, and a fresh session (or a fresh model)
+loads a few thousand tokens of exactly-relevant records instead of re-reading the repo. At
+month twelve it's the moat: the model is replaceable; the memory isn't.</div>
+
+<h2>Cheat sheet</h2>
+<div class="tablewrap">
+<table>
+<tr><th>Verb</th><th>Plain-words trigger</th><th>Reads</th><th>Writes</th></tr>
+<tr><td><code>init</code></td><td>"set up" / "scan this repo"</td><td>repo</td><td>memory containers, baseline</td></tr>
+<tr><td><code>explore</code></td><td>"I think…", "find out", "interview"</td><td>Evidence</td><td>Evidence (tiered, upgrade-conditioned)</td></tr>
+<tr><td><code>shape</code></td><td>"define", "design", "draft the…"</td><td>Evidence + Intent</td><td>Intent, Delivery specs → as proposals</td></tr>
+<tr><td><code>decide</code></td><td>"accept / reject / choose"</td><td>the proposal + its evidence</td><td>Change (adjudication records)</td></tr>
+<tr><td><code>build</code></td><td>"implement", "ship the…"</td><td>context pack of touched records</td><td>Delivery + code bridges</td></tr>
+<tr><td><code>learn</code></td><td>"what's happening?", "ingest this feedback"</td><td>Reality</td><td>Evidence + proposals from drift</td></tr>
+<tr><td><code>check</code></td><td>"are we ready / consistent / fresh?"</td><td>all planes</td><td>nothing — reports only</td></tr>
+</table>
+</div>
+<p class="legend"><span class="lg-e">Evidence</span><span class="lg-i">Intent</span>
+<span class="lg-d">Delivery</span><span class="lg-r">Reality</span><span class="lg-c">Change</span></p>
+
+<footer>Private note for the owner. Reflects the v2 direction as shaped 2026-08-12/13
+(plane-first ontology, loop-verb surface, consolidation audit, impeccable Northstar) — pending
+the R0 acceptance record. Sources: docs/v2/ECOSYSTEM_ONTOLOGY.md · docs/v2/V2_SKILL_CONSOLIDATION_AUDIT.md ·
+docs/v2/audit/impeccable-northstar.md.</footer>
+</main>

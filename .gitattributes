@@ -1,0 +1,7 @@
+# Linguist: the HTML review layer and generated payload are documentation/generated, not the repo's "language"
+SoT/html/** linguist-documentation
+SoT_template/html/** linguist-documentation
+plugins/prd-ce/templates/SoT_template/html/** linguist-documentation
+docs/v2/audit/*.html linguist-documentation
+# The plugin payload is generated from .claude/ by scripts/package-plugin.sh (CI-enforced); collapse it in diffs
+plugins/prd-ce/** linguist-generated=true

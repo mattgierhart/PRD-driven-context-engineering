@@ -92,7 +92,7 @@ What gets captured is defined in the `SHOTS` list at the top of
 [`screenshot.py`](screenshot.py) — a page plus an optional CSS selector (capture one entry card)
 or `None` (capture the page top with masthead and headline). Adding a new page to the library?
 Add a line to `SHOTS` and embed the image in the root README's companion section. Commit the
-regenerated PNGs (under `temp/sot-html-mockups/`) together with the HTML change that caused them.
+regenerated PNGs (under `docs/assets/sot-html/`) together with the HTML change that caused them.
 
 ---
 

@@ -58,9 +58,11 @@ This directory contains Claude Code configuration following Anthropic's official
 └── settings.json               # Hook configuration
 ```
 
-This tree describes the direct-installed runtime. Contributor indexes, the skill-authoring
-template, the plugin initializer, the template-sync operator, and the source-checkout-only
-`ghm-self-install` operator are intentionally excluded from consumer installs.
+This tree describes the direct-installed runtime (41 stage skills + 5 methodology operators).
+The authoring source in this repository holds two more operators (`ghm-self-install`,
+`ghm-template-sync`), the plugin initializer (`init`), the skill-authoring template
+(`SKILL_TEMPLATE`), and the contributor indexes — all intentionally excluded from consumer installs
+by `install-manifest.yaml` (`direct_exclude`).
 <!-- /SECTION: directory-tree -->
 
 ## Skills

@@ -6,6 +6,64 @@ This document helps derivative repos sync with template changes. Each version se
 
 ---
 
+## v3.2.0 → v3.3.0
+
+**Released**: 2026-08-08
+
+### What Changed
+
+A large span: readiness scoring, the Development Graph, 15 new stage skills (v0.8–v1.0) with the `ADO-`
+prefix family, skill execution modes, the HTML review layer, the manifest-driven installer and plugin
+packaging, and the separation of this repository's own authority from the generic downstream seeds. See
+`CHANGELOG.md` [3.3.0] for the full list. **No breaking rename; two structural changes matter for
+derivative repos**: the template files now live beside the root authority files (`PRD_template.md`,
+`README_template.md`, `SoT_template/`), and upgrades are now driven by `install.sh` + `install-manifest.yaml`
+instead of hand-copying.
+
+### Migration Checklist
+
+#### Preferred: let the installer upgrade you
+
+```bash
+git clone https://github.com/mattgierhart/PRD-driven-context-engineering /tmp/prd-method
+cd /path/to/your/repo
+bash /tmp/prd-method/install.sh --target . --profile product --dry-run   # preview: framework files updated, product files untouched
+bash /tmp/prd-method/install.sh --target . --profile product --force     # apply; retires fingerprinted obsolete framework files
+```
+
+The manifest's `framework` class (skills, hooks, rules, scripts, `.claude/README.md`, `VERSION`) is
+refreshed; `never_touch` files (`README.md`, `PRD.md`, `SoT/`, `epics/*.md`, `domain-profile.yaml`, agent
+`MEMORY.md`) are never overwritten.
+
+#### Manual path (if you do not want the installer)
+
+- [ ] Copy the new stage skills: `.claude/skills/prd-v08-*` (3 new), `prd-v09-*` (7 new: the `gtm-strategy` split plus four tactical playbooks), `prd-v10-*` (5 new).
+- [ ] Add `SoT/SoT.ADOPTION.md` from `SoT_template/` and register the `ADO-STAGE-` / `ADO-BEACHHEAD-` / `ADO-WHOLE-` / `ADO-REF-` prefixes in your `.claude/domain-profile.yaml` (compare with `.claude/domain-profile.seed.yaml`).
+- [ ] Copy `scripts/readiness.py`, `scripts/_readiness/`, `scripts/validate-edges.py`, `scripts/asof.py`, `scripts/requirements.txt`; add `status/readiness.json` to `.gitignore`; run `python3 -m pip install -r scripts/requirements.txt && python3 scripts/readiness.py run`.
+- [ ] Add rules `.claude/rules/07-readiness-protocol.md` and `08-skill-execution-modes.md`; add `readiness_inputs:` frontmatter to `PRD.md` and EPICs as described in `docs/READINESS_PROTOCOL.md`.
+- [ ] Copy `docs/READINESS_PROTOCOL.md` and `docs/DEVELOPMENT_GRAPH.md` (from the `.seed.md` originals).
+- [ ] Optionally add the HTML review layer: copy `SoT_template/html/` to `SoT/html/` and fill the `{placeholder}` slots from your SoT entries (see `SoT/html/README.md`).
+- [ ] Update `.claude/hooks/context-validation.sh` (Operating Discipline preamble) and `.claude/settings.json` if you carry local hook edits.
+- [ ] Bump `template_version` in your `CLAUDE.md` / `README.md` frontmatter to `3.3.0`.
+
+### Notes for Repos Already Past v0.7
+
+Readiness activates two extra EPIC dimensions (`implementation_coverage`, `architecture_conformance`) only
+once `status/devgraph.json` exists; until you tag code with `@implements` / `@verifies`, scores are
+unaffected. Run `python3 scripts/readiness.py run` before your next gate to see the baseline.
+
+### Verification
+
+```bash
+python3 scripts/readiness.py status                 # report prints; exit 0/1/2 = PASS/WARN/BLOCK
+ls .claude/skills | grep -c "^prd-v"                # 41 stage skills
+ls .claude/rules/                                    # 8 rule files
+grep -c "ADO-" .claude/domain-profile.yaml           # > 0
+cat .claude/VERSION                                  # 3.3.0
+```
+
+---
+
 ## v3.1.0 → v3.2.0
 
 **Released**: 2026-04-01

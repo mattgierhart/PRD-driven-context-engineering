@@ -6,6 +6,35 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Template version
 
 ---
 
+## [3.3.0] — 2026-08-08
+
+Everything that landed on the template between the 3.2.0 tag and the Wave 0B authority/seed split
+(`.claude/VERSION` was bumped to 3.3.0 on 2026-08-08). Later entries are dated by the commit that
+introduced them; the version label covers the whole span.
+
+### Added
+- **Readiness scoring** (`scripts/readiness.py` + `scripts/_readiness/`): a three-layer graph over SoT files → EPICs → PRD stages writing `status/readiness.json`, with causal blockers, PASS/WARN/BLOCK thresholds, dimension overrides, and the `ghm-gate-check` delegation; rule `07-readiness-protocol.md`; `docs/READINESS_PROTOCOL.md`; CI workflow `readiness.yml` (tests + non-blocking smoke).
+- **Development Graph** (`docs/DEVELOPMENT_GRAPH.md`, `status/devgraph.json`): `@implements` / `@verifies` bridge edges from code to spec IDs; `implementation_coverage` and `architecture_conformance` readiness dimensions activate once code exists; `scripts/validate-edges.py` (required-edge validation) and `scripts/asof.py` (valid-time queries).
+- **15 new stage skills** completing the lifecycle: v0.8 `changelog-as-marketing`, `drift-baseline-compare`, `marketing-ops-handoff`; v0.9 `positioning-dunford`, `offer-construction-hormozi`, `launch-channels-orb` (framework-grounded companions to `gtm-strategy`), plus `aeo-audit`, `alternatives-pages`, `cold-outreach-tiered`, `hn-reddit-launch`; v1.0 `chasm-adoption-moore`, `continuous-discovery-torres`, `mom-test-interview`, `case-study-builder`, `testimonial-collector` — with `SoT/SoT.ADOPTION.md` and the `ADO-` prefix family registered in `domain-profile.yaml`.
+- **Skill execution modes** (`quick` / `standard` / `deep`) declared in skill frontmatter; rule `08-skill-execution-modes.md`.
+- **AI behavioral guardrails** integrated into the v0.7 build-execution skills.
+- **The Human Review Layer**: `SoT/html/` — an HTML companion page per SoT file (Atlas + 12 views, editorial "printed briefing" design, entry anchors = IDs, cross-references as hyperlinks, a research-backed pattern library), `SoT/html/screenshot.py` (Playwright) for the README screenshots, and the same layer in `SoT_template/html/`.
+- **Source-run install** into an existing repo: `install.sh` (manifest-driven, idempotent, merges `settings.json`), `BLUEPRINT.md` one-paste bootstrap, the `ghm-self-install` and `ghm-template-sync` operators, `.claude/install-manifest.yaml` file classes (`framework` / `template_seed` / `never_touch` / `direct_exclude` / `plugin_review_alias` / obsolete-fingerprint retirement), and the `tests/test_distribution.py` contract suite.
+- **Claude Code plugin packaging**: `scripts/package-plugin.sh` generates the tracked `plugins/prd-ce/` payload from `.claude/` (strategy B); `.claude-plugin/marketplace.json`; the `/prd-ce:init` greenfield seeder (`init` skill + `scripts/prd-ce-init.sh`); `scripts/check-plugin-sync.sh` and the `plugin-sync.yml` CI workflow; `CLAUDE_plugin_stub.md` for plugin-native consumers.
+- **SessionStart Operating Discipline preamble** — always-on read-order and discipline injection in `context-validation.sh`.
+- `docs/MODERNIZATION_ASSESSMENT_PROMPT.md` (drift assessment for downstream repos); harness-forge evaluation discipline adopted into the skills; the deliverables concept note (`docs/v2/DELIVERABLES_CONCEPT.md`); the markdown link-check workflow now excludes the generated plugin payload.
+
+### Changed
+- **Repository authority separated from downstream seeds** (Wave 0B): the root `PRD.md`, `README.md`, and `SoT/` describe this repository itself; products start from the new `PRD_template.md`, `README_template.md` (template_version 3.3.0), `SoT_template/`, and the `*.seed.*` twins for `docs/`, `epics/`, `domain-profile`, and agent memory. `epics/README.md`, `.claude/README.md`, and `BLUEPRINT.md` rewritten accordingly.
+- `README.md` reframed around the method's features with the review-layer screenshots; v3.3.0 also carries the V2 branch note.
+- `domain-profile.yaml`, `skills-inventory.md`, and the agent `AGENT.md` files register the new stage skills and the `ADO-` prefix.
+- `.gitignore` tracks the generated plugin payload deliberately and ignores private evaluation material.
+
+### Removed
+- SoT/html example screenshots no longer ship in the install seed (moved out of the seeded tree).
+
+---
+
 ## [3.2.0] — 2026-04-01
 
 ### Added

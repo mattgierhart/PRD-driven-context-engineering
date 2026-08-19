@@ -568,6 +568,67 @@ recommendation, and what happens the moment it is made. Record the call in the l
 | **D14** | **Social preview card** | approve the §10.4 draft composition (atlas crop + title + tagline + subtitle on the warm-paper ground), or ask for a variant | approve the draft after the subtitle (D7) lands in it | Matt uploads (UI only — Settings → Social preview) |
 | **D15** | **Hero visual direction** (after the §10.2 experiments) | one of the eight concepts, or the typeset/no-illustration route | decide after seeing 2–3 rounds of outputs; my prior: concept 4 (the city map) or 8 (letterpress) fit the house style best | Claude produces the final asset at 16:9 + the 1280×640 crop |
 
+### Ready-to-execute packet for the public actions (D10–D13 + two posts)
+
+Everything below is drafted; each needs one "go" because it is public.
+
+**P-push — push `prd-ce-v2` to origin.** Commits since the last push: `1000d51` (plan + brief), `8ee7011`
+(plan v1.1), `7faccb4` (hygiene), `b06ea45` (polish batch), plus the tracker/asset commits after it. Pushing
+makes the cleanup, README 1.5, community files, and `docs/v2/` visible on the branch (GitHub reads
+community files from the default branch, so the profile % moves only when these reach `main`).
+
+**D10 — tags and releases.** All five CHANGELOG versions are on `main`'s history; `3.3.0` is on
+`prd-ce-v2` (commit `11297db`). Recommendation: create annotated tags `v1.0.0` (1.0.0 commit), `v2.0.0`,
+`v3.0.0`, `v3.1.0`, `v3.2.0` (at `36ac750`) now with `gh release create` using the CHANGELOG sections as
+notes; tag `v3.3.0` at `11297db` and publish it as a **pre-release** from the branch once P-push is done.
+Commands are one-liners; I run them on your go.
+
+**D11 — PR #68 (`jessary27:feature/pm-enhancements`, opened 2026-04-28, 7 files, +1,200, now CONFLICTING
+with `main`).** Four new stage skills (`prd-v05-multi-perspective-review`, `prd-v07-ab-test-design`,
+`prd-v08-release-notes-writer`, `prd-v10-retention-analyzer`) plus a `09-pm-governance` rule and a
+`domain-profile.yaml` edit. Draft reply (posted under your account or mine — your call):
+
+> Thank you for this — and sorry it sat. The four skills are genuinely useful (multi-perspective review
+> and A/B design especially), and the PM shipping-zone idea is one we want. Two things changed while
+> this was open: `main` moved a lot (the branch now conflicts), and v2 is collapsing the 50 stage skills
+> into ~30 playbooks behind a seven-verb surface (see `docs/v2/` on the `prd-ce-v2` branch). Rather than
+> ask you to rebase 1,200 lines onto a structure we're about to change, would you be open to (a) rebasing
+> just the four skills onto `main` as a smaller PR so they ship in the current template, and (b) letting
+> me carry the governance rule into the v2 playbook registry with credit? Either way I'd like to keep
+> the work. If you'd rather I close this and open tracked issues for each piece, say so and I will.
+
+**D12 — stale remote branches.** Merged into `main` (safe to delete, 15): `claude/enhance-sot-graph-structure-dTJmt`,
+`claude/harness-forge-analysis-qr7vcw`, `claude/improve-skills-ai-coding-HNrRA`,
+`claude/portfolio-repo-structure-DSDqX`, `claude/prd-deliverables-concept-3r982d`,
+`claude/sot-html-templates-schema-ngue7e`, `claude/xantham-self-install-analysis-ah6d5f`,
+`feat/development-graph`, `feat/readiness-scoring`, `feat/skills-consumes-produces-connective-tissue`,
+`feat/template-hardening-v3`, `feat/v08-v10-marketing-gtm-skills`,
+`feat/v3.1.0-visual-prototype-gate-and-env-setup`, `fix/hook-hardening-and-tooling`,
+`portfolio/skills-and-agents`. Keep: `main`, `prd-ce-v2`, the two draft-PR heads
+(`claude/vibe-check-skill-review-cd9gcc` #74, `codex/review-solidifier-for-best-practices` #78).
+Decide separately (unmerged, no PR): `claude/optimistic-lehmann-94b259` (4 commits, May),
+`claude/skills-methodology-update-CvZbV` (1 commit, Feb).
+
+**D13 — awesome-claude-code submission.** After the first Release exists. I prepare the PR text; you
+approve the external PR.
+
+**Post A — pinned "Start here" Discussion** (Discussions are on; category: Announcements or General).
+Draft:
+
+> **Start here.** PRD-Led Context Engineering — Memory as Infrastructure — is a fork-ready methodology for
+> building products with AI agents: a gated PRD (v0.1 → v1.0), a markdown knowledge graph of typed IDs
+> your agents cite instead of guess, 41 stage skills, hooks, and a readiness scorer that tells you what
+> to fix first. New here? README → Quick Start → `docs/index.md`. Adopting into an existing repo? →
+> `docs/INSTALL.md`. Curious where it's going? The v2 direction (the PM loop, the eight Key Moments, the
+> go-live tracker) lives in `docs/v2/` on the `prd-ce-v2` branch. Questions and "what I built with it"
+> belong here; bugs and context leaks have issue forms. — Matt
+
+**Post B — issue dispositions.** #53 (separate methodology content from the README dashboard): comment
+"done in README 1.5 on `prd-ce-v2` — sections moved to `docs/`, dashboard removed; closes when the branch
+merges" and close-on-merge. #56 (QUICKSTART.md): comment "Quick Start is now the first section of the
+README and `docs/INSTALL.md` carries the three adoption paths" and close. #57 (example project through
+v0.4): keep open; comment that the Key Moments fixture ("Signal") in `docs/v2/` is the planned vehicle.
+
 ### Decision log
 
 | Date | Decision | Call | By |

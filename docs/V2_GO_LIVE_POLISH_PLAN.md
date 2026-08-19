@@ -1,8 +1,8 @@
 ---
 title: "PRD-CE V2 · Go-Live Polish Plan (gap analysis)"
-version: 1.0
+version: 1.1
 date: 2026-08-19
-status: "Maintainer planning record — gap analysis; authorizes nothing (PRD.md authority order, item 7)"
+status: "Maintainer planning record + living tracker — gap analysis; authorizes nothing (PRD.md authority order, item 7). §7 is the status table: update it as items close."
 purpose: "Define what a polished go-live means for this repository and its companion site, inventory the gaps against that bar, and sequence the missing steps — across three lenses: Key Moments visual polish, repository organization, and repo polish for promotion."
 origin: "Owner-requested go-live polish review, 2026-08-19 (three read-only repo/GitHub/site sweeps + one structural design pass)."
 companions:
@@ -32,22 +32,29 @@ apart so that Tier 1 can ship now without borrowing any v2 claim.
 
 | Tier | What goes live | Audience | Entry gate | Exit bar | Approvals |
 |---|---|---|---|---|---|
-| **T1 · Template-repo go-live** (`main`, now) | The existing methodology as a tight, promotable template: hygiene, cleanup, README polish, community files, GitHub settings, tagged releases | People arriving from LinkedIn / GitHub search; forkers; plugin installers | None — pre-R0, no v2 vocabulary, no v2 claims | §8 T1 checklist; ≥ 25/30 of the §2 polish checklist PASS; community profile 100 %; one GitHub Release published; social preview live | Owner: public settings, releases, removals (§9 #1, #5) |
-| **T2 · V2 concept public** | The v2 *story* as thought leadership: the Key Moments canon, the PM loop, the walkthrough, the moment templates as labeled illustrative previews; README "where v2 is going"; site canon pages + essays | Product/engineering leaders; the LinkedIn audience | **R0** for anything stated as methodology truth in the repo; pre-R0 only as dated, labeled owner direction (brief v2.0 claim class B) | §8 T2 checklist; every public artifact carries its truth label | Owner: canon-page publication pre-R0 (§9 #4), site publication (PRD open decision 4) |
+| **T1 · Template-repo go-live** (`main`, now) | The existing methodology as a tight, promotable template: hygiene, cleanup, README polish, community files, GitHub settings, tagged releases | People arriving from LinkedIn / GitHub search; forkers; plugin installers | None — pre-R0, no v2 vocabulary, no v2 claims | §8 T1 checklist; ≥ 25/30 of the §2 polish checklist PASS; community profile 100 %; one GitHub Release published; social preview live | Owner: public settings, releases, removals (§9 D1, D5, D8–D13) |
+| **T2 · V2 concept public** | The v2 *story* as thought leadership: the Key Moments canon, the PM loop, the walkthrough, the moment templates as labeled illustrative previews; README "where v2 is going"; site canon pages + essays | Product/engineering leaders; the LinkedIn audience | **R0** for anything stated as methodology truth in the repo; pre-R0 only as dated, labeled owner direction (brief v2.0 claim class B) | §8 T2 checklist; every public artifact carries its truth label | Owner: canon-page publication pre-R0 (§9 D4), site publication (PRD open decision 4) |
 | **T3 · V2 runtime alpha** | Read-only Compatibility Inspector (`index / check / query / trace`), the moment pull scripts | Early adopters | Build plan Waves 1–3; v0.7 EPIC | Build plan §11 minimum merge bar (13 items) — not restated here | Owner: merge and release as separate decisions (BR-003) |
 
-**Branch strategy for T1 (owner decision #1, recommendation stated).** `main` today is v3.2.0: `PRD.md` is
+**Branch strategy for T1 (owner decision D1, recommendation stated).** `main` today is v3.2.0: `PRD.md` is
 the *generic template PRD* (no `PRD_template.md` / `SoT_template/` exist there), the README is 389 lines,
 and `main` is 14 commits behind `prd-ce-v2`. The Wave 0B split (root authority vs. downstream seeds,
 `.claude/VERSION` 3.3.0, plugin payload refresh, distribution tests) lives only on the v2 branch, which
 BR-003 keeps isolated until an explicit merge decision. Recommendation: **execute T1 on a branch cut from
 `main`** (vocabulary-neutral polish only), merge by PR under the existing CI (tests · plugin-sync · link
 check), then reconcile `main → prd-ce-v2` per build plan §11. Whether Wave 0B itself lands on `main` ahead
-of the v2 runtime — as a "v3.3.0 template release" — is a separate owner decision (#2); it is template
+of the v2 runtime — as a "v3.3.0 template release" — is a separate owner decision (D2); it is template
 hygiene, not a V2 runtime release, but it changes what a forker sees at root.
 
 What this plan is not: not a build plan (Waves live in `PRD_CE_V2_BUILD_PLAN.md`), not a PRD change, not the
 v2 repo to-do (`temp/v2-audit/v2-todo.md` owns that; crosswalk in §4.6).
+
+**How to use this document as the tracker (v1.1).** §7 holds every actionable item with an owner
+(*Claude* executes · *Matt* creates · *Matt-approve* decides) and a status (`☐` open · `◐` in progress ·
+`☑` done · `⊘` dropped). §9 is the decision packet — each decision with options, recommendation, and a
+slot for the call; the decision log at its end records outcomes. §10 holds the starting points for the
+creative items Matt owns. Close an item by flipping its status and adding the date; nothing else in the
+document needs to change.
 
 ---
 
@@ -64,7 +71,7 @@ v2 repo to-do (`temp/v2-audit/v2-todo.md` owns that; crosswalk in §4.6).
 | # | Gap | Fix (one line) | Size |
 |---|---|---|---|
 | 1 | No custom social preview — every LinkedIn share renders GitHub's default grey card | Upload a 1280×640 preview cropped from `atlas.png` on the cream/ink/gold ground | S |
-| 2 | Hero tagline is an abstract noun phrase; the real hook (the amnesia line) is buried in italics under four badges | Tagline = verb + outcome + audience in ≤ 14 words; promote the amnesia lede | S |
+| 2 | The hero has no line that says what you *get*; the real hook (the amnesia line) is buried in italics under four badges | **Tagline stays** — "Memory as Infrastructure" has performed well (owner, 2026-08-19). Add a **subtitle** that does the verb + outcome + audience work (candidates in §10.1) and promote the amnesia lede | S |
 | 3 | No motion proof — six stills, zero demo | 20–30 s GIF of `readiness.py run` blocking a gate then passing, or the loop SVG | M |
 | 4 | No one-command start; "Use this template" is live (`isTemplate: true`) but never mentioned | One copy-paste line leads Quick Start; a **Use this template** link in the hero | S |
 | 5 | Repo description/topics stale and off-brand (`nextjs`, `supabase`; "PRD-driven") | Description = the tagline; topics `claude-code context-engineering spec-driven-development ai-agents agentic-coding prd agent-skills templates` | S |
@@ -109,7 +116,7 @@ Verdicts reflect `main` unless noted; ✅ PASS · ⚠️ PARTIAL · ❌ FAIL.
 | # | Item | Verdict · evidence |
 |---|---|---|
 | **(a) Above the fold** | | |
-| 1 | One-sentence tagline: verb + outcome + audience, ≤ 15 words, first line under the H1 | ❌ "Memory as Infrastructure — an operating system for building products with AI agents" names an abstraction |
+| 1 | One sentence under the H1 that says what you get: verb + outcome + audience, ≤ 15 words | ⚠️ The tagline "Memory as Infrastructure" **stays by owner decision** (it has performed well); the gap is the missing subtitle that names the outcome and the audience — §10.1 |
 | 2 | Hero visual within the first screen | ✅ `atlas.png` — the repo's single best asset |
 | 3 | Badge row resolves accurately: license · CI · release · stars | ⚠️ 4 badges; no CI badge (3 workflows exist); no release badge (nothing to point at); "PRs welcome" points at a README heading, not a file |
 | 4 | Primary CTA above the fold is *install/try*, not *star* | ❌ only CTA is the star ask |
@@ -167,7 +174,7 @@ says only that "today's hand-authored companion pages are the templates' ancesto
 "Visual polish" for the Key Moments therefore means three things, in order: record the inheritance
 decision, rule on the nine conflicts it exposes, then build to the bar in §3.4 in the staging of §3.6.
 
-### 3.2 The inheritance decision (recommended; owner decision #3 covers the one open sub-point)
+### 3.2 The inheritance decision (recommended; owner decision D3 covers the one open sub-point)
 
 | Layer | Inherit from | Why |
 |---|---|---|
@@ -185,7 +192,7 @@ comment) — effort S; it is the first step of Phase 2 (§7).
 |---|---|---|---|---|---|
 | C1 | Font stack | `"Plantin","Freight Text Pro",Georgia…` name-first; macOS-flavoured | one system stack, no web fonts (`file://`) | Keep the *structure* (serif headline · grotesque label · mono ID); re-spec as name-first **with system fallbacks that degrade identically on Windows/Linux**; verify with zero network | design session |
 | C2 | One accent per loop verb vs. one ochre spot | "at most one ochre device competes on a page"; rainbow categorical palettes and a second accent banned | six verb accents so a page signals where in the loop it sits | **Sharpest conflict in the corpus.** Ochre stays the only spot (chip underline, kicker №, sign-off commit). The verb signal becomes a **low-chroma hairline/label band in the chrome**, a muted six-value ramp derived from the existing `--green/--amber/--teal/--purple/--navy/--gray` — never as fills; muted further on M5 (the research's own carve-out) | owner confirms |
-| C3 | Dark mode | none in `sot.css` (zero `prefers-color-scheme`) | required; walkthrough implements it | Shell carries the three-tier *mechanics* from day one (cheap). Whether a **warm-dark ramp** ships in the first build or waits is owner decision #3; recommendation: light + print first, dark ramp second — and when it comes, derive it from paper/ink, not a generic `#16191b` | owner (#3) |
+| C3 | Dark mode | none in `sot.css` (zero `prefers-color-scheme`) | required; walkthrough implements it | Shell carries the three-tier *mechanics* from day one (cheap). Whether a **warm-dark ramp** ships in the first build or waits is owner decision D3; recommendation: light + print first, dark ramp second — and when it comes, derive it from paper/ink, not a generic `#16191b` | owner (D3) |
 | C4 | Severity colour | red/amber/green status **dots** banned (fail greyscale, fight the spot) | dual-channel severity and grade, colour included | Both agree colour is never the only channel. Primary = rank position + label + magnitude; the RAG tier renders as **bar fills and labels** using the existing muted `--green #3d6b35` / `--amber #9c7a2d` / `--red #9e3b2c` — satisfies the doctrine's actual objection (dots), not its letter | design session |
 | C5 | JavaScript | "if a device needs JavaScript … it has left the system" | chip expand, drag-rank, sortable register, movable beta line, input mode | Apply the amendment already drafted in `DELIVERABLES_CONCEPT.md` §5 (L114–116) / §9: **one sanctioned `deliverable.js`, enhancement-only; every template renders complete without it** (the no-JS floor in §3.4). Update `SoT/html/README.md` when the amendment lands | design session, then html README |
 | C6 | Radius / elevation | `--radius: 0`, `--shadow: none`, gradients banned | "recommended" column gets a badge **and elevation**; walkthrough uses 8px radii | Follow the house: "recommended" = heavy ink rule + ochre tag (the doctrine's own `figure.exhibit` device); drop the walkthrough's radii | design session |
@@ -202,7 +209,7 @@ A template is done when every line below is true (the checklist the design sessi
 - [ ] **Family shell present**: tokens per §3.2; provenance chip (ID-only by default; tier dot + confidence + source on demand); staleness stamp top-right backed by the embedded data fingerprint; the ordered M1→M8 rail with per-moment freshness dot; the sign-off ceremony (literal-verb button, signer + timestamp, weight proportional to consequence — static in the alpha); the comparison component where the moment uses it (M3, M5, M7).
 - [ ] **Every data state designed, not just the happy one**: n=0 · n=1 · n-many · overflow, plus the moment's named flags from the canon (e.g. M1 "needs Explore", M2 "n of 5" cap, M4 >15-screen cap breach / dead-end / absent money shot, M5 high-risk-without-response, M6 dependency cycle, M7 reconciliation contradiction / "launching blind", M8 "not yet measured" never rendered as zero).
 - [ ] **Hydrates from `<moment>.json`** with the moment's Renders list, record IDs and provenance tags on every fact; no hand-edited content in the template (the Graphify rule — rebuild, don't fix).
-- [ ] **Light theme complete; theme mechanics present**; dark ramp per owner decision #3.
+- [ ] **Light theme complete; theme mechanics present**; dark ramp per owner decision D3.
 - [ ] **Print/PDF**: detail-on-demand expanded, chips as footnotes, full-width maps.
 - [ ] **Keyboard-operable, WCAG AA contrast, dual-channel encodings** (position/label + colour; never colour alone).
 - [ ] **Responsive at 390 / 768 / 1024 / 1440** without hiding evidence or status labels.
@@ -350,7 +357,7 @@ Removal is forward-only: the owner accepted the ancestor-history exposure on 202
 
 **README 1.5 (T1, on `main`, now; vocabulary-neutral; target ≤ 250 lines).** Structure:
 
-1. H1 + **tagline** (verb + outcome + audience, ≤ 14 words — e.g. *"Give your AI coding agent a memory that survives the session: a gated PRD and a markdown knowledge graph for Claude Code."*; the owner picks the final line) + badges (stars · license · **CI** · **release** · built-for-Claude-Code; fix the PRs-welcome target to `CONTRIBUTING.md`).
+1. H1 + the tagline **"Memory as Infrastructure"** (kept — it has performed well) + a **subtitle** that does the verb + outcome + audience work in ≤ 16 words (owner picks from §10.1) + badges (stars · license · **CI** · **release** · built-for-Claude-Code; fix the PRs-welcome target to `CONTRIBUTING.md`).
 2. **One-command start** + **Use this template** link, above the image. Candidates for the one line: the `BLUEPRINT.md` one-paste bootstrap, or `gh repo create my-product --template mattgierhart/PRD-driven-context-engineering`, then the two-line `pip install` + `readiness.py run`. State prerequisites once.
 3. Hero image (`docs/assets/atlas.png`) **or the motion proof** (§5.4) directly under the tagline.
 4. "What you get in 5 minutes" — three lines.
@@ -387,17 +394,18 @@ guided journey, the skills feature re-framed as a registry, the agent squad rewr
 "context leak" report in the method's own vocabulary) · `.github/PULL_REQUEST_TEMPLATE.md` (IDs touched,
 SoT updated?, plugin payload regenerated?). Optional: `SUPPORT.md`, `FUNDING.yml`, `CITATION.cff`.
 
-### 5.4 Proof in motion (M; owner decision #6)
+### 5.4 Proof in motion (M; owner decision D6)
 
 Either a 20–30 s terminal GIF (`readiness.py run` blocking a gate → a fix → passing; asciinema → agg, or
 VHS) or the loop SVG diagram (BMAD's pattern; the walkthrough's plane/verb SVG is a ready candidate once
-re-tokenised). One of the two sits under the tagline; the six stills move below the fold.
+re-tokenised). One of the two sits under the tagline; the six stills move below the fold. **Owner: yes to
+the GIF (2026-08-19)** — storyboard, fixture, and a ready-to-run VHS tape are in §10.3.
 
 ### 5.5 Release hygiene (S)
 
 Backfill annotated tags `v1.0.0`, `v2.0.0`, `v3.0.0`, `v3.1.0`, `v3.2.0` at their CHANGELOG commits; publish
 a GitHub Release for the T1 polish (`v3.2.1`, notes from the CHANGELOG entry you add); `3.3.0` is entered and
-released when/if Wave 0B lands on `main` (decision #2). Each release is a LinkedIn post (build-in-public type).
+released when/if Wave 0B lands on `main` (decision D2). Each release is a LinkedIn post (build-in-public type).
 
 ### 5.6 Maintainer signals (S)
 
@@ -433,33 +441,80 @@ verify the plugin marketplace install end-to-end before any "install" CTA (READM
 
 ---
 
-## 7. Sequenced roadmap
+## 7. Tracker (was: sequenced roadmap)
 
-Sizes: S < 1 h · M ≈ half day · L = multi-day · XL = multi-session.
+Sizes: S < 1 h · M ≈ half day · L = multi-day · XL = multi-session. Owner: **Claude** executes ·
+**Matt** creates · **Matt-approve** decides (then usually Claude executes). Status: `☐` open ·
+`◐` in progress · `☑` done · `⊘` dropped. Flip the status and date an item when it closes.
 
-| Step | Tier | Depends on | Size | Approval | Ref |
-|---|---|---|---|---|---|
-| 0.1 P0 hygiene H1–H3 | T1 | — | S | owner (#5) | §4.2 |
-| 1.1 Cleanup batch on a branch from `main`: PNGs → `docs/assets`, pptx, orphans → archive, `rename_templates.py`, `temp/` split, `temp/README.md`, `.claude/README.md` tree, seed headers, `.gitattributes` | T1 | 0.1 | M | — | §4.4 |
-| 1.2 `docs/index.md` + `docs/v2/` split + `docs/maintainer/archive/` + `INSTALL.md` + `ARCHITECTURE.md` | T1 | 1.1 | M | — | §4.3 |
-| 1.3 README 1.5 | T1 | 1.2 | M | owner picks the tagline | §5.1 |
-| 1.4 Community files | T1 | — | S | — | §5.3 |
-| 1.5 Motion proof | T1 | 1.3 | M | owner (#6) | §5.4 |
-| 1.6 GitHub settings + social preview | T1 | 1.3 | S | owner | §5.2 |
-| 1.7 Tags backfill + `v3.2.1` release + LinkedIn launch post | T1 | 1.1–1.6 merged | S | owner | §5.5 |
-| 1.8 PR #68 / issues / branches / Discussion pin / awesome-list | T1 | — | S | owner | §5.6–5.7 |
-| 1.9 Reconcile `main → prd-ce-v2`; decide Wave 0B → `main` | T1→T2 | 1.7 | M | owner (#1, #2) | §0 |
-| 2.0 Record the inheritance decision in the canon (§3.2) | T2 | — | S | owner (#3) | §3.2 |
-| 2.1 Design S1: family shell + style tile + fixture schema | T2 | 2.0 | M | owner approves tile | §3.6 |
-| 2.2 Design S2–S4: M1/M3/M8 → M4/M6 → M5/M2/M7 | T2 | 2.1 | L ×3 | — | §3.6 |
-| 2.3 Design S5: polish, screenshots, prototype tests | T2 | 2.2 | M | — | §3.6 |
-| 2.4 Walkthrough re-tokenised to the house system and promoted from private note to public "v2 in 30 seconds" page | T2 | 2.1 | M | owner | §3.2 |
-| 2.5 Site Phase 1 per brief v2.0 (hybrid home, canon pages, essays, OG/sitemap/robots/RSS, palette migration) | T2 | 2.3 for canon visuals; essays can start now | L | owner (PRD open decision 4; brief §18) | brief |
-| 2.6 R0, then README 2.0 + the v2-todo "With R0" items | T2 | R0 | L | owner | v2-todo #5–#9 |
-| 3.x Runtime alpha | T3 | v0.7 | XL | owner | build plan |
+### Phase 0 — P0 hygiene
 
-Essays (brief claim class B) do not wait for the templates: the thesis, the loop, and the canon overview
-can be written and published as dated owner direction while S1–S4 run.
+| ID | Item | Tier | Owner | Size | Depends on | Status | Notes |
+|---|---|---|---|---|---|---|---|
+| H1 | Remove client-flavoured material `temp/v0.5-requirements/prd-v05-technical-stack-selection/` (8 files) | T1 | Matt-approve → Claude | S | D5 | ☐ | forward-only |
+| H2 | Delete the committed `.claude/projects/-Users-<owner>-…/memory/` content | T1 | Claude | S | — | ☐ | keep manifest `never_touch` entry |
+| H3 | Scrub `/Users/…` paths in `temp/v2-audit/impeccable/{router,shape,build}.md`; add a `temp/`-inclusive leak grep | T1 | Claude | S | — | ☐ | v2 branch |
+
+### Phase 1 — T1 template-repo go-live on `main`
+
+| ID | Item | Tier | Owner | Size | Depends on | Status | Notes |
+|---|---|---|---|---|---|---|---|
+| 1.0 | Branch strategy decided; T1 branch cut from `main` | T1 | Matt-approve | S | D1 | ☐ | |
+| 1.1c | Six README PNGs → `docs/assets/`; update README refs, `SoT/html/README.md`, `screenshot.py` (both trees) | T1 | Claude | S | 1.0 | ☐ | |
+| 1.1d | Delete `PRD-Methodology-Overview.pptx` | T1 | Claude | S | 1.0 | ☐ | v2-todo #2 |
+| 1.1e | Historical docs → `docs/maintainer/archive/` (migration briefs v3/v3.2, HARNESS_FORGE, IMPROVEMENT_SUMMARY, PHASE_2, workflow-review-interview) | T1 | Claude | S | 1.0 | ☐ | |
+| 1.1f | Delete `.claude/rename_templates.py`; delete `temp/skill-progress/`; archive/delete the two `temp/*-proposal` / `plugin-conversion-plan` notes | T1 | Claude | S | 1.0 | ☐ | |
+| 1.1g | `temp/` split — seven stage dirs + README only; `temp/v2-audit/` → `docs/v2/audit/` (v2 branch) | T1/T2 | Claude | M | 1.0 | ☐ | link-check |
+| 1.1h | Rewrite `temp/README.md` (7 dirs, right date, no forbidden-reference rule) | T1 | Claude | S | 1.1c | ☐ | |
+| 1.1i | Fix `.claude/README.md` tree (7 `ghm-*`, loose files) | T1 | Claude | S | 1.0 | ☐ | |
+| 1.1j | One-line signpost header in the nine `*.seed.*` files; note in `docs/index.md` / `epics/README.md` | T1 (v2 branch) | Claude | S | 1.2 | ☐ | verify scaffold-equivalence test |
+| 1.1k | `.gitattributes` — `SoT/html/** linguist-documentation` (+ template/plugin copies) | T1 | Claude | S | 1.0 | ☐ | |
+| 1.1l | `version` field in both plugin manifests (via packager) | T1 (v2 branch) | Claude | S | — | ☐ | v2-todo #18 |
+| 1.1m | CHANGELOG 3.3.0 entry + MIGRATION 3.2.0 → 3.3.0 section | T1 (v2 branch) | Claude | S | — | ☐ | v2-todo #1 |
+| 1.2 | `docs/index.md`; `docs/v2/` split with README; `docs/maintainer/archive/`; `docs/INSTALL.md`; `docs/ARCHITECTURE.md`; fix every inbound link | T1 | Claude | M | 1.1e | ☐ | tests are name-based; extend `EXCLUDED_DOCS` |
+| 1.3 | README 1.5 (tagline kept + subtitle; one-command start; Use-this-template; badges; sections moved out; counts; Squad Status removed; tree) | T1 | Claude drafts · Matt picks subtitle | M | 1.2, D7 | ☐ | check `ghm-status-sync` tolerates missing markers |
+| 1.4 | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, two issue forms, PR template | T1 | Claude | S | — | ☐ | → profile 100 % |
+| 1.5 | Readiness GIF (storyboard + VHS tape §10.3) | T1 | **Matt** (or Claude if `vhs` is installed) | M | §10.3 | ☐ | D6 = yes |
+| 1.6a | `gh repo edit`: description, topics, homepage | T1 | Matt-approve → Claude | S | D8 | ☐ | exact strings in D8 |
+| 1.6b | Discussions on · Wiki off | T1 | Matt-approve → Claude | S | D9 | ☐ | |
+| 1.6c | Upload the social preview (Settings → Social preview; UI only) | T1 | **Matt** | S | D14 | ☐ | draft card §10.4 |
+| 1.7a | Backfill tags `v1.0.0`–`v3.2.0` at the CHANGELOG commits | T1 | Matt-approve → Claude | S | D10 | ☐ | push = public |
+| 1.7b | `v3.2.1` polish release (`gh release create`) | T1 | Matt-approve → Claude | S | D10, 1.1–1.6 merged | ☐ | |
+| 1.7c | LinkedIn launch post drafted against the release | T1 | Claude drafts · Matt posts | S | 1.7b | ☐ | |
+| 1.8a | PR #68 disposition (reply drafted) | T1 | Matt-approve | S | D11 | ☐ | |
+| 1.8b | Close/link issues #53, #56, #57 as items land | T1 | Claude | S | 1.2–1.3 | ☐ | |
+| 1.8c | Prune stale remote branches | T1 | Matt-approve → Claude | S | D12 | ☐ | list in D12 |
+| 1.8d | Pin a "Start here / roadmap" Discussion | T1 | Claude | S | 1.6b | ☐ | |
+| 1.8e | Submit to `awesome-claude-code` | T1 | Matt-approve → Claude | S | D13, 1.7b | ☐ | external PR |
+| 1.9 | Reconcile `main → prd-ce-v2`; decide Wave 0B → `main` | T1→T2 | Matt-approve | M | D2 | ☐ | build plan §11 |
+
+### Phase 2 — T2 v2 concept public
+
+| ID | Item | Tier | Owner | Size | Depends on | Status | Notes |
+|---|---|---|---|---|---|---|---|
+| 2.0 | Record the inheritance decision (§3.2) in `V2_KEY_MOMENTS.md` §2.1; rulings C1–C9 | T2 | Claude (Matt confirms C2, C3) | S | D3 | ☐ | |
+| 2.1 | Design S1: family shell + style tile + fixture schema | T2 | Claude · Matt approves the tile | M | 2.0 | ☐ | |
+| 2.2 | Design S2–S4: M1/M3/M8 → M4/M6 → M5/M2/M7 | T2 | Claude | L ×3 | 2.1 | ☐ | |
+| 2.3 | Design S5: polish, screenshots, prototype tests | T2 | Claude · Matt runs the PM tests | M | 2.2 | ☐ | |
+| 2.4 | Walkthrough re-tokenised to the house system; promoted to a public "v2 in 30 seconds" page | T2 | Claude | M | 2.1 | ☐ | |
+| 2.5 | Site Phase 1 per brief v2.0 | T2 | Claude (site repo) · Matt approves | L | brief §17; D4 | ☐ | PRD open decision 4 |
+| 2.6 | R0, then README 2.0 + the v2-todo "With R0" items | T2 | Matt-approve → Claude | L | R0 | ☐ | v2-todo #5–#9 |
+
+### Creative items (Matt owns; starting points in §10)
+
+| ID | Item | Owner | Status | Notes |
+|---|---|---|---|---|
+| C1 | Pick the subtitle under "Memory as Infrastructure" | Matt | ☐ | candidates §10.1 |
+| C2 | Hero visual — run the prompt experiments, pick a direction | Matt (Claude generates on request) | ☐ | prompts §10.2 |
+| C3 | Readiness GIF recorded | Matt (or Claude with `vhs`) | ☐ | storyboard §10.3 |
+| C4 | Social preview card approved and uploaded | Matt | ☐ | draft §10.4 |
+
+### Done
+
+| ID | Item | Date |
+|---|---|---|
+| 0.0 | This plan (v1.0) and the site brief v2.0 written and committed | 2026-08-19 |
+| 0.1 | Plan v1.1: tracker, decision packet, creative starting points; tagline decision recorded | 2026-08-19 |
 
 ---
 
@@ -488,17 +543,40 @@ can be written and published as dated owner direction while S1–S4 run.
 
 ---
 
-## 9. Owner decisions and risks
+## 9. Decision packet (owner) and risks
 
-| # | Decision | Recommendation |
-|---|---|---|
-| 1 | T1 branch strategy: polish `main` now vs. wait for the v2 merge | Polish `main` now on a dedicated branch; reconcile into `prd-ce-v2` after |
-| 2 | Land Wave 0B (`*_template` split, 3.3.0, plugin payload) on `main` ahead of the v2 runtime? | Yes, as a "v3.3.0 template release" once T1 is green — it is template hygiene under BR-002, not a V2 runtime claim; but it exposes the v2 `PRD.md` at root, so decide deliberately |
-| 3 | Dark mode in the moment shell: mechanics only, or a warm-dark ramp in the first build? | Mechanics in S1; ramp deferred unless the tile needs it |
-| 4 | Publish canon pages / moment previews before R0? | Yes, labelled "design direction — research input" and using only the public vocabulary |
-| 5 | Remove H1 client-flavoured material from the public repo | Yes (forward-only) |
-| 6 | Motion proof: terminal GIF vs. loop SVG | GIF first (it proves the gate); SVG for the site |
-| 7 | The tagline | Owner picks; §5.1 offers one candidate |
+Each decision below is written so it can be made in under a minute: what it decides, the options, the
+recommendation, and what happens the moment it is made. Record the call in the log at the end.
+
+| # | Decision | Options | Recommendation | What happens next |
+|---|---|---|---|---|
+| **D1** | **Where does T1 polish land?** | (a) a branch cut from `main` now, merged by PR; (b) on `prd-ce-v2`, reaching `main` only with the v2 merge (gated at v0.8) | **(a)** — T1 is vocabulary-neutral and pays off immediately for promotion; the v2 merge is months away | Claude creates the T1 worktree/branch from `main` and starts §7 Phase 1 |
+| **D2** | **Does Wave 0B (the `*_template` split, 3.3.0, plugin payload refresh) land on `main` ahead of the v2 runtime?** | (a) yes, as a "v3.3.0 template release" after T1; (b) no, it waits for the v2 merge | **(a)** after T1 is green — it is template hygiene under BR-002, not a V2 runtime claim; caveat: it puts the v2 `PRD.md` at root on `main`, which is visible | If (a): a second PR from `prd-ce-v2` minus the v2 planning docs; CHANGELOG 3.3.0 rides with it |
+| **D3** | **Dark mode in the moment shell** | (a) theme mechanics only in S1, warm-dark ramp later; (b) ramp in S1 | **(a)** — light + print first; the research's dark requirement is met by the mechanics; the ramp is a design decision worth its own pass | Recorded in the canon §2.1 with the inheritance decision |
+| **D4** | **Publish canon pages / moment previews before R0?** | (a) yes, labelled "Design direction — research input", public vocabulary only; (b) wait for R0 | **(a)** — the essays are owner opinion (brief class B); R0 can still revise | Site Phase 1 may start its canon pages; README keeps its v2 note until R0 |
+| **D5** | **Remove the client-flavoured material in `temp/v0.5-requirements/`** | (a) delete from the public repo (forward-only); (b) keep | **(a)** | Claude deletes in the T1 branch (and on v2 by reconciliation) |
+| **D6** | **Motion proof** — *decided 2026-08-19: the readiness GIF.* Remaining sub-decision: who renders it | (a) Matt records with VHS from the tape in §10.3; (b) `brew install vhs` on this machine and Claude renders, Matt reviews | **(b)** if you are happy to install VHS — it removes a Matt-action; otherwise (a) | Tape + fixture script land in `docs/assets/readiness-demo/` either way |
+| **D7** | **Tagline** — *decided 2026-08-19: keep "Memory as Infrastructure".* Remaining: **pick the subtitle** | the eight candidates in §10.1 (or your own) | **(e)** "The open method for building products with AI agents — so the 50th session is smarter than the 1st." | Claude writes it into README 1.5, the GitHub description (D8), and the OG/social card (D14) |
+| **D8** | **GitHub metadata strings** (applied with `gh repo edit`) | Description: `PRD-Led Context Engineering — Memory as Infrastructure. <subtitle>` · Topics add: `claude-code context-engineering spec-driven-development ai-agents agentic-coding prd agent-skills claude-code-skills product-management` · Topics remove: `nextjs supabase rapid-development` · Homepage: `https://www.gearheartai.org` | approve as written, or edit the strings | Claude runs one `gh repo edit` command |
+| **D9** | **Discussions on · Wiki off** | (a) yes both; (b) Discussions only | **(a)** — the Wiki is empty and reads as a dead surface | Claude runs `gh repo edit --enable-discussions --enable-wiki=false`, then pins a "Start here" Discussion |
+| **D10** | **Tags and releases** | (a) backfill `v1.0.0`–`v3.2.0` at the CHANGELOG commits + `v3.2.1` release for T1; (b) only `v3.2.1` forward | **(a)** — five Releases entries and an Atom feed for free; each is a post | Claude creates annotated tags and the release with the existing notes; **pushing tags is public** |
+| **D11** | **External PR #68** (open since 2026-04-28) | (a) review and merge/adapt; (b) thank and close with a reason; (c) ask the author to rebase on the polished `main` | **(c)** with a warm note — it signals a maintained repo | Claude drafts the reply; Matt posts it (or approves Claude posting) |
+| **D12** | **Prune stale remote branches** (≈18 `claude/*` and `feat/*`; list produced at execution) | (a) delete merged ones only; (b) delete all but `main`, `prd-ce-v2`, and live work branches | **(a)** first; (b) after confirming nothing unmerged is wanted | Claude lists, you tick, Claude deletes |
+| **D13** | **Submit to `awesome-claude-code`** after the release | (a) yes; (b) later | **(a)** | Claude prepares the PR text; Matt approves the external PR |
+| **D14** | **Social preview card** | approve the §10.4 draft composition (atlas crop + title + tagline + subtitle on the warm-paper ground), or ask for a variant | approve the draft after the subtitle (D7) lands in it | Matt uploads (UI only — Settings → Social preview) |
+| **D15** | **Hero visual direction** (after the §10.2 experiments) | one of the eight concepts, or the typeset/no-illustration route | decide after seeing 2–3 rounds of outputs; my prior: concept 4 (the city map) or 8 (letterpress) fit the house style best | Claude produces the final asset at 16:9 + the 1280×640 crop |
+
+### Decision log
+
+| Date | Decision | Call | By |
+|---|---|---|---|
+| 2026-08-19 | D6 motion proof | GIF (readiness blocking → passing) — yes | Matt |
+| 2026-08-19 | D7 tagline | Keep "Memory as Infrastructure"; add a subtitle (pending pick) | Matt |
+| 2026-08-19 | Community profile | Complete it (not a blocker so far, but do it) | Matt |
+| 2026-08-19 | Social card from the Atlas | Yes | Matt |
+| 2026-08-19 | Execution mode | Claude acts on everything that needs neither approval nor Matt's creative hand | Matt |
+
+### Risks
 
 | Risk | Mitigation |
 |---|---|
@@ -508,10 +586,159 @@ can be written and published as dated owner direction while S1–S4 run.
 | Publishing v2 vocabulary before R0 freezes it | Claim class B labels + public vocabulary only; R0 can still revise |
 | Regenerating the plugin payload produces a huge diff | Separate payload-only commit (v2-todo #18) |
 | Claim drift on the site | Brief v2.0 §4 claim classes; capability rows still carry provenance |
+| Two worktrees (T1 branch + v2 branch) drift on shared files (README, CHANGELOG, this tracker) | Tracker lives on `prd-ce-v2`; T1 commits are reconciled into v2 after each PR (build plan §11) |
 
 ---
 
-## 10. Provenance and changelog
+## 10. Creative starting points (Matt's items)
+
+### 10.1 The subtitle under "Memory as Infrastructure" (C1 / D7)
+
+The tagline stays. The subtitle does the work the tagline deliberately doesn't: a verb, the outcome, and
+the audience, in one breath (≤ 16 words). It sits directly under the H1 and becomes the GitHub description
+and the social card's second line. Candidates — the test for each is *can a stranger tell what they get
+and whether it is for them?*
+
+| | Candidate | Verb · outcome · audience check |
+|---|---|---|
+| a | Give your AI coding agents a memory that outlives the session — a gated PRD and a markdown knowledge graph. | ✓ verb · ✓ outcome · audience implied (AI coding agents) |
+| b | Build products with AI agents that remember every decision — in plain markdown, in your repo. | ✓ · ✓ · ✓ |
+| c | A fork-ready method for teams building with AI agents: documentation that works as shared memory. | noun-led; ✓ audience; outcome softer |
+| d | Stop re-briefing your AI every session. Keep product truth in a markdown knowledge graph it can navigate. | ✓ strong verb · ✓ · audience implied |
+| **e** | **The open method for building products with AI agents — so the 50th session is smarter than the 1st.** | ✓ · ✓ (the line that already tested well) · ✓ — **recommended** |
+| f | Turn documentation into the memory your AI agents and your team navigate together. | ✓ · ✓ · ✓; slightly abstract |
+| g | A gated PRD, typed IDs, and a markdown knowledge graph — so humans and AI build from the same truth. | mechanism-first; good for the README, weaker on a social card |
+| h | For product teams building with Claude Code: memory that survives the session, in files you own. | ✓ audience-first; names the ecosystem (search value) |
+
+Recommendation: **(e)** as the subtitle; **(h)** as the GitHub description's second sentence if you want
+the ecosystem term in search. Whatever you pick, the same string goes into README 1.5, D8, and D14.
+
+### 10.2 Hero visual — experiment prompts (C2 / D15)
+
+**What the visual has to do.** Say "memory as infrastructure" without the words; show that the memory is
+*documents with addresses* (typed IDs, cross-references) rather than a brain or a glowing graph; and read
+at 400 px wide on a phone. It must live beside `atlas.png`, so it inherits the repo's editorial palette:
+warm paper `#f4efe3`, ink `#14120e`, a single ochre spot `#a8842c`, hairlines `#d8d0bd`, serif/grotesque
+type, no gradients, no glow, no neon, no robots, no brains, no node-clouds.
+
+**Tooling (per the workspace rules):** `/codex-image` is the default for hero illustrations; escalate to
+Higgsfield only for a photoreal staged scene (concepts 1 and 6). Generate four variants per concept at
+16:9 (README hero, ~1600×900), then crop the winner to 1280×640 (GitHub social) and 1200×630 (site OG).
+Keep every prompt's *style block* identical so the comparison is about the idea, not the rendering.
+
+**Shared style block (append to every prompt):**
+
+> Editorial illustration in the manner of a printed briefing magazine: warm paper background #f4efe3,
+> near-black ink #14120e linework, one ochre accent #a8842c used sparingly, hairline rules #d8d0bd, flat
+> engraving/etching texture, generous negative space, no gradients, no glow, no neon, no 3D render, no
+> robots, no brains, no floating node clouds, no text other than short monospace ID labels like BR-001,
+> UJ-002, API-003. Composition reads clearly at small sizes. 16:9.
+
+| # | Concept | Prompt (before the style block) | Why it might win |
+|---|---|---|---|
+| 1 | **The Atlas, printed** | A single printed briefing document titled only with a small kicker line lies on a plain desk in soft morning window light; its page shows a neatly ruled table of sections with ochre hairline rules and small monospace ID tags in the margin; a pencil rests on it. Photoreal, shallow depth of field, nothing else on the desk. | Continuity with the existing hero; credible, human |
+| 2 | **Infrastructure, literally** | Architectural cross-section of a building's foundations drawn as an engraving: beneath the floors, neatly labelled conduits and pipes run between rooms; each conduit carries a small monospace tag (BR-001, UJ-002, API-003) and the rooms are labelled with short words; one ochre conduit is highlighted. | Makes "infrastructure" literal without being techie |
+| 3 | **The card catalogue** | A wooden library card-catalogue drawer pulled open at an angle; the index cards have small typed tabs with monospace IDs; one card is lifted between two fingers and thin ochre threads run from it to three other drawers. Ink engraving on warm paper. | Memory as an addressable archive; the threads are the cross-references |
+| 4 | **The city map** | A hand-drawn town plan on warm paper: a few named districts, streets connecting them, a compass rose, a legend in a corner listing short monospace prefixes; one street is traced in ochre and a small marker reads "Session 50". Cartographic ink style, no modern icons. | The knowledge graph as a map people already know how to read; fits the Atlas |
+| 5 | **The title block** | An architectural drawing sheet (warm paper, ink — not cyan blueprint): the drawing is a simple plan of connected rooms labelled with monospace IDs; the lower-right title block carries a revision table with three dated rows; one revision row is marked in ochre. | Uses the methodology's own device (the revision table) |
+| 6 | **Fifty briefings** | A stack of identical printed briefings on a desk, each with a tabbed edge carrying a date and a short monospace ID; the top one is open; soft daylight; the stack is tall enough to suggest many sessions. Photoreal, calm, nothing else in frame. | "The 50th session is smarter than the 1st" as a picture |
+| 7 | **The switchboard** | A vintage telephone switchboard / patch panel drawn as an engraving: rows of jacks each labelled with a small monospace ID; a handful of patch cords connect them, one cord in ochre; no people, no screens. | Connections as physical infrastructure; strong silhouette |
+| 8 | **Letterpress poster** | A typographic poster, no illustration: the sentence "If it isn't in the memory infrastructure, it isn't true." set large in a serif, ink on warm paper, a single ochre rule beneath, and a row of tiny monospace ID chips along the bottom edge; letterpress impression texture. | The house style is typographic; a typeset hero may beat any picture |
+
+**Non-raster routes worth testing alongside:** (i) a *typeset* hero built as HTML/CSS in the house
+stylesheet and screenshotted (Playwright — same pipeline as `atlas.png`); (ii) the loop SVG from the
+walkthrough re-tokenised — the BMAD pattern of a diagram as the hero. Either can ship as the 16:9 and
+crop to the social sizes.
+
+**Judging rubric (score each output 0–2):** reads "memory / infrastructure" without words · shows
+documents-with-addresses, not a brain · legible at 400 px · palette fidelity (paper, ink, one ochre) ·
+does not look like generic AI art. Anything under 7/10 is out; ties go to the one that sits best beside
+the Atlas screenshot.
+
+### 10.3 The readiness GIF — storyboard, fixture, tape (C3 / 1.5)
+
+**The story (25–30 s):** the repo tells you what to fix first. One repo, one fix, before and after.
+
+| Beat | Seconds | On screen |
+|---|---|---|
+| 1 | 0–3 | Title card in the terminal: `PRD-Led Context Engineering — a repo that scores its own readiness` |
+| 2 | 3–10 | `python3 scripts/readiness.py run --repo demo` → stage **v0.7 score=46.3 [BLOCK]** · "Found 0 API- entries; gate requires ≥1" · EPIC-01 WARN · **NEXT ACTIONS 1. Populate SoT.API_CONTRACTS.md — unblocks EPIC-01** |
+| 3 | 10–16 | The fix: the API contracts file is populated (show the file appearing / `git checkout` of the real file, or a few typed lines) |
+| 4 | 16–23 | Re-run → **v0.7 score=97.1 [PASS]** · EPIC-01 PASS · "No blockers — all SoT files passing." |
+| 5 | 23–28 | End card: repo URL + `Memory as Infrastructure` |
+
+**The fixture (verified 2026-08-19):** `tests/fixtures/healthy_repo` scores 97.1 PASS at the v0.6 → v0.7
+gate. Replacing `SoT/SoT.API_CONTRACTS.md` with a three-line stub drops the stage to **46.3 BLOCK** with
+exactly the two "high" findings and the single next action above; restoring the file returns 97.1 PASS.
+(Stubbing `SoT.TESTING.md` instead gives a softer WARN story.) Script it as
+`docs/assets/readiness-demo/make-demo.sh`: copy the fixture to a scratch dir, stub the file, run, restore,
+run. Never record against the repo's own `SoT/`.
+
+**Recording.** Preferred: [VHS](https://github.com/charmbracelet/vhs) (`brew install vhs`) — deterministic,
+re-renderable, the tape is the source. Alternative: asciinema + agg, or a plain screen recording of the
+script. Theme: a light terminal that reads next to the warm-paper screenshots (VHS `Theme` with a cream
+background and ink text, or the built-in "Catppuccin Latte"); 1200×700, 16px font, `TypingSpeed 40ms`.
+
+**VHS tape (starting point — save as `docs/assets/readiness-demo/readiness.tape`):**
+
+```tape
+Output docs/assets/readiness-demo.gif
+Set Shell bash
+Set FontSize 16
+Set Width 1200
+Set Height 700
+Set Padding 24
+Set Theme "Catppuccin Latte"
+Set TypingSpeed 40ms
+
+Hide
+Type "bash docs/assets/readiness-demo/make-demo.sh prepare"   # copies the fixture to /tmp/prd-ce-demo and stubs API contracts
+Enter
+Type "clear"
+Enter
+Show
+
+Type "# PRD-Led Context Engineering — a repo that scores its own readiness"
+Enter
+Sleep 2s
+Type "python3 scripts/readiness.py run --repo /tmp/prd-ce-demo"
+Enter
+Sleep 6s
+
+Type "# fix: draft the API contracts the gate asked for"
+Enter
+Type "bash docs/assets/readiness-demo/make-demo.sh fix"        # restores SoT.API_CONTRACTS.md
+Enter
+Sleep 1.5s
+
+Type "python3 scripts/readiness.py run --repo /tmp/prd-ce-demo"
+Enter
+Sleep 6s
+
+Type "# github.com/mattgierhart/PRD-driven-context-engineering — Memory as Infrastructure"
+Enter
+Sleep 3s
+```
+
+If the BLOCK screen scrolls, trim the readiness report in the demo to the STAGE + NEXT ACTIONS blocks
+(the script can pipe through `sed -n '1,/NEXT ACTIONS/,+3p'`), or raise `Height`.
+
+### 10.4 The social preview card (C4 / D14)
+
+**Spec:** 1280×640 PNG (GitHub) and 1200×630 (site OG) from one composition. Warm-paper ground
+`#f4efe3`; left two-thirds: the title "PRD-Led Context Engineering" in the serif, the tagline
+"Memory as Infrastructure" beneath it in larger serif, the subtitle (D7) in the grotesque, a single ochre
+rule; right third: the Atlas screenshot cropped to its table, bled off the right edge, with a hairline
+frame. No badges, no logos other than an optional small GearHeart mark, no gradients. Keep 80 px safe
+margins (LinkedIn crops aggressively). The same composition at 1200×630 is the site's `og-image.png`
+once the site runs the same palette — or the site uses its own Editorial Luxury variant (brief §14).
+
+**Draft:** a first composition can be generated deterministically from `atlas.png` with Pillow (no design
+tool needed) — Claude produces it on request for review; the final is a 30-minute polish in any editor.
+
+---
+
+## 11. Provenance and changelog
 
 Inputs: three read-only sweeps on 2026-08-19 (v2 corpus + design ancestry; repository inventory with md5
 and diff verification; README/community/GitHub metadata via `gh`, peer repos via their public pages, live
@@ -521,3 +748,4 @@ that date; star counts are approximate.
 | Version | Date | Change |
 |---|---|---|
 | 1.0 | 2026-08-19 | First gap analysis: three tiers, polish definition, Key Moments bar, cleanup tree, roadmap, owner decisions |
+| 1.1 | 2026-08-19 | Owner review applied: tagline kept (subtitle added as the gap); §7 becomes the tracker; §9 becomes the decision packet with a log; new §10 creative starting points (subtitle candidates, hero-visual prompts, readiness-GIF storyboard + tape, social card spec) |

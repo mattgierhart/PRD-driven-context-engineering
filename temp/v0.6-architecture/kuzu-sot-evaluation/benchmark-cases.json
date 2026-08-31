@@ -1,0 +1,481 @@
+{
+  "schema_version": "1.1",
+  "notes": [
+    "Expected IDs were separately reviewed against the pinned Markdown snapshots before the run.",
+    "Cases test evidence retrieval, not natural-language generation.",
+    "IDs are intentionally scoped by corpus because the same ID has different meanings across products."
+  ],
+  "gold_review": {
+    "method": "separate read-only source inspection",
+    "reviewed_at": "2026-07-23",
+    "scope": "all expected ID sets and cited evidence spans",
+    "independence_claim": false,
+    "human_adjudication_claim": false
+  },
+  "cases": [
+    {
+      "id": "namespace-hb-br001",
+      "corpus": "heartbeat",
+      "question": "Locate HeartBeat BR-001 without confusing it with another product's BR-001.",
+      "kind": "lookup",
+      "anchor": "BR-001",
+      "expected": ["BR-001"],
+      "evidence": ["SoT/SoT.BUSINESS_RULES.md:65"]
+    },
+    {
+      "id": "namespace-ah-br001",
+      "corpus": "agenthunt",
+      "question": "Locate AgentHunt BR-001 without confusing it with another product's BR-001.",
+      "kind": "lookup",
+      "anchor": "BR-001",
+      "expected": ["BR-001"],
+      "evidence": ["SoT/SoT.BUSINESS_RULES.md:46"]
+    },
+    {
+      "id": "namespace-hf-br001",
+      "corpus": "homefalcon",
+      "question": "Locate HomeFalcon BR-001 without confusing it with another product's BR-001.",
+      "kind": "lookup",
+      "anchor": "BR-001",
+      "expected": ["BR-001"],
+      "evidence": ["SoT/SoT.BUSINESS_RULES.md:24"]
+    },
+    {
+      "id": "hb-arc001-data-projections",
+      "corpus": "heartbeat",
+      "question": "Which database-model entries does HeartBeat's Source-of-Truth boundary directly reference?",
+      "kind": "traverse",
+      "anchor": "ARC-001",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "DBT",
+      "expected": ["DBT-003", "DBT-004"],
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:442",
+        "SoT/SoT.DATA_MODEL.md:117",
+        "SoT/SoT.DATA_MODEL.md:157"
+      ]
+    },
+    {
+      "id": "hb-dbt005-health-tests",
+      "corpus": "heartbeat",
+      "question": "Which direct test definitions consume the ID graph edge cache?",
+      "kind": "traverse",
+      "anchor": "DBT-005",
+      "direction": "incoming",
+      "depth": 1,
+      "prefix": "TEST",
+      "expected": ["TEST-009", "TEST-010"],
+      "evidence": [
+        "SoT/SoT.DATA_MODEL.md:200",
+        "SoT/SoT.TESTING.md:167",
+        "SoT/SoT.TESTING.md:181"
+      ]
+    },
+    {
+      "id": "hb-api201-test-impact",
+      "corpus": "heartbeat",
+      "question": "Which tests directly reference the gate-lint API contract?",
+      "kind": "traverse",
+      "anchor": "API-201",
+      "direction": "incoming",
+      "depth": 1,
+      "prefix": "TEST",
+      "expected": [
+        "TEST-012",
+        "TEST-013",
+        "TEST-017",
+        "TEST-027",
+        "TEST-039",
+        "TEST-042"
+      ],
+      "evidence": [
+        "SoT/SoT.API_CONTRACTS.md:599",
+        "SoT/SoT.TESTING.md:209",
+        "SoT/SoT.TESTING.md:223",
+        "SoT/SoT.TESTING.md:279",
+        "SoT/SoT.TESTING.md:419",
+        "SoT/SoT.TESTING.md:591",
+        "SoT/SoT.TESTING.md:639"
+      ]
+    },
+    {
+      "id": "hb-fea020-api-consumers",
+      "corpus": "heartbeat",
+      "question": "Which API contracts directly reference the gate-lint feature?",
+      "kind": "traverse",
+      "anchor": "FEA-020",
+      "direction": "incoming",
+      "depth": 1,
+      "prefix": "API",
+      "expected": ["API-003", "API-201", "API-203", "API-204"],
+      "evidence": ["PRD.md:431", "SoT/SoT.API_CONTRACTS.md:160"]
+    },
+    {
+      "id": "ah-uj004-api-impact",
+      "corpus": "agenthunt",
+      "question": "Which AgentHunt API contracts directly reference the consumer-discovery journey?",
+      "kind": "traverse",
+      "anchor": "UJ-004",
+      "direction": "incoming",
+      "depth": 1,
+      "prefix": "API",
+      "expected": ["API-003", "API-004", "API-011", "API-301"],
+      "evidence": [
+        "SoT/SoT.USER_JOURNEYS.md:346",
+        "SoT/SoT.API_CONTRACTS.md:158",
+        "SoT/SoT.API_CONTRACTS.md:244",
+        "SoT/SoT.API_CONTRACTS.md:586",
+        "SoT/SoT.API_CONTRACTS.md:778"
+      ]
+    },
+    {
+      "id": "ah-scr004-design-dependencies",
+      "corpus": "agenthunt",
+      "question": "Which design components does the Tool Detail screen directly reference?",
+      "kind": "traverse",
+      "anchor": "SCR-004",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "DES",
+      "expected": ["DES-003", "DES-004", "DES-005", "DES-006", "DES-007"],
+      "evidence": [
+        "SoT/SoT.USER_JOURNEYS.md:648",
+        "SoT/SoT.DESIGN_COMPONENTS.md:105",
+        "SoT/SoT.DESIGN_COMPONENTS.md:138",
+        "SoT/SoT.DESIGN_COMPONENTS.md:171",
+        "SoT/SoT.DESIGN_COMPONENTS.md:205",
+        "SoT/SoT.DESIGN_COMPONENTS.md:238"
+      ]
+    },
+    {
+      "id": "ah-risk010-mitigation-links",
+      "corpus": "agenthunt",
+      "question": "Which IDs does AgentHunt's market-timing risk directly cite for mitigation?",
+      "kind": "traverse",
+      "anchor": "RISK-010",
+      "direction": "outgoing",
+      "depth": 1,
+      "expected": ["BR-006", "CFD-005", "KPI-001"],
+      "evidence": ["PRD.md:417"]
+    },
+    {
+      "id": "hf-tech006-transport-contract",
+      "corpus": "homefalcon",
+      "question": "Which API contract implements HomeFalcon's JSON-not-SSE transport decision?",
+      "kind": "traverse",
+      "anchor": "TECH-006",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "API",
+      "expected": ["API-010"],
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:192",
+        "SoT/SoT.API_CONTRACTS.md:450"
+      ]
+    },
+    {
+      "id": "hf-tech007-semantic-drift",
+      "corpus": "homefalcon",
+      "question": "Which journey IDs are linked from the CommandCenter/ImpactReport decision, even though the canonical journey meanings do not match?",
+      "kind": "traverse",
+      "anchor": "TECH-007",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "UJ",
+      "expected": ["UJ-007", "UJ-008"],
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:219",
+        "SoT/SoT.USER_JOURNEYS.md:764",
+        "SoT/SoT.USER_JOURNEYS.md:817"
+      ],
+      "truth_scope": "source_fidelity_with_semantic_detector",
+      "lifecycle_stage": "v0.5 Red Team Review",
+      "semantic_check": {
+        "type": "target_title_contains",
+        "terms_by_id": {
+          "UJ-007": ["Command Center"],
+          "UJ-008": ["Impact Report"]
+        },
+        "expected_verdict": "conflict",
+        "required_action": "flag"
+      }
+    },
+    {
+      "id": "hb-arc001-two-hop-data-impact",
+      "corpus": "heartbeat",
+      "question": "Within two outbound hops of the SoT boundary, which data models are implicated?",
+      "kind": "traverse",
+      "anchor": "ARC-001",
+      "direction": "outgoing",
+      "depth": 2,
+      "prefix": "DBT",
+      "expected": ["DBT-001", "DBT-003", "DBT-004", "DBT-014"],
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:442",
+        "SoT/SoT.DATA_MODEL.md:53",
+        "SoT/SoT.DATA_MODEL.md:117",
+        "SoT/SoT.DATA_MODEL.md:157"
+      ]
+    },
+    {
+      "id": "hf-tech007-two-hop-test-impact",
+      "corpus": "homefalcon",
+      "question": "Which test cases are reached within two outbound hops of the semantically drifted TECH-007 links?",
+      "kind": "traverse",
+      "anchor": "TECH-007",
+      "direction": "outgoing",
+      "depth": 2,
+      "prefix": "TEST",
+      "expected": [
+        "TEST-160",
+        "TEST-161",
+        "TEST-162",
+        "TEST-170",
+        "TEST-171",
+        "TEST-172"
+      ],
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:219",
+        "SoT/SoT.TESTING.md:596",
+        "SoT/SoT.TESTING.md:608",
+        "SoT/SoT.TESTING.md:617",
+        "SoT/SoT.TESTING.md:626",
+        "SoT/SoT.TESTING.md:636",
+        "SoT/SoT.TESTING.md:645"
+      ]
+    },
+    {
+      "id": "hb-cfd003-market-signal-rules",
+      "corpus": "heartbeat",
+      "question": "Which business rules does the GlassCode / Codex UI market signal directly support?",
+      "kind": "traverse",
+      "anchor": "CFD-003",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "BR",
+      "expected": ["BR-001", "BR-008"],
+      "evidence": [
+        "SoT/SoT.customer_feedback.md:134",
+        "SoT/SoT.customer_feedback.md:159",
+        "SoT/SoT.customer_feedback.md:160",
+        "SoT/SoT.BUSINESS_RULES.md:65",
+        "SoT/SoT.BUSINESS_RULES.md:287"
+      ],
+      "lifecycle_stage": "v0.1 Spark"
+    },
+    {
+      "id": "ah-br001-positioning-evidence",
+      "corpus": "agenthunt",
+      "question": "Which customer evidence entries directly support AgentHunt's social-discovery-first positioning rule?",
+      "kind": "traverse",
+      "anchor": "BR-001",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "CFD",
+      "expected": ["CFD-011", "CFD-015", "CFD-019", "CFD-020"],
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:46",
+        "SoT/SoT.BUSINESS_RULES.md:61",
+        "SoT/SoT.BUSINESS_RULES.md:63",
+        "SoT/SoT.BUSINESS_RULES.md:72",
+        "SoT/SoT.BUSINESS_RULES.md:73",
+        "SoT/SoT.BUSINESS_RULES.md:74",
+        "SoT/SoT.BUSINESS_RULES.md:75",
+        "SoT/SoT.customer_feedback.md:503",
+        "SoT/SoT.customer_feedback.md:660",
+        "SoT/SoT.customer_feedback.md:842",
+        "SoT/SoT.customer_feedback.md:891"
+      ],
+      "lifecycle_stage": "v0.2 Market Definition"
+    },
+    {
+      "id": "ah-br012-pricing-rule-dependencies",
+      "corpus": "agenthunt",
+      "question": "Which business rules directly constrain the freemium audience-gate pricing model?",
+      "kind": "traverse",
+      "anchor": "BR-012",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "BR",
+      "expected": ["BR-003", "BR-007", "BR-009", "BR-013"],
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:517",
+        "SoT/SoT.BUSINESS_RULES.md:541",
+        "SoT/SoT.BUSINESS_RULES.md:547",
+        "SoT/SoT.BUSINESS_RULES.md:557",
+        "SoT/SoT.BUSINESS_RULES.md:558",
+        "SoT/SoT.BUSINESS_RULES.md:559",
+        "SoT/SoT.BUSINESS_RULES.md:111",
+        "SoT/SoT.BUSINESS_RULES.md:258",
+        "SoT/SoT.BUSINESS_RULES.md:363",
+        "SoT/SoT.BUSINESS_RULES.md:564"
+      ],
+      "lifecycle_stage": "v0.3 Commercial Model"
+    },
+    {
+      "id": "hf-uj001-acceptance-tests",
+      "corpus": "homefalcon",
+      "question": "Which tests directly validate the manual-product-entry journey?",
+      "kind": "traverse",
+      "anchor": "UJ-001",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "TEST",
+      "expected": ["TEST-089", "TEST-090", "TEST-091", "TEST-092"],
+      "evidence": [
+        "SoT/SoT.USER_JOURNEYS.md:113",
+        "SoT/SoT.USER_JOURNEYS.md:201",
+        "SoT/SoT.USER_JOURNEYS.md:202",
+        "SoT/SoT.USER_JOURNEYS.md:203",
+        "SoT/SoT.USER_JOURNEYS.md:204",
+        "SoT/SoT.TESTING.md:335",
+        "SoT/SoT.TESTING.md:349",
+        "SoT/SoT.TESTING.md:364",
+        "SoT/SoT.TESTING.md:373"
+      ],
+      "lifecycle_stage": "v0.4 User Journeys"
+    },
+    {
+      "id": "hb-risk007-mitigation-features",
+      "corpus": "heartbeat",
+      "question": "Which features does the file-write-corruption risk directly cite as mitigation?",
+      "kind": "traverse",
+      "anchor": "RISK-007",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "FEA",
+      "expected": ["FEA-018", "FEA-020"],
+      "evidence": ["PRD.md:468", "PRD.md:429", "PRD.md:431"],
+      "lifecycle_stage": "v0.5 Red Team Review"
+    },
+    {
+      "id": "hb-risk007-missing-test-link",
+      "corpus": "heartbeat",
+      "question": "Which test IDs does the file-write-corruption risk explicitly link as mitigation evidence?",
+      "kind": "traverse",
+      "anchor": "RISK-007",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "TEST",
+      "expected": [],
+      "evidence": ["PRD.md:468"],
+      "lifecycle_stage": "v0.5 Red Team Review",
+      "truth_scope": "source_fidelity_negative_control"
+    },
+    {
+      "id": "hb-arc002-contracts",
+      "corpus": "heartbeat",
+      "question": "Which API contracts directly implement the direct file-write pipeline decision?",
+      "kind": "traverse",
+      "anchor": "ARC-002",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "API",
+      "expected": ["API-201", "API-202", "API-203"],
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:494",
+        "SoT/SoT.TECHNICAL_DECISIONS.md:512",
+        "SoT/SoT.TECHNICAL_DECISIONS.md:530",
+        "SoT/SoT.TECHNICAL_DECISIONS.md:531",
+        "SoT/SoT.API_CONTRACTS.md:599",
+        "SoT/SoT.API_CONTRACTS.md:658",
+        "SoT/SoT.API_CONTRACTS.md:719"
+      ],
+      "lifecycle_stage": "v0.6 Architecture"
+    },
+    {
+      "id": "hb-test029-persistence-coverage",
+      "corpus": "heartbeat",
+      "question": "Which data models are directly verified by the post-write validation test?",
+      "kind": "traverse",
+      "anchor": "TEST-029",
+      "direction": "outgoing",
+      "depth": 1,
+      "prefix": "DBT",
+      "expected": ["DBT-006", "DBT-010", "DBT-011"],
+      "evidence": [
+        "SoT/SoT.TESTING.md:447",
+        "SoT/SoT.TESTING.md:453",
+        "SoT/SoT.DATA_MODEL.md:239",
+        "SoT/SoT.DATA_MODEL.md:407",
+        "SoT/SoT.DATA_MODEL.md:446"
+      ],
+      "lifecycle_stage": "v0.7 Build Execution"
+    },
+    {
+      "id": "ah-dep002-two-hop-runbooks",
+      "corpus": "agenthunt",
+      "question": "Which runbooks are reachable within two outbound hops of preview and production deployment?",
+      "kind": "traverse",
+      "anchor": "DEP-002",
+      "direction": "outgoing",
+      "depth": 2,
+      "prefix": "RUN",
+      "expected": ["RUN-001", "RUN-003"],
+      "evidence": [
+        "SoT/SoT.DEPLOYMENT.md:454",
+        "SoT/SoT.DEPLOYMENT.md:486",
+        "SoT/SoT.DEPLOYMENT.md:487",
+        "SoT/SoT.DEPLOYMENT.md:489",
+        "SoT/SoT.DEPLOYMENT.md:156",
+        "SoT/SoT.DEPLOYMENT.md:183",
+        "SoT/SoT.DEPLOYMENT.md:264",
+        "SoT/SoT.DEPLOYMENT.md:282",
+        "SoT/SoT.DEPLOYMENT.md:630",
+        "SoT/SoT.DEPLOYMENT.md:642",
+        "SoT/SoT.DEPLOYMENT.md:529",
+        "SoT/SoT.DEPLOYMENT.md:584"
+      ],
+      "lifecycle_stage": "v0.8 Release and Deployment"
+    },
+    {
+      "id": "ah-kpi003-feature-contributors",
+      "corpus": "agenthunt",
+      "question": "Which features directly contribute to the Weekly Active Engagers launch metric?",
+      "kind": "traverse",
+      "anchor": "KPI-003",
+      "direction": "incoming",
+      "depth": 1,
+      "prefix": "FEA",
+      "expected": ["FEA-003", "FEA-006", "FEA-007", "FEA-009", "FEA-010"],
+      "evidence": [
+        "PRD.md:259",
+        "PRD.md:284",
+        "PRD.md:287",
+        "PRD.md:293",
+        "PRD.md:295",
+        "PRD.md:296"
+      ],
+      "lifecycle_stage": "v0.9 Go-to-Market"
+    },
+    {
+      "id": "hb-ado-beachhead-dependents",
+      "corpus": "heartbeat",
+      "question": "Which adoption artifacts directly depend on the beachhead segment?",
+      "kind": "traverse",
+      "anchor": "ADO-BEACHHEAD-001",
+      "direction": "incoming",
+      "depth": 1,
+      "prefix": "ADO",
+      "expected": ["ADO-REF-001", "ADO-WHOLE-001"],
+      "evidence": [
+        "SoT/SoT.ADOPTION.md:69",
+        "SoT/SoT.ADOPTION.md:84",
+        "SoT/SoT.ADOPTION.md:93",
+        "SoT/SoT.ADOPTION.md:95",
+        "SoT/SoT.ADOPTION.md:98",
+        "SoT/SoT.ADOPTION.md:103"
+      ],
+      "lifecycle_stage": "v1.0 Market Adoption",
+      "truth_scope": "structural_only_with_semantic_detector",
+      "semantic_check": {
+        "type": "entry_forbidden_terms",
+        "target_ids": ["ADO-BEACHHEAD-001", "ADO-REF-001", "ADO-WHOLE-001"],
+        "forbidden_terms": ["[Specific", "[Customer Name]", "CFD-XXX"],
+        "expected_verdict": "conflict",
+        "required_action": "block"
+      }
+    }
+  ]
+}

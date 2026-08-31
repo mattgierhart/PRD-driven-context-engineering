@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kuzu vs Markdown · PRD-CE SoT Evaluation</title>
+  <style>
+    :root {
+      --paper:#f3efe4; --sheet:#fbf8ef; --ink:#171510; --muted:#6b665b;
+      --line:#d6cfbf; --gold:#a77f23; --gold-soft:#eee3c5;
+      --green:#38623a; --green-soft:#e0eadc; --red:#9a3c2f; --red-soft:#f1ddd8;
+      --blue:#315b70; --blue-soft:#dce8eb; --purple:#62506d;
+      --serif:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+      --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; color:var(--ink); background:
+        radial-gradient(circle at 11% 0%, rgba(167,127,35,.08), transparent 24rem),
+        var(--paper); font-family:var(--serif); line-height:1.55;
+    }
+    a { color:inherit; text-decoration-color:var(--gold); text-underline-offset:3px; }
+    .topbar {
+      position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:20px;
+      padding:12px max(22px, calc((100vw - 1180px)/2)); background:rgba(243,239,228,.95);
+      backdrop-filter:blur(10px); border-top:6px solid var(--ink); border-bottom:1px solid var(--ink);
+      font:700 10px/1 var(--sans); letter-spacing:.14em; text-transform:uppercase;
+    }
+    .brand { font:700 17px/1 var(--serif); letter-spacing:0; text-transform:none; margin-right:auto; }
+    .topbar a { text-decoration:none; color:var(--muted); }
+    .topbar a:hover { color:var(--ink); }
+    .wrap { width:min(1180px, calc(100% - 44px)); margin:0 auto; }
+    .hero { padding:62px 0 38px; display:grid; grid-template-columns:minmax(0,1.65fr) minmax(300px,.75fr); gap:48px; align-items:end; }
+    .kicker { margin:0 0 18px; font:700 11px/1 var(--sans); letter-spacing:.2em; text-transform:uppercase; }
+    .kicker span { color:var(--gold); }
+    h1 { margin:0; max-width:14ch; font-size:clamp(52px,7vw,94px); line-height:.92; letter-spacing:-.045em; font-weight:600; }
+    .standfirst { margin:26px 0 0; max-width:66ch; font-size:20px; line-height:1.5; font-style:italic; }
+    .verdict {
+      padding:25px 26px; background:var(--ink); color:var(--sheet); border-top:7px solid var(--gold);
+      box-shadow:11px 11px 0 var(--gold-soft);
+    }
+    .verdict .label { font:700 10px/1 var(--sans); letter-spacing:.17em; text-transform:uppercase; color:#d9c991; }
+    .verdict h2 { margin:12px 0 10px; font-size:31px; line-height:1.05; }
+    .verdict p { margin:0; color:#ded9ce; font:14px/1.55 var(--sans); }
+    .evidence-strip {
+      display:grid; grid-template-columns:repeat(5,1fr); border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);
+      margin:24px 0 78px;
+    }
+    .metric { padding:20px 18px; border-right:1px solid var(--line); }
+    .metric:last-child { border-right:0; }
+    .metric strong { display:block; font:600 31px/1 var(--serif); }
+    .metric span { display:block; margin-top:8px; color:var(--muted); font:700 9px/1.25 var(--sans); letter-spacing:.13em; text-transform:uppercase; }
+    section { margin:0 0 86px; scroll-margin-top:74px; }
+    .section-head { display:grid; grid-template-columns:140px 1fr; gap:24px; border-top:5px solid var(--ink); padding-top:14px; margin-bottom:28px; }
+    .section-no { color:var(--gold); font:700 11px/1.3 var(--sans); letter-spacing:.18em; text-transform:uppercase; }
+    .section-head h2 { margin:0; font-size:42px; line-height:1; letter-spacing:-.025em; }
+    .section-head p { grid-column:2; margin:0; color:var(--muted); max-width:72ch; font-size:17px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .card { background:var(--sheet); border:1px solid var(--line); border-top:4px solid var(--ink); padding:24px; }
+    .card h3 { margin:0 0 10px; font-size:24px; line-height:1.12; }
+    .card p { margin:0; color:var(--muted); }
+    .card .eyebrow { color:var(--gold); font:700 9px/1 var(--sans); letter-spacing:.15em; text-transform:uppercase; margin-bottom:11px; }
+    .recommended { border-top-color:var(--green); background:linear-gradient(145deg,var(--sheet),var(--green-soft)); }
+    .rejected { border-top-color:var(--red); }
+    .architecture { padding:30px; background:var(--sheet); border:1px solid var(--line); }
+    .flow { display:grid; grid-template-columns:1fr 44px 1fr 44px 1.2fr; align-items:stretch; gap:8px; }
+    .flow-box { border:1px solid var(--ink); padding:20px; min-height:142px; background:var(--paper); }
+    .flow-box strong { display:block; font:700 11px/1.2 var(--sans); letter-spacing:.12em; text-transform:uppercase; margin-bottom:12px; }
+    .flow-box p { margin:0; color:var(--muted); font-size:14px; }
+    .flow-split { display:grid; gap:8px; }
+    .flow-split .flow-box { min-height:0; padding:15px; }
+    .arrow { display:grid; place-items:center; font:30px/1 var(--serif); color:var(--gold); }
+    .callout { margin-top:18px; padding:16px 18px; border-left:5px solid var(--gold); background:var(--gold-soft); font:14px/1.5 var(--sans); }
+    .chart { background:var(--sheet); border:1px solid var(--line); padding:24px; }
+    .chart h3 { margin:0 0 6px; font-size:24px; }
+    .chart > p { margin:0 0 22px; color:var(--muted); font-size:14px; }
+    .chart-group { padding:14px 0; border-top:1px solid var(--line); }
+    .chart-group > p { margin:0 0 10px; font:700 11px/1 var(--sans); letter-spacing:.08em; text-transform:uppercase; }
+    .bar-row { display:grid; grid-template-columns:124px 1fr 82px; gap:12px; align-items:center; margin:9px 0; }
+    .bar-label,.bar-value { font:11px/1.2 var(--sans); color:var(--muted); }
+    .bar-value { text-align:right; color:var(--ink); font-family:var(--mono); }
+    .bar-track { height:10px; background:#e4ded0; overflow:hidden; }
+    .bar-fill { display:block; height:100%; min-width:2px; }
+    .bar-fill.markdown { background:var(--gold); }
+    .bar-fill.kuzu { background:var(--blue); }
+    .bar-fill.files { background:var(--red); }
+    .bar-fill.projection { background:var(--green); }
+    .table-wrap { overflow:auto; border:1px solid var(--line); background:var(--sheet); }
+    table { width:100%; border-collapse:collapse; font:12px/1.4 var(--sans); }
+    th { position:sticky; top:43px; z-index:2; text-align:left; padding:11px 12px; background:var(--ink); color:var(--sheet); font-size:9px; letter-spacing:.13em; text-transform:uppercase; }
+    td { padding:12px; border-bottom:1px solid var(--line); vertical-align:top; }
+    tbody tr:hover { background:#f1ead8; }
+    .hash { display:block; color:var(--muted); font:9px/1.4 var(--mono); }
+    .badge { display:inline-block; padding:3px 7px; border:1px solid currentColor; font:700 8px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; }
+    .badge.pass { color:var(--green); } .badge.fail { color:var(--red); }
+    .case-id { display:block; color:var(--muted); font:9px/1.4 var(--mono); }
+    .latency { color:var(--muted); font:10px/1.5 var(--mono); }
+    code,.mono { font-family:var(--mono); font-size:.9em; }
+    td code { white-space:normal; color:#433f36; }
+    .filters { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+    .filter { border:1px solid var(--ink); background:transparent; color:var(--ink); padding:7px 11px; cursor:pointer; font:700 9px/1 var(--sans); letter-spacing:.1em; text-transform:uppercase; }
+    .filter.active,.filter:hover { background:var(--ink); color:var(--sheet); }
+    .authority-card { display:grid; grid-template-columns:1.1fr 1fr; background:var(--ink); color:var(--sheet); }
+    .authority-copy { padding:34px; }
+    .authority-copy h3 { margin:0 0 12px; font-size:35px; line-height:1.05; }
+    .authority-copy p { color:#d4cfc5; }
+    .authority-proof { padding:28px; background:#232019; }
+    .proof-row { display:flex; justify-content:space-between; gap:20px; padding:11px 0; border-bottom:1px solid #4b463c; font:12px/1.3 var(--sans); }
+    .proof-row span { color:#bdb5a6; } .proof-row strong { color:#e7d38f; text-align:right; }
+    .graph-panel { background:#171510; color:#fff; padding:20px; border-top:6px solid var(--gold); }
+    .graph-panel svg { width:100%; height:auto; display:block; }
+    .graph-legend { display:flex; gap:18px; flex-wrap:wrap; margin-top:10px; color:#c8c2b7; font:10px/1 var(--sans); }
+    .dot { display:inline-block; width:9px; height:9px; margin-right:5px; border-radius:50%; }
+    .finding { position:relative; padding-left:40px; }
+    .finding .n { position:absolute; left:0; top:0; color:var(--gold); font:700 21px/1 var(--mono); }
+    .finding h3 { margin:0 0 7px; font-size:21px; }
+    .finding p { margin:0; color:var(--muted); font-size:14px; }
+    .decision-table td:first-child { width:23%; font-weight:700; }
+    .yes { color:var(--green); font-weight:700; } .no { color:var(--red); font-weight:700; } .mixed { color:#855e16; font-weight:700; }
+    .recommendation { background:var(--green); color:white; padding:40px; display:grid; grid-template-columns:1fr 1fr; gap:38px; }
+    .recommendation h3 { margin:0; font-size:43px; line-height:1; }
+    .recommendation p,.recommendation li { color:#e5eee2; }
+    .recommendation ol { margin:0; padding-left:22px; }
+    .recommendation li { margin:0 0 11px; }
+    .limitations { columns:2; column-gap:42px; color:var(--muted); }
+    .limitations li { break-inside:avoid; margin-bottom:9px; }
+    .source-list { display:grid; grid-template-columns:repeat(2,1fr); gap:10px 26px; font:13px/1.45 var(--sans); }
+    .source-list p { margin:0; padding:10px 0; border-top:1px solid var(--line); }
+    footer { border-top:1px solid var(--ink); padding:24px 0 50px; color:var(--muted); display:flex; justify-content:space-between; gap:30px; font:10px/1.5 var(--sans); letter-spacing:.05em; }
+    .hidden { display:none; }
+    @media (max-width:900px) {
+      .hero,.authority-card,.recommendation { grid-template-columns:1fr; }
+      .evidence-strip { grid-template-columns:repeat(2,1fr); }
+      .grid-2,.grid-3 { grid-template-columns:1fr; }
+      .flow { grid-template-columns:1fr; } .arrow { transform:rotate(90deg); height:30px; }
+      .section-head { grid-template-columns:1fr; } .section-head p { grid-column:1; }
+      .topbar a:not(.brand) { display:none; }
+    }
+    @media (max-width:600px) {
+      .wrap { width:min(100% - 26px,1180px); } h1 { font-size:54px; }
+      .evidence-strip { grid-template-columns:1fr 1fr; margin-bottom:58px; }
+      .metric { padding:14px 10px; } .metric strong { font-size:24px; }
+      .bar-row { grid-template-columns:94px 1fr 64px; gap:7px; }
+      .limitations,.source-list { columns:1; display:block; }
+    }
+    @media print {
+      .topbar,.filters { display:none; } body { background:white; }
+      section { break-inside:avoid; } .wrap { width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="#top">SoT Systems Lab</a>
+    <a href="#method">Method</a>
+    <a href="#accuracy">Accuracy</a>
+    <a href="#results">Results</a>
+    <a href="#cases">Cases</a>
+    <a href="#decision">Decision</a>
+  </nav>
+
+  <main id="top" class="wrap">
+    <header class="hero">
+      <div>
+        <p class="kicker">PRD-CE Architecture Experiment <span>№ 01</span> · 2026-07-23</p>
+        <h1>Markdown wins this round.</h1>
+        <p class="standfirst">Across 25 manifest-authored source-fidelity cases, Markdown and Kuzu reproduced the same authored IDs—but structural fidelity is not semantic truth. The in-memory Markdown index remained faster, while deterministic semantic checks correctly flagged authored defects.</p>
+      </div>
+      <aside class="verdict">
+        <span class="label">Measured decision</span>
+        <h2>Keep Markdown as the SoT.</h2>
+        <p>Kuzu proves graph materialization is feasible. It does not yet prove enough incremental value to justify a production graph layer—and its archived status rules it out as the default engine.</p>
+      </aside>
+    </header>
+
+    <div class="evidence-strip" aria-label="Experiment summary">
+      <div class="metric"><strong>100%</strong><span>literal source fidelity</span></div>
+      <div class="metric"><strong>2/2</strong><span>semantic verdicts matched</span></div>
+      <div class="metric"><strong>10/10</strong><span>PRD stages represented</span></div>
+      <div class="metric"><strong>712</strong><span>defined ID nodes</span></div>
+      <div class="metric"><strong>88</strong><span>read-only source files</span></div>
+    </div>
+
+    <section id="decision-summary">
+      <div class="section-head">
+        <span class="section-no">00 · Answer first</span>
+        <h2>Markdown wins the measured jobs; graph value remains conditional.</h2>
+        <p>Markdown is the better current SoT and small-corpus retrieval baseline: it matched Kuzu correctness with lower latency, build cost, storage, and synchronization risk.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <p class="eyebrow">Measured winner · current scope</p>
+          <h3>Markdown + ephemeral index</h3>
+          <p>Portable, diffable, reviewable, and agent-readable. The shared parser plus an in-memory adjacency map answered every tested lookup, reverse, and multi-hop case with the lowest measured cost.</p>
+        </article>
+        <article class="card rejected">
+          <p class="eyebrow">Kuzu as authority</p>
+          <h3>Strong traversal, wrong governance boundary</h3>
+          <p>Cypher and adjacency storage fit the ID graph. A binary store weakens pull-request review and creates migration, backup, schema, and toolchain obligations. Upstream is archived.</p>
+        </article>
+        <article class="card recommended">
+          <p class="eyebrow">Conditional next experiment</p>
+          <h3>Markdown authority + graph projection</h3>
+          <p>Keep one write path and one conflict rule: files win. Add a graph only if a combined-corpus test proves value for portfolio impact, graph algorithms, or operational graph health.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="accuracy">
+      <div class="section-head">
+        <span class="section-no">01 · Accuracy boundaries</span>
+        <h2>Four questions stay separate; no blended “accuracy” score.</h2>
+        <p>The storage benchmark answers literal source fidelity only. Semantic truth, epistemic conformance, and lifecycle conformance use separate deterministic checks because a graph can reproduce an authored edge perfectly while the edge itself is wrong.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <p class="eyebrow">1 · Source fidelity</p>
+          <h3>25 checked ID-set cases</h3>
+          <p>Both arms share one parser and neutral snapshot. Their parity proves storage and query equivalence for this extraction—not independent raw-Markdown interpretation and not end-to-end answer quality.</p>
+        </article>
+        <article class="card finding">
+          <p class="eyebrow">2 · Semantic truth</p>
+          <h3>2 of 2 expected verdicts</h3>
+          <p>Pack-style deterministic checks flag title/meaning conflicts and placeholder adoption evidence separately from the literal edges that carried them.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">3 · Epistemic conformance</p>
+          <h3>Backend-neutral companion suite</h3>
+          <p>Immutable revisions test scoped identity, provenance, lifecycle transitions, half-open valid/transaction time, supersession, ambiguous-current fail-closed behavior, and the assertion/evidence boundary.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">4 · Lifecycle manifest + gate conformance</p>
+          <h3>10 of 10 stages represented</h3>
+          <p>The manifest checks stage labels and anchor-family fit; it does not claim a product passed those stages. A separate strict gate oracle blocks incomplete counts, fields, edges, failed attestations, inactive IDs, and silent contract drift.</p>
+        </article>
+      </div>
+      <div class="table-wrap" style="margin-top:22px">
+        <table>
+          <thead><tr><th>Semantic case</th><th>Lifecycle</th><th>Expected</th><th>Observed</th><th>Detector finding</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><code>hf-tech007-semantic-drift</code></td>
+              <td>v0.5 Red Team Review</td>
+              <td>conflict</td>
+              <td><span class="badge pass">
+                conflict
+              </span></td>
+              <td><code>SEMANTIC_TARGET_TITLE_MISMATCH, SEMANTIC_TARGET_TITLE_MISMATCH</code></td>
+            </tr>
+            <tr>
+              <td><code>hb-ado-beachhead-dependents</code></td>
+              <td>v1.0 Market Adoption</td>
+              <td>conflict</td>
+              <td><span class="badge pass">
+                conflict
+              </span></td>
+              <td><code>SEMANTIC_PLACEHOLDER_CONTENT, SEMANTIC_PLACEHOLDER_CONTENT, SEMANTIC_PLACEHOLDER_CONTENT</code></td>
+            </tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="section-head">
+        <span class="section-no">02 · Method</span>
+        <h2>Same corpus. Same parser. Same reviewed manifest answers.</h2>
+        <p>Both engines received one neutral graph snapshot. That control matters: otherwise a better parser could masquerade as a better database. GearHeart repositories were read in place and were not modified; only aliases, fingerprints, aggregate metrics, IDs, and relative evidence paths enter this report.</p>
+      </div>
+      <div class="architecture">
+        <div class="flow">
+          <div class="flow-box">
+            <strong>Read-only inputs</strong>
+            <p>HeartBeat · AgentHunt · HomeFalcon<br><br>README + PRD + SoT + EPIC Markdown at pinned git commits.</p>
+          </div>
+          <div class="arrow">→</div>
+          <div class="flow-box">
+            <strong>Neutral GraphSnapshot</strong>
+            <p>Corpus-scoped entries, source path + line, body hash, definition status, typed hint, and reference edges.</p>
+          </div>
+          <div class="arrow">→</div>
+          <div class="flow-split">
+            <div class="flow-box"><strong>Markdown engine</strong><p>Ephemeral Python adjacency map</p></div>
+            <div class="flow-box"><strong>Kuzu engine</strong><p>Local property graph, v0.11.3</p></div>
+          </div>
+        </div>
+        <div class="callout"><strong>Quality order:</strong> correctness first, then query cost, context payload, storage, staleness, recovery, and authoring governance. A faster wrong answer is still wrong.</div>
+      </div>
+      <div class="table-wrap" style="margin-top:22px">
+        <table>
+          <thead><tr><th>Corpus</th><th>Files</th><th>Nodes</th><th>Edges</th><th>Dangling</th><th>Parse</th><th>Kuzu build</th><th>Markdown</th><th>Kuzu DB</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>AgentHunt</strong>
+                  <span class="hash">bd2ddb1c48</span></td>
+              <td>22</td>
+              <td>216</td>
+              <td>1,457</td>
+              <td>21</td>
+              <td>43.88 ms</td>
+              <td>11.72 s</td>
+              <td>484.1 KB</td>
+              <td>7.0 MB</td>
+            </tr>
+            <tr>
+              <td><strong>HeartBeat</strong>
+                  <span class="hash">51177b6c07</span></td>
+              <td>25</td>
+              <td>242</td>
+              <td>1,442</td>
+              <td>9</td>
+              <td>39.37 ms</td>
+              <td>11.52 s</td>
+              <td>423.8 KB</td>
+              <td>7.0 MB</td>
+            </tr>
+            <tr>
+              <td><strong>HomeFalcon</strong>
+                  <span class="hash">66d86f46bc</span></td>
+              <td>41</td>
+              <td>254</td>
+              <td>554</td>
+              <td>54</td>
+              <td>71.59 ms</td>
+              <td>5.78 s</td>
+              <td>1.1 MB</td>
+              <td>7.1 MB</td>
+            </tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="results">
+      <div class="section-head">
+        <span class="section-no">03 · Measured results</span>
+        <h2>At this scale, Kuzu adds capability—not free performance.</h2>
+        <p>Both engines returned every manifest-authored literal evidence set exactly. Markdown in-memory had the lower median warm-query time (1 μs versus 633 μs). This small-corpus microbenchmark is not a scalability claim. Kuzu's potential advantage is declarative, persistent graph traversal; this run measured its build, disk, synchronization, and dependency costs but did not test portfolio queries or graph algorithms.</p>
+      </div>
+      <div class="grid-2">
+        <div class="chart">
+          <h3>Warm query latency</h3>
+          <p>Median across 25 retrieval cases; lower is better. Both ran after one warm-up.</p>
+          
+      <div class="bar-row">
+        <div class="bar-label">Kuzu embedded</div>
+        <div class="bar-track"><span class="bar-fill kuzu" style="width:100.00%"></span></div>
+        <div class="bar-value">633 μs</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Markdown in-memory</div>
+        <div class="bar-track"><span class="bar-fill markdown" style="width:2.00%"></span></div>
+        <div class="bar-value">1 μs</div>
+      </div>
+        </div>
+        <div class="chart">
+          <h3>Context payload is a retrieval choice</h3>
+          <p>Median bytes for whole source files versus precise entries and lean projections. Kuzu payload fields were read back from the database; both systems returned identical content.</p>
+          
+      <div class="bar-row">
+        <div class="bar-label">Whole source files</div>
+        <div class="bar-track"><span class="bar-fill files" style="width:100.00%"></span></div>
+        <div class="bar-value">27.5 KB</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Exact Markdown entries</div>
+        <div class="bar-track"><span class="bar-fill markdown" style="width:11.23%"></span></div>
+        <div class="bar-value">3.1 KB</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Structured projection</div>
+        <div class="bar-track"><span class="bar-fill projection" style="width:2.00%"></span></div>
+        <div class="bar-value">362 B</div>
+      </div>
+        </div>
+        <div class="chart">
+          <h3>Cold preparation</h3>
+          <p>Markdown parsing is required by both; Kuzu then materializes the snapshot.</p>
+          <div class="chart-group"><p>AgentHunt</p>
+      <div class="bar-row">
+        <div class="bar-label">Markdown parse</div>
+        <div class="bar-track"><span class="bar-fill markdown" style="width:2.00%"></span></div>
+        <div class="bar-value">43.88 ms</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Kuzu materialize</div>
+        <div class="bar-track"><span class="bar-fill kuzu" style="width:100.00%"></span></div>
+        <div class="bar-value">11.72 s</div>
+      </div></div><div class="chart-group"><p>HeartBeat</p>
+      <div class="bar-row">
+        <div class="bar-label">Markdown parse</div>
+        <div class="bar-track"><span class="bar-fill markdown" style="width:2.00%"></span></div>
+        <div class="bar-value">39.37 ms</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Kuzu materialize</div>
+        <div class="bar-track"><span class="bar-fill kuzu" style="width:98.23%"></span></div>
+        <div class="bar-value">11.52 s</div>
+      </div></div><div class="chart-group"><p>HomeFalcon</p>
+      <div class="bar-row">
+        <div class="bar-label">Markdown parse</div>
+        <div class="bar-track"><span class="bar-fill markdown" style="width:2.00%"></span></div>
+        <div class="bar-value">71.59 ms</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Kuzu materialize</div>
+        <div class="bar-track"><span class="bar-fill kuzu" style="width:49.29%"></span></div>
+        <div class="bar-value">5.78 s</div>
+      </div></div>
+        </div>
+        <div class="chart">
+          <h3>Persistent storage</h3>
+          <p>Combined Kuzu storage was 10.5× combined source size; individual corpora ranged from 6.3× to 17.0×.</p>
+          <div class="chart-group"><p>AgentHunt</p>
+      <div class="bar-row">
+        <div class="bar-label">Markdown source</div>
+        <div class="bar-track"><span class="bar-fill markdown" style="width:6.64%"></span></div>
+        <div class="bar-value">484.1 KB</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Kuzu database</div>
+        <div class="bar-track"><span class="bar-fill kuzu" style="width:98.19%"></span></div>
+        <div class="bar-value">7.0 MB</div>
+      </div></div><div class="chart-group"><p>HeartBeat</p>
+      <div class="bar-row">
+        <div class="bar-label">Markdown source</div>
+        <div class="bar-track"><span class="bar-fill markdown" style="width:5.81%"></span></div>
+        <div class="bar-value">423.8 KB</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Kuzu database</div>
+        <div class="bar-track"><span class="bar-fill kuzu" style="width:98.57%"></span></div>
+        <div class="bar-value">7.0 MB</div>
+      </div></div><div class="chart-group"><p>HomeFalcon</p>
+      <div class="bar-row">
+        <div class="bar-label">Markdown source</div>
+        <div class="bar-track"><span class="bar-fill markdown" style="width:15.92%"></span></div>
+        <div class="bar-value">1.1 MB</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Kuzu database</div>
+        <div class="bar-track"><span class="bar-fill kuzu" style="width:100.00%"></span></div>
+        <div class="bar-value">7.1 MB</div>
+      </div></div>
+        </div>
+      </div>
+      <div class="callout"><strong>The anti-hype result:</strong> exact-entry parsing delivered the same context-density benefit as Kuzu. A graph database would need to earn its added cost in a follow-up test of combined-corpus traversal, graph algorithms, or incremental impact analysis—not smaller prompts alone.</div>
+    </section>
+
+    <section id="authority">
+      <div class="section-head">
+        <span class="section-no">04 · Authority test</span>
+        <h2>The harness found a stale projection after one file edit.</h2>
+        <p>The harness copied one corpus into an isolated temporary directory, changed one entry, and manually compared its hash with the untouched graph. No product source was edited. The old graph retained its old content hash until a complete rebuild restored parity; no automatic runtime guard was implemented.</p>
+      </div>
+      <div class="authority-card">
+        <div class="authority-copy">
+          <h3>Staleness is not theoretical.</h3>
+          <p>Any derived index needs invalidation after source changes; a persistent graph also needs reconciliation across processes and commits. Source hashes, stale status, and fail-closed gates are requirements from the experiment, not features completed by this prototype.</p>
+        </div>
+        <div class="authority-proof">
+          <div class="proof-row"><span>Test corpus</span><strong>HeartBeat</strong></div>
+          <div class="proof-row"><span>Source changed</span><strong>1 Markdown file</strong></div>
+          <div class="proof-row"><span>Harness hash comparison</span><strong>STALE</strong></div>
+          <div class="proof-row"><span>Automatic runtime guard</span><strong>NOT IMPLEMENTED</strong></div>
+          <div class="proof-row"><span>Old graph matched new source</span><strong>NO</strong></div>
+          <div class="proof-row"><span>Rebuild restored parity</span><strong>YES</strong></div>
+          <div class="proof-row"><span>Recovery cost</span><strong>12.73 s</strong></div>
+          <div class="proof-row"><span>Human-reviewable DB diff</span><strong>NO · binary</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="graph">
+      <div class="section-head">
+        <span class="section-no">05 · What the graph reveals</span>
+        <h2>Connectivity is useful; connectivity is not correctness.</h2>
+        <p>The sample below captures three observed patterns: repeated raw IDs kept apart by per-corpus isolation, a clean directed Source-of-Truth projection, and an authored directed link whose meaning is wrong. Kuzu faithfully returns the authored edges; it does not validate their semantics.</p>
+      </div>
+      <div class="graph-panel">
+        <svg viewBox="0 0 1100 460" role="img" aria-label="Observed PRD-CE identifiers and directed relationships">
+          <defs>
+            <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#8d877d"/></marker>
+            <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <g stroke="#706b62" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)">
+            <path d="M488 135 C565 128 595 100 660 92"/>
+            <path d="M488 135 C565 142 595 170 660 178"/>
+            <path d="M482 350 C560 342 595 322 660 316"/>
+            <path d="M482 350 C560 360 595 391 660 398"/>
+          </g>
+          <g font-family="SFMono-Regular,Consolas,monospace" font-size="13" text-anchor="middle">
+            <text x="122" y="34" fill="#d9c991" font-size="11">SAME RAW ID · THREE PRODUCTS</text>
+            <g><circle cx="120" cy="105" r="34" fill="#a77f23"/><text x="120" y="110" fill="#fff">HB</text><rect x="47" y="135" width="146" height="28" rx="14" fill="#2a2721"/><text x="120" y="154" fill="#fff">BR-001 · BYOK</text></g>
+            <g><circle cx="120" cy="235" r="34" fill="#315b70"/><text x="120" y="240" fill="#fff">AH</text><rect x="38" y="265" width="164" height="28" rx="14" fill="#2a2721"/><text x="120" y="284" fill="#fff">BR-001 · Discovery</text></g>
+            <g><circle cx="120" cy="365" r="34" fill="#62506d"/><text x="120" y="370" fill="#fff">HF</text><rect x="33" y="395" width="174" height="28" rx="14" fill="#2a2721"/><text x="120" y="414" fill="#fff">BR-001 · Free tier</text></g>
+
+            <text x="560" y="34" fill="#d9c991" font-size="11">OBSERVED HEARTBEAT OUTBOUND LINKS</text>
+            <g filter="url(#glow)"><circle cx="440" cy="135" r="44" fill="#38623a"/><text x="440" y="140" fill="#fff">ARC-001</text></g>
+            <g><circle cx="700" cy="90" r="38" fill="#315b70"/><text x="700" y="95" fill="#fff">DBT-003</text></g>
+            <g><circle cx="700" cy="180" r="38" fill="#315b70"/><text x="700" y="185" fill="#fff">DBT-004</text></g>
+
+            <text x="563" y="263" fill="#d9c991" font-size="11">OBSERVED HOMEFALCON OUTBOUND LINKS</text>
+            <g><circle cx="440" cy="350" r="42" fill="#62506d"/><text x="440" y="355" fill="#fff">TECH-007</text></g>
+            <g><circle cx="700" cy="315" r="40" fill="#9a3c2f"/><text x="700" y="320" fill="#fff">UJ-007</text></g>
+            <g><circle cx="700" cy="400" r="40" fill="#9a3c2f"/><text x="700" y="405" fill="#fff">UJ-008</text></g>
+            <text x="780" y="302" fill="#e7b9af" text-anchor="start" font-family="Helvetica Neue,Arial,sans-serif">Authored labels imply Command Center / Impact Report</text>
+            <text x="780" y="326" fill="#b9b3a8" text-anchor="start" font-family="Helvetica Neue,Arial,sans-serif">Canonical UJ-007 = Product Inventory</text>
+            <text x="780" y="411" fill="#b9b3a8" text-anchor="start" font-family="Helvetica Neue,Arial,sans-serif">Canonical UJ-008 = Product Detail</text>
+          </g>
+        </svg>
+        <div class="graph-legend">
+          <span><i class="dot" style="background:#a77f23"></i>business rule</span>
+          <span><i class="dot" style="background:#38623a"></i>architecture decision</span>
+          <span><i class="dot" style="background:#315b70"></i>data/cache</span>
+          <span><i class="dot" style="background:#9a3c2f"></i>semantic conflict requiring human review</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="section-head">
+        <span class="section-no">06 · Source-fidelity suite</span>
+        <h2>Every literal retrieval case, side by side.</h2>
+        <p>“Exact” means the returned ID set equals the manifest-authored, separately reviewed Markdown evidence set. Latency is a warm median across 50 repetitions. It does not mean the authored knowledge is semantically correct; those verdicts appear in the separate accuracy panel.</p>
+      </div>
+      <div class="filters" aria-label="Filter benchmark cases">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="heartbeat">HeartBeat</button>
+        <button class="filter" data-filter="agenthunt">AgentHunt</button>
+        <button class="filter" data-filter="homefalcon">HomeFalcon</button>
+        <button class="filter" data-filter="traverse">Traversal</button>
+        <button class="filter" data-filter="lookup">Lookup</button>
+      </div>
+      <div class="table-wrap">
+        <table id="case-table">
+          <thead><tr><th>Question</th><th>Corpus</th><th>Markdown</th><th>Kuzu</th><th>Retrieved evidence IDs</th></tr></thead>
+          <tbody>
+            <tr data-corpus="heartbeat"
+                data-kind="lookup"
+                data-status="pass">
+              <td>
+                <span class="case-id">namespace-hb-br001</span>
+                <strong>Locate HeartBeat BR-001 without confusing it with another product&#x27;s BR-001.</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">0 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">184 μs</span></td>
+              <td><code>BR-001</code></td>
+            </tr>
+            <tr data-corpus="agenthunt"
+                data-kind="lookup"
+                data-status="pass">
+              <td>
+                <span class="case-id">namespace-ah-br001</span>
+                <strong>Locate AgentHunt BR-001 without confusing it with another product&#x27;s BR-001.</strong>
+              </td>
+              <td>AgentHunt</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">0 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">185 μs</span></td>
+              <td><code>BR-001</code></td>
+            </tr>
+            <tr data-corpus="homefalcon"
+                data-kind="lookup"
+                data-status="pass">
+              <td>
+                <span class="case-id">namespace-hf-br001</span>
+                <strong>Locate HomeFalcon BR-001 without confusing it with another product&#x27;s BR-001.</strong>
+              </td>
+              <td>HomeFalcon</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">0 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">190 μs</span></td>
+              <td><code>BR-001</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-arc001-data-projections</span>
+                <strong>Which database-model entries does HeartBeat&#x27;s Source-of-Truth boundary directly reference?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">641 μs</span></td>
+              <td><code>DBT-003, DBT-004</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-dbt005-health-tests</span>
+                <strong>Which direct test definitions consume the ID graph edge cache?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">633 μs</span></td>
+              <td><code>TEST-009, TEST-010</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-api201-test-impact</span>
+                <strong>Which tests directly reference the gate-lint API contract?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">624 μs</span></td>
+              <td><code>TEST-012, TEST-013, TEST-017, TEST-027, TEST-039, TEST-042</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-fea020-api-consumers</span>
+                <strong>Which API contracts directly reference the gate-lint feature?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">2 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">643 μs</span></td>
+              <td><code>API-003, API-201, API-203, API-204</code></td>
+            </tr>
+            <tr data-corpus="agenthunt"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">ah-uj004-api-impact</span>
+                <strong>Which AgentHunt API contracts directly reference the consumer-discovery journey?</strong>
+              </td>
+              <td>AgentHunt</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">2 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">639 μs</span></td>
+              <td><code>API-003, API-004, API-011, API-301</code></td>
+            </tr>
+            <tr data-corpus="agenthunt"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">ah-scr004-design-dependencies</span>
+                <strong>Which design components does the Tool Detail screen directly reference?</strong>
+              </td>
+              <td>AgentHunt</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">2 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">648 μs</span></td>
+              <td><code>DES-003, DES-004, DES-005, DES-006, DES-007</code></td>
+            </tr>
+            <tr data-corpus="agenthunt"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">ah-risk010-mitigation-links</span>
+                <strong>Which IDs does AgentHunt&#x27;s market-timing risk directly cite for mitigation?</strong>
+              </td>
+              <td>AgentHunt</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">626 μs</span></td>
+              <td><code>BR-006, CFD-005, KPI-001</code></td>
+            </tr>
+            <tr data-corpus="homefalcon"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hf-tech006-transport-contract</span>
+                <strong>Which API contract implements HomeFalcon&#x27;s JSON-not-SSE transport decision?</strong>
+              </td>
+              <td>HomeFalcon</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">666 μs</span></td>
+              <td><code>API-010</code></td>
+            </tr>
+            <tr data-corpus="homefalcon"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hf-tech007-semantic-drift</span>
+                <strong>Which journey IDs are linked from the CommandCenter/ImpactReport decision, even though the canonical journey meanings do not match?</strong>
+              </td>
+              <td>HomeFalcon</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">678 μs</span></td>
+              <td><code>UJ-007, UJ-008</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-arc001-two-hop-data-impact</span>
+                <strong>Within two outbound hops of the SoT boundary, which data models are implicated?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">3 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">4.38 ms</span></td>
+              <td><code>DBT-001, DBT-003, DBT-004, DBT-014</code></td>
+            </tr>
+            <tr data-corpus="homefalcon"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hf-tech007-two-hop-test-impact</span>
+                <strong>Which test cases are reached within two outbound hops of the semantically drifted TECH-007 links?</strong>
+              </td>
+              <td>HomeFalcon</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">2 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1.89 ms</span></td>
+              <td><code>TEST-160, TEST-161, TEST-162, TEST-170, TEST-171, TEST-172</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-cfd003-market-signal-rules</span>
+                <strong>Which business rules does the GlassCode / Codex UI market signal directly support?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">630 μs</span></td>
+              <td><code>BR-001, BR-008</code></td>
+            </tr>
+            <tr data-corpus="agenthunt"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">ah-br001-positioning-evidence</span>
+                <strong>Which customer evidence entries directly support AgentHunt&#x27;s social-discovery-first positioning rule?</strong>
+              </td>
+              <td>AgentHunt</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">625 μs</span></td>
+              <td><code>CFD-011, CFD-015, CFD-019, CFD-020</code></td>
+            </tr>
+            <tr data-corpus="agenthunt"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">ah-br012-pricing-rule-dependencies</span>
+                <strong>Which business rules directly constrain the freemium audience-gate pricing model?</strong>
+              </td>
+              <td>AgentHunt</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">621 μs</span></td>
+              <td><code>BR-003, BR-007, BR-009, BR-013</code></td>
+            </tr>
+            <tr data-corpus="homefalcon"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hf-uj001-acceptance-tests</span>
+                <strong>Which tests directly validate the manual-product-entry journey?</strong>
+              </td>
+              <td>HomeFalcon</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">2 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">631 μs</span></td>
+              <td><code>TEST-089, TEST-090, TEST-091, TEST-092</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-risk007-mitigation-features</span>
+                <strong>Which features does the file-write-corruption risk directly cite as mitigation?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">628 μs</span></td>
+              <td><code>FEA-018, FEA-020</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-risk007-missing-test-link</span>
+                <strong>Which test IDs does the file-write-corruption risk explicitly link as mitigation evidence?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">631 μs</span></td>
+              <td><code>∅</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-arc002-contracts</span>
+                <strong>Which API contracts directly implement the direct file-write pipeline decision?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">645 μs</span></td>
+              <td><code>API-201, API-202, API-203</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-test029-persistence-coverage</span>
+                <strong>Which data models are directly verified by the post-write validation test?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">630 μs</span></td>
+              <td><code>DBT-006, DBT-010, DBT-011</code></td>
+            </tr>
+            <tr data-corpus="agenthunt"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">ah-dep002-two-hop-runbooks</span>
+                <strong>Which runbooks are reachable within two outbound hops of preview and production deployment?</strong>
+              </td>
+              <td>AgentHunt</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">4 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">5.05 ms</span></td>
+              <td><code>RUN-001, RUN-003</code></td>
+            </tr>
+            <tr data-corpus="agenthunt"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">ah-kpi003-feature-contributors</span>
+                <strong>Which features directly contribute to the Weekly Active Engagers launch metric?</strong>
+              </td>
+              <td>AgentHunt</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">653 μs</span></td>
+              <td><code>FEA-003, FEA-006, FEA-007, FEA-009, FEA-010</code></td>
+            </tr>
+            <tr data-corpus="heartbeat"
+                data-kind="traverse"
+                data-status="pass">
+              <td>
+                <span class="case-id">hb-ado-beachhead-dependents</span>
+                <strong>Which adoption artifacts directly depend on the beachhead segment?</strong>
+              </td>
+              <td>HeartBeat</td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">1 μs</span></td>
+              <td><span class="badge pass">
+                exact
+              </span><br><span class="latency">634 μs</span></td>
+              <td><code>ADO-REF-001, ADO-WHOLE-001</code></td>
+            </tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="findings">
+      <div class="section-head">
+        <span class="section-no">07 · Quality-control findings</span>
+        <h2>The prototype found design risks beyond speed.</h2>
+        <p>Each surfaced while projecting three live PRD-CE products through the same repeatable model. The run kept one database per corpus; a combined portfolio graph remains untested.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card finding"><span class="n">1</span><h3>IDs require a project namespace</h3><p><code>BR-001</code> has different meanings in all three corpora. This run avoided collision through separate databases. A future combined graph must test a composite identity such as <code>(project_id, id_ref)</code>.</p></article>
+        <article class="card finding"><span class="n">2</span><h3>Edges can be precisely wrong</h3><p>HomeFalcon <code>TECH-007</code> links <code>UJ-007/008</code> as Command Center / Impact Report, while the canonical journey definitions are Product Inventory / Product Detail. Traversal cannot replace semantic validation.</p></article>
+        <article class="card finding"><span class="n">3</span><h3>Markdown grammar is part of the schema</h3><p>Compound IDs, PRD/README table-owned IDs, nested headings, revision sections, and duplicate definitions all occur in real products. A heading-only regex silently drops knowledge.</p></article>
+        <article class="card finding"><span class="n">4</span><h3>Provenance must survive materialization</h3><p>Each node and edge needs repo, relative path, line/anchor, content hash, commit, extraction confidence, and last-indexed time. Without them a graph answer cannot be audited back to authority.</p></article>
+        <article class="card finding"><span class="n">5</span><h3>Graph health is not product truth health</h3><p>A structurally valid edge may still be stale or semantically inconsistent. Graph checks should flag orphans, dangling refs, staleness, duplicate definitions, and cross-authority contradictions separately.</p></article>
+        <article class="card finding"><span class="n">6</span><h3>Kuzu lifecycle risk is material</h3><p>The exact upstream requested is archived. The final release remains usable, but production adoption would inherit compatibility and security maintenance with no authoritative roadmap.</p></article>
+      </div>
+    </section>
+
+    <section id="decision">
+      <div class="section-head">
+        <span class="section-no">08 · Tradeoff decision</span>
+        <h2>Markdown wins now; the graph must earn a second job.</h2>
+        <p>Markdown is the better current SoT and small-corpus retrieval baseline: it matched Kuzu correctness with lower latency, build cost, storage, and synchronization risk.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="decision-table">
+          <thead><tr><th>Decision dimension</th><th>Markdown only</th><th>Kuzu as SoT</th><th>Strict hybrid</th></tr></thead>
+          <tbody>
+            <tr><td>Human authoring & review</td><td class="yes">Best · familiar text + PR diffs</td><td class="no">Weak · requires application/editor</td><td class="yes">Best · Markdown write path</td></tr>
+            <tr><td>Git history & branching</td><td class="yes">Native</td><td class="no">Binary/migration burden</td><td class="yes">Native authority; cache rebuilt per commit</td></tr>
+            <tr><td>Exact ID lookup</td><td class="yes">Exact in benchmark</td><td class="yes">Exact in benchmark</td><td class="yes">Exact, with source fallback</td></tr>
+            <tr><td>Reverse / multi-hop queries</td><td class="yes">Exact + fastest in this run</td><td class="yes">Exact; Python orchestrated one-hop Cypher</td><td class="mixed">Potential, not separately tested</td></tr>
+            <tr><td>Context density</td><td class="yes">Exact entry extraction works</td><td class="yes">Projection queries work</td><td class="yes">Choose entry or projection by task</td></tr>
+            <tr><td>Staleness risk</td><td class="yes">One copy</td><td class="mixed">Low only if sole authority</td><td class="mixed">Managed by hash/commit + fail-closed</td></tr>
+            <tr><td>Offline portability</td><td class="yes">Any text tool</td><td class="no">Runtime + schema + binary</td><td class="mixed">Files portable; graph optional</td></tr>
+            <tr><td>Operational burden</td><td class="yes">Lowest</td><td class="no">Highest</td><td class="mixed">Moderate and bounded</td></tr>
+            <tr><td>Portfolio-scale graph analysis</td><td class="mixed">Not tested</td><td class="mixed">Not tested</td><td class="mixed">Hypothesis for follow-up</td></tr>
+            <tr><td>Current dependency outlook</td><td class="yes">Open format</td><td class="no">Kuzu archived</td><td class="mixed">Engine-swappable projection</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="recommendation" style="margin-top:24px">
+        <h3>Current decision: keep Markdown. Gate any graph projection.</h3>
+        <ol>
+          <li>Define one engine-neutral <code>GraphSnapshot</code> contract from canonical files.</li>
+          <li>Keep the in-memory backend as the correctness and cost baseline.</li>
+          <li>Test a combined corpus keyed by <code>(project_id, id_ref)</code>, never raw ID alone.</li>
+          <li>Persist source path, line, hash, commit, confidence, and extraction warnings.</li>
+          <li>Require incremental rebuild, explicit stale status, and fail-closed gates.</li>
+          <li>Adopt a graph only if portfolio impact or algorithms beat the baseline materially.</li>
+          <li>Keep every product definition edit in Markdown and git. On conflict, repo wins.</li>
+          <li>Do not standardize production on archived Kuzu without a separate successor evaluation.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="next">
+      <div class="section-head">
+        <span class="section-no">09 · If you continue</span>
+        <h2>Define the next proof before choosing an engine.</h2>
+        <p>The experiment supports a neutral contract and a stronger follow-up, not immediate graph adoption. Set measurable success criteria before adding another persistent system.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card"><p class="eyebrow">M0 · Extract</p><h3>Canonical GraphSnapshot</h3><p>Harden compound IDs, table definitions, duplicate provenance, range syntax, relation confidence, and source/commit fingerprints. Emit deterministic JSON.</p></article>
+        <article class="card"><p class="eyebrow">M1 · Prove</p><h3>Combined-corpus challenge</h3><p>Test composite identity, portfolio impact, graph algorithms, incremental updates, and end-to-end evidence retrieval against the in-memory baseline.</p></article>
+        <article class="card"><p class="eyebrow">M2 · Decide</p><h3>Adopt only on measured lift</h3><p>Add a read-only projection only if the combined test shows material value after build, storage, staleness, and lifecycle costs. Markdown remains authoritative either way.</p></article>
+      </div>
+    </section>
+
+    <section id="limits">
+      <div class="section-head">
+        <span class="section-no">10 · Limits & provenance</span>
+        <h2>What this evidence does not prove.</h2>
+        <p>A useful experiment is explicit about its boundary. These results support an architecture direction, not a universal database benchmark.</p>
+      </div>
+      <ul class="limitations">
+        <li>Three local products are a realistic but small sample; PetPass's flat legacy layout was not part of the timed corpus.</li>
+        <li>The benchmark measures deterministic evidence retrieval, not end-to-end LLM answer quality.</li>
+        <li>Warm microseconds on hundreds of nodes do not predict million-node graph performance.</li>
+        <li>Both engines share one parser by design; parser defects affect both equally and are reported separately.</li>
+        <li>The Kuzu build uses parameterized inserts for clarity, not a tuned bulk-import pipeline.</li>
+        <li>The run used one database per corpus; it did not implement or test a combined <code>(project_id, id_ref)</code> namespace.</li>
+        <li>Two-hop Kuzu traversal was orchestrated as repeated one-hop Cypher calls in Python; variable-length Cypher and graph algorithms were not benchmarked.</li>
+        <li>Incremental indexing, concurrent edits, operational recovery, and end-to-end LLM outcomes were not tested.</li>
+        <li>Latest-visible evidence precedence and explicit verification resolution are tested, but freshness-policy TTL expiry and scheduled re-review are not implemented or tested.</li>
+        <li>Payload size estimates compare whole-file, exact-entry, and structured projections; actual agent tokenization varies.</li>
+        <li>Committed evidence includes aliases, IDs, questions, relative evidence locations, selected semantic titles, commits, and fingerprints; source bodies, absolute paths, and PII are excluded.</li>
+        <li>Two deterministic semantic checks expose known defects; broad ontology validation, blind agent evaluation, and human adjudication remain future work.</li>
+      </ul>
+      <div class="source-list" style="margin-top:28px">
+        <p><strong>Kuzu upstream</strong><br><a href="https://github.com/kuzudb/kuzu">github.com/kuzudb/kuzu</a> · archived 2025-10-10</p>
+        <p><strong>Final release</strong><br><a href="https://github.com/kuzudb/kuzu/releases/tag/v0.11.3">v0.11.3</a> · commit <code>27cba5b91423</code></p>
+        <p><strong>Official docs archive</strong><br><a href="https://kuzudb.github.io/docs/">kuzudb.github.io/docs</a></p>
+        <p><strong>Local methodology evidence</strong><br>HeartBeat ARC-001 / DBT-004 / DBT-005 · benchmark case manifest</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>PRD-CE SoT Systems Lab · generated from bounded benchmark evidence · 2026-07-23</span>
+    <span>Kuzu 0.11.3 · Python 3.11.13 · arm64</span>
+  </footer>
+
+  <script id="benchmark-data" type="application/json">{"acceptance":{"checks":{"authority_boundary":{"passed":true,"rebuilt_hash_matched_new_source":true,"status":"complete"},"lifecycle_manifest_coverage":{"invalid_anchor_cases":[],"missing_stages":[],"passed":true,"unknown_stage_cases":[]},"semantic_truth":{"duplicate_cases":[],"expected_checks":2,"inexact_cases":[],"missing_cases":[],"observed_checks":2,"passed":true,"unexpected_cases":[]},"source_fidelity":{"duplicate_rows":[],"expected_rows":50,"inexact_rows":[],"missing_rows":[],"observed_rows":50,"passed":true,"required_engines":["markdown","kuzu"],"unexpected_rows":[]}},"passed":true,"policy":"Fail closed unless both engines exactly match every manifest case, all semantic verdicts match, lifecycle manifest coverage is complete and stage-valid, and the authority rebuild matches source."},"accuracy_dimensions":{"lifecycle_manifest_coverage":{"allowed_anchor_families":{"v0.1":["CFD"],"v0.2":["BR"],"v0.3":["BR","KPI","FEA","CFD"],"v0.4":["UJ","PER","SCR"],"v0.5":["RISK","TECH"],"v0.6":["ARC","API","DBT","INT"],"v0.7":["TEST","EPIC"],"v0.8":["DEP","RUN","MON"],"v0.9":["GTM","KPI","CFD","FEA"],"v1.0":["ADO"]},"complete":true,"covered_stages":["v0.1","v0.2","v0.3","v0.4","v0.5","v0.6","v0.7","v0.8","v0.9","v1.0"],"description":"Manifest stage-label and anchor-family coverage; not executable PRD gate conformance.","expected_stages":["v0.1","v0.2","v0.3","v0.4","v0.5","v0.6","v0.7","v0.8","v0.9","v1.0"],"invalid_anchor_cases":[],"lifecycle_case_count":12,"missing_stages":[],"unknown_stage_cases":[]},"semantic_truth":{"assessed_cases":2,"checks":[{"actual_verdict":"conflict","case_id":"hf-tech007-semantic-drift","check_type":"target_title_contains","corpus":"homefalcon","expected_verdict":"conflict","findings":[{"actual_title":"Product Inventory View & Filter","code":"SEMANTIC_TARGET_TITLE_MISMATCH","expected_terms":["Command Center"],"id":"UJ-007"},{"actual_title":"Product Detail View","code":"SEMANTIC_TARGET_TITLE_MISMATCH","expected_terms":["Impact Report"],"id":"UJ-008"}],"lifecycle_stage":"v0.5 Red Team Review","required_action":"flag","verdict_exact":true},{"actual_verdict":"conflict","case_id":"hb-ado-beachhead-dependents","check_type":"entry_forbidden_terms","corpus":"heartbeat","expected_verdict":"conflict","findings":[{"code":"SEMANTIC_PLACEHOLDER_CONTENT","id":"ADO-BEACHHEAD-001","matched_terms":["[Specific","CFD-XXX"]},{"code":"SEMANTIC_PLACEHOLDER_CONTENT","id":"ADO-REF-001","matched_terms":["[Customer Name]","CFD-XXX"]},{"code":"SEMANTIC_PLACEHOLDER_CONTENT","id":"ADO-WHOLE-001","matched_terms":["CFD-XXX"]}],"lifecycle_stage":"v1.0 Market Adoption","required_action":"block","verdict_exact":true}],"description":"Deterministic pack-supplied checks; reported separately from literal retrieval.","verdict_exact_cases":2},"source_fidelity":{"by_engine":{"kuzu":{"cases":25,"exact_cases":25,"exact_rate":1.0},"markdown":{"cases":25,"exact_cases":25,"exact_rate":1.0}},"description":"Literal ID-set fidelity to manifest-authored Markdown spans; not semantic truth."}},"authority_boundary":{"automatic_runtime_guard_implemented":false,"binary_database_changed_files":["database"],"binary_database_files_changed":1,"cached_graph_was_stale":true,"cached_hash_matched_new_source":false,"corpus":"heartbeat","detection_method":"harness_hash_comparison","kuzu_database_human_diffable":false,"markdown_human_diffable":true,"mutated_id":"CFD-020","rebuild_ms":12728.694,"rebuilt_hash_matched_new_source":true,"source_diff_lines":11,"source_edit_files":1,"status":"complete"},"benchmark_manifest":{"case_count":25,"gold_review":{"human_adjudication_claim":false,"independence_claim":false,"method":"separate read-only source inspection","reviewed_at":"2026-07-23","scope":"all expected ID sets and cited evidence spans"},"schema_version":"1.1","sha256":"ea11be943ade39caa11fd9f39f785b04d9462060b67c367cb0703ff04c7f64f4"},"cases":[{"actual":["BR-001"],"case_id":"namespace-hb-br001","corpus":"heartbeat","engine":"markdown","evidence":["SoT/SoT.BUSINESS_RULES.md:65"],"exact":true,"expected":["BR-001"],"f1":1.0,"kind":"lookup","latency_ms":{"median":0.0003,"min":0.0003,"p95":0.0009,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":1032,"structured_projection":134,"whole_source_files":41640},"precision":1.0,"question":"Locate HeartBeat BR-001 without confusing it with another product's BR-001.","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-001"],"case_id":"namespace-hb-br001","corpus":"heartbeat","engine":"kuzu","evidence":["SoT/SoT.BUSINESS_RULES.md:65"],"exact":true,"expected":["BR-001"],"f1":1.0,"kind":"lookup","latency_ms":{"median":0.1841,"min":0.1594,"p95":0.2579,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":1032,"structured_projection":134,"whole_source_files":41640},"precision":1.0,"question":"Locate HeartBeat BR-001 without confusing it with another product's BR-001.","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-001"],"case_id":"namespace-ah-br001","corpus":"agenthunt","engine":"markdown","evidence":["SoT/SoT.BUSINESS_RULES.md:46"],"exact":true,"expected":["BR-001"],"f1":1.0,"kind":"lookup","latency_ms":{"median":0.0003,"min":0.0003,"p95":0.0003,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":1345,"structured_projection":143,"whole_source_files":32925},"precision":1.0,"question":"Locate AgentHunt BR-001 without confusing it with another product's BR-001.","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-001"],"case_id":"namespace-ah-br001","corpus":"agenthunt","engine":"kuzu","evidence":["SoT/SoT.BUSINESS_RULES.md:46"],"exact":true,"expected":["BR-001"],"f1":1.0,"kind":"lookup","latency_ms":{"median":0.1849,"min":0.1555,"p95":0.2399,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":1345,"structured_projection":143,"whole_source_files":32925},"precision":1.0,"question":"Locate AgentHunt BR-001 without confusing it with another product's BR-001.","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-001"],"case_id":"namespace-hf-br001","corpus":"homefalcon","engine":"markdown","evidence":["SoT/SoT.BUSINESS_RULES.md:24"],"exact":true,"expected":["BR-001"],"f1":1.0,"kind":"lookup","latency_ms":{"median":0.0003,"min":0.0003,"p95":0.0003,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":1424,"structured_projection":132,"whole_source_files":24581},"precision":1.0,"question":"Locate HomeFalcon BR-001 without confusing it with another product's BR-001.","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-001"],"case_id":"namespace-hf-br001","corpus":"homefalcon","engine":"kuzu","evidence":["SoT/SoT.BUSINESS_RULES.md:24"],"exact":true,"expected":["BR-001"],"f1":1.0,"kind":"lookup","latency_ms":{"median":0.1896,"min":0.1495,"p95":0.2142,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":1424,"structured_projection":132,"whole_source_files":24581},"precision":1.0,"question":"Locate HomeFalcon BR-001 without confusing it with another product's BR-001.","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["DBT-003","DBT-004"],"case_id":"hb-arc001-data-projections","corpus":"heartbeat","engine":"markdown","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:442","SoT/SoT.DATA_MODEL.md:117","SoT/SoT.DATA_MODEL.md:157"],"exact":true,"expected":["DBT-003","DBT-004"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.001,"min":0.0009,"p95":0.002,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":2855,"structured_projection":244,"whole_source_files":26633},"precision":1.0,"question":"Which database-model entries does HeartBeat's Source-of-Truth boundary directly reference?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["DBT-003","DBT-004"],"case_id":"hb-arc001-data-projections","corpus":"heartbeat","engine":"kuzu","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:442","SoT/SoT.DATA_MODEL.md:117","SoT/SoT.DATA_MODEL.md:157"],"exact":true,"expected":["DBT-003","DBT-004"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6409,"min":0.5489,"p95":0.7186,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":2855,"structured_projection":244,"whole_source_files":26633},"precision":1.0,"question":"Which database-model entries does HeartBeat's Source-of-Truth boundary directly reference?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["TEST-009","TEST-010"],"case_id":"hb-dbt005-health-tests","corpus":"heartbeat","engine":"markdown","evidence":["SoT/SoT.DATA_MODEL.md:200","SoT/SoT.TESTING.md:167","SoT/SoT.TESTING.md:181"],"exact":true,"expected":["TEST-009","TEST-010"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0009,"min":0.0008,"p95":0.0011,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":905,"structured_projection":322,"whole_source_files":25876},"precision":1.0,"question":"Which direct test definitions consume the ID graph edge cache?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["TEST-009","TEST-010"],"case_id":"hb-dbt005-health-tests","corpus":"heartbeat","engine":"kuzu","evidence":["SoT/SoT.DATA_MODEL.md:200","SoT/SoT.TESTING.md:167","SoT/SoT.TESTING.md:181"],"exact":true,"expected":["TEST-009","TEST-010"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6331,"min":0.5422,"p95":0.7185,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":905,"structured_projection":322,"whole_source_files":25876},"precision":1.0,"question":"Which direct test definitions consume the ID graph edge cache?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["TEST-012","TEST-013","TEST-017","TEST-027","TEST-039","TEST-042"],"case_id":"hb-api201-test-impact","corpus":"heartbeat","engine":"markdown","evidence":["SoT/SoT.API_CONTRACTS.md:599","SoT/SoT.TESTING.md:209","SoT/SoT.TESTING.md:223","SoT/SoT.TESTING.md:279","SoT/SoT.TESTING.md:419","SoT/SoT.TESTING.md:591","SoT/SoT.TESTING.md:639"],"exact":true,"expected":["TEST-012","TEST-013","TEST-017","TEST-027","TEST-039","TEST-042"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0013,"min":0.0013,"p95":0.0015,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":5634,"structured_projection":932,"whole_source_files":25876},"precision":1.0,"question":"Which tests directly reference the gate-lint API contract?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["TEST-012","TEST-013","TEST-017","TEST-027","TEST-039","TEST-042"],"case_id":"hb-api201-test-impact","corpus":"heartbeat","engine":"kuzu","evidence":["SoT/SoT.API_CONTRACTS.md:599","SoT/SoT.TESTING.md:209","SoT/SoT.TESTING.md:223","SoT/SoT.TESTING.md:279","SoT/SoT.TESTING.md:419","SoT/SoT.TESTING.md:591","SoT/SoT.TESTING.md:639"],"exact":true,"expected":["TEST-012","TEST-013","TEST-017","TEST-027","TEST-039","TEST-042"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6236,"min":0.5436,"p95":0.7092,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":5634,"structured_projection":932,"whole_source_files":25876},"precision":1.0,"question":"Which tests directly reference the gate-lint API contract?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["API-003","API-201","API-203","API-204"],"case_id":"hb-fea020-api-consumers","corpus":"heartbeat","engine":"markdown","evidence":["PRD.md:431","SoT/SoT.API_CONTRACTS.md:160"],"exact":true,"expected":["API-003","API-201","API-203","API-204"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0018,"min":0.0018,"p95":0.002,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":9249,"structured_projection":534,"whole_source_files":28086},"precision":1.0,"question":"Which API contracts directly reference the gate-lint feature?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["API-003","API-201","API-203","API-204"],"case_id":"hb-fea020-api-consumers","corpus":"heartbeat","engine":"kuzu","evidence":["PRD.md:431","SoT/SoT.API_CONTRACTS.md:160"],"exact":true,"expected":["API-003","API-201","API-203","API-204"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6432,"min":0.5603,"p95":0.7176,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":9249,"structured_projection":534,"whole_source_files":28086},"precision":1.0,"question":"Which API contracts directly reference the gate-lint feature?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["API-003","API-004","API-011","API-301"],"case_id":"ah-uj004-api-impact","corpus":"agenthunt","engine":"markdown","evidence":["SoT/SoT.USER_JOURNEYS.md:346","SoT/SoT.API_CONTRACTS.md:158","SoT/SoT.API_CONTRACTS.md:244","SoT/SoT.API_CONTRACTS.md:586","SoT/SoT.API_CONTRACTS.md:778"],"exact":true,"expected":["API-003","API-004","API-011","API-301"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0015,"min":0.0015,"p95":0.0017,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":11371,"structured_projection":492,"whole_source_files":25467},"precision":1.0,"question":"Which AgentHunt API contracts directly reference the consumer-discovery journey?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["API-003","API-004","API-011","API-301"],"case_id":"ah-uj004-api-impact","corpus":"agenthunt","engine":"kuzu","evidence":["SoT/SoT.USER_JOURNEYS.md:346","SoT/SoT.API_CONTRACTS.md:158","SoT/SoT.API_CONTRACTS.md:244","SoT/SoT.API_CONTRACTS.md:586","SoT/SoT.API_CONTRACTS.md:778"],"exact":true,"expected":["API-003","API-004","API-011","API-301"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6387,"min":0.5582,"p95":0.7064,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":11371,"structured_projection":492,"whole_source_files":25467},"precision":1.0,"question":"Which AgentHunt API contracts directly reference the consumer-discovery journey?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["DES-003","DES-004","DES-005","DES-006","DES-007"],"case_id":"ah-scr004-design-dependencies","corpus":"agenthunt","engine":"markdown","evidence":["SoT/SoT.USER_JOURNEYS.md:648","SoT/SoT.DESIGN_COMPONENTS.md:105","SoT/SoT.DESIGN_COMPONENTS.md:138","SoT/SoT.DESIGN_COMPONENTS.md:171","SoT/SoT.DESIGN_COMPONENTS.md:205","SoT/SoT.DESIGN_COMPONENTS.md:238"],"exact":true,"expected":["DES-003","DES-004","DES-005","DES-006","DES-007"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0019,"min":0.0018,"p95":0.0021,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":7709,"structured_projection":633,"whole_source_files":54357},"precision":1.0,"question":"Which design components does the Tool Detail screen directly reference?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["DES-003","DES-004","DES-005","DES-006","DES-007"],"case_id":"ah-scr004-design-dependencies","corpus":"agenthunt","engine":"kuzu","evidence":["SoT/SoT.USER_JOURNEYS.md:648","SoT/SoT.DESIGN_COMPONENTS.md:105","SoT/SoT.DESIGN_COMPONENTS.md:138","SoT/SoT.DESIGN_COMPONENTS.md:171","SoT/SoT.DESIGN_COMPONENTS.md:205","SoT/SoT.DESIGN_COMPONENTS.md:238"],"exact":true,"expected":["DES-003","DES-004","DES-005","DES-006","DES-007"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.648,"min":0.5662,"p95":0.7429,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":7709,"structured_projection":633,"whole_source_files":54357},"precision":1.0,"question":"Which design components does the Tool Detail screen directly reference?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-006","CFD-005","KPI-001"],"case_id":"ah-risk010-mitigation-links","corpus":"agenthunt","engine":"markdown","evidence":["PRD.md:417"],"exact":true,"expected":["BR-006","CFD-005","KPI-001"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0006,"min":0.0005,"p95":0.0007,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":5791,"structured_projection":415,"whole_source_files":157996},"precision":1.0,"question":"Which IDs does AgentHunt's market-timing risk directly cite for mitigation?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-006","CFD-005","KPI-001"],"case_id":"ah-risk010-mitigation-links","corpus":"agenthunt","engine":"kuzu","evidence":["PRD.md:417"],"exact":true,"expected":["BR-006","CFD-005","KPI-001"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6262,"min":0.5372,"p95":0.7121,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":5791,"structured_projection":415,"whole_source_files":157996},"precision":1.0,"question":"Which IDs does AgentHunt's market-timing risk directly cite for mitigation?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["API-010"],"case_id":"hf-tech006-transport-contract","corpus":"homefalcon","engine":"markdown","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:192","SoT/SoT.API_CONTRACTS.md:450"],"exact":true,"expected":["API-010"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0007,"min":0.0006,"p95":0.0008,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":4089,"structured_projection":165,"whole_source_files":25053},"precision":1.0,"question":"Which API contract implements HomeFalcon's JSON-not-SSE transport decision?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["API-010"],"case_id":"hf-tech006-transport-contract","corpus":"homefalcon","engine":"kuzu","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:192","SoT/SoT.API_CONTRACTS.md:450"],"exact":true,"expected":["API-010"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6661,"min":0.544,"p95":0.8023,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":4089,"structured_projection":165,"whole_source_files":25053},"precision":1.0,"question":"Which API contract implements HomeFalcon's JSON-not-SSE transport decision?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["UJ-007","UJ-008"],"case_id":"hf-tech007-semantic-drift","corpus":"homefalcon","engine":"markdown","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:219","SoT/SoT.USER_JOURNEYS.md:764","SoT/SoT.USER_JOURNEYS.md:817"],"exact":true,"expected":["UJ-007","UJ-008"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0008,"min":0.0007,"p95":0.0009,"repeats":50},"lifecycle_stage":"v0.5 Red Team Review","payload_bytes":{"exact_markdown_entries":4715,"structured_projection":267,"whole_source_files":56010},"precision":1.0,"question":"Which journey IDs are linked from the CommandCenter/ImpactReport decision, even though the canonical journey meanings do not match?","recall":1.0,"truth_scope":"source_fidelity_with_semantic_detector"},{"actual":["UJ-007","UJ-008"],"case_id":"hf-tech007-semantic-drift","corpus":"homefalcon","engine":"kuzu","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:219","SoT/SoT.USER_JOURNEYS.md:764","SoT/SoT.USER_JOURNEYS.md:817"],"exact":true,"expected":["UJ-007","UJ-008"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6779,"min":0.5647,"p95":0.772,"repeats":50},"lifecycle_stage":"v0.5 Red Team Review","payload_bytes":{"exact_markdown_entries":4715,"structured_projection":267,"whole_source_files":56010},"precision":1.0,"question":"Which journey IDs are linked from the CommandCenter/ImpactReport decision, even though the canonical journey meanings do not match?","recall":1.0,"truth_scope":"source_fidelity_with_semantic_detector"},{"actual":["DBT-001","DBT-003","DBT-004","DBT-014"],"case_id":"hb-arc001-two-hop-data-impact","corpus":"heartbeat","engine":"markdown","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:442","SoT/SoT.DATA_MODEL.md:53","SoT/SoT.DATA_MODEL.md:117","SoT/SoT.DATA_MODEL.md:157"],"exact":true,"expected":["DBT-001","DBT-003","DBT-004","DBT-014"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0029,"min":0.0027,"p95":0.0032,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":5177,"structured_projection":478,"whole_source_files":26633},"precision":1.0,"question":"Within two outbound hops of the SoT boundary, which data models are implicated?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["DBT-001","DBT-003","DBT-004","DBT-014"],"case_id":"hb-arc001-two-hop-data-impact","corpus":"heartbeat","engine":"kuzu","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:442","SoT/SoT.DATA_MODEL.md:53","SoT/SoT.DATA_MODEL.md:117","SoT/SoT.DATA_MODEL.md:157"],"exact":true,"expected":["DBT-001","DBT-003","DBT-004","DBT-014"],"f1":1.0,"kind":"traverse","latency_ms":{"median":4.3779,"min":3.9181,"p95":4.5845,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":5177,"structured_projection":478,"whole_source_files":26633},"precision":1.0,"question":"Within two outbound hops of the SoT boundary, which data models are implicated?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["TEST-160","TEST-161","TEST-162","TEST-170","TEST-171","TEST-172"],"case_id":"hf-tech007-two-hop-test-impact","corpus":"homefalcon","engine":"markdown","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:219","SoT/SoT.TESTING.md:596","SoT/SoT.TESTING.md:608","SoT/SoT.TESTING.md:617","SoT/SoT.TESTING.md:626","SoT/SoT.TESTING.md:636","SoT/SoT.TESTING.md:645"],"exact":true,"expected":["TEST-160","TEST-161","TEST-162","TEST-170","TEST-171","TEST-172"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.002,"min":0.0019,"p95":0.0021,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":2913,"structured_projection":763,"whole_source_files":154362},"precision":1.0,"question":"Which test cases are reached within two outbound hops of the semantically drifted TECH-007 links?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["TEST-160","TEST-161","TEST-162","TEST-170","TEST-171","TEST-172"],"case_id":"hf-tech007-two-hop-test-impact","corpus":"homefalcon","engine":"kuzu","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:219","SoT/SoT.TESTING.md:596","SoT/SoT.TESTING.md:608","SoT/SoT.TESTING.md:617","SoT/SoT.TESTING.md:626","SoT/SoT.TESTING.md:636","SoT/SoT.TESTING.md:645"],"exact":true,"expected":["TEST-160","TEST-161","TEST-162","TEST-170","TEST-171","TEST-172"],"f1":1.0,"kind":"traverse","latency_ms":{"median":1.8948,"min":1.7045,"p95":1.9964,"repeats":50},"lifecycle_stage":"","payload_bytes":{"exact_markdown_entries":2913,"structured_projection":763,"whole_source_files":154362},"precision":1.0,"question":"Which test cases are reached within two outbound hops of the semantically drifted TECH-007 links?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-001","BR-008"],"case_id":"hb-cfd003-market-signal-rules","corpus":"heartbeat","engine":"markdown","evidence":["SoT/SoT.customer_feedback.md:134","SoT/SoT.customer_feedback.md:159","SoT/SoT.customer_feedback.md:160","SoT/SoT.BUSINESS_RULES.md:65","SoT/SoT.BUSINESS_RULES.md:287"],"exact":true,"expected":["BR-001","BR-008"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0008,"min":0.0007,"p95":0.0009,"repeats":50},"lifecycle_stage":"v0.1 Spark","payload_bytes":{"exact_markdown_entries":2364,"structured_projection":265,"whole_source_files":41640},"precision":1.0,"question":"Which business rules does the GlassCode / Codex UI market signal directly support?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-001","BR-008"],"case_id":"hb-cfd003-market-signal-rules","corpus":"heartbeat","engine":"kuzu","evidence":["SoT/SoT.customer_feedback.md:134","SoT/SoT.customer_feedback.md:159","SoT/SoT.customer_feedback.md:160","SoT/SoT.BUSINESS_RULES.md:65","SoT/SoT.BUSINESS_RULES.md:287"],"exact":true,"expected":["BR-001","BR-008"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6298,"min":0.5602,"p95":0.7487,"repeats":50},"lifecycle_stage":"v0.1 Spark","payload_bytes":{"exact_markdown_entries":2364,"structured_projection":265,"whole_source_files":41640},"precision":1.0,"question":"Which business rules does the GlassCode / Codex UI market signal directly support?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["CFD-011","CFD-015","CFD-019","CFD-020"],"case_id":"ah-br001-positioning-evidence","corpus":"agenthunt","engine":"markdown","evidence":["SoT/SoT.BUSINESS_RULES.md:46","SoT/SoT.BUSINESS_RULES.md:61","SoT/SoT.BUSINESS_RULES.md:63","SoT/SoT.BUSINESS_RULES.md:72","SoT/SoT.BUSINESS_RULES.md:73","SoT/SoT.BUSINESS_RULES.md:74","SoT/SoT.BUSINESS_RULES.md:75","SoT/SoT.customer_feedback.md:503","SoT/SoT.customer_feedback.md:660","SoT/SoT.customer_feedback.md:842","SoT/SoT.customer_feedback.md:891"],"exact":true,"expected":["CFD-011","CFD-015","CFD-019","CFD-020"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0009,"min":0.0009,"p95":0.0011,"repeats":50},"lifecycle_stage":"v0.2 Market Definition","payload_bytes":{"exact_markdown_entries":11338,"structured_projection":703,"whole_source_files":72974},"precision":1.0,"question":"Which customer evidence entries directly support AgentHunt's social-discovery-first positioning rule?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["CFD-011","CFD-015","CFD-019","CFD-020"],"case_id":"ah-br001-positioning-evidence","corpus":"agenthunt","engine":"kuzu","evidence":["SoT/SoT.BUSINESS_RULES.md:46","SoT/SoT.BUSINESS_RULES.md:61","SoT/SoT.BUSINESS_RULES.md:63","SoT/SoT.BUSINESS_RULES.md:72","SoT/SoT.BUSINESS_RULES.md:73","SoT/SoT.BUSINESS_RULES.md:74","SoT/SoT.BUSINESS_RULES.md:75","SoT/SoT.customer_feedback.md:503","SoT/SoT.customer_feedback.md:660","SoT/SoT.customer_feedback.md:842","SoT/SoT.customer_feedback.md:891"],"exact":true,"expected":["CFD-011","CFD-015","CFD-019","CFD-020"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6247,"min":0.5129,"p95":0.6971,"repeats":50},"lifecycle_stage":"v0.2 Market Definition","payload_bytes":{"exact_markdown_entries":11338,"structured_projection":703,"whole_source_files":72974},"precision":1.0,"question":"Which customer evidence entries directly support AgentHunt's social-discovery-first positioning rule?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-003","BR-007","BR-009","BR-013"],"case_id":"ah-br012-pricing-rule-dependencies","corpus":"agenthunt","engine":"markdown","evidence":["SoT/SoT.BUSINESS_RULES.md:517","SoT/SoT.BUSINESS_RULES.md:541","SoT/SoT.BUSINESS_RULES.md:547","SoT/SoT.BUSINESS_RULES.md:557","SoT/SoT.BUSINESS_RULES.md:558","SoT/SoT.BUSINESS_RULES.md:559","SoT/SoT.BUSINESS_RULES.md:111","SoT/SoT.BUSINESS_RULES.md:258","SoT/SoT.BUSINESS_RULES.md:363","SoT/SoT.BUSINESS_RULES.md:564"],"exact":true,"expected":["BR-003","BR-007","BR-009","BR-013"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.001,"min":0.0009,"p95":0.0014,"repeats":50},"lifecycle_stage":"v0.3 Commercial Model","payload_bytes":{"exact_markdown_entries":8155,"structured_projection":606,"whole_source_files":32925},"precision":1.0,"question":"Which business rules directly constrain the freemium audience-gate pricing model?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["BR-003","BR-007","BR-009","BR-013"],"case_id":"ah-br012-pricing-rule-dependencies","corpus":"agenthunt","engine":"kuzu","evidence":["SoT/SoT.BUSINESS_RULES.md:517","SoT/SoT.BUSINESS_RULES.md:541","SoT/SoT.BUSINESS_RULES.md:547","SoT/SoT.BUSINESS_RULES.md:557","SoT/SoT.BUSINESS_RULES.md:558","SoT/SoT.BUSINESS_RULES.md:559","SoT/SoT.BUSINESS_RULES.md:111","SoT/SoT.BUSINESS_RULES.md:258","SoT/SoT.BUSINESS_RULES.md:363","SoT/SoT.BUSINESS_RULES.md:564"],"exact":true,"expected":["BR-003","BR-007","BR-009","BR-013"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6207,"min":0.5182,"p95":0.7107,"repeats":50},"lifecycle_stage":"v0.3 Commercial Model","payload_bytes":{"exact_markdown_entries":8155,"structured_projection":606,"whole_source_files":32925},"precision":1.0,"question":"Which business rules directly constrain the freemium audience-gate pricing model?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["TEST-089","TEST-090","TEST-091","TEST-092"],"case_id":"hf-uj001-acceptance-tests","corpus":"homefalcon","engine":"markdown","evidence":["SoT/SoT.USER_JOURNEYS.md:113","SoT/SoT.USER_JOURNEYS.md:201","SoT/SoT.USER_JOURNEYS.md:202","SoT/SoT.USER_JOURNEYS.md:203","SoT/SoT.USER_JOURNEYS.md:204","SoT/SoT.TESTING.md:335","SoT/SoT.TESTING.md:349","SoT/SoT.TESTING.md:364","SoT/SoT.TESTING.md:373"],"exact":true,"expected":["TEST-089","TEST-090","TEST-091","TEST-092"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0016,"min":0.0015,"p95":0.0026,"repeats":50},"lifecycle_stage":"v0.4 User Journeys","payload_bytes":{"exact_markdown_entries":3162,"structured_projection":533,"whole_source_files":154362},"precision":1.0,"question":"Which tests directly validate the manual-product-entry journey?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["TEST-089","TEST-090","TEST-091","TEST-092"],"case_id":"hf-uj001-acceptance-tests","corpus":"homefalcon","engine":"kuzu","evidence":["SoT/SoT.USER_JOURNEYS.md:113","SoT/SoT.USER_JOURNEYS.md:201","SoT/SoT.USER_JOURNEYS.md:202","SoT/SoT.USER_JOURNEYS.md:203","SoT/SoT.USER_JOURNEYS.md:204","SoT/SoT.TESTING.md:335","SoT/SoT.TESTING.md:349","SoT/SoT.TESTING.md:364","SoT/SoT.TESTING.md:373"],"exact":true,"expected":["TEST-089","TEST-090","TEST-091","TEST-092"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6311,"min":0.5803,"p95":0.7155,"repeats":50},"lifecycle_stage":"v0.4 User Journeys","payload_bytes":{"exact_markdown_entries":3162,"structured_projection":533,"whole_source_files":154362},"precision":1.0,"question":"Which tests directly validate the manual-product-entry journey?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["FEA-018","FEA-020"],"case_id":"hb-risk007-mitigation-features","corpus":"heartbeat","engine":"markdown","evidence":["PRD.md:468","PRD.md:429","PRD.md:431"],"exact":true,"expected":["FEA-018","FEA-020"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0008,"min":0.0007,"p95":0.001,"repeats":50},"lifecycle_stage":"v0.5 Red Team Review","payload_bytes":{"exact_markdown_entries":504,"structured_projection":220,"whole_source_files":62198},"precision":1.0,"question":"Which features does the file-write-corruption risk directly cite as mitigation?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["FEA-018","FEA-020"],"case_id":"hb-risk007-mitigation-features","corpus":"heartbeat","engine":"kuzu","evidence":["PRD.md:468","PRD.md:429","PRD.md:431"],"exact":true,"expected":["FEA-018","FEA-020"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6275,"min":0.5268,"p95":0.7242,"repeats":50},"lifecycle_stage":"v0.5 Red Team Review","payload_bytes":{"exact_markdown_entries":504,"structured_projection":220,"whole_source_files":62198},"precision":1.0,"question":"Which features does the file-write-corruption risk directly cite as mitigation?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":[],"case_id":"hb-risk007-missing-test-link","corpus":"heartbeat","engine":"markdown","evidence":["PRD.md:468"],"exact":true,"expected":[],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0007,"min":0.0007,"p95":0.0008,"repeats":50},"lifecycle_stage":"v0.5 Red Team Review","payload_bytes":{"exact_markdown_entries":0,"structured_projection":2,"whole_source_files":0},"precision":1.0,"question":"Which test IDs does the file-write-corruption risk explicitly link as mitigation evidence?","recall":1.0,"truth_scope":"source_fidelity_negative_control"},{"actual":[],"case_id":"hb-risk007-missing-test-link","corpus":"heartbeat","engine":"kuzu","evidence":["PRD.md:468"],"exact":true,"expected":[],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6314,"min":0.5529,"p95":0.7316,"repeats":50},"lifecycle_stage":"v0.5 Red Team Review","payload_bytes":{"exact_markdown_entries":0,"structured_projection":2,"whole_source_files":0},"precision":1.0,"question":"Which test IDs does the file-write-corruption risk explicitly link as mitigation evidence?","recall":1.0,"truth_scope":"source_fidelity_negative_control"},{"actual":["API-201","API-202","API-203"],"case_id":"hb-arc002-contracts","corpus":"heartbeat","engine":"markdown","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:494","SoT/SoT.TECHNICAL_DECISIONS.md:512","SoT/SoT.TECHNICAL_DECISIONS.md:530","SoT/SoT.TECHNICAL_DECISIONS.md:531","SoT/SoT.API_CONTRACTS.md:599","SoT/SoT.API_CONTRACTS.md:658","SoT/SoT.API_CONTRACTS.md:719"],"exact":true,"expected":["API-201","API-202","API-203"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0012,"min":0.0011,"p95":0.0016,"repeats":50},"lifecycle_stage":"v0.6 Architecture","payload_bytes":{"exact_markdown_entries":4655,"structured_projection":399,"whole_source_files":28086},"precision":1.0,"question":"Which API contracts directly implement the direct file-write pipeline decision?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["API-201","API-202","API-203"],"case_id":"hb-arc002-contracts","corpus":"heartbeat","engine":"kuzu","evidence":["SoT/SoT.TECHNICAL_DECISIONS.md:494","SoT/SoT.TECHNICAL_DECISIONS.md:512","SoT/SoT.TECHNICAL_DECISIONS.md:530","SoT/SoT.TECHNICAL_DECISIONS.md:531","SoT/SoT.API_CONTRACTS.md:599","SoT/SoT.API_CONTRACTS.md:658","SoT/SoT.API_CONTRACTS.md:719"],"exact":true,"expected":["API-201","API-202","API-203"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6446,"min":0.5495,"p95":0.701,"repeats":50},"lifecycle_stage":"v0.6 Architecture","payload_bytes":{"exact_markdown_entries":4655,"structured_projection":399,"whole_source_files":28086},"precision":1.0,"question":"Which API contracts directly implement the direct file-write pipeline decision?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["DBT-006","DBT-010","DBT-011"],"case_id":"hb-test029-persistence-coverage","corpus":"heartbeat","engine":"markdown","evidence":["SoT/SoT.TESTING.md:447","SoT/SoT.TESTING.md:453","SoT/SoT.DATA_MODEL.md:239","SoT/SoT.DATA_MODEL.md:407","SoT/SoT.DATA_MODEL.md:446"],"exact":true,"expected":["DBT-006","DBT-010","DBT-011"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0009,"min":0.0008,"p95":0.001,"repeats":50},"lifecycle_stage":"v0.7 Build Execution","payload_bytes":{"exact_markdown_entries":4077,"structured_projection":362,"whole_source_files":26633},"precision":1.0,"question":"Which data models are directly verified by the post-write validation test?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["DBT-006","DBT-010","DBT-011"],"case_id":"hb-test029-persistence-coverage","corpus":"heartbeat","engine":"kuzu","evidence":["SoT/SoT.TESTING.md:447","SoT/SoT.TESTING.md:453","SoT/SoT.DATA_MODEL.md:239","SoT/SoT.DATA_MODEL.md:407","SoT/SoT.DATA_MODEL.md:446"],"exact":true,"expected":["DBT-006","DBT-010","DBT-011"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6303,"min":0.5669,"p95":0.6828,"repeats":50},"lifecycle_stage":"v0.7 Build Execution","payload_bytes":{"exact_markdown_entries":4077,"structured_projection":362,"whole_source_files":26633},"precision":1.0,"question":"Which data models are directly verified by the post-write validation test?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["RUN-001","RUN-003"],"case_id":"ah-dep002-two-hop-runbooks","corpus":"agenthunt","engine":"markdown","evidence":["SoT/SoT.DEPLOYMENT.md:454","SoT/SoT.DEPLOYMENT.md:486","SoT/SoT.DEPLOYMENT.md:487","SoT/SoT.DEPLOYMENT.md:489","SoT/SoT.DEPLOYMENT.md:156","SoT/SoT.DEPLOYMENT.md:183","SoT/SoT.DEPLOYMENT.md:264","SoT/SoT.DEPLOYMENT.md:282","SoT/SoT.DEPLOYMENT.md:630","SoT/SoT.DEPLOYMENT.md:642","SoT/SoT.DEPLOYMENT.md:529","SoT/SoT.DEPLOYMENT.md:584"],"exact":true,"expected":["RUN-001","RUN-003"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.004,"min":0.0038,"p95":0.0044,"repeats":50},"lifecycle_stage":"v0.8 Release and Deployment","payload_bytes":{"exact_markdown_entries":2138,"structured_projection":253,"whole_source_files":28163},"precision":1.0,"question":"Which runbooks are reachable within two outbound hops of preview and production deployment?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["RUN-001","RUN-003"],"case_id":"ah-dep002-two-hop-runbooks","corpus":"agenthunt","engine":"kuzu","evidence":["SoT/SoT.DEPLOYMENT.md:454","SoT/SoT.DEPLOYMENT.md:486","SoT/SoT.DEPLOYMENT.md:487","SoT/SoT.DEPLOYMENT.md:489","SoT/SoT.DEPLOYMENT.md:156","SoT/SoT.DEPLOYMENT.md:183","SoT/SoT.DEPLOYMENT.md:264","SoT/SoT.DEPLOYMENT.md:282","SoT/SoT.DEPLOYMENT.md:630","SoT/SoT.DEPLOYMENT.md:642","SoT/SoT.DEPLOYMENT.md:529","SoT/SoT.DEPLOYMENT.md:584"],"exact":true,"expected":["RUN-001","RUN-003"],"f1":1.0,"kind":"traverse","latency_ms":{"median":5.0542,"min":4.7322,"p95":5.2766,"repeats":50},"lifecycle_stage":"v0.8 Release and Deployment","payload_bytes":{"exact_markdown_entries":2138,"structured_projection":253,"whole_source_files":28163},"precision":1.0,"question":"Which runbooks are reachable within two outbound hops of preview and production deployment?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["FEA-003","FEA-006","FEA-007","FEA-009","FEA-010"],"case_id":"ah-kpi003-feature-contributors","corpus":"agenthunt","engine":"markdown","evidence":["PRD.md:259","PRD.md:284","PRD.md:287","PRD.md:293","PRD.md:295","PRD.md:296"],"exact":true,"expected":["FEA-003","FEA-006","FEA-007","FEA-009","FEA-010"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0012,"min":0.0011,"p95":0.0013,"repeats":50},"lifecycle_stage":"v0.9 Go-to-Market","payload_bytes":{"exact_markdown_entries":1050,"structured_projection":567,"whole_source_files":52097},"precision":1.0,"question":"Which features directly contribute to the Weekly Active Engagers launch metric?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["FEA-003","FEA-006","FEA-007","FEA-009","FEA-010"],"case_id":"ah-kpi003-feature-contributors","corpus":"agenthunt","engine":"kuzu","evidence":["PRD.md:259","PRD.md:284","PRD.md:287","PRD.md:293","PRD.md:295","PRD.md:296"],"exact":true,"expected":["FEA-003","FEA-006","FEA-007","FEA-009","FEA-010"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6531,"min":0.549,"p95":0.7341,"repeats":50},"lifecycle_stage":"v0.9 Go-to-Market","payload_bytes":{"exact_markdown_entries":1050,"structured_projection":567,"whole_source_files":52097},"precision":1.0,"question":"Which features directly contribute to the Weekly Active Engagers launch metric?","recall":1.0,"truth_scope":"source_fidelity"},{"actual":["ADO-REF-001","ADO-WHOLE-001"],"case_id":"hb-ado-beachhead-dependents","corpus":"heartbeat","engine":"markdown","evidence":["SoT/SoT.ADOPTION.md:69","SoT/SoT.ADOPTION.md:84","SoT/SoT.ADOPTION.md:93","SoT/SoT.ADOPTION.md:95","SoT/SoT.ADOPTION.md:98","SoT/SoT.ADOPTION.md:103"],"exact":true,"expected":["ADO-REF-001","ADO-WHOLE-001"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.0008,"min":0.0007,"p95":0.0009,"repeats":50},"lifecycle_stage":"v1.0 Market Adoption","payload_bytes":{"exact_markdown_entries":2509,"structured_projection":299,"whole_source_files":7191},"precision":1.0,"question":"Which adoption artifacts directly depend on the beachhead segment?","recall":1.0,"truth_scope":"structural_only_with_semantic_detector"},{"actual":["ADO-REF-001","ADO-WHOLE-001"],"case_id":"hb-ado-beachhead-dependents","corpus":"heartbeat","engine":"kuzu","evidence":["SoT/SoT.ADOPTION.md:69","SoT/SoT.ADOPTION.md:84","SoT/SoT.ADOPTION.md:93","SoT/SoT.ADOPTION.md:95","SoT/SoT.ADOPTION.md:98","SoT/SoT.ADOPTION.md:103"],"exact":true,"expected":["ADO-REF-001","ADO-WHOLE-001"],"f1":1.0,"kind":"traverse","latency_ms":{"median":0.6345,"min":0.5139,"p95":0.705,"repeats":50},"lifecycle_stage":"v1.0 Market Adoption","payload_bytes":{"exact_markdown_entries":2509,"structured_projection":299,"whole_source_files":7191},"precision":1.0,"question":"Which adoption artifacts directly depend on the beachhead segment?","recall":1.0,"truth_scope":"structural_only_with_semantic_detector"}],"corpora":[{"alias":"agenthunt","dangling_nodes":21,"database_to_markdown_size_ratio":14.789,"defined_nodes":216,"duplicate_definition_ids":7,"edges":1457,"files":22,"fingerprint_sha256":"bd2ddb1c486afe1f85f767ea0ab56534a1669327232b7b7212e74c9912691647","git_commit":"4cf91bd84c53c44136647809487ab58c71e7e581","kuzu_build_ms":11724.722,"kuzu_database_bytes":7331840,"parse_ms":43.878,"placeholder_nodes":0,"prefix_counts":{"API":15,"ARC":9,"BR":14,"CFD":25,"DBT":14,"DEP":3,"DES":7,"ENV":3,"FEA":14,"INT":6,"KPI":8,"LL":2,"MON":3,"PER":3,"RISK":10,"RUN":3,"SCR":8,"SEC":8,"TECH":11,"TEST":45,"UJ":5},"source_bytes":495767},{"alias":"heartbeat","dangling_nodes":9,"database_to_markdown_size_ratio":16.961,"defined_nodes":242,"duplicate_definition_ids":0,"edges":1442,"files":25,"fingerprint_sha256":"51177b6c07ba9732e23e73f07bf0f4d83cb30c7fc191b04a307e05580a1853bc","git_commit":"86a4bce123ef91dd49acd0bb7b7d317f700a0f6f","kuzu_build_ms":11517.292,"kuzu_database_bytes":7360512,"parse_ms":39.374,"placeholder_nodes":0,"prefix_counts":{"ADO":4,"API":13,"ARC":6,"BR":29,"CFD":20,"DBT":17,"DES":8,"ENV":3,"FEA":22,"INT":7,"KPI":14,"LL":2,"PER":4,"RISK":14,"SCR":15,"TECH":9,"TEST":42,"UJ":13},"source_bytes":433960},{"alias":"homefalcon","dangling_nodes":54,"database_to_markdown_size_ratio":6.28,"defined_nodes":254,"duplicate_definition_ids":4,"edges":554,"files":41,"fingerprint_sha256":"66d86f46bcb8b3636fc9ad6eeecb0d86e39ecc3ece6f25f2f539de7713a38b7a","git_commit":"723ac55bb2e11112c57444a3bd4c39a6dd31085c","kuzu_build_ms":5778.633,"kuzu_database_bytes":7467008,"parse_ms":71.591,"placeholder_nodes":3,"prefix_counts":{"API":15,"BR":18,"CDE":14,"CFD":2,"DBT":16,"DES":16,"GIT":13,"LL":1,"MKT":45,"RISK":5,"SCR":28,"TECH":10,"TEST":37,"UJ":34},"source_bytes":1188946}],"decision":{"architecture_hypothesis":"A read-only graph projection may add value for future portfolio queries, graph algorithms, and impact analysis, but those benefits require a separate combined-corpus evaluation.","kuzu_disposition":"Research dependency only; the requested upstream is archived.","measured":"Markdown is the better current SoT and small-corpus retrieval baseline: it matched Kuzu correctness with lower latency, build cost, storage, and synchronization risk."},"generated_at":"2026-07-23T23:22:48.346379+00:00","interpretation_contract":{"absolute_paths_emitted":false,"combined_namespace_tested":false,"external_products_modified":false,"gold_answers_are_manifest_authored":true,"graph_algorithms_tested":false,"incremental_indexing_tested":false,"kuzu_payloads_read_from_database":true,"literal_source_fidelity_is_semantic_truth":false,"llm_outcomes_tested":false,"shared_parser":true,"source_bodies_emitted":false},"question":"For PRD-CE, should the SoT knowledge graph remain canonical Markdown, move to Kuzu, or use a Markdown-authority plus graph-projection hybrid?","rollup":{"kuzu":{"cases":25,"exact_cases":25,"exact_rate":1.0,"mean_f1":1.0,"median_exact_entry_bytes":3162,"median_projection_bytes":362,"median_query_ms":0.6331,"median_whole_file_bytes":28163,"p95_query_ms":4.5845},"markdown":{"cases":25,"exact_cases":25,"exact_rate":1.0,"mean_f1":1.0,"median_exact_entry_bytes":3162,"median_projection_bytes":362,"median_query_ms":0.0009,"median_whole_file_bytes":28163,"p95_query_ms":0.0032}},"runtime":{"database_layout":"one-kuzu-database-per-corpus","isolated_environment_bytes":12605930,"kuzu_source_checkout_bytes":571797395,"machine":"arm64","platform":"macOS-26.5.2-arm64-arm-64bit","python":"3.11.13","repeats_per_case":50},"schema_version":"1.2","upstream":{"archived_on":"2025-10-10","commit":"27cba5b91423c96a0a0507c92dfe0e1654f7f184","license":"MIT","python_package":"0.11.3","release":"v0.11.3","repository":"https://github.com/kuzudb/kuzu"}}</script>
+  <script>
+    const buttons = [...document.querySelectorAll('.filter')];
+    const rows = [...document.querySelectorAll('#case-table tbody tr')];
+    buttons.forEach(button => button.addEventListener('click', () => {
+      buttons.forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      const filter = button.dataset.filter;
+      rows.forEach(row => {
+        const visible = filter === 'all' || row.dataset.corpus === filter || row.dataset.kind === filter || row.dataset.status === filter;
+        row.classList.toggle('hidden', !visible);
+      });
+    }));
+  </script>
+</body>
+</html>

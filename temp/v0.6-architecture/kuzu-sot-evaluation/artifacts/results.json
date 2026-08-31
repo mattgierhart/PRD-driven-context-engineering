@@ -1,0 +1,2441 @@
+{
+  "acceptance": {
+    "checks": {
+      "authority_boundary": {
+        "passed": true,
+        "rebuilt_hash_matched_new_source": true,
+        "status": "complete"
+      },
+      "lifecycle_manifest_coverage": {
+        "invalid_anchor_cases": [],
+        "missing_stages": [],
+        "passed": true,
+        "unknown_stage_cases": []
+      },
+      "semantic_truth": {
+        "duplicate_cases": [],
+        "expected_checks": 2,
+        "inexact_cases": [],
+        "missing_cases": [],
+        "observed_checks": 2,
+        "passed": true,
+        "unexpected_cases": []
+      },
+      "source_fidelity": {
+        "duplicate_rows": [],
+        "expected_rows": 50,
+        "inexact_rows": [],
+        "missing_rows": [],
+        "observed_rows": 50,
+        "passed": true,
+        "required_engines": [
+          "markdown",
+          "kuzu"
+        ],
+        "unexpected_rows": []
+      }
+    },
+    "passed": true,
+    "policy": "Fail closed unless both engines exactly match every manifest case, all semantic verdicts match, lifecycle manifest coverage is complete and stage-valid, and the authority rebuild matches source."
+  },
+  "accuracy_dimensions": {
+    "lifecycle_manifest_coverage": {
+      "allowed_anchor_families": {
+        "v0.1": [
+          "CFD"
+        ],
+        "v0.2": [
+          "BR"
+        ],
+        "v0.3": [
+          "BR",
+          "KPI",
+          "FEA",
+          "CFD"
+        ],
+        "v0.4": [
+          "UJ",
+          "PER",
+          "SCR"
+        ],
+        "v0.5": [
+          "RISK",
+          "TECH"
+        ],
+        "v0.6": [
+          "ARC",
+          "API",
+          "DBT",
+          "INT"
+        ],
+        "v0.7": [
+          "TEST",
+          "EPIC"
+        ],
+        "v0.8": [
+          "DEP",
+          "RUN",
+          "MON"
+        ],
+        "v0.9": [
+          "GTM",
+          "KPI",
+          "CFD",
+          "FEA"
+        ],
+        "v1.0": [
+          "ADO"
+        ]
+      },
+      "complete": true,
+      "covered_stages": [
+        "v0.1",
+        "v0.2",
+        "v0.3",
+        "v0.4",
+        "v0.5",
+        "v0.6",
+        "v0.7",
+        "v0.8",
+        "v0.9",
+        "v1.0"
+      ],
+      "description": "Manifest stage-label and anchor-family coverage; not executable PRD gate conformance.",
+      "expected_stages": [
+        "v0.1",
+        "v0.2",
+        "v0.3",
+        "v0.4",
+        "v0.5",
+        "v0.6",
+        "v0.7",
+        "v0.8",
+        "v0.9",
+        "v1.0"
+      ],
+      "invalid_anchor_cases": [],
+      "lifecycle_case_count": 12,
+      "missing_stages": [],
+      "unknown_stage_cases": []
+    },
+    "semantic_truth": {
+      "assessed_cases": 2,
+      "checks": [
+        {
+          "actual_verdict": "conflict",
+          "case_id": "hf-tech007-semantic-drift",
+          "check_type": "target_title_contains",
+          "corpus": "homefalcon",
+          "expected_verdict": "conflict",
+          "findings": [
+            {
+              "actual_title": "Product Inventory View & Filter",
+              "code": "SEMANTIC_TARGET_TITLE_MISMATCH",
+              "expected_terms": [
+                "Command Center"
+              ],
+              "id": "UJ-007"
+            },
+            {
+              "actual_title": "Product Detail View",
+              "code": "SEMANTIC_TARGET_TITLE_MISMATCH",
+              "expected_terms": [
+                "Impact Report"
+              ],
+              "id": "UJ-008"
+            }
+          ],
+          "lifecycle_stage": "v0.5 Red Team Review",
+          "required_action": "flag",
+          "verdict_exact": true
+        },
+        {
+          "actual_verdict": "conflict",
+          "case_id": "hb-ado-beachhead-dependents",
+          "check_type": "entry_forbidden_terms",
+          "corpus": "heartbeat",
+          "expected_verdict": "conflict",
+          "findings": [
+            {
+              "code": "SEMANTIC_PLACEHOLDER_CONTENT",
+              "id": "ADO-BEACHHEAD-001",
+              "matched_terms": [
+                "[Specific",
+                "CFD-XXX"
+              ]
+            },
+            {
+              "code": "SEMANTIC_PLACEHOLDER_CONTENT",
+              "id": "ADO-REF-001",
+              "matched_terms": [
+                "[Customer Name]",
+                "CFD-XXX"
+              ]
+            },
+            {
+              "code": "SEMANTIC_PLACEHOLDER_CONTENT",
+              "id": "ADO-WHOLE-001",
+              "matched_terms": [
+                "CFD-XXX"
+              ]
+            }
+          ],
+          "lifecycle_stage": "v1.0 Market Adoption",
+          "required_action": "block",
+          "verdict_exact": true
+        }
+      ],
+      "description": "Deterministic pack-supplied checks; reported separately from literal retrieval.",
+      "verdict_exact_cases": 2
+    },
+    "source_fidelity": {
+      "by_engine": {
+        "kuzu": {
+          "cases": 25,
+          "exact_cases": 25,
+          "exact_rate": 1.0
+        },
+        "markdown": {
+          "cases": 25,
+          "exact_cases": 25,
+          "exact_rate": 1.0
+        }
+      },
+      "description": "Literal ID-set fidelity to manifest-authored Markdown spans; not semantic truth."
+    }
+  },
+  "authority_boundary": {
+    "automatic_runtime_guard_implemented": false,
+    "binary_database_changed_files": [
+      "database"
+    ],
+    "binary_database_files_changed": 1,
+    "cached_graph_was_stale": true,
+    "cached_hash_matched_new_source": false,
+    "corpus": "heartbeat",
+    "detection_method": "harness_hash_comparison",
+    "kuzu_database_human_diffable": false,
+    "markdown_human_diffable": true,
+    "mutated_id": "CFD-020",
+    "rebuild_ms": 12728.694,
+    "rebuilt_hash_matched_new_source": true,
+    "source_diff_lines": 11,
+    "source_edit_files": 1,
+    "status": "complete"
+  },
+  "benchmark_manifest": {
+    "case_count": 25,
+    "gold_review": {
+      "human_adjudication_claim": false,
+      "independence_claim": false,
+      "method": "separate read-only source inspection",
+      "reviewed_at": "2026-07-23",
+      "scope": "all expected ID sets and cited evidence spans"
+    },
+    "schema_version": "1.1",
+    "sha256": "ea11be943ade39caa11fd9f39f785b04d9462060b67c367cb0703ff04c7f64f4"
+  },
+  "cases": [
+    {
+      "actual": [
+        "BR-001"
+      ],
+      "case_id": "namespace-hb-br001",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:65"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-001"
+      ],
+      "f1": 1.0,
+      "kind": "lookup",
+      "latency_ms": {
+        "median": 0.0003,
+        "min": 0.0003,
+        "p95": 0.0009,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 1032,
+        "structured_projection": 134,
+        "whole_source_files": 41640
+      },
+      "precision": 1.0,
+      "question": "Locate HeartBeat BR-001 without confusing it with another product's BR-001.",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-001"
+      ],
+      "case_id": "namespace-hb-br001",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:65"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-001"
+      ],
+      "f1": 1.0,
+      "kind": "lookup",
+      "latency_ms": {
+        "median": 0.1841,
+        "min": 0.1594,
+        "p95": 0.2579,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 1032,
+        "structured_projection": 134,
+        "whole_source_files": 41640
+      },
+      "precision": 1.0,
+      "question": "Locate HeartBeat BR-001 without confusing it with another product's BR-001.",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-001"
+      ],
+      "case_id": "namespace-ah-br001",
+      "corpus": "agenthunt",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:46"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-001"
+      ],
+      "f1": 1.0,
+      "kind": "lookup",
+      "latency_ms": {
+        "median": 0.0003,
+        "min": 0.0003,
+        "p95": 0.0003,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 1345,
+        "structured_projection": 143,
+        "whole_source_files": 32925
+      },
+      "precision": 1.0,
+      "question": "Locate AgentHunt BR-001 without confusing it with another product's BR-001.",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-001"
+      ],
+      "case_id": "namespace-ah-br001",
+      "corpus": "agenthunt",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:46"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-001"
+      ],
+      "f1": 1.0,
+      "kind": "lookup",
+      "latency_ms": {
+        "median": 0.1849,
+        "min": 0.1555,
+        "p95": 0.2399,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 1345,
+        "structured_projection": 143,
+        "whole_source_files": 32925
+      },
+      "precision": 1.0,
+      "question": "Locate AgentHunt BR-001 without confusing it with another product's BR-001.",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-001"
+      ],
+      "case_id": "namespace-hf-br001",
+      "corpus": "homefalcon",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:24"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-001"
+      ],
+      "f1": 1.0,
+      "kind": "lookup",
+      "latency_ms": {
+        "median": 0.0003,
+        "min": 0.0003,
+        "p95": 0.0003,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 1424,
+        "structured_projection": 132,
+        "whole_source_files": 24581
+      },
+      "precision": 1.0,
+      "question": "Locate HomeFalcon BR-001 without confusing it with another product's BR-001.",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-001"
+      ],
+      "case_id": "namespace-hf-br001",
+      "corpus": "homefalcon",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:24"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-001"
+      ],
+      "f1": 1.0,
+      "kind": "lookup",
+      "latency_ms": {
+        "median": 0.1896,
+        "min": 0.1495,
+        "p95": 0.2142,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 1424,
+        "structured_projection": 132,
+        "whole_source_files": 24581
+      },
+      "precision": 1.0,
+      "question": "Locate HomeFalcon BR-001 without confusing it with another product's BR-001.",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "DBT-003",
+        "DBT-004"
+      ],
+      "case_id": "hb-arc001-data-projections",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:442",
+        "SoT/SoT.DATA_MODEL.md:117",
+        "SoT/SoT.DATA_MODEL.md:157"
+      ],
+      "exact": true,
+      "expected": [
+        "DBT-003",
+        "DBT-004"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.001,
+        "min": 0.0009,
+        "p95": 0.002,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 2855,
+        "structured_projection": 244,
+        "whole_source_files": 26633
+      },
+      "precision": 1.0,
+      "question": "Which database-model entries does HeartBeat's Source-of-Truth boundary directly reference?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "DBT-003",
+        "DBT-004"
+      ],
+      "case_id": "hb-arc001-data-projections",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:442",
+        "SoT/SoT.DATA_MODEL.md:117",
+        "SoT/SoT.DATA_MODEL.md:157"
+      ],
+      "exact": true,
+      "expected": [
+        "DBT-003",
+        "DBT-004"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6409,
+        "min": 0.5489,
+        "p95": 0.7186,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 2855,
+        "structured_projection": 244,
+        "whole_source_files": 26633
+      },
+      "precision": 1.0,
+      "question": "Which database-model entries does HeartBeat's Source-of-Truth boundary directly reference?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "TEST-009",
+        "TEST-010"
+      ],
+      "case_id": "hb-dbt005-health-tests",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.DATA_MODEL.md:200",
+        "SoT/SoT.TESTING.md:167",
+        "SoT/SoT.TESTING.md:181"
+      ],
+      "exact": true,
+      "expected": [
+        "TEST-009",
+        "TEST-010"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0009,
+        "min": 0.0008,
+        "p95": 0.0011,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 905,
+        "structured_projection": 322,
+        "whole_source_files": 25876
+      },
+      "precision": 1.0,
+      "question": "Which direct test definitions consume the ID graph edge cache?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "TEST-009",
+        "TEST-010"
+      ],
+      "case_id": "hb-dbt005-health-tests",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.DATA_MODEL.md:200",
+        "SoT/SoT.TESTING.md:167",
+        "SoT/SoT.TESTING.md:181"
+      ],
+      "exact": true,
+      "expected": [
+        "TEST-009",
+        "TEST-010"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6331,
+        "min": 0.5422,
+        "p95": 0.7185,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 905,
+        "structured_projection": 322,
+        "whole_source_files": 25876
+      },
+      "precision": 1.0,
+      "question": "Which direct test definitions consume the ID graph edge cache?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "TEST-012",
+        "TEST-013",
+        "TEST-017",
+        "TEST-027",
+        "TEST-039",
+        "TEST-042"
+      ],
+      "case_id": "hb-api201-test-impact",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.API_CONTRACTS.md:599",
+        "SoT/SoT.TESTING.md:209",
+        "SoT/SoT.TESTING.md:223",
+        "SoT/SoT.TESTING.md:279",
+        "SoT/SoT.TESTING.md:419",
+        "SoT/SoT.TESTING.md:591",
+        "SoT/SoT.TESTING.md:639"
+      ],
+      "exact": true,
+      "expected": [
+        "TEST-012",
+        "TEST-013",
+        "TEST-017",
+        "TEST-027",
+        "TEST-039",
+        "TEST-042"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0013,
+        "min": 0.0013,
+        "p95": 0.0015,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 5634,
+        "structured_projection": 932,
+        "whole_source_files": 25876
+      },
+      "precision": 1.0,
+      "question": "Which tests directly reference the gate-lint API contract?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "TEST-012",
+        "TEST-013",
+        "TEST-017",
+        "TEST-027",
+        "TEST-039",
+        "TEST-042"
+      ],
+      "case_id": "hb-api201-test-impact",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.API_CONTRACTS.md:599",
+        "SoT/SoT.TESTING.md:209",
+        "SoT/SoT.TESTING.md:223",
+        "SoT/SoT.TESTING.md:279",
+        "SoT/SoT.TESTING.md:419",
+        "SoT/SoT.TESTING.md:591",
+        "SoT/SoT.TESTING.md:639"
+      ],
+      "exact": true,
+      "expected": [
+        "TEST-012",
+        "TEST-013",
+        "TEST-017",
+        "TEST-027",
+        "TEST-039",
+        "TEST-042"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6236,
+        "min": 0.5436,
+        "p95": 0.7092,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 5634,
+        "structured_projection": 932,
+        "whole_source_files": 25876
+      },
+      "precision": 1.0,
+      "question": "Which tests directly reference the gate-lint API contract?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "API-003",
+        "API-201",
+        "API-203",
+        "API-204"
+      ],
+      "case_id": "hb-fea020-api-consumers",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "PRD.md:431",
+        "SoT/SoT.API_CONTRACTS.md:160"
+      ],
+      "exact": true,
+      "expected": [
+        "API-003",
+        "API-201",
+        "API-203",
+        "API-204"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0018,
+        "min": 0.0018,
+        "p95": 0.002,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 9249,
+        "structured_projection": 534,
+        "whole_source_files": 28086
+      },
+      "precision": 1.0,
+      "question": "Which API contracts directly reference the gate-lint feature?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "API-003",
+        "API-201",
+        "API-203",
+        "API-204"
+      ],
+      "case_id": "hb-fea020-api-consumers",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "PRD.md:431",
+        "SoT/SoT.API_CONTRACTS.md:160"
+      ],
+      "exact": true,
+      "expected": [
+        "API-003",
+        "API-201",
+        "API-203",
+        "API-204"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6432,
+        "min": 0.5603,
+        "p95": 0.7176,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 9249,
+        "structured_projection": 534,
+        "whole_source_files": 28086
+      },
+      "precision": 1.0,
+      "question": "Which API contracts directly reference the gate-lint feature?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "API-003",
+        "API-004",
+        "API-011",
+        "API-301"
+      ],
+      "case_id": "ah-uj004-api-impact",
+      "corpus": "agenthunt",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.USER_JOURNEYS.md:346",
+        "SoT/SoT.API_CONTRACTS.md:158",
+        "SoT/SoT.API_CONTRACTS.md:244",
+        "SoT/SoT.API_CONTRACTS.md:586",
+        "SoT/SoT.API_CONTRACTS.md:778"
+      ],
+      "exact": true,
+      "expected": [
+        "API-003",
+        "API-004",
+        "API-011",
+        "API-301"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0015,
+        "min": 0.0015,
+        "p95": 0.0017,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 11371,
+        "structured_projection": 492,
+        "whole_source_files": 25467
+      },
+      "precision": 1.0,
+      "question": "Which AgentHunt API contracts directly reference the consumer-discovery journey?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "API-003",
+        "API-004",
+        "API-011",
+        "API-301"
+      ],
+      "case_id": "ah-uj004-api-impact",
+      "corpus": "agenthunt",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.USER_JOURNEYS.md:346",
+        "SoT/SoT.API_CONTRACTS.md:158",
+        "SoT/SoT.API_CONTRACTS.md:244",
+        "SoT/SoT.API_CONTRACTS.md:586",
+        "SoT/SoT.API_CONTRACTS.md:778"
+      ],
+      "exact": true,
+      "expected": [
+        "API-003",
+        "API-004",
+        "API-011",
+        "API-301"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6387,
+        "min": 0.5582,
+        "p95": 0.7064,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 11371,
+        "structured_projection": 492,
+        "whole_source_files": 25467
+      },
+      "precision": 1.0,
+      "question": "Which AgentHunt API contracts directly reference the consumer-discovery journey?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "DES-003",
+        "DES-004",
+        "DES-005",
+        "DES-006",
+        "DES-007"
+      ],
+      "case_id": "ah-scr004-design-dependencies",
+      "corpus": "agenthunt",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.USER_JOURNEYS.md:648",
+        "SoT/SoT.DESIGN_COMPONENTS.md:105",
+        "SoT/SoT.DESIGN_COMPONENTS.md:138",
+        "SoT/SoT.DESIGN_COMPONENTS.md:171",
+        "SoT/SoT.DESIGN_COMPONENTS.md:205",
+        "SoT/SoT.DESIGN_COMPONENTS.md:238"
+      ],
+      "exact": true,
+      "expected": [
+        "DES-003",
+        "DES-004",
+        "DES-005",
+        "DES-006",
+        "DES-007"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0019,
+        "min": 0.0018,
+        "p95": 0.0021,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 7709,
+        "structured_projection": 633,
+        "whole_source_files": 54357
+      },
+      "precision": 1.0,
+      "question": "Which design components does the Tool Detail screen directly reference?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "DES-003",
+        "DES-004",
+        "DES-005",
+        "DES-006",
+        "DES-007"
+      ],
+      "case_id": "ah-scr004-design-dependencies",
+      "corpus": "agenthunt",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.USER_JOURNEYS.md:648",
+        "SoT/SoT.DESIGN_COMPONENTS.md:105",
+        "SoT/SoT.DESIGN_COMPONENTS.md:138",
+        "SoT/SoT.DESIGN_COMPONENTS.md:171",
+        "SoT/SoT.DESIGN_COMPONENTS.md:205",
+        "SoT/SoT.DESIGN_COMPONENTS.md:238"
+      ],
+      "exact": true,
+      "expected": [
+        "DES-003",
+        "DES-004",
+        "DES-005",
+        "DES-006",
+        "DES-007"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.648,
+        "min": 0.5662,
+        "p95": 0.7429,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 7709,
+        "structured_projection": 633,
+        "whole_source_files": 54357
+      },
+      "precision": 1.0,
+      "question": "Which design components does the Tool Detail screen directly reference?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-006",
+        "CFD-005",
+        "KPI-001"
+      ],
+      "case_id": "ah-risk010-mitigation-links",
+      "corpus": "agenthunt",
+      "engine": "markdown",
+      "evidence": [
+        "PRD.md:417"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-006",
+        "CFD-005",
+        "KPI-001"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0006,
+        "min": 0.0005,
+        "p95": 0.0007,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 5791,
+        "structured_projection": 415,
+        "whole_source_files": 157996
+      },
+      "precision": 1.0,
+      "question": "Which IDs does AgentHunt's market-timing risk directly cite for mitigation?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-006",
+        "CFD-005",
+        "KPI-001"
+      ],
+      "case_id": "ah-risk010-mitigation-links",
+      "corpus": "agenthunt",
+      "engine": "kuzu",
+      "evidence": [
+        "PRD.md:417"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-006",
+        "CFD-005",
+        "KPI-001"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6262,
+        "min": 0.5372,
+        "p95": 0.7121,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 5791,
+        "structured_projection": 415,
+        "whole_source_files": 157996
+      },
+      "precision": 1.0,
+      "question": "Which IDs does AgentHunt's market-timing risk directly cite for mitigation?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "API-010"
+      ],
+      "case_id": "hf-tech006-transport-contract",
+      "corpus": "homefalcon",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:192",
+        "SoT/SoT.API_CONTRACTS.md:450"
+      ],
+      "exact": true,
+      "expected": [
+        "API-010"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0007,
+        "min": 0.0006,
+        "p95": 0.0008,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 4089,
+        "structured_projection": 165,
+        "whole_source_files": 25053
+      },
+      "precision": 1.0,
+      "question": "Which API contract implements HomeFalcon's JSON-not-SSE transport decision?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "API-010"
+      ],
+      "case_id": "hf-tech006-transport-contract",
+      "corpus": "homefalcon",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:192",
+        "SoT/SoT.API_CONTRACTS.md:450"
+      ],
+      "exact": true,
+      "expected": [
+        "API-010"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6661,
+        "min": 0.544,
+        "p95": 0.8023,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 4089,
+        "structured_projection": 165,
+        "whole_source_files": 25053
+      },
+      "precision": 1.0,
+      "question": "Which API contract implements HomeFalcon's JSON-not-SSE transport decision?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "UJ-007",
+        "UJ-008"
+      ],
+      "case_id": "hf-tech007-semantic-drift",
+      "corpus": "homefalcon",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:219",
+        "SoT/SoT.USER_JOURNEYS.md:764",
+        "SoT/SoT.USER_JOURNEYS.md:817"
+      ],
+      "exact": true,
+      "expected": [
+        "UJ-007",
+        "UJ-008"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0008,
+        "min": 0.0007,
+        "p95": 0.0009,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.5 Red Team Review",
+      "payload_bytes": {
+        "exact_markdown_entries": 4715,
+        "structured_projection": 267,
+        "whole_source_files": 56010
+      },
+      "precision": 1.0,
+      "question": "Which journey IDs are linked from the CommandCenter/ImpactReport decision, even though the canonical journey meanings do not match?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity_with_semantic_detector"
+    },
+    {
+      "actual": [
+        "UJ-007",
+        "UJ-008"
+      ],
+      "case_id": "hf-tech007-semantic-drift",
+      "corpus": "homefalcon",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:219",
+        "SoT/SoT.USER_JOURNEYS.md:764",
+        "SoT/SoT.USER_JOURNEYS.md:817"
+      ],
+      "exact": true,
+      "expected": [
+        "UJ-007",
+        "UJ-008"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6779,
+        "min": 0.5647,
+        "p95": 0.772,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.5 Red Team Review",
+      "payload_bytes": {
+        "exact_markdown_entries": 4715,
+        "structured_projection": 267,
+        "whole_source_files": 56010
+      },
+      "precision": 1.0,
+      "question": "Which journey IDs are linked from the CommandCenter/ImpactReport decision, even though the canonical journey meanings do not match?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity_with_semantic_detector"
+    },
+    {
+      "actual": [
+        "DBT-001",
+        "DBT-003",
+        "DBT-004",
+        "DBT-014"
+      ],
+      "case_id": "hb-arc001-two-hop-data-impact",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:442",
+        "SoT/SoT.DATA_MODEL.md:53",
+        "SoT/SoT.DATA_MODEL.md:117",
+        "SoT/SoT.DATA_MODEL.md:157"
+      ],
+      "exact": true,
+      "expected": [
+        "DBT-001",
+        "DBT-003",
+        "DBT-004",
+        "DBT-014"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0029,
+        "min": 0.0027,
+        "p95": 0.0032,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 5177,
+        "structured_projection": 478,
+        "whole_source_files": 26633
+      },
+      "precision": 1.0,
+      "question": "Within two outbound hops of the SoT boundary, which data models are implicated?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "DBT-001",
+        "DBT-003",
+        "DBT-004",
+        "DBT-014"
+      ],
+      "case_id": "hb-arc001-two-hop-data-impact",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:442",
+        "SoT/SoT.DATA_MODEL.md:53",
+        "SoT/SoT.DATA_MODEL.md:117",
+        "SoT/SoT.DATA_MODEL.md:157"
+      ],
+      "exact": true,
+      "expected": [
+        "DBT-001",
+        "DBT-003",
+        "DBT-004",
+        "DBT-014"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 4.3779,
+        "min": 3.9181,
+        "p95": 4.5845,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 5177,
+        "structured_projection": 478,
+        "whole_source_files": 26633
+      },
+      "precision": 1.0,
+      "question": "Within two outbound hops of the SoT boundary, which data models are implicated?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "TEST-160",
+        "TEST-161",
+        "TEST-162",
+        "TEST-170",
+        "TEST-171",
+        "TEST-172"
+      ],
+      "case_id": "hf-tech007-two-hop-test-impact",
+      "corpus": "homefalcon",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:219",
+        "SoT/SoT.TESTING.md:596",
+        "SoT/SoT.TESTING.md:608",
+        "SoT/SoT.TESTING.md:617",
+        "SoT/SoT.TESTING.md:626",
+        "SoT/SoT.TESTING.md:636",
+        "SoT/SoT.TESTING.md:645"
+      ],
+      "exact": true,
+      "expected": [
+        "TEST-160",
+        "TEST-161",
+        "TEST-162",
+        "TEST-170",
+        "TEST-171",
+        "TEST-172"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.002,
+        "min": 0.0019,
+        "p95": 0.0021,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 2913,
+        "structured_projection": 763,
+        "whole_source_files": 154362
+      },
+      "precision": 1.0,
+      "question": "Which test cases are reached within two outbound hops of the semantically drifted TECH-007 links?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "TEST-160",
+        "TEST-161",
+        "TEST-162",
+        "TEST-170",
+        "TEST-171",
+        "TEST-172"
+      ],
+      "case_id": "hf-tech007-two-hop-test-impact",
+      "corpus": "homefalcon",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:219",
+        "SoT/SoT.TESTING.md:596",
+        "SoT/SoT.TESTING.md:608",
+        "SoT/SoT.TESTING.md:617",
+        "SoT/SoT.TESTING.md:626",
+        "SoT/SoT.TESTING.md:636",
+        "SoT/SoT.TESTING.md:645"
+      ],
+      "exact": true,
+      "expected": [
+        "TEST-160",
+        "TEST-161",
+        "TEST-162",
+        "TEST-170",
+        "TEST-171",
+        "TEST-172"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 1.8948,
+        "min": 1.7045,
+        "p95": 1.9964,
+        "repeats": 50
+      },
+      "lifecycle_stage": "",
+      "payload_bytes": {
+        "exact_markdown_entries": 2913,
+        "structured_projection": 763,
+        "whole_source_files": 154362
+      },
+      "precision": 1.0,
+      "question": "Which test cases are reached within two outbound hops of the semantically drifted TECH-007 links?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-001",
+        "BR-008"
+      ],
+      "case_id": "hb-cfd003-market-signal-rules",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.customer_feedback.md:134",
+        "SoT/SoT.customer_feedback.md:159",
+        "SoT/SoT.customer_feedback.md:160",
+        "SoT/SoT.BUSINESS_RULES.md:65",
+        "SoT/SoT.BUSINESS_RULES.md:287"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-001",
+        "BR-008"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0008,
+        "min": 0.0007,
+        "p95": 0.0009,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.1 Spark",
+      "payload_bytes": {
+        "exact_markdown_entries": 2364,
+        "structured_projection": 265,
+        "whole_source_files": 41640
+      },
+      "precision": 1.0,
+      "question": "Which business rules does the GlassCode / Codex UI market signal directly support?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-001",
+        "BR-008"
+      ],
+      "case_id": "hb-cfd003-market-signal-rules",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.customer_feedback.md:134",
+        "SoT/SoT.customer_feedback.md:159",
+        "SoT/SoT.customer_feedback.md:160",
+        "SoT/SoT.BUSINESS_RULES.md:65",
+        "SoT/SoT.BUSINESS_RULES.md:287"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-001",
+        "BR-008"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6298,
+        "min": 0.5602,
+        "p95": 0.7487,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.1 Spark",
+      "payload_bytes": {
+        "exact_markdown_entries": 2364,
+        "structured_projection": 265,
+        "whole_source_files": 41640
+      },
+      "precision": 1.0,
+      "question": "Which business rules does the GlassCode / Codex UI market signal directly support?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "CFD-011",
+        "CFD-015",
+        "CFD-019",
+        "CFD-020"
+      ],
+      "case_id": "ah-br001-positioning-evidence",
+      "corpus": "agenthunt",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:46",
+        "SoT/SoT.BUSINESS_RULES.md:61",
+        "SoT/SoT.BUSINESS_RULES.md:63",
+        "SoT/SoT.BUSINESS_RULES.md:72",
+        "SoT/SoT.BUSINESS_RULES.md:73",
+        "SoT/SoT.BUSINESS_RULES.md:74",
+        "SoT/SoT.BUSINESS_RULES.md:75",
+        "SoT/SoT.customer_feedback.md:503",
+        "SoT/SoT.customer_feedback.md:660",
+        "SoT/SoT.customer_feedback.md:842",
+        "SoT/SoT.customer_feedback.md:891"
+      ],
+      "exact": true,
+      "expected": [
+        "CFD-011",
+        "CFD-015",
+        "CFD-019",
+        "CFD-020"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0009,
+        "min": 0.0009,
+        "p95": 0.0011,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.2 Market Definition",
+      "payload_bytes": {
+        "exact_markdown_entries": 11338,
+        "structured_projection": 703,
+        "whole_source_files": 72974
+      },
+      "precision": 1.0,
+      "question": "Which customer evidence entries directly support AgentHunt's social-discovery-first positioning rule?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "CFD-011",
+        "CFD-015",
+        "CFD-019",
+        "CFD-020"
+      ],
+      "case_id": "ah-br001-positioning-evidence",
+      "corpus": "agenthunt",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:46",
+        "SoT/SoT.BUSINESS_RULES.md:61",
+        "SoT/SoT.BUSINESS_RULES.md:63",
+        "SoT/SoT.BUSINESS_RULES.md:72",
+        "SoT/SoT.BUSINESS_RULES.md:73",
+        "SoT/SoT.BUSINESS_RULES.md:74",
+        "SoT/SoT.BUSINESS_RULES.md:75",
+        "SoT/SoT.customer_feedback.md:503",
+        "SoT/SoT.customer_feedback.md:660",
+        "SoT/SoT.customer_feedback.md:842",
+        "SoT/SoT.customer_feedback.md:891"
+      ],
+      "exact": true,
+      "expected": [
+        "CFD-011",
+        "CFD-015",
+        "CFD-019",
+        "CFD-020"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6247,
+        "min": 0.5129,
+        "p95": 0.6971,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.2 Market Definition",
+      "payload_bytes": {
+        "exact_markdown_entries": 11338,
+        "structured_projection": 703,
+        "whole_source_files": 72974
+      },
+      "precision": 1.0,
+      "question": "Which customer evidence entries directly support AgentHunt's social-discovery-first positioning rule?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-003",
+        "BR-007",
+        "BR-009",
+        "BR-013"
+      ],
+      "case_id": "ah-br012-pricing-rule-dependencies",
+      "corpus": "agenthunt",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:517",
+        "SoT/SoT.BUSINESS_RULES.md:541",
+        "SoT/SoT.BUSINESS_RULES.md:547",
+        "SoT/SoT.BUSINESS_RULES.md:557",
+        "SoT/SoT.BUSINESS_RULES.md:558",
+        "SoT/SoT.BUSINESS_RULES.md:559",
+        "SoT/SoT.BUSINESS_RULES.md:111",
+        "SoT/SoT.BUSINESS_RULES.md:258",
+        "SoT/SoT.BUSINESS_RULES.md:363",
+        "SoT/SoT.BUSINESS_RULES.md:564"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-003",
+        "BR-007",
+        "BR-009",
+        "BR-013"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.001,
+        "min": 0.0009,
+        "p95": 0.0014,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.3 Commercial Model",
+      "payload_bytes": {
+        "exact_markdown_entries": 8155,
+        "structured_projection": 606,
+        "whole_source_files": 32925
+      },
+      "precision": 1.0,
+      "question": "Which business rules directly constrain the freemium audience-gate pricing model?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "BR-003",
+        "BR-007",
+        "BR-009",
+        "BR-013"
+      ],
+      "case_id": "ah-br012-pricing-rule-dependencies",
+      "corpus": "agenthunt",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.BUSINESS_RULES.md:517",
+        "SoT/SoT.BUSINESS_RULES.md:541",
+        "SoT/SoT.BUSINESS_RULES.md:547",
+        "SoT/SoT.BUSINESS_RULES.md:557",
+        "SoT/SoT.BUSINESS_RULES.md:558",
+        "SoT/SoT.BUSINESS_RULES.md:559",
+        "SoT/SoT.BUSINESS_RULES.md:111",
+        "SoT/SoT.BUSINESS_RULES.md:258",
+        "SoT/SoT.BUSINESS_RULES.md:363",
+        "SoT/SoT.BUSINESS_RULES.md:564"
+      ],
+      "exact": true,
+      "expected": [
+        "BR-003",
+        "BR-007",
+        "BR-009",
+        "BR-013"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6207,
+        "min": 0.5182,
+        "p95": 0.7107,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.3 Commercial Model",
+      "payload_bytes": {
+        "exact_markdown_entries": 8155,
+        "structured_projection": 606,
+        "whole_source_files": 32925
+      },
+      "precision": 1.0,
+      "question": "Which business rules directly constrain the freemium audience-gate pricing model?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "TEST-089",
+        "TEST-090",
+        "TEST-091",
+        "TEST-092"
+      ],
+      "case_id": "hf-uj001-acceptance-tests",
+      "corpus": "homefalcon",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.USER_JOURNEYS.md:113",
+        "SoT/SoT.USER_JOURNEYS.md:201",
+        "SoT/SoT.USER_JOURNEYS.md:202",
+        "SoT/SoT.USER_JOURNEYS.md:203",
+        "SoT/SoT.USER_JOURNEYS.md:204",
+        "SoT/SoT.TESTING.md:335",
+        "SoT/SoT.TESTING.md:349",
+        "SoT/SoT.TESTING.md:364",
+        "SoT/SoT.TESTING.md:373"
+      ],
+      "exact": true,
+      "expected": [
+        "TEST-089",
+        "TEST-090",
+        "TEST-091",
+        "TEST-092"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0016,
+        "min": 0.0015,
+        "p95": 0.0026,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.4 User Journeys",
+      "payload_bytes": {
+        "exact_markdown_entries": 3162,
+        "structured_projection": 533,
+        "whole_source_files": 154362
+      },
+      "precision": 1.0,
+      "question": "Which tests directly validate the manual-product-entry journey?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "TEST-089",
+        "TEST-090",
+        "TEST-091",
+        "TEST-092"
+      ],
+      "case_id": "hf-uj001-acceptance-tests",
+      "corpus": "homefalcon",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.USER_JOURNEYS.md:113",
+        "SoT/SoT.USER_JOURNEYS.md:201",
+        "SoT/SoT.USER_JOURNEYS.md:202",
+        "SoT/SoT.USER_JOURNEYS.md:203",
+        "SoT/SoT.USER_JOURNEYS.md:204",
+        "SoT/SoT.TESTING.md:335",
+        "SoT/SoT.TESTING.md:349",
+        "SoT/SoT.TESTING.md:364",
+        "SoT/SoT.TESTING.md:373"
+      ],
+      "exact": true,
+      "expected": [
+        "TEST-089",
+        "TEST-090",
+        "TEST-091",
+        "TEST-092"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6311,
+        "min": 0.5803,
+        "p95": 0.7155,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.4 User Journeys",
+      "payload_bytes": {
+        "exact_markdown_entries": 3162,
+        "structured_projection": 533,
+        "whole_source_files": 154362
+      },
+      "precision": 1.0,
+      "question": "Which tests directly validate the manual-product-entry journey?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "FEA-018",
+        "FEA-020"
+      ],
+      "case_id": "hb-risk007-mitigation-features",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "PRD.md:468",
+        "PRD.md:429",
+        "PRD.md:431"
+      ],
+      "exact": true,
+      "expected": [
+        "FEA-018",
+        "FEA-020"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0008,
+        "min": 0.0007,
+        "p95": 0.001,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.5 Red Team Review",
+      "payload_bytes": {
+        "exact_markdown_entries": 504,
+        "structured_projection": 220,
+        "whole_source_files": 62198
+      },
+      "precision": 1.0,
+      "question": "Which features does the file-write-corruption risk directly cite as mitigation?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "FEA-018",
+        "FEA-020"
+      ],
+      "case_id": "hb-risk007-mitigation-features",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "PRD.md:468",
+        "PRD.md:429",
+        "PRD.md:431"
+      ],
+      "exact": true,
+      "expected": [
+        "FEA-018",
+        "FEA-020"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6275,
+        "min": 0.5268,
+        "p95": 0.7242,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.5 Red Team Review",
+      "payload_bytes": {
+        "exact_markdown_entries": 504,
+        "structured_projection": 220,
+        "whole_source_files": 62198
+      },
+      "precision": 1.0,
+      "question": "Which features does the file-write-corruption risk directly cite as mitigation?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [],
+      "case_id": "hb-risk007-missing-test-link",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "PRD.md:468"
+      ],
+      "exact": true,
+      "expected": [],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0007,
+        "min": 0.0007,
+        "p95": 0.0008,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.5 Red Team Review",
+      "payload_bytes": {
+        "exact_markdown_entries": 0,
+        "structured_projection": 2,
+        "whole_source_files": 0
+      },
+      "precision": 1.0,
+      "question": "Which test IDs does the file-write-corruption risk explicitly link as mitigation evidence?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity_negative_control"
+    },
+    {
+      "actual": [],
+      "case_id": "hb-risk007-missing-test-link",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "PRD.md:468"
+      ],
+      "exact": true,
+      "expected": [],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6314,
+        "min": 0.5529,
+        "p95": 0.7316,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.5 Red Team Review",
+      "payload_bytes": {
+        "exact_markdown_entries": 0,
+        "structured_projection": 2,
+        "whole_source_files": 0
+      },
+      "precision": 1.0,
+      "question": "Which test IDs does the file-write-corruption risk explicitly link as mitigation evidence?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity_negative_control"
+    },
+    {
+      "actual": [
+        "API-201",
+        "API-202",
+        "API-203"
+      ],
+      "case_id": "hb-arc002-contracts",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:494",
+        "SoT/SoT.TECHNICAL_DECISIONS.md:512",
+        "SoT/SoT.TECHNICAL_DECISIONS.md:530",
+        "SoT/SoT.TECHNICAL_DECISIONS.md:531",
+        "SoT/SoT.API_CONTRACTS.md:599",
+        "SoT/SoT.API_CONTRACTS.md:658",
+        "SoT/SoT.API_CONTRACTS.md:719"
+      ],
+      "exact": true,
+      "expected": [
+        "API-201",
+        "API-202",
+        "API-203"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0012,
+        "min": 0.0011,
+        "p95": 0.0016,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.6 Architecture",
+      "payload_bytes": {
+        "exact_markdown_entries": 4655,
+        "structured_projection": 399,
+        "whole_source_files": 28086
+      },
+      "precision": 1.0,
+      "question": "Which API contracts directly implement the direct file-write pipeline decision?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "API-201",
+        "API-202",
+        "API-203"
+      ],
+      "case_id": "hb-arc002-contracts",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.TECHNICAL_DECISIONS.md:494",
+        "SoT/SoT.TECHNICAL_DECISIONS.md:512",
+        "SoT/SoT.TECHNICAL_DECISIONS.md:530",
+        "SoT/SoT.TECHNICAL_DECISIONS.md:531",
+        "SoT/SoT.API_CONTRACTS.md:599",
+        "SoT/SoT.API_CONTRACTS.md:658",
+        "SoT/SoT.API_CONTRACTS.md:719"
+      ],
+      "exact": true,
+      "expected": [
+        "API-201",
+        "API-202",
+        "API-203"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6446,
+        "min": 0.5495,
+        "p95": 0.701,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.6 Architecture",
+      "payload_bytes": {
+        "exact_markdown_entries": 4655,
+        "structured_projection": 399,
+        "whole_source_files": 28086
+      },
+      "precision": 1.0,
+      "question": "Which API contracts directly implement the direct file-write pipeline decision?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "DBT-006",
+        "DBT-010",
+        "DBT-011"
+      ],
+      "case_id": "hb-test029-persistence-coverage",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.TESTING.md:447",
+        "SoT/SoT.TESTING.md:453",
+        "SoT/SoT.DATA_MODEL.md:239",
+        "SoT/SoT.DATA_MODEL.md:407",
+        "SoT/SoT.DATA_MODEL.md:446"
+      ],
+      "exact": true,
+      "expected": [
+        "DBT-006",
+        "DBT-010",
+        "DBT-011"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0009,
+        "min": 0.0008,
+        "p95": 0.001,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.7 Build Execution",
+      "payload_bytes": {
+        "exact_markdown_entries": 4077,
+        "structured_projection": 362,
+        "whole_source_files": 26633
+      },
+      "precision": 1.0,
+      "question": "Which data models are directly verified by the post-write validation test?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "DBT-006",
+        "DBT-010",
+        "DBT-011"
+      ],
+      "case_id": "hb-test029-persistence-coverage",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.TESTING.md:447",
+        "SoT/SoT.TESTING.md:453",
+        "SoT/SoT.DATA_MODEL.md:239",
+        "SoT/SoT.DATA_MODEL.md:407",
+        "SoT/SoT.DATA_MODEL.md:446"
+      ],
+      "exact": true,
+      "expected": [
+        "DBT-006",
+        "DBT-010",
+        "DBT-011"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6303,
+        "min": 0.5669,
+        "p95": 0.6828,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.7 Build Execution",
+      "payload_bytes": {
+        "exact_markdown_entries": 4077,
+        "structured_projection": 362,
+        "whole_source_files": 26633
+      },
+      "precision": 1.0,
+      "question": "Which data models are directly verified by the post-write validation test?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "RUN-001",
+        "RUN-003"
+      ],
+      "case_id": "ah-dep002-two-hop-runbooks",
+      "corpus": "agenthunt",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.DEPLOYMENT.md:454",
+        "SoT/SoT.DEPLOYMENT.md:486",
+        "SoT/SoT.DEPLOYMENT.md:487",
+        "SoT/SoT.DEPLOYMENT.md:489",
+        "SoT/SoT.DEPLOYMENT.md:156",
+        "SoT/SoT.DEPLOYMENT.md:183",
+        "SoT/SoT.DEPLOYMENT.md:264",
+        "SoT/SoT.DEPLOYMENT.md:282",
+        "SoT/SoT.DEPLOYMENT.md:630",
+        "SoT/SoT.DEPLOYMENT.md:642",
+        "SoT/SoT.DEPLOYMENT.md:529",
+        "SoT/SoT.DEPLOYMENT.md:584"
+      ],
+      "exact": true,
+      "expected": [
+        "RUN-001",
+        "RUN-003"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.004,
+        "min": 0.0038,
+        "p95": 0.0044,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.8 Release and Deployment",
+      "payload_bytes": {
+        "exact_markdown_entries": 2138,
+        "structured_projection": 253,
+        "whole_source_files": 28163
+      },
+      "precision": 1.0,
+      "question": "Which runbooks are reachable within two outbound hops of preview and production deployment?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "RUN-001",
+        "RUN-003"
+      ],
+      "case_id": "ah-dep002-two-hop-runbooks",
+      "corpus": "agenthunt",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.DEPLOYMENT.md:454",
+        "SoT/SoT.DEPLOYMENT.md:486",
+        "SoT/SoT.DEPLOYMENT.md:487",
+        "SoT/SoT.DEPLOYMENT.md:489",
+        "SoT/SoT.DEPLOYMENT.md:156",
+        "SoT/SoT.DEPLOYMENT.md:183",
+        "SoT/SoT.DEPLOYMENT.md:264",
+        "SoT/SoT.DEPLOYMENT.md:282",
+        "SoT/SoT.DEPLOYMENT.md:630",
+        "SoT/SoT.DEPLOYMENT.md:642",
+        "SoT/SoT.DEPLOYMENT.md:529",
+        "SoT/SoT.DEPLOYMENT.md:584"
+      ],
+      "exact": true,
+      "expected": [
+        "RUN-001",
+        "RUN-003"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 5.0542,
+        "min": 4.7322,
+        "p95": 5.2766,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.8 Release and Deployment",
+      "payload_bytes": {
+        "exact_markdown_entries": 2138,
+        "structured_projection": 253,
+        "whole_source_files": 28163
+      },
+      "precision": 1.0,
+      "question": "Which runbooks are reachable within two outbound hops of preview and production deployment?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "FEA-003",
+        "FEA-006",
+        "FEA-007",
+        "FEA-009",
+        "FEA-010"
+      ],
+      "case_id": "ah-kpi003-feature-contributors",
+      "corpus": "agenthunt",
+      "engine": "markdown",
+      "evidence": [
+        "PRD.md:259",
+        "PRD.md:284",
+        "PRD.md:287",
+        "PRD.md:293",
+        "PRD.md:295",
+        "PRD.md:296"
+      ],
+      "exact": true,
+      "expected": [
+        "FEA-003",
+        "FEA-006",
+        "FEA-007",
+        "FEA-009",
+        "FEA-010"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0012,
+        "min": 0.0011,
+        "p95": 0.0013,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.9 Go-to-Market",
+      "payload_bytes": {
+        "exact_markdown_entries": 1050,
+        "structured_projection": 567,
+        "whole_source_files": 52097
+      },
+      "precision": 1.0,
+      "question": "Which features directly contribute to the Weekly Active Engagers launch metric?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "FEA-003",
+        "FEA-006",
+        "FEA-007",
+        "FEA-009",
+        "FEA-010"
+      ],
+      "case_id": "ah-kpi003-feature-contributors",
+      "corpus": "agenthunt",
+      "engine": "kuzu",
+      "evidence": [
+        "PRD.md:259",
+        "PRD.md:284",
+        "PRD.md:287",
+        "PRD.md:293",
+        "PRD.md:295",
+        "PRD.md:296"
+      ],
+      "exact": true,
+      "expected": [
+        "FEA-003",
+        "FEA-006",
+        "FEA-007",
+        "FEA-009",
+        "FEA-010"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6531,
+        "min": 0.549,
+        "p95": 0.7341,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v0.9 Go-to-Market",
+      "payload_bytes": {
+        "exact_markdown_entries": 1050,
+        "structured_projection": 567,
+        "whole_source_files": 52097
+      },
+      "precision": 1.0,
+      "question": "Which features directly contribute to the Weekly Active Engagers launch metric?",
+      "recall": 1.0,
+      "truth_scope": "source_fidelity"
+    },
+    {
+      "actual": [
+        "ADO-REF-001",
+        "ADO-WHOLE-001"
+      ],
+      "case_id": "hb-ado-beachhead-dependents",
+      "corpus": "heartbeat",
+      "engine": "markdown",
+      "evidence": [
+        "SoT/SoT.ADOPTION.md:69",
+        "SoT/SoT.ADOPTION.md:84",
+        "SoT/SoT.ADOPTION.md:93",
+        "SoT/SoT.ADOPTION.md:95",
+        "SoT/SoT.ADOPTION.md:98",
+        "SoT/SoT.ADOPTION.md:103"
+      ],
+      "exact": true,
+      "expected": [
+        "ADO-REF-001",
+        "ADO-WHOLE-001"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.0008,
+        "min": 0.0007,
+        "p95": 0.0009,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v1.0 Market Adoption",
+      "payload_bytes": {
+        "exact_markdown_entries": 2509,
+        "structured_projection": 299,
+        "whole_source_files": 7191
+      },
+      "precision": 1.0,
+      "question": "Which adoption artifacts directly depend on the beachhead segment?",
+      "recall": 1.0,
+      "truth_scope": "structural_only_with_semantic_detector"
+    },
+    {
+      "actual": [
+        "ADO-REF-001",
+        "ADO-WHOLE-001"
+      ],
+      "case_id": "hb-ado-beachhead-dependents",
+      "corpus": "heartbeat",
+      "engine": "kuzu",
+      "evidence": [
+        "SoT/SoT.ADOPTION.md:69",
+        "SoT/SoT.ADOPTION.md:84",
+        "SoT/SoT.ADOPTION.md:93",
+        "SoT/SoT.ADOPTION.md:95",
+        "SoT/SoT.ADOPTION.md:98",
+        "SoT/SoT.ADOPTION.md:103"
+      ],
+      "exact": true,
+      "expected": [
+        "ADO-REF-001",
+        "ADO-WHOLE-001"
+      ],
+      "f1": 1.0,
+      "kind": "traverse",
+      "latency_ms": {
+        "median": 0.6345,
+        "min": 0.5139,
+        "p95": 0.705,
+        "repeats": 50
+      },
+      "lifecycle_stage": "v1.0 Market Adoption",
+      "payload_bytes": {
+        "exact_markdown_entries": 2509,
+        "structured_projection": 299,
+        "whole_source_files": 7191
+      },
+      "precision": 1.0,
+      "question": "Which adoption artifacts directly depend on the beachhead segment?",
+      "recall": 1.0,
+      "truth_scope": "structural_only_with_semantic_detector"
+    }
+  ],
+  "corpora": [
+    {
+      "alias": "agenthunt",
+      "dangling_nodes": 21,
+      "database_to_markdown_size_ratio": 14.789,
+      "defined_nodes": 216,
+      "duplicate_definition_ids": 7,
+      "edges": 1457,
+      "files": 22,
+      "fingerprint_sha256": "bd2ddb1c486afe1f85f767ea0ab56534a1669327232b7b7212e74c9912691647",
+      "git_commit": "4cf91bd84c53c44136647809487ab58c71e7e581",
+      "kuzu_build_ms": 11724.722,
+      "kuzu_database_bytes": 7331840,
+      "parse_ms": 43.878,
+      "placeholder_nodes": 0,
+      "prefix_counts": {
+        "API": 15,
+        "ARC": 9,
+        "BR": 14,
+        "CFD": 25,
+        "DBT": 14,
+        "DEP": 3,
+        "DES": 7,
+        "ENV": 3,
+        "FEA": 14,
+        "INT": 6,
+        "KPI": 8,
+        "LL": 2,
+        "MON": 3,
+        "PER": 3,
+        "RISK": 10,
+        "RUN": 3,
+        "SCR": 8,
+        "SEC": 8,
+        "TECH": 11,
+        "TEST": 45,
+        "UJ": 5
+      },
+      "source_bytes": 495767
+    },
+    {
+      "alias": "heartbeat",
+      "dangling_nodes": 9,
+      "database_to_markdown_size_ratio": 16.961,
+      "defined_nodes": 242,
+      "duplicate_definition_ids": 0,
+      "edges": 1442,
+      "files": 25,
+      "fingerprint_sha256": "51177b6c07ba9732e23e73f07bf0f4d83cb30c7fc191b04a307e05580a1853bc",
+      "git_commit": "86a4bce123ef91dd49acd0bb7b7d317f700a0f6f",
+      "kuzu_build_ms": 11517.292,
+      "kuzu_database_bytes": 7360512,
+      "parse_ms": 39.374,
+      "placeholder_nodes": 0,
+      "prefix_counts": {
+        "ADO": 4,
+        "API": 13,
+        "ARC": 6,
+        "BR": 29,
+        "CFD": 20,
+        "DBT": 17,
+        "DES": 8,
+        "ENV": 3,
+        "FEA": 22,
+        "INT": 7,
+        "KPI": 14,
+        "LL": 2,
+        "PER": 4,
+        "RISK": 14,
+        "SCR": 15,
+        "TECH": 9,
+        "TEST": 42,
+        "UJ": 13
+      },
+      "source_bytes": 433960
+    },
+    {
+      "alias": "homefalcon",
+      "dangling_nodes": 54,
+      "database_to_markdown_size_ratio": 6.28,
+      "defined_nodes": 254,
+      "duplicate_definition_ids": 4,
+      "edges": 554,
+      "files": 41,
+      "fingerprint_sha256": "66d86f46bcb8b3636fc9ad6eeecb0d86e39ecc3ece6f25f2f539de7713a38b7a",
+      "git_commit": "723ac55bb2e11112c57444a3bd4c39a6dd31085c",
+      "kuzu_build_ms": 5778.633,
+      "kuzu_database_bytes": 7467008,
+      "parse_ms": 71.591,
+      "placeholder_nodes": 3,
+      "prefix_counts": {
+        "API": 15,
+        "BR": 18,
+        "CDE": 14,
+        "CFD": 2,
+        "DBT": 16,
+        "DES": 16,
+        "GIT": 13,
+        "LL": 1,
+        "MKT": 45,
+        "RISK": 5,
+        "SCR": 28,
+        "TECH": 10,
+        "TEST": 37,
+        "UJ": 34
+      },
+      "source_bytes": 1188946
+    }
+  ],
+  "decision": {
+    "architecture_hypothesis": "A read-only graph projection may add value for future portfolio queries, graph algorithms, and impact analysis, but those benefits require a separate combined-corpus evaluation.",
+    "kuzu_disposition": "Research dependency only; the requested upstream is archived.",
+    "measured": "Markdown is the better current SoT and small-corpus retrieval baseline: it matched Kuzu correctness with lower latency, build cost, storage, and synchronization risk."
+  },
+  "generated_at": "2026-07-23T23:22:48.346379+00:00",
+  "interpretation_contract": {
+    "absolute_paths_emitted": false,
+    "combined_namespace_tested": false,
+    "external_products_modified": false,
+    "gold_answers_are_manifest_authored": true,
+    "graph_algorithms_tested": false,
+    "incremental_indexing_tested": false,
+    "kuzu_payloads_read_from_database": true,
+    "literal_source_fidelity_is_semantic_truth": false,
+    "llm_outcomes_tested": false,
+    "shared_parser": true,
+    "source_bodies_emitted": false
+  },
+  "question": "For PRD-CE, should the SoT knowledge graph remain canonical Markdown, move to Kuzu, or use a Markdown-authority plus graph-projection hybrid?",
+  "rollup": {
+    "kuzu": {
+      "cases": 25,
+      "exact_cases": 25,
+      "exact_rate": 1.0,
+      "mean_f1": 1.0,
+      "median_exact_entry_bytes": 3162,
+      "median_projection_bytes": 362,
+      "median_query_ms": 0.6331,
+      "median_whole_file_bytes": 28163,
+      "p95_query_ms": 4.5845
+    },
+    "markdown": {
+      "cases": 25,
+      "exact_cases": 25,
+      "exact_rate": 1.0,
+      "mean_f1": 1.0,
+      "median_exact_entry_bytes": 3162,
+      "median_projection_bytes": 362,
+      "median_query_ms": 0.0009,
+      "median_whole_file_bytes": 28163,
+      "p95_query_ms": 0.0032
+    }
+  },
+  "runtime": {
+    "database_layout": "one-kuzu-database-per-corpus",
+    "isolated_environment_bytes": 12605930,
+    "kuzu_source_checkout_bytes": 571797395,
+    "machine": "arm64",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "python": "3.11.13",
+    "repeats_per_case": 50
+  },
+  "schema_version": "1.2",
+  "upstream": {
+    "archived_on": "2025-10-10",
+    "commit": "27cba5b91423c96a0a0507c92dfe0e1654f7f184",
+    "license": "MIT",
+    "python_package": "0.11.3",
+    "release": "v0.11.3",
+    "repository": "https://github.com/kuzudb/kuzu"
+  }
+}

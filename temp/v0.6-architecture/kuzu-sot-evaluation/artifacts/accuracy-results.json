@@ -1,0 +1,459 @@
+{
+  "dimensions": {
+    "epistemic_conformance": {
+      "scope": "identity, provenance, lifecycle, bitemporality, supersession, gates, evidence boundary, pack detectors",
+      "test_module": "test_conformance"
+    },
+    "lifecycle_conformance": {
+      "scope": "gate count baseline, inactive-ID false pass, and cross-artifact contract consistency",
+      "test_module": "test_lifecycle_audit"
+    },
+    "semantic_truth": {
+      "scope": "Two seeded deterministic detectors in benchmark results; broad blind evaluation is not implemented."
+    },
+    "source_fidelity": {
+      "scope": "parser, retrieval parity, lifecycle manifest, staleness",
+      "test_module": "test_sot_benchmark"
+    }
+  },
+  "generated_at": "2026-07-23T23:22:56.724978+00:00",
+  "interpretation_contract": {
+    "blind_llm_evaluation_performed": false,
+    "draft_core_pack_design_not_promoted_to_canonical_methodology": true,
+    "freshness_policy_declaration_and_projection_tested": true,
+    "freshness_policy_enforcement_tested": false,
+    "human_adjudication_performed": false,
+    "no_blended_accuracy_score": true,
+    "product_repositories_modified": false,
+    "repo_contract_findings_are_diagnostics_not_silenced": true
+  },
+  "pack_fixture_notice": "JSON is test-fixture serialization only, not a product-format decision.",
+  "pack_schema_projections": {
+    "accounting": {
+      "assertion_types": 4,
+      "core_version": "0.1",
+      "evidence_only_types": 3,
+      "projection_sha256": "8ff62c166d86cc96b166a77c40d475e7861b0db4a73d12ede8d71c4953bbb5a1",
+      "version": "0.1"
+    },
+    "product": {
+      "assertion_types": 23,
+      "core_version": "0.1",
+      "evidence_only_types": 3,
+      "projection_sha256": "852b9bf055f9cfd8d8d471f9ada3a9d9d0ab2187306a089e005771d37a6f9ffb",
+      "version": "0.1"
+    },
+    "restaurant": {
+      "assertion_types": 5,
+      "core_version": "0.1",
+      "evidence_only_types": 3,
+      "projection_sha256": "704a6b70f200777b9d8cbefa73f06108ac14ef20d8280ac251e31b20532f7385",
+      "version": "0.1"
+    }
+  },
+  "provenance": {
+    "benchmark_results": {
+      "acceptance": {
+        "checks": {
+          "authority_boundary": {
+            "passed": true,
+            "rebuilt_hash_matched_new_source": true,
+            "status": "complete"
+          },
+          "lifecycle_manifest_coverage": {
+            "invalid_anchor_cases": [],
+            "missing_stages": [],
+            "passed": true,
+            "unknown_stage_cases": []
+          },
+          "semantic_truth": {
+            "duplicate_cases": [],
+            "expected_checks": 2,
+            "inexact_cases": [],
+            "missing_cases": [],
+            "observed_checks": 2,
+            "passed": true,
+            "unexpected_cases": []
+          },
+          "source_fidelity": {
+            "duplicate_rows": [],
+            "expected_rows": 50,
+            "inexact_rows": [],
+            "missing_rows": [],
+            "observed_rows": 50,
+            "passed": true,
+            "required_engines": [
+              "markdown",
+              "kuzu"
+            ],
+            "unexpected_rows": []
+          }
+        },
+        "passed": true,
+        "policy": "Fail closed unless both engines exactly match every manifest case, all semantic verdicts match, lifecycle manifest coverage is complete and stage-valid, and the authority rebuild matches source."
+      },
+      "acceptance_present": true,
+      "benchmark_manifest": {
+        "case_count": 25,
+        "gold_review": {
+          "human_adjudication_claim": false,
+          "independence_claim": false,
+          "method": "separate read-only source inspection",
+          "reviewed_at": "2026-07-23",
+          "scope": "all expected ID sets and cited evidence spans"
+        },
+        "schema_version": "1.1",
+        "sha256": "ea11be943ade39caa11fd9f39f785b04d9462060b67c367cb0703ff04c7f64f4"
+      },
+      "corpus_fingerprints": [
+        {
+          "alias": "agenthunt",
+          "fingerprint_sha256": "bd2ddb1c486afe1f85f767ea0ab56534a1669327232b7b7212e74c9912691647",
+          "git_commit": "4cf91bd84c53c44136647809487ab58c71e7e581"
+        },
+        {
+          "alias": "heartbeat",
+          "fingerprint_sha256": "51177b6c07ba9732e23e73f07bf0f4d83cb30c7fc191b04a307e05580a1853bc",
+          "git_commit": "86a4bce123ef91dd49acd0bb7b7d317f700a0f6f"
+        },
+        {
+          "alias": "homefalcon",
+          "fingerprint_sha256": "66d86f46bcb8b3636fc9ad6eeecb0d86e39ecc3ece6f25f2f539de7713a38b7a",
+          "git_commit": "723ac55bb2e11112c57444a3bd4c39a6dd31085c"
+        }
+      ],
+      "generated_at": "2026-07-23T23:22:48.346379+00:00",
+      "schema_version": "1.2"
+    },
+    "inputs": {
+      "aggregate_sha256": "2eebaa68dd25f4112afe840dc88443d7a9b2d3a6d549063f73626ca80c603e8a",
+      "files": [
+        {
+          "bytes": 8511,
+          "exists": true,
+          "path": "<repository>/.claude/domain-profile.yaml",
+          "sha256": "e3d68339122056f4fa68a3af71ab2c876464427cd377ec34a2b7e5726d060b6e"
+        },
+        {
+          "bytes": 12574,
+          "exists": true,
+          "path": "<repository>/.claude/skills/ghm-gate-check/references/gate-criteria.md",
+          "sha256": "6b21672cf5dafcfc48d72b6c7fdfdcfd8144eba1a1d51f9c2f7b178bd6630cc5"
+        },
+        {
+          "bytes": 15476,
+          "exists": true,
+          "path": "<repository>/PRD.md",
+          "sha256": "0b383277d75c889d61e8b29fc737b8cb67bd2526d4e6899136a5ce31987ecc94"
+        },
+        {
+          "bytes": 26065,
+          "exists": true,
+          "path": "<repository>/README.md",
+          "sha256": "4c5737419c5379051b27b55c717c60ab55cec38e456f1ecf8b419a3a0ee1a50e"
+        },
+        {
+          "bytes": 2977,
+          "exists": true,
+          "path": "<repository>/SoT/SoT.API_CONTRACTS.md",
+          "sha256": "ac74cbd97d58b930d2a5196ebff3647e94146a72ce70a8b769e70a2f5d7e6680"
+        },
+        {
+          "bytes": 3317,
+          "exists": true,
+          "path": "<repository>/SoT/SoT.BUSINESS_RULES.md",
+          "sha256": "4b1f6fbf8538fee7504de0b6196007b5f7ed3d6bab96cf0bc928388707d301b4"
+        },
+        {
+          "bytes": 3246,
+          "exists": true,
+          "path": "<repository>/SoT/SoT.DATA_MODEL.md",
+          "sha256": "f921167da874fa9eaffe9c62e2f8092d828ca8cc6da7802fe7623bcdc9da3b24"
+        },
+        {
+          "bytes": 8830,
+          "exists": true,
+          "path": "<repository>/SoT/SoT.DEPLOYMENT.md",
+          "sha256": "c93d656fed7a820572d915894568222da50cd486e3657f2e1cf9fad67bd13377"
+        },
+        {
+          "bytes": 0,
+          "exists": false,
+          "path": "<repository>/SoT/SoT.RISKS.md",
+          "sha256": null
+        },
+        {
+          "bytes": 9582,
+          "exists": true,
+          "path": "<repository>/SoT/SoT.TECHNICAL_DECISIONS.md",
+          "sha256": "c1449af10821c12e2ec7167505c9ac5bea6232fac01be5570f24a23bed2f7e8b"
+        },
+        {
+          "bytes": 3186,
+          "exists": true,
+          "path": "<repository>/SoT/SoT.TESTING.md",
+          "sha256": "ddcb0c20f2018129cee98317a3e00fcf9c47398a844d77c294fa5984f58d9f0a"
+        },
+        {
+          "bytes": 7631,
+          "exists": true,
+          "path": "<repository>/SoT/SoT.UNIQUE_ID_SYSTEM.md",
+          "sha256": "a56b2d2a8db211da7067dc87bb1d9b8332ca5346cb9ae1fedc727bdda1cfebae"
+        },
+        {
+          "bytes": 3705,
+          "exists": true,
+          "path": "<repository>/SoT/SoT.USER_JOURNEYS.md",
+          "sha256": "21733bfd5da52d9c53f1eb3c95bb750458fc862848be4aeb35082b361fe0c5b0"
+        },
+        {
+          "bytes": 3241,
+          "exists": true,
+          "path": "<repository>/SoT/SoT.customer_feedback.md",
+          "sha256": "c74c99cfc55721bbdaf9c3eb983ebc465280f6a5f0699d91f28d7871fc330cd0"
+        },
+        {
+          "bytes": 16052,
+          "exists": true,
+          "path": "<repository>/scripts/_readiness/stage.py",
+          "sha256": "61ea892485a089080b6821f176a4672da7aae421cfd2ef36a2c4c5f448db19af"
+        },
+        {
+          "bytes": 63906,
+          "path": "artifacts/results.json",
+          "sha256": "e5bc70368a3c30d58b08353bcb9b9aba1fbf2a6a196fd6a500a8cec35beb8039"
+        },
+        {
+          "bytes": 15930,
+          "path": "benchmark-cases.json",
+          "sha256": "ea11be943ade39caa11fd9f39f785b04d9462060b67c367cb0703ff04c7f64f4"
+        },
+        {
+          "bytes": 83757,
+          "path": "src/conformance.py",
+          "sha256": "34e058f19a248344cb950124b963d0f233d8cc98bec20aeec14758a5d9714813"
+        },
+        {
+          "bytes": 7081,
+          "path": "src/lifecycle_audit.py",
+          "sha256": "72eefb136fca05e9c27fc8416fa6cab388227fc85bbf4f446a3c35d3bb86acd2"
+        },
+        {
+          "bytes": 51066,
+          "path": "src/report.py",
+          "sha256": "b0ad83424e775df25d24f0759a72133478a13a520dab6b22f7ddd3fdfedb1a9e"
+        },
+        {
+          "bytes": 14364,
+          "path": "src/run_accuracy_suite.py",
+          "sha256": "346c69d29a2d0778e7168c42cac49130fdfc6a4e00ce6745d0472c7f652dc02e"
+        },
+        {
+          "bytes": 60227,
+          "path": "src/sot_benchmark.py",
+          "sha256": "45cb7b86da8ac3a16485092cd1d1c00fa4ff496eec7ed0216bfcefd8e5a2c672"
+        },
+        {
+          "bytes": 8724,
+          "path": "tests/fixtures/conformance/packs.json",
+          "sha256": "63d7b4394e1ddb812c12d31c6f396c9c0acd0e23aed61e2eef7614c5915c85d7"
+        },
+        {
+          "bytes": 63038,
+          "path": "tests/test_conformance.py",
+          "sha256": "f130ce003b2e608fe3c2343a7021fb0cbe15cc0a30614ae6dfcdbc5eea742bbb"
+        },
+        {
+          "bytes": 8823,
+          "path": "tests/test_lifecycle_audit.py",
+          "sha256": "aaa96b6314763a6014c0b90e9d53b8a83c406c102b3246583ce2fda47a396b5b"
+        },
+        {
+          "bytes": 2624,
+          "path": "tests/test_report.py",
+          "sha256": "5b2bbe67af4d62227aabe7280f92e59f516897ad695e22dfabd405690cfcb75a"
+        },
+        {
+          "bytes": 13891,
+          "path": "tests/test_run_accuracy_suite.py",
+          "sha256": "aaf767a2b53fd2dec0f70032ad471dd7e0d7de419f10533272c416ccc1ff36d3"
+        },
+        {
+          "bytes": 17125,
+          "path": "tests/test_sot_benchmark.py",
+          "sha256": "3fd5705b373ab51cb0868cd05afa3f862c49ef10626a2490075da6cb06733dfc"
+        }
+      ],
+      "hash_algorithm": "sha256"
+    },
+    "inputs_verified_after_test_run": true,
+    "repository_commit": "30ed1b07c9945fc66a18d03fdf5bb870293bee3f",
+    "repository_commit_verified_after_test_run": true,
+    "suite": {
+      "discovery": {
+        "pattern": "test*.py",
+        "start_directory": "tests"
+      },
+      "framework": "unittest",
+      "test_count": 75,
+      "test_ids": [
+        "test_conformance.ConformanceOracleTests.test_accounting_detector_rejects_binary_float_totals",
+        "test_conformance.ConformanceOracleTests.test_accounting_trial_balance_detector_and_policy_asof",
+        "test_conformance.ConformanceOracleTests.test_bitemporal_current_truth_and_half_open_boundaries",
+        "test_conformance.ConformanceOracleTests.test_conformance_findings_are_input_order_independent",
+        "test_conformance.ConformanceOracleTests.test_current_truth_fails_closed_on_overlap",
+        "test_conformance.ConformanceOracleTests.test_evidence_cannot_reference_an_assertion_not_yet_recorded",
+        "test_conformance.ConformanceOracleTests.test_evidence_is_accepted_by_reference_and_orphans_fail",
+        "test_conformance.ConformanceOracleTests.test_evidence_only_types_are_rejected_as_assertions",
+        "test_conformance.ConformanceOracleTests.test_evidence_rejects_empty_duplicate_and_cross_pack_references",
+        "test_conformance.ConformanceOracleTests.test_expired_truth_is_historical_and_void_truth_is_never_current",
+        "test_conformance.ConformanceOracleTests.test_failed_attestation_blocks_even_when_structure_is_complete",
+        "test_conformance.ConformanceOracleTests.test_fixture_packs_are_valid_and_cover_three_verticals",
+        "test_conformance.ConformanceOracleTests.test_future_attestation_cannot_satisfy_historical_gate",
+        "test_conformance.ConformanceOracleTests.test_gate_blocks_a_structurally_complete_but_invalid_snapshot",
+        "test_conformance.ConformanceOracleTests.test_gate_blocks_overlapping_single_current_truths",
+        "test_conformance.ConformanceOracleTests.test_gate_counts_only_bitemporally_current_assertions",
+        "test_conformance.ConformanceOracleTests.test_gate_does_not_count_edges_asserted_by_future_revisions",
+        "test_conformance.ConformanceOracleTests.test_gate_mutation_matrix_blocks_each_missing_artifact_family",
+        "test_conformance.ConformanceOracleTests.test_invalid_temporal_intervals_and_revision_overlap_are_rejected",
+        "test_conformance.ConformanceOracleTests.test_lifecycle_gate_cannot_skip_prerequisite_stages",
+        "test_conformance.ConformanceOracleTests.test_lifecycle_transition_matrix",
+        "test_conformance.ConformanceOracleTests.test_missing_qualitative_attestations_require_review",
+        "test_conformance.ConformanceOracleTests.test_pack_cannot_shadow_core_fields_or_weaken_status_map",
+        "test_conformance.ConformanceOracleTests.test_pack_gate_and_detector_declarations_fail_closed",
+        "test_conformance.ConformanceOracleTests.test_passing_attestation_requires_unique_known_same_pack_refs",
+        "test_conformance.ConformanceOracleTests.test_product_change_flags_review_without_mutating_truth",
+        "test_conformance.ConformanceOracleTests.test_product_change_review_is_resolved_by_later_verification",
+        "test_conformance.ConformanceOracleTests.test_product_evidence_tie_fails_closed",
+        "test_conformance.ConformanceOracleTests.test_product_lifecycle_gate_matrix_passes_complete_fixture",
+        "test_conformance.ConformanceOracleTests.test_provenance_is_required_on_every_revision",
+        "test_conformance.ConformanceOracleTests.test_registered_detector_caution_prevents_gate_pass",
+        "test_conformance.ConformanceOracleTests.test_rejected_alternatives_remain_first_class_but_never_current",
+        "test_conformance.ConformanceOracleTests.test_relation_schema_and_referential_integrity_fail_closed",
+        "test_conformance.ConformanceOracleTests.test_restaurant_detector_does_not_leak_future_observations",
+        "test_conformance.ConformanceOracleTests.test_restaurant_detector_projects_relations_as_of_revision",
+        "test_conformance.ConformanceOracleTests.test_restaurant_detector_uses_latest_inventory_state",
+        "test_conformance.ConformanceOracleTests.test_restaurant_inventory_evidence_cascades_without_becoming_ledger",
+        "test_conformance.ConformanceOracleTests.test_restaurant_inventory_tie_and_invalid_state_fail_closed",
+        "test_conformance.ConformanceOracleTests.test_revision_identity_cannot_change_entity_type_or_truth_key",
+        "test_conformance.ConformanceOracleTests.test_schema_projection_injects_core_fields_deterministically",
+        "test_conformance.ConformanceOracleTests.test_scoped_identity_and_longest_compound_prefix",
+        "test_conformance.ConformanceOracleTests.test_singular_truth_query_rejects_multi_current_cardinality",
+        "test_conformance.ConformanceOracleTests.test_supersession_cycle_is_rejected",
+        "test_conformance.ConformanceOracleTests.test_supersession_mutations_are_detected",
+        "test_conformance.ConformanceOracleTests.test_v07_gate_matches_executable_dbt_or_ent_alias_contract",
+        "test_lifecycle_audit.LifecycleContractAuditTests.test_contradictory_contract_fixture_reports_each_supported_diagnostic",
+        "test_lifecycle_audit.LifecycleContractAuditTests.test_current_counter_can_false_pass_on_inactive_ids",
+        "test_lifecycle_audit.LifecycleContractAuditTests.test_current_repository_audit_is_deterministic_sorted_and_structured",
+        "test_lifecycle_audit.LifecycleContractAuditTests.test_gate_requirements_snapshot_detects_intentional_contract_changes",
+        "test_report.ReportAcceptanceTests.test_failed_acceptance_withholds_positive_architecture_decision",
+        "test_report.ReportAcceptanceTests.test_report_uses_lifecycle_manifest_coverage",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_benchmark_binding_exposes_absent_acceptance_without_inventing_it",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_benchmark_binding_preserves_acceptance_and_corpus_fingerprints",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_benchmark_results_must_bind_the_current_case_manifest",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_bound_json_rejects_content_changed_after_manifest_capture",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_input_manifest_fails_closed_without_required_benchmark_inputs",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_input_manifest_hashes_all_declared_input_classes",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_issue_details_keep_diagnostics_but_remove_absolute_paths",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_live_manifest_binds_repository_lifecycle_inputs",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_repository_commit_is_a_content_identifier_not_a_path",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_run_emits_provenance_bindings_in_the_written_artifact",
+        "test_run_accuracy_suite.AccuracyArtifactTests.test_suite_identity_is_order_independent_and_lists_exact_test_ids",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_acceptance_requires_all_four_evidence_dimensions",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_authority_experiment_detects_stale_projection_and_recovers",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_duplicate_definitions_are_reported",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_evidence_spans_must_resolve_to_nonblank_source_lines",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_gold_manifest_covers_the_full_prd_lifecycle",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_ids_are_scoped_by_corpus",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_kuzu_payload_entries_are_read_from_database",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_lifecycle_manifest_rejects_wrong_anchor_family",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_literal_fidelity_and_semantic_truth_are_separate",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_main_returns_nonzero_when_acceptance_fails",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_markdown_and_kuzu_return_identical_graph_answers",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_parser_preserves_nested_body_and_compound_ids",
+        "test_sot_benchmark.BenchmarkHarnessTests.test_report_is_independent_of_mapping_insertion_order"
+      ],
+      "test_ids_sha256": "09917d7fd126c7dbacb1d5395a0f8c99b241cfb9b3510b553c0afdbd2abc843c"
+    }
+  },
+  "purpose": "Deterministic accuracy evidence kept separate from latency and storage benchmark scores.",
+  "repository_lifecycle_contract_findings": [
+    {
+      "code": "LIFECYCLE_ADOPTION_UNGATED",
+      "message": "The v1.0 lifecycle describes ADO evidence, but no executable readiness requirement validates adoption artifacts.",
+      "refs": [
+        "v1.0",
+        "ADO"
+      ],
+      "severity": "caution"
+    },
+    {
+      "code": "LIFECYCLE_GATE_REQUIREMENT_GAP",
+      "message": "Gate prose requires SCR, but the executable count contract for v0.5 does not.",
+      "refs": [
+        "v0.5",
+        "SCR"
+      ],
+      "severity": "conflict"
+    },
+    {
+      "code": "LIFECYCLE_OWNER_CONFLICT",
+      "message": "RISK is owned by PRD.md, but readiness names a different source.",
+      "refs": [
+        "v0.6",
+        "RISK",
+        "PRD.md",
+        "SoT/SoT.RISKS.md"
+      ],
+      "severity": "conflict"
+    },
+    {
+      "code": "LIFECYCLE_PREFIX_STAGE_CONFLICT",
+      "message": "README says BR is created in v0.2, while the ID registry assigns it to v0.6.",
+      "refs": [
+        "BR",
+        "README:v0.2",
+        "registry:v0.6"
+      ],
+      "severity": "conflict"
+    },
+    {
+      "code": "LIFECYCLE_RELEVANT_SOURCE_MISSING",
+      "message": "Executable readiness references a source file that does not exist.",
+      "refs": [
+        "v0.6",
+        "SoT/SoT.RISKS.md"
+      ],
+      "severity": "conflict"
+    },
+    {
+      "code": "LIFECYCLE_TARGET_NAME_CONFLICT",
+      "message": "The methodology names v1.0 Market Adoption, while executable readiness names the target Launch.",
+      "refs": [
+        "v1.0",
+        "Market Adoption",
+        "v0.9 \u2192 v1.0 (GTM \u2192 Launch)"
+      ],
+      "severity": "conflict"
+    }
+  ],
+  "schema_version": "0.2",
+  "test_run": {
+    "command": ".venv/bin/python src/run_accuracy_suite.py --output artifacts/accuracy-results.json",
+    "error_details": [],
+    "errors": 0,
+    "failure_details": [],
+    "failures": 0,
+    "passed": 75,
+    "skipped": 0,
+    "successful": true,
+    "tests_by_module": {
+      "test_conformance": 45,
+      "test_lifecycle_audit": 4,
+      "test_report": 2,
+      "test_run_accuracy_suite": 11,
+      "test_sot_benchmark": 13
+    },
+    "tests_run": 75
+  }
+}

@@ -1,0 +1,4 @@
+# Kuzu's final upstream release, pinned to the CPython 3.11 macOS ARM64 wheel.
+# See UPSTREAM.md.
+kuzu==0.11.3 \
+    --hash=sha256:836739dced9f61912a80bb7ad1df2159cef456c5b5cfe92f15394b9c51a785cb

@@ -1,0 +1,188 @@
+{
+  "schema_version": "test-fixture-0.1",
+  "fixture_notice": "This JSON serializes executable test packs only. It is not a decision on the future pack authoring format.",
+  "packs": [
+    {
+      "pack_id": "product",
+      "version": "0.1",
+      "core_version": "0.1",
+      "valid_clock": "prd_version",
+      "status_map": {
+        "proposed": "draft",
+        "accepted": "active",
+        "active": "active",
+        "retired": "superseded",
+        "expired": "expired",
+        "rejected": "void"
+      },
+      "entity_types": {
+        "CustomerEvidence": {"prefix": "CFD", "kind": "observation", "custom_fields": ["evidence_tier"]},
+        "BusinessRule": {"prefix": "BR", "kind": "policy", "custom_fields": ["classification", "rationale", "pricing_model"]},
+        "Metric": {"prefix": "KPI", "kind": "definition", "custom_fields": ["thresholds", "metric_type"]},
+        "Feature": {"prefix": "FEA", "kind": "definition", "custom_fields": ["priority"]},
+        "Persona": {"prefix": "PER", "kind": "definition"},
+        "Journey": {"prefix": "UJ", "kind": "definition", "custom_fields": ["trigger", "steps", "value_moment"]},
+        "Screen": {"prefix": "SCR", "kind": "definition"},
+        "Risk": {"prefix": "RISK", "kind": "assumption", "custom_fields": ["likelihood", "impact", "mitigation"]},
+        "TechnologyDecision": {"prefix": "TECH", "kind": "decision", "custom_fields": ["build_buy_integrate", "rationale"]},
+        "ArchitectureDecision": {"prefix": "ARC", "kind": "decision", "custom_fields": ["alternatives"]},
+        "APIContract": {"prefix": "API", "kind": "definition", "custom_fields": ["request_schema", "response_schema"]},
+        "DataModel": {"prefix": "DBT", "kind": "definition", "custom_fields": ["relationships"]},
+        "DataEntity": {"prefix": "ENT", "kind": "definition", "custom_fields": ["relationships"]},
+        "Epic": {"prefix": "EPIC", "kind": "definition"},
+        "Test": {"prefix": "TEST", "kind": "definition"},
+        "Deployment": {"prefix": "DEP", "kind": "definition", "custom_fields": ["rollback"]},
+        "Runbook": {"prefix": "RUN", "kind": "policy", "custom_fields": ["validated_at"]},
+        "MonitoringRule": {"prefix": "MON", "kind": "policy", "custom_fields": ["threshold", "slo"]},
+        "GTMDecision": {"prefix": "GTM", "kind": "decision", "custom_fields": ["segment", "channels"]},
+        "AdoptionStage": {"prefix": "ADO", "id_pattern": "ADO-STAGE-\\d{3}", "kind": "observation", "custom_fields": ["evidence_refs"]},
+        "AdoptionBeachhead": {"prefix": "ADO", "id_pattern": "ADO-BEACHHEAD-\\d{3}", "kind": "definition"},
+        "AdoptionWholeProduct": {"prefix": "ADO", "id_pattern": "ADO-WHOLE-\\d{3}", "kind": "definition"},
+        "AdoptionReference": {"prefix": "ADO", "id_pattern": "ADO-REF-\\d{3}", "kind": "observation"}
+      },
+      "relation_types": {
+        "uses-screen": {"from_types": ["Journey"], "to_types": ["Screen"]},
+        "uses-api": {"from_types": ["Journey"], "to_types": ["APIContract"]},
+        "verifies": {"from_types": ["Test"], "to_types": ["BusinessRule"]}
+      },
+      "evidence_types": ["GitCommit", "BuildResult", "DevGraphSnapshot"],
+      "detectors": ["product-change-review"],
+      "freshness_days": {
+        "CustomerEvidence": 90,
+        "Risk": 90,
+        "AdoptionStage": 30
+      },
+      "gates": {
+        "v0.2": {
+          "minimum_prefix_counts": {"CFD": 3},
+          "required_fields": [{"prefix": "CFD", "field": "evidence_tier"}],
+          "manual_checks": ["problem-not-solution", "measurable-value"]
+        },
+        "v0.3": {
+          "minimum_prefix_counts": {"CFD": 3, "BR": 1},
+          "required_fields": [
+            {"prefix": "BR", "field": "classification"},
+            {"prefix": "BR", "field": "rationale"}
+          ],
+          "manual_checks": ["competitive-analysis-complete"]
+        },
+        "v0.4": {
+          "minimum_prefix_counts": {"BR": 3, "KPI": 1, "CFD": 5, "FEA": 1},
+          "required_fields": [
+            {"prefix": "BR", "field": "pricing_model"},
+            {"prefix": "KPI", "field": "thresholds"},
+            {"prefix": "FEA", "field": "priority"}
+          ],
+          "manual_checks": ["pricing-supported", "kpis-not-vanity"]
+        },
+        "v0.5": {
+          "minimum_prefix_counts": {"PER": 1, "UJ": 3, "SCR": 1},
+          "required_fields": [
+            {"prefix": "UJ", "field": "trigger"},
+            {"prefix": "UJ", "field": "steps"},
+            {"prefix": "UJ", "field": "value_moment"}
+          ],
+          "required_edges": [{"from_prefix": "UJ", "relation": "uses-screen", "to_prefix": "SCR"}],
+          "manual_checks": ["journeys-match-features"]
+        },
+        "v0.6": {
+          "minimum_prefix_counts": {"RISK": 5, "TECH": 3},
+          "required_fields": [
+            {"prefix": "RISK", "field": "likelihood"},
+            {"prefix": "RISK", "field": "impact"},
+            {"prefix": "RISK", "field": "mitigation"},
+            {"prefix": "TECH", "field": "build_buy_integrate"},
+            {"prefix": "TECH", "field": "rationale"}
+          ],
+          "manual_checks": ["critical-mitigations-actionable"]
+        },
+        "v0.7": {
+          "minimum_prefix_counts": {"ARC": 1, "API": 1, "DBT": 1},
+          "prefix_aliases": {"DBT": ["DBT", "ENT"]},
+          "required_fields": [
+            {"prefix": "API", "field": "request_schema"},
+            {"prefix": "API", "field": "response_schema"},
+            {"prefix": "DBT", "field": "relationships"},
+            {"prefix": "ENT", "field": "relationships"}
+          ],
+          "required_edges": [{"from_prefix": "UJ", "relation": "uses-api", "to_prefix": "API"}],
+          "manual_checks": ["architecture-alternatives-reviewed"]
+        },
+        "v0.8": {
+          "minimum_prefix_counts": {"EPIC": 1, "TEST": 1},
+          "required_edges": [{"from_prefix": "TEST", "relation": "verifies", "to_prefix": "BR"}],
+          "manual_checks": ["coverage-threshold-met", "code-traceability-verified"]
+        },
+        "v0.9": {
+          "minimum_prefix_counts": {"DEP": 1, "RUN": 1, "MON": 1},
+          "required_fields": [
+            {"prefix": "DEP", "field": "rollback"},
+            {"prefix": "RUN", "field": "validated_at"},
+            {"prefix": "MON", "field": "threshold"},
+            {"prefix": "MON", "field": "slo"}
+          ],
+          "manual_checks": ["deployment-rehearsed"]
+        },
+        "v1.0": {
+          "minimum_prefix_counts": {"GTM": 1, "KPI": 3},
+          "required_fields": [{"prefix": "KPI", "field": "metric_type"}],
+          "manual_checks": ["feedback-loop-operational", "adoption-evidence-reviewed"]
+        }
+      }
+    },
+    {
+      "pack_id": "accounting",
+      "version": "0.1",
+      "core_version": "0.1",
+      "valid_clock": "date",
+      "status_map": {
+        "draft": "draft",
+        "effective": "active",
+        "superseded": "superseded",
+        "expired": "expired",
+        "void": "void"
+      },
+      "entity_types": {
+        "AccountDefinition": {"prefix": "ACCT", "kind": "definition"},
+        "RevenuePolicy": {"prefix": "POL", "kind": "policy", "custom_fields": ["recognition_method"]},
+        "ContractDefinition": {"prefix": "CTR", "kind": "definition"},
+        "PeriodPolicy": {"prefix": "PERIOD", "kind": "policy"}
+      },
+      "relation_types": {},
+      "evidence_types": ["JournalEntry", "TrialBalanceSnapshot", "LedgerClose"],
+      "detectors": ["accounting-trial-balance"],
+      "freshness_days": {"RevenuePolicy": 365}
+    },
+    {
+      "pack_id": "restaurant",
+      "version": "0.1",
+      "core_version": "0.1",
+      "valid_clock": "date",
+      "status_map": {
+        "draft": "draft",
+        "approved": "active",
+        "replaced": "superseded",
+        "season-ended": "expired",
+        "rejected": "void"
+      },
+      "entity_types": {
+        "MenuItem": {"prefix": "MENU", "kind": "definition", "custom_fields": ["channel"]},
+        "Recipe": {"prefix": "RECIPE", "kind": "definition", "custom_fields": ["yield"]},
+        "IngredientDefinition": {"prefix": "ING", "kind": "definition"},
+        "MenuVersion": {"prefix": "MVER", "kind": "decision"},
+        "SupplierPolicy": {"prefix": "SUP", "kind": "policy"}
+      },
+      "relation_types": {
+        "composed-of": {"from_types": ["Recipe"], "to_types": ["IngredientDefinition"]},
+        "uses-recipe": {"from_types": ["MenuItem"], "to_types": ["Recipe"]}
+      },
+      "evidence_types": ["POSSale", "InventoryCount", "SupplierPriceEvent"],
+      "detectors": ["restaurant-unavailable-dependency"],
+      "freshness_days": {
+        "IngredientDefinition": 7,
+        "SupplierPolicy": 30,
+        "MenuVersion": 90
+      }
+    }
+  ]
+}
